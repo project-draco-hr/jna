@@ -1,0 +1,4 @@
+{
+  junit.framework.TestSuite suite=new junit.framework.TestSuite(TestLibTest.class);
+  return suite;
+}

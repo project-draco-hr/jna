@@ -1,0 +1,41 @@
+{
+  int offset=structField.offset;
+  Class fieldType=structField.type;
+  Object result=null;
+  if (fieldType == Byte.TYPE || fieldType == Byte.class) {
+    result=new Byte(getMemory().getByte(offset));
+  }
+ else   if (fieldType == Short.TYPE || fieldType == Short.class) {
+    result=new Short(getMemory().getShort(offset));
+  }
+ else   if (fieldType == Integer.TYPE || fieldType == Integer.class) {
+    result=new Integer(getMemory().getInt(offset));
+  }
+ else   if (fieldType == Long.TYPE || fieldType == Long.class) {
+    result=new Long(getMemory().getLong(offset));
+  }
+ else   if (fieldType == Float.TYPE || fieldType == Float.class) {
+    result=new Float(getMemory().getFloat(offset));
+  }
+ else   if (fieldType == Double.TYPE || fieldType == Double.class) {
+    result=new Double(getMemory().getDouble(offset));
+  }
+ else   if (Pointer.class.isAssignableFrom(fieldType)) {
+    result=getMemory().getPointer(offset);
+  }
+ else   if (NativeString.class.isAssignableFrom(fieldType)) {
+    result=new NativeString(getMemory().getPointer(offset));
+  }
+ else   if (fieldType == String.class) {
+    result=new NativeString(getMemory().getPointer(offset)).toString();
+  }
+ else {
+    throw new IllegalArgumentException("Unsupported field type \"" + fieldType.getClass() + "\"");
+  }
+  try {
+    structField.field.set(struct(),result);
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Exception setting field \"" + structField.name + "\"",e);
+  }
+}

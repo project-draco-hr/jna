@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,2);
+  super.setShort(offset,value);
+}

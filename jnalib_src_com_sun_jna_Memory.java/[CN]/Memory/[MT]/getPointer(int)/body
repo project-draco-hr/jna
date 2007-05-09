@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,SIZE);
+  return super.getPointer(offset);
+}

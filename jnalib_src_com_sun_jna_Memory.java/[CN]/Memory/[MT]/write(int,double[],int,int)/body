@@ -1,0 +1,4 @@
+{
+  boundsCheck(bOff,length * 8);
+  super.write(bOff,buf,index,length);
+}

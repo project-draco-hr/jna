@@ -1,0 +1,5 @@
+{
+  if (convention != C_CONVENTION && convention != STDCALL_CONVENTION) {
+    throw new IllegalArgumentException("Unrecognized calling convention");
+  }
+}

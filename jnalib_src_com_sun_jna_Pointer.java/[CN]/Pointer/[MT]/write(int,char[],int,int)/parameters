@@ -1,0 +1,4 @@
+int bOff
+char[] buf
+int index
+int length

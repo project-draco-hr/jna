@@ -1,0 +1,3 @@
+{
+  return getPointer() != null && getPointer().peer != 0;
+}

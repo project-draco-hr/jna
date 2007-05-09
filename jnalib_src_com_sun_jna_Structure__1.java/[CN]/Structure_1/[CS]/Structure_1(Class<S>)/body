@@ -1,0 +1,6 @@
+{
+  super();
+  analyze(structClass);
+  memory=new Memory(size);
+  struct=structClass.newInstance();
+}

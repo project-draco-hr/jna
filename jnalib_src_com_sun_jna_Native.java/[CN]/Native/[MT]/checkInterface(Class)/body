@@ -1,0 +1,5 @@
+{
+  if (interfaceClass.isAssignableFrom(NativeStructureOld.class)) {
+    throw new IllegalArgumentException("Interface must be of " + "type " + NativeStructureOld.class.getName());
+  }
+}

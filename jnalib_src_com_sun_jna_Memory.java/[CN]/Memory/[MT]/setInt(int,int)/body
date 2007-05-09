@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,4);
+  super.setInt(offset,value);
+}

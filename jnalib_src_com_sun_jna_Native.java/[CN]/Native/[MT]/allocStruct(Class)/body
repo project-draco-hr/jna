@@ -1,0 +1,6 @@
+{
+  checkInterface(interfaceClass);
+  NativeStructureOld.Handler handler=new NativeStructureOld.Handler(interfaceClass);
+  NativeStructureOld proxy=(NativeStructureOld)Proxy.newProxyInstance(interfaceClass.getClassLoader(),new Class[]{interfaceClass},handler);
+  return proxy;
+}

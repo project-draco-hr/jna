@@ -1,0 +1,28 @@
+{
+  NativeStructure annotation=structClass.getAnnotation(NativeStructure.class);
+  if (annotation == null) {
+    throw new IllegalArgumentException("Structure class must be " + "annotated with the @" + NativeStructure.class.getName() + " annotation");
+  }
+  autoSync=annotation.autoSync();
+  int calculatedSize=0;
+  java.lang.reflect.Field[] fields=structClass.getFields();
+  for (int i=0; i < fields.length; i++) {
+    java.lang.reflect.Field field=fields[i];
+    NativeField fieldAnnotation=field.getAnnotation(NativeField.class);
+    if (fieldAnnotation == null)     continue;
+    Structure.Field structField=new Structure.Field();
+    structField.field=field;
+    structField.name=field.getName();
+    structField.type=field.getType();
+    if (structField.type.isArray()) {
+      throw new IllegalArgumentException("The field \"" + structField.name + "\" cannot be an array type");
+    }
+    structField.size=fieldAnnotation.size();
+    if (structField.size < 1)     structField.size=getFieldSize(structField.type);
+    structField.offset=calculatedSize;
+    calculatedSize+=structField.size;
+    structFields.put(structField.name,structField);
+  }
+  int declaredSize=annotation.size();
+  size=declaredSize > 0 ? declaredSize : calculatedSize;
+}

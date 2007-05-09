@@ -1,0 +1,15 @@
+{
+  if (!isValid())   return false;
+  String s1=null;
+  if (other instanceof NativeString) {
+    if (!((NativeString)other).isValid())     return false;
+ else     s1=((NativeString)other).toString();
+  }
+ else   if (other instanceof String) {
+    s1=(String)other;
+  }
+ else {
+    return false;
+  }
+  return s1.equals(toString());
+}

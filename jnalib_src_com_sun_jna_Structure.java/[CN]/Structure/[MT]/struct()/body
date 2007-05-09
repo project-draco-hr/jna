@@ -1,0 +1,6 @@
+{
+  if (freed) {
+    throw new IllegalStateException("The structure has " + "already been freed and cannot be accessed");
+  }
+  return struct;
+}

@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,4);
+  return super.getFloat(offset);
+}

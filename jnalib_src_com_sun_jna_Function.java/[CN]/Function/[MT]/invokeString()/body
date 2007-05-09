@@ -1,0 +1,3 @@
+{
+  return invokeString(NO_ARGS);
+}

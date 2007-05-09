@@ -1,0 +1,16 @@
+{
+  if (args == null)   return NO_ARGS;
+  for (int i=0; i < args.length; i++) {
+    if (args[i] == null) {
+      args[i]=Pointer.NULL;
+    }
+ else     if (args[i] instanceof Boolean) {
+      args[i]=new Integer(((Boolean)args[i]).booleanValue() ? 1 : 0);
+    }
+ else     if (args[i] instanceof NativeStructureOld) {
+      NativeStructureOld.Handler handler=(NativeStructureOld.Handler)Proxy.getInvocationHandler(args[i]);
+      args[i]=handler.getMemory();
+    }
+  }
+  return args;
+}

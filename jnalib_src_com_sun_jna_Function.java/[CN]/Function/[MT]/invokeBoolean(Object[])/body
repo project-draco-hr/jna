@@ -1,0 +1,3 @@
+{
+  return invokeInt(callingConvention,convertArgs(args)) == 0 ? false : true;
+}

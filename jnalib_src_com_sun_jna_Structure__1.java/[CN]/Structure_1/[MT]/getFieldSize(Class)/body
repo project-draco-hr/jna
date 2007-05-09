@@ -1,0 +1,32 @@
+{
+  if (Long.class.isAssignableFrom(clazz) || clazz == Long.TYPE) {
+    return 8;
+  }
+ else   if (Double.class.isAssignableFrom(clazz) || clazz == Double.TYPE) {
+    return 8;
+  }
+ else   if (Integer.class.isAssignableFrom(clazz) || clazz == Integer.TYPE) {
+    return 4;
+  }
+ else   if (Short.class.isAssignableFrom(clazz) || clazz == Short.TYPE) {
+    return 2;
+  }
+ else   if (Byte.class.isAssignableFrom(clazz) || clazz == Byte.TYPE) {
+    return 1;
+  }
+ else   if (Pointer.class.isAssignableFrom(clazz)) {
+    return Pointer.SIZE;
+  }
+ else   if (Structure.class.isAssignableFrom(clazz)) {
+    return Pointer.SIZE;
+  }
+ else   if (NativeString.class.isAssignableFrom(clazz)) {
+    return Pointer.SIZE;
+  }
+ else   if (String.class.isAssignableFrom(clazz)) {
+    return Pointer.SIZE;
+  }
+ else {
+    throw new IllegalArgumentException("Unsupported field type \"" + clazz.getName() + "\"");
+  }
+}

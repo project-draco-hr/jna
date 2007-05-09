@@ -1,0 +1,4 @@
+int bOff
+short[] buf
+int index
+int length

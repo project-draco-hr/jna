@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,1);
+  super.setByte(offset,value);
+}

@@ -1,0 +1,23 @@
+{
+  TestLib testLib=Native.loadLibrary(TestLib.class);
+  testLib.doNothing();
+  testLib.doNothingLoop();
+  testLib.callClock();
+  testLib.loopClock();
+  assertTrue("returnTrue() should return true",testLib.returnTrue());
+  assertFalse("returnFalse() should return false",testLib.returnFalse());
+  assertEquals("returnInt() should return 42",42,testLib.returnInt());
+  assertEquals("returnDouble() should return 42d",42d,testLib.returnDouble());
+  assertEquals("returnString() should return \"An adventurer is you!\"","An adventurer is you!",testLib.returnString());
+  assertTrue("not(false) should return true",testLib.not(false));
+  assertFalse("not(true) should return false",testLib.not(true));
+  assertEquals("add(-1,1) should return 0",0,testLib.add(-1,1));
+  assertEquals("add(1,1) should return 2",2,testLib.add(1,1));
+  assertEquals("add(42,42) should return 84",84,testLib.add(42,42));
+  testLib.print("This string was printed from native code!");
+  MathOp mathOp=new MathOp();
+  mathOp.value1=15;
+  mathOp.value2=16;
+  mathOp.message="This is a message from Java code";
+  testLib.addAndPrint(mathOp);
+}

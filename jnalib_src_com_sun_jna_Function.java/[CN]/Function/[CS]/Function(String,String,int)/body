@@ -1,0 +1,8 @@
+{
+  super();
+  this.libraryName=libraryName;
+  this.functionName=functionName;
+  checkCallingConvention(callingConvention);
+  this.callingConvention=callingConvention;
+  peer=find(libraryName,functionName);
+}

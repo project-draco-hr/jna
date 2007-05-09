@@ -1,0 +1,3 @@
+{
+  return invokeDouble(callingConvention,convertArgs(new Object[]{arg}));
+}

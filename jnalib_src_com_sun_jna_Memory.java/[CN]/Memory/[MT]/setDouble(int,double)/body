@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,8);
+  super.setDouble(offset,value);
+}

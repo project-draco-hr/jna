@@ -1,0 +1,3 @@
+{
+  if (off < 0 || off + sz > size)   throw new IndexOutOfBoundsException();
+}
