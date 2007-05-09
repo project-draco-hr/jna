@@ -1,0 +1,9 @@
+{
+  super.setIcon(icon);
+  if (icon == null) {
+    setText("Empty");
+  }
+ else {
+    setText(null);
+  }
+}

@@ -1,3 +1,0 @@
-{
-  return invokeInt(NO_ARGS) == 0 ? false : true;
-}

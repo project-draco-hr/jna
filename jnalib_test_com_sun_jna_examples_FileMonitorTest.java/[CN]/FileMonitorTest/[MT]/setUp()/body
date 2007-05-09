@@ -1,0 +1,13 @@
+{
+  events=new HashMap();
+  listener=new FileListener(){
+    public void fileChanged(    FileEvent e){
+      events.put(new Integer(e.getType()),e);
+    }
+  }
+;
+  monitor=FileMonitor.getInstance();
+  monitor.addFileListener(listener);
+  dir=new File(System.getProperty("java.io.tmpdir"));
+  monitor.addWatch(dir);
+}

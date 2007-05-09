@@ -1,0 +1,30 @@
+{
+  int currentAction=DragHandler.NONE;
+  int sourceActions=DragHandler.NONE;
+  Point location=null;
+  DataFlavor[] flavors=new DataFlavor[0];
+  if (e instanceof DropTargetDragEvent) {
+    DropTargetDragEvent ev=(DropTargetDragEvent)e;
+    currentAction=ev.getDropAction();
+    sourceActions=ev.getSourceActions();
+    flavors=ev.getCurrentDataFlavors();
+    location=ev.getLocation();
+  }
+ else   if (e instanceof DropTargetDropEvent) {
+    DropTargetDropEvent ev=(DropTargetDropEvent)e;
+    currentAction=ev.getDropAction();
+    sourceActions=ev.getSourceActions();
+    flavors=ev.getCurrentDataFlavors();
+    location=ev.getLocation();
+  }
+  if (isSupported(flavors)) {
+    int availableActions=getDropActionsForFlavors(flavors);
+    currentAction=getDropAction(e,currentAction,sourceActions,availableActions);
+    if (currentAction != DragHandler.NONE) {
+      if (canDrop(e,currentAction,location)) {
+        return currentAction;
+      }
+    }
+  }
+  return DragHandler.NONE;
+}

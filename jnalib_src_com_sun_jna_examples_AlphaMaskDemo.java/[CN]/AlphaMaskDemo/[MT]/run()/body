@@ -1,0 +1,134 @@
+{
+  GraphicsConfiguration gconfig=WindowUtils.getAlphaCompatibleGraphicsConfiguration();
+  frame=new JFrame("Alpha Mask Demo");
+  alphaWindow=new JWindow(frame,gconfig);
+  MouseInputAdapter handler=new MouseInputAdapter(){
+    private Point offset;
+    public void mousePressed(    MouseEvent e){
+      if (SwingUtilities.isLeftMouseButton(e))       offset=e.getPoint();
+    }
+    public void mouseReleased(    MouseEvent e){
+      offset=null;
+      if (System.getProperty("os.name").startsWith("Windows"))       update(true,true);
+    }
+    public void mouseDragged(    MouseEvent e){
+      if (offset != null) {
+        Window w=(Window)e.getSource();
+        Point where=e.getPoint();
+        where.translate(-offset.x,-offset.y);
+        Point loc=w.getLocationOnScreen();
+        loc.translate(where.x,where.y);
+        w.setLocation(loc.x,loc.y);
+      }
+    }
+  }
+;
+  alphaWindow.addMouseListener(handler);
+  alphaWindow.addMouseMotionListener(handler);
+  JPanel p=new JPanel(new BorderLayout(8,8));
+  p.setBorder(new EmptyBorder(8,8,8,8));
+  p.setTransferHandler(new TransferHandler(){
+    public boolean canImport(    JComponent comp,    DataFlavor[] transferFlavors){
+      List list=Arrays.asList(transferFlavors);
+      if (list.contains(URL_FLAVOR) || list.contains(URI_LIST_FLAVOR) || list.contains(DataFlavor.imageFlavor)|| list.contains(DataFlavor.javaFileListFlavor)) {
+        return true;
+      }
+      if (DataFlavor.selectBestTextFlavor(transferFlavors) != null) {
+        return true;
+      }
+      System.out.println("No acceptable flavor found in " + Arrays.asList(transferFlavors));
+      return false;
+    }
+    public boolean importData(    JComponent comp,    Transferable t){
+      try {
+        if (t.isDataFlavorSupported(URL_FLAVOR)) {
+          URL url=(URL)t.getTransferData(URL_FLAVOR);
+          setImage(Toolkit.getDefaultToolkit().getImage(url));
+          return true;
+        }
+        if (t.isDataFlavorSupported(URI_LIST_FLAVOR)) {
+          String s=(String)t.getTransferData(URI_LIST_FLAVOR);
+          String[] uris=s.split("[\r\n]");
+          if (uris.length > 0) {
+            URL url=new URL(uris[0]);
+            setImage(Toolkit.getDefaultToolkit().getImage(url));
+            return true;
+          }
+          return false;
+        }
+        if (t.isDataFlavorSupported(DataFlavor.imageFlavor)) {
+          Image image=(Image)t.getTransferData(DataFlavor.imageFlavor);
+          setImage(image);
+          return true;
+        }
+        if (t.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+          List files=(List)t.getTransferData(DataFlavor.javaFileListFlavor);
+          File f=(File)files.get(0);
+          URL url=new URL("file://" + f.toURI().toURL().getPath());
+          Image image=Toolkit.getDefaultToolkit().getImage(url);
+          setImage(image);
+          return true;
+        }
+        DataFlavor flavor=DataFlavor.selectBestTextFlavor(t.getTransferDataFlavors());
+        if (flavor != null) {
+          Reader reader=flavor.getReaderForText(t);
+          char[] buf=new char[512];
+          StringBuffer b=new StringBuffer();
+          int count;
+          while ((count=reader.read(buf)) > 0) {
+            for (int i=0; i < count; i++) {
+              if (buf[i] != 0)               b.append(buf,i,1);
+            }
+          }
+          String html=b.toString();
+          Pattern p=Pattern.compile("<img.*src=\"([^\\\"\">]+)\"",Pattern.CANON_EQ | Pattern.UNICODE_CASE);
+          Matcher m=p.matcher(html);
+          if (m.find()) {
+            URL url=new URL(m.group(1));
+            System.out.println("Load image from " + url);
+            Image image=Toolkit.getDefaultToolkit().getImage(url);
+            setImage(image);
+            return true;
+          }
+          System.out.println("Can't parse text: " + html);
+          return false;
+        }
+        System.out.println("No flavor available: " + Arrays.asList(t.getTransferDataFlavors()));
+      }
+ catch (      UnsupportedFlavorException e) {
+        e.printStackTrace();
+      }
+catch (      IOException e) {
+        e.printStackTrace();
+      }
+catch (      Throwable e) {
+        e.printStackTrace();
+      }
+      return false;
+    }
+  }
+);
+  p.add(new JLabel("<html><center>Drop an image with an alpha channel onto this window<br>" + "You may also adjust the overall transparency with the slider</center></html>"),BorderLayout.NORTH);
+  final JSlider slider=new JSlider(0,255,255);
+  slider.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      int value=slider.getValue();
+      setAlpha(value / 255f);
+    }
+  }
+);
+  p.add(slider,BorderLayout.SOUTH);
+  frame.getContentPane().add(p);
+  frame.pack();
+  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  centerOnScreen(frame);
+  frame.setVisible(true);
+  try {
+    URL url=getClass().getResource("tardis.png");
+    if (url != null) {
+      setImage(Toolkit.getDefaultToolkit().getImage(url));
+    }
+  }
+ catch (  Exception e) {
+  }
+}

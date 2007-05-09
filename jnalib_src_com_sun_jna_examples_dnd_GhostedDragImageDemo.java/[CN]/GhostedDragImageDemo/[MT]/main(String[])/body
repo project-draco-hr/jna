@@ -1,0 +1,27 @@
+{
+  try {
+    System.setProperty("sun.java2d.noddraw","true");
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    JFrame f1=new JFrame("Drag this");
+    JFrame f2=new JFrame("Over here");
+    URL url=GhostedDragImageDemo.class.getResource("toucan.png");
+    if (url == null)     throw new RuntimeException("Icon not found");
+    Icon icon=new ImageIcon(url);
+    f1.getContentPane().add(new DragLabel(icon));
+    JLabel label2=new DragLabel(icon);
+    f2.getContentPane().add(label2);
+    f1.setLocation(100,100);
+    f1.pack();
+    f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    f2.setLocation(300,100);
+    f2.pack();
+    label2.setIcon(null);
+    f2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    f2.setVisible(true);
+    f1.setVisible(true);
+  }
+ catch (  Throwable t) {
+    t.printStackTrace();
+    System.exit(1);
+  }
+}

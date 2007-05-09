@@ -1,0 +1,4 @@
+{
+  String s=new String(buf);
+  return s.substring(0,s.indexOf(0));
+}

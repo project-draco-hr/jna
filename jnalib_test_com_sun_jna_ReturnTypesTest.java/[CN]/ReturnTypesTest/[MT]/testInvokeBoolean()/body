@@ -1,0 +1,4 @@
+{
+  assertFalse("Expect false",lib.returnFalse());
+  assertTrue("Expect true",lib.returnTrue());
+}

@@ -1,0 +1,18 @@
+{
+  if (!alphaWindow.isDisplayable()) {
+    alphaWindow.pack();
+  }
+  if (a)   WindowUtils.setWindowAlpha(alphaWindow,alpha);
+  if (i) {
+    alphaWindow.setBackground(new Color(0,0,0,0));
+    alphaWindow.setContentPane(new JLabel(new ImageIcon(image)));
+    alphaWindow.setSize(alphaWindow.getPreferredSize());
+  }
+  if (!alphaWindow.isVisible()) {
+    Window parent=alphaWindow.getOwner();
+    Point where=parent.getLocationOnScreen();
+    where.translate(parent.getWidth(),0);
+    alphaWindow.setLocation(where);
+    alphaWindow.setVisible(true);
+  }
+}

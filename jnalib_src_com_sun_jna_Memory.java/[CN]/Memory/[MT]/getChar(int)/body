@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,1);
+  return super.getChar(offset);
+}

@@ -1,6 +1,3 @@
 {
-  super();
-  this.libraryName=libraryName;
-  this.functionName=functionName;
-  peer=find(libraryName,functionName);
+  this(libraryName,functionName,C_CONVENTION);
 }

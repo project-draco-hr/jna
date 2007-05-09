@@ -1,0 +1,10 @@
+{
+  if (ev instanceof DragSourceDragEvent) {
+    DragSourceDragEvent e=(DragSourceDragEvent)ev;
+    return e.getDropAction();
+  }
+  if (ev instanceof DragSourceDropEvent) {
+    return ((DragSourceDropEvent)ev).getDropAction();
+  }
+  return NONE;
+}

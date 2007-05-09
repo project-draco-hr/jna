@@ -1,0 +1,4 @@
+{
+  setSize(getParent().getSize());
+  repaint();
+}

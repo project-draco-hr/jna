@@ -1,0 +1,36 @@
+{
+  X11 x11=X11.INSTANCE;
+  if (raster == null) {
+    int pm=x11.XCreatePixmap(dpy,win,w.getWidth(),w.getHeight(),1);
+    Pointer gc=x11.XCreateGC(dpy,pm,0,null);
+    if (gc == null) {
+      return 0;
+    }
+    x11.XSetForeground(dpy,gc,1);
+    x11.XFillRectangle(dpy,pm,gc,0,0,w.getWidth(),w.getHeight());
+    return pm;
+  }
+  Rectangle bounds=raster.getBounds();
+  int width=bounds.x + bounds.width;
+  int height=bounds.y + bounds.height;
+  int pm=x11.XCreatePixmap(dpy,win,width,height,1);
+  Pointer gc=x11.XCreateGC(dpy,pm,0,null);
+  if (gc == null) {
+    return 0;
+  }
+  X11.XWindowAttributes atts=new X11.XWindowAttributes();
+  int status=x11.XGetWindowAttributes(dpy,win,atts);
+  if (status == 0) {
+    return 0;
+  }
+  int[] bits=new int[bounds.width * bounds.height];
+  raster.getPixels(0,0,bounds.width,bounds.height,bits);
+  for (int row=0; row < bounds.height; row++) {
+    for (int col=0; col < bounds.width; col++) {
+      int idx=row * bounds.width + col;
+      x11.XSetForeground(dpy,gc,bits[idx]);
+      x11.XFillRectangle(dpy,pm,gc,col,row,1,1);
+    }
+  }
+  return pm;
+}

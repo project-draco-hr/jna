@@ -1,0 +1,7 @@
+{
+class TestStructure extends Structure {
+    public int field;
+  }
+  Structure s=new TestStructure();
+  assertEquals("Wrong size",4,s.size());
+}

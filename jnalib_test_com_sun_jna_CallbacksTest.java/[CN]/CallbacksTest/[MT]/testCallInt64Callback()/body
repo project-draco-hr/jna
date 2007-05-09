@@ -1,0 +1,17 @@
+{
+  final long MAGIC=0x1111111111111111L;
+  final boolean[] called={false};
+  TestLibrary.Int64Callback cb=new TestLibrary.Int64Callback(){
+    public long callback(    long arg,    long arg2){
+      called[0]=true;
+      return arg + arg2;
+    }
+  }
+;
+  final long EXPECTED=MAGIC * 3;
+  long value=lib.callInt64Callback(cb,MAGIC,MAGIC * 2);
+  assertTrue("Callback not called",called[0]);
+  assertEquals("Wrong callback value",Long.toHexString(EXPECTED),Long.toHexString(value));
+  value=lib.callInt64Callback(cb,-1,-2);
+  assertEquals("Wrong callback return",-3,value);
+}

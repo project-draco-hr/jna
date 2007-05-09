@@ -1,4 +1,0 @@
-{
-  Function returnTrue=new Function("testlib","returnTrue");
-  System.out.println(returnTrue.invokeBoolean());
-}

@@ -1,0 +1,6 @@
+{
+  this.acceptedActions=acceptedActions;
+  this.acceptedFlavors=Arrays.asList(acceptedFlavors);
+  this.painter=painter;
+  dropTarget=new DropTarget(c,acceptedActions,this,active);
+}

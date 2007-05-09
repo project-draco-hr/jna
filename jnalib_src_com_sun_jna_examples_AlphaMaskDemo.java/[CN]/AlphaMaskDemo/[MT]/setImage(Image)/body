@@ -1,0 +1,9 @@
+{
+  int w=image.getWidth(observer);
+  int h=image.getHeight(observer);
+  if (w > 0 && h > 0) {
+    this.image=image;
+    frame.setIconImage(image);
+    update(false,true);
+  }
+}

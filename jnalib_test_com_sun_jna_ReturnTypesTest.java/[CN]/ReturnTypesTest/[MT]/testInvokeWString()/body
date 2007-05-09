@@ -1,0 +1,4 @@
+{
+  WString s=lib.returnWStringMagic();
+  assertEquals("Expect wstring magic",new WString(MAGIC),s);
+}

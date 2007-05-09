@@ -1,0 +1,5 @@
+{
+  describe("change(tgt)",e);
+  int action=acceptOrReject(e);
+  paintDropTarget(e,action,e.getLocation());
+}

@@ -1,0 +1,26 @@
+{
+  OSXTransparentContent content;
+  if (w instanceof RootPaneContainer) {
+    final RootPaneContainer rpc=(RootPaneContainer)w;
+    Container oldContent=rpc.getContentPane();
+    if (oldContent instanceof OSXTransparentContent) {
+      content=(OSXTransparentContent)oldContent;
+    }
+ else {
+      content=new OSXTransparentContent(oldContent);
+      rpc.setContentPane(content);
+    }
+  }
+ else {
+    Component oldContent=w.getComponentCount() > 0 ? w.getComponent(0) : null;
+    if (oldContent instanceof OSXTransparentContent) {
+      content=(OSXTransparentContent)oldContent;
+    }
+ else {
+      content=new OSXTransparentContent(oldContent);
+      w.add(content);
+    }
+  }
+  w.setBackground(new Color(0,0,0,0));
+  return content;
+}

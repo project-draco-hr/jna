@@ -1,0 +1,7 @@
+{
+  if (!didCheck) {
+    didCheck=true;
+    alphaVisuals=getAlphaVisuals();
+  }
+  return alphaVisuals.length > 0;
+}

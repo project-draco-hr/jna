@@ -1,0 +1,16 @@
+{
+  this.wide=wide;
+  if (string == null) {
+    pointer=null;
+  }
+ else {
+    if (wide) {
+      pointer=new Memory((string.toCharArray().length + 1) * 2);
+    }
+ else {
+      pointer=new Memory(string.getBytes().length + 1);
+    }
+    pointer.setString(0,string,wide);
+    allocatedMemory=true;
+  }
+}

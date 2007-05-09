@@ -1,0 +1,33 @@
+{
+  if (!(w instanceof RootPaneContainer)) {
+    throw new IllegalArgumentException("Window must be a RootPaneContainer");
+  }
+  if (!isWindowAlphaSupported()) {
+    System.err.println("Window alpha not supported");
+    return;
+  }
+  boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
+  if (!(transparent ^ isTransparent))   return;
+  whenDisplayable(w,new Runnable(){
+    public void run(){
+      User32 user=User32.INSTANCE;
+      Pointer hWnd=getHWnd(w);
+      int flags=user.GetWindowLongA(hWnd,User32.GWL_EXSTYLE);
+      JRootPane root=((RootPaneContainer)w).getRootPane();
+      JLayeredPane lp=root.getLayeredPane();
+      if (transparent && !isTransparent(w)) {
+        flags|=User32.WS_EX_LAYERED;
+        user.SetWindowLongA(hWnd,User32.GWL_EXSTYLE,flags);
+        lp.add(new W32RepaintTrigger(),JLayeredPane.DRAG_LAYER);
+      }
+ else       if (!transparent && isTransparent(w)) {
+        flags&=~User32.WS_EX_LAYERED;
+        user.SetWindowLongA(hWnd,User32.GWL_EXSTYLE,flags);
+        RepaintTrigger.remove(lp);
+      }
+      setLayersTransparent(w,transparent);
+      setForceHeavyweightPopups(w,transparent);
+    }
+  }
+);
+}

@@ -1,0 +1,43 @@
+{
+  super(parent);
+  setFocusableWindowState(false);
+  setName("###overrideRedirect###");
+  Point where=parent.getLocation();
+  setLocation(where.x + OFFSET.x,where.y + OFFSET.y);
+  setBackground(COLOR);
+  getContentPane().setBackground(COLOR);
+  parentMask=mask;
+  parent.addComponentListener(listener=new ComponentAdapter(){
+    public void componentMoved(    ComponentEvent e){
+      Point where=e.getComponent().getLocationOnScreen();
+      setLocation(where.x + OFFSET.x,where.y + OFFSET.y);
+    }
+    public void componentResized(    ComponentEvent e){
+      Component c=e.getComponent();
+      setSize(c.getWidth(),c.getHeight());
+      WindowUtils.setWindowMask(DropShadow.this,getMask());
+    }
+    public void componentShown(    ComponentEvent e){
+      if (!isVisible()) {
+        pack();
+        setVisible(true);
+      }
+    }
+  }
+);
+  addWindowListener(new WindowAdapter(){
+    public void windowClosed(    WindowEvent e){
+      if (listener != null) {
+        parent.removeComponentListener(listener);
+        listener=null;
+      }
+    }
+  }
+);
+  WindowUtils.setWindowMask(DropShadow.this,getMask());
+  WindowUtils.setWindowAlpha(DropShadow.this,ALPHA);
+  if (parent.isVisible()) {
+    pack();
+    setVisible(true);
+  }
+}

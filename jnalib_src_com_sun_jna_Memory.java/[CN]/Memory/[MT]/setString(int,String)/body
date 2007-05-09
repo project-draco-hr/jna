@@ -1,7 +1,0 @@
-{
-  byte[] bytes=value.getBytes();
-  int length=bytes.length;
-  boundsCheck(offset,length + 1);
-  super.write(offset,bytes,0,length);
-  super.setByte(offset + length,(byte)0);
-}

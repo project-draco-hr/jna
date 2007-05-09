@@ -1,0 +1,44 @@
+{
+  if (GraphicsEnvironment.isHeadless())   return;
+  System.setProperty("sun.java2d.noddraw","true");
+  GraphicsConfiguration gconfig=WindowUtils.getAlphaCompatibleGraphicsConfiguration();
+  Frame root=JOptionPane.getRootFrame();
+  final Window background=new Window(root);
+  background.setBackground(Color.white);
+  background.setLocation(X,Y);
+  final JWindow transparent=new JWindow(root,gconfig);
+  transparent.setLocation(X,Y);
+  ((JComponent)transparent.getContentPane()).setOpaque(false);
+  transparent.getContentPane().add(new JComponent(){
+    public Dimension getPreferredSize(){
+      return new Dimension(W,H);
+    }
+    protected void paintComponent(    Graphics g){
+      g=g.create();
+      g.setColor(Color.red);
+      g.fillRect(getWidth() / 4,getHeight() / 4,getWidth() / 2,getHeight() / 2);
+      g.drawRect(0,0,getWidth() - 1,getHeight() - 1);
+      g.dispose();
+    }
+  }
+);
+  transparent.addMouseListener(handler);
+  transparent.addMouseMotionListener(handler);
+  SwingUtilities.invokeAndWait(new Runnable(){
+    public void run(){
+      background.pack();
+      background.setSize(new Dimension(W,H));
+      background.setVisible(true);
+      transparent.pack();
+      transparent.setSize(new Dimension(W,H));
+      transparent.setVisible(true);
+      transparent.toFront();
+    }
+  }
+);
+  WindowUtils.setWindowTransparent(transparent,true);
+  Color sample=robot.getPixelColor(X + W / 2,Y + H / 2);
+  assertEquals("Painted pixel should be opaque",Color.red,sample);
+  sample=robot.getPixelColor(X + 10,Y + 10);
+  assertEquals("Unpainted pixel should be transparent",Color.white,sample);
+}

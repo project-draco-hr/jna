@@ -1,0 +1,17 @@
+{
+  final int w=image.getWidth(observer);
+  final int h=image.getHeight(observer);
+  if (w > 0 && h > 0) {
+    frame.setIconImage(image);
+    icon.setIcon(new ImageIcon(image));
+    if (!alphaWindow.isVisible()) {
+      alphaWindow.pack();
+      alphaWindow.setVisible(true);
+    }
+ else {
+      alphaWindow.setSize(alphaWindow.getPreferredSize());
+    }
+    icon.getParent().invalidate();
+    icon.getParent().repaint();
+  }
+}

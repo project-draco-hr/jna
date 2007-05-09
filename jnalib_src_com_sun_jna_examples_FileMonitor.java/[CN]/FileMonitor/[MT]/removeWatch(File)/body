@@ -1,0 +1,5 @@
+{
+  if (watched.remove(file) != null) {
+    unwatch(file);
+  }
+}

@@ -1,0 +1,20 @@
+{
+  setPreferredSize(size);
+  setSize(size);
+  setOpaque(false);
+  Timer timer=new Timer(1000,new ActionListener(){
+    public void actionPerformed(    ActionEvent e){
+      repaint();
+      Window w=SwingUtilities.getWindowAncestor(ClockFace.this);
+      while (!(w instanceof Frame)) {
+        w=w.getOwner();
+      }
+      if (w instanceof Frame) {
+        ((Frame)w).setIconImage(getIconImage());
+      }
+    }
+  }
+);
+  timer.setRepeats(true);
+  timer.start();
+}

@@ -1,0 +1,5 @@
+{
+  GraphicsEnvironment env=GraphicsEnvironment.getLocalGraphicsEnvironment();
+  GraphicsDevice dev=env.getDefaultScreenDevice();
+  return dev.getDefaultConfiguration();
+}

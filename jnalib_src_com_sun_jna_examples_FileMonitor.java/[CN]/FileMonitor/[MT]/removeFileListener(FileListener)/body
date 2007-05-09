@@ -1,0 +1,5 @@
+{
+  List list=new ArrayList(listeners);
+  list.remove(x);
+  listeners=list;
+}

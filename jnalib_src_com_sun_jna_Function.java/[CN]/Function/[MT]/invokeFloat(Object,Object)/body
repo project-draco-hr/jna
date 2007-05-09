@@ -1,3 +1,0 @@
-{
-  return invokeFloat(callingConvention,convertArgs(new Object[]{arg1,arg2}));
-}

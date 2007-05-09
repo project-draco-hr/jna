@@ -1,0 +1,18 @@
+{
+  describe("drop(tgt)",e);
+  int action=getDropAction(e);
+  if (action != DragHandler.NONE) {
+    e.acceptDrop(action);
+    try {
+      drop(e,action);
+      e.dropComplete(true);
+    }
+ catch (    Exception ex) {
+      e.dropComplete(false);
+    }
+  }
+ else {
+    e.rejectDrop();
+  }
+  paintDropTarget(e,DragHandler.NONE,e.getLocation());
+}

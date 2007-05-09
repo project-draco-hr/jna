@@ -1,0 +1,10 @@
+{
+  int mods=DragHandler.getModifiers();
+  if (mods == DragHandler.UNKNOWN_MODIFIERS) {
+    if (dropAction == DragHandler.LINK || dropAction == DragHandler.COPY) {
+      return true;
+    }
+    return false;
+  }
+  return mods != 0;
+}

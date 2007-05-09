@@ -1,0 +1,7 @@
+{
+  if (!painting) {
+    painting=true;
+    update();
+    painting=false;
+  }
+}

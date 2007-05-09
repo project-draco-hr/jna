@@ -1,0 +1,5 @@
+{
+  short[] buf=new short[arraySize];
+  read(offset,buf,0,arraySize);
+  return buf;
+}

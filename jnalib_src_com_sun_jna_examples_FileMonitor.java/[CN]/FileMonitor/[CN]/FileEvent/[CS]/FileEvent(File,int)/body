@@ -1,0 +1,5 @@
+{
+  super(FileMonitor.this);
+  this.file=file;
+  this.type=type;
+}

@@ -1,0 +1,5 @@
+{
+  Kernel32 klib=Kernel32.INSTANCE;
+  klib.PostQueuedCompletionStatus(port,0,null,null);
+  klib.CloseHandle(port);
+}

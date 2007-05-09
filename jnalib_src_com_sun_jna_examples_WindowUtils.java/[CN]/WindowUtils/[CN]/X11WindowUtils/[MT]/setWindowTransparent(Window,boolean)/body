@@ -1,0 +1,29 @@
+{
+  if (!(w instanceof RootPaneContainer)) {
+    throw new IllegalArgumentException("Window must be a RootPaneContainer");
+  }
+  if (!isWindowAlphaSupported()) {
+    System.err.println("Window alpha not supported");
+    return;
+  }
+  if (!w.getGraphicsConfiguration().equals(getAlphaCompatibleGraphicsConfiguration())) {
+    throw new IllegalArgumentException("Window GraphicsConfiguration does not support transparency");
+  }
+  boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
+  if (!(transparent ^ isTransparent))   return;
+  whenDisplayable(w,new Runnable(){
+    public void run(){
+      JRootPane root=((RootPaneContainer)w).getRootPane();
+      Container content=root.getContentPane();
+      if (content instanceof X11TransparentContent) {
+        ((X11TransparentContent)content).setTransparent(transparent);
+      }
+ else       if (transparent) {
+        root.setContentPane(new X11TransparentContent(content));
+      }
+      setLayersTransparent(w,transparent);
+      setForceHeavyweightPopups(w,transparent);
+    }
+  }
+);
+}

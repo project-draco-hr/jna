@@ -1,0 +1,28 @@
+{
+  int result=0;
+  if ((mask & FILE_CREATED) != 0) {
+    result|=Kernel32.FILE_NOTIFY_CHANGE_CREATION;
+  }
+  if ((mask & FILE_DELETED) != 0) {
+    result|=Kernel32.FILE_NOTIFY_CHANGE_CREATION;
+  }
+  if ((mask & FILE_MODIFIED) != 0) {
+    result|=Kernel32.FILE_NOTIFY_CHANGE_LAST_WRITE;
+  }
+  if ((mask & FILE_RENAMED) != 0) {
+    result|=Kernel32.FILE_NOTIFY_CHANGE_NAME;
+  }
+  if ((mask & FILE_SIZE_CHANGED) != 0) {
+    result|=Kernel32.FILE_NOTIFY_CHANGE_SIZE;
+  }
+  if ((mask & FILE_ACCESSED) != 0) {
+    result|=Kernel32.FILE_NOTIFY_CHANGE_LAST_ACCESS;
+  }
+  if ((mask & FILE_ATTRIBUTES_CHANGED) != 0) {
+    result|=Kernel32.FILE_NOTIFY_CHANGE_ATTRIBUTES;
+  }
+  if ((mask & FILE_SECURITY_CHANGED) != 0) {
+    result|=Kernel32.FILE_NOTIFY_CHANGE_SECURITY;
+  }
+  return result;
+}

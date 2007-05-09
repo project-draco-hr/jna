@@ -1,0 +1,85 @@
+{
+  User32 user=User32.INSTANCE;
+  GDI32 gdi=GDI32.INSTANCE;
+  Pointer hWnd=null;
+  if (!alphaWindow.isDisplayable()) {
+    alphaWindow.pack();
+    hWnd=Native.getWindowPointer(alphaWindow);
+    int flags=user.GetWindowLongA(hWnd,User32.GWL_EXSTYLE);
+    flags|=User32.WS_EX_LAYERED;
+    user.SetWindowLongA(hWnd,User32.GWL_EXSTYLE,flags);
+    Window parent=alphaWindow.getOwner();
+    Point where=parent.getLocationOnScreen();
+    where.translate(parent.getWidth(),0);
+    alphaWindow.setLocation(where);
+  }
+ else {
+    hWnd=Native.getWindowPointer(alphaWindow);
+  }
+  if (i) {
+    int w=image.getWidth(null);
+    int h=image.getHeight(null);
+    Pointer screenDC=user.GetDC(null);
+    Pointer memDC=gdi.CreateCompatibleDC(screenDC);
+    Pointer hBitmap=null;
+    Pointer oldBitmap=null;
+    try {
+      BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB_PRE);
+      Graphics g=buf.getGraphics();
+      g.drawImage(image,0,0,w,h,null);
+      BITMAPINFO bmi=new BITMAPINFO();
+      bmi.bmiHeader.biWidth=w;
+      bmi.bmiHeader.biHeight=h;
+      bmi.bmiHeader.biPlanes=1;
+      bmi.bmiHeader.biBitCount=32;
+      bmi.bmiHeader.biCompression=GDI32.BI_RGB;
+      bmi.bmiHeader.biSizeImage=w * h * 4;
+      PointerByReference ppbits=new PointerByReference();
+      hBitmap=gdi.CreateDIBSection(memDC,bmi,GDI32.DIB_RGB_COLORS,ppbits,null,0);
+      oldBitmap=gdi.SelectObject(memDC,hBitmap);
+      Pointer pbits=ppbits.getValue();
+      Raster raster=buf.getData();
+      int[] pixel=new int[4];
+      int[] bits=new int[w * h];
+      for (int y=0; y < h; y++) {
+        for (int x=0; x < w; x++) {
+          raster.getPixel(x,h - y - 1,pixel);
+          int alpha=(pixel[3] & 0xFF) << 24;
+          int red=(pixel[2] & 0xFF);
+          int green=(pixel[1] & 0xFF) << 8;
+          int blue=(pixel[0] & 0xFF) << 16;
+          bits[x + y * w]=alpha | red | green| blue;
+        }
+      }
+      pbits.write(0,bits,0,bits.length);
+      SIZE size=new SIZE();
+      size.cx=w;
+      size.cy=h;
+      POINT loc=new POINT();
+      loc.x=alphaWindow.getX();
+      loc.y=alphaWindow.getY();
+      POINT srcLoc=new POINT();
+      BLENDFUNCTION blend=new BLENDFUNCTION();
+      blend.SourceConstantAlpha=(byte)(alpha * 255);
+      blend.AlphaFormat=User32.AC_SRC_ALPHA;
+      user.UpdateLayeredWindow(hWnd,screenDC,loc,size,memDC,srcLoc,0,blend,User32.ULW_ALPHA);
+    }
+  finally {
+      user.ReleaseDC(null,screenDC);
+      if (hBitmap != null) {
+        gdi.SelectObject(memDC,oldBitmap);
+        gdi.DeleteObject(hBitmap);
+      }
+      gdi.DeleteDC(memDC);
+    }
+  }
+ else   if (a) {
+    BLENDFUNCTION blend=new BLENDFUNCTION();
+    blend.SourceConstantAlpha=(byte)(alpha * 255);
+    blend.AlphaFormat=User32.AC_SRC_ALPHA;
+    user.UpdateLayeredWindow(hWnd,null,null,null,null,null,0,blend,User32.ULW_ALPHA);
+  }
+  if (!alphaWindow.isVisible()) {
+    alphaWindow.setVisible(true);
+  }
+}

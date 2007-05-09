@@ -1,0 +1,4 @@
+{
+  describe("exit(tgt)",e);
+  paintDropTarget(e,DragHandler.NONE,null);
+}

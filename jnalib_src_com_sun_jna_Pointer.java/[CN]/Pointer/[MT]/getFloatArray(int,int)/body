@@ -1,0 +1,5 @@
+{
+  float[] buf=new float[arraySize];
+  read(offset,buf,0,arraySize);
+  return buf;
+}

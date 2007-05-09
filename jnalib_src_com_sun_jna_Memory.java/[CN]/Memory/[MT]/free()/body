@@ -1,4 +1,6 @@
 {
-  free(peer);
-  peer=0;
+  if (peer != 0) {
+    free(peer);
+    peer=0;
+  }
 }

@@ -1,0 +1,5 @@
+{
+  if (painter != null) {
+    painter.paintDropTarget(e,action,location);
+  }
+}

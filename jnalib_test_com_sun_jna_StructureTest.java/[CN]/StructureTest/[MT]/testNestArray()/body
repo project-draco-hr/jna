@@ -1,0 +1,8 @@
+{
+class TestStructure extends Structure {
+    public byte[] buffer=new byte[1024];
+  }
+  TestStructure s=new TestStructure();
+  assertEquals("Wrong size for nested array",1024,s.size());
+  assertNotNull("Array should be initialized",s.buffer);
+}

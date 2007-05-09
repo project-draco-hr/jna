@@ -1,0 +1,7 @@
+{
+  Point center=GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+  Rectangle max=GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+  int x=Math.max(center.x - Math.round(window.getWidth() / 2f),max.x);
+  int y=Math.max(center.y - Math.round(window.getHeight() / 2f),max.y);
+  window.setLocation(new Point(x,y));
+}

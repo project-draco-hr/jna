@@ -1,0 +1,8 @@
+{
+  FileInfo finfo=(FileInfo)fileMap.remove(file);
+  if (finfo != null) {
+    handleMap.remove(finfo.handle);
+    Kernel32 klib=Kernel32.INSTANCE;
+    klib.CloseHandle(finfo.handle);
+  }
+}

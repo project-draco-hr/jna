@@ -1,0 +1,65 @@
+{
+  X11 x11=X11.INSTANCE;
+  int win=X11.None;
+  Pointer dpy=x11.XOpenDisplay(null);
+  try {
+    if (!alphaWindow.isDisplayable()) {
+      alphaWindow.pack();
+      if (System.getProperty("java.version").matches("^1\\.4\\..*"))       alphaWindow.setVisible(true);
+      win=(int)Native.getWindowID(alphaWindow);
+      XSetWindowAttributes xswa=new XSetWindowAttributes();
+      xswa.background_pixel=0x0;
+      Pointer visual=x11.XDefaultVisual(dpy,x11.XDefaultScreen(dpy));
+      xswa.colormap=x11.XCreateColormap(dpy,win,visual,X11.AllocNone);
+      x11.XChangeWindowAttributes(dpy,win,X11.CWBackPixel | X11.CWColormap,xswa);
+      Window parent=alphaWindow.getOwner();
+      Point where=parent.getLocationOnScreen();
+      where.translate(parent.getWidth(),0);
+      alphaWindow.removeAll();
+      alphaWindow.setLocation(where);
+      alphaWindow.setBackground(new Color(0,0,0,0));
+    }
+ else {
+      win=(int)Native.getWindowID(alphaWindow);
+    }
+    if (i) {
+      int w=image.getWidth(null);
+      int h=image.getHeight(null);
+      alphaWindow.setSize(w,h);
+      BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB_PRE);
+      Graphics g=buf.getGraphics();
+      g.drawImage(image,0,0,w,h,null);
+      Pointer gc=x11.XCreateGC(dpy,win,0,null);
+      int pixmap=x11.XCreatePixmap(dpy,win,w,h,32);
+      try {
+        x11.XSetForeground(dpy,gc,0);
+        x11.XFillRectangle(dpy,pixmap,gc,0,0,w,h);
+        Raster raster=buf.getData();
+        int[] pixel=new int[4];
+        for (int y=0; y < h; y++) {
+          for (int x=0; x < w; x++) {
+            raster.getPixel(x,h - y - 1,pixel);
+            int alpha=(pixel[3] & 0xFF) << 24;
+            int red=(pixel[2] & 0xFF);
+            int green=(pixel[1] & 0xFF) << 8;
+            int blue=(pixel[0] & 0xFF) << 16;
+            x11.XSetForeground(dpy,gc,alpha | red | green| blue);
+            x11.XFillRectangle(dpy,pixmap,gc,x,h - y - 1,1,1);
+          }
+        }
+        x11.XCopyArea(dpy,pixmap,win,gc,0,0,w,h,0,0);
+      }
+  finally {
+        if (gc != null)         x11.XFreeGC(dpy,gc);
+      }
+    }
+  }
+  finally {
+    if (dpy != null)     x11.XCloseDisplay(dpy);
+  }
+  if (a)   WindowUtils.setWindowAlpha(alphaWindow,alpha);
+  if (!alphaWindow.isVisible()) {
+    alphaWindow.setVisible(true);
+    update(true,true);
+  }
+}

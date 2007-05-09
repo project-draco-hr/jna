@@ -1,0 +1,3 @@
+{
+  assertTrue("Point size should never be zero",Pointer.SIZE > 0);
+}

@@ -1,4 +1,0 @@
-String name
-Class<I> interfaceClass
-int callingConvention
-ClassLoader loader

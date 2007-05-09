@@ -1,0 +1,43 @@
+{
+  Window parent=dragSource instanceof Window ? (Window)dragSource : SwingUtilities.getWindowAncestor(dragSource);
+  GraphicsConfiguration gc=parent.getGraphicsConfiguration();
+  dragImage=new Window(JOptionPane.getRootFrame(),gc){
+    public void paint(    Graphics g){
+      icon.paintIcon(this,g,0,0);
+    }
+    public Dimension getPreferredSize(){
+      return new Dimension(icon.getIconWidth(),icon.getIconHeight());
+    }
+    public Dimension getMinimumSize(){
+      return getPreferredSize();
+    }
+    public Dimension getMaximumSize(){
+      return getPreferredSize();
+    }
+  }
+;
+  dragImage.setFocusableWindowState(false);
+  dragImage.setName("###overrideRedirect###");
+  Icon dragIcon=new Icon(){
+    public int getIconHeight(){
+      return icon.getIconHeight();
+    }
+    public int getIconWidth(){
+      return icon.getIconWidth();
+    }
+    public void paintIcon(    Component c,    Graphics g,    int x,    int y){
+      g=g.create();
+      Area area=new Area(new Rectangle(x,y,getIconWidth(),getIconHeight()));
+      area.subtract(new Area(new Rectangle(x + cursorOffset.x - 1,y + cursorOffset.y - 1,3,3)));
+      g.setClip(area);
+      icon.paintIcon(c,g,x,y);
+      g.dispose();
+    }
+  }
+;
+  dragImage.pack();
+  WindowUtils.setWindowMask(dragImage,dragIcon);
+  WindowUtils.setWindowAlpha(dragImage,DEFAULT_ALPHA);
+  move(initialScreenLoc);
+  dragImage.setVisible(true);
+}

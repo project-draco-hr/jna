@@ -1,0 +1,91 @@
+{
+  int offset=structField.offset;
+  Class fieldType=structField.type;
+  Object value=null;
+  try {
+    value=structField.field.get(this);
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Exception reading field \"" + structField.name + "\"",e);
+  }
+  if (String.class == fieldType || WString.class == fieldType) {
+    boolean wide=fieldType == WString.class;
+    if (value != null) {
+      NativeString nativeString=new NativeString(value.toString(),wide);
+      nativeStrings.put(structField.name,nativeString);
+      value=nativeString.getPointer();
+    }
+ else {
+      value=null;
+    }
+  }
+  if (fieldType == Byte.TYPE || fieldType == Byte.class) {
+    memory.setByte(offset,((Byte)value).byteValue());
+  }
+ else   if (fieldType == Short.TYPE || fieldType == Short.class) {
+    memory.setShort(offset,((Short)value).shortValue());
+  }
+ else   if (fieldType == Integer.TYPE || fieldType == Integer.class) {
+    memory.setInt(offset,((Integer)value).intValue());
+  }
+ else   if (fieldType == Long.TYPE || fieldType == Long.class) {
+    memory.setLong(offset,((Long)value).longValue());
+  }
+ else   if (fieldType == Float.TYPE || fieldType == Float.class) {
+    memory.setFloat(offset,((Float)value).floatValue());
+  }
+ else   if (fieldType == Double.TYPE || fieldType == Double.class) {
+    memory.setDouble(offset,((Double)value).doubleValue());
+  }
+ else   if (Pointer.class.isAssignableFrom(fieldType)) {
+    memory.setPointer(offset,(Pointer)value);
+  }
+ else   if (fieldType == String.class) {
+    memory.setPointer(offset,(Pointer)value);
+  }
+ else   if (fieldType == WString.class) {
+    memory.setPointer(offset,(Pointer)value);
+  }
+ else   if (fieldType.isArray()) {
+    Class cls=fieldType.getComponentType();
+    if (cls == byte.class) {
+      byte[] buf=(byte[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
+ else     if (cls == char.class) {
+      char[] buf=(char[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
+ else     if (cls == short.class) {
+      short[] buf=(short[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
+ else     if (cls == int.class) {
+      int[] buf=(int[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
+ else     if (cls == long.class) {
+      long[] buf=(long[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
+ else     if (cls == float.class) {
+      float[] buf=(float[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
+ else     if (cls == double.class) {
+      double[] buf=(double[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
+ else {
+      throw new IllegalArgumentException("Inline array of " + cls + " not supported");
+    }
+  }
+ else   if (Structure.class.isAssignableFrom(fieldType)) {
+    Structure s=(Structure)value;
+    s.useMemory(memory,offset);
+    s.write();
+  }
+ else {
+    throw new IllegalArgumentException("Field \"" + structField.name + "\" was declared as an "+ "unsupported type \""+ fieldType.getClass()+ "\"");
+  }
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    System.setProperty("sun.java2d.noddraw","true");
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+  }
+ catch (  Exception e) {
+  }
+  SwingUtilities.invokeLater(new AlphaMaskDemo2());
+}

@@ -1,0 +1,20 @@
+{
+  if (comp instanceof JTree) {
+    ((JTree)comp).setDragEnabled(false);
+  }
+ else   if (comp instanceof JList) {
+    ((JList)comp).setDragEnabled(false);
+  }
+ else   if (comp instanceof JTable) {
+    ((JTable)comp).setDragEnabled(false);
+  }
+ else   if (comp instanceof JTextComponent) {
+    ((JTextComponent)comp).setDragEnabled(false);
+  }
+ else   if (comp instanceof JColorChooser) {
+    ((JColorChooser)comp).setDragEnabled(false);
+  }
+ else   if (comp instanceof JFileChooser) {
+    ((JFileChooser)comp).setDragEnabled(false);
+  }
+}

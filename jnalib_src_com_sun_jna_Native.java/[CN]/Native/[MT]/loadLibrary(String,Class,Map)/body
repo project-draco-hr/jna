@@ -1,0 +1,9 @@
+{
+  if (!Library.class.isAssignableFrom(interfaceClass)) {
+    throw new IllegalArgumentException("Not a valid native library interface: " + interfaceClass);
+  }
+  InvocationHandler handler=new Library.Handler(name,interfaceClass,functionMap);
+  ClassLoader loader=interfaceClass.getClassLoader();
+  Library proxy=(Library)Proxy.newProxyInstance(loader,new Class[]{interfaceClass},handler);
+  return proxy;
+}

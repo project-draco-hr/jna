@@ -1,0 +1,5 @@
+{
+  if (!fixCursor)   return;
+  Cursor cursor=getCursorForAction(adjustDropAction(ev));
+  ev.getDragSourceContext().setCursor(cursor);
+}

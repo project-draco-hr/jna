@@ -1,0 +1,33 @@
+{
+  if ((code >= KeyEvent.VK_A && code <= KeyEvent.VK_Z) || (code >= KeyEvent.VK_0 && code <= KeyEvent.VK_9)) {
+    return code;
+  }
+  if (code == KeyEvent.VK_SHIFT) {
+    if ((loc & KeyEvent.KEY_LOCATION_RIGHT) != 0) {
+      return User32.VK_RSHIFT;
+    }
+    if ((loc & KeyEvent.KEY_LOCATION_LEFT) != 0) {
+      return User32.VK_LSHIFT;
+    }
+    return User32.VK_SHIFT;
+  }
+  if (code == KeyEvent.VK_CONTROL) {
+    if ((loc & KeyEvent.KEY_LOCATION_RIGHT) != 0) {
+      return User32.VK_RCONTROL;
+    }
+    if ((loc & KeyEvent.KEY_LOCATION_LEFT) != 0) {
+      return User32.VK_LCONTROL;
+    }
+    return User32.VK_CONTROL;
+  }
+  if (code == KeyEvent.VK_ALT) {
+    if ((loc & KeyEvent.KEY_LOCATION_RIGHT) != 0) {
+      return User32.VK_RMENU;
+    }
+    if ((loc & KeyEvent.KEY_LOCATION_LEFT) != 0) {
+      return User32.VK_LMENU;
+    }
+    return User32.VK_MENU;
+  }
+  return 0;
+}

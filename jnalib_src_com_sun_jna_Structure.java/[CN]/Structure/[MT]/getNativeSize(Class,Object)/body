@@ -1,0 +1,48 @@
+{
+  if (long.class == type || Long.class == type) {
+    structAlignment=Math.max(8,structAlignment);
+    return 8;
+  }
+ else   if (double.class == type || Double.class == type) {
+    structAlignment=Math.max(8,structAlignment);
+    return 8;
+  }
+ else   if (float.class == type || Float.class == type) {
+    structAlignment=Math.max(4,structAlignment);
+    return 4;
+  }
+ else   if (int.class == type || Integer.class == type) {
+    structAlignment=Math.max(4,structAlignment);
+    return 4;
+  }
+ else   if (short.class == type || Short.class == type || char.class == type || Character.class == type) {
+    structAlignment=Math.max(2,structAlignment);
+    return 2;
+  }
+ else   if (byte.class == type || Byte.class == type) {
+    return 1;
+  }
+ else   if (Pointer.class.isAssignableFrom(type)) {
+    return Pointer.SIZE;
+  }
+ else   if (value instanceof Structure) {
+    Structure s=(Structure)value;
+    int size=s.size();
+    structAlignment=Math.max(s.structAlignment,structAlignment);
+    return size;
+  }
+ else   if (String.class == type || WString.class == type) {
+    return Pointer.SIZE;
+  }
+ else   if (type.isArray()) {
+    int len=Array.getLength(value);
+    if (len > 0) {
+      Object o=Array.get(value,0);
+      if (o != null)       return len * getNativeSize(o.getClass(),o);
+    }
+    return 0;
+  }
+ else {
+    throw new IllegalArgumentException("Unsupported field type \"" + type.getName() + "\"");
+  }
+}

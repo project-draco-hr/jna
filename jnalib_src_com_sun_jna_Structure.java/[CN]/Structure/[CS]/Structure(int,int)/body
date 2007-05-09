@@ -1,0 +1,4 @@
+{
+  this.alignType=alignment;
+  allocateMemory(size);
+}

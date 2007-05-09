@@ -1,0 +1,21 @@
+{
+  GDI32 gdi=GDI32.INSTANCE;
+  Pointer result=gdi.CreateRectRgn(0,0,0,0);
+  Rectangle bounds=new Rectangle(0,0,raster.getWidth(),raster.getHeight());
+  int[] bits=new int[bounds.width * bounds.height];
+  raster.getPixels(0,0,bounds.width,bounds.height,bits);
+  for (int row=0; row < bounds.height; row++) {
+    for (int col=0; col < bounds.width; col++) {
+      int idx=row * bounds.width + col;
+      if (bits[idx] != 0) {
+        Pointer bit=gdi.CreateRectRgn(bounds.x + col,bounds.y + row,bounds.x + col + 1,bounds.y + row + 1);
+        int status=gdi.CombineRgn(result,result,bit,GDI32.RGN_OR);
+        if (status == GDI32.ERROR) {
+          System.err.println("Error combining regions");
+        }
+        gdi.DeleteObject(bit);
+      }
+    }
+  }
+  return result;
+}

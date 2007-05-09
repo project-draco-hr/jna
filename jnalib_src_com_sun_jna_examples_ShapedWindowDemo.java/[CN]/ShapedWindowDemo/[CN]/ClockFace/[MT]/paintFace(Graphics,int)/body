@@ -1,0 +1,60 @@
+{
+  Point center=new Point(size / 2,size / 2);
+  int radius=center.x;
+  int margin=radius / 20;
+  int w=size;
+  border=new BasicStroke(Math.max(1f,w / 150f),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
+  secondHand=new BasicStroke(Math.max(1f,w / 75f),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
+  minuteHand=new BasicStroke(Math.max(1f,w / 38f),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
+  hourHand=new BasicStroke(Math.max(1.5f,w / 20f),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
+  ticks=new BasicStroke(1f);
+  Graphics2D g=(Graphics2D)graphics.create();
+  g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+  g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+  g.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+  Color bg=getBackground();
+  g.setColor(new Color(bg.getRed(),bg.getGreen(),bg.getBlue()));
+  g.fill(new Ellipse2D.Float(0,0,size,size));
+  Font font=getFont();
+  g.setFont(font.deriveFont(Font.BOLD,size / 12));
+  g.setColor(new Color(0,0,0,128));
+  g.setStroke(border);
+  g.draw(new Ellipse2D.Float(0,0,size - 1,size - 1));
+  g.draw(new Ellipse2D.Float(margin,margin,size - margin * 2 - 1,size - margin * 2 - 1));
+  Calendar c=Calendar.getInstance();
+  int minute=c.get(Calendar.MINUTE);
+  int hour=c.get(Calendar.HOUR);
+  int second=c.get(Calendar.SECOND);
+  g.translate(center.x,center.y);
+  g.setColor(getForeground());
+  int numbers=radius * 3 / 4;
+  for (int i=0; i < 12; i++) {
+    double theta=Math.PI * 2 * i / 12;
+    String str=getRomanNumeral((i + 2) % 12 + 1);
+    Rectangle2D rect=g.getFontMetrics().getStringBounds(str,g);
+    g.drawString(str,Math.round(numbers * Math.cos(theta) - rect.getWidth() / 2),Math.round(numbers * Math.sin(theta) + margin * 2));
+  }
+  for (int i=0; i < 60; i++) {
+    g.setColor(getForeground());
+    g.setStroke(ticks);
+    g.drawLine(radius - margin * 2,0,radius - margin,0);
+    if ((i % 5) == 0) {
+      g.drawLine(radius - margin * 3,0,radius - margin,0);
+    }
+    if ((i + 15) % 60 == minute) {
+      g.setStroke(minuteHand);
+      g.drawLine(0,0,radius - margin * 4,0);
+    }
+    if ((i + 15) % 60 == (hour * 5 + minute * 5 / 60)) {
+      g.setStroke(hourHand);
+      g.drawLine(0,0,radius / 2,0);
+    }
+    if ((i + 15) % 60 == second) {
+      g.setColor(new Color(255,0,0,128));
+      g.setStroke(secondHand);
+      g.drawLine(0,0,radius - margin * 4,0);
+    }
+    g.rotate(Math.PI * 2 / 60);
+  }
+  g.dispose();
+}

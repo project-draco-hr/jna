@@ -1,0 +1,16 @@
+{
+  Raster raster=null;
+  if (mask != null) {
+    Rectangle bounds=mask.getBounds();
+    if (bounds.width > 0 && bounds.height > 0) {
+      BufferedImage bitmap=new BufferedImage(bounds.x + bounds.width,bounds.y + bounds.height,BufferedImage.TYPE_BYTE_BINARY);
+      Graphics2D g=bitmap.createGraphics();
+      g.setColor(Color.black);
+      g.fillRect(bounds.x,bounds.y,bounds.width,bounds.height);
+      g.setColor(Color.white);
+      g.fill(mask);
+      raster=bitmap.getData();
+    }
+  }
+  setWindowMask(w,raster);
+}

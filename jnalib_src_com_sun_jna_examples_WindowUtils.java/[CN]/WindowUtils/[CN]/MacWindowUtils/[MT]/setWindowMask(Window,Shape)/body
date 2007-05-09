@@ -1,0 +1,4 @@
+{
+  OSXTransparentContent content=installTransparentContent(w);
+  content.setMask(shape);
+}

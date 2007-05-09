@@ -1,0 +1,15 @@
+{
+  FileUtils utils=FileUtils.getInstance();
+  File home=new File(System.getProperty("user.home"));
+  File file=File.createTempFile(getName(),".tmp",home);
+  try {
+    assertTrue("File should exist",file.exists());
+    assertTrue("Move to trash failed",utils.moveToTrash(new File[]{file}));
+    assertFalse("Failed to move " + file + " to trash",file.exists());
+  }
+  finally {
+    if (file.exists()) {
+      file.delete();
+    }
+  }
+}

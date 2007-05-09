@@ -1,0 +1,4 @@
+{
+  double value=lib.checkDoubleArgumentAlignment(1f,2d,3f,4d);
+  assertEquals("Improper handling of interspersed float/double",10d,value,0);
+}

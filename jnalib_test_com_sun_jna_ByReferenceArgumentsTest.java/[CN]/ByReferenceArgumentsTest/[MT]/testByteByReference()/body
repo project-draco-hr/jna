@@ -1,0 +1,5 @@
+{
+  ByteByReference bref=new ByteByReference();
+  lib.incrementInt8ByReference(bref);
+  assertEquals("Byte argument not modified",1,bref.getValue());
+}

@@ -1,0 +1,14 @@
+{
+  boolean modifiersActive=modifiersActive(currentAction);
+  if ((currentAction & acceptedActions) == DragHandler.NONE && !modifiersActive) {
+    int action=acceptedActions & sourceActions;
+    currentAction=action;
+  }
+ else   if (modifiersActive) {
+    int action=currentAction & acceptedActions & sourceActions;
+    if (action != currentAction) {
+      currentAction=action;
+    }
+  }
+  return currentAction;
+}

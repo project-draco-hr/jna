@@ -1,3 +1,0 @@
-{
-  return loadLibrary(name,interfaceClass,callingConvention,interfaceClass.getClassLoader());
-}

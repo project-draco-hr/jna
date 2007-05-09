@@ -1,0 +1,5 @@
+{
+  DoubleByReference dref=new DoubleByReference(1d);
+  lib.complementDoubleByReference(dref);
+  assertEquals("Int argument not modified",-1d,dref.getValue(),0.0);
+}

@@ -1,0 +1,5 @@
+{
+  Dimension size=super.getPreferredSize();
+  size.height+=Y_OFFSET;
+  return size;
+}

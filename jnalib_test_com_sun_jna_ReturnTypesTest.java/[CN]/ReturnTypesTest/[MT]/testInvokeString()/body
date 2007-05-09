@@ -1,0 +1,3 @@
+{
+  assertEquals("Expect string magic",MAGIC,lib.returnStringMagic());
+}

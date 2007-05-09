@@ -1,0 +1,4 @@
+{
+  dragImage.dispose();
+  dragImage=null;
+}

@@ -1,6 +1,4 @@
 {
-  if (other == null)   return false;
-  if (other == this)   return true;
-  if (Pointer.class != other.getClass())   return false;
-  return peer == ((Pointer)other).peer;
+  if (o == null)   return peer == 0;
+  return o.getClass().equals(Pointer.class) && ((Pointer)o).peer == peer;
 }

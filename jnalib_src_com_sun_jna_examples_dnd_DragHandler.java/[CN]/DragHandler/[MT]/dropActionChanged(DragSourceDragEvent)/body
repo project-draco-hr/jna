@@ -1,0 +1,8 @@
+{
+  describe("change",e);
+  setModifiers(e.getGestureModifiersEx() & KEY_MASK);
+  if (ghost != null) {
+    ghost.move(getImageLocation(e.getLocation()));
+  }
+  updateCursor(e);
+}

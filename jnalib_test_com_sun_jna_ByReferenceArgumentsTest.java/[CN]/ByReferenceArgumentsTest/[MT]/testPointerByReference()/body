@@ -1,0 +1,8 @@
+{
+  PointerByReference pref=new PointerByReference();
+  assertNull("Default pointer should be null",pref.getValue());
+  pref=new PointerByReference(new Memory(16));
+  assertNotNull("Explicit pointer should not be null",pref.getValue());
+  lib.setPointerByReferenceNull(pref);
+  assertNull("Default pointer should be NULL after call",pref.getValue());
+}

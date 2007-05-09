@@ -1,0 +1,15 @@
+{
+  Graphics2D g=(Graphics2D)graphics.create();
+  g.setComposite(AlphaComposite.Clear);
+  g.fillRect(0,0,getWidth(),getHeight());
+  g.dispose();
+  if (shape != null) {
+    g=(Graphics2D)graphics.create();
+    g.setClip(shape);
+    super.paint(g);
+    g.dispose();
+  }
+ else {
+    super.paint(graphics);
+  }
+}

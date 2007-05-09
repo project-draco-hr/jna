@@ -1,0 +1,4 @@
+{
+  assertEquals("Expect null pointer",null,lib.returnStringArgument(null));
+  assertEquals("Expect string magic",MAGIC,lib.returnStringArgument(MAGIC));
+}

@@ -1,0 +1,6 @@
+{
+  for (Iterator i=watched.keySet().iterator(); i.hasNext(); ) {
+    removeWatch((File)i.next());
+  }
+  dispose();
+}

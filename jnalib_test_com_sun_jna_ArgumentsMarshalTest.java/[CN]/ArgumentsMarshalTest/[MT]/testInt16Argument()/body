@@ -1,0 +1,8 @@
+{
+  short v=0;
+  assertEquals("Wrong value returned",v,lib.returnInt16Argument(v));
+  v=32767;
+  assertEquals("Wrong value returned",v,lib.returnInt16Argument(v));
+  v=-32768;
+  assertEquals("Wrong value returned",v,lib.returnInt16Argument(v));
+}

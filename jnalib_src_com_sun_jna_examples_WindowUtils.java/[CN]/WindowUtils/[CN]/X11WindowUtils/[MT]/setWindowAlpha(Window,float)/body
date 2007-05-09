@@ -1,0 +1,25 @@
+{
+  Runnable action=new Runnable(){
+    public void run(){
+      X11 x11=X11.INSTANCE;
+      Pointer dpy=x11.XOpenDisplay(null);
+      if (dpy == null)       return;
+      try {
+        int win=getDrawable(w);
+        if (alpha == 1f) {
+          x11.XDeleteProperty(dpy,win,x11.XInternAtom(dpy,OPACITY,false));
+        }
+ else {
+          int opacity=(int)((long)(alpha * OPAQUE) & 0xFFFFFFFF);
+          IntByReference patom=new IntByReference(opacity);
+          x11.XChangeProperty(dpy,win,x11.XInternAtom(dpy,OPACITY,false),X11.XA_CARDINAL,32,X11.PropModeReplace,patom.getPointer(),1);
+        }
+      }
+  finally {
+        x11.XCloseDisplay(dpy);
+      }
+    }
+  }
+;
+  whenDisplayable(w,action);
+}

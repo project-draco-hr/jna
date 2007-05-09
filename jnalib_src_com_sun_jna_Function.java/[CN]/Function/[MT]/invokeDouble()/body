@@ -1,3 +1,0 @@
-{
-  return invokeDouble(callingConvention,NO_ARGS);
-}

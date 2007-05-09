@@ -1,0 +1,5 @@
+{
+  ShortByReference sref=new ShortByReference();
+  lib.incrementInt16ByReference(sref);
+  assertEquals("Short argument not modified",1,sref.getValue());
+}

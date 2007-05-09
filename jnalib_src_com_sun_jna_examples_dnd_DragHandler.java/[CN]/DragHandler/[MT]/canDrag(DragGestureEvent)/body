@@ -1,0 +1,7 @@
+{
+  int mods=e.getTriggerEvent().getModifiersEx() & KEY_MASK;
+  if (mods == MOVE_MASK)   return (supportedActions & MOVE) != 0;
+  if (mods == COPY_MASK)   return (supportedActions & COPY) != 0;
+  if (mods == LINK_MASK)   return (supportedActions & LINK) != 0;
+  return true;
+}

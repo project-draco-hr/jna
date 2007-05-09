@@ -1,0 +1,13 @@
+{
+  whenDisplayable(w,new Runnable(){
+    public void run(){
+      Object peer=w.getPeer();
+      try {
+        peer.getClass().getMethod("setAlpha",new Class[]{float.class}).invoke(peer,new Object[]{new Float(alpha)});
+      }
+ catch (      Exception e) {
+      }
+    }
+  }
+);
+}

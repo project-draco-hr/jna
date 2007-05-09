@@ -1,0 +1,6 @@
+{
+  lib=null;
+  gdi=null;
+  kernel=null;
+  testlib=null;
+}

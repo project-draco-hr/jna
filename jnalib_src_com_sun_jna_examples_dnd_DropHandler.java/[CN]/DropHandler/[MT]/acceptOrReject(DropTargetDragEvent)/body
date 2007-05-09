@@ -1,0 +1,10 @@
+{
+  int action=getDropAction(e);
+  if (action != DragHandler.NONE) {
+    e.acceptDrag(action);
+  }
+ else {
+    e.rejectDrag();
+  }
+  return action;
+}

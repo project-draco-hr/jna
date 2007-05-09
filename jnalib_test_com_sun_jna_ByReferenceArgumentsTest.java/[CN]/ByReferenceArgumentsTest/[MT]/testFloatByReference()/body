@@ -1,0 +1,5 @@
+{
+  FloatByReference fref=new FloatByReference(1f);
+  lib.complementFloatByReference(fref);
+  assertEquals("Float argument not modified",-1f,fref.getValue(),0.0);
+}

@@ -1,0 +1,39 @@
+{
+  if ((e.getDragAction() & supportedActions) != 0 && canDrag(e)) {
+    setModifiers(e.getTriggerEvent().getModifiersEx() & KEY_MASK);
+    Transferable transferable=getTransferable(e);
+    if (transferable == null)     return;
+    try {
+      Point srcOffset=new Point(0,0);
+      Icon icon=getDragIcon(e,srcOffset);
+      Point origin=e.getDragOrigin();
+      imageOffset=new Point(srcOffset.x - origin.x,srcOffset.y - origin.y);
+      Icon dragIcon=scaleDragIcon(icon,imageOffset);
+      Cursor cursor=null;
+      if (dragIcon != null && DragSource.isDragImageSupported()) {
+        GraphicsConfiguration gc=e.getComponent().getGraphicsConfiguration();
+        e.startDrag(cursor,createDragImage(gc,dragIcon),imageOffset,transferable,this);
+      }
+ else {
+        if (dragIcon != null) {
+          Point screen=dragSource.getLocationOnScreen();
+          screen.translate(origin.x,origin.y);
+          Point cursorOffset=new Point(-imageOffset.x,-imageOffset.y);
+          ghost=new GhostedDragImage(dragSource,dragIcon,getImageLocation(screen),cursorOffset);
+          ghost.setAlpha(ghostAlpha);
+        }
+        e.startDrag(cursor,transferable,this);
+      }
+      dragStarted(e);
+      moved=false;
+      e.getDragSource().addDragSourceMotionListener(this);
+      DragHandler.transferable=transferable;
+    }
+ catch (    InvalidDnDOperationException ex) {
+      if (ghost != null) {
+        ghost.dispose();
+        ghost=null;
+      }
+    }
+  }
+}

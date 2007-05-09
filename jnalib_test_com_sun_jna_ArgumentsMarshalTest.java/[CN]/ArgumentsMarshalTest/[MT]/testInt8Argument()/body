@@ -1,0 +1,8 @@
+{
+  byte b=0;
+  assertEquals("Wrong value returned",b,lib.returnInt8Argument(b));
+  b=127;
+  assertEquals("Wrong value returned",b,lib.returnInt8Argument(b));
+  b=-128;
+  assertEquals("Wrong value returned",b,lib.returnInt8Argument(b));
+}

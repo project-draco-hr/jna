@@ -1,0 +1,34 @@
+{
+  Kernel32 klib=Kernel32.INSTANCE;
+  FILE_NOTIFY_INFORMATION fni=finfo.info;
+  fni.read();
+  do {
+    FileEvent event=null;
+    File file=new File(finfo.file,fni.getFilename());
+switch (fni.Action) {
+case Kernel32.FILE_ACTION_MODIFIED:
+      event=new FileEvent(file,FILE_MODIFIED);
+    break;
+case Kernel32.FILE_ACTION_ADDED:
+  event=new FileEvent(file,FILE_CREATED);
+break;
+case Kernel32.FILE_ACTION_REMOVED:
+event=new FileEvent(file,FILE_DELETED);
+break;
+case Kernel32.FILE_ACTION_RENAMED_OLD_NAME:
+event=new FileEvent(file,FILE_NAME_CHANGED_OLD);
+break;
+case Kernel32.FILE_ACTION_RENAMED_NEW_NAME:
+event=new FileEvent(file,FILE_NAME_CHANGED_NEW);
+break;
+default :
+System.err.println("Unrecognized action: " + fni.Action);
+}
+if (event != null) notify(event);
+fni=fni.next();
+}
+ while (fni != null);
+if (!klib.ReadDirectoryChangesW(finfo.handle,finfo.info,finfo.info.size(),finfo.recursive,finfo.notifyMask,finfo.infoLength,finfo.overlapped,null)) {
+throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + " ("+ klib.GetLastError()+ ")");
+}
+}

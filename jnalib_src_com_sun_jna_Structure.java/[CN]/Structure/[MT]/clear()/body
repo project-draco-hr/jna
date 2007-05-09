@@ -1,3 +1,3 @@
 {
-  getMemory().clear();
+  memory.clear(size);
 }

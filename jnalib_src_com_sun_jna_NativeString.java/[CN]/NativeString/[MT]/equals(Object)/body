@@ -2,8 +2,9 @@
   if (!isValid())   return false;
   String s1=null;
   if (other instanceof NativeString) {
-    if (!((NativeString)other).isValid())     return false;
- else     s1=((NativeString)other).toString();
+    NativeString cs=(NativeString)other;
+    if (!cs.isValid() || cs.wide != wide)     return false;
+ else     s1=cs.toString();
   }
  else   if (other instanceof String) {
     s1=(String)other;

@@ -1,0 +1,11 @@
+{
+  BufferedImage image=new BufferedImage(ICON_SIZE,ICON_SIZE,BufferedImage.TYPE_INT_ARGB);
+  Graphics2D g=image.createGraphics();
+  g.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+  Composite old=g.getComposite();
+  g.setComposite(AlphaComposite.Clear);
+  g.fillRect(0,0,image.getWidth(),image.getHeight());
+  g.setComposite(old);
+  paintFace(g,ICON_SIZE);
+  return image;
+}

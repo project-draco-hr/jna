@@ -1,4 +1,0 @@
-{
-  Pointer returnedString=invokePointer(callingConvention,convertArgs(args));
-  return returnedString.getString(0);
-}

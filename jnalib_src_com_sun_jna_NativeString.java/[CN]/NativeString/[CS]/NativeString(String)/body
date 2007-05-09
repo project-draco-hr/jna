@@ -1,11 +1,3 @@
 {
-  super();
-  if (string == null) {
-    pointer=Pointer.NULL;
-  }
- else {
-    pointer=new Memory(string.getBytes().length + 1);
-    pointer.setString(0,string);
-    allocatedMemory=true;
-  }
+  this(string,false);
 }

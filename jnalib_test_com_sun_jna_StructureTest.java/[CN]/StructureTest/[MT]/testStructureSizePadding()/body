@@ -1,0 +1,8 @@
+{
+class TestStructure extends Structure {
+    public long bigbits;
+    public byte b;
+  }
+  TestStructure s=new TestStructure();
+  assertEquals("Structure should be padded to longest element",16,s.size());
+}

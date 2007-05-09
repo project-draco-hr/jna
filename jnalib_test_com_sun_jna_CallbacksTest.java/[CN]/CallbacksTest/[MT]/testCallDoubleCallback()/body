@@ -1,0 +1,16 @@
+{
+  final boolean[] called={false};
+  TestLibrary.DoubleCallback cb=new TestLibrary.DoubleCallback(){
+    public double callback(    double arg,    double arg2){
+      called[0]=true;
+      return arg + arg2;
+    }
+  }
+;
+  final double EXPECTED=DOUBLE_MAGIC * 3;
+  double value=lib.callDoubleCallback(cb,DOUBLE_MAGIC,DOUBLE_MAGIC * 2);
+  assertTrue("Callback not called",called[0]);
+  assertEquals("Wrong callback value",EXPECTED,value,0);
+  value=lib.callDoubleCallback(cb,-1d,-2d);
+  assertEquals("Wrong callback return",-3d,value,0);
+}

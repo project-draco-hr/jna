@@ -1,0 +1,6 @@
+{
+  Dimension size=getOwner().getPreferredSize();
+  size.width+=100;
+  size.height+=100;
+  return size;
+}

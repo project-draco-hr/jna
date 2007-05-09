@@ -1,0 +1,5 @@
+{
+  int[] buf=new int[arraySize];
+  read(offset,buf,0,arraySize);
+  return buf;
+}

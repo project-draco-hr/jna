@@ -1,0 +1,16 @@
+{
+  if (false) {
+    DragSourceContext ds=e.getDragSourceContext();
+    String msg="drag: " + type;
+    if (e instanceof DragSourceDragEvent) {
+      DragSourceDragEvent ev=(DragSourceDragEvent)e;
+      msg+=": src=" + actionString(ds.getSourceActions()) + " usr="+ actionString(ev.getUserAction())+ " tgt="+ actionString(ev.getTargetActions())+ " act="+ actionString(ev.getDropAction())+ " mods="+ ev.getGestureModifiersEx();
+    }
+ else {
+      msg+=": e=" + e;
+    }
+    if (!msg.equals(lastAction)) {
+      System.out.println(lastAction=msg);
+    }
+  }
+}

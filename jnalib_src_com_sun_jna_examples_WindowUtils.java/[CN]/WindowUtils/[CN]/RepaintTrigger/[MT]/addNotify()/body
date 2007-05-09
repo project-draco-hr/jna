@@ -1,0 +1,7 @@
+{
+  super.addNotify();
+  Window w=SwingUtilities.getWindowAncestor(this);
+  setSize(getParent().getSize());
+  w.addComponentListener(listener);
+  w.addWindowListener(listener);
+}

@@ -1,0 +1,13 @@
+{
+  File file=File.createTempFile(getName(),".tmp",dir);
+  file.delete();
+  FileEvent event=(FileEvent)events.get(new Integer(FileMonitor.FILE_DELETED));
+  long start=System.currentTimeMillis();
+  while (System.currentTimeMillis() - start < 5000 && event == null) {
+    Thread.sleep(10);
+    event=(FileEvent)events.get(new Integer(FileMonitor.FILE_DELETED));
+  }
+  assertTrue("No events sent",events.size() != 0);
+  assertNotNull("No delete event: " + events,event);
+  assertEquals("Wrong target file for event",file,event.getFile());
+}

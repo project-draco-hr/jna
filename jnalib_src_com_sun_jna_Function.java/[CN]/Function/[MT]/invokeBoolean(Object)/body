@@ -1,3 +1,0 @@
-{
-  return invokeInt(callingConvention,convertArgs(new Object[]{arg})) == 0 ? false : true;
-}

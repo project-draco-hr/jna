@@ -1,0 +1,6 @@
+{
+  this.active=active;
+  if (dropTarget != null) {
+    dropTarget.setActive(active);
+  }
+}

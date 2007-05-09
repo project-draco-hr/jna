@@ -1,0 +1,31 @@
+{
+  if (!isWindowAlphaSupported()) {
+    System.err.println("Window alpha not supported");
+    return;
+  }
+  whenDisplayable(w,new Runnable(){
+    public void run(){
+      Pointer hWnd=getHWnd(w);
+      User32 user=User32.INSTANCE;
+      int flags=user.GetWindowLongA(hWnd,User32.GWL_EXSTYLE);
+      if (isTransparent(w)) {
+        BLENDFUNCTION blend=new BLENDFUNCTION();
+        blend.SourceConstantAlpha=(byte)((int)(alpha * 255) & 0xFF);
+        blend.AlphaFormat=User32.AC_SRC_ALPHA;
+        user.UpdateLayeredWindow(hWnd,null,null,null,null,null,0,blend,User32.ULW_ALPHA);
+      }
+ else       if (alpha == 1f) {
+        flags&=~User32.WS_EX_LAYERED;
+        user.SetWindowLongA(hWnd,User32.GWL_EXSTYLE,flags);
+      }
+ else {
+        flags|=User32.WS_EX_LAYERED;
+        user.SetWindowLongA(hWnd,User32.GWL_EXSTYLE,flags);
+        byte level=(byte)((int)(255 * alpha) & 0xFF);
+        user.SetLayeredWindowAttributes(hWnd,0,level,User32.LWA_ALPHA);
+      }
+      setForceHeavyweightPopups(w,alpha != 1f);
+    }
+  }
+);
+}

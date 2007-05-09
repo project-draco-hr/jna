@@ -1,0 +1,30 @@
+{
+  Runnable action=new Runnable(){
+    public void run(){
+      X11 x11=X11.INSTANCE;
+      Xext ext=Xext.INSTANCE;
+      Pointer dpy=x11.XOpenDisplay(null);
+      if (dpy == null)       return;
+      int pm=X11.None;
+      try {
+        int win=getDrawable(w);
+        pm=createBitmap(dpy,win,w,raster);
+        if (pm == X11.None) {
+          return;
+        }
+        int ShapeBounding=0;
+        int ShapeSet=0;
+        ext.XShapeCombineMask(dpy,win,ShapeBounding,0,0,pm,ShapeSet);
+      }
+  finally {
+        if (pm != X11.None) {
+          x11.XFreePixmap(dpy,pm);
+        }
+        x11.XCloseDisplay(dpy);
+      }
+      setForceHeavyweightPopups(w,raster != null);
+    }
+  }
+;
+  whenDisplayable(w,action);
+}

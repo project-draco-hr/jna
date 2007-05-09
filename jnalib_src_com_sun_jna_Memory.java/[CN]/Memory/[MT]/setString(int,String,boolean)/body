@@ -1,0 +1,9 @@
+{
+  if (wide) {
+    boundsCheck(offset,(value.toCharArray().length + 1) * 2);
+  }
+ else {
+    boundsCheck(offset,value.getBytes().length + 1);
+  }
+  super.setString(offset,value,wide);
+}

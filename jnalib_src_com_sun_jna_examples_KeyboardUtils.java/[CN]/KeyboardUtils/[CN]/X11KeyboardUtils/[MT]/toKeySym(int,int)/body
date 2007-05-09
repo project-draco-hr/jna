@@ -1,0 +1,21 @@
+{
+  if (code >= KeyEvent.VK_A && code <= KeyEvent.VK_Z)   return X11.XK_a + (code - KeyEvent.VK_A);
+  if (code >= KeyEvent.VK_0 && code <= KeyEvent.VK_9)   return X11.XK_0 + (code - KeyEvent.VK_0);
+  if (code == KeyEvent.VK_SHIFT) {
+    if ((location & KeyEvent.KEY_LOCATION_RIGHT) != 0)     return X11.XK_Shift_R;
+    return X11.XK_Shift_L;
+  }
+  if (code == KeyEvent.VK_CONTROL) {
+    if ((location & KeyEvent.KEY_LOCATION_RIGHT) != 0)     return X11.XK_Control_R;
+    return X11.XK_Control_L;
+  }
+  if (code == KeyEvent.VK_ALT) {
+    if ((location & KeyEvent.KEY_LOCATION_RIGHT) != 0)     return X11.XK_Alt_R;
+    return X11.XK_Alt_L;
+  }
+  if (code == KeyEvent.VK_META) {
+    if ((location & KeyEvent.KEY_LOCATION_RIGHT) != 0)     return X11.XK_Meta_R;
+    return X11.XK_Meta_L;
+  }
+  return 0;
+}

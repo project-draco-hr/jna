@@ -1,0 +1,80 @@
+{
+  try {
+    System.setProperty("sun.java2d.noddraw","true");
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+  }
+ catch (  Exception e) {
+  }
+  final JFrame frame=new JFrame("Shaped Window Demo");
+  MouseInputAdapter handler=new MouseInputAdapter(){
+    private Point offset;
+    private void showPopup(    MouseEvent e){
+      final JPopupMenu m=new JPopupMenu();
+      m.add(new AbstractAction("Hide"){
+        public void actionPerformed(        ActionEvent e){
+          frame.setState(JFrame.ICONIFIED);
+        }
+      }
+);
+      m.add(new AbstractAction("Close"){
+        public void actionPerformed(        ActionEvent e){
+          System.exit(0);
+        }
+      }
+);
+      m.pack();
+      m.show(e.getComponent(),e.getX(),e.getY());
+    }
+    public void mousePressed(    MouseEvent e){
+      offset=e.getPoint();
+      if (e.isPopupTrigger()) {
+        showPopup(e);
+      }
+    }
+    public void mouseDragged(    MouseEvent e){
+      if (!SwingUtilities.isLeftMouseButton(e))       return;
+      Point where=e.getPoint();
+      where.translate(-offset.x,-offset.y);
+      Point loc=frame.getLocationOnScreen();
+      loc.translate(where.x,where.y);
+      frame.setLocation(loc.x,loc.y);
+    }
+    public void mouseReleased(    MouseEvent e){
+      if (e.isPopupTrigger()) {
+        showPopup(e);
+      }
+    }
+  }
+;
+  frame.addMouseListener(handler);
+  frame.addMouseMotionListener(handler);
+  ClockFace face=new ClockFace(new Dimension(150,150));
+  frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+  frame.getContentPane().add(face);
+  frame.setUndecorated(true);
+  frame.pack();
+  frame.setLocation(100,100);
+  try {
+    Shape mask=new Area(new Ellipse2D.Float(0,0,150,150));
+    WindowUtils.setWindowMask(frame,mask);
+    WindowUtils.setWindowAlpha(frame,.7f);
+    frame.setIconImage(face.getIconImage());
+    frame.setResizable(false);
+    frame.setVisible(true);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
+ catch (  UnsatisfiedLinkError e) {
+    e.printStackTrace();
+    String msg=e.getMessage() + "\nError loading the JNA library after looking in " + System.getProperty("java.library.path");
+    JTextArea area=new JTextArea(msg);
+    area.setOpaque(false);
+    area.setFont(UIManager.getFont("Label.font"));
+    area.setEditable(false);
+    area.setColumns(80);
+    area.setRows(8);
+    area.setWrapStyleWord(true);
+    area.setLineWrap(true);
+    JOptionPane.showMessageDialog(frame,new JScrollPane(area),"Library Load Error: " + System.getProperty("os.name") + "/"+ System.getProperty("os.arch"),JOptionPane.ERROR_MESSAGE);
+    System.exit(1);
+  }
+}

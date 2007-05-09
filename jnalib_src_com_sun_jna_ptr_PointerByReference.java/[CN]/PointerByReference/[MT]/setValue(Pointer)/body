@@ -1,0 +1,3 @@
+{
+  getPointer().setPointer(0,value);
+}

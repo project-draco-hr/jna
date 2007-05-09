@@ -1,3 +1,9 @@
 {
-  if (off < 0 || off + sz > size)   throw new IndexOutOfBoundsException();
+  if (off < 0) {
+    throw new IndexOutOfBoundsException("Invalid offset: " + off);
+  }
+  if (off + sz > size) {
+    String msg="Bounds exceeds available space : size=" + size + ", offset="+ (off + sz);
+    throw new IndexOutOfBoundsException(msg);
+  }
 }

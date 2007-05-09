@@ -1,0 +1,35 @@
+{
+  super(icon);
+  new DragHandler(this,DnDConstants.ACTION_COPY_OR_MOVE){
+    protected Icon getDragIcon(    DragGestureEvent e,    Point imageOffset){
+      dragging=true;
+      return getIcon();
+    }
+    public void dragDropEnd(    DragSourceDropEvent e){
+      super.dragDropEnd(e);
+      if (e.getDropSuccess() && getDropAction(e) == MOVE) {
+        if (dragging) {
+          setIcon(null);
+          dragging=false;
+        }
+      }
+    }
+    protected Transferable getTransferable(    DragGestureEvent e){
+      ImageIcon icon=(ImageIcon)getIcon();
+      if (icon != null) {
+        return new ImageSelection(icon.getImage());
+      }
+      return null;
+    }
+  }
+;
+  DataFlavor[] flavors=new DataFlavor[]{DataFlavor.imageFlavor};
+  new DropHandler(this,DnDConstants.ACTION_COPY_OR_MOVE,flavors){
+    protected void drop(    DropTargetDropEvent e,    int action) throws UnsupportedFlavorException, IOException {
+      final Image image=(Image)e.getTransferable().getTransferData(DataFlavor.imageFlavor);
+      dragging=false;
+      setIcon(new ImageIcon(image));
+    }
+  }
+;
+}

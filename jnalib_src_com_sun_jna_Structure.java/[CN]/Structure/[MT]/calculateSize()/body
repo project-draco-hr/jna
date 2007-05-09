@@ -1,0 +1,53 @@
+{
+  structAlignment=1;
+  int calculatedSize=0;
+  Field[] fields=getClass().getFields();
+  for (int i=0; i < fields.length; i++) {
+    Field field=fields[i];
+    if ((field.getModifiers() & Modifier.STATIC) != 0)     continue;
+    StructField structField=new StructField();
+    structField.field=field;
+    structField.name=field.getName();
+    structField.type=field.getType();
+    int fieldAlignment=1;
+    if (structField.size < 1) {
+      try {
+        Object value=field.get(this);
+        if (value == null) {
+          Class type=field.getType();
+          if (Structure.class.isAssignableFrom(type)) {
+            try {
+              value=type.newInstance();
+              field.set(this,value);
+            }
+ catch (            InstantiationException e) {
+              String msg="Can't determine size of  nested structure: " + e.getMessage();
+              throw new IllegalArgumentException(msg);
+            }
+          }
+ else           if (type.isArray()) {
+            return -1;
+          }
+        }
+        structField.size=getNativeSize(field.getType(),value);
+        fieldAlignment=getNativeAlignment(field.getType(),value);
+      }
+ catch (      IllegalAccessException e) {
+      }
+    }
+    structAlignment=Math.max(structAlignment,fieldAlignment);
+    if ((calculatedSize % fieldAlignment) != 0) {
+      calculatedSize+=fieldAlignment - (calculatedSize % fieldAlignment);
+    }
+    structField.offset=calculatedSize;
+    calculatedSize+=structField.size;
+    structFields.put(structField.name,structField);
+  }
+  if ((calculatedSize % structAlignment) != 0) {
+    calculatedSize+=structAlignment - (calculatedSize % structAlignment);
+  }
+  if (calculatedSize > 0) {
+    return calculatedSize;
+  }
+  throw new IllegalArgumentException("Structure " + getClass() + " has invalid size (ensure "+ "all fields are public)");
+}

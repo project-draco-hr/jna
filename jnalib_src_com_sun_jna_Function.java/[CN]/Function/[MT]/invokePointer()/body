@@ -1,3 +1,0 @@
-{
-  return invokePointer(callingConvention,NO_ARGS);
-}

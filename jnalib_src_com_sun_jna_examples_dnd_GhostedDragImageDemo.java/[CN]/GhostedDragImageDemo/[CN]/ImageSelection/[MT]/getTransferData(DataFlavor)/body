@@ -1,0 +1,3 @@
+{
+  return isDataFlavorSupported(flavor) ? image : null;
+}

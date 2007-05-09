@@ -1,0 +1,4 @@
+{
+  User32 lib=User32.INSTANCE;
+  return (lib.GetAsyncKeyState(toNative(keycode,location)) & 0x8000) != 0;
+}

@@ -1,0 +1,4 @@
+Component c
+int acceptedActions
+DataFlavor[] acceptedFlavors
+DropTargetPainter painter

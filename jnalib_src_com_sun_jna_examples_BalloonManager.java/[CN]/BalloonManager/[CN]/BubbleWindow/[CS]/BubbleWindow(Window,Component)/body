@@ -1,0 +1,16 @@
+{
+  super(owner);
+  setFocusableWindowState(false);
+  setName("###overrideRedirect###");
+  getContentPane().setBackground(Color.white);
+  getContentPane().add(content,BorderLayout.CENTER);
+  getContentPane().add(Box.createVerticalStrut(Y_OFFSET),BorderLayout.SOUTH);
+  owner.addComponentListener(moveTracker);
+  setSize(getPreferredSize());
+  mask=new Area(getMask(getWidth(),getHeight()));
+  maskSize=getSize();
+  WindowUtils.setWindowMask(BubbleWindow.this,mask);
+  if (useDropShadow()) {
+    new DropShadow(this,mask);
+  }
+}

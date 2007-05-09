@@ -1,3 +1,0 @@
-{
-  return loadLibrary(name,interfaceClass,Function.C_CONVENTION);
-}

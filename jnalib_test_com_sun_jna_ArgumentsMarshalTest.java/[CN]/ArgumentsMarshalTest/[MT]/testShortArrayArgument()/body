@@ -1,0 +1,8 @@
+{
+  short[] buf=new short[1024];
+  final short MAGIC=(short)0xABED;
+  assertEquals("Wrong return value",buf.length,+lib.fillInt16Buffer(buf,buf.length,MAGIC));
+  for (int i=0; i < buf.length; i++) {
+    assertEquals("Bad value at index " + i,MAGIC,buf[i]);
+  }
+}

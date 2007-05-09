@@ -1,6 +1,0 @@
-{
-  if (freed) {
-    throw new IllegalStateException("Structure memory has already been freed");
-  }
-  for (  Structure.Field field : structFields.values())   writeField(field);
-}

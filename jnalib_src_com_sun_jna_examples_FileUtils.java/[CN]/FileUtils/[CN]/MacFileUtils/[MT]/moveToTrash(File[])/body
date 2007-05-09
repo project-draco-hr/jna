@@ -1,0 +1,16 @@
+{
+  File home=new File(System.getProperty("user.home"));
+  File trash=new File(home,".Trash");
+  if (trash.exists()) {
+    boolean success=true;
+    for (int i=0; i < files.length; i++) {
+      File src=files[i];
+      File target=new File(trash,src.getName());
+      if (!src.renameTo(target)) {
+        success=false;
+      }
+    }
+    return success;
+  }
+  return false;
+}

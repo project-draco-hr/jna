@@ -1,0 +1,4 @@
+{
+  assertTrue("True argument should be returned",lib.returnBooleanArgument(true));
+  assertFalse("False argument should be returned",lib.returnBooleanArgument(false));
+}

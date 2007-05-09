@@ -1,0 +1,46 @@
+{
+  final JFrame frame=new JFrame(getName());
+  Pointer p=gdi.CreateRoundRectRgn(0,-150,300,300,300,300);
+  try {
+    final boolean[] click={false};
+    final boolean[] ready={false};
+    frame.getContentPane().add(new JLabel(getName()));
+    frame.pack();
+    frame.setSize(new Dimension(300,300));
+    frame.setLocation(100,100);
+    frame.getContentPane().addMouseListener(new MouseAdapter(){
+      public void mousePressed(      MouseEvent e){
+        click[0]=true;
+      }
+    }
+);
+    frame.getContentPane().addMouseMotionListener(new MouseMotionAdapter(){
+      public void mouseMoved(      MouseEvent e){
+        ready[0]=true;
+      }
+    }
+);
+    Pointer hWnd=lib.FindWindowA(null,getName());
+    assertNotNull("Couldn't find window",hWnd);
+    lib.SetWindowRgn(hWnd,p,true);
+    frame.setResizable(false);
+    frame.setVisible(true);
+    Point where=new Point(frame.getX() + 10,frame.getY() + frame.getHeight() - 10);
+    Robot robot=new Robot();
+    long start=System.currentTimeMillis();
+    while (!ready[0]) {
+      robot.mouseMove(where.x + (int)(Math.random() * 2),frame.getY() + frame.getHeight() / 2);
+      if (System.currentTimeMillis() - start > 5000)       break;
+      Thread.sleep(10);
+    }
+    robot.mouseMove(where.x,where.y);
+    robot.mousePress(InputEvent.BUTTON1_MASK);
+    robot.mouseRelease(InputEvent.BUTTON1_MASK);
+    robot.waitForIdle();
+    assertFalse("Window not reshaped",click[0]);
+  }
+  finally {
+    frame.dispose();
+    gdi.DeleteObject(p);
+  }
+}

@@ -1,0 +1,3 @@
+Pointer dpy
+int parent
+Window w

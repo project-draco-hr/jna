@@ -1,0 +1,20 @@
+{
+switch (action) {
+case MOVE:
+    return "MOVE";
+case MOVE | COPY:
+  return "MOVE|COPY";
+case MOVE | LINK:
+return "MOVE|LINK";
+case MOVE | COPY | LINK:
+return "MOVE|COPY|LINK";
+case COPY:
+return "COPY";
+case COPY | LINK:
+return "COPY|LINK";
+case LINK:
+return "LINK";
+default :
+return "NONE";
+}
+}

@@ -1,0 +1,4 @@
+{
+  this.alpha=alpha=Math.min(1f,Math.max(0f,alpha));
+  update(true,false);
+}

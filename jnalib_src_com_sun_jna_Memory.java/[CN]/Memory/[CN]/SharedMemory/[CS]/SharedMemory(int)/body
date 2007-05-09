@@ -1,0 +1,4 @@
+{
+  this.size=Memory.this.size - offset;
+  this.peer=Memory.this.peer + offset;
+}

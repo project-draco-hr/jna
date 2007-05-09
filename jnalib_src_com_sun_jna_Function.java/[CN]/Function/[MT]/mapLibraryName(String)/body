@@ -1,0 +1,9 @@
+{
+  String name=System.mapLibraryName(libName);
+  if (System.getProperty("os.name").startsWith("Mac")) {
+    if (name.endsWith(".jnilib")) {
+      name=name.substring(0,name.lastIndexOf(".jnilib")) + ".dylib";
+    }
+  }
+  return name;
+}

@@ -1,0 +1,3 @@
+{
+  return Boolean.getBoolean("sun.java2d.noddraw");
+}

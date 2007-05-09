@@ -1,0 +1,5 @@
+{
+  Set set=new HashSet(Arrays.asList(flavors));
+  set.retainAll(acceptedFlavors);
+  return !set.isEmpty();
+}

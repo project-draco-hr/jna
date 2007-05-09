@@ -1,0 +1,3 @@
+{
+  getInstance().setWindowMask(w,mask);
+}

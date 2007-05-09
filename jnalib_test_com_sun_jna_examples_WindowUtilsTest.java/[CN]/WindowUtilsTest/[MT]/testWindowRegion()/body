@@ -1,0 +1,32 @@
+{
+  if (GraphicsEnvironment.isHeadless())   return;
+  Frame root=JOptionPane.getRootFrame();
+  final Window background=new Window(root);
+  background.setBackground(new Color(255,255,255));
+  background.setLocation(X,Y);
+  final JWindow foreground=new JWindow(root);
+  Color fgColor=new Color(0,0,255);
+  foreground.getContentPane().setBackground(fgColor);
+  foreground.setLocation(X,Y);
+  Area mask=new Area(new Rectangle(0,0,W,H));
+  mask.subtract(new Area(new Rectangle(W / 4,H / 4,W / 2,H / 2)));
+  WindowUtils.setWindowMask(foreground,mask);
+  foreground.addMouseListener(handler);
+  foreground.addMouseMotionListener(handler);
+  SwingUtilities.invokeAndWait(new Runnable(){
+    public void run(){
+      background.pack();
+      background.setSize(new Dimension(W,H));
+      background.setVisible(true);
+      foreground.pack();
+      foreground.setSize(new Dimension(W,H));
+      foreground.setVisible(true);
+    }
+  }
+);
+  Point where=new Point(foreground.getX() + W / 2,foreground.getY() + H / 2);
+  Color sample=robot.getPixelColor(where.x,where.y);
+  assertEquals("Background window should show through",background.getBackground(),sample);
+  sample=robot.getPixelColor(where.x - W / 2,where.y - H / 2);
+  assertEquals("Foreground window should show through",fgColor,sample);
+}

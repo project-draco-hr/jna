@@ -1,0 +1,9 @@
+{
+  if ((actions & MOVE) != 0 && actions != MOVE) {
+    return MOVE;
+  }
+ else   if ((actions & COPY) != 0 && actions != COPY) {
+    return COPY;
+  }
+  return actions;
+}

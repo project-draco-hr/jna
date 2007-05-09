@@ -1,0 +1,4 @@
+{
+  if (!w.isDisplayable())   throw new IllegalStateException("Window is not yet displayable");
+  return new Pointer(getWindowHandle0(w));
+}

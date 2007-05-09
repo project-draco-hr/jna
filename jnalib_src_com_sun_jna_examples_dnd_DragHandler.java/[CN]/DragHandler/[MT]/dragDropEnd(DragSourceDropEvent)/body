@@ -1,0 +1,17 @@
+{
+  describe("end",e);
+  setModifiers(UNKNOWN_MODIFIERS);
+  transferable=UNKNOWN_TRANSFERABLE;
+  if (ghost != null) {
+    if (e.getDropSuccess()) {
+      ghost.dispose();
+    }
+ else {
+      ghost.returnToOrigin();
+    }
+    ghost=null;
+  }
+  DragSource src=e.getDragSourceContext().getDragSource();
+  src.removeDragSourceMotionListener(this);
+  moved=false;
+}

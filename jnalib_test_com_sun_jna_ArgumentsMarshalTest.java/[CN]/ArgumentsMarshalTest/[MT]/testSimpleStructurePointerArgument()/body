@@ -1,0 +1,4 @@
+{
+  TestLibrary.CheckFieldAlignment aligned=new TestLibrary.CheckFieldAlignment();
+  assertEquals("Structure data not properly initialized",aligned.size(),lib.testSimpleStructurePointerArgument(aligned));
+}

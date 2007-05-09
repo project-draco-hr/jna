@@ -1,0 +1,18 @@
+{
+  String arch=System.getProperty("os.arch");
+  String os=System.getProperty("os.name");
+  String osPrefix=os;
+  if (os.startsWith("Windows")) {
+    osPrefix="win32-" + arch;
+  }
+ else   if (os.startsWith("Mac")) {
+    osPrefix="darwin-" + arch;
+  }
+ else   if (os.startsWith("Linux")) {
+    osPrefix="linux-" + arch;
+  }
+ else   if (os.startsWith("Solaris") || os.startsWith("SunOS")) {
+    osPrefix="sunos-" + arch;
+  }
+  return "/com/sun/jna/" + osPrefix;
+}

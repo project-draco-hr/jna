@@ -1,0 +1,22 @@
+{
+  final Timer timer=new Timer(SLIDE_INTERVAL,null);
+  timer.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent e){
+      Point location=dragImage.getLocationOnScreen();
+      Point dst=new Point(origin);
+      int dx=(dst.x - location.x) / 2;
+      int dy=(dst.y - location.y) / 2;
+      if (dx != 0 || dy != 0) {
+        location.translate(dx,dy);
+        move(location);
+      }
+ else {
+        timer.stop();
+        dispose();
+      }
+    }
+  }
+);
+  timer.setInitialDelay(0);
+  timer.start();
+}

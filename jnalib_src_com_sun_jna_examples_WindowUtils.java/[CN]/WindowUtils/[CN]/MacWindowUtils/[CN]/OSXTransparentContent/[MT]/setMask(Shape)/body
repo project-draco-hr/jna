@@ -1,0 +1,4 @@
+{
+  this.shape=shape;
+  repaint();
+}

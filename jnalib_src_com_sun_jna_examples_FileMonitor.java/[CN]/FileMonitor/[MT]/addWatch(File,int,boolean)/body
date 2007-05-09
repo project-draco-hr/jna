@@ -1,0 +1,4 @@
+{
+  watched.put(dir,new Integer(mask));
+  watch(dir,mask,recursive);
+}

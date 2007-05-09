@@ -1,0 +1,4 @@
+{
+  assertEquals("Expect float zero",0f,lib.returnFloatZero(),0d);
+  assertEquals("Expect float magic",FLOAT_MAGIC,lib.returnFloatMagic(),0d);
+}

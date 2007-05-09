@@ -1,9 +1,0 @@
-{
-  struct=null;
-  if (!freed) {
-    freed=true;
-    getMemory().free();
-    for (    NativeString string : allocatedStrings.values())     string.free();
-    allocatedStrings.clear();
-  }
-}

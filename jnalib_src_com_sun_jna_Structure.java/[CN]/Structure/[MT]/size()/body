@@ -1,3 +1,6 @@
 {
+  if (size == -1) {
+    allocateMemory();
+  }
   return size;
 }

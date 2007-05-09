@@ -1,0 +1,12 @@
+{
+switch (actualAction) {
+case MOVE:
+    return DragSource.DefaultMoveDrop;
+case COPY:
+  return DragSource.DefaultCopyDrop;
+case LINK:
+return DragSource.DefaultLinkDrop;
+default :
+return DragSource.DefaultMoveNoDrop;
+}
+}

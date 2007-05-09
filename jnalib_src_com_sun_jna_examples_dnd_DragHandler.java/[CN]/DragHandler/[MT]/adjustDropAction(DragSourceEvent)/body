@@ -1,0 +1,13 @@
+{
+  int action=getDropAction(ev);
+  if (ev instanceof DragSourceDragEvent) {
+    DragSourceDragEvent e=(DragSourceDragEvent)ev;
+    if (action == NONE) {
+      int mods=e.getGestureModifiersEx() & KEY_MASK;
+      if (mods == 0) {
+        action=getAcceptableDropAction(e.getTargetActions());
+      }
+    }
+  }
+  return action;
+}

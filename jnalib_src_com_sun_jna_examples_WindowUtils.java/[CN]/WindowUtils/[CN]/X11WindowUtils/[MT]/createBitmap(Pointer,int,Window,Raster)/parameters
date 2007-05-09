@@ -1,0 +1,4 @@
+Pointer dpy
+int win
+Window w
+Raster raster

@@ -1,0 +1,8 @@
+{
+  int[] buf=new int[1024];
+  final int MAGIC=0xABEDCF23;
+  assertEquals("Wrong return value",buf.length,+lib.fillInt32Buffer(buf,buf.length,MAGIC));
+  for (int i=0; i < buf.length; i++) {
+    assertEquals("Bad value at index " + i,MAGIC,buf[i]);
+  }
+}

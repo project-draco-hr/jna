@@ -1,8 +1,8 @@
 {
-  super();
+  checkCallingConvention(callingConvention);
   this.libraryName=libraryName;
   this.functionName=functionName;
-  checkCallingConvention(callingConvention);
   this.callingConvention=callingConvention;
-  peer=find(libraryName,functionName);
+  String libPath=getAbsoluteLibraryPath(libraryName);
+  peer=find(libPath,functionName);
 }

@@ -1,0 +1,18 @@
+{
+  whenDisplayable(w,new Runnable(){
+    public void run(){
+      GDI32 gdi=GDI32.INSTANCE;
+      User32 user=User32.INSTANCE;
+      Pointer hWnd=getHWnd(w);
+      Pointer p=raster == null ? gdi.CreateRectRgn(0,0,w.getWidth(),w.getHeight()) : createRegion(raster);
+      try {
+        user.SetWindowRgn(hWnd,p,true);
+      }
+  finally {
+        gdi.DeleteObject(p);
+      }
+      setForceHeavyweightPopups(w,raster != null);
+    }
+  }
+);
+}

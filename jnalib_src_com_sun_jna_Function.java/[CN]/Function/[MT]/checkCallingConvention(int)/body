@@ -1,5 +1,9 @@
 {
-  if (convention != C_CONVENTION && convention != STDCALL_CONVENTION) {
-    throw new IllegalArgumentException("Unrecognized calling convention");
-  }
+switch (convention) {
+case C_CONVENTION:
+case ALT_CONVENTION:
+    break;
+default :
+  throw new IllegalArgumentException("Unrecognized calling convention: " + convention);
+}
 }

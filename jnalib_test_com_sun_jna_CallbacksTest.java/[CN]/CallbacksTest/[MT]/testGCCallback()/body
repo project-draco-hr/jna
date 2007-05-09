@@ -1,0 +1,22 @@
+{
+  final boolean[] called={false};
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      called[0]=true;
+    }
+  }
+;
+  lib.callVoidCallback(cb);
+  assertTrue("Callback not called",called[0]);
+  Map refs=Library.Handler.callbackMap;
+  assertTrue("Callback not cached",refs.containsKey(cb));
+  CallbackReference ref=(CallbackReference)refs.get(cb);
+  Pointer cbstruct=ref.cbstruct;
+  cb=null;
+  System.gc();
+  assertNull("Callback not GC'd",ref.get());
+  assertFalse("Callback still in map",refs.containsValue(ref));
+  ref=null;
+  System.gc();
+  assertEquals("Callback trampoline not freed",0,cbstruct.peer);
+}

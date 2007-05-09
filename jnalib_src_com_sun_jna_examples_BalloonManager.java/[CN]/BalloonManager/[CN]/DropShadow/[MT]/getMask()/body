@@ -1,0 +1,9 @@
+{
+  Area area=new Area(parentMask);
+  Area clip=new Area(parentMask);
+  AffineTransform tx=new AffineTransform();
+  tx.translate(-OFFSET.x,-OFFSET.y);
+  clip.transform(tx);
+  area.subtract(clip);
+  return area;
+}

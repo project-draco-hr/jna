@@ -1,0 +1,7 @@
+{
+  if (w instanceof RootPaneContainer) {
+    JRootPane root=((RootPaneContainer)w).getRootPane();
+    return root.getClientProperty(TRANSPARENT_OLD_BG) != null;
+  }
+  return false;
+}

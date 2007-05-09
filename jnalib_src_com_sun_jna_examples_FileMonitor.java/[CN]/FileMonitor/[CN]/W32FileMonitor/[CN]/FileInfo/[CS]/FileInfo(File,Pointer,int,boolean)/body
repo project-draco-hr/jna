@@ -1,0 +1,6 @@
+{
+  this.file=f;
+  this.handle=h;
+  this.notifyMask=mask;
+  this.recursive=recurse;
+}

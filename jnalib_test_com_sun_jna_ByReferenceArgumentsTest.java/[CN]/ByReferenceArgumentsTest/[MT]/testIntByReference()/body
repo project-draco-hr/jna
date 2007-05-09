@@ -1,0 +1,5 @@
+{
+  IntByReference iref=new IntByReference();
+  lib.incrementInt32ByReference(iref);
+  assertEquals("Int argument not modified",1,iref.getValue());
+}

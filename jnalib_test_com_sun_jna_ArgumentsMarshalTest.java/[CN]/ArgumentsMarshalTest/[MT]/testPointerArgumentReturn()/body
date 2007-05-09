@@ -1,0 +1,5 @@
+{
+  assertEquals("Expect null pointer",null,lib.returnPointerArgument(null));
+  Structure s=new TestLibrary.CheckFieldAlignment();
+  assertEquals("Expect structure pointer",s.getPointer(),lib.returnPointerArgument(s.getPointer()));
+}

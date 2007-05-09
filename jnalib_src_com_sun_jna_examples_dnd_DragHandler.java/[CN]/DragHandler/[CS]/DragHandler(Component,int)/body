@@ -1,0 +1,30 @@
+{
+  this.dragSource=dragSource;
+  this.supportedActions=actions;
+  try {
+    String alpha=System.getProperty("DragHandler.alpha");
+    if (alpha != null) {
+      try {
+        ghostAlpha=Float.parseFloat(alpha);
+      }
+ catch (      NumberFormatException e) {
+      }
+    }
+    String max=System.getProperty("DragHandler.maxDragImageSize");
+    if (max != null) {
+      String[] size=max.split("x");
+      if (size.length == 2) {
+        try {
+          maxGhostSize=new Dimension(Integer.parseInt(size[0]),Integer.parseInt(size[1]));
+        }
+ catch (        NumberFormatException e) {
+        }
+      }
+    }
+  }
+ catch (  SecurityException e) {
+  }
+  disableSwingDragSupport(dragSource);
+  DragSource src=DragSource.getDefaultDragSource();
+  src.createDefaultDragGestureRecognizer(dragSource,supportedActions,this);
+}

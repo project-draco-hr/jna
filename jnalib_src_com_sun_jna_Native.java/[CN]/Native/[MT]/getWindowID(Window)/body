@@ -1,0 +1,9 @@
+{
+  if (!w.isDisplayable())   throw new IllegalStateException("Window is not yet displayable");
+  if (System.getProperty("java.version").matches("^1\\.4\\..*")) {
+    if (!w.isVisible()) {
+      throw new IllegalStateException("Window is not yet visible");
+    }
+  }
+  return getWindowHandle0(w);
+}

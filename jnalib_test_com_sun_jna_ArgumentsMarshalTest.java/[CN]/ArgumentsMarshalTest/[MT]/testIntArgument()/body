@@ -1,0 +1,10 @@
+{
+  int value=0;
+  assertEquals("Should return 32-bit argument",value,lib.returnInt32Argument(value));
+  value=1;
+  assertEquals("Should return 32-bit argument",value,lib.returnInt32Argument(value));
+  value=0x7FFFFFFF;
+  assertEquals("Should return 32-bit argument",value,lib.returnInt32Argument(value));
+  value=0x80000000;
+  assertEquals("Should return 32-bit argument",value,lib.returnInt32Argument(value));
+}

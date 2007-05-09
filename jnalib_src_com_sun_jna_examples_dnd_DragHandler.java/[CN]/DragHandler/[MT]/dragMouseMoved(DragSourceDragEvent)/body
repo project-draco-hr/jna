@@ -1,0 +1,8 @@
+{
+  describe("move",e);
+  if (ghost != null) {
+    ghost.move(getImageLocation(e.getLocation()));
+  }
+  if (moved)   updateCursor(e);
+  moved=true;
+}

@@ -1,0 +1,15 @@
+{
+synchronized (Function.class) {
+    if (sys_paths == null) {
+      sys_paths=initPaths("sun.boot.library.path");
+      usr_paths=initPaths("java.library.path");
+      jna_paths=initPaths("jna.library.path");
+    }
+  }
+  String name=mapLibraryName(libName);
+  String path=findPath(sys_paths,name);
+  if (path != null)   return path;
+  if ((path=findPath(usr_paths,name)) != null)   return path;
+  if ((path=findPath(jna_paths,name)) != null)   return path;
+  return libName;
+}

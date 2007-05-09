@@ -1,4 +1,0 @@
-{
-  if (allocatedMemory)   ((Memory)pointer).free();
-  pointer=null;
-}

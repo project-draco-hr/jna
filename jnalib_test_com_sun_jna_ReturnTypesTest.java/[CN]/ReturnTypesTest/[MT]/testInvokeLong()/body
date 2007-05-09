@@ -1,0 +1,4 @@
+{
+  assertEquals("Expect 64-bit zero",0L,lib.returnInt64Zero());
+  assertEquals("Expect 64-bit magic","123456789abcdef0",Long.toHexString(lib.returnInt64Magic()));
+}

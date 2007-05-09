@@ -1,0 +1,3 @@
+{
+  return isPressed(keycode,KeyEvent.KEY_LOCATION_UNKNOWN);
+}

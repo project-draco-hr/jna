@@ -1,0 +1,21 @@
+{
+  final Point origin=owner == null ? new Point(0,0) : owner.getLocationOnScreen();
+  final Window parent=owner != null ? SwingUtilities.getWindowAncestor(owner) : null;
+  origin.translate(x,y);
+  return new Popup(){
+    private BubbleWindow w;
+    public void show(){
+      w=new BubbleWindow(parent,content);
+      w.pack();
+      Point where=new Point(origin);
+      where.translate(-w.getWidth() / 3,-w.getHeight());
+      w.setAnchorLocation(where.x,where.y);
+      w.setVisible(true);
+    }
+    public void hide(){
+      w.setVisible(false);
+      w.dispose();
+    }
+  }
+;
+}

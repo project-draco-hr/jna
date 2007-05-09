@@ -1,6 +1,11 @@
 {
   if (freed) {
-    throw new IllegalStateException("Structure memory has already been freed");
+    throw new IllegalStateException("Memory has been freed");
   }
-  for (  Structure.Field field : structFields.values())   writeField(field);
+  if (size == -1) {
+    allocateMemory();
+  }
+  for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
+    writeField((StructField)i.next());
+  }
 }

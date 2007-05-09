@@ -1,3 +1,0 @@
-{
-  return invokeString(convertArgs(new Object[]{arg}));
-}

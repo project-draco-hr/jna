@@ -1,0 +1,6 @@
+{
+  if (origin == null) {
+    origin=screenLocation;
+  }
+  dragImage.setLocation(screenLocation.x,screenLocation.y);
+}

@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,sz);
+  return new SharedMemory(offset);
+}

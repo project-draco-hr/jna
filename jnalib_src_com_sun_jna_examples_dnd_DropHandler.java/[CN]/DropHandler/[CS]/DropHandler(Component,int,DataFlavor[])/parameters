@@ -1,0 +1,3 @@
+Component c
+int acceptedActions
+DataFlavor[] acceptedFlavors

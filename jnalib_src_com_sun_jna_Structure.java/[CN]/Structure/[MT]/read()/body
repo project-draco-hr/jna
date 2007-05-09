@@ -1,6 +1,20 @@
 {
   if (freed) {
-    throw new IllegalStateException("Structure memory has already been freed");
+    throw new IllegalStateException("No structure memory is available");
   }
-  for (  Structure.Field field : structFields.values())   readField(field);
+  for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
+    StructField f=(StructField)i.next();
+    if (Structure.class.isAssignableFrom(f.type)) {
+      try {
+        Structure s=(Structure)f.field.get(this);
+        s.useMemory(memory,f.offset);
+        s.read();
+      }
+ catch (      IllegalAccessException e) {
+      }
+    }
+ else {
+      readField(f);
+    }
+  }
 }

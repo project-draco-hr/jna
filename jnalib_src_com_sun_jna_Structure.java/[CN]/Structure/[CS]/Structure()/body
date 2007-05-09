@@ -1,6 +1,3 @@
 {
-  super();
-  analyze(this.getClass());
-  memory=new Memory(size);
-  struct=this;
+  this(CALCULATE_SIZE);
 }

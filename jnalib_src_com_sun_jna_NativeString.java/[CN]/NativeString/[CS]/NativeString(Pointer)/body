@@ -1,4 +1,3 @@
 {
-  super();
-  this.pointer=pointer;
+  this(pointer,false);
 }

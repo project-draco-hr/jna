@@ -1,5 +1,0 @@
-{
-  Library.Handler handler=new Library.Handler(name,interfaceClass,callingConvention);
-  I proxy=(I)Proxy.newProxyInstance(loader,new Class[]{interfaceClass},handler);
-  return proxy;
-}

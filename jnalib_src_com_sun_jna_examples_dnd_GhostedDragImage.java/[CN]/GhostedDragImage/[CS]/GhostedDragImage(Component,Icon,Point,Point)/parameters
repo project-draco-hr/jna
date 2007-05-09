@@ -1,0 +1,4 @@
+Component dragSource
+Icon icon
+Point initialScreenLoc
+Point cursorOffset

@@ -1,0 +1,10 @@
+{
+class TestStructure extends Structure {
+    public byte b;
+    public short s;
+    public int i;
+    public long j;
+  }
+  Structure s=new TestStructure();
+  assertEquals("Wrong size",16,s.size());
+}

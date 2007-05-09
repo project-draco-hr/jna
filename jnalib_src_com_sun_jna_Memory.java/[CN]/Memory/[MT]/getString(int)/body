@@ -1,4 +1,0 @@
-{
-  boundsCheck(offset,0);
-  return super.getString(offset);
-}

@@ -1,0 +1,6 @@
+{
+  String os=System.getProperty("os.name");
+  if (os.startsWith("Windows"))   updateW32(a,i);
+ else   if (os.startsWith("Linux"))   updateX11(a,i);
+ else   if (os.startsWith("Mac"))   updateMac(a,i);
+}

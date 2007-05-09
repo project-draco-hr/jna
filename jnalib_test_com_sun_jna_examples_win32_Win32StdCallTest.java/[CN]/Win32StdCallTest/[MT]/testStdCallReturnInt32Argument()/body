@@ -1,0 +1,5 @@
+{
+  final int MAGIC=0x12345678;
+  assertEquals("Expect zero return",0,testlib.returnInt32ArgumentStdCall(0));
+  assertEquals("Expect magic return",MAGIC,testlib.returnInt32ArgumentStdCall(MAGIC));
+}

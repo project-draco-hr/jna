@@ -1,0 +1,5 @@
+{
+  LongByReference lref=new LongByReference();
+  lib.incrementInt64ByReference(lref);
+  assertEquals("Long argument not modified",1,lref.getValue());
+}
