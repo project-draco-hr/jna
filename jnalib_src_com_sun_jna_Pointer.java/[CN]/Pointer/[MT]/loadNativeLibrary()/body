@@ -52,15 +52,12 @@
   }
   String os=System.getProperty("os.name");
   if (os.startsWith("Windows")) {
-    try {
-      System.loadLibrary("awt");
-    }
- catch (    UnsatisfiedLinkError e) {
-    }
+    Toolkit.getDefaultToolkit();
     try {
       System.loadLibrary("jawt");
     }
  catch (    UnsatisfiedLinkError e) {
+      e.printStackTrace();
     }
   }
   System.load(lib.getAbsolutePath());
