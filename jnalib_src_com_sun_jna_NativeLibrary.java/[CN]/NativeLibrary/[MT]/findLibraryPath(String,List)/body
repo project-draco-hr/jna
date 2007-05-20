@@ -1,0 +1,13 @@
+{
+  if (new File(libName).isAbsolute()) {
+    return libName;
+  }
+  String name=mapLibraryName(libName);
+  for (Iterator it=searchPath.iterator(); it.hasNext(); ) {
+    File file=new File(new File((String)it.next()),name);
+    if (file.exists()) {
+      return file.getAbsolutePath();
+    }
+  }
+  return name;
+}

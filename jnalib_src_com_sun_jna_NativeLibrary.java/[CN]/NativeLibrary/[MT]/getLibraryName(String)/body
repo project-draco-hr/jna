@@ -1,0 +1,15 @@
+{
+  String simplified=libraryName;
+  final String BASE="---";
+  String template=mapLibraryName(BASE);
+  int prefix=template.indexOf(BASE);
+  if (prefix != 0) {
+    simplified=simplified.substring(prefix);
+  }
+  String end=template.substring(prefix + BASE.length());
+  int suffix=simplified.indexOf(end);
+  if (suffix != -1) {
+    simplified=simplified.substring(0,suffix);
+  }
+  return simplified;
+}

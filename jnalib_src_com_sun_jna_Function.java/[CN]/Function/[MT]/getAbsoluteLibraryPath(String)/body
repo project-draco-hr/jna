@@ -1,8 +1,0 @@
-{
-  String path=(String)libraries.get(libName);
-  if (path == null) {
-    path=findLibrary(libName);
-    libraries.put(libName,path);
-  }
-  return path;
-}

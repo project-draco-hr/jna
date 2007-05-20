@@ -1,0 +1,4 @@
+{
+  String[] paths=System.getProperty(key,"").split(File.pathSeparator);
+  return Arrays.asList(paths);
+}

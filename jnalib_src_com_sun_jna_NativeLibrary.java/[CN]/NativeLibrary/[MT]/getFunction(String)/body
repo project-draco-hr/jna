@@ -1,0 +1,3 @@
+{
+  return getFunction(functionName,Function.C_CONVENTION);
+}

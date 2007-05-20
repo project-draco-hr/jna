@@ -1,0 +1,23 @@
+{
+  this.libraryName=getLibraryName(libraryName);
+  List searchPath=new LinkedList(librarySearchPath);
+  List customPaths=(List)searchPaths.get(libraryName);
+  if (customPaths != null) {
+synchronized (customPaths) {
+      searchPath.addAll(0,customPaths);
+    }
+  }
+  libraryPath=findLibraryPath(libraryName,searchPath);
+  handle=open(libraryPath);
+  if (handle == 0) {
+    if (Platform.isLinux()) {
+      libraryPath=matchLibrary(libraryName,searchPath);
+      if (libraryPath != null) {
+        handle=open(libraryPath);
+      }
+    }
+    if (handle == 0) {
+      throw new UnsatisfiedLinkError("Unable to load library '" + libraryName + "'");
+    }
+  }
+}

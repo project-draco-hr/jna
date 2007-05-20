@@ -1,0 +1,7 @@
+{
+  long func=findSymbol(handle,functionName);
+  if (func == 0) {
+    throw new UnsatisfiedLinkError("Cannot locate function '" + functionName + "'");
+  }
+  return func;
+}

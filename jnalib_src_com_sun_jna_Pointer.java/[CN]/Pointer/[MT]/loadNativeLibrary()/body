@@ -50,8 +50,7 @@
       }
     }
   }
-  String os=System.getProperty("os.name");
-  if (os.startsWith("Windows")) {
+  if (Platform.isWindows()) {
     Toolkit.getDefaultToolkit();
     try {
       System.loadLibrary("jawt");

@@ -1,0 +1,3 @@
+{
+  return !Platform.isWindows() && !Platform.isMac();
+}

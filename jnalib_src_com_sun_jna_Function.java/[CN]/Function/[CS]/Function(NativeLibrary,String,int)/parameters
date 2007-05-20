@@ -1,0 +1,3 @@
+NativeLibrary library
+String functionName
+int callingConvention

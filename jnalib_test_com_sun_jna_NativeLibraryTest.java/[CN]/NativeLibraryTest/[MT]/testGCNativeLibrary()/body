@@ -1,0 +1,12 @@
+{
+  NativeLibrary lib=NativeLibrary.getInstance("testlib");
+  WeakReference ref=new WeakReference(lib);
+  lib=null;
+  System.gc();
+  long start=System.currentTimeMillis();
+  while (ref.get() != null) {
+    Thread.sleep(10);
+    if (System.currentTimeMillis() - start > 5000)     break;
+  }
+  assertNull("Library not GC'd",ref.get());
+}

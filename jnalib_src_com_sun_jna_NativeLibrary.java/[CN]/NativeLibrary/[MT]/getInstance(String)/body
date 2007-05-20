@@ -1,0 +1,14 @@
+{
+synchronized (libraries) {
+    WeakReference ref=(WeakReference)libraries.get(libraryName);
+    NativeLibrary library=ref != null ? (NativeLibrary)ref.get() : null;
+    if (library == null) {
+      library=new NativeLibrary(libraryName);
+      ref=new WeakReference(library);
+      libraries.put(library.getName(),ref);
+      libraries.put(library.getFile().getAbsolutePath(),ref);
+      libraries.put(library.getFile().getName(),ref);
+    }
+    return library;
+  }
+}
