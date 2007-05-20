@@ -1,0 +1,4 @@
+{
+  super(callback);
+  this.cbstruct=cbstruct;
+}

@@ -8,7 +8,7 @@
 ;
   lib.callVoidCallback(cb);
   assertTrue("Callback not called",called[0]);
-  Map refs=Library.Handler.callbackMap;
+  Map refs=CallbackReference.callbackMap;
   assertTrue("Callback not cached",refs.containsKey(cb));
   CallbackReference ref=(CallbackReference)refs.get(cb);
   Pointer cbstruct=ref.cbstruct;

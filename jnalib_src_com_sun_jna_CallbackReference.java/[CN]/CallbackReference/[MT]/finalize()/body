@@ -1,0 +1,4 @@
+{
+  Function.freeCallback(cbstruct.peer);
+  cbstruct.peer=0;
+}

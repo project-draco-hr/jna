@@ -1,0 +1,12 @@
+{
+  Map map=callingConvention == Function.ALT_CONVENTION ? altCallbackMap : callbackMap;
+synchronized (map) {
+    CallbackReference cbref=(CallbackReference)map.get(callback);
+    if (cbref == null) {
+      Pointer cbstruct=createCallback(callback,callingConvention);
+      cbref=new CallbackReference(callback,cbstruct);
+      map.put(callback,cbref);
+    }
+    return cbref;
+  }
+}

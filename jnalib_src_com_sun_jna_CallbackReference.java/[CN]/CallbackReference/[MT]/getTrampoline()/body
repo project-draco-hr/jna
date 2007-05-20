@@ -1,0 +1,3 @@
+{
+  return cbstruct.getPointer(0);
+}

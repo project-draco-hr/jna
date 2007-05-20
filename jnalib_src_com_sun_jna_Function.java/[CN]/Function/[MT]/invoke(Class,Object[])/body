@@ -1,0 +1,95 @@
+{
+  Object result=null;
+  Object[] args={};
+  if (inArgs != null) {
+    args=new Object[inArgs.length];
+    System.arraycopy(inArgs,0,args,0,args.length);
+  }
+  for (int i=0; i < args.length; i++) {
+    Object arg=args[i];
+    if (arg == null || (arg.getClass().isArray() && arg.getClass().getComponentType().isPrimitive())) {
+      continue;
+    }
+    if (arg instanceof Structure) {
+      Structure struct=(Structure)arg;
+      struct.write();
+      args[i]=struct.getPointer();
+    }
+ else     if (arg instanceof ByReference) {
+      args[i]=((ByReference)arg).getPointer();
+    }
+ else     if (arg instanceof Callback) {
+      CallbackReference cbref=CallbackReference.getInstance((Callback)arg,callingConvention);
+      args[i]=cbref.getTrampoline();
+    }
+ else     if (arg instanceof String) {
+      args[i]=new NativeString((String)arg,false).getPointer();
+    }
+ else     if (arg instanceof WString) {
+      args[i]=new NativeString(arg.toString(),true).getPointer();
+    }
+ else     if (arg instanceof Boolean) {
+      args[i]=new Integer(Boolean.TRUE.equals(arg) ? -1 : 0);
+    }
+ else     if (arg.getClass().isArray()) {
+      throw new IllegalArgumentException("Unsupported array type: " + arg.getClass());
+    }
+  }
+  if (returnType == Void.TYPE || returnType == Void.class) {
+    invokeVoid(callingConvention,args);
+  }
+ else   if (returnType == Boolean.TYPE || returnType == Boolean.class) {
+    result=new Boolean(invokeInt(callingConvention,args) != 0);
+  }
+ else   if (returnType == Byte.TYPE || returnType == Byte.class) {
+    result=new Byte((byte)invokeInt(callingConvention,args));
+  }
+ else   if (returnType == Short.TYPE || returnType == Short.class) {
+    result=new Short((short)invokeInt(callingConvention,args));
+  }
+ else   if (returnType == Integer.TYPE || returnType == Integer.class) {
+    result=new Integer(invokeInt(callingConvention,args));
+  }
+ else   if (returnType == Long.TYPE || returnType == Long.class) {
+    result=new Long(invokeLong(callingConvention,args));
+  }
+ else   if (returnType == Float.TYPE || returnType == Float.class) {
+    result=new Float(invokeFloat(callingConvention,args));
+  }
+ else   if (returnType == Double.TYPE || returnType == Double.class) {
+    result=new Double(invokeDouble(callingConvention,args));
+  }
+ else   if (returnType == String.class) {
+    result=invokeString(args,false);
+  }
+ else   if (returnType == WString.class) {
+    result=new WString(invokeString(args,true));
+  }
+ else   if (Pointer.class.isAssignableFrom(returnType)) {
+    result=invokePointer(callingConvention,args);
+  }
+ else   if (Structure.class.isAssignableFrom(returnType)) {
+    result=invokePointer(callingConvention,args);
+    try {
+      Structure s=(Structure)returnType.newInstance();
+      s.useMemory((Pointer)result);
+      s.read();
+      result=s;
+    }
+ catch (    Exception e) {
+      throw new IllegalArgumentException("Can't instantiate " + returnType + ": "+ e);
+    }
+  }
+ else {
+    throw new IllegalArgumentException("Unsupported return type " + returnType);
+  }
+  if (inArgs != null) {
+    for (int i=0; i < inArgs.length; i++) {
+      Object arg=inArgs[i];
+      if (arg instanceof Structure) {
+        ((Structure)arg).read();
+      }
+    }
+  }
+  return result;
+}
