@@ -1,7 +1,4 @@
 {
-  if (freed) {
-    throw new IllegalStateException("No structure memory is available");
-  }
   for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
     StructField f=(StructField)i.next();
     if (Structure.class.isAssignableFrom(f.type)) {

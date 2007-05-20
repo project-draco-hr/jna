@@ -1,0 +1,16 @@
+{
+  Memory core=new Memory(10);
+  Pointer shared=core.share(0,5);
+  WeakReference ref=new WeakReference(core);
+  core=null;
+  System.gc();
+  long start=System.currentTimeMillis();
+  assertNotNull("Memory prematurely GC'd",ref.get());
+  shared=null;
+  System.gc();
+  while (ref.get() != null) {
+    if (System.currentTimeMillis() - start > 5000)     break;
+    Thread.sleep(10);
+  }
+  assertNull("Memory not GC'd",ref.get());
+}

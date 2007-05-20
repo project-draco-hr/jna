@@ -1,7 +1,3 @@
 {
-  if (memory instanceof Memory) {
-    ((Memory)memory).free();
-  }
   this.memory=m.share(offset,size());
-  this.freed=false;
 }

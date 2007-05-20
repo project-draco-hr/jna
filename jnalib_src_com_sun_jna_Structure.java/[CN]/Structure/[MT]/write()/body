@@ -1,7 +1,4 @@
 {
-  if (freed) {
-    throw new IllegalStateException("Memory has been freed");
-  }
   if (size == -1) {
     allocateMemory();
   }

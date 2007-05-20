@@ -1,7 +1,0 @@
-{
-  if (memory instanceof Memory) {
-    ((Memory)memory).free();
-  }
-  nativeStrings.clear();
-  freed=true;
-}
