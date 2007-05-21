@@ -1,7 +1,11 @@
 {
+  Object[] fullArgs=null;
   Object result=null;
   Object[] args={};
   if (inArgs != null) {
+    if (inArgs.length > MAX_NARGS) {
+      throw new UnsupportedOperationException("Maximum argument count is " + MAX_NARGS);
+    }
     args=new Object[inArgs.length];
     System.arraycopy(inArgs,0,args,0,args.length);
   }
@@ -76,7 +80,22 @@
       }
     }
  else     if (argClass.isArray()) {
-      throw new IllegalArgumentException("Unsupported array type: " + argClass.getComponentType());
+      if (i == inArgs.length - 1 && fullArgs == null) {
+        Object[] varargs=(Object[])arg;
+        int fixedCount=inArgs.length - 1;
+        int argCount=fixedCount + varargs.length;
+        if (argCount > MAX_NARGS) {
+          throw new UnsupportedOperationException("Maximum argument count is " + MAX_NARGS);
+        }
+        Object[] newArgs=new Object[argCount];
+        System.arraycopy(args,0,newArgs,0,fixedCount);
+        System.arraycopy(varargs,0,newArgs,fixedCount,varargs.length);
+        fullArgs=args=newArgs;
+        --i;
+      }
+ else {
+        throw new IllegalArgumentException("Unsupported array type: " + argClass.getComponentType());
+      }
     }
   }
   if (returnType == Void.TYPE || returnType == Void.class) {
@@ -131,6 +150,7 @@
     throw new IllegalArgumentException("Unsupported return type " + returnType);
   }
   if (inArgs != null) {
+    if (fullArgs != null)     inArgs=fullArgs;
     for (int i=0; i < inArgs.length; i++) {
       Object arg=inArgs[i];
       if (arg == null)       continue;
