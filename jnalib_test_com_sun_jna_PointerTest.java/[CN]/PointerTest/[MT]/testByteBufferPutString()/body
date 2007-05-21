@@ -1,0 +1,7 @@
+{
+  final String MAGIC="magic";
+  Memory m=new Memory(1024);
+  ByteBuffer buf=m.getByteBuffer(0,m.getSize()).order(ByteOrder.nativeOrder());
+  buf.put(MAGIC.getBytes()).put((byte)0).flip();
+  assertEquals("String not written to memory",MAGIC,m.getString(0,false));
+}

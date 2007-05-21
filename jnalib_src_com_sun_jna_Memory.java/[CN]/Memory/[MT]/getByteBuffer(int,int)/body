@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,length);
+  return super.getByteBuffer(offset,length);
+}

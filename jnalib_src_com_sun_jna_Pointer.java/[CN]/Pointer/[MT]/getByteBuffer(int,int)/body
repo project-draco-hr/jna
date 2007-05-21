@@ -1,0 +1,3 @@
+{
+  return getDirectByteBuffer(offset,length).order(ByteOrder.nativeOrder());
+}

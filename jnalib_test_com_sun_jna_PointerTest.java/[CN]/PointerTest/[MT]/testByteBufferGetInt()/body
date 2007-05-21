@@ -1,0 +1,7 @@
+{
+  final int MAGIC=0xABEDCF23;
+  Memory m=new Memory(8);
+  ByteBuffer buf=m.getByteBuffer(0,m.getSize()).order(ByteOrder.nativeOrder());
+  m.setInt(0,MAGIC);
+  assertEquals("Int not read from memory",MAGIC,buf.getInt(0));
+}
