@@ -1,0 +1,3 @@
+{
+  return argClass.isArray() && Structure.class.isAssignableFrom(argClass.getComponentType());
+}
