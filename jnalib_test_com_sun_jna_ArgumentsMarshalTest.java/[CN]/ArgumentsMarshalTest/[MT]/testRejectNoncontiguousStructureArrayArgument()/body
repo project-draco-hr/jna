@@ -1,0 +1,9 @@
+{
+  TestLibrary.CheckFieldAlignment[] block=new TestLibrary.CheckFieldAlignment[]{new TestLibrary.CheckFieldAlignment(),new TestLibrary.CheckFieldAlignment()};
+  try {
+    lib.modifyStructureArray(block,block.length);
+    fail("Library invocation should fail");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}
