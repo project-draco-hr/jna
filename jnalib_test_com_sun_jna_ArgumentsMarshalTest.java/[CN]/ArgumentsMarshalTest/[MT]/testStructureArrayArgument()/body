@@ -1,0 +1,12 @@
+{
+  final int LENGTH=10;
+  TestLibrary.CheckFieldAlignment[] block=new TestLibrary.CheckFieldAlignment[LENGTH];
+  lib.modifyStructureArray(block,block.length);
+  for (int i=0; i < block.length; i++) {
+    assertNotNull("Structure array not initialized at " + i,block[i]);
+    assertEquals("Wrong value for int32 field of structure at " + i,i,block[i].int32Field);
+    assertEquals("Wrong value for int64 field of structure at " + i,i + 1,block[i].int64Field);
+    assertEquals("Wrong value for float field of structure at " + i,i + 2,block[i].floatField,0);
+    assertEquals("Wrong value for double field of structure at " + i,i + 3,block[i].doubleField,0);
+  }
+}
