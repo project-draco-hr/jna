@@ -1,0 +1,13 @@
+{
+  Memory m=new Memory(8);
+  if (NativeLong.SIZE == 4) {
+    final int MAGIC=0xABEDCF23;
+    m.setNativeLong(0,new NativeLong(MAGIC));
+    assertEquals("Native long mismatch",MAGIC,m.getInt(0));
+  }
+ else {
+    final long MAGIC=0x1234567887654321L;
+    m.setNativeLong(0,new NativeLong(MAGIC));
+    assertEquals("Native long mismatch",MAGIC,m.getLong(0));
+  }
+}

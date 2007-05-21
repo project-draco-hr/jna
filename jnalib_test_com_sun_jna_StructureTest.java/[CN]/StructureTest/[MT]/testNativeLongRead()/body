@@ -1,0 +1,19 @@
+{
+class TestStructure extends Structure {
+    public int i;
+    public NativeLong l;
+  }
+  TestStructure s=new TestStructure();
+  if (NativeLong.SIZE == 8) {
+    final long MAGIC=0x1234567887654321L;
+    s.getPointer().setLong(4,MAGIC);
+    s.read();
+    assertEquals("NativeLong field mismatch",MAGIC,s.l.longValue());
+  }
+ else {
+    final int MAGIC=0xABEDCF23;
+    s.getPointer().setInt(4,MAGIC);
+    s.read();
+    assertEquals("NativeLong field mismatch",MAGIC,s.l.intValue());
+  }
+}

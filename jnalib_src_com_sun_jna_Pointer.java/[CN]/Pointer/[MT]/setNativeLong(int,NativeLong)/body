@@ -1,0 +1,8 @@
+{
+  if (SIZE == 8) {
+    setLong(offset,value.longValue());
+  }
+ else {
+    setInt(offset,value.intValue());
+  }
+}

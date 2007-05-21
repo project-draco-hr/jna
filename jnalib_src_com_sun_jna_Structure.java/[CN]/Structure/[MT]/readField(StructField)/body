@@ -17,6 +17,9 @@
  else   if (fieldType == Long.TYPE || fieldType == Long.class) {
     result=new Long(memory.getLong(offset));
   }
+ else   if (fieldType == NativeLong.class) {
+    result=memory.getNativeLong(offset);
+  }
  else   if (fieldType == Float.TYPE || fieldType == Float.class) {
     result=new Float(memory.getFloat(offset));
   }

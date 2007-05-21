@@ -31,6 +31,9 @@
  else   if (fieldType == Long.TYPE || fieldType == Long.class) {
     memory.setLong(offset,((Long)value).longValue());
   }
+ else   if (fieldType == NativeLong.class) {
+    memory.setNativeLong(offset,((NativeLong)value));
+  }
  else   if (fieldType == Float.TYPE || fieldType == Float.class) {
     memory.setFloat(offset,((Float)value).floatValue());
   }

@@ -3,6 +3,10 @@
     structAlignment=Math.max(8,structAlignment);
     return 8;
   }
+ else   if (NativeLong.class == type) {
+    structAlignment=Math.max(NativeLong.SIZE,structAlignment);
+    return NativeLong.SIZE;
+  }
  else   if (double.class == type || Double.class == type) {
     structAlignment=Math.max(8,structAlignment);
     return 8;

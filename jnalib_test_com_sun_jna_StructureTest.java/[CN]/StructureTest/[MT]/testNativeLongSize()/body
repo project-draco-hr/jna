@@ -1,0 +1,7 @@
+{
+class TestStructure extends Structure {
+    public NativeLong l;
+  }
+  Structure s=new TestStructure();
+  assertEquals("Wrong size",NativeLong.SIZE,s.size());
+}
