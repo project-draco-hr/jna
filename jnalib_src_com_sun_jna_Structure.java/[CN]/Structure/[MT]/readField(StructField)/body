@@ -34,6 +34,9 @@
     Pointer p=memory.getPointer(offset);
     result=p != null ? new NativeString(p,true).toString() : null;
   }
+ else   if (Callback.class.isAssignableFrom(fieldType)) {
+    return;
+  }
  else   if (fieldType.isArray()) {
     Class cls=fieldType.getComponentType();
     int length=0;

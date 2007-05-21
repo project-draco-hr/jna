@@ -1,0 +1,12 @@
+{
+  final boolean[] flag={false};
+  final CbStruct s=new CbStruct();
+  s.cb=new Callback(){
+    public void callback(){
+      flag[0]=true;
+    }
+  }
+;
+  CbTest.INSTANCE.callCallbackInStruct(s);
+  assertTrue("Callback not invoked",flag[0]);
+}

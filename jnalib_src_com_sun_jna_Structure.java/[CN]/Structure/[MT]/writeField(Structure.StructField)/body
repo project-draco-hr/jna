@@ -85,6 +85,14 @@
     s.useMemory(memory,offset);
     s.write();
   }
+ else   if (Callback.class.isAssignableFrom(fieldType)) {
+    Pointer p=null;
+    if (value != null) {
+      CallbackReference cbref=CallbackReference.getInstance((Callback)value);
+      p=cbref.getTrampoline();
+    }
+    memory.setPointer(offset,p);
+  }
  else {
     throw new IllegalArgumentException("Field \"" + structField.name + "\" was declared as an "+ "unsupported type \""+ fieldType.getClass()+ "\"");
   }
