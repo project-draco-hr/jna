@@ -1,0 +1,10 @@
+{
+  if (w instanceof RootPaneContainer) {
+    JRootPane root=((RootPaneContainer)w).getRootPane();
+    Byte b=(Byte)root.getClientProperty(TRANSPARENT_ALPHA);
+    if (b != null) {
+      return b.byteValue();
+    }
+  }
+  return (byte)0xFF;
+}
