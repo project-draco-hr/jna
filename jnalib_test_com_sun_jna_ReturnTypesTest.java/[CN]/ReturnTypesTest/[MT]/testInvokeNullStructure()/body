@@ -1,0 +1,4 @@
+{
+  TestStructure s=lib.returnNullTestStructure();
+  assertNull("Expect null structure return",s);
+}
