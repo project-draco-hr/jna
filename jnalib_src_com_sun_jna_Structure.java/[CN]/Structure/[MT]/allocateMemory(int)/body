@@ -2,9 +2,11 @@
   if (size == CALCULATE_SIZE) {
     size=calculateSize();
   }
-  if (size <= 0) {
-    throw new IllegalArgumentException("Size must be greater than zero");
+ else   if (size <= 0) {
+    throw new IllegalArgumentException("Size must be greater than zero: " + size);
   }
-  memory=new Memory(size);
-  this.size=size;
+  if (size != CALCULATE_SIZE) {
+    memory=new Memory(size);
+    this.size=size;
+  }
 }

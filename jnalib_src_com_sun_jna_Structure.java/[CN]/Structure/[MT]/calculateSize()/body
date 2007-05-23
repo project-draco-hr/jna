@@ -29,7 +29,7 @@
             field.set(this,value=new NativeLong(0));
           }
  else           if (type.isArray()) {
-            return -1;
+            return CALCULATE_SIZE;
           }
         }
         structField.size=getNativeSize(field.getType(),value);
