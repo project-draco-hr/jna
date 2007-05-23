@@ -1,5 +1,5 @@
 {
-  ByteBuffer buf=ByteBuffer.allocate(1024 * 8).order(ByteOrder.nativeOrder());
+  ByteBuffer buf=ByteBuffer.allocateDirect(1024 * 8).order(ByteOrder.nativeOrder());
   LongBuffer longBuf=buf.asLongBuffer();
   final long MAGIC=0x1234567887654321L;
   lib.fillInt64Buffer(buf,1024,MAGIC);

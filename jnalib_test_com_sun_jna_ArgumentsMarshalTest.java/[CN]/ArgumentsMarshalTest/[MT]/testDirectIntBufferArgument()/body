@@ -1,5 +1,5 @@
 {
-  ByteBuffer buf=ByteBuffer.allocate(1024 * 4).order(ByteOrder.nativeOrder());
+  ByteBuffer buf=ByteBuffer.allocateDirect(1024 * 4).order(ByteOrder.nativeOrder());
   IntBuffer intBuf=buf.asIntBuffer();
   final int MAGIC=0xABEDCF23;
   lib.fillInt32Buffer(buf,1024,MAGIC);
