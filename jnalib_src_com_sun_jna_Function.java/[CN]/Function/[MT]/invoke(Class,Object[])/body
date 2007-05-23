@@ -82,6 +82,15 @@ catch (        IllegalAccessException e) {
         args[i]=base;
       }
     }
+ else     if (arg instanceof ByteBuffer && !((ByteBuffer)arg).isDirect()) {
+      ByteBuffer buf=(ByteBuffer)arg;
+      if (buf.hasArray()) {
+        args[i]=buf.array();
+      }
+ else {
+        throw new IllegalArgumentException("Unsupported non-direct ByteBuffer with no array");
+      }
+    }
  else     if (argClass.isArray()) {
       if (i == inArgs.length - 1 && fullArgs == null) {
         Object[] varargs=(Object[])arg;
