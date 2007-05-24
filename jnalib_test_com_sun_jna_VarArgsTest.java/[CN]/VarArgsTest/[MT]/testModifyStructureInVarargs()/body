@@ -1,0 +1,5 @@
+{
+  TestStructure[] args=new TestStructure[]{new TestStructure()};
+  TestLibrary.INSTANCE.modifyStructureVarArgs("s",args);
+  assertEquals("Structure memory not read in varargs",MAGIC32,args[0].magic);
+}

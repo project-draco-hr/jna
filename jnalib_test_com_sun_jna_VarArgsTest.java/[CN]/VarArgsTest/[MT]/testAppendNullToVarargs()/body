@@ -1,0 +1,4 @@
+{
+  Integer[] args=new Integer[]{new Integer(1)};
+  assertEquals("No trailing NULL was appended to varargs list",1,TestLibrary.INSTANCE.addInt32VarArgs("dd",args));
+}
