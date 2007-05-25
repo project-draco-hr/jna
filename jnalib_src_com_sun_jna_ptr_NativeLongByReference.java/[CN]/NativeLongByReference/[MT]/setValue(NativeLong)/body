@@ -1,0 +1,3 @@
+{
+  getPointer().setNativeLong(0,value);
+}
