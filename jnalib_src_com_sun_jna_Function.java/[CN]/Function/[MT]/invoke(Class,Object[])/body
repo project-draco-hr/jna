@@ -1,6 +1,16 @@
 {
-  Object[] fullArgs=inArgs;
   Object result=null;
+  if (inArgs != null && inArgs.length > 0) {
+    Object lastArg=inArgs[inArgs.length - 1];
+    if (lastArg != null && lastArg.getClass().isArray() && !isPrimitiveArray(lastArg.getClass())) {
+      Object[] varArgs=(Object[])lastArg;
+      Object[] fullArgs=new Object[inArgs.length + varArgs.length];
+      System.arraycopy(inArgs,0,fullArgs,0,inArgs.length - 1);
+      System.arraycopy(varArgs,0,fullArgs,inArgs.length - 1,varArgs.length);
+      fullArgs[fullArgs.length - 1]=null;
+      inArgs=fullArgs;
+    }
+  }
   Object[] args={};
   if (inArgs != null) {
     if (inArgs.length > MAX_NARGS) {
@@ -92,26 +102,7 @@ catch (        IllegalAccessException e) {
       }
     }
  else     if (argClass.isArray()) {
-      if (i == inArgs.length - 1 && fullArgs == inArgs) {
-        Object[] varargs=(Object[])arg;
-        int fixedCount=inArgs.length - 1;
-        int argCount=fixedCount + varargs.length;
-        if (argCount > MAX_NARGS) {
-          throw new UnsupportedOperationException("Maximum argument count is " + MAX_NARGS);
-        }
-        Object[] newArgs=new Object[argCount + 1];
-        fullArgs=new Object[argCount];
-        System.arraycopy(args,0,newArgs,0,fixedCount);
-        System.arraycopy(fullArgs,0,inArgs,0,fixedCount);
-        System.arraycopy(varargs,0,newArgs,fixedCount,varargs.length);
-        System.arraycopy(varargs,0,fullArgs,fixedCount,varargs.length);
-        newArgs[newArgs.length - 1]=null;
-        args=newArgs;
-        --i;
-      }
- else {
-        throw new IllegalArgumentException("Unsupported array type: " + argClass.getComponentType());
-      }
+      throw new IllegalArgumentException("Unsupported array argument type: " + argClass.getComponentType());
     }
   }
   if (returnType == Void.TYPE || returnType == Void.class) {
@@ -170,9 +161,9 @@ catch (      IllegalAccessException e) {
  else {
     throw new IllegalArgumentException("Unsupported return type " + returnType);
   }
-  if (fullArgs != null) {
-    for (int i=0; i < fullArgs.length; i++) {
-      Object arg=fullArgs[i];
+  if (inArgs != null) {
+    for (int i=0; i < inArgs.length; i++) {
+      Object arg=inArgs[i];
       if (arg == null)       continue;
       if (arg instanceof Structure) {
         ((Structure)arg).read();

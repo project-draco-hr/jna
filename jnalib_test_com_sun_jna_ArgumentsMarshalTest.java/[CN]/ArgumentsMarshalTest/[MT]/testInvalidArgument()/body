@@ -1,0 +1,8 @@
+{
+  try {
+    lib.returnBooleanArgument(this);
+    fail("Unsupported Java objects should be rejected");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}
