@@ -2,7 +2,7 @@
   Object result=null;
   if (inArgs != null && inArgs.length > 0) {
     Object lastArg=inArgs[inArgs.length - 1];
-    if (lastArg != null && lastArg.getClass().isArray() && !isPrimitiveArray(lastArg.getClass())) {
+    if (lastArg != null && lastArg.getClass().isArray() && !String[].class.equals(lastArg.getClass()) && !isPrimitiveArray(lastArg.getClass()) && !isStructureArray(lastArg.getClass())) {
       Object[] varArgs=(Object[])lastArg;
       Object[] fullArgs=new Object[inArgs.length + varArgs.length];
       System.arraycopy(inArgs,0,fullArgs,0,inArgs.length - 1);
@@ -48,6 +48,9 @@
     }
  else     if (arg instanceof Boolean) {
       args[i]=new Integer(Boolean.TRUE.equals(arg) ? -1 : 0);
+    }
+ else     if (String[].class.equals(argClass)) {
+      args[i]=new StringArray((String[])arg);
     }
  else     if (isStructureArray(argClass)) {
       Structure[] ss=(Structure[])arg;

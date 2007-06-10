@@ -1,0 +1,9 @@
+{
+  super((strings.length + 1) * Pointer.SIZE);
+  for (int i=0; i < strings.length; i++) {
+    NativeString ns=new NativeString(strings[i]);
+    natives.add(ns);
+    setPointer(Pointer.SIZE * i,ns.getPointer());
+  }
+  setPointer(Pointer.SIZE * strings.length,null);
+}
