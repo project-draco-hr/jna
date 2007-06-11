@@ -1,6 +1,5 @@
 {
   int offset=structField.offset;
-  Class fieldType=structField.type;
   Object value=null;
   try {
     value=structField.field.get(this);
@@ -8,8 +7,14 @@
  catch (  Exception e) {
     throw new RuntimeException("Exception reading field \"" + structField.name + "\"",e);
   }
-  if (String.class == fieldType || WString.class == fieldType) {
-    boolean wide=fieldType == WString.class;
+  Class nativeType=structField.type;
+  ArgumentConverter converter=structField.writeConverter;
+  if (converter != null) {
+    value=converter.toNative(value);
+    nativeType=value != null ? value.getClass() : Pointer.class;
+  }
+  if (String.class == nativeType || WString.class == nativeType) {
+    boolean wide=nativeType == WString.class;
     if (value != null) {
       NativeString nativeString=new NativeString(value.toString(),wide);
       nativeStrings.put(structField.name,nativeString);
@@ -19,38 +24,38 @@
       value=null;
     }
   }
-  if (fieldType == Byte.TYPE || fieldType == Byte.class) {
+  if (nativeType == byte.class || nativeType == Byte.class) {
     memory.setByte(offset,((Byte)value).byteValue());
   }
- else   if (fieldType == Short.TYPE || fieldType == Short.class) {
+ else   if (nativeType == short.class || nativeType == Short.class) {
     memory.setShort(offset,((Short)value).shortValue());
   }
- else   if (fieldType == Integer.TYPE || fieldType == Integer.class) {
+ else   if (nativeType == int.class || nativeType == Integer.class) {
     memory.setInt(offset,((Integer)value).intValue());
   }
- else   if (fieldType == Long.TYPE || fieldType == Long.class) {
+ else   if (nativeType == long.class || nativeType == Long.class) {
     memory.setLong(offset,((Long)value).longValue());
   }
- else   if (fieldType == NativeLong.class) {
+ else   if (nativeType == NativeLong.class) {
     memory.setNativeLong(offset,((NativeLong)value));
   }
- else   if (fieldType == Float.TYPE || fieldType == Float.class) {
+ else   if (nativeType == float.class || nativeType == Float.class) {
     memory.setFloat(offset,((Float)value).floatValue());
   }
- else   if (fieldType == Double.TYPE || fieldType == Double.class) {
+ else   if (nativeType == double.class || nativeType == Double.class) {
     memory.setDouble(offset,((Double)value).doubleValue());
   }
- else   if (Pointer.class.isAssignableFrom(fieldType)) {
+ else   if (Pointer.class.isAssignableFrom(nativeType)) {
     memory.setPointer(offset,(Pointer)value);
   }
- else   if (fieldType == String.class) {
+ else   if (nativeType == String.class) {
     memory.setPointer(offset,(Pointer)value);
   }
- else   if (fieldType == WString.class) {
+ else   if (nativeType == WString.class) {
     memory.setPointer(offset,(Pointer)value);
   }
- else   if (fieldType.isArray()) {
-    Class cls=fieldType.getComponentType();
+ else   if (nativeType.isArray()) {
+    Class cls=nativeType.getComponentType();
     if (cls == byte.class) {
       byte[] buf=(byte[])value;
       memory.write(offset,buf,0,buf.length);
@@ -83,12 +88,12 @@
       throw new IllegalArgumentException("Inline array of " + cls + " not supported");
     }
   }
- else   if (Structure.class.isAssignableFrom(fieldType)) {
+ else   if (Structure.class.isAssignableFrom(nativeType)) {
     Structure s=(Structure)value;
     s.useMemory(memory,offset);
     s.write();
   }
- else   if (Callback.class.isAssignableFrom(fieldType)) {
+ else   if (Callback.class.isAssignableFrom(nativeType)) {
     Pointer p=null;
     if (value != null) {
       CallbackReference cbref=CallbackReference.getInstance((Callback)value);
@@ -97,6 +102,6 @@
     memory.setPointer(offset,p);
   }
  else {
-    throw new IllegalArgumentException("Field \"" + structField.name + "\" was declared as an "+ "unsupported type \""+ fieldType.getClass()+ "\"");
+    throw new IllegalArgumentException("Field \"" + structField.name + "\" was declared as an "+ "unsupported type \""+ nativeType+ "\"");
   }
 }

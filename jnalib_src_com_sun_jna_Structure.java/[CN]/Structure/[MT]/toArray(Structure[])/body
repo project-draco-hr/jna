@@ -1,10 +1,17 @@
 {
+  if (memory instanceof Memory) {
+    Memory m=(Memory)memory;
+    int requiredSize=array.length * size();
+    if (m.getSize() < requiredSize) {
+      useMemory(new Memory(requiredSize));
+    }
+  }
   array[0]=this;
   int size=size();
   for (int i=1; i < array.length; i++) {
     try {
       array[i]=(Structure)getClass().newInstance();
-      array[i].useMemory(getPointer().share(i * size,size));
+      array[i].useMemory(memory.share(i * size,size));
       array[i].read();
     }
  catch (    InstantiationException e) {

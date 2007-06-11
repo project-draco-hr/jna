@@ -1,0 +1,8 @@
+{
+  UnicodeLibrary.TestStructure s=new UnicodeLibrary.TestStructure();
+  s.string=null;
+  s.string2=MAGIC;
+  s.write();
+  assertEquals("Improper null write",null,s.getPointer().getPointer(0));
+  assertEquals("Improper string write",MAGIC,s.getPointer().getPointer(4).getString(0,true));
+}

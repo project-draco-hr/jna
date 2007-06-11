@@ -1,0 +1,4 @@
+{
+  UnicodeLibrary.TestStructure s=new UnicodeLibrary.TestStructure();
+  assertEquals("Wrong structure size",16,s.size());
+}

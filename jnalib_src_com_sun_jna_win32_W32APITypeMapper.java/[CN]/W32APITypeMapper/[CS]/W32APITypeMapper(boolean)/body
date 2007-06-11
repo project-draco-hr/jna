@@ -1,0 +1,34 @@
+{
+  if (unicode) {
+    TypeConverter stringConverter=new TypeConverter(){
+      public Object toNative(      Object value){
+        if (value == null)         return null;
+        return new WString(value.toString());
+      }
+      public Object fromNative(      Object value,      ResultContext context){
+        if (value == null)         return null;
+        return ((Pointer)value).getString(0,true);
+      }
+      public Class nativeType(){
+        return Pointer.class;
+      }
+    }
+;
+    addArgumentConverter(String.class,stringConverter);
+    addResultConverter(String.class,stringConverter);
+  }
+  TypeConverter booleanConverter=new TypeConverter(){
+    public Object toNative(    Object value){
+      return new Integer(Boolean.TRUE.equals(value) ? 1 : 0);
+    }
+    public Object fromNative(    Object value,    ResultContext context){
+      return Boolean.valueOf(((Integer)value).intValue() != 0);
+    }
+    public Class nativeType(){
+      return Integer.class;
+    }
+  }
+;
+  addArgumentConverter(Boolean.class,booleanConverter);
+  addResultConverter(Boolean.class,booleanConverter);
+}

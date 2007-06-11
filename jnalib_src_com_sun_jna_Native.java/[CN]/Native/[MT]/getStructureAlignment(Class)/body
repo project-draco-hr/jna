@@ -1,0 +1,15 @@
+{
+  if (!loadInstance(interfaceClass) || !alignments.containsKey(interfaceClass)) {
+    try {
+      Field field=interfaceClass.getField("STRUCTURE_ALIGNMENT");
+      return ((Integer)field.get(null)).intValue();
+    }
+ catch (    NoSuchFieldException e) {
+    }
+catch (    Exception e) {
+      throw new IllegalArgumentException("STRUCTURE_ALIGNMENT must be a public int field (" + e + "): "+ interfaceClass);
+    }
+  }
+  Integer value=(Integer)alignments.get(interfaceClass);
+  return value != null ? value.intValue() : Structure.ALIGN_DEFAULT;
+}

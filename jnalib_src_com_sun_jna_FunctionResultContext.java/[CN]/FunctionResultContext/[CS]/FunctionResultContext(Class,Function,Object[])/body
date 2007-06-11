@@ -1,0 +1,5 @@
+{
+  super(resultClass);
+  this.function=function;
+  this.args=args;
+}

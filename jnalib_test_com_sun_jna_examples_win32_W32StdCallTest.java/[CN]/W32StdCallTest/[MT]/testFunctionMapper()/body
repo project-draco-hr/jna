@@ -1,0 +1,5 @@
+{
+  NativeLibrary lib=NativeLibrary.getInstance("testlib");
+  Method m=TestLibrary.class.getMethod("returnInt32ArgumentStdCall",new Class[]{int.class});
+  assertEquals("Function mapper should provide decorated name","returnInt32ArgumentStdCall@4",StdCallLibrary.FUNCTION_MAPPER.getFunctionName(lib,m));
+}

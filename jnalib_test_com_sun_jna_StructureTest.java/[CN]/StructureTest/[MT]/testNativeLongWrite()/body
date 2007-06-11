@@ -7,12 +7,14 @@ class TestStructure extends Structure {
   if (NativeLong.SIZE == 8) {
     final long MAGIC=0x1234567887654321L;
     s.l=new NativeLong(MAGIC);
+    s.write();
     long l=s.getPointer().getLong(4);
     assertEquals("NativeLong field mismatch",MAGIC,l);
   }
  else {
     final int MAGIC=0xABEDCF23;
     s.l=new NativeLong(MAGIC);
+    s.write();
     int i=s.getPointer().getInt(4);
     assertEquals("NativeLong field mismatch",MAGIC,i);
   }

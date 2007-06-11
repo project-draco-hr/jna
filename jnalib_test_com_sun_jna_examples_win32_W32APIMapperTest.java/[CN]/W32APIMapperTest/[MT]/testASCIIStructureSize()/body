@@ -1,0 +1,4 @@
+{
+  ASCIILibrary.TestStructure s=new ASCIILibrary.TestStructure();
+  assertEquals("Wrong structure size",16,s.size());
+}

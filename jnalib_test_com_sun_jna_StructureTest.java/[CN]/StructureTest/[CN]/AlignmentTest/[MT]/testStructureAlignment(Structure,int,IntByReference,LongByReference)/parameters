@@ -1,0 +1,4 @@
+Structure s
+int type
+IntByReference offsetp
+LongByReference valuep

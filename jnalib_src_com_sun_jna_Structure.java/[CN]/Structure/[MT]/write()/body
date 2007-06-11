@@ -1,5 +1,5 @@
 {
-  if (size == -1) {
+  if (size == CALCULATE_SIZE) {
     allocateMemory();
   }
   for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {

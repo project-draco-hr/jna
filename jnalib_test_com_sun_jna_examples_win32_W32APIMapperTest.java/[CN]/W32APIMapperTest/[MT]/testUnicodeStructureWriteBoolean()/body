@@ -1,0 +1,7 @@
+{
+  UnicodeLibrary.TestStructure s=new UnicodeLibrary.TestStructure();
+  s.bool2=true;
+  s.write();
+  assertEquals("Wrong value written for FALSE",0,s.getPointer().getInt(8));
+  assertEquals("Wrong value written for TRUE",1,s.getPointer().getInt(12));
+}

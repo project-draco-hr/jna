@@ -3,10 +3,5 @@
   TestStructure[] array=(TestStructure[])s.toArray(new TestStructure[1]);
   assertEquals("Array should consist of a single element",1,array.length);
   assertEquals("First element should be original",s,array[0]);
-  try {
-    s.toArray(2);
-    fail("Should throw exception on attempts to exceed allocated bounds");
-  }
- catch (  IndexOutOfBoundsException e) {
-  }
+  assertEquals("Structure memory should be expanded",2,s.toArray(2).length);
 }

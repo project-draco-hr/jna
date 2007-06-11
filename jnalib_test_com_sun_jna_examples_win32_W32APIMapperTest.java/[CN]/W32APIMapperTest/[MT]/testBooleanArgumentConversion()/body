@@ -1,0 +1,6 @@
+{
+  assertTrue("Wrong boolean TRUE argument conversion (unicode)",unicode.returnInt32Argument(true));
+  assertFalse("Wrong boolean FALSE argument conversion (unicode)",unicode.returnInt32Argument(false));
+  assertTrue("Wrong boolean TRUE argument conversion (ASCII)",ascii.returnInt32Argument(true));
+  assertFalse("Wrong boolean FALSE argument conversion (ASCII)",ascii.returnInt32Argument(false));
+}

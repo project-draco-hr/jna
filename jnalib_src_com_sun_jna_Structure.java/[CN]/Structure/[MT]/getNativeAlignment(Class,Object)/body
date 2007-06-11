@@ -16,6 +16,7 @@
  else {
     throw new IllegalArgumentException("Type " + type + " has unknown "+ "native alignment");
   }
+  if (alignType == ALIGN_NONE)   return 1;
   if (alignType == ALIGN_MSVC)   return Math.min(8,alignment);
   return Math.min(4,alignment);
 }

@@ -1,0 +1,11 @@
+{
+  String name=method.getName();
+  if (!name.endsWith("W") && !name.endsWith("A")) {
+    try {
+      name=library.getFunction(name + suffix,StdCallLibrary.STDCALL_CONVENTION).getName();
+    }
+ catch (    UnsatisfiedLinkError e) {
+    }
+  }
+  return name;
+}

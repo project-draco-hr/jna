@@ -1,0 +1,14 @@
+{
+  AlignmentTest lib=(AlignmentTest)Native.loadLibrary("testlib",AlignmentTest.class);
+  try {
+    IntByReference offset=new IntByReference();
+    LongByReference value=new LongByReference();
+    Class cls=Class.forName(getClass().getName() + "$TestStructure" + index);
+    Structure s=(Structure)cls.newInstance();
+    int result=lib.testStructureAlignment(s,index,offset,value);
+    assertEquals("Wrong native value at field " + result + "=0x"+ Long.toHexString(value.getValue())+ " (actual native field offset="+ offset.getValue()+ ") in "+ s,-2,result);
+  }
+ catch (  Exception e) {
+    throw new Error(e);
+  }
+}

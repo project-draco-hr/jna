@@ -1,47 +1,51 @@
 {
   int offset=structField.offset;
-  Class fieldType=structField.type;
+  Class nativeType=structField.type;
+  ResultConverter resultConverter=structField.readConverter;
+  if (resultConverter != null) {
+    nativeType=resultConverter.nativeType();
+  }
   Object result=null;
-  if (fieldType == Byte.TYPE || fieldType == Byte.class) {
+  if (nativeType == byte.class || nativeType == Byte.class) {
     result=new Byte(memory.getByte(offset));
   }
- else   if (fieldType == Short.TYPE || fieldType == Short.class) {
+ else   if (nativeType == short.class || nativeType == Short.class) {
     result=new Short(memory.getShort(offset));
   }
- else   if (fieldType == Character.TYPE || fieldType == Character.class) {
+ else   if (nativeType == char.class || nativeType == Character.class) {
     result=new Character(memory.getChar(offset));
   }
- else   if (fieldType == Integer.TYPE || fieldType == Integer.class) {
+ else   if (nativeType == int.class || nativeType == Integer.class) {
     result=new Integer(memory.getInt(offset));
   }
- else   if (fieldType == Long.TYPE || fieldType == Long.class) {
+ else   if (nativeType == long.class || nativeType == Long.class) {
     result=new Long(memory.getLong(offset));
   }
- else   if (fieldType == NativeLong.class) {
+ else   if (nativeType == NativeLong.class) {
     result=memory.getNativeLong(offset);
   }
- else   if (fieldType == Float.TYPE || fieldType == Float.class) {
+ else   if (nativeType == float.class || nativeType == Float.class) {
     result=new Float(memory.getFloat(offset));
   }
- else   if (fieldType == Double.TYPE || fieldType == Double.class) {
+ else   if (nativeType == double.class || nativeType == Double.class) {
     result=new Double(memory.getDouble(offset));
   }
- else   if (Pointer.class.isAssignableFrom(fieldType)) {
+ else   if (Pointer.class.isAssignableFrom(nativeType)) {
     result=memory.getPointer(offset);
   }
- else   if (fieldType == String.class) {
+ else   if (nativeType == String.class) {
     Pointer p=memory.getPointer(offset);
     result=p != null ? new NativeString(p,false).toString() : null;
   }
- else   if (fieldType == WString.class) {
+ else   if (nativeType == WString.class) {
     Pointer p=memory.getPointer(offset);
     result=p != null ? new NativeString(p,true).toString() : null;
   }
- else   if (Callback.class.isAssignableFrom(fieldType)) {
+ else   if (Callback.class.isAssignableFrom(nativeType)) {
     return;
   }
- else   if (fieldType.isArray()) {
-    Class cls=fieldType.getComponentType();
+ else   if (nativeType.isArray()) {
+    Class cls=nativeType.getComponentType();
     int length=0;
     try {
       Object o=structField.field.get(this);
@@ -80,7 +84,10 @@ catch (    IllegalAccessException e) {
     }
   }
  else {
-    throw new IllegalArgumentException("Unsupported field type \"" + fieldType.getClass() + "\"");
+    throw new IllegalArgumentException("Unsupported field type \"" + nativeType + "\"");
+  }
+  if (resultConverter != null) {
+    result=resultConverter.fromNative(result,structField.context);
   }
   try {
     structField.field.set(this,result);

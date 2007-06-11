@@ -1,0 +1,3 @@
+{
+  assertEquals("Strings should correspond to wide strings",MAGIC,unicode.returnWStringArgument(MAGIC));
+}

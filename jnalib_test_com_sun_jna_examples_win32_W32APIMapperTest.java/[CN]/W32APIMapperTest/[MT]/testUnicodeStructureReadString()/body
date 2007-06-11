@@ -1,0 +1,9 @@
+{
+  UnicodeLibrary.TestStructure s=new UnicodeLibrary.TestStructure();
+  s.string=MAGIC;
+  s.string2=null;
+  s.write();
+  s.read();
+  assertEquals("Improper string read",MAGIC,s.string);
+  assertEquals("Improper null string read",null,s.string2);
+}

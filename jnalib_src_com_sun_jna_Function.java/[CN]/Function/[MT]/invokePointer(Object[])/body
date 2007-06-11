@@ -1,3 +1,0 @@
-{
-  return (Pointer)invoke(Pointer.class,args);
-}

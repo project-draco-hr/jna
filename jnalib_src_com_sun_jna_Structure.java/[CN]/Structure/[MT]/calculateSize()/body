@@ -5,38 +5,47 @@
   for (int i=0; i < fields.length; i++) {
     Field field=fields[i];
     if ((field.getModifiers() & Modifier.STATIC) != 0)     continue;
+    Class type=field.getType();
     StructField structField=new StructField();
     structField.field=field;
     structField.name=field.getName();
-    structField.type=field.getType();
+    structField.type=type;
     int fieldAlignment=1;
-    if (structField.size < 1) {
-      try {
-        Object value=field.get(this);
-        if (value == null) {
-          Class type=field.getType();
-          if (Structure.class.isAssignableFrom(type)) {
-            try {
-              value=type.newInstance();
-              field.set(this,value);
-            }
- catch (            InstantiationException e) {
-              String msg="Can't determine size of  nested structure: " + e.getMessage();
-              throw new IllegalArgumentException(msg);
-            }
+    try {
+      Object value=field.get(this);
+      if (value == null) {
+        if (Structure.class.isAssignableFrom(type)) {
+          try {
+            value=type.newInstance();
+            field.set(this,value);
           }
- else           if (NativeLong.class == type) {
-            field.set(this,value=new NativeLong(0));
-          }
- else           if (type.isArray()) {
-            return CALCULATE_SIZE;
+ catch (          InstantiationException e) {
+            String msg="Can't determine size of  nested structure: " + e.getMessage();
+            throw new IllegalArgumentException(msg);
           }
         }
-        structField.size=getNativeSize(field.getType(),value);
-        fieldAlignment=getNativeAlignment(field.getType(),value);
+ else         if (NativeLong.class == type) {
+          field.set(this,value=new NativeLong(0));
+        }
+ else         if (type.isArray()) {
+          return CALCULATE_SIZE;
+        }
       }
- catch (      IllegalAccessException e) {
+      Class nativeType=type;
+      if (typeMapper != null) {
+        ArgumentConverter converter=typeMapper.getArgumentConverter(type);
+        if (converter != null) {
+          value=converter.toNative(value);
+          nativeType=value != null ? value.getClass() : Pointer.class;
+          structField.writeConverter=converter;
+        }
+        structField.readConverter=typeMapper.getResultConverter(type);
+        structField.context=new StructureReadContext(type,this);
       }
+      structField.size=getNativeSize(nativeType,value);
+      fieldAlignment=getNativeAlignment(nativeType,value);
+    }
+ catch (    IllegalAccessException e) {
     }
     structAlignment=Math.max(structAlignment,fieldAlignment);
     if ((calculatedSize % fieldAlignment) != 0) {
@@ -46,8 +55,10 @@
     calculatedSize+=structField.size;
     structFields.put(structField.name,structField);
   }
-  if ((calculatedSize % structAlignment) != 0) {
-    calculatedSize+=structAlignment - (calculatedSize % structAlignment);
+  if (alignType != ALIGN_NONE) {
+    if ((calculatedSize % structAlignment) != 0) {
+      calculatedSize+=structAlignment - (calculatedSize % structAlignment);
+    }
   }
   if (calculatedSize > 0) {
     return calculatedSize;

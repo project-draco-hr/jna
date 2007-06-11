@@ -1,0 +1,14 @@
+{
+  DefaultTypeMapper mapper=new DefaultTypeMapper();
+  mapper.addArgumentConverter(Double.class,new ArgumentConverter(){
+    public Object toNative(    Object arg){
+      return new Integer(((Double)arg).intValue());
+    }
+  }
+);
+  Map options=new HashMap();
+  options.put(Library.OPTION_TYPE_MAPPER,mapper);
+  final int MAGIC=0x7BEDCF23;
+  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,options);
+  assertEquals("Failed to convert Double argument to Int",MAGIC,lib.returnInt32Argument(new Double(MAGIC)));
+}

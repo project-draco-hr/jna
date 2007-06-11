@@ -1,0 +1,4 @@
+{
+  super(resultClass);
+  this.structure=struct;
+}

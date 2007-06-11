@@ -1,6 +1,0 @@
-{
-  lib=User32.INSTANCE;
-  gdi=GDI32.INSTANCE;
-  kernel=Kernel32.INSTANCE;
-  testlib=TestLibrary.INSTANCE;
-}

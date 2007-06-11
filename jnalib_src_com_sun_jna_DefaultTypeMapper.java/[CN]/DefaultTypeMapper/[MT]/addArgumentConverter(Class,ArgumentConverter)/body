@@ -1,0 +1,7 @@
+{
+  argumentConverters.put(cls,converter);
+  Class alt=getAltClass(cls);
+  if (alt != null) {
+    argumentConverters.put(alt,converter);
+  }
+}

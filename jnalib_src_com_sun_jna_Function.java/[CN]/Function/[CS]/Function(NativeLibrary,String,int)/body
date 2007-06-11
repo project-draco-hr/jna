@@ -3,5 +3,5 @@
   this.library=library;
   this.functionName=functionName;
   this.callingConvention=callingConvention;
-  peer=library.getFunctionAddress(functionName);
+  this.peer=library.getFunctionAddress(functionName);
 }

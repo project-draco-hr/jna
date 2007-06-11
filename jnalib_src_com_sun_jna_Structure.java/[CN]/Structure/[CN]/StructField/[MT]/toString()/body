@@ -1,0 +1,9 @@
+{
+  Object value="<unavailable>";
+  try {
+    value=field.get(Structure.this);
+  }
+ catch (  Exception e) {
+  }
+  return type + " " + name+ "@"+ Integer.toHexString(offset)+ "="+ value;
+}

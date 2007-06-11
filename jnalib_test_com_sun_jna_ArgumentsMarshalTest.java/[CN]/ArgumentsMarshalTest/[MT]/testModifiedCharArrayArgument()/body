@@ -1,0 +1,5 @@
+{
+  String[] args={"one","two","three"};
+  assertEquals("Wrong native array count",args.length,lib.returnRotatedArgumentCount(args));
+  assertEquals("Modified array argument not re-read",Arrays.asList(new String[]{"two","three","one"}),Arrays.asList(args));
+}
