@@ -1,0 +1,13 @@
+{
+class TestStructure extends Structure {
+    public byte b;
+    public short s;
+    public int i;
+    public long l;
+    public float f;
+    public double d;
+  }
+  TestStructure s=new TestStructure();
+  s.setAlignment(Structure.ALIGN_MSVC);
+  assertEquals("Wrong structure size",32,s.size());
+}

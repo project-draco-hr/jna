@@ -1,5 +1,4 @@
 {
-  System.out.println("test modify structure in varargs");
   TestStructure arg1=new TestStructure();
   TestStructure[] varargs=new TestStructure[]{new TestStructure()};
   TestLibrary.INSTANCE.modifyStructureVarArgs("ss",arg1,varargs);

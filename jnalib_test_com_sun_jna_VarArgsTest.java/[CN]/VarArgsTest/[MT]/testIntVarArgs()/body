@@ -1,5 +1,5 @@
 {
-  Integer[] args=new Integer[2];
+  Object[] args=new Object[2];
   int arg1=1;
   int arg2=2;
   args[0]=new Integer(arg1);
