@@ -1,0 +1,15 @@
+{
+  String name=method.getName();
+  int pop=0;
+  Class[] argTypes=method.getParameterTypes();
+  for (int i=0; i < argTypes.length; i++) {
+    pop+=getArgumentNativeStackSize(argTypes[i]);
+  }
+  String decorated=name + "@" + pop;
+  try {
+    name=library.getFunction(decorated,StdCallLibrary.STDCALL_CONVENTION).getName();
+  }
+ catch (  UnsatisfiedLinkError e) {
+  }
+  return name;
+}
