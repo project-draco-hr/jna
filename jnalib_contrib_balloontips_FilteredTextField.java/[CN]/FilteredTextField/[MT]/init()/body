@@ -1,0 +1,12 @@
+{
+  defaultBorder=getBorder();
+  entryError="";
+  validRegex="";
+  validError="";
+  balloonBorderColor=BalloonTipManager.DEFAULT_BORDER_COLOR;
+  balloonBackgroundColor=BalloonTipManager.DEFAULT_BACKGROUND_COLOR;
+  balloonTextColor=BalloonTipManager.DEFAULT_TEXT_COLOR;
+  balloonDuration=10000;
+  balloonType=ENTRY_BALLOON;
+  addFocusListener(new ValidationEar());
+}

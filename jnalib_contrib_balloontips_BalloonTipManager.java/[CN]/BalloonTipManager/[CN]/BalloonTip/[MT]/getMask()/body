@@ -1,0 +1,54 @@
+{
+  Dimension d=getMinimumWindowSize();
+  int width=d.width + 2 * HMARGIN;
+  int height=d.height + 2 * VMARGIN;
+  int x=0;
+  int y=0;
+  if (vpos == VPOS_BELOW) {
+    y+=15;
+  }
+  Area area=new Area(new RoundRectangle2D.Float(x,y,width + 1,height + 1,ARC_D,ARC_D));
+  area.add(new Area(new Rectangle(0,y + 6,1,2)));
+  area.add(new Area(new Rectangle(0,y + height - 7,1,2)));
+  area.add(new Area(new Rectangle(1,y + 4,1,1)));
+  area.add(new Area(new Rectangle(1,y + height - 5,1,2)));
+  area.add(new Area(new Rectangle(4,y + 1,1,1)));
+  area.add(new Area(new Rectangle(6,y,2,1)));
+  area.add(new Area(new Rectangle(width - 7,y,2,1)));
+  area.subtract(new Area(new Rectangle(2,y + height - 2,1,1)));
+  area.subtract(new Area(new Rectangle(3,y + height - 1,1,1)));
+  area.subtract(new Area(new Rectangle(5,y + height,1,1)));
+  area.subtract(new Area(new Rectangle(width - 5,y + height,2,1)));
+  area.subtract(new Area(new Rectangle(width - 3,y + height - 1,2,1)));
+  area.subtract(new Area(new Rectangle(width - 2,y + 2,1,1)));
+  area.subtract(new Area(new Rectangle(width - 2,y + height - 2,2,1)));
+  area.subtract(new Area(new Rectangle(width - 1,y + 3,1,1)));
+  area.subtract(new Area(new Rectangle(width - 1,y + height - 3,1,1)));
+  area.subtract(new Area(new Rectangle(width,y + 5,1,1)));
+  area.subtract(new Area(new Rectangle(width,y + height - 5,1,2)));
+  if (vpos == VPOS_BELOW) {
+    if (hpos == HPOS_LEFT) {
+      int[] xPts={16,16,32};
+      int[] yPts={-1,16,16};
+      area.add(new Area(new Polygon(xPts,yPts,3)));
+    }
+ else {
+      int[] xPts={width - 15,width - 15,width - 32};
+      int[] yPts={-1,16,16};
+      area.add(new Area(new Polygon(xPts,yPts,3)));
+    }
+  }
+ else {
+    if (hpos == HPOS_LEFT) {
+      int[] xPts={16,16,31};
+      int[] yPts={height,height + 16,height};
+      area.add(new Area(new Polygon(xPts,yPts,3)));
+    }
+ else {
+      int[] xPts={width - 15,width - 15,width - 32};
+      int[] yPts={height,height + 16,height};
+      area.add(new Area(new Polygon(xPts,yPts,3)));
+    }
+  }
+  return area;
+}

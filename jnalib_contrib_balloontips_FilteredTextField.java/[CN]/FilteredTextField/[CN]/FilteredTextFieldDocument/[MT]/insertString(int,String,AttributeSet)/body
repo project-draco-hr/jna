@@ -1,0 +1,55 @@
+{
+  if (balloon != null && BalloonTipManager.isShowing()) {
+    if (balloonType == VALID_BALLOON) {
+      balloon.hide();
+    }
+  }
+  StringBuffer buffer=new StringBuffer(FilteredTextField.this.getText());
+  if (offset >= 0 && offset <= buffer.length()) {
+    buffer.insert(offset,str);
+    String strBuf=buffer.toString();
+    if (buffer.length() > maximumLength) {
+      if (balloon != null && BalloonTipManager.isShowing()) {
+        if (balloonType == LENGTH_BALLOON) {
+          BalloonTipManager.restartTimer();
+          return;
+        }
+ else {
+          balloon.hide();
+        }
+      }
+      balloon=BalloonTipManager.getBalloonTip(FilteredTextField.this,"The number of characters must be less than or equal to " + maximumLength,0,0,balloonDuration,balloonBorderColor,balloonBackgroundColor,balloonTextColor);
+      balloon.show();
+      balloonType=LENGTH_BALLOON;
+      return;
+    }
+    if (strBuf == null || strBuf.equals("")) {
+      remove(0,getLength());
+      super.insertString(0,"",null);
+      if (balloon != null && BalloonTipManager.isShowing()) {
+        balloon.hide();
+      }
+      return;
+    }
+    if (allowable.contains(str.charAt(0))) {
+      super.insertString(offset,str,a);
+      if (balloon != null && BalloonTipManager.isShowing()) {
+        balloon.hide();
+      }
+    }
+ else {
+      if (balloon != null && BalloonTipManager.isShowing()) {
+        if (balloonType == ENTRY_BALLOON) {
+          BalloonTipManager.restartTimer();
+          return;
+        }
+ else {
+          balloon.hide();
+        }
+      }
+      balloon=BalloonTipManager.getBalloonTip(FilteredTextField.this,entryError,0,0,balloonDuration,balloonBorderColor,balloonBackgroundColor,balloonTextColor);
+      balloon.show();
+      balloonType=ENTRY_BALLOON;
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  final Point origin=owner == null ? new Point(0,0) : owner.getLocationOnScreen();
+  final Window parent=owner != null ? SwingUtilities.getWindowAncestor(owner) : null;
+  final String text=content != null ? content : "";
+  final Integer timerDuration=duration != null ? duration : 10000;
+  origin.translate(x,y);
+  vpos=VPOS_BELOW;
+  hpos=HPOS_LEFT;
+  return new Popup(){
+    private BalloonTip bt=null;
+    final ComponentEar componentEar=new ComponentEar();
+    final MouseEar mouseEar=new MouseEar();
+    final FocusEar focusEar=new FocusEar();
+    public void show(){
+      hidePopupTimer=new Timer(timerDuration,new TimerAction());
+      bt=new BalloonTip(parent,text,origin,bordercolor,backgroundcolor,textcolor);
+      bt.pack();
+      Point pt=new Point(origin);
+      pt.translate(10,owner.getHeight());
+      bt.setLocation(getAdjustedOrigin(pt));
+      bt.setWindowMask();
+      bt.setVisible(true);
+      owner.addFocusListener(focusEar);
+      owner.addMouseListener(mouseEar);
+      parent.addMouseListener(mouseEar);
+      parent.addComponentListener(componentEar);
+      hidePopupTimer.start();
+      isShowing=true;
+    }
+    public void hide(){
+      if (bt != null) {
+        isShowing=false;
+        hidePopupTimer.stop();
+        parent.removeComponentListener(componentEar);
+        parent.removeMouseListener(mouseEar);
+        owner.removeMouseListener(mouseEar);
+        owner.removeFocusListener(focusEar);
+        bt.setVisible(false);
+        bt.dispose();
+      }
+    }
+    private Point getAdjustedOrigin(    Point pt){
+      Point ret=new Point(pt.x,pt.y);
+      GraphicsConfiguration gc=owner.getGraphicsConfiguration();
+      Rectangle sBounds=gc.getBounds();
+      Insets sInsets=Toolkit.getDefaultToolkit().getScreenInsets(gc);
+      sBounds.x+=sInsets.left;
+      sBounds.y+=sInsets.top;
+      sBounds.width-=(sInsets.left + sInsets.right);
+      sBounds.height-=(sInsets.top + sInsets.bottom);
+      if (ret.x < sBounds.x) {
+        ret.x=sBounds.x;
+      }
+ else       if (ret.x - sBounds.x + bt.getWidth() > sBounds.width) {
+        ret.x=owner.getLocationOnScreen().x - bt.getWidth() + 43;
+      }
+      if (ret.x >= pt.x) {
+        hpos=HPOS_LEFT;
+      }
+ else {
+        hpos=HPOS_RIGHT;
+      }
+      if (ret.y < sBounds.y) {
+        ret.y=sBounds.y;
+      }
+ else       if (ret.y - sBounds.y + bt.getHeight() > sBounds.height) {
+        ret.y=owner.getLocationOnScreen().y - bt.getHeight();
+      }
+      if (ret.y >= pt.y) {
+        vpos=VPOS_BELOW;
+      }
+ else {
+        vpos=VPOS_ABOVE;
+      }
+      return ret;
+    }
+@SuppressWarnings("serial") final class TimerAction extends AbstractAction {
+      public void actionPerformed(      ActionEvent e){
+        hide();
+      }
+    }
+@SuppressWarnings("serial") final class ComponentEar extends ComponentAdapter {
+      public void componentMoved(      ComponentEvent e){
+        hide();
+      }
+    }
+@SuppressWarnings("serial") final class MouseEar extends MouseAdapter {
+      public void mousePressed(      MouseEvent e){
+        hide();
+      }
+    }
+@SuppressWarnings("serial") final class FocusEar extends FocusAdapter {
+      public void focusLost(      FocusEvent e){
+        hide();
+      }
+    }
+  }
+;
+}

@@ -1,0 +1,75 @@
+{
+  super.paint(g);
+  Dimension d=getMinimumWindowSize();
+  int width=d.width + 2 * HMARGIN;
+  int height=d.height + 2 * VMARGIN;
+  int x=0;
+  int y=0;
+  if (vpos == VPOS_BELOW) {
+    y+=15;
+  }
+  g.setColor(backgroundColor);
+  g.fillRoundRect(x,y,width,height,ARC_D,ARC_D);
+  g.drawLine(x + 6,y + height - 1,x + 6,y + height - 1);
+  g.drawLine(x + width - 1,y + 6,x + width - 1,y + 6);
+  g.drawLine(x + width - 1,y + height - 6,x + width - 1,y + height - 7);
+  g.drawLine(x + width - 2,y + height - 4,x + width - 4,y + height - 2);
+  g.drawLine(x + width - 6,y + height - 1,x + width - 7,y + height - 1);
+  g.clearRect(x + 2,y + 2,1,1);
+  g.setColor(borderColor);
+  g.drawRoundRect(x,y,width,height,ARC_D,ARC_D);
+  if (vpos == VPOS_BELOW) {
+    if (hpos == HPOS_LEFT) {
+      g.setColor(backgroundColor);
+      int[] xPts={16,16,31};
+      int[] yPts={0,16,16};
+      g.fillPolygon(xPts,yPts,3);
+      g.setColor(borderColor);
+      g.drawLine(16,0,16,15);
+      g.drawLine(16,0,31,15);
+      g.drawLine(16,1,30,15);
+    }
+ else {
+      g.setColor(backgroundColor);
+      int[] xPts={width - 16,width - 16,width - 31};
+      int[] yPts={0,16,16};
+      g.fillPolygon(xPts,yPts,3);
+      g.setColor(borderColor);
+      g.drawLine(width - 16,0,width - 16,15);
+      g.drawLine(width - 16,0,width - 31,15);
+      g.drawLine(width - 16,1,width - 30,15);
+    }
+  }
+ else {
+    if (hpos == HPOS_LEFT) {
+      g.setColor(backgroundColor);
+      int[] xPts={16,16,31};
+      int[] yPts={height,height + 16,height};
+      g.fillPolygon(xPts,yPts,3);
+      g.setColor(borderColor);
+      g.drawLine(16,height,16,height + 15);
+      g.drawLine(16,height + 15,31,height);
+      g.drawLine(16,height + 14,30,height);
+    }
+ else {
+      g.setColor(backgroundColor);
+      int[] xPts={width - 16,width - 16,width - 31};
+      int[] yPts={height,height + 16,height};
+      g.fillPolygon(xPts,yPts,3);
+      g.setColor(borderColor);
+      g.drawLine(width - 16,height,width - 16,height + 15);
+      g.drawLine(width - 16,height + 15,width - 31,height);
+      g.drawLine(width - 16,height + 14,width - 30,height);
+    }
+  }
+  g.setColor(textColor);
+  g.setFont(new Font("Tahoma",Font.PLAIN,11));
+  int stringY=y + VMARGIN / 2;
+  for (int i=0; i < textList.length; i++) {
+    stringY+=new JLabel(textList[i]).getPreferredSize().height;
+    if (i > 0) {
+      stringY+=VSPACER;
+    }
+    g.drawString(textList[i],HMARGIN,stringY);
+  }
+}

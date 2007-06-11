@@ -1,0 +1,5 @@
+{
+  mask=new Area(getMask());
+  maskSize=getSize();
+  WindowUtils.setWindowMask(BalloonTip.this,mask);
+}

@@ -1,0 +1,5 @@
+{
+  if (!allowable.contains(character)) {
+    allowable.add(character);
+  }
+}

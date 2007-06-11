@@ -1,0 +1,3 @@
+{
+  return getBalloonTip(owner,content,x,y,duration,DEFAULT_BORDER_COLOR,DEFAULT_BACKGROUND_COLOR,DEFAULT_TEXT_COLOR);
+}

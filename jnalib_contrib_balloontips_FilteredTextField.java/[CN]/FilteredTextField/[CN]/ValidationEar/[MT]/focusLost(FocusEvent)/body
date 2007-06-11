@@ -1,0 +1,14 @@
+{
+  String entered=getText().trim();
+  if (!entered.matches(validRegex)) {
+    if (balloon != null) {
+      balloon.hide();
+    }
+    setBorder(BorderFactory.createCompoundBorder(RED_BORDER,defaultBorder));
+    isValid=false;
+  }
+ else {
+    setBorder(defaultBorder);
+    isValid=true;
+  }
+}

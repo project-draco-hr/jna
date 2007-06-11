@@ -1,0 +1,5 @@
+Component owner
+String content
+int x
+int y
+int duration

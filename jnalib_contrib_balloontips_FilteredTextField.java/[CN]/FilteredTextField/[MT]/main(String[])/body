@@ -1,0 +1,27 @@
+{
+  try {
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  JFrame jframe=new JFrame("FilteredTextField Test");
+  jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  jframe.setSize(400,75);
+  jframe.setLocation(400,400);
+  JPanel jpanel=new JPanel();
+  jpanel.setLayout(new BorderLayout());
+  FilteredTextField ftfield=new FilteredTextField(10);
+  ftfield.setCharacters(LOWERCASE_CHARS);
+  ftfield.addCharacter('-');
+  ftfield.addCharacter('_');
+  ftfield.addCharacter(' ');
+  ftfield.setMaximumLength(10);
+  ftfield.setEntryError("Only lower case letters, hyphens, underscores, and spaces allowed.");
+  ftfield.setValidRegex("^a+[a-z-_ ]*");
+  ftfield.setValidError("The string must begin with the letter 'a'.");
+  jpanel.add(ftfield,BorderLayout.CENTER);
+  jpanel.add(new FilteredTextField(10),BorderLayout.SOUTH);
+  jframe.getContentPane().add(jpanel);
+  jframe.setVisible(true);
+}

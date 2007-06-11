@@ -1,0 +1,6 @@
+{
+  Dimension d=getMinimumWindowSize();
+  int w=d.width + 2 * HMARGIN + 1;
+  int h=d.height + 2 * VMARGIN + 16;
+  return new Dimension(w,h);
+}

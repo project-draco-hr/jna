@@ -1,0 +1,6 @@
+{
+  clearCharacters();
+  for (int i=0; i < characters.length; i++) {
+    addCharacter(characters[i]);
+  }
+}

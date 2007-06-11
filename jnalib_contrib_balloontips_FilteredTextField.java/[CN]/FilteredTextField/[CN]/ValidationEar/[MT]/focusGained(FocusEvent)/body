@@ -1,0 +1,7 @@
+{
+  if (!isValid) {
+    balloon=BalloonTipManager.getBalloonTip(FilteredTextField.this,validError,0,0,balloonDuration,balloonBorderColor,balloonBackgroundColor,balloonTextColor);
+    balloon.show();
+    balloonType=VALID_BALLOON;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  super(owner);
+  textList=content.split("\n");
+  borderColor=bordercolor;
+  backgroundColor=backgroundcolor;
+  textColor=textcolor;
+  setFocusableWindowState(false);
+  setName("###overrideRedirect###");
+  setSize(getPreferredSize());
+}

@@ -1,0 +1,9 @@
+{
+  super.setBounds(x,y,w,h);
+  Dimension size=new Dimension(w,h);
+  if (mask != null && !size.equals(maskSize)) {
+    mask.subtract(mask);
+    mask.add(new Area(getMask()));
+    maskSize=size;
+  }
+}

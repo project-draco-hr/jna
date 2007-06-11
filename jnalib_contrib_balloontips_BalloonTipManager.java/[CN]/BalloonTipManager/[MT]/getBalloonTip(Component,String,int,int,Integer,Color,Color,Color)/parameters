@@ -1,0 +1,8 @@
+Component owner
+String content
+int x
+int y
+Integer duration
+Color bordercolor
+Color backgroundcolor
+Color textcolor
