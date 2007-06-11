@@ -1,0 +1,3 @@
+{
+  return ((Integer)invoke(Integer.class,args)).intValue();
+}

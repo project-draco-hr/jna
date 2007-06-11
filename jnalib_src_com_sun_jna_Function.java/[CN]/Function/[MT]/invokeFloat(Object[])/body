@@ -1,0 +1,3 @@
+{
+  return ((Float)invoke(Float.class,args)).floatValue();
+}
