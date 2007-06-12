@@ -2,6 +2,14 @@
   structAlignment=1;
   int calculatedSize=0;
   Field[] fields=getClass().getFields();
+  if (REVERSE_FIELDS) {
+    for (int i=0; i < fields.length / 2; i++) {
+      int idx=fields.length - 1 - i;
+      Field tmp=fields[i];
+      fields[i]=fields[idx];
+      fields[idx]=tmp;
+    }
+  }
   for (int i=0; i < fields.length; i++) {
     Field field=fields[i];
     if ((field.getModifiers() & Modifier.STATIC) != 0)     continue;
