@@ -1,5 +1,5 @@
 {
-  Object[] args=new Object[2];
+  Long[] args=new Long[2];
   short arg1=1;
   short arg2=2;
   args[0]=new Long(arg1);

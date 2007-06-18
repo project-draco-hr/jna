@@ -1,0 +1,4 @@
+{
+  addResultConverter(cls,converter);
+  addArgumentConverter(cls,converter);
+}

@@ -2,7 +2,8 @@
   Object result=null;
   if (inArgs != null && inArgs.length > 0) {
     Object lastArg=inArgs[inArgs.length - 1];
-    if (lastArg != null && Object[].class == lastArg.getClass()) {
+    Class argType=lastArg != null ? lastArg.getClass() : null;
+    if (argType != null && argType.isArray() && !isPrimitiveArray(argType) && !isStructureArray(argType) && argType != String[].class) {
       Object[] varArgs=(Object[])lastArg;
       Object[] fullArgs=new Object[inArgs.length + varArgs.length];
       System.arraycopy(inArgs,0,fullArgs,0,inArgs.length - 1);
@@ -41,7 +42,7 @@
       args[i]=((ByReference)arg).getPointer();
     }
  else     if (arg instanceof Callback) {
-      CallbackReference cbref=CallbackReference.getInstance((Callback)arg,callingConvention);
+      CallbackReference cbref=CallbackReference.getInstance((Callback)arg);
       args[i]=cbref.getTrampoline();
     }
  else     if (arg instanceof String) {
@@ -56,7 +57,7 @@
  else     if (arg instanceof Boolean) {
       args[i]=new Integer(Boolean.TRUE.equals(arg) ? -1 : 0);
     }
- else     if (String[].class.equals(argClass)) {
+ else     if (String[].class == argClass) {
       args[i]=new StringArray((String[])arg);
     }
  else     if (isStructureArray(argClass)) {
@@ -151,10 +152,10 @@ catch (        IllegalAccessException e) {
     result=new Double(invokeDouble(callingConvention,args));
   }
  else   if (nativeType == String.class) {
-    result=invokeString(args,false);
+    result=invokeString(callingConvention,args,false);
   }
  else   if (nativeType == WString.class) {
-    result=new WString(invokeString(args,true));
+    result=new WString(invokeString(callingConvention,args,true));
   }
  else   if (Pointer.class.isAssignableFrom(nativeType)) {
     result=invokePointer(callingConvention,args);
