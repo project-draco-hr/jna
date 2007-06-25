@@ -1,0 +1,23 @@
+{
+  Rectangle bounds=raster.getBounds();
+  SampleModel sampleModel=raster.getSampleModel();
+  boolean hasAlpha=sampleModel.getNumBands() == 4;
+  if (raster.getParent() == null && bounds.x == 0 && bounds.y == 0) {
+    DataBuffer data=raster.getDataBuffer();
+    if (data.getNumBanks() == 1) {
+      if (sampleModel instanceof MultiPixelPackedSampleModel) {
+        MultiPixelPackedSampleModel packedSampleModel=(MultiPixelPackedSampleModel)sampleModel;
+        if (packedSampleModel.getPixelBitStride() == 1) {
+          return outputOccupiedRangesOfBinaryPixels(((DataBufferByte)data).getData(),bounds.width,bounds.height,out);
+        }
+      }
+ else       if (sampleModel instanceof SinglePixelPackedSampleModel) {
+        if (sampleModel.getDataType() == DataBuffer.TYPE_INT) {
+          return outputOccupiedRanges(((DataBufferInt)data).getData(),bounds.width,bounds.height,hasAlpha ? 0xff000000 : 0xffffff,out);
+        }
+      }
+    }
+  }
+  int[] pixels=raster.getPixels(0,0,bounds.width,bounds.height,(int[])null);
+  return outputOccupiedRanges(pixels,bounds.width,bounds.height,hasAlpha ? 0xff000000 : 0xffffff,out);
+}

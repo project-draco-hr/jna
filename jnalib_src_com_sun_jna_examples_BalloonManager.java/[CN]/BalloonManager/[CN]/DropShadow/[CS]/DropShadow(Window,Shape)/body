@@ -2,19 +2,20 @@
   super(parent);
   setFocusableWindowState(false);
   setName("###overrideRedirect###");
-  Point where=parent.getLocation();
+  Point where=parent.isShowing() ? parent.getLocationOnScreen() : parent.getLocation();
   setLocation(where.x + OFFSET.x,where.y + OFFSET.y);
   setBackground(COLOR);
   getContentPane().setBackground(COLOR);
   parentMask=mask;
   parent.addComponentListener(listener=new ComponentAdapter(){
     public void componentMoved(    ComponentEvent e){
-      Point where=e.getComponent().getLocationOnScreen();
+      Point where=getOwner().isShowing() ? getOwner().getLocationOnScreen() : getOwner().getLocation();
       setLocation(where.x + OFFSET.x,where.y + OFFSET.y);
     }
     public void componentResized(    ComponentEvent e){
       Component c=e.getComponent();
-      setSize(c.getWidth(),c.getHeight());
+      int extra=c.getWidth() + (int)Math.sin(ANGLE) * c.getHeight();
+      setSize(c.getWidth() + extra,c.getHeight());
       WindowUtils.setWindowMask(DropShadow.this,getMask());
     }
     public void componentShown(    ComponentEvent e){
@@ -35,7 +36,7 @@
   }
 );
   WindowUtils.setWindowMask(DropShadow.this,getMask());
-  WindowUtils.setWindowAlpha(DropShadow.this,ALPHA);
+  WindowUtils.setWindowAlpha(DropShadow.this,SHADOW_ALPHA);
   if (parent.isVisible()) {
     pack();
     setVisible(true);

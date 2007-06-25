@@ -1,0 +1,49 @@
+{
+  int scanlineBytes=binaryBits.length / h;
+  for (int row=0; row < h; row++) {
+    int rowOffsetBytes=row * scanlineBytes;
+    int startCol=-1;
+    for (int byteCol=0; byteCol < scanlineBytes; byteCol++) {
+      int firstByteCol=byteCol << 3;
+      byte byteColBits=binaryBits[rowOffsetBytes + byteCol];
+      if (byteColBits == 0) {
+        if (startCol >= 0) {
+          if (!output.outputRange(startCol,row,firstByteCol - startCol,1)) {
+            return false;
+          }
+          startCol=-1;
+        }
+      }
+ else       if (byteColBits == 0xff) {
+        if (startCol < 0) {
+          startCol=firstByteCol;
+        }
+      }
+ else {
+        for (int subCol=0; subCol < 8; subCol++) {
+          int col=firstByteCol | subCol;
+          if ((byteColBits & subColMasks[subCol]) != 0) {
+            if (startCol < 0) {
+              startCol=col;
+            }
+          }
+ else {
+            if (startCol >= 0) {
+              if (!output.outputRange(startCol,row,col - startCol,1)) {
+                return false;
+              }
+              startCol=-1;
+            }
+          }
+        }
+      }
+    }
+    if (startCol >= 0) {
+      if (!output.outputRange(startCol,row,w - startCol,1)) {
+        return false;
+      }
+      startCol=-1;
+    }
+  }
+  return true;
+}

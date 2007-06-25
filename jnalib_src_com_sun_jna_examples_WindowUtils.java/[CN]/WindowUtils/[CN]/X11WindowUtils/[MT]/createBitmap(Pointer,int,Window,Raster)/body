@@ -1,36 +1,32 @@
 {
-  X11 x11=X11.INSTANCE;
-  if (raster == null) {
-    int pm=x11.XCreatePixmap(dpy,win,w.getWidth(),w.getHeight(),1);
-    Pointer gc=x11.XCreateGC(dpy,pm,0,null);
-    if (gc == null) {
-      return 0;
-    }
-    x11.XSetForeground(dpy,gc,1);
-    x11.XFillRectangle(dpy,pm,gc,0,0,w.getWidth(),w.getHeight());
-    return pm;
-  }
+  final X11 x11=X11.INSTANCE;
   Rectangle bounds=raster.getBounds();
   int width=bounds.x + bounds.width;
   int height=bounds.y + bounds.height;
-  int pm=x11.XCreatePixmap(dpy,win,width,height,1);
-  Pointer gc=x11.XCreateGC(dpy,pm,0,null);
+  final int pm=x11.XCreatePixmap(dpy,win,width,height,1);
+  final Pointer gc=x11.XCreateGC(dpy,pm,0,null);
   if (gc == null) {
-    return 0;
+    return X11.None;
   }
+  x11.XSetForeground(dpy,gc,0);
+  x11.XFillRectangle(dpy,pm,gc,0,0,width,height);
+  final int UNMASKED=1;
+  x11.XSetForeground(dpy,gc,UNMASKED);
   X11.XWindowAttributes atts=new X11.XWindowAttributes();
   int status=x11.XGetWindowAttributes(dpy,win,atts);
   if (status == 0) {
-    return 0;
+    return X11.None;
   }
-  int[] bits=new int[bounds.width * bounds.height];
-  raster.getPixels(0,0,bounds.width,bounds.height,bits);
-  for (int row=0; row < bounds.height; row++) {
-    for (int col=0; col < bounds.width; col++) {
-      int idx=row * bounds.width + col;
-      x11.XSetForeground(dpy,gc,bits[idx]);
-      x11.XFillRectangle(dpy,pm,gc,col,row,1,1);
+  try {
+    RasterRangesUtils.outputOccupiedRanges(raster,new RasterRangesUtils.RangesOutput(){
+      public boolean outputRange(      int x,      int y,      int w,      int h){
+        return x11.XFillRectangle(dpy,pm,gc,x,y,w,h) != 0;
+      }
     }
+);
+  }
+  finally {
+    x11.XFreeGC(dpy,gc);
   }
   return pm;
 }

@@ -1,0 +1,4 @@
+byte[] binaryBits
+int w
+int h
+RangesOutput output

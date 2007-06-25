@@ -1,6 +1,6 @@
 {
   Raster raster=null;
-  if (mask != null) {
+  if (mask != MASK_NONE) {
     Rectangle bounds=mask.getBounds();
     if (bounds.width > 0 && bounds.height > 0) {
       BufferedImage bitmap=new BufferedImage(bounds.x + bounds.width,bounds.y + bounds.height,BufferedImage.TYPE_BYTE_BINARY);

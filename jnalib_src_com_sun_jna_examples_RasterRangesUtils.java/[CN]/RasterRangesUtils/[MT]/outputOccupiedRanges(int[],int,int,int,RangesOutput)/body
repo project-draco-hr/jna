@@ -1,0 +1,28 @@
+{
+  for (int row=0; row < h; row++) {
+    int idxOffset=row * w;
+    int startCol=-1;
+    for (int col=0; col < w; col++) {
+      if ((pixels[idxOffset + col] & occupationMask) != 0) {
+        if (startCol < 0) {
+          startCol=col;
+        }
+      }
+ else {
+        if (startCol >= 0) {
+          if (!out.outputRange(startCol,row,col - startCol,1)) {
+            return false;
+          }
+          startCol=-1;
+        }
+      }
+    }
+    if (startCol >= 0) {
+      if (!out.outputRange(startCol,row,w - startCol,1)) {
+        return false;
+      }
+      startCol=-1;
+    }
+  }
+  return true;
+}

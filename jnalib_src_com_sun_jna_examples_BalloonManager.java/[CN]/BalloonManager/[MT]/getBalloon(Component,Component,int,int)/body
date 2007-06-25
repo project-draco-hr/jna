@@ -1,5 +1,5 @@
 {
-  final Point origin=owner == null ? new Point(0,0) : owner.getLocationOnScreen();
+  final Point origin=owner == null ? new Point(0,0) : (owner.isShowing() ? owner.getLocationOnScreen() : owner.getLocation());
   final Window parent=owner != null ? SwingUtilities.getWindowAncestor(owner) : null;
   origin.translate(x,y);
   return new Popup(){

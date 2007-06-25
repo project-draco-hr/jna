@@ -4,12 +4,31 @@
       GDI32 gdi=GDI32.INSTANCE;
       User32 user=User32.INSTANCE;
       Pointer hWnd=getHWnd(w);
-      Pointer p=raster == null ? gdi.CreateRectRgn(0,0,w.getWidth(),w.getHeight()) : createRegion(raster);
+      final Pointer result=gdi.CreateRectRgn(0,0,0,0);
       try {
-        user.SetWindowRgn(hWnd,p,true);
+        if (raster == null) {
+          gdi.SetRectRgn(result,0,0,w.getWidth(),w.getHeight());
+        }
+ else {
+          final Pointer tempRgn=gdi.CreateRectRgn(0,0,0,0);
+          try {
+            RasterRangesUtils.outputOccupiedRanges(raster,new RasterRangesUtils.RangesOutput(){
+              public boolean outputRange(              int x,              int y,              int w,              int h){
+                GDI32 gdi=GDI32.INSTANCE;
+                gdi.SetRectRgn(tempRgn,x,y,x + w,y + h);
+                return gdi.CombineRgn(result,result,tempRgn,GDI32.RGN_OR) != GDI32.ERROR;
+              }
+            }
+);
+          }
+  finally {
+            gdi.DeleteObject(tempRgn);
+          }
+        }
+        user.SetWindowRgn(hWnd,result,true);
       }
   finally {
-        gdi.DeleteObject(p);
+        gdi.DeleteObject(result);
       }
       setForceHeavyweightPopups(w,raster != null);
     }

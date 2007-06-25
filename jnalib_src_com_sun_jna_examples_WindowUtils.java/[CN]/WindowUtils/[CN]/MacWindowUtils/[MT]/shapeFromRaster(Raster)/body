@@ -1,15 +1,11 @@
 {
-  Area area=new Area(new Rectangle(0,0,0,0));
-  Rectangle bounds=new Rectangle(0,0,raster.getWidth(),raster.getHeight());
-  int[] bits=new int[bounds.width * bounds.height];
-  raster.getPixels(0,0,bounds.width,bounds.height,bits);
-  for (int row=0; row < bounds.height; row++) {
-    for (int col=0; col < bounds.width; col++) {
-      int idx=row * bounds.width + col;
-      if (bits[idx] != 0) {
-        area.add(new Area(new Rectangle(col,row,1,1)));
-      }
+  final Area area=new Area(new Rectangle(0,0,0,0));
+  RasterRangesUtils.outputOccupiedRanges(raster,new RasterRangesUtils.RangesOutput(){
+    public boolean outputRange(    int x,    int y,    int w,    int h){
+      area.add(new Area(new Rectangle(x,y,w,h)));
+      return true;
     }
   }
+);
   return area;
 }

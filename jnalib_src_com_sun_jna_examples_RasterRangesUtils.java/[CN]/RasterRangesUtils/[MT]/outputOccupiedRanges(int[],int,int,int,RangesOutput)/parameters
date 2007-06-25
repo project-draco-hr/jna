@@ -1,0 +1,5 @@
+int[] pixels
+int w
+int h
+int occupationMask
+RangesOutput out

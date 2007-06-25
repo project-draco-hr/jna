@@ -2,6 +2,12 @@
   Area area=new Area(parentMask);
   Area clip=new Area(parentMask);
   AffineTransform tx=new AffineTransform();
+  tx.translate(Math.sin(ANGLE) * getOwner().getHeight(),0);
+  tx.shear(-Math.tan(ANGLE),0);
+  tx.scale(1,YSCALE);
+  tx.translate(0,(1 - YSCALE) * getOwner().getHeight());
+  area.transform(tx);
+  tx=new AffineTransform();
   tx.translate(-OFFSET.x,-OFFSET.y);
   clip.transform(tx);
   area.subtract(clip);

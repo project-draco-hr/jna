@@ -2,7 +2,7 @@
   super.setLocation(x,y);
   Window owner=getOwner();
   if (owner != null) {
-    Point ref=owner.getLocationOnScreen();
+    Point ref=owner.isShowing() ? owner.getLocationOnScreen() : owner.getLocation();
     offset=new Point(ref.x - x,ref.y - y);
   }
 }
