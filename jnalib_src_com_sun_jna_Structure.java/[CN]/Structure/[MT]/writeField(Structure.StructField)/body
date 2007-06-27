@@ -8,7 +8,7 @@
     throw new RuntimeException("Exception reading field \"" + structField.name + "\"",e);
   }
   Class nativeType=structField.type;
-  ArgumentConverter converter=structField.writeConverter;
+  ToNativeConverter converter=structField.writeConverter;
   if (converter != null) {
     value=converter.toNative(value);
     nativeType=value != null ? value.getClass() : Pointer.class;
@@ -29,6 +29,9 @@
   }
  else   if (nativeType == short.class || nativeType == Short.class) {
     memory.setShort(offset,((Short)value).shortValue());
+  }
+ else   if (nativeType == char.class || nativeType == Character.class) {
+    memory.setChar(offset,((Character)value).charValue());
   }
  else   if (nativeType == int.class || nativeType == Integer.class) {
     memory.setInt(offset,((Integer)value).intValue());
@@ -60,12 +63,12 @@
       byte[] buf=(byte[])value;
       memory.write(offset,buf,0,buf.length);
     }
- else     if (cls == char.class) {
-      char[] buf=(char[])value;
-      memory.write(offset,buf,0,buf.length);
-    }
  else     if (cls == short.class) {
       short[] buf=(short[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
+ else     if (cls == char.class) {
+      char[] buf=(char[])value;
       memory.write(offset,buf,0,buf.length);
     }
  else     if (cls == int.class) {

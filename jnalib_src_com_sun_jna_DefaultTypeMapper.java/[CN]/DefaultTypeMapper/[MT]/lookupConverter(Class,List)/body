@@ -1,5 +1,5 @@
 {
-  for (Iterator i=list.iterator(); i.hasNext(); ) {
+  for (Iterator i=converters.iterator(); i.hasNext(); ) {
     Entry entry=(Entry)i.next();
     if (entry.type.isAssignableFrom(javaClass)) {
       return entry.converter;

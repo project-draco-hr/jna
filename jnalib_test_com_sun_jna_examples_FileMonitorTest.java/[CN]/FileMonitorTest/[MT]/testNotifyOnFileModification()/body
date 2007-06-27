@@ -1,4 +1,5 @@
 {
+  if (!Platform.isWindows())   return;
   File file=File.createTempFile(getName(),".tmp",dir);
   file.deleteOnExit();
   FileOutputStream os=new FileOutputStream(file);

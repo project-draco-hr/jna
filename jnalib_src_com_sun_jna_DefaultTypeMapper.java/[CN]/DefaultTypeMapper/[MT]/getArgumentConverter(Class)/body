@@ -1,3 +1,0 @@
-{
-  return (ArgumentConverter)lookupConverter(javaType,argumentConverters);
-}

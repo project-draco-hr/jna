@@ -1,4 +1,4 @@
 {
   Object[] args=new Object[]{"Test"};
-  assertEquals("Did not return correct string",args[0],TestLibrary.INSTANCE.returnStringVarArgs("",args));
+  assertEquals("Did not return correct string",args[0],lib.returnStringVarArgs("",args));
 }

@@ -1,6 +1,6 @@
 {
   DefaultTypeMapper mapper=new DefaultTypeMapper();
-  mapper.addArgumentConverter(CharSequence.class,new ArgumentConverter(){
+  mapper.addToNativeConverter(CharSequence.class,new ToNativeConverter(){
     public Object toNative(    Object arg){
       return Integer.valueOf(((CharSequence)arg).toString(),16);
     }

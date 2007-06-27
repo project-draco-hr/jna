@@ -1,0 +1,8 @@
+{
+  char c=0;
+  assertEquals("Wrong value returned",c,lib.returnWideCharArgument(c));
+  c=0xFFFF;
+  assertEquals("Wrong value returned",c,lib.returnWideCharArgument(c));
+  c=0x7FFF;
+  assertEquals("Wrong value returned",c,lib.returnWideCharArgument(c));
+}

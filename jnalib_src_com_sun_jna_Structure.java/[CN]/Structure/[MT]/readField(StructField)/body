@@ -1,9 +1,9 @@
 {
   int offset=structField.offset;
   Class nativeType=structField.type;
-  ResultConverter resultConverter=structField.readConverter;
-  if (resultConverter != null) {
-    nativeType=resultConverter.nativeType();
+  FromNativeConverter readConverter=structField.readConverter;
+  if (readConverter != null) {
+    nativeType=readConverter.nativeType();
   }
   Object result=null;
   if (nativeType == byte.class || nativeType == Byte.class) {
@@ -61,11 +61,11 @@ catch (    IllegalAccessException e) {
     if (cls == byte.class) {
       result=memory.getByteArray(offset,length);
     }
- else     if (cls == char.class) {
-      result=memory.getCharArray(offset,length);
-    }
  else     if (cls == short.class) {
       result=memory.getShortArray(offset,length);
+    }
+ else     if (cls == char.class) {
+      result=memory.getCharArray(offset,length);
     }
  else     if (cls == int.class) {
       result=memory.getIntArray(offset,length);
@@ -86,8 +86,8 @@ catch (    IllegalAccessException e) {
  else {
     throw new IllegalArgumentException("Unsupported field type \"" + nativeType + "\"");
   }
-  if (resultConverter != null) {
-    result=resultConverter.fromNative(result,structField.context);
+  if (readConverter != null) {
+    result=readConverter.fromNative(result,structField.context);
   }
   try {
     structField.field.set(this,result);

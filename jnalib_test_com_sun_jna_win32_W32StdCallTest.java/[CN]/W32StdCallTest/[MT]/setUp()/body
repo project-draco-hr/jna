@@ -1,0 +1,8 @@
+{
+  testlib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,new HashMap(){
+{
+      put(Library.OPTION_FUNCTION_MAPPER,StdCallLibrary.FUNCTION_MAPPER);
+    }
+  }
+);
+}

@@ -1,6 +1,6 @@
 {
   DefaultTypeMapper mapper=new DefaultTypeMapper();
-  mapper.addArgumentConverter(Double.class,new ArgumentConverter(){
+  mapper.addToNativeConverter(Double.class,new ToNativeConverter(){
     public Object toNative(    Object arg){
       return new Integer(((Double)arg).intValue());
     }

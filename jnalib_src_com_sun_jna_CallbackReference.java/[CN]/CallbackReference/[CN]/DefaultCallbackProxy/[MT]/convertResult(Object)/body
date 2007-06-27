@@ -1,0 +1,26 @@
+{
+  if (toNative != null) {
+    value=toNative.toNative(value);
+  }
+  if (value == null)   return null;
+  Class cls=value.getClass();
+  if (Structure.class.isAssignableFrom(cls)) {
+    return ((Structure)value).getPointer();
+  }
+ else   if (NativeLong.class.isAssignableFrom(cls)) {
+    return ((NativeLong)value).asNativeValue();
+  }
+ else   if (cls == boolean.class || cls == Boolean.class) {
+    return new Integer(Boolean.TRUE.equals(value) ? -1 : 0);
+  }
+ else   if (cls == String.class) {
+    return new NativeString(value.toString()).getPointer();
+  }
+ else   if (cls == WString.class) {
+    return new NativeString(value.toString(),true).getPointer();
+  }
+ else   if (!isAllowableNativeType(cls)) {
+    throw new IllegalArgumentException("Return type " + cls + " will be ignored");
+  }
+  return value;
+}

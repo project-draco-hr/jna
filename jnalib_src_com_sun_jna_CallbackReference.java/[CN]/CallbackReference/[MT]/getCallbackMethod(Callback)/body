@@ -1,0 +1,15 @@
+{
+  Method[] mlist=callback.getClass().getMethods();
+  for (int mi=0; mi < mlist.length; mi++) {
+    Method m=mlist[mi];
+    if (Callback.METHOD_NAME.equals(m.getName())) {
+      if (m.getParameterTypes().length > Function.MAX_NARGS) {
+        String msg="Method signature exceeds the maximum " + "parameter count: " + m;
+        throw new IllegalArgumentException(msg);
+      }
+      return m;
+    }
+  }
+  String msg="Callback must implement method named '" + Callback.METHOD_NAME + "'";
+  throw new IllegalArgumentException(msg);
+}

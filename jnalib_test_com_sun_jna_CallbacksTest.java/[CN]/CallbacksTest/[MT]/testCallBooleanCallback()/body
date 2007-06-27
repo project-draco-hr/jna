@@ -1,0 +1,18 @@
+{
+  final boolean[] called={false};
+  final boolean[] cbargs={false,false};
+  TestLibrary.BooleanCallback cb=new TestLibrary.BooleanCallback(){
+    public boolean callback(    boolean arg,    boolean arg2){
+      called[0]=true;
+      cbargs[0]=arg;
+      cbargs[1]=arg2;
+      return arg && arg2;
+    }
+  }
+;
+  boolean value=lib.callBooleanCallback(cb,true,false);
+  assertTrue("Callback not called",called[0]);
+  assertEquals("Wrong callback argument 1",true,cbargs[0]);
+  assertEquals("Wrong callback argument 2",false,cbargs[1]);
+  assertFalse("Wrong boolean return",value);
+}

@@ -1,0 +1,30 @@
+{
+  if (value instanceof Pointer) {
+    if (dstType == String.class) {
+      value=((Pointer)value).getString(0,false);
+    }
+ else     if (dstType == WString.class) {
+      value=new WString(((Pointer)value).getString(0,true));
+    }
+ else     if (Structure.class.isAssignableFrom(dstType)) {
+      Pointer p=(Pointer)value;
+      try {
+        Structure s=(Structure)dstType.newInstance();
+        s.useMemory(p);
+        s.read();
+        value=s;
+      }
+ catch (      InstantiationException e) {
+      }
+catch (      IllegalAccessException e) {
+      }
+    }
+  }
+ else   if (NativeLong.class.isAssignableFrom(dstType) && (value instanceof Integer || value instanceof Long)) {
+    value=new NativeLong(NativeLong.SIZE == 4 ? ((Integer)value).intValue() : ((Long)value).longValue());
+  }
+ else   if ((boolean.class == dstType || Boolean.class == dstType) && value instanceof Number) {
+    value=Boolean.valueOf(((Number)value).intValue() != 0);
+  }
+  return value;
+}

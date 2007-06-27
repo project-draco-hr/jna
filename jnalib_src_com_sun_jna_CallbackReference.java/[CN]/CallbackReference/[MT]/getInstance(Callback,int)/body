@@ -3,8 +3,7 @@
 synchronized (map) {
     CallbackReference cbref=(CallbackReference)map.get(callback);
     if (cbref == null) {
-      Pointer cbstruct=createCallback(callback,callingConvention);
-      cbref=new CallbackReference(callback,cbstruct);
+      cbref=new CallbackReference(callback,callingConvention);
       map.put(callback,cbref);
     }
     return cbref;

@@ -1,0 +1,18 @@
+{
+  final boolean[] called={false};
+  final NativeLong[] cbargs={null,null};
+  TestLibrary.NativeLongCallback cb=new TestLibrary.NativeLongCallback(){
+    public NativeLong callback(    NativeLong arg,    NativeLong arg2){
+      called[0]=true;
+      cbargs[0]=arg;
+      cbargs[1]=arg2;
+      return new NativeLong(arg.intValue() + arg2.intValue());
+    }
+  }
+;
+  NativeLong value=lib.callNativeLongCallback(cb,new NativeLong(1),new NativeLong(2));
+  assertTrue("Callback not called",called[0]);
+  assertEquals("Wrong callback argument 1",new NativeLong(1),cbargs[0]);
+  assertEquals("Wrong callback argument 2",new NativeLong(2),cbargs[1]);
+  assertEquals("Wrong boolean return",new NativeLong(3),value);
+}

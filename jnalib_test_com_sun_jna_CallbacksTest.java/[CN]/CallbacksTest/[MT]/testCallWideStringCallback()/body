@@ -1,0 +1,17 @@
+{
+  final boolean[] called={false};
+  final WString[] cbargs={null};
+  TestLibrary.WideStringCallback cb=new TestLibrary.WideStringCallback(){
+    public WString callback(    WString arg){
+      called[0]=true;
+      cbargs[0]=arg;
+      return arg;
+    }
+  }
+;
+  final WString VALUE=new WString("value");
+  WString value=lib.callWideStringCallback(cb,VALUE);
+  assertTrue("Callback not called",called[0]);
+  assertEquals("Wrong callback argument 1",VALUE,cbargs[0]);
+  assertEquals("Wrong wide string return",VALUE,value);
+}

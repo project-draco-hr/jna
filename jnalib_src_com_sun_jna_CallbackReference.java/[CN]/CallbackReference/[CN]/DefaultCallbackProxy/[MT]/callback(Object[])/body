@@ -1,0 +1,28 @@
+{
+  Class[] paramTypes=callbackMethod.getParameterTypes();
+  Object[] callbackArgs=new Object[args.length];
+  for (int i=0; i < args.length; i++) {
+    if (fromNative[i] != null) {
+      FromNativeContext context=new CallbackInvocationContext(paramTypes[i],callbackMethod,args);
+      args[i]=fromNative[i].fromNative(args[i],context);
+    }
+    callbackArgs[i]=convertArgument(args[i],paramTypes[i]);
+  }
+  Object result=null;
+  Callback cb=getCallback();
+  if (cb != null) {
+    try {
+      result=convertResult(callbackMethod.invoke(cb,callbackArgs));
+    }
+ catch (    IllegalArgumentException e) {
+      e.printStackTrace();
+    }
+catch (    IllegalAccessException e) {
+      e.printStackTrace();
+    }
+catch (    InvocationTargetException e) {
+      e.printStackTrace();
+    }
+  }
+  return result;
+}

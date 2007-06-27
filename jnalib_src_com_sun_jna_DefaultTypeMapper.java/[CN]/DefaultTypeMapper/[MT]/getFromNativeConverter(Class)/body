@@ -1,0 +1,3 @@
+{
+  return (FromNativeConverter)lookupConverter(javaType,fromNativeConverters);
+}

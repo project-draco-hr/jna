@@ -1,0 +1,5 @@
+{
+  super(javaType);
+  this.method=m;
+  this.args=args;
+}

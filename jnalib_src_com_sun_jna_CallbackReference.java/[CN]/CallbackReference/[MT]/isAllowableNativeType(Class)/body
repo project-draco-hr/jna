@@ -1,0 +1,3 @@
+{
+  return cls == boolean.class || cls == Boolean.class || cls == byte.class || cls == Byte.class || cls == short.class || cls == Short.class || cls == char.class || cls == Character.class || cls == int.class || cls == Integer.class || cls == long.class || cls == Long.class || cls == float.class || cls == Float.class || cls == double.class || cls == Double.class || Pointer.class.isAssignableFrom(cls);
+}

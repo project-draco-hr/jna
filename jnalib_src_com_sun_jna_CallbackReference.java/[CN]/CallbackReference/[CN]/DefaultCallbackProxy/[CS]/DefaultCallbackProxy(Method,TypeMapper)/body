@@ -1,0 +1,19 @@
+{
+  this.callbackMethod=callbackMethod;
+  Class[] argTypes=callbackMethod.getParameterTypes();
+  fromNative=new FromNativeConverter[argTypes.length];
+  if (mapper != null) {
+    toNative=mapper.getToNativeConverter(callbackMethod.getReturnType());
+    for (int i=0; i < fromNative.length; i++) {
+      fromNative[i]=mapper.getFromNativeConverter(argTypes[i]);
+    }
+  }
+  if (!callbackMethod.isAccessible()) {
+    try {
+      callbackMethod.setAccessible(true);
+    }
+ catch (    SecurityException e) {
+      throw new IllegalArgumentException("Callback method is inaccessible, make sure the interface is public: " + callbackMethod);
+    }
+  }
+}

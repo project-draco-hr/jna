@@ -41,17 +41,22 @@
       }
       Class nativeType=type;
       if (typeMapper != null) {
-        ArgumentConverter converter=typeMapper.getArgumentConverter(type);
-        if (converter != null) {
-          value=converter.toNative(value);
+        ToNativeConverter writeConverter=typeMapper.getToNativeConverter(type);
+        FromNativeConverter readConverter=typeMapper.getFromNativeConverter(type);
+        if (writeConverter != null && readConverter != null) {
+          value=writeConverter.toNative(value);
           nativeType=value != null ? value.getClass() : Pointer.class;
-          structField.writeConverter=converter;
+          structField.writeConverter=writeConverter;
+          structField.readConverter=readConverter;
+          structField.context=new StructureReadContext(type,this);
         }
-        structField.readConverter=typeMapper.getResultConverter(type);
-        structField.context=new StructureReadContext(type,this);
+ else         if (writeConverter != null || readConverter != null) {
+          String msg="Structures require bidirectional type conversion for " + type;
+          throw new IllegalArgumentException(msg);
+        }
       }
       structField.size=getNativeSize(nativeType,value);
-      fieldAlignment=getNativeAlignment(nativeType,value);
+      fieldAlignment=getNativeAlignment(nativeType,value,i == 0);
     }
  catch (    IllegalAccessException e) {
     }

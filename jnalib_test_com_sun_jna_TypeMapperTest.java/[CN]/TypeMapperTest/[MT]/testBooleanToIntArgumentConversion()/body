@@ -2,7 +2,7 @@
   final int MAGIC=0xABEDCF23;
   Map options=new HashMap();
   DefaultTypeMapper mapper=new DefaultTypeMapper();
-  mapper.addArgumentConverter(Boolean.class,new ArgumentConverter(){
+  mapper.addToNativeConverter(Boolean.class,new ToNativeConverter(){
     public Object toNative(    Object arg){
       return new Integer(Boolean.TRUE.equals(arg) ? MAGIC : 0);
     }

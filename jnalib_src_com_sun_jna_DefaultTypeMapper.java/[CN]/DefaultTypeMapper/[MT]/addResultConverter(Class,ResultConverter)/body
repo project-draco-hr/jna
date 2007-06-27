@@ -1,7 +1,0 @@
-{
-  resultConverters.add(new Entry(cls,converter));
-  Class alt=getAltClass(cls);
-  if (alt != null) {
-    resultConverters.add(new Entry(alt,converter));
-  }
-}

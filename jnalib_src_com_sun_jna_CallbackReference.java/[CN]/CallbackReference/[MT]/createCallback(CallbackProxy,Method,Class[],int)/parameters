@@ -1,0 +1,4 @@
+CallbackProxy callback
+Method method
+Class[] parameterTypes
+int callingConvention

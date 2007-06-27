@@ -1,5 +1,5 @@
 {
-  if (GraphicsEnvironment.isHeadless())   return;
+  if (GraphicsEnvironment.isHeadless() || Platform.isMac())   return;
   Robot robot=new Robot();
   int[] keys={KeyEvent.VK_CONTROL,KeyEvent.VK_A,KeyEvent.VK_Z,KeyEvent.VK_0,KeyEvent.VK_9,KeyEvent.VK_SHIFT,KeyEvent.VK_U};
   String[] keystr={"VK_CONTROL","VK_A","VK_Z","VK_0","VK_9","VK_SHIFT","VK_U"};

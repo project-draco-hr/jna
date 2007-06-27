@@ -1,4 +1,4 @@
 {
-  addResultConverter(cls,converter);
-  addArgumentConverter(cls,converter);
+  addFromNativeConverter(cls,converter);
+  addToNativeConverter(cls,converter);
 }

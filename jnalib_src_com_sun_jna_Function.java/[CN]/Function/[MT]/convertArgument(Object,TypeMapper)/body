@@ -1,0 +1,93 @@
+{
+  if (arg != null && mapper != null) {
+    ToNativeConverter converter=mapper.getToNativeConverter(arg.getClass());
+    if (converter != null) {
+      arg=converter.toNative(arg);
+    }
+  }
+  if (arg == null || isPrimitiveArray(arg.getClass())) {
+    return arg;
+  }
+  Class argClass=arg.getClass();
+  if (arg instanceof Structure) {
+    Structure struct=(Structure)arg;
+    struct.write();
+    return struct.getPointer();
+  }
+ else   if (arg instanceof ByReference) {
+    return ((ByReference)arg).getPointer();
+  }
+ else   if (arg instanceof Callback) {
+    CallbackReference cbref=CallbackReference.getInstance((Callback)arg);
+    return cbref.getTrampoline();
+  }
+ else   if (arg instanceof String) {
+    return new NativeString((String)arg,false).getPointer();
+  }
+ else   if (arg instanceof WString) {
+    return new NativeString(arg.toString(),true).getPointer();
+  }
+ else   if (arg instanceof NativeLong) {
+    return ((NativeLong)arg).asNativeValue();
+  }
+ else   if (arg instanceof Boolean) {
+    return new Integer(Boolean.TRUE.equals(arg) ? -1 : 0);
+  }
+ else   if (String[].class == argClass) {
+    return new StringArray((String[])arg);
+  }
+ else   if (isStructureArray(argClass)) {
+    Structure[] ss=(Structure[])arg;
+    if (ss.length == 0) {
+      return null;
+    }
+ else     if (ss[0] == null) {
+      Class type=argClass.getComponentType();
+      try {
+        Structure struct=(Structure)type.newInstance();
+        int size=struct.size();
+        Memory m=new Memory(size * ss.length);
+        struct.useMemory(m);
+        Structure[] tmp=struct.toArray(ss.length);
+        for (int si=0; si < ss.length; si++) {
+          ss[si]=tmp[si];
+        }
+      }
+ catch (      InstantiationException e) {
+        throw new IllegalArgumentException("Instantiation of " + type + " failed: "+ e);
+      }
+catch (      IllegalAccessException e) {
+        throw new IllegalArgumentException("Not allowed to instantiate " + type + ": "+ e);
+      }
+      return ss[0].getPointer();
+    }
+ else {
+      Pointer base=ss[0].getPointer();
+      int size=ss[0].size();
+      for (int si=1; si < ss.length; si++) {
+        try {
+          Pointer p=base.share(size * si,size);
+          if (ss[si].getPointer().peer != p.peer) {
+            throw new RuntimeException();
+          }
+        }
+ catch (        RuntimeException e) {
+          String msg="Structure array elements must use" + " contiguous memory: " + si;
+          throw new IllegalArgumentException(msg);
+        }
+      }
+      return base;
+    }
+  }
+ else   if (arg instanceof ByteBuffer && !((ByteBuffer)arg).isDirect()) {
+    ByteBuffer buf=(ByteBuffer)arg;
+    if (buf.hasArray()) {
+      return buf.array();
+    }
+    throw new IllegalArgumentException("Unsupported non-direct ByteBuffer with no array");
+  }
+ else   if (argClass.isArray()) {
+    throw new IllegalArgumentException("Unsupported array argument type: " + argClass.getComponentType());
+  }
+  return arg;
+}
