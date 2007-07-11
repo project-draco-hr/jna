@@ -1,0 +1,8 @@
+{
+  SizedUnion u=new SizedUnion();
+  final int VALUE=0x12345678;
+  u.intField=VALUE;
+  u.setType(int.class);
+  u.write();
+  assertEquals("Wrong value written",VALUE,u.getPointer().getInt(0));
+}

@@ -1,0 +1,8 @@
+{
+  if (alignType != ALIGN_NONE) {
+    if ((calculatedSize % structAlignment) != 0) {
+      calculatedSize+=structAlignment - (calculatedSize % structAlignment);
+    }
+  }
+  return calculatedSize;
+}

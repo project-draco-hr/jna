@@ -1,0 +1,10 @@
+{
+  for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
+    StructField f=(StructField)i.next();
+    if (f.type == type) {
+      writeField=f;
+      return;
+    }
+  }
+  throw new IllegalArgumentException("No field of type " + type + " in "+ this);
+}

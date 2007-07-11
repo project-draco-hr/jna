@@ -1,0 +1,4 @@
+{
+  Union u=new SizedUnion();
+  assertEquals("Union should be size of largest field",8,u.size());
+}

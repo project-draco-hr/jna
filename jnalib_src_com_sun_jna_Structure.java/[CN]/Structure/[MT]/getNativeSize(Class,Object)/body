@@ -9,6 +9,7 @@
       Object o=Array.get(value,0);
       return len * getNativeSize(type.getComponentType(),o);
     }
+    throw new IllegalArgumentException("Arrays of length zero not allowed in structure: " + this);
   }
   return getNativeSize(type);
 }

@@ -6,7 +6,18 @@
     nativeType=readConverter.nativeType();
   }
   Object result=null;
-  if (nativeType == byte.class || nativeType == Byte.class) {
+  if (Structure.class.isAssignableFrom(nativeType)) {
+    Structure s=null;
+    try {
+      s=(Structure)structField.field.get(this);
+      s.useMemory(memory,offset);
+      s.read();
+    }
+ catch (    IllegalAccessException e) {
+    }
+    result=s;
+  }
+ else   if (nativeType == byte.class || nativeType == Byte.class) {
     result=new Byte(memory.getByte(offset));
   }
  else   if (nativeType == short.class || nativeType == Short.class) {

@@ -8,6 +8,6 @@ class TestStructure extends Structure {
     public double d;
   }
   TestStructure s=new TestStructure();
-  s.setAlignment(Structure.ALIGN_GNUC);
+  s.setAlignType(Structure.ALIGN_GNUC);
   assertEquals("Wrong structure size",28,s.size());
 }

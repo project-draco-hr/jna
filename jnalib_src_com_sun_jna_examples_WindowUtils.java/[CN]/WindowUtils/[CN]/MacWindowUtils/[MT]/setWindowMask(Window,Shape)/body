@@ -1,4 +1,5 @@
 {
   OSXTransparentContent content=installTransparentContent(w);
   content.setMask(shape);
+  setBackgroundTransparent(w,shape != MASK_NONE);
 }

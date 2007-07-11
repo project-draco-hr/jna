@@ -1,5 +1,5 @@
 {
-  setAlignment(alignment);
+  setAlignType(alignment);
   setTypeMapper(null);
   allocateMemory(size);
 }

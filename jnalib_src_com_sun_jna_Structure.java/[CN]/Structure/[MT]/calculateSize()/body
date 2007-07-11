@@ -68,13 +68,8 @@
     calculatedSize+=structField.size;
     structFields.put(structField.name,structField);
   }
-  if (alignType != ALIGN_NONE) {
-    if ((calculatedSize % structAlignment) != 0) {
-      calculatedSize+=structAlignment - (calculatedSize % structAlignment);
-    }
-  }
   if (calculatedSize > 0) {
-    return calculatedSize;
+    return calculateAlignedSize(calculatedSize);
   }
-  throw new IllegalArgumentException("Structure " + getClass() + " has invalid size (ensure "+ "all fields are public)");
+  throw new IllegalArgumentException("Structure " + getClass() + " has unknown size (ensure "+ "all fields are public)");
 }

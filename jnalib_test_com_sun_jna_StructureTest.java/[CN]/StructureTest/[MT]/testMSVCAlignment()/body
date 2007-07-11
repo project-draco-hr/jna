@@ -8,6 +8,6 @@ class TestStructure extends Structure {
     public double d;
   }
   TestStructure s=new TestStructure();
-  s.setAlignment(Structure.ALIGN_MSVC);
+  s.setAlignType(Structure.ALIGN_MSVC);
   assertEquals("Wrong structure size",32,s.size());
 }

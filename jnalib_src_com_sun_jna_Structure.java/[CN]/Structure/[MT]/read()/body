@@ -1,17 +1,5 @@
 {
   for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
-    StructField f=(StructField)i.next();
-    if (Structure.class.isAssignableFrom(f.type)) {
-      try {
-        Structure s=(Structure)f.field.get(this);
-        s.useMemory(memory,f.offset);
-        s.read();
-      }
- catch (      IllegalAccessException e) {
-      }
-    }
- else {
-      readField(f);
-    }
+    readField((StructField)i.next());
   }
 }
