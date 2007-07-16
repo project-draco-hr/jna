@@ -1,0 +1,12 @@
+{
+  Kernel32 kernel=Kernel32.INSTANCE;
+  kernel.GetLastError();
+  if (kernel.GetProcessId(null) == 0) {
+    final int INVALID_HANDLE=6;
+    int code=kernel.GetLastError();
+    assertEquals("GetLastError failed",INVALID_HANDLE,code);
+  }
+ else {
+    fail("GetProcessId(NULL) should fail");
+  }
+}
