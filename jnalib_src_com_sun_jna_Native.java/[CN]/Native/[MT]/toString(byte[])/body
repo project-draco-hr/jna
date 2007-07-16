@@ -1,4 +1,6 @@
 {
   String s=new String(buf);
-  return s.substring(0,s.indexOf(0));
+  int term=s.indexOf(0);
+  if (term != -1)   s=s.substring(0,term);
+  return s;
 }
