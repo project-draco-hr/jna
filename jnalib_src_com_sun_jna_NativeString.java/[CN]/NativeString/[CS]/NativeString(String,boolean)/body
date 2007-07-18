@@ -1,10 +1,16 @@
 {
-  this.wide=wide;
+  this.value=string;
   if (string == null) {
-    pointer=null;
+    throw new NullPointerException("String must not be null");
+  }
+  if (wide) {
+    int len=(string.length() + 1) * Pointer.WCHAR_SIZE;
+    pointer=new Memory(len);
+    pointer.setString(0,string,true);
   }
  else {
-    pointer=new Memory((string.length() + 1) * (wide ? Pointer.WCHAR_SIZE : 1));
-    pointer.setString(0,string,wide);
+    byte[] data=Native.getBytes(string);
+    pointer=new Memory(data.length + 1);
+    pointer.setString(0,string);
   }
 }

@@ -1,0 +1,27 @@
+{
+  String old=System.getProperty("jna.encoding");
+  String VALUE="\u0444\u0438\u0441\u0432\u0443";
+  System.setProperty("jna.encoding","UTF8");
+  try {
+    int size=VALUE.getBytes("UTF8").length + 1;
+    Memory m=new Memory(size);
+    m.setString(0,VALUE);
+    assertEquals("UTF8 encoding should be double",VALUE.length() * 2 + 1,size);
+    assertEquals("Wrong decoded value",VALUE,m.getString(0));
+  }
+  finally {
+    if (old != null) {
+      System.setProperty("jna.encoding",old);
+    }
+ else {
+      Map props=System.getProperties();
+      props.remove("jna.encoding");
+      Properties newProps=new Properties();
+      for (Iterator i=props.entrySet().iterator(); i.hasNext(); ) {
+        Entry e=(Entry)i.next();
+        newProps.setProperty(e.getKey().toString(),e.getValue().toString());
+      }
+      System.setProperties(newProps);
+    }
+  }
+}

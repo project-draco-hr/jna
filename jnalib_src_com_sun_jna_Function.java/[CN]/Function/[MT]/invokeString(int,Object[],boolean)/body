@@ -2,7 +2,8 @@
   Pointer ptr=invokePointer(callingConvention,args);
   String s=null;
   if (ptr != null) {
-    s=ptr.getString(0,wide);
+    if (wide)     s=ptr.getString(0,wide);
+ else     s=ptr.getString(0);
   }
   return s;
 }

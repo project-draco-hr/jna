@@ -1,16 +1,6 @@
 {
-  if (!isValid())   return false;
-  String s1=null;
-  if (other instanceof NativeString) {
-    NativeString cs=(NativeString)other;
-    if (!cs.isValid() || cs.wide != wide)     return false;
- else     s1=cs.toString();
+  if (other instanceof CharSequence) {
+    return compareTo(other) == 0;
   }
- else   if (other instanceof String) {
-    s1=(String)other;
-  }
- else {
-    return false;
-  }
-  return s1.equals(toString());
+  return false;
 }

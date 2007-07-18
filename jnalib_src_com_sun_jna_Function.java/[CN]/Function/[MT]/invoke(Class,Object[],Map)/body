@@ -36,7 +36,7 @@
         StringArray buf=(StringArray)args[i];
         String[] array=(String[])arg;
         for (int si=0; si < array.length; si++) {
-          array[si]=buf.getPointer(si * Pointer.SIZE).getString(0,false);
+          array[si]=buf.getPointer(si * Pointer.SIZE).getString(0);
         }
       }
  else       if (isStructureArray(arg.getClass())) {

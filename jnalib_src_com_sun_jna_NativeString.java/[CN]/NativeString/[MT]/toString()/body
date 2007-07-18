@@ -1,6 +1,3 @@
 {
-  if (!isValid()) {
-    throw new IllegalStateException("String memory has already been freed");
-  }
-  return getPointer().getString(0,wide);
+  return value;
 }

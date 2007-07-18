@@ -1,4 +1,3 @@
 {
-  if (isValid())   return toString().hashCode();
- else   return super.hashCode();
+  return value.hashCode();
 }

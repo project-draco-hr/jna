@@ -1,23 +1,4 @@
 {
-  if (!isValid()) {
-    if (other instanceof NativeString) {
-      if (!((NativeString)other).isValid())       return 0;
-    }
- else {
-      return -1;
-    }
-  }
   if (other == null)   return 1;
-  String s1=null;
-  if (other instanceof NativeString) {
-    if (!((NativeString)other).isValid())     return 1;
- else     s1=((NativeString)other).toString();
-  }
- else   if (other instanceof String) {
-    s1=(String)other;
-  }
- else {
-    s1=other.toString();
-  }
-  return toString().compareTo(s1);
+  return value.compareTo(other.toString());
 }
