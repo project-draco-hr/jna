@@ -1,0 +1,5 @@
+{
+  this.libraryName=getLibraryName(libraryName);
+  this.libraryPath=libraryPath;
+  this.handle=handle;
+}

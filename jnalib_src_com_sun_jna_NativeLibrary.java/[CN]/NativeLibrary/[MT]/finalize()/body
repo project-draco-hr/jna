@@ -1,3 +1,6 @@
 {
-  close(handle);
+  if (handle != 0) {
+    close(handle);
+    handle=0;
+  }
 }
