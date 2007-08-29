@@ -1,4 +1,4 @@
 {
-  freeCallback(cbstruct.peer);
+  freeNativeCallback(cbstruct.peer);
   cbstruct.peer=0;
 }

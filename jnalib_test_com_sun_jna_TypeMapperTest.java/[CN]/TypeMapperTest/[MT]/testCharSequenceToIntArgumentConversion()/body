@@ -4,6 +4,9 @@
     public Object toNative(    Object arg){
       return Integer.valueOf(((CharSequence)arg).toString(),16);
     }
+    public Class nativeType(){
+      return Integer.class;
+    }
   }
 );
   Map options=new HashMap();

@@ -5,6 +5,10 @@
     final int INVALID_HANDLE=6;
     int code=kernel.GetLastError();
     assertEquals("GetLastError failed",INVALID_HANDLE,code);
+    int ERRCODE=8;
+    kernel.SetLastError(ERRCODE);
+    code=kernel.GetLastError();
+    assertEquals("Wrong GetLastError value",ERRCODE,code);
   }
  else {
     fail("GetProcessId(NULL) should fail");

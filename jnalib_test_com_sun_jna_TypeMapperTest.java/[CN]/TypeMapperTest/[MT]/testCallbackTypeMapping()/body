@@ -19,8 +19,7 @@
     }
   }
 ;
-  mapper.addToNativeConverter(float.class,converter);
-  mapper.addFromNativeConverter(float.class,converter);
+  mapper.addTypeConverter(float.class,converter);
   CallbackTestLibrary.Int32Callback cb=new CallbackTestLibrary.Int32Callback(){
     public float callback(    float arg,    float arg2){
       return arg + arg2;

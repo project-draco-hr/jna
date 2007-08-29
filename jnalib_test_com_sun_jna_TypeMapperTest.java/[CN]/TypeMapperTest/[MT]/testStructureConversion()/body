@@ -12,8 +12,7 @@
     }
   }
 ;
-  mapper.addToNativeConverter(Boolean.class,converter);
-  mapper.addFromNativeConverter(Boolean.class,converter);
+  mapper.addTypeConverter(Boolean.class,converter);
   Map options=new HashMap();
   options.put(Library.OPTION_TYPE_MAPPER,mapper);
   StructureTestLibrary lib=(StructureTestLibrary)Native.loadLibrary("testlib",StructureTestLibrary.class,options);

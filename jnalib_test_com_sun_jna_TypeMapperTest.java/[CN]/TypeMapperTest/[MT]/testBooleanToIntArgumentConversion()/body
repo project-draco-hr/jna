@@ -6,6 +6,9 @@
     public Object toNative(    Object arg){
       return new Integer(Boolean.TRUE.equals(arg) ? MAGIC : 0);
     }
+    public Class nativeType(){
+      return Integer.class;
+    }
   }
 );
   options.put(Library.OPTION_TYPE_MAPPER,mapper);

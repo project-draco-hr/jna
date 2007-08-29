@@ -5,7 +5,7 @@
     osPrefix="win32-" + arch;
   }
  else   if (Platform.isMac()) {
-    osPrefix="darwin-" + arch;
+    osPrefix="darwin";
   }
  else   if (Platform.isLinux()) {
     osPrefix="linux-" + arch;

@@ -14,14 +14,24 @@
     mapper=Native.getTypeMapper(declaring);
   }
   Method m=getCallbackMethod(callback);
-  proxy=new DefaultCallbackProxy(m,mapper);
+  if (callback instanceof CallbackProxy) {
+    proxy=(CallbackProxy)callback;
+  }
+ else {
+    proxy=new DefaultCallbackProxy(m,mapper);
+  }
   Class[] nativeParamTypes=proxy.getParameterTypes();
+  Class returnType=proxy.getReturnType();
   if (mapper != null) {
     for (int i=0; i < nativeParamTypes.length; i++) {
       FromNativeConverter rc=mapper.getFromNativeConverter(nativeParamTypes[i]);
       if (rc != null) {
         nativeParamTypes[i]=rc.nativeType();
       }
+    }
+    ToNativeConverter tn=mapper.getToNativeConverter(returnType);
+    if (tn != null) {
+      returnType=tn.nativeType();
     }
   }
   for (int i=0; i < nativeParamTypes.length; i++) {
@@ -48,11 +58,6 @@ catch (      IllegalAccessException e) {
       throw new IllegalArgumentException("Callback argument " + cls + " requires custom type conversion");
     }
   }
-  try {
-    Method proxyMethod=CallbackProxy.class.getMethod("callback",new Class[]{Object[].class});
-    cbstruct=createCallback(proxy,proxyMethod,nativeParamTypes,callingConvention);
-  }
- catch (  NoSuchMethodException e) {
-    throw new Error("Unexpectedly missing CallbackProxy.callback(Object[])");
-  }
+  Method proxyMethod=getCallbackMethod(proxy);
+  cbstruct=createNativeCallback(proxy,proxyMethod,nativeParamTypes,returnType,callingConvention);
 }

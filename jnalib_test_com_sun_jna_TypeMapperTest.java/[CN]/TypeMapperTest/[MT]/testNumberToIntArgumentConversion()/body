@@ -4,6 +4,9 @@
     public Object toNative(    Object arg){
       return new Integer(((Double)arg).intValue());
     }
+    public Class nativeType(){
+      return Integer.class;
+    }
   }
 );
   Map options=new HashMap();
