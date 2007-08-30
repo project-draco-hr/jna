@@ -1,0 +1,3 @@
+{
+  this.function=new Function(address,callingConvention);
+}

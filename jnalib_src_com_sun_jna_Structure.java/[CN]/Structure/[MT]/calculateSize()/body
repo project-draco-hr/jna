@@ -12,9 +12,10 @@
   }
   for (int i=0; i < fields.length; i++) {
     Field field=fields[i];
-    if ((field.getModifiers() & Modifier.STATIC) != 0)     continue;
+    if (Modifier.isStatic(field.getModifiers()))     continue;
     Class type=field.getType();
     StructField structField=new StructField();
+    structField.isVolatile=Modifier.isVolatile(field.getModifiers());
     structField.field=field;
     structField.name=field.getName();
     structField.type=type;

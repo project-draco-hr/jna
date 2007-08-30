@@ -41,7 +41,7 @@
  else   if (nativeType == double.class || nativeType == Double.class) {
     result=new Double(memory.getDouble(offset));
   }
- else   if (Pointer.class.isAssignableFrom(nativeType)) {
+ else   if (nativeType == Pointer.class) {
     result=memory.getPointer(offset);
   }
  else   if (nativeType == String.class) {
@@ -53,7 +53,24 @@
     result=p != null ? new WString(p.getString(0,true)) : null;
   }
  else   if (Callback.class.isAssignableFrom(nativeType)) {
-    return;
+    Pointer fp=memory.getPointer(offset);
+    if (fp == null) {
+      result=null;
+    }
+ else     try {
+      Callback cb=(Callback)structField.field.get(this);
+      Pointer oldfp=getFunctionPointer(cb);
+      if (!fp.equals(oldfp)) {
+        cb=createNativeCallback(nativeType,fp);
+      }
+      result=cb;
+    }
+ catch (    IllegalArgumentException e) {
+      return;
+    }
+catch (    IllegalAccessException e) {
+      return;
+    }
   }
  else   if (nativeType.isArray()) {
     Class cls=nativeType.getComponentType();
@@ -104,6 +121,6 @@ catch (    IllegalAccessException e) {
     structField.field.set(this,result);
   }
  catch (  Exception e) {
-    throw new RuntimeException("Exception setting field \"" + structField.name + "\"",e);
+    throw new RuntimeException("Exception setting field \"" + structField.name + "\" to "+ result+ ": "+ e,e);
   }
 }

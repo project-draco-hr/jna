@@ -1,7 +1,7 @@
 {
   TestStructure arg1=new TestStructure();
   TestStructure[] varargs=new TestStructure[]{new TestStructure()};
-  lib.modifyStructureVarArgs("ss",arg1,varargs);
+  lib.modifyStructureVarArgs("ss",arg1,varargs[0]);
   assertEquals("Structure memory not read in fixed arg w/varargs",MAGIC32,arg1.magic);
   assertEquals("Structure memory not read in varargs",MAGIC32,varargs[0].magic);
 }

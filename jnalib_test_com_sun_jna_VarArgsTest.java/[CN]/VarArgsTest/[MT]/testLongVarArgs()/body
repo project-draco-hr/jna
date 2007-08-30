@@ -1,8 +1,5 @@
 {
-  Long[] args=new Long[2];
   short arg1=1;
   short arg2=2;
-  args[0]=new Long(arg1);
-  args[1]=new Long(arg2);
-  assertEquals("VarArgs not added correctly",arg1 + arg2,lib.addInt32VarArgs("ll",args));
+  assertEquals("VarArgs not added correctly",arg1 + arg2,lib.addInt32VarArgs("ll",new Long(arg1),new Long(arg2)));
 }

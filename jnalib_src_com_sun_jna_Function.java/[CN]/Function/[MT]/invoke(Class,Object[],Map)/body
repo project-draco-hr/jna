@@ -1,5 +1,4 @@
 {
-  inArgs=concatenateVarArgs(inArgs);
   Object[] args={};
   if (inArgs != null) {
     if (inArgs.length > MAX_NARGS) {

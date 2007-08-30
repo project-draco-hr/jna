@@ -48,7 +48,7 @@
  else   if (nativeType == double.class || nativeType == Double.class) {
     memory.setDouble(offset,((Double)value).doubleValue());
   }
- else   if (Pointer.class.isAssignableFrom(nativeType)) {
+ else   if (nativeType == Pointer.class) {
     memory.setPointer(offset,(Pointer)value);
   }
  else   if (nativeType == String.class) {

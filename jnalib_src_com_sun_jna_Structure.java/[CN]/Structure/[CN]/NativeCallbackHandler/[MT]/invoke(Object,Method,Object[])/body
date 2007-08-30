@@ -1,0 +1,9 @@
+{
+  if (method == Library.Handler.OBJECT_TOSTRING) {
+    return "Proxy interface to function pointer " + function;
+  }
+  if (Function.isVarArgs(method)) {
+    args=Function.concatenateVarArgs(args);
+  }
+  return function.invoke(method.getReturnType(),args);
+}

@@ -1,0 +1,17 @@
+{
+  try {
+    Method v=m.getClass().getMethod("isVarArgs",new Class[0]);
+    return Boolean.TRUE.equals(v.invoke(m,new Object[0]));
+  }
+ catch (  SecurityException e) {
+  }
+catch (  NoSuchMethodException e) {
+  }
+catch (  IllegalArgumentException e) {
+  }
+catch (  IllegalAccessException e) {
+  }
+catch (  InvocationTargetException e) {
+  }
+  return false;
+}

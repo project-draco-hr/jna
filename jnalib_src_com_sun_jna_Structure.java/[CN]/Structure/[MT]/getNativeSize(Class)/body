@@ -7,7 +7,7 @@
   if (cls == float.class || cls == Float.class)   return 4;
   if (cls == double.class || cls == Double.class)   return 8;
   if (NativeLong.class.isAssignableFrom(cls))   return Pointer.LONG_SIZE;
-  if (Pointer.class.isAssignableFrom(cls) || Callback.class.isAssignableFrom(cls) || String.class == cls || WString.class == cls) {
+  if (Pointer.class == cls || Callback.class.isAssignableFrom(cls) || String.class == cls || WString.class == cls) {
     return Pointer.SIZE;
   }
   throw new IllegalArgumentException("Native type undefined for " + cls);

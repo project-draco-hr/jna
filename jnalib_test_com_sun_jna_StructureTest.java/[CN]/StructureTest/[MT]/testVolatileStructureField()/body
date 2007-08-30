@@ -1,0 +1,10 @@
+{
+  VolatileStructure s=new VolatileStructure();
+  s.counter=1;
+  s.value=1;
+  s.write();
+  assertEquals("Volatile field should not be written",0,s.getPointer().getInt(0));
+  assertEquals("Non-volatile field should be written",1,s.getPointer().getInt(4));
+  s.writeField("counter");
+  assertEquals("Explicit volatile field write failed",1,s.getPointer().getInt(0));
+}

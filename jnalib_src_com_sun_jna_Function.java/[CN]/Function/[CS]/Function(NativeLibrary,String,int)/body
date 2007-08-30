@@ -1,6 +1,6 @@
 {
   checkCallingConvention(callingConvention);
-  this.library=library;
+  this.libName=library.getName();
   this.functionName=functionName;
   this.callingConvention=callingConvention;
   this.peer=library.getFunctionAddress(functionName);

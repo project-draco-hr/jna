@@ -2,7 +2,7 @@
   if (!Library.class.isAssignableFrom(interfaceClass)) {
     throw new IllegalArgumentException("Not a valid native library interface: " + interfaceClass);
   }
-  InvocationHandler handler=new Library.Handler(name,interfaceClass,options);
+  Library.Handler handler=new Library.Handler(name,interfaceClass,options);
   ClassLoader loader=interfaceClass.getClassLoader();
   Library proxy=(Library)Proxy.newProxyInstance(loader,new Class[]{interfaceClass},handler);
   if (options.containsKey(Library.OPTION_TYPE_MAPPER))   typeMappers.put(interfaceClass,options.get(Library.OPTION_TYPE_MAPPER));

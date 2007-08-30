@@ -1,11 +1,14 @@
 {
+  if (libraries.containsKey(cls)) {
+    return true;
+  }
   if (cls != null) {
     try {
       Field[] fields=cls.getFields();
       for (int i=0; i < fields.length; i++) {
         Field field=fields[i];
-        if (field.getType() == cls && (field.getModifiers() & Modifier.STATIC) != 0) {
-          field.get(null);
+        if (field.getType() == cls && Modifier.isStatic(field.getModifiers())) {
+          libraries.put(cls,field.get(null));
           return true;
         }
       }

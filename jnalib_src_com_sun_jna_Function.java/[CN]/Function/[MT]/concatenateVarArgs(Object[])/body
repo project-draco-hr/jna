@@ -2,7 +2,7 @@
   if (inArgs != null && inArgs.length > 0) {
     Object lastArg=inArgs[inArgs.length - 1];
     Class argType=lastArg != null ? lastArg.getClass() : null;
-    if (argType != null && argType.isArray() && !isPrimitiveArray(argType) && !isStructureArray(argType) && argType != String[].class) {
+    if (argType != null && argType.isArray()) {
       Object[] varArgs=(Object[])lastArg;
       Object[] fullArgs=new Object[inArgs.length + varArgs.length];
       System.arraycopy(inArgs,0,fullArgs,0,inArgs.length - 1);

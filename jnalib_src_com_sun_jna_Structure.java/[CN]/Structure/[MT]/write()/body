@@ -3,6 +3,9 @@
     allocateMemory();
   }
   for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
-    writeField((StructField)i.next());
+    StructField sf=(StructField)i.next();
+    if (!sf.isVolatile) {
+      writeField(sf);
+    }
   }
 }
