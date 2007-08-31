@@ -1,0 +1,8 @@
+{
+  final float MAGIC=1234.5678f;
+  Memory m=new Memory(8);
+  ByteBuffer buf=m.getByteBuffer(0,m.getSize()).order(ByteOrder.nativeOrder());
+  FloatBuffer fb=buf.asFloatBuffer();
+  fb.put(MAGIC).flip();
+  assertEquals("Int not written to memory",MAGIC,m.getFloat(0));
+}

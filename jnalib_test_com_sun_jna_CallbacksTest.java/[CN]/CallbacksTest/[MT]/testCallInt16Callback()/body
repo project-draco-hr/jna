@@ -1,0 +1,21 @@
+{
+  final boolean[] called={false};
+  final short[] cbargs={0,0};
+  TestLibrary.ShortCallback cb=new TestLibrary.ShortCallback(){
+    public short callback(    short arg,    short arg2){
+      called[0]=true;
+      cbargs[0]=arg;
+      cbargs[1]=arg2;
+      return (short)(arg + arg2);
+    }
+  }
+;
+  final short MAGIC=0x1111;
+  short value=lib.callInt16Callback(cb,MAGIC,(short)(MAGIC * 2));
+  assertTrue("Callback not called",called[0]);
+  assertEquals("Wrong callback argument 1",Integer.toHexString(MAGIC),Integer.toHexString(cbargs[0]));
+  assertEquals("Wrong callback argument 2",Integer.toHexString(MAGIC * 2),Integer.toHexString(cbargs[1]));
+  assertEquals("Wrong short return",Integer.toHexString(MAGIC * 3),Integer.toHexString(value));
+  value=lib.callInt16Callback(cb,(short)-1,(short)-2);
+  assertEquals("Wrong short return (hi bit)",(short)-3,value);
+}

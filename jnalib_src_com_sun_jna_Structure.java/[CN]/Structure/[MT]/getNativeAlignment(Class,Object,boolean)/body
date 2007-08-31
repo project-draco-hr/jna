@@ -19,7 +19,7 @@
   if (alignType == ALIGN_NONE)   return 1;
   if (alignType == ALIGN_MSVC)   return Math.min(8,alignment);
   if (alignType == ALIGN_GNUC) {
-    if (!firstElement || !"ppc".equals(System.getProperty("os.arch")))     return Math.min(4,alignment);
+    if (!firstElement || !isPPC)     return Math.min(MAX_GNUC_ALIGNMENT,alignment);
   }
   return alignment;
 }

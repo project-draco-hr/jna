@@ -1,0 +1,8 @@
+{
+  final long MAGIC=0x1234567887654321L;
+  Memory m=new Memory(8);
+  ByteBuffer buf=m.getByteBuffer(0,m.getSize()).order(ByteOrder.nativeOrder());
+  LongBuffer lb=buf.asLongBuffer();
+  m.setLong(0,MAGIC);
+  assertEquals("Long not read from memory",MAGIC,lb.get(0));
+}

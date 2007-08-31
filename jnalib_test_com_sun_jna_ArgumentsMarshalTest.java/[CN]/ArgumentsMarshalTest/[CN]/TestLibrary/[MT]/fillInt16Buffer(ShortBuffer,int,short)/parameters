@@ -1,0 +1,3 @@
+ShortBuffer buf
+int len
+short value

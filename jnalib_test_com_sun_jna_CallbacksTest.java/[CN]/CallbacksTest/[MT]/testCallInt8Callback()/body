@@ -1,0 +1,21 @@
+{
+  final boolean[] called={false};
+  final byte[] cbargs={0,0};
+  TestLibrary.ByteCallback cb=new TestLibrary.ByteCallback(){
+    public byte callback(    byte arg,    byte arg2){
+      called[0]=true;
+      cbargs[0]=arg;
+      cbargs[1]=arg2;
+      return (byte)(arg + arg2);
+    }
+  }
+;
+  final byte MAGIC=0x11;
+  byte value=lib.callInt8Callback(cb,MAGIC,(byte)(MAGIC * 2));
+  assertTrue("Callback not called",called[0]);
+  assertEquals("Wrong callback argument 1",Integer.toHexString(MAGIC),Integer.toHexString(cbargs[0]));
+  assertEquals("Wrong callback argument 2",Integer.toHexString(MAGIC * 2),Integer.toHexString(cbargs[1]));
+  assertEquals("Wrong byte return",Integer.toHexString(MAGIC * 3),Integer.toHexString(value));
+  value=lib.callInt8Callback(cb,(byte)-1,(byte)-2);
+  assertEquals("Wrong byte return (hi bit)",(byte)-3,value);
+}

@@ -1,0 +1,8 @@
+{
+  final int MAGIC=0xABEDCF23;
+  Memory m=new Memory(8);
+  ByteBuffer buf=m.getByteBuffer(0,m.getSize()).order(ByteOrder.nativeOrder());
+  IntBuffer ib=buf.asIntBuffer();
+  ib.put(MAGIC).flip();
+  assertEquals("Int not written to memory",MAGIC,m.getInt(0));
+}
