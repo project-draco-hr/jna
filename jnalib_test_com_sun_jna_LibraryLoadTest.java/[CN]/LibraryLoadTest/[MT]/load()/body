@@ -1,0 +1,3 @@
+{
+  return Native.loadLibrary(System.getProperty("os.name").startsWith("Windows") ? "msvcrt" : "c",CLibrary.class);
+}
