@@ -1,4 +1,5 @@
 {
+  if (!Platform.isWindows())   return;
   events=new HashMap();
   listener=new FileListener(){
     public void fileChanged(    FileEvent e){

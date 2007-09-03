@@ -1,5 +1,0 @@
-{
-  System.setProperty("jna.library.path","/usr/X11R6/lib");
-  x11=X11.INSTANCE;
-  ext=X11.Xext.INSTANCE;
-}
