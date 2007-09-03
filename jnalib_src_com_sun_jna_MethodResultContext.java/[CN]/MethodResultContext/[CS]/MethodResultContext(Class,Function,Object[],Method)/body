@@ -1,0 +1,4 @@
+{
+  super(resultClass,function,args);
+  this.method=method;
+}

@@ -26,7 +26,14 @@
   }
   Object result=invoke(args,nativeType);
   if (resultConverter != null) {
-    FromNativeContext context=new FunctionResultContext(returnType,this,inArgs);
+    FromNativeContext context;
+    Method m=(Method)options.get(Library.OPTION_INVOKING_METHOD);
+    if (m != null) {
+      context=new MethodResultContext(returnType,this,inArgs,m);
+    }
+ else {
+      context=new FunctionResultContext(returnType,this,inArgs);
+    }
     result=resultConverter.fromNative(result,context);
   }
   if (inArgs != null) {
