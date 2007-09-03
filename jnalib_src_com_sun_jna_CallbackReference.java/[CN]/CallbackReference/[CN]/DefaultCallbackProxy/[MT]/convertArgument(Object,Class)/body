@@ -20,9 +20,6 @@ catch (      IllegalAccessException e) {
       }
     }
   }
- else   if (NativeLong.class.isAssignableFrom(dstType) && (value instanceof Integer || value instanceof Long)) {
-    value=new NativeLong(NativeLong.SIZE == 4 ? ((Integer)value).intValue() : ((Long)value).longValue());
-  }
  else   if ((boolean.class == dstType || Boolean.class == dstType) && value instanceof Number) {
     value=Boolean.valueOf(((Number)value).intValue() != 0);
   }

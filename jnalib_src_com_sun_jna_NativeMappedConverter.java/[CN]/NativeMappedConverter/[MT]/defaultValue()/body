@@ -1,0 +1,13 @@
+{
+  try {
+    return (NativeMapped)type.newInstance();
+  }
+ catch (  InstantiationException e) {
+    String msg="Can't create an instance of " + type + ", requires a no-arg constructor: "+ e;
+    throw new IllegalArgumentException(msg);
+  }
+catch (  IllegalAccessException e) {
+    String msg="Not allowed to create an instance of " + type + ", requires a public, no-arg constructor: "+ e;
+    throw new IllegalArgumentException(msg);
+  }
+}

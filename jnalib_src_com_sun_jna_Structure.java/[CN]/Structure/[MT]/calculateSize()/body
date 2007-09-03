@@ -12,10 +12,11 @@
   }
   for (int i=0; i < fields.length; i++) {
     Field field=fields[i];
-    if (Modifier.isStatic(field.getModifiers()))     continue;
+    int modifiers=field.getModifiers();
+    if (Modifier.isStatic(modifiers) || !Modifier.isPublic(modifiers))     continue;
     Class type=field.getType();
     StructField structField=new StructField();
-    structField.isVolatile=Modifier.isVolatile(field.getModifiers());
+    structField.isVolatile=Modifier.isVolatile(modifiers);
     structField.field=field;
     structField.name=field.getName();
     structField.type=type;
@@ -29,19 +30,25 @@
             field.set(this,value);
           }
  catch (          InstantiationException e) {
-            String msg="Can't determine size of  nested structure: " + e.getMessage();
+            String msg="Can't determine size of nested structure: " + e.getMessage();
             throw new IllegalArgumentException(msg);
           }
-        }
- else         if (NativeLong.class == type) {
-          field.set(this,value=new NativeLong(0));
         }
  else         if (type.isArray()) {
           return CALCULATE_SIZE;
         }
       }
       Class nativeType=type;
-      if (typeMapper != null) {
+      if (NativeMapped.class.isAssignableFrom(type)) {
+        NativeMappedConverter tc=new NativeMappedConverter(type);
+        value=tc.defaultValue();
+        nativeType=tc.nativeType();
+        structField.writeConverter=tc;
+        structField.readConverter=tc;
+        structField.context=new StructureReadContext(type,this);
+        field.set(this,value);
+      }
+ else       if (typeMapper != null) {
         ToNativeConverter writeConverter=typeMapper.getToNativeConverter(type);
         FromNativeConverter readConverter=typeMapper.getFromNativeConverter(type);
         if (writeConverter != null && readConverter != null) {

@@ -19,22 +19,22 @@
     }
   }
 );
-  Pointer dpy=x11.XOpenDisplay(null);
+  Display dpy=x11.XOpenDisplay(null);
   int WIDTH=300;
   int HEIGHT=300;
-  int w=(int)Native.getWindowID(frame);
-  int pm=x11.XCreatePixmap(dpy,w,WIDTH,HEIGHT,1);
-  if (pm == 0) {
+  X11.Window w=new X11.Window((int)Native.getWindowID(frame));
+  Pixmap pm=x11.XCreatePixmap(dpy,w,WIDTH,HEIGHT,1);
+  if (pm == null) {
     fail("Can't create pixmap");
   }
-  Pointer gc=x11.XCreateGC(dpy,pm,0,null);
+  GC gc=x11.XCreateGC(dpy,pm,new NativeLong(0),null);
   if (gc == null) {
     fail("Can't create GC");
   }
   Insets insets=frame.getInsets();
-  x11.XSetForeground(dpy,gc,0);
+  x11.XSetForeground(dpy,gc,new NativeLong(0));
   x11.XFillRectangle(dpy,pm,gc,0,0,WIDTH,HEIGHT);
-  x11.XSetForeground(dpy,gc,0xFFFFFF);
+  x11.XSetForeground(dpy,gc,new NativeLong(0xFFFFFF));
   x11.XFillRectangle(dpy,pm,gc,0,0,WIDTH,(HEIGHT - insets.top) / 2);
   x11.XFillArc(dpy,pm,gc,0,0,WIDTH,HEIGHT - insets.top,0,360 * 64);
   int ShapeBounding=0;

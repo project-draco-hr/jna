@@ -1,0 +1,3 @@
+{
+  return ((NativeMapped)value).toNative();
+}

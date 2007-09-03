@@ -1,6 +1,13 @@
 {
-  if (arg != null && mapper != null) {
-    ToNativeConverter converter=mapper.getToNativeConverter(arg.getClass());
+  if (arg != null) {
+    Class type=arg.getClass();
+    ToNativeConverter converter=null;
+    if (NativeMapped.class.isAssignableFrom(type)) {
+      converter=new NativeMappedConverter(type);
+    }
+ else     if (mapper != null) {
+      converter=mapper.getToNativeConverter(type);
+    }
     if (converter != null) {
       arg=converter.toNative(arg);
     }
@@ -26,9 +33,6 @@
   }
  else   if (arg instanceof WString) {
     return new NativeString(arg.toString(),true).getPointer();
-  }
- else   if (arg instanceof NativeLong) {
-    return ((NativeLong)arg).asNativeValue();
   }
  else   if (arg instanceof Boolean) {
     return new Integer(Boolean.TRUE.equals(arg) ? -1 : 0);

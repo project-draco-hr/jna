@@ -1,7 +1,7 @@
 {
   int alignment=1;
   int size=getNativeSize(type,value);
-  if (type.isPrimitive() || Long.class == type || Integer.class == type || NativeLong.class == type || Short.class == type || Character.class == type || Byte.class == type || Float.class == type || Double.class == type) {
+  if (type.isPrimitive() || Long.class == type || Integer.class == type || Short.class == type || Character.class == type || Byte.class == type || Float.class == type || Double.class == type) {
     alignment=size;
   }
  else   if (Pointer.class == type || Callback.class.isAssignableFrom(type) || WString.class == type || String.class == type) {

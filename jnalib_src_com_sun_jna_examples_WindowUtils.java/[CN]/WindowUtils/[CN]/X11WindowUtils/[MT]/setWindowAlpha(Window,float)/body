@@ -2,10 +2,10 @@
   Runnable action=new Runnable(){
     public void run(){
       X11 x11=X11.INSTANCE;
-      Pointer dpy=x11.XOpenDisplay(null);
+      Display dpy=x11.XOpenDisplay(null);
       if (dpy == null)       return;
       try {
-        int win=getDrawable(w);
+        X11.Window win=getDrawable(w);
         if (alpha == 1f) {
           x11.XDeleteProperty(dpy,win,x11.XInternAtom(dpy,OPACITY,false));
         }

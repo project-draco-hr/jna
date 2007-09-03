@@ -1,0 +1,6 @@
+{
+  if (!NativeMapped.class.isAssignableFrom(type))   throw new IllegalArgumentException("Type must derive from " + NativeMapped.class);
+  this.type=type;
+  this.instance=defaultValue();
+  this.nativeType=instance.nativeType();
+}

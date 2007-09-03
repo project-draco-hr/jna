@@ -1,10 +1,19 @@
 {
   this.callbackMethod=callbackMethod;
   Class[] argTypes=callbackMethod.getParameterTypes();
+  Class returnType=callbackMethod.getReturnType();
   fromNative=new FromNativeConverter[argTypes.length];
-  if (mapper != null) {
-    toNative=mapper.getToNativeConverter(callbackMethod.getReturnType());
-    for (int i=0; i < fromNative.length; i++) {
+  if (NativeMapped.class.isAssignableFrom(returnType)) {
+    toNative=new NativeMappedConverter(returnType);
+  }
+ else   if (mapper != null) {
+    toNative=mapper.getToNativeConverter(returnType);
+  }
+  for (int i=0; i < fromNative.length; i++) {
+    if (NativeMapped.class.isAssignableFrom(argTypes[i])) {
+      fromNative[i]=new NativeMappedConverter(argTypes[i]);
+    }
+ else     if (mapper != null) {
       fromNative[i]=mapper.getFromNativeConverter(argTypes[i]);
     }
   }

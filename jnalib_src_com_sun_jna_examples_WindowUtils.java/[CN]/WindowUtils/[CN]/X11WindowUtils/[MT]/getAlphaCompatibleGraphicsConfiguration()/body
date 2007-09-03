@@ -6,7 +6,7 @@
       GraphicsConfiguration[] configs=devices[i].getConfigurations();
       for (int j=0; j < configs.length; j++) {
         try {
-          Object o=configs[j].getClass().getMethod("getVisual",null).invoke(configs[j],null);
+          Object o=configs[j].getClass().getMethod("getVisual",(Class[])null).invoke(configs[j],(Object[])null);
           int visual=((Integer)o).intValue();
           for (int k=0; k < alphaVisuals.length; k++) {
             if (visual == alphaVisuals[k])             return configs[j];

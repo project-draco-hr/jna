@@ -2,11 +2,13 @@
   Class[] paramTypes=callbackMethod.getParameterTypes();
   Object[] callbackArgs=new Object[args.length];
   for (int i=0; i < args.length; i++) {
+    Class type=paramTypes[i];
+    Object arg=args[i];
     if (fromNative[i] != null) {
-      FromNativeContext context=new CallbackInvocationContext(paramTypes[i],callbackMethod,args);
-      args[i]=fromNative[i].fromNative(args[i],context);
+      FromNativeContext context=new CallbackInvocationContext(type,callbackMethod,args);
+      arg=fromNative[i].fromNative(arg,context);
     }
-    callbackArgs[i]=convertArgument(args[i],paramTypes[i]);
+    callbackArgs[i]=convertArgument(arg,type);
   }
   Object result=null;
   Callback cb=getCallback();

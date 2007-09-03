@@ -39,9 +39,6 @@
  else   if (nativeType == long.class || nativeType == Long.class) {
     memory.setLong(offset,((Long)value).longValue());
   }
- else   if (nativeType == NativeLong.class) {
-    memory.setNativeLong(offset,((NativeLong)value));
-  }
  else   if (nativeType == float.class || nativeType == Float.class) {
     memory.setFloat(offset,((Float)value).floatValue());
   }

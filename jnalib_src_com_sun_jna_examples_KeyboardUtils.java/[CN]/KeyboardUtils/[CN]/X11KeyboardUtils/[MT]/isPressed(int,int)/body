@@ -1,6 +1,6 @@
 {
   X11 lib=X11.INSTANCE;
-  Pointer dpy=lib.XOpenDisplay(null);
+  Display dpy=lib.XOpenDisplay(null);
   try {
     byte[] keys=new byte[32];
     int result=lib.XQueryKeymap(dpy,keys);

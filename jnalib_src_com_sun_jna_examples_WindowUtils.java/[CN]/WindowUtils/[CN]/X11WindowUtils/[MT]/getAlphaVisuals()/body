@@ -1,6 +1,6 @@
 {
   X11 x11=X11.INSTANCE;
-  Pointer dpy=x11.XOpenDisplay(null);
+  Display dpy=x11.XOpenDisplay(null);
   if (dpy == null)   return new int[0];
   XVisualInfo info=null;
   try {
@@ -8,8 +8,8 @@
     XVisualInfo template=new XVisualInfo();
     template.screen=screen;
     template.depth=32;
-    template.clazz=X11.TrueColor;
-    int mask=X11.VisualScreenMask | X11.VisualDepthMask | X11.VisualClassMask;
+    template.c_class=X11.TrueColor;
+    NativeLong mask=new NativeLong(X11.VisualScreenMask | X11.VisualDepthMask | X11.VisualClassMask);
     IntByReference pcount=new IntByReference();
     info=x11.XGetVisualInfo(dpy,mask,template,pcount);
     if (info != null) {

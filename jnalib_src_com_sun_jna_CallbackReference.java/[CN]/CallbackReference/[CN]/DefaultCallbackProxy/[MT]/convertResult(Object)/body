@@ -7,9 +7,6 @@
   if (Structure.class.isAssignableFrom(cls)) {
     return ((Structure)value).getPointer();
   }
- else   if (NativeLong.class.isAssignableFrom(cls)) {
-    return ((NativeLong)value).asNativeValue();
-  }
  else   if (cls == boolean.class || cls == Boolean.class) {
     return new Integer(Boolean.TRUE.equals(value) ? -1 : 0);
   }

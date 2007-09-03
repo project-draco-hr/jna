@@ -48,8 +48,8 @@ catch (      IllegalAccessException e) {
       }
       nativeParamTypes[i]=Pointer.class;
     }
- else     if (NativeLong.class.isAssignableFrom(cls)) {
-      nativeParamTypes[i]=NativeLong.SIZE == 4 ? Integer.class : Long.class;
+ else     if (NativeMapped.class.isAssignableFrom(cls)) {
+      nativeParamTypes[i]=new NativeMappedConverter(cls).nativeType();
     }
  else     if (cls == String.class || cls == WString.class) {
       nativeParamTypes[i]=Pointer.class;

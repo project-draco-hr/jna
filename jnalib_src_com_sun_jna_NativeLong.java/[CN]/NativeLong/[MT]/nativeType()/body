@@ -1,0 +1,3 @@
+{
+  return SIZE == 4 ? Integer.class : Long.class;
+}

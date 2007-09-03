@@ -13,7 +13,12 @@
   }
   Class nativeType=returnType;
   FromNativeConverter resultConverter=null;
-  if (mapper != null) {
+  if (NativeMapped.class.isAssignableFrom(returnType)) {
+    NativeMappedConverter tc=new NativeMappedConverter(returnType);
+    resultConverter=tc;
+    nativeType=tc.nativeType();
+  }
+ else   if (mapper != null) {
     resultConverter=mapper.getFromNativeConverter(returnType);
     if (resultConverter != null) {
       nativeType=resultConverter.nativeType();

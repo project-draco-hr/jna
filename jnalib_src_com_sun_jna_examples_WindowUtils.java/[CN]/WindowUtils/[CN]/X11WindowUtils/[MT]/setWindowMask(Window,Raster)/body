@@ -3,20 +3,20 @@
     public void run(){
       X11 x11=X11.INSTANCE;
       Xext ext=Xext.INSTANCE;
-      Pointer dpy=x11.XOpenDisplay(null);
+      Display dpy=x11.XOpenDisplay(null);
       if (dpy == null)       return;
-      int pm=X11.None;
+      Pixmap pm=null;
       try {
-        int win=getDrawable(w);
-        if (raster == null || ((pm=createBitmap(dpy,win,w,raster)) == X11.None)) {
-          ext.XShapeCombineMask(dpy,win,X11.Xext.ShapeBounding,0,0,X11.None,X11.Xext.ShapeSet);
+        X11.Window win=getDrawable(w);
+        if (raster == null || ((pm=createBitmap(dpy,win,w,raster)) == null)) {
+          ext.XShapeCombineMask(dpy,win,X11.Xext.ShapeBounding,0,0,Pixmap.None,X11.Xext.ShapeSet);
         }
  else {
           ext.XShapeCombineMask(dpy,win,X11.Xext.ShapeBounding,0,0,pm,X11.Xext.ShapeSet);
         }
       }
   finally {
-        if (pm != X11.None) {
+        if (pm != null) {
           x11.XFreePixmap(dpy,pm);
         }
         x11.XCloseDisplay(dpy);

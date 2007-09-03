@@ -1,0 +1,32 @@
+{
+  Set list=new HashSet();
+  X11.XWindowAttributes atts=new X11.XWindowAttributes();
+  int status=x11.XGetWindowAttributes(dpy,parent,atts);
+  if (status == 0) {
+    System.err.println("skip " + parent);
+    return list;
+  }
+  X11.XTextProperty tp=new X11.XTextProperty();
+  x11.XGetWMName(dpy,parent,tp);
+  String name=tp.value;
+  if (w instanceof Frame && ((Frame)w).getTitle().equals(name)) {
+    list.add(parent);
+  }
+ else {
+  }
+  WindowByReference rootRef=new WindowByReference();
+  WindowByReference parentRef=new WindowByReference();
+  PointerByReference kidsRef=new PointerByReference();
+  IntByReference kidCount=new IntByReference();
+  x11.XQueryTree(dpy,parent,rootRef,parentRef,kidsRef,kidCount);
+  Pointer p=kidsRef.getValue();
+  if (p != null) {
+    int[] ids=p.getIntArray(0,kidCount.getValue());
+    x11.XFree(kidsRef.getValue());
+    for (int i=0; i < ids.length; i++) {
+      X11.Window child=new X11.Window(ids[i]);
+      list.addAll(findWindow(dpy,child,w));
+    }
+  }
+  return list;
+}

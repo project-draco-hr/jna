@@ -32,9 +32,6 @@
  else   if (nativeType == long.class || nativeType == Long.class) {
     result=new Long(memory.getLong(offset));
   }
- else   if (nativeType == NativeLong.class) {
-    result=memory.getNativeLong(offset);
-  }
  else   if (nativeType == float.class || nativeType == Float.class) {
     result=new Float(memory.getFloat(offset));
   }
