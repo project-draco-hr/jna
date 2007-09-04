@@ -35,7 +35,7 @@
     return new NativeString(arg.toString(),true).getPointer();
   }
  else   if (arg instanceof Boolean) {
-    return Integer.valueOf(Boolean.TRUE.equals(arg) ? -1 : 0);
+    return new Integer(Boolean.TRUE.equals(arg) ? -1 : 0);
   }
  else   if (String[].class == argClass) {
     return new StringArray((String[])arg);
