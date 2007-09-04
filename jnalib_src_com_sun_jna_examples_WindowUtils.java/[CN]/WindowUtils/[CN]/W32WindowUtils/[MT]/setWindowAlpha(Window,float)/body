@@ -5,7 +5,7 @@
   }
   whenDisplayable(w,new Runnable(){
     public void run(){
-      Pointer hWnd=getHWnd(w);
+      HWND hWnd=getHWnd(w);
       User32 user=User32.INSTANCE;
       int flags=user.GetWindowLong(hWnd,User32.GWL_EXSTYLE);
       byte level=(byte)((int)(255 * alpha) & 0xFF);

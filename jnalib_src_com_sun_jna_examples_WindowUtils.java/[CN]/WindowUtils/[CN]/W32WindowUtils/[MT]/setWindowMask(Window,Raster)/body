@@ -3,14 +3,14 @@
     public void run(){
       GDI32 gdi=GDI32.INSTANCE;
       User32 user=User32.INSTANCE;
-      Pointer hWnd=getHWnd(w);
-      final Pointer result=gdi.CreateRectRgn(0,0,0,0);
+      HWND hWnd=getHWnd(w);
+      final HRGN result=gdi.CreateRectRgn(0,0,0,0);
       try {
         if (raster == null) {
           gdi.SetRectRgn(result,0,0,w.getWidth(),w.getHeight());
         }
  else {
-          final Pointer tempRgn=gdi.CreateRectRgn(0,0,0,0);
+          final HRGN tempRgn=gdi.CreateRectRgn(0,0,0,0);
           try {
             RasterRangesUtils.outputOccupiedRanges(raster,new RasterRangesUtils.RangesOutput(){
               public boolean outputRange(              int x,              int y,              int w,              int h){

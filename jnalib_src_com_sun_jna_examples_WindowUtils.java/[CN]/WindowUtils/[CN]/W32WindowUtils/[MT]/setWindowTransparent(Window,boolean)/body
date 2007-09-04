@@ -11,7 +11,7 @@
   whenDisplayable(w,new Runnable(){
     public void run(){
       User32 user=User32.INSTANCE;
-      Pointer hWnd=getHWnd(w);
+      HWND hWnd=getHWnd(w);
       int flags=user.GetWindowLong(hWnd,User32.GWL_EXSTYLE);
       JRootPane root=((RootPaneContainer)w).getRootPane();
       JLayeredPane lp=root.getLayeredPane();

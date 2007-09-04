@@ -1,0 +1,3 @@
+{
+  return pointer != null ? pointer.hashCode() : 0;
+}

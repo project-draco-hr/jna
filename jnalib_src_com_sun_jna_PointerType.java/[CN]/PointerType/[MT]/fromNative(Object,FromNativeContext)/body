@@ -1,0 +1,13 @@
+{
+  try {
+    PointerType pt=(PointerType)getClass().newInstance();
+    pt.pointer=(Pointer)nativeValue;
+    return pt;
+  }
+ catch (  InstantiationException e) {
+    throw new IllegalArgumentException("Can't instantiate " + getClass());
+  }
+catch (  IllegalAccessException e) {
+    throw new IllegalArgumentException("Not allowed to instantiate " + getClass());
+  }
+}

@@ -4,10 +4,10 @@
   Window win=SwingUtilities.getWindowAncestor(this);
   int w=win.getWidth();
   int h=win.getHeight();
-  Pointer screenDC=user.GetDC(null);
-  Pointer memDC=gdi.CreateCompatibleDC(screenDC);
-  Pointer hBitmap=null;
-  Pointer oldBitmap=null;
+  HDC screenDC=user.GetDC(null);
+  HDC memDC=gdi.CreateCompatibleDC(screenDC);
+  HBITMAP hBitmap=null;
+  HANDLE oldBitmap=null;
   try {
     BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB_PRE);
     Graphics2D g=buf.createGraphics();
@@ -49,7 +49,7 @@
     POINT loc=new POINT();
     loc.x=win.getX();
     loc.y=win.getY();
-    Pointer hWnd=Native.getWindowPointer(win);
+    HWND hWnd=getHWnd(win);
     ByteByReference bref=new ByteByReference();
     IntByReference iref=new IntByReference();
     byte level=getAlpha(win);
