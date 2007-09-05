@@ -1,4 +1,5 @@
 {
+  Object arg=args[index];
   if (arg != null) {
     Class type=arg.getClass();
     ToNativeConverter converter=null;
@@ -9,7 +10,14 @@
       converter=mapper.getToNativeConverter(type);
     }
     if (converter != null) {
-      arg=converter.toNative(arg);
+      ToNativeContext context;
+      if (invokingMethod != null) {
+        context=new MethodParameterContext(this,args,index,invokingMethod);
+      }
+ else {
+        context=new FunctionParameterContext(this,args,index);
+      }
+      arg=converter.toNative(arg,context);
     }
   }
   if (arg == null || isPrimitiveArray(arg.getClass())) {

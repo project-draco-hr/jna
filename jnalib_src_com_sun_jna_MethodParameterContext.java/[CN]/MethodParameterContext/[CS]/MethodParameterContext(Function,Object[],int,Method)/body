@@ -1,0 +1,4 @@
+{
+  super(f,args,index);
+  this.method=m;
+}

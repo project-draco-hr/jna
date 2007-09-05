@@ -52,7 +52,7 @@
         ToNativeConverter writeConverter=typeMapper.getToNativeConverter(type);
         FromNativeConverter readConverter=typeMapper.getFromNativeConverter(type);
         if (writeConverter != null && readConverter != null) {
-          value=writeConverter.toNative(value);
+          value=writeConverter.toNative(value,new StructureWriteContext(this,structField.field));
           nativeType=value != null ? value.getClass() : Pointer.class;
           structField.writeConverter=writeConverter;
           structField.readConverter=readConverter;

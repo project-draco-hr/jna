@@ -3,7 +3,7 @@
   Map options=new HashMap();
   DefaultTypeMapper mapper=new DefaultTypeMapper();
   mapper.addToNativeConverter(Boolean.class,new ToNativeConverter(){
-    public Object toNative(    Object arg){
+    public Object toNative(    Object arg,    ToNativeContext ctx){
       return new Integer(Boolean.TRUE.equals(arg) ? MAGIC : 0);
     }
     public Class nativeType(){

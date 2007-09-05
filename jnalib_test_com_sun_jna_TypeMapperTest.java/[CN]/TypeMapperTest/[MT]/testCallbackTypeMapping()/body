@@ -14,7 +14,7 @@
     public Class nativeType(){
       return Integer.class;
     }
-    public Object toNative(    Object value){
+    public Object toNative(    Object value,    ToNativeContext ctx){
       return new Integer(Math.round(((Float)value).floatValue()));
     }
   }

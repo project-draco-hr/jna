@@ -1,0 +1,4 @@
+{
+  this.struct=struct;
+  this.field=field;
+}

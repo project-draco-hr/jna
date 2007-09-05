@@ -1,0 +1,4 @@
+Object[] args
+int index
+Method invokingMethod
+TypeMapper mapper

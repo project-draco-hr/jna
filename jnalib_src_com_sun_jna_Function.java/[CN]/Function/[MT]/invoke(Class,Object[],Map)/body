@@ -8,8 +8,9 @@
     System.arraycopy(inArgs,0,args,0,args.length);
   }
   TypeMapper mapper=(TypeMapper)options.get(Library.OPTION_TYPE_MAPPER);
+  Method invokingMethod=(Method)options.get(Library.OPTION_INVOKING_METHOD);
   for (int i=0; i < args.length; i++) {
-    args[i]=convertArgument(args[i],mapper);
+    args[i]=convertArgument(args,i,invokingMethod,mapper);
   }
   Class nativeType=returnType;
   FromNativeConverter resultConverter=null;
@@ -27,9 +28,8 @@
   Object result=invoke(args,nativeType);
   if (resultConverter != null) {
     FromNativeContext context;
-    Method m=(Method)options.get(Library.OPTION_INVOKING_METHOD);
-    if (m != null) {
-      context=new MethodResultContext(returnType,this,inArgs,m);
+    if (invokingMethod != null) {
+      context=new MethodResultContext(returnType,this,inArgs,invokingMethod);
     }
  else {
       context=new FunctionResultContext(returnType,this,inArgs);

@@ -1,6 +1,6 @@
 {
   if (toNative != null) {
-    value=toNative.toNative(value);
+    value=toNative.toNative(value,new ToNativeContext());
   }
   if (value == null)   return null;
   Class cls=value.getClass();

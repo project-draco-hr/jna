@@ -10,7 +10,7 @@
   Class nativeType=structField.type;
   ToNativeConverter converter=structField.writeConverter;
   if (converter != null) {
-    value=converter.toNative(value);
+    value=converter.toNative(value,new StructureWriteContext(this,structField.field));
     nativeType=value != null ? value.getClass() : Pointer.class;
   }
   if (String.class == nativeType || WString.class == nativeType) {
