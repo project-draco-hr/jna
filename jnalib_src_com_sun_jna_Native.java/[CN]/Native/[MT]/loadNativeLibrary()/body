@@ -1,7 +1,7 @@
 {
   String libname=System.mapLibraryName("jnidispatch");
   String resourceName=getNativeLibraryResourcePath() + "/" + libname;
-  URL url=Pointer.class.getResource(resourceName);
+  URL url=Native.class.getResource(resourceName);
   if (url == null) {
     System.err.println("Warning: jnidispatch (" + resourceName + ") not found in resource path");
     return false;
@@ -16,7 +16,7 @@
     }
   }
  else {
-    InputStream is=Pointer.class.getResourceAsStream(resourceName);
+    InputStream is=Native.class.getResourceAsStream(resourceName);
     if (is == null) {
       throw new Error("Can't obtain jnidispatch InputStream");
     }

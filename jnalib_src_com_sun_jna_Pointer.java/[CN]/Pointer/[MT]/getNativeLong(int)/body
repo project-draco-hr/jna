@@ -1,3 +1,3 @@
 {
-  return new NativeLong(SIZE == 8 ? getLong(offset) : getInt(offset));
+  return new NativeLong(NativeLong.SIZE == 8 ? getLong(offset) : getInt(offset));
 }

@@ -4,7 +4,7 @@
     throw new NullPointerException("String must not be null");
   }
   if (wide) {
-    int len=(string.length() + 1) * Pointer.WCHAR_SIZE;
+    int len=(string.length() + 1) * Native.WCHAR_SIZE;
     pointer=new Memory(len);
     pointer.setString(0,string,true);
   }

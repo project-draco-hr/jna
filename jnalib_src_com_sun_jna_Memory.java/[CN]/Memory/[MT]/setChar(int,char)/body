@@ -1,4 +1,4 @@
 {
-  boundsCheck(offset,Pointer.WCHAR_SIZE);
+  boundsCheck(offset,Native.WCHAR_SIZE);
   super.setChar(offset,value);
 }

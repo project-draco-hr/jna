@@ -1,5 +1,5 @@
 {
-  if (wide)   boundsCheck(offset,(value.length() + 1) * Pointer.WCHAR_SIZE);
+  if (wide)   boundsCheck(offset,(value.length() + 1) * Native.WCHAR_SIZE);
  else   boundsCheck(offset,value.getBytes().length + 1);
   super.setString(offset,value,wide);
 }

@@ -1,0 +1,13 @@
+{
+  if (!Native.isProtected())   return;
+  Memory m=new Memory(Pointer.SIZE);
+  if (Pointer.SIZE == 4)   m.setInt(0,1);
+ else   m.setLong(0,1);
+  Pointer p=m.getPointer(0);
+  try {
+    p.setInt(0,0);
+    fail("Exception should be thrown");
+  }
+ catch (  Throwable e) {
+  }
+}

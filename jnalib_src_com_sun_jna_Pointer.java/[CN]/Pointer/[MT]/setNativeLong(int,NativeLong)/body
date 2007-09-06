@@ -1,5 +1,5 @@
 {
-  if (SIZE == 8) {
+  if (NativeLong.SIZE == 8) {
     setLong(offset,value.longValue());
   }
  else {
