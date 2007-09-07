@@ -1,0 +1,21 @@
+{
+  Properties oldprops=(Properties)System.getProperties().clone();
+  try {
+    String encoding="UTF8";
+    System.setProperty("jna.encoding",encoding);
+    String unicode="\u81ff\u81fe\u4404\u3804\u4104\u3204\u4304";
+    String unicodez="\u81ff\u81fe\u4404\u3804\u4104\u3204\u4304\0more stuff";
+    byte[] utf8=Native.getBytes(unicode);
+    byte[] expected=unicode.getBytes(encoding);
+    for (int i=0; i < Math.min(utf8.length,expected.length); i++) {
+      assertEquals("Improperly encoded at " + i,expected[i],utf8[i]);
+    }
+    assertEquals("Wrong number of encoded characters",expected.length,utf8.length);
+    String result=Native.toString(utf8);
+    assertEquals("Improperly decoded",unicode,result);
+    assertEquals("Should truncate bytes at NUL terminator",unicode,Native.toString(unicodez.getBytes(encoding)));
+  }
+  finally {
+    System.setProperties(oldprops);
+  }
+}

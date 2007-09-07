@@ -1,13 +1,16 @@
 {
   String encoding=System.getProperty("jna.encoding");
+  String s=null;
   if (encoding != null) {
     try {
-      return new String(buf,encoding);
+      s=new String(buf,encoding);
     }
  catch (    UnsupportedEncodingException e) {
     }
   }
-  String s=new String(buf);
+  if (s == null) {
+    s=new String(buf);
+  }
   int term=s.indexOf(0);
   if (term != -1)   s=s.substring(0,term);
   return s;

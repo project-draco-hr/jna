@@ -1,0 +1,14 @@
+{
+  String encoding=System.getProperty("file.encoding");
+  String unicode="Un \u00e9l\u00e9ment gr\u00e2ce \u00e0 l'index";
+  String unicodez="Un \u00e9l\u00e9ment gr\u00e2ce \u00e0 l'index\0more stuff";
+  byte[] defaultEncoded=Native.getBytes(unicode);
+  byte[] expected=unicode.getBytes();
+  for (int i=0; i < Math.min(defaultEncoded.length,expected.length); i++) {
+    assertEquals("Improperly encoded (" + encoding + ") from Java at "+ i,expected[i],defaultEncoded[i]);
+  }
+  assertEquals("Wrong number of encoded characters (" + encoding + ")",expected.length,defaultEncoded.length);
+  String result=Native.toString(defaultEncoded);
+  assertEquals("Improperly decoded from native bytes (" + encoding + ")",unicode,result);
+  assertEquals("Should truncate bytes at NUL terminator",unicode,Native.toString(unicodez.getBytes()));
+}
