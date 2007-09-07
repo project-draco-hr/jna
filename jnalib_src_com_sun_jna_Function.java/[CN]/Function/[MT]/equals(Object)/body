@@ -1,0 +1,7 @@
+{
+  if (o instanceof Function) {
+    Function other=(Function)o;
+    return other.callingConvention == this.callingConvention && other.peer == this.peer;
+  }
+  return false;
+}

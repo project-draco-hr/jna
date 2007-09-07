@@ -33,8 +33,7 @@
     return ((ByReference)arg).getPointer();
   }
  else   if (arg instanceof Callback) {
-    CallbackReference cbref=CallbackReference.getInstance((Callback)arg);
-    return cbref.getTrampoline();
+    return CallbackReference.getFunctionPointer((Callback)arg);
   }
  else   if (arg instanceof String) {
     return new NativeString((String)arg,false).getPointer();

@@ -1,9 +1,0 @@
-{
-  if (cb == null)   return null;
-  if (Proxy.isProxyClass(cb.getClass())) {
-    InvocationHandler handler=Proxy.getInvocationHandler(cb);
-    if (handler instanceof NativeCallbackHandler)     return ((NativeCallbackHandler)handler).getPointer();
-  }
-  CallbackReference cbref=CallbackReference.getInstance(cb);
-  return cbref.getTrampoline();
-}

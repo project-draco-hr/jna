@@ -1,0 +1,17 @@
+{
+  Pointer fp=null;
+  if (cb == null)   return null;
+  if ((fp=getNativeFunctionPointer(cb)) != null) {
+    return fp;
+  }
+  int callingConvention=cb instanceof AltCallingConvention ? Function.ALT_CONVENTION : Function.C_CONVENTION;
+  Map map=callingConvention == Function.ALT_CONVENTION ? altCallbackMap : callbackMap;
+synchronized (map) {
+    CallbackReference cbref=(CallbackReference)map.get(cb);
+    if (cbref == null) {
+      cbref=new CallbackReference(cb,callingConvention);
+      map.put(cb,cbref);
+    }
+    return cbref.getTrampoline();
+  }
+}

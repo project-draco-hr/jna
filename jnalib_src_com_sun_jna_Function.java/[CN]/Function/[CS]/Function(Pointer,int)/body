@@ -1,6 +1,6 @@
 {
   checkCallingConvention(callingConvention);
-  this.functionName=functionAddress.toString();
+  this.functionName="<unknown>";
   this.callingConvention=callingConvention;
   this.peer=functionAddress.peer;
 }

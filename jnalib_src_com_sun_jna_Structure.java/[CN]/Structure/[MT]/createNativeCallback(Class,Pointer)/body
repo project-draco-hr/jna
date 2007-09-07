@@ -1,6 +1,0 @@
-{
-  if (!type.isInterface())   throw new IllegalArgumentException("Structure Callback field must be an interface");
-  int ctype=AltCallingConvention.class.isAssignableFrom(type) ? Function.ALT_CONVENTION : Function.C_CONVENTION;
-  NativeCallbackHandler h=new NativeCallbackHandler(address,ctype);
-  return (Callback)Proxy.newProxyInstance(getClass().getClassLoader(),new Class[]{type},h);
-}

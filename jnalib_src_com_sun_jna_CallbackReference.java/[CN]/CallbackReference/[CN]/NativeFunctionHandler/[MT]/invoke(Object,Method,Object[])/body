@@ -1,6 +1,6 @@
 {
   if (Library.Handler.OBJECT_TOSTRING.equals(method)) {
-    return "Proxy interface to function pointer " + function;
+    return "Proxy interface to " + function;
   }
  else   if (Library.Handler.OBJECT_HASHCODE.equals(method)) {
     return new Integer(hashCode());

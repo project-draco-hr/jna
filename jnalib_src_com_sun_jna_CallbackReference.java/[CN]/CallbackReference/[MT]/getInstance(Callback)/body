@@ -1,4 +1,0 @@
-{
-  int callingConvention=callback instanceof AltCallingConvention ? Function.ALT_CONVENTION : Function.C_CONVENTION;
-  return getInstance(callback,callingConvention);
-}

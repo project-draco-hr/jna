@@ -20,6 +20,9 @@
     structField.field=field;
     structField.name=field.getName();
     structField.type=type;
+    if (Callback.class.isAssignableFrom(type) && !type.isInterface()) {
+      throw new IllegalArgumentException("Structure Callback field '" + field.getName() + "' must be an interface");
+    }
     int fieldAlignment=1;
     try {
       Object value=field.get(this);

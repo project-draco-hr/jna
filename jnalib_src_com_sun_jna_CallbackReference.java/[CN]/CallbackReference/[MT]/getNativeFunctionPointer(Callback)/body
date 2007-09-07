@@ -1,0 +1,7 @@
+{
+  if (cb instanceof NativeFunctionProxy) {
+    NativeFunctionHandler handler=(NativeFunctionHandler)Proxy.getInvocationHandler(cb);
+    return handler.getPointer();
+  }
+  return null;
+}

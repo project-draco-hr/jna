@@ -54,6 +54,12 @@ catch (      IllegalAccessException e) {
       }
     }
   }
+ else   if (Callback.class.isAssignableFrom(returnType)) {
+    result=invokePointer(callingConvention,args);
+    if (result != null) {
+      result=CallbackReference.getCallback(returnType,(Pointer)result);
+    }
+  }
  else {
     throw new IllegalArgumentException("Unsupported return type " + returnType);
   }

@@ -16,6 +16,9 @@
  else   if (cls == WString.class) {
     return new NativeString(value.toString(),true).getPointer();
   }
+ else   if (Callback.class.isAssignableFrom(cls)) {
+    return getFunctionPointer((Callback)value);
+  }
  else   if (!isAllowableNativeType(cls)) {
     throw new IllegalArgumentException("Return type " + cls + " will be ignored");
   }

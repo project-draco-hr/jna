@@ -94,7 +94,7 @@
     s.write();
   }
  else   if (Callback.class.isAssignableFrom(nativeType)) {
-    memory.setPointer(offset,getFunctionPointer((Callback)value));
+    memory.setPointer(offset,CallbackReference.getFunctionPointer((Callback)value));
   }
  else {
     throw new IllegalArgumentException("Field \"" + structField.name + "\" was declared as an "+ "unsupported type \""+ nativeType+ "\"");
