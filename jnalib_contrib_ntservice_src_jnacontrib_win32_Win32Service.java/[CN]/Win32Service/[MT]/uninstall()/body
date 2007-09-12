@@ -1,0 +1,16 @@
+{
+  Advapi32 advapi32;
+  Pointer serviceManager, service;
+  boolean success=false;
+  advapi32=Advapi32.INSTANCE;
+  serviceManager=openServiceControlManager(null,WINSVC.SC_MANAGER_ALL_ACCESS);
+  if (serviceManager != null) {
+    service=advapi32.OpenService(serviceManager,serviceName,WINSVC.SERVICE_ALL_ACCESS);
+    if (service != null) {
+      success=advapi32.DeleteService(service);
+      advapi32.CloseServiceHandle(service);
+    }
+    advapi32.CloseServiceHandle(serviceManager);
+  }
+  return (success);
+}

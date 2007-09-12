@@ -1,0 +1,11 @@
+{
+switch (dwControl) {
+case WINSVC.SERVICE_CONTROL_STOP:
+case WINSVC.SERVICE_CONTROL_SHUTDOWN:
+    reportStatus(WINSVC.SERVICE_STOP_PENDING,WINERROR.NO_ERROR,5000);
+  onStop();
+synchronized (waitObject) {
+  waitObject.notifyAll();
+}
+}
+}

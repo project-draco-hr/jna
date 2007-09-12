@@ -1,0 +1,2 @@
+int dwArgc
+Pointer lpszArgv

@@ -1,0 +1,17 @@
+{
+  Advapi32 advapi32;
+  advapi32=Advapi32.INSTANCE;
+  serviceControl=new ServiceControl();
+  serviceStatusHandle=advapi32.RegisterServiceCtrlHandlerEx(serviceName,serviceControl,null);
+  reportStatus(WINSVC.SERVICE_START_PENDING,WINERROR.NO_ERROR,3000);
+  reportStatus(WINSVC.SERVICE_RUNNING,WINERROR.NO_ERROR,0);
+  onStart();
+  try {
+synchronized (waitObject) {
+      waitObject.wait();
+    }
+  }
+ catch (  InterruptedException ex) {
+  }
+  reportStatus(WINSVC.SERVICE_STOPPED,WINERROR.NO_ERROR,0);
+}

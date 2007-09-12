@@ -1,0 +1,12 @@
+{
+  Netapi32 netapi32;
+  PointerByReference pDci;
+  Netapi32.DOMAIN_CONTROLLER_INFO dci=null;
+  netapi32=Netapi32.INSTANCE;
+  pDci=new PointerByReference();
+  if (netapi32.DsGetDcName(null,null,null,null,0,pDci) == WINERROR.ERROR_SUCCESS) {
+    dci=new Netapi32.DOMAIN_CONTROLLER_INFO(pDci.getValue());
+    netapi32.NetApiBufferFree(pDci.getValue());
+  }
+  return (dci);
+}

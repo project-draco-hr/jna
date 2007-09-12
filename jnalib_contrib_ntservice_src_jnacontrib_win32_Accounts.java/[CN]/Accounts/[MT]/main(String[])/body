@@ -1,0 +1,11 @@
+{
+  System.out.println("FullDomainName: " + getFullDomainName());
+  System.out.println("DomainControllerName: " + getDomainControllerName());
+  System.out.println("UserDomainGroups: " + getUserDomainGroups("administrator"));
+  System.out.println("UserLocalGroups: " + getUserLocalGroups(null,"administrator"));
+  System.out.println("AllDomainGroups: " + getAllDomainGroups());
+  System.out.println("AllDomainUsers: " + getAllDomainUsers());
+  System.out.println("AccountSidString: " + getAccountSidString("administrator"));
+  System.out.println("AccountNameBySid: " + getAccountName(getAccountSid("administrator")));
+  System.out.println("AccountNameBySidString: " + getAccountName(getAccountSidString("administrator")));
+}

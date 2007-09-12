@@ -1,0 +1,12 @@
+{
+  Advapi32 advapi32;
+  PointerByReference stringSid;
+  String sidString=null;
+  advapi32=Advapi32.INSTANCE;
+  stringSid=new PointerByReference();
+  if (advapi32.ConvertSidToStringSid(sid,stringSid)) {
+    sidString=stringSid.getValue().getString(0,true);
+    Kernel32b.INSTANCE.LocalFree(stringSid.getValue());
+  }
+  return (sidString);
+}

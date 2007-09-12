@@ -1,0 +1,4 @@
+int dwControl
+int dwEventType
+Pointer lpEventData
+Pointer lpContext

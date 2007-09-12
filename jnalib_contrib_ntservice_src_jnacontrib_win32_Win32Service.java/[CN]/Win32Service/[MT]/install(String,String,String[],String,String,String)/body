@@ -1,0 +1,26 @@
+{
+  Advapi32 advapi32;
+  Advapi32.SERVICE_DESCRIPTION desc;
+  Pointer serviceManager, service;
+  boolean success=false;
+  String dep="";
+  if (dependencies != null) {
+    for (    String s : dependencies) {
+      dep+=s + "\0";
+    }
+  }
+  dep+="\0";
+  desc=new Advapi32.SERVICE_DESCRIPTION();
+  desc.lpDescription=description;
+  advapi32=Advapi32.INSTANCE;
+  serviceManager=openServiceControlManager(null,WINSVC.SC_MANAGER_ALL_ACCESS);
+  if (serviceManager != null) {
+    service=advapi32.CreateService(serviceManager,serviceName,displayName,WINSVC.SERVICE_ALL_ACCESS,WINSVC.SERVICE_WIN32_OWN_PROCESS,WINSVC.SERVICE_DEMAND_START,WINSVC.SERVICE_ERROR_NORMAL,command,null,null,dep,account,password);
+    if (service != null) {
+      success=advapi32.ChangeServiceConfig2(service,WINSVC.SERVICE_CONFIG_DESCRIPTION,desc);
+      advapi32.CloseServiceHandle(service);
+    }
+    advapi32.CloseServiceHandle(serviceManager);
+  }
+  return (success);
+}

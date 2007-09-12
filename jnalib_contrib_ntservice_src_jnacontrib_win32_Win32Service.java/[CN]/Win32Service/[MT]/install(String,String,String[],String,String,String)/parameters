@@ -1,0 +1,6 @@
+String displayName
+String description
+String[] dependencies
+String account
+String password
+String command

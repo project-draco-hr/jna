@@ -1,0 +1,20 @@
+{
+  Advapi32 advapi32;
+  IntByReference cbSid;
+  IntByReference cchReferencedDomainName;
+  PointerByReference peUse;
+  String sidString=null;
+  byte[] sid;
+  char[] referencedDomainName;
+  advapi32=Advapi32.INSTANCE;
+  cbSid=new IntByReference(0);
+  cchReferencedDomainName=new IntByReference(0);
+  peUse=new PointerByReference();
+  advapi32.LookupAccountName(null,account,null,cbSid,null,cchReferencedDomainName,peUse);
+  sid=new byte[cbSid.getValue()];
+  referencedDomainName=new char[cchReferencedDomainName.getValue()];
+  if (!advapi32.LookupAccountName(null,account,sid,cbSid,referencedDomainName,cchReferencedDomainName,peUse)) {
+    sid=null;
+  }
+  return (sid);
+}

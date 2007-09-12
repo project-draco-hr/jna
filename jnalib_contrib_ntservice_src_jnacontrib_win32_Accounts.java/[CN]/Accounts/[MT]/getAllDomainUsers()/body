@@ -1,0 +1,27 @@
+{
+  Netapi32 netapi32;
+  PointerByReference ubuf;
+  IntByReference uentriesread;
+  IntByReference utotalentries;
+  Netapi32.USER_INFO_0 user;
+  Structure[] users;
+  TreeSet<String> domainUsers;
+  int i;
+  netapi32=Netapi32.INSTANCE;
+  domainUsers=new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+  ubuf=new PointerByReference();
+  uentriesread=new IntByReference();
+  utotalentries=new IntByReference();
+  if (netapi32.NetUserEnum(getDomainControllerName(),0,LMACCESS.FILTER_NORMAL_ACCOUNT,ubuf,LMCONS.MAX_PREFERRED_LENGTH,uentriesread,utotalentries,null) == LMERR.NERR_Success) {
+    user=new Netapi32.USER_INFO_0(ubuf.getValue());
+    users=user.toArray(uentriesread.getValue());
+    for (i=0; i < uentriesread.getValue(); i++) {
+      user=(Netapi32.USER_INFO_0)users[i];
+      domainUsers.add(user.usri0_name);
+    }
+    if (uentriesread.getValue() > 0) {
+      netapi32.NetApiBufferFree(ubuf.getValue());
+    }
+  }
+  return (domainUsers);
+}

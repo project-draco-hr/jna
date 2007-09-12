@@ -1,0 +1,27 @@
+{
+  Netapi32 netapi32;
+  PointerByReference lbuf;
+  IntByReference lentriesread;
+  IntByReference ltotalentries;
+  Netapi32.LOCALGROUP_USERS_INFO_0 lgroup;
+  Structure[] lgroups;
+  TreeSet<String> localGroups;
+  int i;
+  localGroups=new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+  netapi32=Netapi32.INSTANCE;
+  lbuf=new PointerByReference();
+  lentriesread=new IntByReference();
+  ltotalentries=new IntByReference();
+  if (netapi32.NetUserGetLocalGroups(null,userName,0,0,lbuf,LMCONS.MAX_PREFERRED_LENGTH,lentriesread,ltotalentries) == LMERR.NERR_Success) {
+    lgroup=new Netapi32.LOCALGROUP_USERS_INFO_0(lbuf.getValue());
+    lgroups=lgroup.toArray(lentriesread.getValue());
+    for (i=0; i < lentriesread.getValue(); i++) {
+      lgroup=(Netapi32.LOCALGROUP_USERS_INFO_0)lgroups[i];
+      localGroups.add(lgroup.lgrui0_name);
+    }
+    if (lentriesread.getValue() > 0) {
+      netapi32.NetApiBufferFree(lbuf.getValue());
+    }
+  }
+  return (localGroups);
+}
