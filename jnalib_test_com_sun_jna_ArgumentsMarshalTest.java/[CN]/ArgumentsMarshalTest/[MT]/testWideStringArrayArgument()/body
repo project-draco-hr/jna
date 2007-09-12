@@ -1,0 +1,4 @@
+{
+  WString[] args={new WString("one"),new WString("two"),new WString("three")};
+  assertEquals("Wrong argument returned",args[0],lib.returnFirstWideStringArrayArgument(args));
+}

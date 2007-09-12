@@ -3,6 +3,9 @@
     TypeConverter stringConverter=new TypeConverter(){
       public Object toNative(      Object value,      ToNativeContext context){
         if (value == null)         return null;
+        if (value instanceof String[]) {
+          return new StringArray((String[])value,true);
+        }
         return new WString(value.toString());
       }
       public Object fromNative(      Object value,      FromNativeContext context){
@@ -15,6 +18,7 @@
     }
 ;
     addTypeConverter(String.class,stringConverter);
+    addToNativeConverter(String[].class,stringConverter);
   }
   TypeConverter booleanConverter=new TypeConverter(){
     public Object toNative(    Object value,    ToNativeContext context){

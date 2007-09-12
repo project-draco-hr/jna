@@ -1,0 +1,4 @@
+{
+  String[] args={"one","two","three"};
+  assertEquals("Wrong argument returned",args[0],lib.returnFirstStringArrayArgument(args));
+}

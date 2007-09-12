@@ -43,12 +43,8 @@
       if (arg instanceof Structure) {
         ((Structure)arg).read();
       }
- else       if (String[].class == arg.getClass()) {
-        StringArray buf=(StringArray)args[i];
-        String[] array=(String[])arg;
-        for (int si=0; si < array.length; si++) {
-          array[si]=buf.getPointer(si * Pointer.SIZE).getString(0);
-        }
+ else       if (args[i] instanceof StringArray) {
+        ((StringArray)args[i]).read();
       }
  else       if (isStructureArray(arg.getClass())) {
         Structure[] ss=(Structure[])arg;
