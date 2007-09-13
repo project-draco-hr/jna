@@ -1,4 +1,7 @@
 {
+  if (nativeValue == null) {
+    return null;
+  }
   try {
     PointerType pt=(PointerType)getClass().newInstance();
     pt.pointer=(Pointer)nativeValue;
