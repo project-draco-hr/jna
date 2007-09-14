@@ -1,0 +1,9 @@
+{
+  try {
+    Structure s=new UninitializedArrayFieldStructure();
+    assertTrue("Invalid size: " + s.size(),s.size() > 0);
+    fail("Uninitialized array field should cause write failure");
+  }
+ catch (  IllegalStateException e) {
+  }
+}

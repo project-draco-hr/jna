@@ -1,0 +1,10 @@
+{
+  ArrayOfPointer s=new ArrayOfPointer();
+  int size=s.size();
+  assertEquals("Wrong size",ArrayOfPointer.SIZE * Pointer.SIZE,size);
+  s.array[0]=s.getPointer();
+  s.write();
+  s.array[0]=null;
+  s.read();
+  assertEquals("Wrong first element",s.getPointer(),s.array[0]);
+}

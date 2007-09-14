@@ -1,0 +1,5 @@
+{
+  for (int i=0; i < length; i++) {
+    setPointer(bOff + i * Pointer.SIZE,buf[index + i]);
+  }
+}

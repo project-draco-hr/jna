@@ -23,6 +23,10 @@
     if (Callback.class.isAssignableFrom(type) && !type.isInterface()) {
       throw new IllegalArgumentException("Structure Callback field '" + field.getName() + "' must be an interface");
     }
+    if (type.isArray() && Structure.class.equals(type.getComponentType())) {
+      String msg="Nested Structure arrays must use a " + "derived Structure type so that the size of " + "the elements can be determined";
+      throw new IllegalArgumentException(msg);
+    }
     int fieldAlignment=1;
     try {
       Object value=field.get(this);
@@ -38,6 +42,9 @@
           }
         }
  else         if (type.isArray()) {
+          if (force) {
+            throw new IllegalStateException("Array fields must be initialized");
+          }
           return CALCULATE_SIZE;
         }
       }

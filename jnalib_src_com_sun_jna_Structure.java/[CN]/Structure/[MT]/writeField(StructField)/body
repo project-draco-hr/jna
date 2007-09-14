@@ -84,6 +84,10 @@
       double[] buf=(double[])value;
       memory.write(offset,buf,0,buf.length);
     }
+ else     if (Pointer.class.isAssignableFrom(cls)) {
+      Pointer[] buf=(Pointer[])value;
+      memory.write(offset,buf,0,buf.length);
+    }
  else {
       throw new IllegalArgumentException("Inline array of " + cls + " not supported");
     }

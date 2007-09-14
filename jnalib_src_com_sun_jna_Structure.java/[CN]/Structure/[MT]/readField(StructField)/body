@@ -104,6 +104,9 @@ catch (    IllegalAccessException e) {
  else     if (cls == double.class) {
       result=memory.getDoubleArray(offset,length);
     }
+ else     if (Pointer.class.isAssignableFrom(cls)) {
+      result=memory.getPointerArray(offset,length);
+    }
  else {
       throw new IllegalArgumentException("Array of " + cls + " not supported");
     }
