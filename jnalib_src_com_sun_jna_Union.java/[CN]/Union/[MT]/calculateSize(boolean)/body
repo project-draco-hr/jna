@@ -1,5 +1,5 @@
 {
-  int size=super.calculateSize();
+  int size=super.calculateSize(force);
   if (size != CALCULATE_SIZE) {
     int fsize=0;
     for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
