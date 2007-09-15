@@ -1,3 +1,3 @@
 {
-  return getPointer().getDouble(0);
+  return getDouble(0);
 }

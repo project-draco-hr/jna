@@ -12,7 +12,7 @@
  else {
           int opacity=(int)((long)(alpha * OPAQUE) & 0xFFFFFFFF);
           IntByReference patom=new IntByReference(opacity);
-          x11.XChangeProperty(dpy,win,x11.XInternAtom(dpy,OPACITY,false),X11.XA_CARDINAL,32,X11.PropModeReplace,patom.getPointer(),1);
+          x11.XChangeProperty(dpy,win,x11.XInternAtom(dpy,OPACITY,false),X11.XA_CARDINAL,32,X11.PropModeReplace,patom,1);
         }
       }
   finally {

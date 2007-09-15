@@ -75,7 +75,7 @@ catch (    IllegalAccessException e) {
     try {
       Object o=structField.field.get(this);
       if (o == null) {
-        throw new IllegalStateException("Structure array field not initialized");
+        throw new IllegalStateException("Array field in Structure not initialized");
       }
       length=Array.getLength(o);
     }
@@ -121,6 +121,6 @@ catch (    IllegalAccessException e) {
     structField.field.set(this,result);
   }
  catch (  Exception e) {
-    throw new RuntimeException("Exception setting field \"" + structField.name + "\" to "+ result+ ": "+ e,e);
+    throw new Error("Exception setting field \"" + structField.name + "\" to "+ result+ ": "+ e,e);
   }
 }

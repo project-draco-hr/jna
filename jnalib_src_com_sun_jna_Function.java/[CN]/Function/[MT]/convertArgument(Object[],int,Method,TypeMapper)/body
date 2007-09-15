@@ -29,9 +29,6 @@
     struct.write();
     return struct.getPointer();
   }
- else   if (arg instanceof ByReference) {
-    return ((ByReference)arg).getPointer();
-  }
  else   if (arg instanceof Callback) {
     return CallbackReference.getFunctionPointer((Callback)arg);
   }
@@ -50,7 +47,7 @@
  else   if (WString[].class == argClass) {
     return new StringArray((WString[])arg);
   }
- else   if (isStructureArray(argClass)) {
+ else   if (Structure[].class.isAssignableFrom(argClass)) {
     Structure[] ss=(Structure[])arg;
     if (ss.length == 0) {
       return null;
@@ -80,17 +77,12 @@ catch (      IllegalAccessException e) {
       int size=ss[0].size();
       ss[0].write();
       for (int si=1; si < ss.length; si++) {
-        try {
-          Pointer p=base.share(size * si,size);
-          if (ss[si].getPointer().peer != p.peer) {
-            throw new RuntimeException();
-          }
-          ss[si].write();
-        }
- catch (        RuntimeException e) {
-          String msg="Structure array elements must use" + " contiguous memory: " + si;
+        Pointer p=base.share(size * si,size);
+        if (ss[si].getPointer().peer != p.peer) {
+          String msg="Structure array elements must use" + " contiguous memory (at element index " + si + ")";
           throw new IllegalArgumentException(msg);
         }
+        ss[si].write();
       }
       return base;
     }

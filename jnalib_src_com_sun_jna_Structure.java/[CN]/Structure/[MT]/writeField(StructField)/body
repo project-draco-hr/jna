@@ -5,7 +5,7 @@
     value=structField.field.get(this);
   }
  catch (  Exception e) {
-    throw new RuntimeException("Exception reading field \"" + structField.name + "\"",e);
+    throw new Error("Exception reading field \"" + structField.name + "\"",e);
   }
   Class nativeType=structField.type;
   ToNativeConverter converter=structField.writeConverter;
