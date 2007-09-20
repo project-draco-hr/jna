@@ -1,0 +1,20 @@
+{
+  Class cls=library.getClass();
+  if (!Proxy.isProxyClass(cls)) {
+    throw new IllegalArgumentException("Library must be a proxy class");
+  }
+  InvocationHandler ih=Proxy.getInvocationHandler(library);
+  if (!(ih instanceof Library.Handler)) {
+    throw new IllegalArgumentException("Unrecognized proxy handler: " + ih);
+  }
+  final Library.Handler handler=(Library.Handler)ih;
+  InvocationHandler newHandler=new InvocationHandler(){
+    public Object invoke(    Object proxy,    Method method,    Object[] args) throws Throwable {
+synchronized (handler.getNativeLibrary()) {
+        return handler.invoke(library,method,args);
+      }
+    }
+  }
+;
+  return (Library)Proxy.newProxyInstance(cls.getClassLoader(),cls.getInterfaces(),newHandler);
+}
