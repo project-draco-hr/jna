@@ -1,4 +1,4 @@
 File f
-Pointer h
+HANDLE h
 int mask
 boolean recurse

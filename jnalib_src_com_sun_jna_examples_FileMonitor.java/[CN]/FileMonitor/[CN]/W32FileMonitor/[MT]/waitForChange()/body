@@ -1,9 +1,8 @@
 {
   Kernel32 klib=Kernel32.INSTANCE;
   IntByReference rcount=new IntByReference();
-  PointerByReference rkey=new PointerByReference();
+  HANDLEByReference rkey=new HANDLEByReference();
   PointerByReference roverlap=new PointerByReference();
   klib.GetQueuedCompletionStatus(port,rcount,rkey,roverlap,Kernel32.INFINITE);
-  Pointer handle=rkey.getValue();
-  return (FileInfo)handleMap.get(handle);
+  return (FileInfo)handleMap.get(rkey.getValue());
 }
