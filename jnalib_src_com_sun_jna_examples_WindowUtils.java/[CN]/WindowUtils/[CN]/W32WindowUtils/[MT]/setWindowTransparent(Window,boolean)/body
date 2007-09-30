@@ -3,8 +3,7 @@
     throw new IllegalArgumentException("Window must be a RootPaneContainer");
   }
   if (!isWindowAlphaSupported()) {
-    System.err.println("Window alpha not supported");
-    return;
+    throw new UnsupportedOperationException("Set sun.java2d.noddraw=true to enable transparent windows");
   }
   boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
   if (!(transparent ^ isTransparent))   return;

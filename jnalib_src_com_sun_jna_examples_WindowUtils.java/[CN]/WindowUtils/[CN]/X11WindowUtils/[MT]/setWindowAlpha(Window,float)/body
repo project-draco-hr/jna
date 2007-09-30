@@ -1,4 +1,7 @@
 {
+  if (!isWindowAlphaSupported()) {
+    throw new UnsupportedOperationException("This X11 display does not provide a 32-bit visual");
+  }
   Runnable action=new Runnable(){
     public void run(){
       X11 x11=X11.INSTANCE;

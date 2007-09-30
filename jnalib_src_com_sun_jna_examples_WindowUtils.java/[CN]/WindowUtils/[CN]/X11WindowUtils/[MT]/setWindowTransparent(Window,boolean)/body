@@ -3,8 +3,7 @@
     throw new IllegalArgumentException("Window must be a RootPaneContainer");
   }
   if (!isWindowAlphaSupported()) {
-    System.err.println("Window alpha not supported");
-    return;
+    throw new UnsupportedOperationException("This X11 display does not provide a 32-bit visual");
   }
   if (!w.getGraphicsConfiguration().equals(getAlphaCompatibleGraphicsConfiguration())) {
     throw new IllegalArgumentException("Window GraphicsConfiguration does not support transparency");

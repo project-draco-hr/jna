@@ -14,7 +14,7 @@
     info=x11.XGetVisualInfo(dpy,mask,template,pcount);
     if (info != null) {
       List list=new ArrayList();
-      XVisualInfo[] infos=(XVisualInfo[])info.toArray(new XVisualInfo[pcount.getValue()]);
+      XVisualInfo[] infos=(XVisualInfo[])info.toArray(pcount.getValue());
       for (int i=0; i < infos.length; i++) {
         XRenderPictFormat format=X11.Xrender.INSTANCE.XRenderFindVisualFormat(dpy,infos[i].visual);
         if (format.type == X11.Xrender.PictTypeDirect && format.direct.alphaMask != 0) {

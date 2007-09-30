@@ -1,7 +1,6 @@
 {
   if (!isWindowAlphaSupported()) {
-    System.err.println("Window alpha not supported");
-    return;
+    throw new UnsupportedOperationException("Set sun.java2d.noddraw=true to enable transparent windows");
   }
   whenDisplayable(w,new Runnable(){
     public void run(){
