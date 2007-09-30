@@ -15,6 +15,10 @@ synchronized (customPaths) {
         handle=open(libraryPath);
       }
     }
+ else     if (Platform.isMac() && !libraryName.endsWith(".dylib")) {
+      libraryPath="/System/Library/Frameworks/" + libraryName + ".framework/"+ libraryName;
+      handle=open(libraryPath);
+    }
     if (handle == 0) {
       throw new UnsatisfiedLinkError("Unable to load library '" + libraryName + "'");
     }
