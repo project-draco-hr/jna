@@ -1,0 +1,3 @@
+{
+  Memory.this.boundsCheck((int)(this.peer - Memory.this.peer) + off,sz);
+}
