@@ -1,4 +1,5 @@
 {
   WString[] args={new WString("one"),new WString("two"),new WString("three")};
-  assertEquals("Wrong argument returned",args[0],lib.returnFirstWideStringArrayArgument(args));
+  assertEquals("Wrong value returned",args[0],lib.returnWideStringArrayElement(args,0));
+  assertNull("Native WString array should be null terminated",lib.returnWideStringArrayElement(args,args.length));
 }

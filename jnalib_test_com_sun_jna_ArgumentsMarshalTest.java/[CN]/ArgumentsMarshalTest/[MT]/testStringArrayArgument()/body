@@ -1,4 +1,5 @@
 {
   String[] args={"one","two","three"};
-  assertEquals("Wrong argument returned",args[0],lib.returnFirstStringArrayArgument(args));
+  assertEquals("Wrong value returned",args[0],lib.returnStringArrayElement(args,0));
+  assertNull("Native String array should be null terminated",lib.returnStringArrayElement(args,args.length));
 }

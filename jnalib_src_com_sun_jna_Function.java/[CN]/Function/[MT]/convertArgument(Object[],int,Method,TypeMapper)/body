@@ -47,6 +47,9 @@
  else   if (WString[].class == argClass) {
     return new StringArray((WString[])arg);
   }
+ else   if (Pointer[].class == argClass) {
+    return new PointerArray((Pointer[])arg);
+  }
  else   if (Structure[].class.isAssignableFrom(argClass)) {
     Structure[] ss=(Structure[])arg;
     if (ss.length == 0) {

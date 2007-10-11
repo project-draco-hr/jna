@@ -1,0 +1,5 @@
+{
+  for (int i=0; i < original.length; i++) {
+    original[i]=getPointer(i * Pointer.SIZE);
+  }
+}

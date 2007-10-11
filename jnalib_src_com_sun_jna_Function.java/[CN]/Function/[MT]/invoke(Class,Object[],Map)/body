@@ -46,6 +46,9 @@
  else       if (args[i] instanceof StringArray) {
         ((StringArray)args[i]).read();
       }
+ else       if (args[i] instanceof PointerArray) {
+        ((PointerArray)args[i]).read();
+      }
  else       if (Structure[].class.isAssignableFrom(arg.getClass())) {
         Structure[] ss=(Structure[])arg;
         for (int si=0; si < ss.length; si++) {

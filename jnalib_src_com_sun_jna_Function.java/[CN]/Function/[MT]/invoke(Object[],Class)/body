@@ -32,7 +32,8 @@
     result=invokeString(callingConvention,args,false);
   }
  else   if (returnType == WString.class) {
-    result=new WString(invokeString(callingConvention,args,true));
+    String s=invokeString(callingConvention,args,true);
+    result=s != null ? new WString(s) : null;
   }
  else   if (Pointer.class.isAssignableFrom(returnType)) {
     result=invokePointer(callingConvention,args);
