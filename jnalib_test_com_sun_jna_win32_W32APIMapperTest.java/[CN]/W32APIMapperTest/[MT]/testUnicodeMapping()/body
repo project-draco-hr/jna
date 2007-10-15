@@ -1,5 +1,5 @@
 {
   assertEquals("Strings should correspond to wide strings",MAGIC,unicode.returnWStringArgument(MAGIC));
   String[] args={"one","two"};
-  assertEquals("String arrays should be converted to wchar_t*[] and back",args[0],unicode.returnFirstWideStringArrayArgument(args));
+  assertEquals("String arrays should be converted to wchar_t*[] and back",args[0],unicode.returnWideStringArrayElement(args,0));
 }
