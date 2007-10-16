@@ -1,18 +1,5 @@
 {
-  File home=new File(System.getProperty("user.home"));
-  File trash=new File(home,".Trash");
-  if (!trash.exists()) {
-    trash=new File(home,"Trash");
-    if (!trash.exists()) {
-      File desktop=new File(home,"Desktop");
-      if (desktop.exists()) {
-        trash=new File(desktop,".Trash");
-        if (!trash.exists()) {
-          trash=new File(desktop,"Trash");
-        }
-      }
-    }
-  }
+  File trash=getTrashDirectory();
   if (trash.exists()) {
     boolean success=true;
     for (int i=0; i < files.length; i++) {
