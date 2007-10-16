@@ -1,3 +1,0 @@
-{
-  return rhs instanceof NativeLong && value.equals(((NativeLong)rhs).value);
-}

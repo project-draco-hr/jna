@@ -22,7 +22,7 @@
     }
     FileOutputStream fos=null;
     try {
-      lib=File.createTempFile("jna",null);
+      lib=File.createTempFile("jna","");
       lib.deleteOnExit();
       fos=new FileOutputStream(lib);
       int count;

@@ -1,0 +1,3 @@
+{
+  return rhs instanceof IntegerType && value.equals(((IntegerType)rhs).value);
+}

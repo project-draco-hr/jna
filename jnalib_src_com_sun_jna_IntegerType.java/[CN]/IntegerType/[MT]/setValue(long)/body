@@ -1,0 +1,26 @@
+{
+  long truncated=value;
+switch (size) {
+case 1:
+    truncated=(byte)value;
+  this.value=new Byte((byte)value);
+break;
+case 2:
+truncated=(short)value;
+this.value=new Short((short)value);
+break;
+case 4:
+truncated=(int)value;
+this.value=new Integer((int)value);
+break;
+case 8:
+this.value=new Long(value);
+break;
+default :
+throw new IllegalArgumentException("Unsupported size: " + size);
+}
+long mask=(-1L >> size * 8) << size * 8;
+if ((value < 0 && truncated != value) || (value >= 0 && (mask & value) != 0)) {
+throw new IllegalArgumentException("Argument (0x" + Long.toHexString(value) + ") exceeds native capacity ("+ size+ " bytes)");
+}
+}
