@@ -1,3 +1,3 @@
 {
-  return WindowUtils.isWindowAlphaSupported() && !System.getProperty("os.name").startsWith("Mac");
+  return WindowUtils.isWindowAlphaSupported();
 }

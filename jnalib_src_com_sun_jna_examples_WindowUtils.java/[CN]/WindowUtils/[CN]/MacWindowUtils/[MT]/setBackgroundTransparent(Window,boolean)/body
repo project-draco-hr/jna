@@ -3,6 +3,6 @@
     w.setBackground(new Color(0,0,0,0));
   }
  else {
-    w.setBackground(new Window(w.getOwner()).getBackground());
+    w.setBackground(null);
   }
 }
