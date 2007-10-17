@@ -3,8 +3,7 @@
   String resourceName=getNativeLibraryResourcePath() + "/" + libname;
   URL url=Native.class.getResource(resourceName);
   if (url == null) {
-    System.err.println("Warning: jnidispatch (" + resourceName + ") not found in resource path");
-    return false;
+    throw new UnsatisfiedLinkError("jnidispatch (" + resourceName + ") not found in resource path");
   }
   File lib=null;
   if (url.getProtocol().toLowerCase().equals("file")) {
@@ -59,5 +58,4 @@
     }
   }
   System.load(lib.getAbsolutePath());
-  return true;
 }
