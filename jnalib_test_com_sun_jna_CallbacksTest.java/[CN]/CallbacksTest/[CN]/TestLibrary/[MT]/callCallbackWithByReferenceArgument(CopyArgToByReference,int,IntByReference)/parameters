@@ -1,0 +1,3 @@
+CopyArgToByReference cb
+int arg
+IntByReference result

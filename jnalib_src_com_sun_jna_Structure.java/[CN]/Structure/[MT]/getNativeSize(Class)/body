@@ -9,5 +9,5 @@
   if (Pointer.class == cls || Callback.class.isAssignableFrom(cls) || String.class == cls || WString.class == cls) {
     return Pointer.SIZE;
   }
-  throw new IllegalArgumentException("Native type undefined for " + cls);
+  throw new IllegalArgumentException("The type \"" + cls.getName() + "\" is not supported as a Structure field");
 }

@@ -1,7 +1,7 @@
 {
-  ArrayOfPointer s=new ArrayOfPointer();
+  ArrayOfPointerStructure s=new ArrayOfPointerStructure();
   int size=s.size();
-  assertEquals("Wrong size",ArrayOfPointer.SIZE * Pointer.SIZE,size);
+  assertEquals("Wrong size",ArrayOfPointerStructure.SIZE * Pointer.SIZE,size);
   s.array[0]=s.getPointer();
   s.write();
   s.array[0]=null;

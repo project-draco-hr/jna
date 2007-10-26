@@ -1,3 +1,3 @@
 {
-  setDouble(0,value);
+  getPointer().setDouble(0,value);
 }

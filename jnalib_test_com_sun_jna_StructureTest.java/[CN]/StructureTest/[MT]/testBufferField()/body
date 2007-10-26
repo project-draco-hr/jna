@@ -1,0 +1,8 @@
+{
+  try {
+    new BufferStructure(new byte[1024]);
+    fail("Buffer fields should fail immediately");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

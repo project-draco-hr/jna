@@ -1,3 +1,3 @@
 {
-  return getInt(0);
+  return getPointer().getInt(0);
 }

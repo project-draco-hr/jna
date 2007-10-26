@@ -101,6 +101,7 @@
     memory.setPointer(offset,CallbackReference.getFunctionPointer((Callback)value));
   }
  else {
-    throw new IllegalArgumentException("Field \"" + structField.name + "\" was declared as an "+ "unsupported type \""+ nativeType+ "\"");
+    String msg="Structure field \"" + structField.name + "\" was declared as "+ nativeType+ ", which is not supported within a Structure";
+    throw new IllegalArgumentException(msg);
   }
 }
