@@ -1,0 +1,17 @@
+{
+  if (args.length == 1) {
+    File file=new File(args[0]);
+    if (file.exists()) {
+      long start=System.currentTimeMillis();
+      while (!file.delete() && file.exists()) {
+        try {
+          Thread.sleep(10);
+        }
+ catch (        InterruptedException e) {
+        }
+        if (System.currentTimeMillis() - start > 1000)         break;
+      }
+    }
+  }
+  System.exit(0);
+}

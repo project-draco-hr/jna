@@ -23,6 +23,9 @@
     try {
       lib=File.createTempFile("jna",null);
       lib.deleteOnExit();
+      if (Platform.isWindows()) {
+        Runtime.getRuntime().addShutdownHook(new W32Cleanup(lib));
+      }
       fos=new FileOutputStream(lib);
       int count;
       byte[] buf=new byte[1024];

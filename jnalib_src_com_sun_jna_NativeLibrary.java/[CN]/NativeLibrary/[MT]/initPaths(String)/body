@@ -1,4 +1,14 @@
 {
-  String[] paths=System.getProperty(key,"").split(File.pathSeparator);
-  return Arrays.asList(paths);
+  String value=System.getProperty(key,"");
+  if ("".equals(value)) {
+    return Collections.EMPTY_LIST;
+  }
+  String[] paths=value.split(File.pathSeparator);
+  List list=new ArrayList();
+  for (int i=0; i < paths.length; i++) {
+    if (!"".equals(paths[i])) {
+      list.add(paths[i]);
+    }
+  }
+  return list;
 }
