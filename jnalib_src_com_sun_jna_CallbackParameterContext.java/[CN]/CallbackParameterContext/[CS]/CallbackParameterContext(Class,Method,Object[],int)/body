@@ -2,4 +2,5 @@
   super(javaType);
   this.method=m;
   this.args=args;
+  this.index=index;
 }

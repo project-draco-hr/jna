@@ -5,7 +5,7 @@
     Class type=paramTypes[i];
     Object arg=args[i];
     if (fromNative[i] != null) {
-      FromNativeContext context=new CallbackInvocationContext(type,callbackMethod,args);
+      FromNativeContext context=new CallbackParameterContext(type,callbackMethod,args,i);
       arg=fromNative[i].fromNative(arg,context);
     }
     callbackArgs[i]=convertArgument(arg,type);

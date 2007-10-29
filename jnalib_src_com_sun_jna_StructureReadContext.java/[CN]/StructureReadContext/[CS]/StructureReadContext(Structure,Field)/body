@@ -1,0 +1,5 @@
+{
+  super(field.getType());
+  this.structure=struct;
+  this.field=field;
+}
