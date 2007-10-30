@@ -4,5 +4,6 @@
   Library proxy=(Library)Proxy.newProxyInstance(loader,new Class[]{interfaceClass},handler);
   if (options.containsKey(Library.OPTION_TYPE_MAPPER))   typeMappers.put(interfaceClass,options.get(Library.OPTION_TYPE_MAPPER));
   if (options.containsKey(Library.OPTION_STRUCTURE_ALIGNMENT))   alignments.put(interfaceClass,options.get(Library.OPTION_STRUCTURE_ALIGNMENT));
+  libraries.put(interfaceClass,new WeakReference(proxy));
   return proxy;
 }
