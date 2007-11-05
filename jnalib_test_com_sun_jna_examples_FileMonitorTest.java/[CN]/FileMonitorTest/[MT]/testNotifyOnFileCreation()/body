@@ -1,6 +1,7 @@
 {
   if (!Platform.isWindows())   return;
-  File file=File.createTempFile(getName(),".tmp",dir);
+  monitor.addWatch(tmpdir);
+  File file=File.createTempFile(getName(),".tmp",tmpdir);
   file.deleteOnExit();
   FileEvent event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
   long start=System.currentTimeMillis();

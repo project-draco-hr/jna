@@ -1,0 +1,6 @@
+{
+  File f=File.createTempFile(name,".tmp",dir);
+  f.delete();
+  f.mkdirs();
+  return f;
+}

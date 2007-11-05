@@ -1,6 +1,7 @@
 {
   if (!Platform.isWindows())   return;
-  File file=File.createTempFile(getName(),".tmp",dir);
+  monitor.addWatch(tmpdir);
+  File file=File.createTempFile(getName(),".tmp",tmpdir);
   file.deleteOnExit();
   FileOutputStream os=new FileOutputStream(file);
   os.write(getName().getBytes());

@@ -9,6 +9,5 @@
 ;
   monitor=FileMonitor.getInstance();
   monitor.addFileListener(listener);
-  dir=new File(System.getProperty("java.io.tmpdir"));
-  monitor.addWatch(dir);
+  tmpdir=new File(System.getProperty("java.io.tmpdir"));
 }

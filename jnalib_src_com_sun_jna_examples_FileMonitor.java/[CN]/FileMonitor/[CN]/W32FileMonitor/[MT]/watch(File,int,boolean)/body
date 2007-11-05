@@ -24,10 +24,11 @@
   handleMap.put(handle,finfo);
   port=klib.CreateIoCompletionPort(handle,port,handle.getPointer(),0);
   if (Kernel32.INVALID_HANDLE_VALUE.equals(port)) {
-    throw new IOException("Unable to create I/O Completion port " + "for " + file + " ("+ klib.GetLastError()+ ")");
+    throw new IOException("Unable to create/use I/O Completion port " + "for " + file + " ("+ klib.GetLastError()+ ")");
   }
   if (!klib.ReadDirectoryChangesW(handle,finfo.info,finfo.info.size(),recursive,notifyMask,finfo.infoLength,finfo.overlapped,null)) {
-    throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ":"+ finfo.handle+ " ("+ klib.GetLastError()+ ")");
+    int err=klib.GetLastError();
+    throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ": '"+ getSystemError(err)+ "' ("+ err+ ")");
   }
   if (watcher == null) {
     watcher=new Thread("W32 File Monitor"){

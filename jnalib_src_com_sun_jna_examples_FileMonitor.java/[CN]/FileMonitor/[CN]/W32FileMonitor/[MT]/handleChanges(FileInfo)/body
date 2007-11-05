@@ -22,13 +22,18 @@ case Kernel32.FILE_ACTION_RENAMED_NEW_NAME:
 event=new FileEvent(file,FILE_NAME_CHANGED_NEW);
 break;
 default :
-System.err.println("Unrecognized action: " + fni.Action);
+System.err.println("Unrecognized file action '" + fni.Action + "'");
 }
 if (event != null) notify(event);
 fni=fni.next();
 }
  while (fni != null);
+if (!finfo.file.exists()) {
+unwatch(finfo.file);
+return;
+}
 if (!klib.ReadDirectoryChangesW(finfo.handle,finfo.info,finfo.info.size(),finfo.recursive,finfo.notifyMask,finfo.infoLength,finfo.overlapped,null)) {
-throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + " ("+ klib.GetLastError()+ ")");
+int err=klib.GetLastError();
+throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ": '"+ getSystemError(err)+ "' ("+ err+ ")");
 }
 }
