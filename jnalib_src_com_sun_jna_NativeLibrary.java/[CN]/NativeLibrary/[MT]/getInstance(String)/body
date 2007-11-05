@@ -1,4 +1,5 @@
 {
+  if (libraryName == null)   throw new NullPointerException("Library name may not be null");
 synchronized (libraries) {
     WeakReference ref=(WeakReference)libraries.get(libraryName);
     NativeLibrary library=ref != null ? (NativeLibrary)ref.get() : null;

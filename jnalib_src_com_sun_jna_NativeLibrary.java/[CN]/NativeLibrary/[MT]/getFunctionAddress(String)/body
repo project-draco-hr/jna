@@ -1,4 +1,7 @@
 {
+  if (handle == 0) {
+    throw new UnsatisfiedLinkError("Library has been unloaded");
+  }
   long func=findSymbol(handle,functionName);
   if (func == 0) {
     throw new UnsatisfiedLinkError("Cannot locate function '" + functionName + "'");

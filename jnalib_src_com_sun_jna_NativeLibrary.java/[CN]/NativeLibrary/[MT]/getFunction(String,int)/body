@@ -1,4 +1,5 @@
 {
+  if (functionName == null)   throw new NullPointerException("Function name may not be null");
 synchronized (functions) {
     Function function=(Function)functions.get(functionName);
     if (function == null) {
