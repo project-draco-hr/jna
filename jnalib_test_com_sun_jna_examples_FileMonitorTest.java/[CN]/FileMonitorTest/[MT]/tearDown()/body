@@ -1,3 +1,5 @@
 {
-  monitor.dispose();
+  if (monitor != null) {
+    monitor.dispose();
+  }
 }
