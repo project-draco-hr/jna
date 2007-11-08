@@ -14,5 +14,4 @@ synchronized (waitObject) {
  catch (  InterruptedException ex) {
   }
   reportStatus(WINSVC.SERVICE_STOPPED,WINERROR.NO_ERROR,0);
-  System.exit(0);
 }
