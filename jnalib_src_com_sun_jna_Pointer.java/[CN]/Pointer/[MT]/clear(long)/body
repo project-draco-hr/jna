@@ -1,0 +1,3 @@
+{
+  setMemory(0,size,(byte)0);
+}

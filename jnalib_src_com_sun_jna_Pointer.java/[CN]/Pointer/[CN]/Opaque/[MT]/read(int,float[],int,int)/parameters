@@ -1,4 +1,0 @@
-int bOff
-float[] buf
-int index
-int length

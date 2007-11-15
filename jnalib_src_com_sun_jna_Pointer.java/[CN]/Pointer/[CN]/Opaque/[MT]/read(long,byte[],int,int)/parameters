@@ -1,0 +1,4 @@
+long bOff
+byte[] buf
+int index
+int length
