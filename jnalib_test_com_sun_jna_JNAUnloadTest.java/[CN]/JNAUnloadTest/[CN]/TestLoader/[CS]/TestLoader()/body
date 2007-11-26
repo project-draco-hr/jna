@@ -1,0 +1,3 @@
+{
+  super(new URL[]{new File("build/classes").toURI().toURL()},null);
+}

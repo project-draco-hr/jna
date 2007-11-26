@@ -1,0 +1,12 @@
+{
+  ClassLoader loader=new TestLoader();
+  Class cls=Class.forName("com.sun.jna.Native",true,loader);
+  assertEquals("Wrong class loader",loader,cls.getClassLoader());
+  WeakReference ref=new WeakReference(cls);
+  WeakReference clref=new WeakReference(loader);
+  loader=null;
+  cls=null;
+  System.gc();
+  assertNull("Class not GC'd: " + ref.get(),ref.get());
+  assertNull("ClassLoader not GC'd: " + clref.get(),clref.get());
+}
