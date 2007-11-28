@@ -51,8 +51,8 @@
       }
     }
   }
+  Toolkit.getDefaultToolkit();
   if (Platform.isWindows()) {
-    Toolkit.getDefaultToolkit();
     try {
       System.loadLibrary("jawt");
     }
