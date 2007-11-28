@@ -2,7 +2,7 @@
   this.libraryName=getLibraryName(libraryName);
   this.libraryPath=libraryPath;
   this.handle=handle;
-  if (Platform.isWindows() && "kernel32".equals(this.libraryName)) {
+  if (Platform.isWindows() && "kernel32".equals(this.libraryName.toLowerCase())) {
 synchronized (functions) {
       Function f=new Function(this,"GetLastError",Function.ALT_CONVENTION){
         Object invoke(        Object[] args,        Class returnType){
