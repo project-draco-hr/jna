@@ -1,4 +1,0 @@
-{
-  TestLibrary.CheckFieldAlignment struct=new TestLibrary.CheckFieldAlignment();
-  assertEquals("Native size does not match calculated size",struct.getPointer(),lib.testSimpleStructurePointerArgument(struct));
-}

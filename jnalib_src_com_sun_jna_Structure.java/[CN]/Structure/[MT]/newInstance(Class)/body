@@ -1,0 +1,17 @@
+{
+  try {
+    Structure s=(Structure)type.newInstance();
+    if (s instanceof ByValue) {
+      s.allocateMemory();
+    }
+    return s;
+  }
+ catch (  InstantiationException e) {
+    String msg="Can't instantiate " + type + " ("+ e+ ")";
+    throw new IllegalArgumentException(msg);
+  }
+catch (  IllegalAccessException e) {
+    String msg="Instantiation of " + type + " not allowed, is it public? ("+ e+ ")";
+    throw new IllegalArgumentException(msg);
+  }
+}

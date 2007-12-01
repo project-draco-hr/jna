@@ -1,0 +1,21 @@
+{
+class TestStructure extends Structure {
+    public PublicTestStructureByRef[] array=new PublicTestStructureByRef[2];
+  }
+  TestStructure s=new TestStructure();
+  assertEquals("Wrong structure size",2 * Pointer.SIZE,s.size());
+  PublicTestStructureByRef ref=new PublicTestStructureByRef();
+  ref.field=42;
+  Object aref=s.array;
+  s.array[0]=ref;
+  s.array[1]=new PublicTestStructureByRef();
+  s.write();
+  s.read();
+  assertSame("Array reference should not change",aref,s.array);
+  assertSame("Elements should not be overwritten when unchanged",ref,s.array[0]);
+  s.array[0]=null;
+  s.read();
+  assertNotSame("Null should be overwritten with a new ref",ref,s.array[0]);
+  assertNotNull("New ref should not be null",s.array[0]);
+  assertEquals("New ref should be equivalent",ref,s.array[0]);
+}

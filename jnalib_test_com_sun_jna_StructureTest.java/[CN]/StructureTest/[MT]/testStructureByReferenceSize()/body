@@ -1,0 +1,5 @@
+{
+  StructureWithPointers s=new StructureWithPointers();
+  assertEquals("Wrong size for structure with structure references",Pointer.SIZE * 2,s.size());
+  assertNull("Initial refs should be null",s.s1);
+}

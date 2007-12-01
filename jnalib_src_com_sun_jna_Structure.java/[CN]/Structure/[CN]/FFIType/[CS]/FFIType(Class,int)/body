@@ -1,0 +1,8 @@
+{
+  Pointer[] els=new Pointer[length + 1];
+  Pointer p=getFFIType(type);
+  for (int i=0; i < length; i++) {
+    els[i]=p;
+  }
+  init(els);
+}

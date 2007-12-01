@@ -1,6 +1,6 @@
 {
-  TestStructure s=new TestStructure();
-  TestStructure[] array=(TestStructure[])s.toArray(1);
+  PublicTestStructure s=new PublicTestStructure();
+  PublicTestStructure[] array=(PublicTestStructure[])s.toArray(1);
   assertEquals("Array should consist of a single element",1,array.length);
   assertEquals("First element should be original",s,array[0]);
   assertEquals("Structure memory should be expanded",2,s.toArray(2).length);

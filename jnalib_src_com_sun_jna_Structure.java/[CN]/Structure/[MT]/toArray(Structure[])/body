@@ -11,17 +11,9 @@
   array[0]=this;
   int size=size();
   for (int i=1; i < array.length; i++) {
-    try {
-      array[i]=(Structure)getClass().newInstance();
-      array[i].useMemory(memory.share(i * size,size));
-      array[i].read();
-    }
- catch (    InstantiationException e) {
-      throw new IllegalArgumentException("Error instantiating " + getClass() + ": "+ e);
-    }
-catch (    IllegalAccessException e) {
-      throw new IllegalArgumentException("Not allowed to instantiate " + getClass() + ": "+ e);
-    }
+    array[i]=Structure.newInstance(getClass());
+    array[i].useMemory(memory.share(i * size,size));
+    array[i].read();
   }
   return array;
 }

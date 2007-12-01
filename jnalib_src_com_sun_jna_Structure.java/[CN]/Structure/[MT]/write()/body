@@ -1,6 +1,6 @@
 {
   if (size == CALCULATE_SIZE) {
-    allocateMemory(calculateSize(true));
+    allocateMemory();
   }
   for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
     StructField sf=(StructField)i.next();

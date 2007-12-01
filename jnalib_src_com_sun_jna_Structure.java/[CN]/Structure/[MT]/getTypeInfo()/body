@@ -1,0 +1,11 @@
+{
+synchronized (typeInfoMap) {
+    Pointer info=(Pointer)typeInfoMap.get(getClass());
+    if (info == null) {
+      FFIType type=new FFIType(this);
+      info=type.getPointer();
+      typeInfoMap.put(getClass(),info);
+    }
+    return info;
+  }
+}

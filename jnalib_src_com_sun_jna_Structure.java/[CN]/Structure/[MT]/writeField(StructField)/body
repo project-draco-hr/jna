@@ -88,14 +88,33 @@
       Pointer[] buf=(Pointer[])value;
       memory.write(offset,buf,0,buf.length);
     }
+ else     if (Structure.class.isAssignableFrom(cls) && ByReference.class.isAssignableFrom(cls)) {
+      Structure[] sbuf=(Structure[])value;
+      Pointer[] buf=new Pointer[sbuf.length];
+      for (int i=0; i < sbuf.length; i++) {
+        buf[i]=sbuf[i] == null ? null : sbuf[i].getPointer();
+      }
+      memory.write(offset,buf,0,buf.length);
+    }
  else {
       throw new IllegalArgumentException("Inline array of " + cls + " not supported");
     }
   }
  else   if (Structure.class.isAssignableFrom(nativeType)) {
     Structure s=(Structure)value;
-    s.useMemory(memory,offset);
-    s.write();
+    if (ByReference.class.isAssignableFrom(nativeType)) {
+      if (s == null) {
+        memory.setPointer(offset,null);
+      }
+ else {
+        memory.setPointer(offset,s.getPointer());
+        s.write();
+      }
+    }
+ else {
+      s.useMemory(memory,offset);
+      s.write();
+    }
   }
  else   if (Callback.class.isAssignableFrom(nativeType)) {
     memory.setPointer(offset,CallbackReference.getFunctionPointer((Callback)value));

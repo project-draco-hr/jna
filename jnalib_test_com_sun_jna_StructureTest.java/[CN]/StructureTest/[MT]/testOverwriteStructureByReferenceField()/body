@@ -1,0 +1,10 @@
+{
+  StructureWithPointers s=new StructureWithPointers();
+  StructureWithPointers.TestStructureByRef inner=new StructureWithPointers.TestStructureByRef();
+  StructureWithPointers.TestStructureByRef inner2=new StructureWithPointers.TestStructureByRef();
+  s.s1=inner2;
+  s.write();
+  s.s1=inner;
+  s.read();
+  assertNotSame("Read should overwrite structure reference",inner,s.s1);
+}

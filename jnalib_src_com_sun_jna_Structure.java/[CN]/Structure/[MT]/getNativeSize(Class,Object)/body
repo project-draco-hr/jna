@@ -1,7 +1,12 @@
 {
   if (Structure.class.isAssignableFrom(type)) {
-    Structure s=(Structure)value;
-    return s.size();
+    if (ByReference.class.isAssignableFrom(type)) {
+      return Pointer.SIZE;
+    }
+ else {
+      Structure s=(Structure)value;
+      return s.size();
+    }
   }
   if (type.isArray()) {
     int len=Array.getLength(value);

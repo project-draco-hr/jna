@@ -1,0 +1,15 @@
+{
+class TestStructure extends Structure implements Structure.ByValue {
+    public byte b;
+    public char c;
+    public short s;
+    public int i;
+    public long j;
+    public float f;
+    public double d;
+    public Pointer[] parray=new Pointer[2];
+    public byte[] barray=new byte[2];
+  }
+  Structure s=new TestStructure();
+  s.size();
+}

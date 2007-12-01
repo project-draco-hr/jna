@@ -7,17 +7,10 @@
       value=new WString(((Pointer)value).getString(0,true));
     }
  else     if (Structure.class.isAssignableFrom(dstType)) {
-      Pointer p=(Pointer)value;
-      try {
-        Structure s=(Structure)dstType.newInstance();
-        s.useMemory(p);
-        s.read();
-        value=s;
-      }
- catch (      InstantiationException e) {
-      }
-catch (      IllegalAccessException e) {
-      }
+      Structure s=Structure.newInstance(dstType);
+      s.useMemory((Pointer)value);
+      s.read();
+      value=s;
     }
   }
  else   if ((boolean.class == dstType || Boolean.class == dstType) && value instanceof Number) {

@@ -1,0 +1,12 @@
+{
+class TestStructure extends Structure {
+    public Pointer[] buffer;
+  }
+  TestStructure s=new TestStructure();
+  try {
+    s.size();
+    fail("Size can't be calculated unless array fields are initialized");
+  }
+ catch (  IllegalStateException e) {
+  }
+}

@@ -1,6 +1,6 @@
 {
   if (size == CALCULATE_SIZE) {
-    allocateMemory(calculateSize(true));
+    allocateMemory();
   }
   return size;
 }

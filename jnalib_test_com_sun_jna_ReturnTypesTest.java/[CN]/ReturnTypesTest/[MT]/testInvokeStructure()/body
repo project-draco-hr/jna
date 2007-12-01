@@ -1,4 +1,4 @@
 {
-  TestStructure s=lib.returnStaticTestStructure();
+  SimpleStructure s=lib.returnStaticTestStructure();
   assertEquals("Expect test structure magic",DOUBLE_MAGIC,s.value,0d);
 }

@@ -31,12 +31,12 @@
     try {
       Object value=field.get(this);
       if (value == null) {
-        if (Structure.class.isAssignableFrom(type)) {
+        if (Structure.class.isAssignableFrom(type) && !(ByReference.class.isAssignableFrom(type))) {
           try {
-            value=type.newInstance();
+            value=newInstance(type);
             field.set(this,value);
           }
- catch (          InstantiationException e) {
+ catch (          IllegalArgumentException e) {
             String msg="Can't determine size of nested structure: " + e.getMessage();
             throw new IllegalArgumentException(msg);
           }

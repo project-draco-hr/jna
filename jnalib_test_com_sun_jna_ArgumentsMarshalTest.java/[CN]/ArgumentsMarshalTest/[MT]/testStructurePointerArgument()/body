@@ -1,0 +1,4 @@
+{
+  TestLibrary.CheckFieldAlignment struct=new TestLibrary.CheckFieldAlignment();
+  assertEquals("Native address of structure should be returned",struct.getPointer(),lib.testStructurePointerArgument(struct));
+}

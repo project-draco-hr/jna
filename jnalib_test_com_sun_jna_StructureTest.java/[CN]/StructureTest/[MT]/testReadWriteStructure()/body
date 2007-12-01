@@ -10,8 +10,10 @@ class TestStructure extends Structure {
   s.write();
   s.s1.x=s.s1.y=0;
   s.buffer[0]=0;
+  byte[] ref=s.buffer;
   s.read();
   assertEquals("Wrong nested struct field value after write/read (x)",1,s.s1.x);
   assertEquals("Wrong nested struct field value after write/read (y)",2,s.s1.y);
   assertEquals("Wrong nested array element value after write/read",3,s.buffer[0]);
+  assertSame("Array field reference should be unchanged",ref,s.buffer);
 }

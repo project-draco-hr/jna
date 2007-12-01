@@ -1,0 +1,4 @@
+{
+  Pointer[] els=getFieldFFITypes(ref);
+  init(els);
+}

@@ -41,7 +41,9 @@
       Object arg=inArgs[i];
       if (arg == null)       continue;
       if (arg instanceof Structure) {
-        ((Structure)arg).read();
+        if (!(arg instanceof Structure.ByValue)) {
+          ((Structure)arg).read();
+        }
       }
  else       if (args[i] instanceof StringArray) {
         ((StringArray)args[i]).read();

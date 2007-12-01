@@ -1,0 +1,9 @@
+{
+  StructureWithPointers s=new StructureWithPointers();
+  StructureWithPointers.TestStructureByRef inner=new StructureWithPointers.TestStructureByRef();
+  s.s1=inner;
+  s.write();
+  s.s1=null;
+  s.read();
+  assertEquals("Inner structure not regenerated on read",inner,s.s1);
+}

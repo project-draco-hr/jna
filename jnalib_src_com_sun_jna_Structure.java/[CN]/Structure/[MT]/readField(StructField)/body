@@ -10,8 +10,23 @@
     Structure s=null;
     try {
       s=(Structure)structField.field.get(this);
-      s.useMemory(memory,offset);
-      s.read();
+      if (ByReference.class.isAssignableFrom(nativeType)) {
+        Pointer p=memory.getPointer(offset);
+        if (p == null) {
+          s=null;
+        }
+ else {
+          if (s == null || !p.equals(s.getPointer())) {
+            s=newInstance(nativeType);
+            s.useMemory(p);
+          }
+          s.read();
+        }
+      }
+ else {
+        s.useMemory(memory,offset);
+        s.read();
+      }
     }
  catch (    IllegalAccessException e) {
     }
@@ -78,34 +93,51 @@ catch (    IllegalAccessException e) {
         throw new IllegalStateException("Array field in Structure not initialized");
       }
       length=Array.getLength(o);
+      result=o;
     }
  catch (    IllegalArgumentException e) {
     }
 catch (    IllegalAccessException e) {
     }
     if (cls == byte.class) {
-      result=memory.getByteArray(offset,length);
+      memory.read(offset,(byte[])result,0,length);
     }
  else     if (cls == short.class) {
-      result=memory.getShortArray(offset,length);
+      memory.read(offset,(short[])result,0,length);
     }
  else     if (cls == char.class) {
-      result=memory.getCharArray(offset,length);
+      memory.read(offset,(char[])result,0,length);
     }
  else     if (cls == int.class) {
-      result=memory.getIntArray(offset,length);
+      memory.read(offset,(int[])result,0,length);
     }
  else     if (cls == long.class) {
-      result=memory.getLongArray(offset,length);
+      memory.read(offset,(long[])result,0,length);
     }
  else     if (cls == float.class) {
-      result=memory.getFloatArray(offset,length);
+      memory.read(offset,(float[])result,0,length);
     }
  else     if (cls == double.class) {
-      result=memory.getDoubleArray(offset,length);
+      memory.read(offset,(double[])result,0,length);
     }
  else     if (Pointer.class.isAssignableFrom(cls)) {
-      result=memory.getPointerArray(offset,length);
+      memory.read(offset,(Pointer[])result,0,length);
+    }
+ else     if (Structure.class.isAssignableFrom(cls) && ByReference.class.isAssignableFrom(cls)) {
+      Structure[] sarray=(Structure[])result;
+      Pointer[] parray=memory.getPointerArray(offset,sarray.length);
+      for (int i=0; i < sarray.length; i++) {
+        if (parray[i] == null) {
+          sarray[i]=null;
+        }
+ else {
+          if (sarray[i] == null || !parray[i].equals(sarray[i].getPointer())) {
+            sarray[i]=newInstance(cls);
+            sarray[i].useMemory(parray[i]);
+          }
+          sarray[i].read();
+        }
+      }
     }
  else {
       throw new IllegalArgumentException("Array of " + cls + " not supported");

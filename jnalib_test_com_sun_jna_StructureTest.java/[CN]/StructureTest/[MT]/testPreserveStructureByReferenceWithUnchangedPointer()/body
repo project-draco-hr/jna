@@ -1,0 +1,9 @@
+{
+  StructureWithPointers s=new StructureWithPointers();
+  StructureWithPointers.TestStructureByRef inner=new StructureWithPointers.TestStructureByRef();
+  s.s1=inner;
+  s.write();
+  s.read();
+  assertSame("Read should preserve structure object",inner,s.s1);
+  assertTrue("Read should preserve structure memory",inner.getPointer() instanceof Memory);
+}
