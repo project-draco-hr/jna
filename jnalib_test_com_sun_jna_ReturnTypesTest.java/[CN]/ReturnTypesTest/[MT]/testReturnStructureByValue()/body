@@ -5,7 +5,6 @@
   assertEquals("Wrong short field value",2,s.s);
   assertEquals("Wrong int field value",3,s.i);
   assertEquals("Wrong long field value",4,s.j);
-  SimpleStructure ts=s.inner;
   assertNotNull("Structure not initialized",s.inner);
   assertEquals("Wrong inner structure value",5,s.inner.value,0);
 }

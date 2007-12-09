@@ -1,0 +1,4 @@
+{
+  AnnotatedLibrary a=(AnnotatedLibrary)Proxy.newProxyInstance(getClass().getClassLoader(),new Class[]{AnnotatedLibrary.class},new TestInvocationHandler());
+  assertTrue("Proxy method not annotated",a.isAnnotated());
+}

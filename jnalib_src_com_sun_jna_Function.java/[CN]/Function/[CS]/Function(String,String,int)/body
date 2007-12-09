@@ -1,3 +1,0 @@
-{
-  this(NativeLibrary.getInstance(libraryName),functionName,callingConvention);
-}
