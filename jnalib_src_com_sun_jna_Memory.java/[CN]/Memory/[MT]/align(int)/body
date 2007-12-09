@@ -1,0 +1,11 @@
+{
+  if (byteBoundary <= 0) {
+    throw new IllegalArgumentException("Byte boundary must be positive: " + byteBoundary);
+  }
+  long mask=~((long)byteBoundary - 1);
+  if ((peer & ~mask) != peer) {
+    long newPeer=(peer + ~mask) & mask;
+    return share(newPeer - peer,peer + size - newPeer);
+  }
+  return this;
+}
