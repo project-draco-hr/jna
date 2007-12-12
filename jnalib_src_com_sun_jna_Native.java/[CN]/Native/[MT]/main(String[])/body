@@ -1,0 +1,7 @@
+{
+  Package pkg=Native.class.getPackage();
+  System.out.println(pkg.getSpecificationTitle());
+  System.out.println("Version: " + Native.class.getPackage().getImplementationVersion());
+  System.out.println(" Native: " + getNativeVersion() + " ("+ getAPIChecksum()+ ")");
+  System.exit(0);
+}
