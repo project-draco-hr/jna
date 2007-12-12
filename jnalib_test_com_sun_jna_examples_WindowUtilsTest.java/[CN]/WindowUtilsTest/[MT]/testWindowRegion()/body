@@ -2,8 +2,8 @@
   if (GraphicsEnvironment.isHeadless())   return;
   Frame root=JOptionPane.getRootFrame();
   final Window back=new Window(root);
-  final Color BACKGROUND=new Color(0,128,128);
-  final Color FOREGROUND=new Color(128,0,0);
+  final Color BACKGROUND=Color.GREEN;
+  final Color FOREGROUND=Color.RED;
   back.setBackground(BACKGROUND);
   back.setLocation(X,Y);
   final JWindow front=new JWindow(root);

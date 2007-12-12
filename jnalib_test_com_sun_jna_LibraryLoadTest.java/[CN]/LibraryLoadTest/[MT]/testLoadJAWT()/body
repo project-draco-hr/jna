@@ -1,4 +1,5 @@
 {
+  if (GraphicsEnvironment.isHeadless())   return;
   Frame f=new Frame(getName());
   f.pack();
   try {
