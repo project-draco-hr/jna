@@ -1,0 +1,4 @@
+{
+  System.setProperty("java.awt.headless","true");
+  assertTrue("Pointer size must not be zero",Pointer.SIZE > 0);
+}
