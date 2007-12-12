@@ -1,4 +1,7 @@
 {
+  if (GraphicsEnvironment.isHeadless()) {
+    throw new HeadlessException("No native windows when headless");
+  }
   if (c.isLightweight()) {
     throw new IllegalArgumentException("Component must be heavyweight");
   }

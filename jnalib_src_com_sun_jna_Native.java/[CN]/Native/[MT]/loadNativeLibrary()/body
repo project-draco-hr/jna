@@ -55,14 +55,5 @@
       }
     }
   }
-  Toolkit.getDefaultToolkit();
-  if (Platform.isWindows()) {
-    try {
-      System.loadLibrary("jawt");
-    }
- catch (    UnsatisfiedLinkError e) {
-      e.printStackTrace();
-    }
-  }
   System.load(lib.getAbsolutePath());
 }
