@@ -11,5 +11,18 @@
       throw new IllegalStateException("Component must be visible");
     }
   }
+  if (Platform.isWindows()) {
+synchronized (Native.class) {
+      if (!jawt_loaded) {
+        try {
+          System.loadLibrary("jawt");
+        }
+ catch (        UnsatisfiedLinkError e) {
+          e.printStackTrace();
+        }
+      }
+      jawt_loaded=true;
+    }
+  }
   return getWindowHandle0(c);
 }
