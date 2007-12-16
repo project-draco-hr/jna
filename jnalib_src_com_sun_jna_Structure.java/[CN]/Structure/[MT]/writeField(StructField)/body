@@ -1,12 +1,6 @@
 {
   int offset=structField.offset;
-  Object value=null;
-  try {
-    value=structField.field.get(this);
-  }
- catch (  Exception e) {
-    throw new Error("Exception reading field \"" + structField.name + "\"",e);
-  }
+  Object value=getField(structField);
   Class nativeType=structField.type;
   ToNativeConverter converter=structField.writeConverter;
   if (converter != null) {

@@ -1,0 +1,3 @@
+{
+  _write(peer + offset,buf,index,length);
+}

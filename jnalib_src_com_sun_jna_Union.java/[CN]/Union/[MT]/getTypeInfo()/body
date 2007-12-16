@@ -1,0 +1,3 @@
+{
+  return getTypeInfo(getField(activeField != null ? activeField : biggestField));
+}

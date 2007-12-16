@@ -1,0 +1,10 @@
+{
+  NestedTypeInfoStructure s=new NestedTypeInfoStructure();
+  Pointer p=s.getTypeInfo();
+  assertNotNull("Type info should not be null",p);
+  Pointer els=p.getPointer(Pointer.SIZE + 4);
+  Pointer inner=s.inner.getTypeInfo();
+  assertEquals("Wrong type information for 'inner' field",inner,els.getPointer(0));
+  assertEquals("Wront type information for integer field",s.getTypeInfo(new Integer(0)),els.getPointer(Pointer.SIZE));
+  assertNull("Type element list should be null-terminated",els.getPointer(Pointer.SIZE * 2));
+}

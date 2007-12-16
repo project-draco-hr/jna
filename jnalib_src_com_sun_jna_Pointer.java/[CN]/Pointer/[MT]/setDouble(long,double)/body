@@ -1,0 +1,3 @@
+{
+  _setDouble(peer + offset,value);
+}

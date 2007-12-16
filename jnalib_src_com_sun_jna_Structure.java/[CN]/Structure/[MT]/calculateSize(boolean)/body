@@ -28,56 +28,53 @@
       throw new IllegalArgumentException(msg);
     }
     int fieldAlignment=1;
-    try {
-      Object value=field.get(this);
-      if (value == null) {
-        if (Structure.class.isAssignableFrom(type) && !(ByReference.class.isAssignableFrom(type))) {
-          try {
-            value=newInstance(type);
-            field.set(this,value);
-          }
- catch (          IllegalArgumentException e) {
-            String msg="Can't determine size of nested structure: " + e.getMessage();
-            throw new IllegalArgumentException(msg);
-          }
+    if (!Modifier.isPublic(field.getModifiers()))     continue;
+    Object value=getField(structField);
+    if (value == null) {
+      if (Structure.class.isAssignableFrom(type) && !(ByReference.class.isAssignableFrom(type))) {
+        try {
+          value=newInstance(type);
+          setField(structField,value);
         }
- else         if (type.isArray()) {
-          if (force) {
-            throw new IllegalStateException("Array fields must be initialized");
-          }
-          return CALCULATE_SIZE;
-        }
-      }
-      Class nativeType=type;
-      if (NativeMapped.class.isAssignableFrom(type)) {
-        NativeMappedConverter tc=new NativeMappedConverter(type);
-        value=tc.defaultValue();
-        nativeType=tc.nativeType();
-        structField.writeConverter=tc;
-        structField.readConverter=tc;
-        structField.context=new StructureReadContext(this,field);
-        field.set(this,value);
-      }
- else       if (typeMapper != null) {
-        ToNativeConverter writeConverter=typeMapper.getToNativeConverter(type);
-        FromNativeConverter readConverter=typeMapper.getFromNativeConverter(type);
-        if (writeConverter != null && readConverter != null) {
-          value=writeConverter.toNative(value,new StructureWriteContext(this,structField.field));
-          nativeType=value != null ? value.getClass() : Pointer.class;
-          structField.writeConverter=writeConverter;
-          structField.readConverter=readConverter;
-          structField.context=new StructureReadContext(this,field);
-        }
- else         if (writeConverter != null || readConverter != null) {
-          String msg="Structures require bidirectional type conversion for " + type;
+ catch (        IllegalArgumentException e) {
+          String msg="Can't determine size of nested structure: " + e.getMessage();
           throw new IllegalArgumentException(msg);
         }
       }
-      structField.size=getNativeSize(nativeType,value);
-      fieldAlignment=getNativeAlignment(nativeType,value,i == 0);
+ else       if (type.isArray()) {
+        if (force) {
+          throw new IllegalStateException("Array fields must be initialized");
+        }
+        return CALCULATE_SIZE;
+      }
     }
- catch (    IllegalAccessException e) {
+    Class nativeType=type;
+    if (NativeMapped.class.isAssignableFrom(type)) {
+      NativeMappedConverter tc=new NativeMappedConverter(type);
+      value=tc.defaultValue();
+      nativeType=tc.nativeType();
+      structField.writeConverter=tc;
+      structField.readConverter=tc;
+      structField.context=new StructureReadContext(this,field);
+      setField(structField,value);
     }
+ else     if (typeMapper != null) {
+      ToNativeConverter writeConverter=typeMapper.getToNativeConverter(type);
+      FromNativeConverter readConverter=typeMapper.getFromNativeConverter(type);
+      if (writeConverter != null && readConverter != null) {
+        value=writeConverter.toNative(value,new StructureWriteContext(this,structField.field));
+        nativeType=value != null ? value.getClass() : Pointer.class;
+        structField.writeConverter=writeConverter;
+        structField.readConverter=readConverter;
+        structField.context=new StructureReadContext(this,field);
+      }
+ else       if (writeConverter != null || readConverter != null) {
+        String msg="Structures require bidirectional type conversion for " + type;
+        throw new IllegalArgumentException(msg);
+      }
+    }
+    structField.size=getNativeSize(nativeType,value);
+    fieldAlignment=getNativeAlignment(nativeType,value,i == 0);
     structAlignment=Math.max(structAlignment,fieldAlignment);
     if ((calculatedSize % fieldAlignment) != 0) {
       calculatedSize+=fieldAlignment - (calculatedSize % fieldAlignment);

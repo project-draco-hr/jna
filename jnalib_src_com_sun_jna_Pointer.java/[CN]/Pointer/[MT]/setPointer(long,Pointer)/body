@@ -1,0 +1,3 @@
+{
+  _setPointer(peer + offset,value != null ? value.peer : 0);
+}

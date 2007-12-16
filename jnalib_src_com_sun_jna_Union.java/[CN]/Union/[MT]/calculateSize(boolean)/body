@@ -5,7 +5,10 @@
     for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
       StructField f=(StructField)i.next();
       f.offset=0;
-      fsize=Math.max(fsize,f.size);
+      if (f.size > fsize) {
+        fsize=f.size;
+        biggestField=f;
+      }
     }
     size=calculateAlignedSize(fsize);
   }

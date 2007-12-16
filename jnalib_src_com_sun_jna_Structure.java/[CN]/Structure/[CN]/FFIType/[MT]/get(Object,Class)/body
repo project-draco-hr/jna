@@ -1,0 +1,34 @@
+{
+synchronized (typeInfoMap) {
+    Object o=typeInfoMap.get(cls);
+    if (o instanceof Pointer) {
+      return (Pointer)o;
+    }
+    if (o instanceof FFIType) {
+      return ((FFIType)o).getPointer();
+    }
+    if (Buffer.class.isAssignableFrom(cls) || Callback.class.isAssignableFrom(cls)) {
+      typeInfoMap.put(cls,FFITypes.ffi_type_pointer);
+      return FFITypes.ffi_type_pointer;
+    }
+    if (Structure.class.isAssignableFrom(cls)) {
+      if (obj == null)       obj=newInstance(cls);
+      if (ByReference.class.isAssignableFrom(cls)) {
+        typeInfoMap.put(cls,FFITypes.ffi_type_pointer);
+        return FFITypes.ffi_type_pointer;
+      }
+      if (Union.class.isAssignableFrom(cls)) {
+        return ((Union)obj).getTypeInfo();
+      }
+      FFIType type=new FFIType((Structure)obj);
+      typeInfoMap.put(cls,type);
+      return type.getPointer();
+    }
+    if (cls.isArray()) {
+      FFIType type=new FFIType(obj,cls);
+      typeInfoMap.put(obj,type);
+      return type.getPointer();
+    }
+    throw new IllegalArgumentException("Unsupported structure field type " + cls);
+  }
+}

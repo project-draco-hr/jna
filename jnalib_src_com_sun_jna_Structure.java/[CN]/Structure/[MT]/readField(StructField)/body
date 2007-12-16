@@ -7,28 +7,23 @@
   }
   Object result=null;
   if (Structure.class.isAssignableFrom(nativeType)) {
-    Structure s=null;
-    try {
-      s=(Structure)structField.field.get(this);
-      if (ByReference.class.isAssignableFrom(nativeType)) {
-        Pointer p=memory.getPointer(offset);
-        if (p == null) {
-          s=null;
-        }
- else {
-          if (s == null || !p.equals(s.getPointer())) {
-            s=newInstance(nativeType);
-            s.useMemory(p);
-          }
-          s.read();
-        }
+    Structure s=(Structure)getField(structField);
+    if (ByReference.class.isAssignableFrom(nativeType)) {
+      Pointer p=memory.getPointer(offset);
+      if (p == null) {
+        s=null;
       }
  else {
-        s.useMemory(memory,offset);
+        if (s == null || !p.equals(s.getPointer())) {
+          s=newInstance(nativeType);
+          s.useMemory(p);
+        }
         s.read();
       }
     }
- catch (    IllegalAccessException e) {
+ else {
+      s.useMemory(memory,offset);
+      s.read();
     }
     result=s;
   }
@@ -69,36 +64,24 @@
     if (fp == null) {
       result=null;
     }
- else     try {
-      Callback cb=(Callback)structField.field.get(this);
+ else {
+      Callback cb=(Callback)getField(structField);
       Pointer oldfp=CallbackReference.getFunctionPointer(cb);
       if (!fp.equals(oldfp)) {
         cb=CallbackReference.getCallback(nativeType,fp);
       }
       result=cb;
     }
- catch (    IllegalArgumentException e) {
-      return;
-    }
-catch (    IllegalAccessException e) {
-      return;
-    }
   }
  else   if (nativeType.isArray()) {
     Class cls=nativeType.getComponentType();
     int length=0;
-    try {
-      Object o=structField.field.get(this);
-      if (o == null) {
-        throw new IllegalStateException("Array field in Structure not initialized");
-      }
-      length=Array.getLength(o);
-      result=o;
+    Object o=getField(structField);
+    if (o == null) {
+      throw new IllegalStateException("Array field in Structure not initialized");
     }
- catch (    IllegalArgumentException e) {
-    }
-catch (    IllegalAccessException e) {
-    }
+    length=Array.getLength(o);
+    result=o;
     if (cls == byte.class) {
       memory.read(offset,(byte[])result,0,length);
     }
@@ -149,10 +132,5 @@ catch (    IllegalAccessException e) {
   if (readConverter != null) {
     result=readConverter.fromNative(result,structField.context);
   }
-  try {
-    structField.field.set(this,result);
-  }
- catch (  Exception e) {
-    throw new Error("Exception setting field \"" + structField.name + "\" to "+ result+ ": "+ e,e);
-  }
+  setField(structField,result);
 }

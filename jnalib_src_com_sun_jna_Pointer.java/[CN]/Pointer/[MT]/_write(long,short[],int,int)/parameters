@@ -1,0 +1,4 @@
+long addr
+short[] buf
+int index
+int length

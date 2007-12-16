@@ -1,4 +1,4 @@
-long bOff
+long offset
 char[] buf
 int index
 int length

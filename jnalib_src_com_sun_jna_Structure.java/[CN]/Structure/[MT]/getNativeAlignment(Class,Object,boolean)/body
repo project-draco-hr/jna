@@ -16,7 +16,7 @@
     }
   }
  else   if (type.isArray()) {
-    alignment=getNativeAlignment(type.getComponentType(),null,firstElement);
+    alignment=getNativeAlignment(type.getComponentType(),null,isFirstElement);
   }
  else {
     throw new IllegalArgumentException("Type " + type + " has unknown "+ "native alignment");
@@ -24,7 +24,7 @@
   if (alignType == ALIGN_NONE)   return 1;
   if (alignType == ALIGN_MSVC)   return Math.min(8,alignment);
   if (alignType == ALIGN_GNUC) {
-    if (!firstElement || !isPPC)     return Math.min(MAX_GNUC_ALIGNMENT,alignment);
+    if (!isFirstElement || !isPPC)     return Math.min(MAX_GNUC_ALIGNMENT,alignment);
   }
   return alignment;
 }

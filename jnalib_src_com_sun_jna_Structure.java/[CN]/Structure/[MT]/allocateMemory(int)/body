@@ -10,7 +10,7 @@
     memory.clear(size);
     this.size=size;
     if (this instanceof ByValue) {
-      typeInfo=getTypeInfo().peer;
+      getTypeInfo();
     }
   }
 }

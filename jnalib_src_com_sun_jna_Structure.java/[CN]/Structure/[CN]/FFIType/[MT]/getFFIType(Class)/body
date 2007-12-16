@@ -1,3 +1,0 @@
-{
-  return getFFIType(cls,-1);
-}

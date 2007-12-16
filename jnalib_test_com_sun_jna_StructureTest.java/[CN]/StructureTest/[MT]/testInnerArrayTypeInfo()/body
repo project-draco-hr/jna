@@ -1,0 +1,9 @@
+{
+class TestStructure extends Structure {
+    public int[] inner=new int[5];
+  }
+  TestStructure s=new TestStructure();
+  assertEquals("Wrong structure size",20,s.size());
+  Pointer p=s.getTypeInfo();
+  assertNotNull("Type info should not be null",p);
+}

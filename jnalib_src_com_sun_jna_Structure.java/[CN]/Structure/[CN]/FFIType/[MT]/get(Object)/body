@@ -1,0 +1,4 @@
+{
+  if (obj == null)   return FFITypes.ffi_type_pointer;
+  return get(obj,obj.getClass());
+}

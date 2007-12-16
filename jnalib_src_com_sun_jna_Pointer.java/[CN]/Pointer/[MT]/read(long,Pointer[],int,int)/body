@@ -1,5 +1,5 @@
 {
   for (int i=0; i < length; i++) {
-    buf[i + index]=getPointer(bOff + i * Pointer.SIZE);
+    buf[i + index]=getPointer(offset + i * Pointer.SIZE);
   }
 }
