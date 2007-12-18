@@ -1,0 +1,10 @@
+{
+  TestLibrary.CbCallback cb=new TestLibrary.CbCallback(){
+    public CbCallback callback(    CbCallback arg){
+      return arg;
+    }
+  }
+;
+  TestLibrary.CbCallback cb2=lib.callCallbackWithCallback(cb);
+  assertEquals("Callback reference should be reused",cb,cb2);
+}

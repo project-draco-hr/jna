@@ -17,7 +17,6 @@
   s.i=0x33333333;
   s.j=0x4444444444444444L;
   s.inner.value=5;
-  CbTest lib=(CbTest)Native.loadLibrary("testlib",CbTest.class);
   TestStructure result=lib.callCallbackWithStructByValue(cb,s);
   assertEquals("Wrong value passed to callback",s,innerResult);
   assertEquals("Wrong value for result",s,result);

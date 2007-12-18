@@ -6,6 +6,9 @@
  else     if (dstType == WString.class) {
       value=new WString(((Pointer)value).getString(0,true));
     }
+ else     if (Callback.class.isAssignableFrom(dstType)) {
+      value=getCallback(dstType,(Pointer)value);
+    }
  else     if (Structure.class.isAssignableFrom(dstType)) {
       Structure s=Structure.newInstance(dstType);
       Pointer old=s.getPointer();

@@ -1,16 +1,16 @@
 {
   final boolean[] called={false};
   final Structure[] cbarg={null};
-  final TestLibrary.TestStructure s=new TestLibrary.TestStructure();
+  final SmallTestStructure s=new SmallTestStructure();
   TestLibrary.StructureCallback cb=new TestLibrary.StructureCallback(){
-    public TestLibrary.TestStructure callback(    TestLibrary.TestStructure arg){
+    public SmallTestStructure callback(    SmallTestStructure arg){
       called[0]=true;
       cbarg[0]=arg;
       return arg;
     }
   }
 ;
-  TestLibrary.TestStructure value=lib.callStructureCallback(cb,s);
+  SmallTestStructure value=lib.callStructureCallback(cb,s);
   assertTrue("Callback not called",called[0]);
   assertEquals("Wrong callback argument",s,cbarg[0]);
   assertEquals("Wrong structure return",s,value);

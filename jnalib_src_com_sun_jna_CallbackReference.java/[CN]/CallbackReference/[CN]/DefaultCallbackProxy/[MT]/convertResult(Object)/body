@@ -13,17 +13,13 @@
  else   if (cls == boolean.class || cls == Boolean.class) {
     return new Integer(Boolean.TRUE.equals(value) ? -1 : 0);
   }
- else   if (cls == String.class) {
-    return new NativeString(value.toString()).getPointer();
-  }
- else   if (cls == WString.class) {
-    return new NativeString(value.toString(),true).getPointer();
+ else   if (cls == String.class || cls == WString.class) {
+    NativeString ns=new NativeString(value.toString(),cls == WString.class);
+    nativeStrings.put(value,ns);
+    return ns.getPointer();
   }
  else   if (Callback.class.isAssignableFrom(cls)) {
     return getFunctionPointer((Callback)value);
-  }
- else   if (!isAllowableNativeType(cls)) {
-    throw new IllegalArgumentException("Return type " + cls + " will be ignored");
   }
   return value;
 }
