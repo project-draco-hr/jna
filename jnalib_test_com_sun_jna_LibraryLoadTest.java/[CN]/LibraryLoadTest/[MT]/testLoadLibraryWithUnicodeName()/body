@@ -1,0 +1,15 @@
+{
+  String tmp=System.getProperty("java.io.tmpdir");
+  String libName=System.mapLibraryName("jnidispatch");
+  File src=new File("build/native",libName);
+  String newLibName=UNICODE;
+  if (libName.startsWith("lib"))   newLibName="lib" + newLibName;
+  int dot=libName.lastIndexOf(".");
+  if (dot != -1) {
+    newLibName+=libName.substring(dot,libName.length());
+  }
+  File dst=new File(tmp,newLibName);
+  copy(src,dst);
+  NativeLibrary.addSearchPath(UNICODE,tmp);
+  NativeLibrary.getInstance(UNICODE);
+}

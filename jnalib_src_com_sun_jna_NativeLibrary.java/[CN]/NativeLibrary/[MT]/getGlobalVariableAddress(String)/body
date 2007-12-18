@@ -1,3 +1,8 @@
 {
-  return new Pointer(getSymbolAddress(symbolName));
+  try {
+    return new Pointer(getSymbolAddress(symbolName));
+  }
+ catch (  UnsatisfiedLinkError e) {
+    throw new UnsatisfiedLinkError("Error looking up '" + symbolName + "': "+ e.getMessage());
+  }
 }

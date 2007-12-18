@@ -5,6 +5,9 @@
   if (value == null)   return null;
   Class cls=value.getClass();
   if (Structure.class.isAssignableFrom(cls)) {
+    if (Structure.ByValue.class.isAssignableFrom(cls)) {
+      return value;
+    }
     return ((Structure)value).getPointer();
   }
  else   if (cls == boolean.class || cls == Boolean.class) {

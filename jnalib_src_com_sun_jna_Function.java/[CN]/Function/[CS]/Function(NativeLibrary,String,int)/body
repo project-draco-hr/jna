@@ -4,5 +4,10 @@
   this.library=library;
   this.functionName=functionName;
   this.callingConvention=callingConvention;
-  this.peer=library.getSymbolAddress(functionName);
+  try {
+    this.peer=library.getSymbolAddress(functionName);
+  }
+ catch (  UnsatisfiedLinkError e) {
+    throw new UnsatisfiedLinkError("Error looking up function '" + functionName + "': "+ e.getMessage());
+  }
 }

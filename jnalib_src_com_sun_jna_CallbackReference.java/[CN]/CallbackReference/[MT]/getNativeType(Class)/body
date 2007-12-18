@@ -1,0 +1,13 @@
+{
+  if (Structure.class.isAssignableFrom(cls)) {
+    Structure.newInstance(cls);
+    if (!Structure.ByValue.class.isAssignableFrom(cls))     return Pointer.class;
+  }
+ else   if (NativeMapped.class.isAssignableFrom(cls)) {
+    return new NativeMappedConverter(cls).nativeType();
+  }
+ else   if (cls == String.class || cls == WString.class || Callback.class.isAssignableFrom(cls)) {
+    return Pointer.class;
+  }
+  return cls;
+}

@@ -1,0 +1,23 @@
+{
+  FileInputStream is=new FileInputStream(src);
+  FileOutputStream os=new FileOutputStream(dst);
+  int count;
+  byte[] buf=new byte[1024];
+  try {
+    while ((count=is.read(buf,0,buf.length)) > 0) {
+      os.write(buf,0,count);
+    }
+  }
+  finally {
+    try {
+      is.close();
+    }
+ catch (    IOException e) {
+    }
+    try {
+      os.close();
+    }
+ catch (    IOException e) {
+    }
+  }
+}

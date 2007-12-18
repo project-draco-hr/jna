@@ -35,20 +35,16 @@
     }
   }
   for (int i=0; i < nativeParamTypes.length; i++) {
-    Class cls=nativeParamTypes[i];
-    if (Structure.class.isAssignableFrom(cls)) {
-      Structure.newInstance(cls);
-      nativeParamTypes[i]=Pointer.class;
+    nativeParamTypes[i]=getNativeType(nativeParamTypes[i]);
+    if (!isAllowableNativeType(nativeParamTypes[i])) {
+      String msg="Callback argument " + nativeParamTypes[i] + " requires custom type conversion";
+      throw new IllegalArgumentException(msg);
     }
- else     if (NativeMapped.class.isAssignableFrom(cls)) {
-      nativeParamTypes[i]=new NativeMappedConverter(cls).nativeType();
-    }
- else     if (cls == String.class || cls == WString.class) {
-      nativeParamTypes[i]=Pointer.class;
-    }
- else     if (!isAllowableNativeType(cls)) {
-      throw new IllegalArgumentException("Callback argument " + cls + " requires custom type conversion");
-    }
+  }
+  returnType=getNativeType(returnType);
+  if (!isAllowableNativeType(returnType)) {
+    String msg="Callback return type " + returnType + " requires custom type conversion";
+    throw new IllegalArgumentException(msg);
   }
   Method proxyMethod=getCallbackMethod(proxy);
   cbstruct=createNativeCallback(proxy,proxyMethod,nativeParamTypes,returnType,callingConvention);

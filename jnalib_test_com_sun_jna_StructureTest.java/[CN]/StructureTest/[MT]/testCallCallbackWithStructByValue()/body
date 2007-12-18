@@ -1,0 +1,24 @@
+{
+  final TestStructure.ByValue s=new TestStructure.ByValue();
+  final TestStructure innerResult=new TestStructure();
+  TestStructure.TestCallback cb=new TestStructure.TestCallback(){
+    public TestStructure.ByValue callback(    TestStructure.ByValue s){
+      Pointer old=innerResult.getPointer();
+      innerResult.useMemory(s.getPointer());
+      innerResult.read();
+      innerResult.useMemory(old);
+      innerResult.write();
+      return s;
+    }
+  }
+;
+  s.c=(byte)0x11;
+  s.s=0x2222;
+  s.i=0x33333333;
+  s.j=0x4444444444444444L;
+  s.inner.value=5;
+  CbTest lib=(CbTest)Native.loadLibrary("testlib",CbTest.class);
+  TestStructure result=lib.callCallbackWithStructByValue(cb,s);
+  assertEquals("Wrong value passed to callback",s,innerResult);
+  assertEquals("Wrong value for result",s,result);
+}
