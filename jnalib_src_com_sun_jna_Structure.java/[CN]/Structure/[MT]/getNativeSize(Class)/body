@@ -1,4 +1,5 @@
 {
+  if (cls == boolean.class || cls == Boolean.class)   return 4;
   if (cls == byte.class || cls == Byte.class)   return 1;
   if (cls == short.class || cls == Short.class)   return 2;
   if (cls == char.class || cls == Character.class)   return Native.WCHAR_SIZE;

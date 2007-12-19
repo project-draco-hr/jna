@@ -18,7 +18,10 @@
       value=null;
     }
   }
-  if (nativeType == byte.class || nativeType == Byte.class) {
+  if (nativeType == boolean.class || nativeType == Boolean.class) {
+    memory.setInt(offset,Boolean.TRUE.equals(value) ? -1 : 0);
+  }
+ else   if (nativeType == byte.class || nativeType == Byte.class) {
     memory.setByte(offset,((Byte)value).byteValue());
   }
  else   if (nativeType == short.class || nativeType == Short.class) {
