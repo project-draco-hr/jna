@@ -1,0 +1,11 @@
+{
+class TestStructure extends Structure {
+    public int intField;
+    public InnerStructure inner;
+  }
+  TestStructure s=new TestStructure();
+  final String LS=System.getProperty("line.separator");
+  final String EXPECTED="(?m).*" + s.size() + " bytes.*"+ LS+ "  int intField@0=0"+ LS+ "  .*InnerStructure inner@4=.*"+ LS+ "    int x@0=0"+ LS+ "    int y@4=0"+ LS+ "memory dump"+ LS+ "\\[00000000\\]"+ LS+ "\\[00000000\\]"+ LS+ "\\[00000000\\]";
+  String actual=s.toString();
+  assertTrue("Improperly formatted toString(): " + actual,actual.matches(EXPECTED));
+}

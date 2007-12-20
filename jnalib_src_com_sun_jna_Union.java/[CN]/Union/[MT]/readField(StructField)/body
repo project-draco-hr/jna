@@ -1,5 +1,6 @@
 {
   if (field == activeField || (!Structure.class.isAssignableFrom(field.type) && !String.class.isAssignableFrom(field.type) && !WString.class.isAssignableFrom(field.type))) {
-    super.readField(field);
+    return super.readField(field);
   }
+  return null;
 }

@@ -1,7 +1,7 @@
 {
-  Pointer[] els=new Pointer[ref.structFields.size() + 1];
+  Pointer[] els=new Pointer[ref.fields().size() + 1];
   int idx=0;
-  for (Iterator i=ref.structFields.values().iterator(); i.hasNext(); ) {
+  for (Iterator i=ref.fields().values().iterator(); i.hasNext(); ) {
     StructField sf=(StructField)i.next();
     els[idx++]=get(ref.getField(sf),sf.type);
   }

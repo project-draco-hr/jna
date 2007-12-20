@@ -1,4 +1,8 @@
 {
+class ArrayOfPointerStructure extends Structure {
+    final static int SIZE=10;
+    public Pointer[] array=new Pointer[SIZE];
+  }
   ArrayOfPointerStructure s=new ArrayOfPointerStructure();
   int size=s.size();
   assertEquals("Wrong size",ArrayOfPointerStructure.SIZE * Pointer.SIZE,size);

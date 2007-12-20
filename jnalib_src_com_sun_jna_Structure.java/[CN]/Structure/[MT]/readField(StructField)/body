@@ -136,4 +136,5 @@
     result=readConverter.fromNative(result,structField.context);
   }
   setField(structField,result);
+  return result;
 }

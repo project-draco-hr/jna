@@ -1,4 +1,7 @@
 {
+class BadFieldStructure extends Structure {
+    public Function cb;
+  }
   try {
     BadFieldStructure s=new BadFieldStructure();
     fail("Function fields should not be allowed");

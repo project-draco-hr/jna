@@ -1,0 +1,6 @@
+{
+  CheckFieldAlignment.ByReference[] args={new CheckFieldAlignment.ByReference(),new CheckFieldAlignment.ByReference()};
+  assertEquals("Wrong value returned",args[0],lib.returnPointerArrayElement(args,0));
+  assertEquals("Wrong value returned",args[1],lib.returnPointerArrayElement(args,1));
+  assertNull("Native array should be null terminated",lib.returnPointerArrayElement(args,2));
+}

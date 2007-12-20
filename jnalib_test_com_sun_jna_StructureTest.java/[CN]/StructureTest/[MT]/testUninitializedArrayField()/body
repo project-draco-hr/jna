@@ -1,4 +1,7 @@
 {
+class UninitializedArrayFieldStructure extends Structure {
+    public byte[] array;
+  }
   try {
     Structure s=new UninitializedArrayFieldStructure();
     assertTrue("Invalid size: " + s.size(),s.size() > 0);

@@ -1,20 +1,3 @@
 {
-  String LS=System.getProperty("line.separator");
-  String name=getClass().getName() + "(" + getPointer()+ ")";
-  String contents="";
-  for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
-    contents+="  " + i.next();
-    contents+=LS;
-  }
-  byte[] buf=getPointer().getByteArray(0,size());
-  final int BYTES_PER_ROW=4;
-  contents+="memory dump" + LS;
-  for (int i=0; i < buf.length; i++) {
-    if ((i % BYTES_PER_ROW) == 0)     contents+="[";
-    if (buf[i] >= 0 && buf[i] < 16)     contents+="0";
-    contents+=Integer.toHexString(buf[i] & 0xFF);
-    if ((i % BYTES_PER_ROW) == BYTES_PER_ROW - 1 && i < buf.length - 1)     contents+="]" + LS;
-  }
-  contents+="]";
-  return name + LS + contents;
+  return toString(0);
 }

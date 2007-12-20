@@ -1,4 +1,10 @@
 {
+class BufferStructure extends Structure {
+    public Buffer buffer;
+    public BufferStructure(    byte[] buf){
+      buffer=ByteBuffer.wrap(buf);
+    }
+  }
   try {
     new BufferStructure(new byte[1024]);
     fail("Buffer fields should fail immediately");
