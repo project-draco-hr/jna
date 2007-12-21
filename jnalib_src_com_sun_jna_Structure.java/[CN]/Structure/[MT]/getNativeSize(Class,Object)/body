@@ -4,6 +4,7 @@
       return Pointer.SIZE;
     }
  else {
+      if (value == null)       value=newInstance(type);
       Structure s=(Structure)value;
       return s.size();
     }

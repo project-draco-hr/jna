@@ -1,6 +1,6 @@
 {
 class TestStructure extends Structure {
-    public InnerStructure s1, s2;
+    public PublicTestStructure s1, s2;
     public int after;
   }
   TestStructure s=new TestStructure();

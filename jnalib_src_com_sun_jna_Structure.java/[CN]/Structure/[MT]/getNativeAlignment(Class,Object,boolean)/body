@@ -12,6 +12,7 @@
       alignment=Pointer.SIZE;
     }
  else {
+      if (value == null)       value=newInstance(type);
       alignment=((Structure)value).structAlignment;
     }
   }

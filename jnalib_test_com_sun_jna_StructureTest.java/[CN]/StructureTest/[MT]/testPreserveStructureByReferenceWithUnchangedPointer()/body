@@ -1,6 +1,6 @@
 {
   StructureWithPointers s=new StructureWithPointers();
-  StructureWithPointers.TestStructureByRef inner=new StructureWithPointers.TestStructureByRef();
+  PublicTestStructure.ByReference inner=new PublicTestStructure.ByReference();
   s.s1=inner;
   s.write();
   s.read();

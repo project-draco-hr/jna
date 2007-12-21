@@ -18,7 +18,7 @@ class TestStructure extends Structure {
     public long[] ja=new long[8];
     public float[] fa=new float[8];
     public double[] da=new double[8];
-    public InnerStructure nested;
+    public PublicTestStructure nested;
   }
   TestStructure s=new TestStructure();
   s.z=true;

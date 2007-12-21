@@ -1,14 +1,14 @@
 {
 class TestStructure extends Structure {
-    public PublicTestStructureByRef[] array=new PublicTestStructureByRef[2];
+    public PublicTestStructure.ByReference[] array=new PublicTestStructure.ByReference[2];
   }
   TestStructure s=new TestStructure();
   assertEquals("Wrong structure size",2 * Pointer.SIZE,s.size());
-  PublicTestStructureByRef ref=new PublicTestStructureByRef();
-  ref.field=42;
+  PublicTestStructure.ByReference ref=new PublicTestStructure.ByReference();
+  ref.x=42;
   Object aref=s.array;
   s.array[0]=ref;
-  s.array[1]=new PublicTestStructureByRef();
+  s.array[1]=new PublicTestStructure.ByReference();
   s.write();
   s.read();
   assertSame("Array reference should not change",aref,s.array);
