@@ -100,13 +100,7 @@
  else   if (Structure.class.isAssignableFrom(nativeType)) {
     Structure s=(Structure)value;
     if (ByReference.class.isAssignableFrom(nativeType)) {
-      if (s == null) {
-        memory.setPointer(offset,null);
-      }
- else {
-        memory.setPointer(offset,s.getPointer());
-        s.write();
-      }
+      memory.setPointer(offset,s == null ? null : s.getPointer());
     }
  else {
       s.useMemory(memory,offset);

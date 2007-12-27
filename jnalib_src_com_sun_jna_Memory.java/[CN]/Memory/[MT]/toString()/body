@@ -1,3 +1,3 @@
 {
-  return "Native Allocated Memory <0x" + Long.toHexString(peer) + "> ("+ size+ " bytes)";
+  return "allocated@0x" + Long.toHexString(peer) + " ("+ size+ " bytes)";
 }

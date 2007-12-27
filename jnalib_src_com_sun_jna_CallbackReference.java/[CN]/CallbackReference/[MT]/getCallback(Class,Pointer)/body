@@ -14,8 +14,10 @@ synchronized (map) {
         }
       }
       int ctype=AltCallingConvention.class.isAssignableFrom(type) ? Function.ALT_CONVENTION : Function.C_CONVENTION;
-      NativeFunctionHandler h=new NativeFunctionHandler(p,ctype);
+      Map options=Native.getLibraryOptions(type);
+      NativeFunctionHandler h=new NativeFunctionHandler(p,ctype,options);
       Callback cb=(Callback)Proxy.newProxyInstance(type.getClassLoader(),new Class[]{type,NativeFunctionProxy.class},h);
+      h.options.put(Function.OPTION_INVOKING_METHOD,getCallbackMethod(cb));
       map.put(cb,null);
       return cb;
     }

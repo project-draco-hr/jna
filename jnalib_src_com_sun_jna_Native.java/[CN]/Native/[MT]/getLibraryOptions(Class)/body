@@ -1,0 +1,18 @@
+{
+synchronized (libraries) {
+    Class interfaceClass=findLibraryClass(type);
+    if (interfaceClass == null)     return null;
+    if (!loadInstance(interfaceClass) || !options.containsKey(interfaceClass)) {
+      try {
+        Field field=interfaceClass.getField("OPTIONS");
+        options.put(interfaceClass,field.get(null));
+      }
+ catch (      NoSuchFieldException e) {
+      }
+catch (      Exception e) {
+        throw new IllegalArgumentException("OPTIONS must be a public field of type java.util.Map (" + e + "): "+ interfaceClass);
+      }
+    }
+    return (Map)options.get(interfaceClass);
+  }
+}

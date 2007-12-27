@@ -8,7 +8,7 @@
     System.arraycopy(inArgs,0,args,0,args.length);
   }
   TypeMapper mapper=(TypeMapper)options.get(Library.OPTION_TYPE_MAPPER);
-  Method invokingMethod=(Method)options.get(Library.OPTION_INVOKING_METHOD);
+  Method invokingMethod=(Method)options.get(OPTION_INVOKING_METHOD);
   for (int i=0; i < args.length; i++) {
     args[i]=convertArgument(args,i,invokingMethod,mapper);
   }
@@ -49,7 +49,16 @@
         ((StringArray)args[i]).read();
       }
  else       if (args[i] instanceof PointerArray) {
-        ((PointerArray)args[i]).read();
+        PointerArray array=(PointerArray)args[i];
+        array.read();
+        if (Structure.ByReference[].class.isAssignableFrom(arg.getClass())) {
+          Class type=arg.getClass().getComponentType();
+          Structure[] ss=(Structure[])arg;
+          for (int si=0; si < ss.length; si++) {
+            Pointer p=array.getPointer(Pointer.SIZE * si);
+            ss[si]=Structure.updateStructureByReference(type,ss[si],p);
+          }
+        }
       }
  else       if (Structure[].class.isAssignableFrom(arg.getClass())) {
         Structure[] ss=(Structure[])arg;

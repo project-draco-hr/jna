@@ -1,0 +1,13 @@
+{
+  if (address == null) {
+    s=null;
+  }
+ else {
+    if (s == null || !address.equals(s.getPointer())) {
+      s=newInstance(type);
+      s.useMemory(address);
+    }
+    s.read();
+  }
+  return s;
+}

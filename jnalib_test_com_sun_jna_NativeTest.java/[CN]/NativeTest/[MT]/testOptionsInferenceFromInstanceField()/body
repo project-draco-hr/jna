@@ -1,0 +1,5 @@
+{
+  assertEquals("Wrong options found for interface which provides an instance",TestInterfaceWithInstance.TEST_OPTS,Native.getLibraryOptions(TestInterfaceWithInstance.class));
+  assertEquals("Wrong type mapper found",TestInterfaceWithInstance.TEST_MAPPER,Native.getTypeMapper(TestInterfaceWithInstance.class));
+  assertEquals("Wrong alignment found",TestInterfaceWithInstance.TEST_ALIGNMENT,Native.getStructureAlignment(TestInterfaceWithInstance.class));
+}

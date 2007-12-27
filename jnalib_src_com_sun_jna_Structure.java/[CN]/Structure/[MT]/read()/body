@@ -1,5 +1,12 @@
 {
+synchronized (reading) {
+    if (reading.contains(this))     return;
+    reading.add(this);
+  }
   for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
     readField((StructField)i.next());
+  }
+synchronized (reading) {
+    reading.remove(this);
   }
 }

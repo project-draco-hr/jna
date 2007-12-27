@@ -5,7 +5,8 @@ class TestStructure extends Structure {
   }
   TestStructure s=new TestStructure();
   final String LS=System.getProperty("line.separator");
-  final String EXPECTED="(?m).*" + s.size() + " bytes.*"+ LS+ "  int intField@0=0"+ LS+ "  .* inner@4=.*"+ LS+ "    int x@0=0"+ LS+ "    int y@4=0"+ LS+ "memory dump"+ LS+ "\\[00000000\\]"+ LS+ "\\[00000000\\]"+ LS+ "\\[00000000\\]";
+  System.setProperty("jna.dump_memory","true");
+  final String EXPECTED="(?m).*" + s.size() + " bytes.*\\{"+ LS+ "  int intField@0=0"+ LS+ "  .* inner@4=.*\\{"+ LS+ "    int x@0=0"+ LS+ "    int y@4=0"+ LS+ "  \\}"+ LS+ "\\}"+ LS+ "memory dump"+ LS+ "\\[00000000\\]"+ LS+ "\\[00000000\\]"+ LS+ "\\[00000000\\]";
   String actual=s.toString();
   assertTrue("Improperly formatted toString(): expected " + EXPECTED + "\n"+ actual,actual.matches(EXPECTED));
 }

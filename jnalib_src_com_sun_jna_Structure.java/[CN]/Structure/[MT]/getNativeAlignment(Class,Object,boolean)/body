@@ -13,7 +13,7 @@
     }
  else {
       if (value == null)       value=newInstance(type);
-      alignment=((Structure)value).structAlignment;
+      alignment=((Structure)value).getStructAlignment();
     }
   }
  else   if (type.isArray()) {

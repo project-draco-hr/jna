@@ -15,5 +15,5 @@
   if (Function.isVarArgs(method)) {
     args=Function.concatenateVarArgs(args);
   }
-  return function.invoke(method.getReturnType(),args);
+  return function.invoke(method.getReturnType(),args,options);
 }

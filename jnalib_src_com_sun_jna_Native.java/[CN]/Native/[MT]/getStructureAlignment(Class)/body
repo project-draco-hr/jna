@@ -1,15 +1,23 @@
 {
-  if (!loadInstance(interfaceClass) || !alignments.containsKey(interfaceClass)) {
-    try {
-      Field field=interfaceClass.getField("STRUCTURE_ALIGNMENT");
-      return ((Integer)field.get(null)).intValue();
+synchronized (libraries) {
+    Class interfaceClass=findLibraryClass(cls);
+    if (interfaceClass == null)     return Structure.ALIGN_DEFAULT;
+    if (!loadInstance(interfaceClass) || !alignments.containsKey(interfaceClass)) {
+      try {
+        Field field=interfaceClass.getField("STRUCTURE_ALIGNMENT");
+        alignments.put(interfaceClass,field.get(null));
+      }
+ catch (      NoSuchFieldException e) {
+        Map options=getLibraryOptions(cls);
+        if (options != null && options.containsKey(Library.OPTION_STRUCTURE_ALIGNMENT)) {
+          alignments.put(interfaceClass,options.get(Library.OPTION_STRUCTURE_ALIGNMENT));
+        }
+      }
+catch (      Exception e) {
+        throw new IllegalArgumentException("STRUCTURE_ALIGNMENT must be a public field of type int (" + e + "): "+ interfaceClass);
+      }
     }
- catch (    NoSuchFieldException e) {
-    }
-catch (    Exception e) {
-      throw new IllegalArgumentException("STRUCTURE_ALIGNMENT must be a public int field (" + e + "): "+ interfaceClass);
-    }
+    Integer value=(Integer)alignments.get(interfaceClass);
+    return value != null ? value.intValue() : Structure.ALIGN_DEFAULT;
   }
-  Integer value=(Integer)alignments.get(interfaceClass);
-  return value != null ? value.intValue() : Structure.ALIGN_DEFAULT;
 }

@@ -1,0 +1,3 @@
+{
+  assertEquals("Wrong type information for 'null'",Structure.getTypeInfo(new Pointer(0)),Structure.getTypeInfo(null));
+}

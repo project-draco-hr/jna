@@ -1,27 +1,45 @@
 {
   String LS=System.getProperty("line.separator");
-  String name=getClass().getName() + "(" + getPointer()+ ")";
+  String name=format(getClass()) + "(" + getPointer()+ ")";
+  if (!(getPointer() instanceof Memory)) {
+    name+=" (" + size() + " bytes)";
+  }
+  String prefix="";
+  for (int idx=0; idx < indent; idx++) {
+    prefix+="  ";
+  }
   String contents="";
   for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
     StructField sf=(StructField)i.next();
-    for (int idx=0; idx < indent; idx++) {
-      contents+="  ";
-    }
-    contents+="  " + sf.type.getName() + " "+ sf.name+ "@"+ Integer.toHexString(sf.offset);
     Object value=getField(sf);
-    if (value instanceof Structure && !(value instanceof Structure.ByReference)) {
-      value=((Structure)value).toString(indent + 1);
+    String type=format(sf.type);
+    String index="";
+    contents+=prefix;
+    if (sf.type.isArray() && value != null) {
+      type=format(sf.type.getComponentType());
+      index="[" + Array.getLength(value) + "]";
     }
-    if (value != null) {
-      value=value.toString().trim();
+    contents+="  " + type + " "+ sf.name+ index+ "@"+ Integer.toHexString(sf.offset);
+    if (value instanceof Structure) {
+      if (value instanceof Structure.ByReference) {
+        String v=value.toString();
+        if (v.indexOf(LS) != -1) {
+          v=v.substring(0,v.indexOf(LS));
+        }
+        value=v + "...}";
+      }
+ else {
+        value=((Structure)value).toString(indent + 1);
+      }
     }
-    contents+="=" + value;
+    contents+="=" + String.valueOf(value).trim();
     contents+=LS;
+    if (!i.hasNext())     contents+=prefix + "}";
   }
-  if (indent == 0) {
+  if (indent == 0 && Boolean.getBoolean("jna.dump_memory")) {
     byte[] buf=getPointer().getByteArray(0,size());
     final int BYTES_PER_ROW=4;
-    contents+="memory dump" + LS;
+    contents+=LS + "memory dump" + LS;
     for (int i=0; i < buf.length; i++) {
       if ((i % BYTES_PER_ROW) == 0)       contents+="[";
       if (buf[i] >= 0 && buf[i] < 16)       contents+="0";
@@ -30,5 +48,5 @@
     }
     contents+="]";
   }
-  return name + LS + contents;
+  return name + " {" + LS+ contents;
 }

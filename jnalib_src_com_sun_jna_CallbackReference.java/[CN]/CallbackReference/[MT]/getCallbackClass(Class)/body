@@ -1,0 +1,10 @@
+{
+  Class[] ifaces=type.getInterfaces();
+  for (int i=0; i < ifaces.length; i++) {
+    if (Callback.class.isAssignableFrom(ifaces[i])) {
+      type=ifaces[i];
+      break;
+    }
+  }
+  return type;
+}

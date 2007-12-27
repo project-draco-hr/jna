@@ -1,18 +1,7 @@
 {
   super(callback);
-  Class type=callback.getClass();
-  Class[] ifaces=type.getInterfaces();
-  for (int i=0; i < ifaces.length; i++) {
-    if (Callback.class.isAssignableFrom(ifaces[i])) {
-      type=ifaces[i];
-      break;
-    }
-  }
-  TypeMapper mapper=null;
-  Class declaring=type.getDeclaringClass();
-  if (declaring != null) {
-    mapper=Native.getTypeMapper(declaring);
-  }
+  Class type=getCallbackClass(callback.getClass());
+  TypeMapper mapper=Native.getTypeMapper(type);
   Method m=getCallbackMethod(callback);
   if (callback instanceof CallbackProxy) {
     proxy=(CallbackProxy)callback;

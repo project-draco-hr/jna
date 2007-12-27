@@ -9,17 +9,7 @@
   if (Structure.class.isAssignableFrom(nativeType)) {
     Structure s=(Structure)getField(structField);
     if (ByReference.class.isAssignableFrom(nativeType)) {
-      Pointer p=memory.getPointer(offset);
-      if (p == null) {
-        s=null;
-      }
- else {
-        if (s == null || !p.equals(s.getPointer())) {
-          s=newInstance(nativeType);
-          s.useMemory(p);
-        }
-        s.read();
-      }
+      s=updateStructureByReference(nativeType,s,memory.getPointer(offset));
     }
  else {
       s.useMemory(memory,offset);
@@ -113,16 +103,7 @@
       Structure[] sarray=(Structure[])result;
       Pointer[] parray=memory.getPointerArray(offset,sarray.length);
       for (int i=0; i < sarray.length; i++) {
-        if (parray[i] == null) {
-          sarray[i]=null;
-        }
- else {
-          if (sarray[i] == null || !parray[i].equals(sarray[i].getPointer())) {
-            sarray[i]=newInstance(cls);
-            sarray[i].useMemory(parray[i]);
-          }
-          sarray[i].read();
-        }
+        sarray[i]=updateStructureByReference(cls,sarray[i],parray[i]);
       }
     }
  else {

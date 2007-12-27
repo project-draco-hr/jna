@@ -1,0 +1,6 @@
+{
+  if (size == CALCULATE_SIZE) {
+    calculateSize(true);
+  }
+  return structAlignment;
+}

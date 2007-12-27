@@ -1,0 +1,5 @@
+{
+  String s=type.getName();
+  int dot=s.lastIndexOf(".");
+  return s.substring(dot + 1);
+}

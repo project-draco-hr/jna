@@ -1,0 +1,13 @@
+{
+  if (cls == null) {
+    return null;
+  }
+  if (Library.class.isAssignableFrom(cls)) {
+    return cls;
+  }
+  Class fromDeclaring=findLibraryClass(cls.getDeclaringClass());
+  if (fromDeclaring != null) {
+    return fromDeclaring;
+  }
+  return findLibraryClass(cls.getSuperclass());
+}
