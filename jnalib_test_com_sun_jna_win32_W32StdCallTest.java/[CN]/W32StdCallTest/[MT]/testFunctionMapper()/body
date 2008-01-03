@@ -1,5 +1,8 @@
 {
   NativeLibrary lib=NativeLibrary.getInstance("testlib");
   Method m=TestLibrary.class.getMethod("returnInt32ArgumentStdCall",new Class[]{int.class});
-  assertEquals("Function mapper should provide decorated name","returnInt32ArgumentStdCall@4",StdCallLibrary.FUNCTION_MAPPER.getFunctionName(lib,m));
+  assertEquals("Function mapper should provide decorated name","returnInt32ArgumentStdCall@" + Native.getNativeSize(int.class),StdCallLibrary.FUNCTION_MAPPER.getFunctionName(lib,m));
+  Class type=TestLibrary.TestStructure.ByValue.class;
+  m=TestLibrary.class.getMethod("returnStructureByValueArgumentStdCall",new Class[]{type});
+  assertEquals("Function mapper should provide decorated name for by-value structs","returnStructureByValueArgumentStdCall@" + Native.getNativeSize(type),StdCallLibrary.FUNCTION_MAPPER.getFunctionName(lib,m));
 }

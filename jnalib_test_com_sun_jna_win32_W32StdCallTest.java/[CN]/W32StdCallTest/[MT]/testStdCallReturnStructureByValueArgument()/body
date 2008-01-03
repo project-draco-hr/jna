@@ -1,0 +1,4 @@
+{
+  TestLibrary.TestStructure.ByValue s=new TestLibrary.TestStructure.ByValue();
+  assertEquals("Wrong value",s,testlib.returnStructureByValueArgumentStdCall(s));
+}

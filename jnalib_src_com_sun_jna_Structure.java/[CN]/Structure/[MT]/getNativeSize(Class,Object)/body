@@ -1,21 +1,23 @@
 {
-  if (Structure.class.isAssignableFrom(type)) {
-    if (ByReference.class.isAssignableFrom(type)) {
-      return Pointer.SIZE;
-    }
- else {
-      if (value == null)       value=newInstance(type);
-      Structure s=(Structure)value;
-      return s.size();
-    }
-  }
   if (type.isArray()) {
     int len=Array.getLength(value);
     if (len > 0) {
       Object o=Array.get(value,0);
       return len * getNativeSize(type.getComponentType(),o);
     }
-    throw new IllegalArgumentException("Arrays of length zero not allowed in structure: " + this);
+    throw new IllegalArgumentException("Arrays of length zero not allowed in structure: " + type);
   }
-  return getNativeSize(type);
+  if (Buffer.class.isAssignableFrom(type)) {
+    throw new IllegalArgumentException("the type \"" + type.getName() + "\" is not supported as a structure field");
+  }
+  if (Structure.class.isAssignableFrom(type) && !Structure.ByReference.class.isAssignableFrom(type)) {
+    if (value == null)     value=newInstance(type);
+    return ((Structure)value).size();
+  }
+  try {
+    return Native.getNativeSize(type);
+  }
+ catch (  IllegalArgumentException e) {
+    throw new IllegalArgumentException("The type \"" + type.getName() + "\" is not supported as a structure field");
+  }
 }
