@@ -111,8 +111,8 @@
         for (int i=0; i < sarray.length; i++) {
           if (sarray[i] == null) {
             sarray[i]=newInstance(cls);
-            sarray[i].useMemory(memory,offset + i * sarray[i].size());
           }
+          sarray[i].useMemory(memory,offset + i * sarray[i].size());
           sarray[i].read();
         }
       }
