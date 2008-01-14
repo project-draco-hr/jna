@@ -6,4 +6,6 @@ class TestStructure extends Structure {
   TestStructure s=new TestStructure();
   assertNotNull("Inner structure should be initialized",s.s1);
   assertEquals("Wrong aggregate size",s.s1.size() + s.s2.size() + 4,s.size());
+  s.write();
+  s.read();
 }

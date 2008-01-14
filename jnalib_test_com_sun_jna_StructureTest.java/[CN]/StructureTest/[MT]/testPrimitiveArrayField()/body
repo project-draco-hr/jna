@@ -5,4 +5,6 @@ class TestStructure extends Structure {
   TestStructure s=new TestStructure();
   assertEquals("Wrong size for structure with nested array",1024,s.size());
   assertNotNull("Array should be initialized",s.buffer);
+  s.write();
+  s.read();
 }

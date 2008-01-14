@@ -99,11 +99,22 @@
  else     if (Pointer.class.isAssignableFrom(cls)) {
       memory.read(offset,(Pointer[])result,0,length);
     }
- else     if (Structure.class.isAssignableFrom(cls) && ByReference.class.isAssignableFrom(cls)) {
+ else     if (Structure.class.isAssignableFrom(cls)) {
       Structure[] sarray=(Structure[])result;
-      Pointer[] parray=memory.getPointerArray(offset,sarray.length);
-      for (int i=0; i < sarray.length; i++) {
-        sarray[i]=updateStructureByReference(cls,sarray[i],parray[i]);
+      if (ByReference.class.isAssignableFrom(cls)) {
+        Pointer[] parray=memory.getPointerArray(offset,sarray.length);
+        for (int i=0; i < sarray.length; i++) {
+          sarray[i]=updateStructureByReference(cls,sarray[i],parray[i]);
+        }
+      }
+ else {
+        for (int i=0; i < sarray.length; i++) {
+          if (sarray[i] == null) {
+            sarray[i]=newInstance(cls);
+            sarray[i].useMemory(memory,offset + i * sarray[i].size());
+          }
+          sarray[i].read();
+        }
       }
     }
  else {

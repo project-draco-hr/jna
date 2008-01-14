@@ -3,6 +3,6 @@
     return structField.field.get(this);
   }
  catch (  Exception e) {
-    throw new Error("Exception reading field '" + structField.name + "' in "+ getClass(),e);
+    throw new Error("Exception reading field '" + structField.name + "' in "+ getClass()+ ": "+ e);
   }
 }

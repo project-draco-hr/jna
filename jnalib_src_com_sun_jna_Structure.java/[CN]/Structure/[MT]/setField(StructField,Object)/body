@@ -3,6 +3,6 @@
     structField.field.set(this,value);
   }
  catch (  IllegalAccessException e) {
-    throw new Error("Unexpectedly unable to write to field '" + structField.name + "' within "+ getClass(),e);
+    throw new Error("Unexpectedly unable to write to field '" + structField.name + "' within "+ getClass()+ ": "+ e);
   }
 }
