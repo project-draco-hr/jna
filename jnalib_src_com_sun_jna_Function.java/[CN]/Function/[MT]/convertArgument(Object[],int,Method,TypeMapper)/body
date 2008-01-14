@@ -97,5 +97,8 @@
  else   if (argClass.isArray()) {
     throw new IllegalArgumentException("Unsupported array argument type: " + argClass.getComponentType());
   }
+  if (arg != null && !Native.isSupportedNativeType(arg.getClass())) {
+    throw new IllegalArgumentException("Unsupported argument type " + arg.getClass().getName() + " at parameter "+ index+ " of function "+ getName());
+  }
   return arg;
 }

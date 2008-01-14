@@ -61,7 +61,7 @@
     }
   }
  else {
-    throw new IllegalArgumentException("Unsupported return type " + returnType);
+    throw new IllegalArgumentException("Unsupported return type " + returnType + " in function "+ getName());
   }
   return result;
 }

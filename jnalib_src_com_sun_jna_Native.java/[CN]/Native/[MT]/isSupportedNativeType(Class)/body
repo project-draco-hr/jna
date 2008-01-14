@@ -1,0 +1,11 @@
+{
+  if (Structure.class.isAssignableFrom(cls)) {
+    return true;
+  }
+  try {
+    return getNativeSize(cls) != 0;
+  }
+ catch (  IllegalArgumentException e) {
+    return false;
+  }
+}

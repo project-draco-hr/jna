@@ -1,0 +1,12 @@
+{
+  try {
+    lib.returnStringArgument(getName());
+    fail("Java Object return is not supported, should throw IllegalArgumentException");
+  }
+ catch (  IllegalArgumentException e) {
+    assertTrue("Exception should include return object type: " + e,e.getMessage().indexOf("java.lang.Object") != -1);
+  }
+catch (  Throwable e) {
+    fail("Method declared with Java Object return should throw IllegalArgumentException, not " + e);
+  }
+}

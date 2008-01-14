@@ -1,0 +1,13 @@
+{
+  Object o=this;
+  try {
+    lib.returnStringArgument(o);
+    fail("Java Object arguments should throw IllegalArgumentException");
+  }
+ catch (  IllegalArgumentException e) {
+    assertTrue("Exception should include Object type description: " + e,e.getMessage().indexOf(o.getClass().getName()) != -1);
+  }
+catch (  Throwable e) {
+    fail("Java Object arguments should throw IllegalArgumentException, not " + e);
+  }
+}
