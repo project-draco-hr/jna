@@ -1,5 +1,8 @@
 {
-  if (memory instanceof Memory) {
+  if (size == CALCULATE_SIZE) {
+    allocateMemory();
+  }
+  if (Memory.class.equals(memory.getClass())) {
     Memory m=(Memory)memory;
     int requiredSize=array.length * size();
     if (m.getSize() < requiredSize) {
