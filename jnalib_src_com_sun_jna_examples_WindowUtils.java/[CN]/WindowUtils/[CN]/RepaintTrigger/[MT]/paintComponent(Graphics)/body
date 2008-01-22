@@ -1,7 +1,15 @@
 {
-  if (!painting) {
-    painting=true;
-    update();
-    painting=false;
+  Rectangle bounds=g.getClipBounds();
+  if (dirty == null || !dirty.contains(bounds)) {
+    if (dirty == null) {
+      dirty=bounds;
+    }
+ else {
+      dirty=dirty.union(bounds);
+    }
+    content.repaint(dirty);
+  }
+ else {
+    dirty=null;
   }
 }

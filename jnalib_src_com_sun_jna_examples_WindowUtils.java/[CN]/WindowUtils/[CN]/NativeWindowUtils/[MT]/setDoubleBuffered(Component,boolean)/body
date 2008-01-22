@@ -1,0 +1,14 @@
+{
+  if (root instanceof JComponent) {
+    ((JComponent)root).setDoubleBuffered(buffered);
+  }
+  if (root instanceof JRootPane && buffered) {
+    ((JRootPane)root).setDoubleBuffered(true);
+  }
+ else   if (root instanceof Container) {
+    Component[] kids=((Container)root).getComponents();
+    for (int i=0; i < kids.length; i++) {
+      setDoubleBuffered(kids[i],buffered);
+    }
+  }
+}

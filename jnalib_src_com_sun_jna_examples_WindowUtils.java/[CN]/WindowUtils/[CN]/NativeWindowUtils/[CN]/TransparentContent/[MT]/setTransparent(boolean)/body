@@ -1,0 +1,6 @@
+{
+  this.transparent=transparent;
+  setOpaque(!transparent);
+  setDoubleBuffered(!transparent);
+  repaint();
+}

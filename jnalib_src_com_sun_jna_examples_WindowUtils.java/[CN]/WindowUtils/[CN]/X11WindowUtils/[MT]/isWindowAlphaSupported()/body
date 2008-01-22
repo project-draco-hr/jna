@@ -1,7 +1,3 @@
 {
-  if (!didCheck) {
-    didCheck=true;
-    alphaVisuals=getAlphaVisuals();
-  }
-  return alphaVisuals.length > 0;
+  return getAlphaVisualIDs().length > 0;
 }

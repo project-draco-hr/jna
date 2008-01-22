@@ -8,7 +8,7 @@
       User32 user=User32.INSTANCE;
       int flags=user.GetWindowLong(hWnd,User32.GWL_EXSTYLE);
       byte level=(byte)((int)(255 * alpha) & 0xFF);
-      if (isTransparent(w)) {
+      if (usingUpdateLayeredWindow(w)) {
         BLENDFUNCTION blend=new BLENDFUNCTION();
         blend.SourceConstantAlpha=level;
         blend.AlphaFormat=User32.AC_SRC_ALPHA;

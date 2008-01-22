@@ -6,22 +6,26 @@
     throw new UnsupportedOperationException("This X11 display does not provide a 32-bit visual");
   }
   if (!w.getGraphicsConfiguration().equals(getAlphaCompatibleGraphicsConfiguration())) {
-    throw new IllegalArgumentException("Window GraphicsConfiguration does not support transparency");
+    throw new IllegalArgumentException("Window GraphicsConfiguration '" + w.getGraphicsConfiguration() + "' does not support transparency");
   }
   boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
   if (!(transparent ^ isTransparent))   return;
   whenDisplayable(w,new Runnable(){
     public void run(){
       JRootPane root=((RootPaneContainer)w).getRootPane();
+      JLayeredPane lp=root.getLayeredPane();
       Container content=root.getContentPane();
       if (content instanceof X11TransparentContent) {
         ((X11TransparentContent)content).setTransparent(transparent);
       }
  else       if (transparent) {
-        root.setContentPane(new X11TransparentContent(content));
+        X11TransparentContent x11content=new X11TransparentContent(content);
+        root.setContentPane(x11content);
+        lp.add(new RepaintTrigger(x11content),JLayeredPane.DRAG_LAYER);
       }
       setLayersTransparent(w,transparent);
       setForceHeavyweightPopups(w,transparent);
+      setDoubleBuffered(w,!transparent);
     }
   }
 );

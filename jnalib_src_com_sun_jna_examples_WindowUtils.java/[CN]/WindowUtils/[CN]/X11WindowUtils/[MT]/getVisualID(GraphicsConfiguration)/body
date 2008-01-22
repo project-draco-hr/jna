@@ -1,0 +1,10 @@
+{
+  try {
+    Object o=config.getClass().getMethod("getVisual",(Class[])null).invoke(config,(Object[])null);
+    return ((Integer)o).intValue();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    return -1;
+  }
+}

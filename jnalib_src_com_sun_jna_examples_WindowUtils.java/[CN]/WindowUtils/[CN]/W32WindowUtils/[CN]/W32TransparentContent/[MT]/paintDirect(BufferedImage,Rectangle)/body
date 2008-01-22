@@ -1,0 +1,76 @@
+{
+  Window win=SwingUtilities.getWindowAncestor(this);
+  GDI32 gdi=GDI32.INSTANCE;
+  User32 user=User32.INSTANCE;
+  int x=bounds.x;
+  int y=bounds.y;
+  Point origin=SwingUtilities.convertPoint(this,x,y,win);
+  int w=bounds.width;
+  int h=bounds.height;
+  int ww=win.getWidth();
+  int wh=win.getHeight();
+  HDC screenDC=user.GetDC(null);
+  HANDLE oldBitmap=null;
+  try {
+    if (memDC == null) {
+      memDC=gdi.CreateCompatibleDC(screenDC);
+    }
+    if (hBitmap == null || !win.getSize().equals(bitmapSize)) {
+      if (hBitmap != null) {
+        gdi.DeleteObject(hBitmap);
+        hBitmap=null;
+      }
+      BITMAPINFO bmi=new BITMAPINFO();
+      bmi.bmiHeader.biWidth=ww;
+      bmi.bmiHeader.biHeight=wh;
+      bmi.bmiHeader.biPlanes=1;
+      bmi.bmiHeader.biBitCount=32;
+      bmi.bmiHeader.biCompression=GDI32.BI_RGB;
+      bmi.bmiHeader.biSizeImage=ww * wh * 4;
+      PointerByReference ppbits=new PointerByReference();
+      hBitmap=gdi.CreateDIBSection(memDC,bmi,GDI32.DIB_RGB_COLORS,ppbits,null,0);
+      pbits=ppbits.getValue();
+      bitmapSize=new Dimension(ww,wh);
+    }
+    oldBitmap=gdi.SelectObject(memDC,hBitmap);
+    Raster raster=buf.getData();
+    int[] pixel=new int[4];
+    int[] bits=new int[w];
+    for (int row=0; row < h; row++) {
+      for (int col=0; col < w; col++) {
+        raster.getPixel(col,row,pixel);
+        int alpha=(pixel[3] & 0xFF) << 24;
+        int red=(pixel[2] & 0xFF);
+        int green=(pixel[1] & 0xFF) << 8;
+        int blue=(pixel[0] & 0xFF) << 16;
+        bits[col]=alpha | red | green| blue;
+      }
+      int v=wh - (origin.y + row) - 1;
+      pbits.write((v * ww + origin.x) * 4,bits,0,bits.length);
+    }
+    SIZE winSize=new SIZE();
+    winSize.cx=win.getWidth();
+    winSize.cy=win.getHeight();
+    POINT winLoc=new POINT();
+    winLoc.x=win.getX();
+    winLoc.y=win.getY();
+    POINT srcLoc=new POINT();
+    BLENDFUNCTION blend=new BLENDFUNCTION();
+    HWND hWnd=getHWnd(win);
+    ByteByReference bref=new ByteByReference();
+    IntByReference iref=new IntByReference();
+    byte level=getAlpha(win);
+    if (user.GetLayeredWindowAttributes(hWnd,null,bref,iref) && (iref.getValue() & User32.LWA_ALPHA) != 0) {
+      level=bref.getValue();
+    }
+    blend.SourceConstantAlpha=level;
+    blend.AlphaFormat=User32.AC_SRC_ALPHA;
+    user.UpdateLayeredWindow(hWnd,screenDC,winLoc,winSize,memDC,srcLoc,0,blend,User32.ULW_ALPHA);
+  }
+  finally {
+    user.ReleaseDC(null,screenDC);
+    if (memDC != null && oldBitmap != null) {
+      gdi.SelectObject(memDC,oldBitmap);
+    }
+  }
+}

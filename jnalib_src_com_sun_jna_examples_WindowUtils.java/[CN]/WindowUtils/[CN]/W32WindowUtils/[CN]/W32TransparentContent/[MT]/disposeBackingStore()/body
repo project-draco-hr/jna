@@ -1,0 +1,11 @@
+{
+  GDI32 gdi=GDI32.INSTANCE;
+  if (hBitmap != null) {
+    gdi.DeleteObject(hBitmap);
+    hBitmap=null;
+  }
+  if (memDC != null) {
+    gdi.DeleteDC(memDC);
+    memDC=null;
+  }
+}

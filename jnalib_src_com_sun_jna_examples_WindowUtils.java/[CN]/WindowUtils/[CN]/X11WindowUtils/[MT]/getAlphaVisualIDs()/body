@@ -1,0 +1,42 @@
+{
+  if (didCheck) {
+    return alphaVisualIDs;
+  }
+  didCheck=true;
+  X11 x11=X11.INSTANCE;
+  Display dpy=x11.XOpenDisplay(null);
+  if (dpy == null)   return alphaVisualIDs;
+  XVisualInfo info=null;
+  try {
+    int screen=x11.XDefaultScreen(dpy);
+    XVisualInfo template=new XVisualInfo();
+    template.screen=screen;
+    template.depth=32;
+    template.c_class=X11.TrueColor;
+    NativeLong mask=new NativeLong(X11.VisualScreenMask | X11.VisualDepthMask | X11.VisualClassMask);
+    IntByReference pcount=new IntByReference();
+    info=x11.XGetVisualInfo(dpy,mask,template,pcount);
+    if (info != null) {
+      List list=new ArrayList();
+      XVisualInfo[] infos=(XVisualInfo[])info.toArray(pcount.getValue());
+      for (int i=0; i < infos.length; i++) {
+        XRenderPictFormat format=X11.Xrender.INSTANCE.XRenderFindVisualFormat(dpy,infos[i].visual);
+        if (format.type == X11.Xrender.PictTypeDirect && format.direct.alphaMask != 0) {
+          list.add(new Integer(infos[i].visualID));
+        }
+      }
+      alphaVisualIDs=new int[list.size()];
+      for (int i=0; i < alphaVisualIDs.length; i++) {
+        alphaVisualIDs[i]=((Integer)list.get(i)).intValue();
+      }
+      return alphaVisualIDs;
+    }
+  }
+  finally {
+    if (info != null) {
+      x11.XFree(info.getPointer());
+    }
+    x11.XCloseDisplay(dpy);
+  }
+  return alphaVisualIDs;
+}

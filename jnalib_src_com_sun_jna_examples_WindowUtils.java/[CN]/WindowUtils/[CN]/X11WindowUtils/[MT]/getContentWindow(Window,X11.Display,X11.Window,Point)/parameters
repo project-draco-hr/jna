@@ -1,0 +1,4 @@
+Window w
+X11.Display dpy
+X11.Window win
+Point offset

@@ -1,0 +1,6 @@
+{
+  super.setTransparent(transparent);
+  if (!transparent) {
+    disposeBackingStore();
+  }
+}
