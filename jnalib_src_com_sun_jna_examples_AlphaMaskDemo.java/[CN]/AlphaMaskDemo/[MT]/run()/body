@@ -123,6 +123,12 @@ catch (      Throwable e) {
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   centerOnScreen(frame);
   frame.setVisible(true);
+  p.addMouseListener(new MouseAdapter(){
+    public void mousePressed(    MouseEvent e){
+      update();
+    }
+  }
+);
   try {
     URL url=getClass().getResource("tardis.png");
     if (url != null) {
