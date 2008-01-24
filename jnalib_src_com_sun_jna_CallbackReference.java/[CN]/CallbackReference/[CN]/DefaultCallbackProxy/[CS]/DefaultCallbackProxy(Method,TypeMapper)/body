@@ -4,7 +4,7 @@
   Class returnType=callbackMethod.getReturnType();
   fromNative=new FromNativeConverter[argTypes.length];
   if (NativeMapped.class.isAssignableFrom(returnType)) {
-    toNative=new NativeMappedConverter(returnType);
+    toNative=NativeMappedConverter.getInstance(returnType);
   }
  else   if (mapper != null) {
     toNative=mapper.getToNativeConverter(returnType);

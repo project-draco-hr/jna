@@ -1,6 +1,6 @@
 {
   if (Platform.isMac()) {
-    if (libName.matches("lib.*\\.(dylib|jnilib)$")) {
+    if (libName.startsWith("lib") && (libName.endsWith(".dylib") || libName.endsWith(".jnilib"))) {
       return libName;
     }
     String name=System.mapLibraryName(libName);
@@ -10,7 +10,7 @@
     return name;
   }
  else   if (Platform.isLinux()) {
-    if (libName.matches("lib.*\\.so\\.[0-9]+$")) {
+    if (isVersionedName(libName)) {
       return libName;
     }
   }

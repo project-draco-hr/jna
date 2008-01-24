@@ -11,12 +11,7 @@
   }
   File lib=null;
   if (url.getProtocol().toLowerCase().equals("file")) {
-    try {
-      lib=new File(URLDecoder.decode(url.getPath(),"UTF8"));
-    }
- catch (    UnsupportedEncodingException e) {
-      throw new Error("JRE is unexpectedly missing UTF8 encoding");
-    }
+    lib=new File(URLDecoder.decode(url.getPath()));
   }
  else {
     InputStream is=Native.class.getResourceAsStream(resourceName);
@@ -27,8 +22,8 @@
     try {
       lib=File.createTempFile("jna",null);
       lib.deleteOnExit();
-      if (Platform.isWindows()) {
-        Runtime.getRuntime().addShutdownHook(new W32Cleanup(lib));
+      if (Platform.deleteNativeLibraryAfterVMExit()) {
+        Runtime.getRuntime().addShutdownHook(new DeleteNativeLibrary(lib));
       }
       fos=new FileOutputStream(lib);
       int count;
@@ -38,7 +33,7 @@
       }
     }
  catch (    IOException e) {
-      throw new Error("Failed to create temporary file for jnidispatch library",e);
+      throw new Error("Failed to create temporary file for jnidispatch library: " + e);
     }
  finally {
       try {

@@ -1,6 +1,6 @@
 {
   if (NativeMapped.class.isAssignableFrom(cls)) {
-    cls=new NativeMappedConverter(cls).nativeType();
+    cls=NativeMappedConverter.getInstance(cls).nativeType();
   }
   if (cls == boolean.class || cls == Boolean.class)   return 4;
   if (cls == byte.class || cls == Byte.class)   return 1;

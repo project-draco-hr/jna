@@ -1,0 +1,4 @@
+{
+  if (isWindowsCE() && "J9".equals(System.getProperty("java.vm.name")))   return false;
+  return true;
+}

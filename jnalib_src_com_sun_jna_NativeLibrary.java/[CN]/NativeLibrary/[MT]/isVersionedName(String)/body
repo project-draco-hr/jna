@@ -1,0 +1,15 @@
+{
+  if (name.startsWith("lib")) {
+    int so=name.lastIndexOf(".so.");
+    if (so != -1 && so + 4 < name.length()) {
+      for (int i=so + 4; i < name.length(); i++) {
+        char ch=name.charAt(i);
+        if (!Character.isDigit(ch) && ch != '.') {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+  return false;
+}

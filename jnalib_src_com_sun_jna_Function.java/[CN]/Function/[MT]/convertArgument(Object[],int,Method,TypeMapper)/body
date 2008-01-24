@@ -4,7 +4,7 @@
     Class type=arg.getClass();
     ToNativeConverter converter=null;
     if (NativeMapped.class.isAssignableFrom(type)) {
-      converter=new NativeMappedConverter(type);
+      converter=NativeMappedConverter.getInstance(type);
     }
  else     if (mapper != null) {
       converter=mapper.getToNativeConverter(type);

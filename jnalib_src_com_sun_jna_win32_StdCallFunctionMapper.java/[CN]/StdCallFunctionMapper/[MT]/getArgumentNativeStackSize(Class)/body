@@ -1,6 +1,6 @@
 {
   if (NativeMapped.class.isAssignableFrom(cls)) {
-    cls=new NativeMappedConverter(cls).nativeType();
+    cls=NativeMappedConverter.getInstance(cls).nativeType();
   }
   if (cls.isArray()) {
     return Pointer.SIZE;

@@ -15,7 +15,7 @@
   Class nativeType=returnType;
   FromNativeConverter resultConverter=null;
   if (NativeMapped.class.isAssignableFrom(returnType)) {
-    NativeMappedConverter tc=new NativeMappedConverter(returnType);
+    NativeMappedConverter tc=NativeMappedConverter.getInstance(returnType);
     resultConverter=tc;
     nativeType=tc.nativeType();
   }
@@ -38,30 +38,29 @@
   }
   if (inArgs != null) {
     for (int i=0; i < inArgs.length; i++) {
-      Object arg=inArgs[i];
-      if (arg == null)       continue;
-      if (arg instanceof Structure) {
-        if (!(arg instanceof Structure.ByValue)) {
-          ((Structure)arg).read();
+      Object inArg=inArgs[i];
+      if (inArg == null)       continue;
+      if (inArg instanceof Structure) {
+        if (!(inArg instanceof Structure.ByValue)) {
+          ((Structure)inArg).read();
         }
       }
- else       if (args[i] instanceof StringArray) {
-        ((StringArray)args[i]).read();
-      }
- else       if (args[i] instanceof PointerArray) {
-        PointerArray array=(PointerArray)args[i];
-        array.read();
-        if (Structure.ByReference[].class.isAssignableFrom(arg.getClass())) {
-          Class type=arg.getClass().getComponentType();
-          Structure[] ss=(Structure[])arg;
-          for (int si=0; si < ss.length; si++) {
-            Pointer p=array.getPointer(Pointer.SIZE * si);
-            ss[si]=Structure.updateStructureByReference(type,ss[si],p);
+ else       if (args[i] instanceof PostCallRead) {
+        ((PostCallRead)args[i]).read();
+        if (args[i] instanceof PointerArray) {
+          PointerArray array=(PointerArray)args[i];
+          if (Structure.ByReference[].class.isAssignableFrom(inArg.getClass())) {
+            Class type=inArg.getClass().getComponentType();
+            Structure[] ss=(Structure[])inArg;
+            for (int si=0; si < ss.length; si++) {
+              Pointer p=array.getPointer(Pointer.SIZE * si);
+              ss[si]=Structure.updateStructureByReference(type,ss[si],p);
+            }
           }
         }
       }
- else       if (Structure[].class.isAssignableFrom(arg.getClass())) {
-        Structure[] ss=(Structure[])arg;
+ else       if (Structure[].class.isAssignableFrom(inArg.getClass())) {
+        Structure[] ss=(Structure[])inArg;
         for (int si=0; si < ss.length; si++) {
           ss[si].read();
         }

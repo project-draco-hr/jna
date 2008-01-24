@@ -22,7 +22,7 @@
     }
   }
  else   if ((boolean.class == dstType || Boolean.class == dstType) && value instanceof Number) {
-    value=Boolean.valueOf(((Number)value).intValue() != 0);
+    value=Function.valueOf(((Number)value).intValue() != 0);
   }
   return value;
 }

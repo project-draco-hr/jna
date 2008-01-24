@@ -1,0 +1,13 @@
+{
+synchronized (libraries) {
+    libraries.remove(getName());
+    libraries.remove(getFile().getAbsolutePath());
+    libraries.remove(getFile().getName());
+  }
+synchronized (this) {
+    if (handle != 0) {
+      close(handle);
+      handle=0;
+    }
+  }
+}

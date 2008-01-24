@@ -5,7 +5,7 @@
     result=null;
   }
  else   if (returnType == boolean.class || returnType == Boolean.class) {
-    result=Boolean.valueOf(invokeInt(callingConvention,args) != 0);
+    result=valueOf(invokeInt(callingConvention,args) != 0);
   }
  else   if (returnType == byte.class || returnType == Byte.class) {
     result=new Byte((byte)invokeInt(callingConvention,args));

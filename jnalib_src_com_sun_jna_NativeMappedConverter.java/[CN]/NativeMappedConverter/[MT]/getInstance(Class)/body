@@ -1,0 +1,10 @@
+{
+synchronized (converters) {
+    NativeMappedConverter nmc=(NativeMappedConverter)converters.get(cls);
+    if (nmc == null) {
+      nmc=new NativeMappedConverter(cls);
+      converters.put(cls,nmc);
+    }
+    return nmc;
+  }
+}

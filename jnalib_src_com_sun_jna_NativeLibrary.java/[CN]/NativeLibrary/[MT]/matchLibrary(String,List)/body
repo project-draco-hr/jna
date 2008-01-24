@@ -1,8 +1,7 @@
 {
   FilenameFilter filter=new FilenameFilter(){
-    Pattern p=Pattern.compile("lib" + libName + "\\.so\\.[0-9]+$");
     public boolean accept(    File dir,    String name){
-      return p.matcher(name).matches();
+      return isVersionedName(name);
     }
   }
 ;
