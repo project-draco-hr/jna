@@ -1,5 +1,0 @@
-{
-  HWND hwnd=new HWND();
-  hwnd.setPointer(Native.getWindowPointer(w));
-  return hwnd;
-}

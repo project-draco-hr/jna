@@ -1,8 +1,0 @@
-{
-  if (raster != null) {
-    setWindowMask(w,shapeFromRaster(raster));
-  }
- else {
-    setWindowMask(w,new Rectangle(0,0,w.getWidth(),w.getHeight()));
-  }
-}

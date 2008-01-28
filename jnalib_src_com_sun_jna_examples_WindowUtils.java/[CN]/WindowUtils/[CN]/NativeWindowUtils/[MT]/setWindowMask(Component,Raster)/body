@@ -1,0 +1,4 @@
+{
+  if (w.isLightweight())   throw new IllegalArgumentException("Component must be heavyweight: " + w);
+  setMask(w,raster);
+}

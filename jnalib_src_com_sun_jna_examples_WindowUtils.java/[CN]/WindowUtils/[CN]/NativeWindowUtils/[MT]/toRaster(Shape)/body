@@ -1,0 +1,17 @@
+{
+  Raster raster=null;
+  if (mask != MASK_NONE) {
+    Rectangle bounds=mask.getBounds();
+    if (bounds.width > 0 && bounds.height > 0) {
+      BufferedImage clip=new BufferedImage(bounds.x + bounds.width,bounds.y + bounds.height,BufferedImage.TYPE_INT_ARGB);
+      Graphics2D g=clip.createGraphics();
+      g.setComposite(AlphaComposite.Clear);
+      g.fillRect(0,0,bounds.x + bounds.width,bounds.y + bounds.height);
+      g.setComposite(AlphaComposite.SrcOver);
+      g.setColor(Color.white);
+      g.fill(mask);
+      raster=clip.getAlphaRaster();
+    }
+  }
+  return raster;
+}

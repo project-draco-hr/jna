@@ -1,7 +1,8 @@
 {
   boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
-  if (!(transparent ^ isTransparent))   return;
-  installTransparentContent(w);
-  setBackgroundTransparent(w,transparent);
-  setLayersTransparent(w,transparent);
+  if (transparent != isTransparent) {
+    installTransparentContent(w);
+    setBackgroundTransparent(w,transparent);
+    setLayersTransparent(w,transparent);
+  }
 }

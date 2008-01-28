@@ -1,0 +1,5 @@
+{
+  HWND hwnd=new HWND();
+  hwnd.setPointer(Native.getComponentPointer(w));
+  return hwnd;
+}

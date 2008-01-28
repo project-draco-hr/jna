@@ -1,0 +1,3 @@
+{
+  return c instanceof Window ? (Window)c : SwingUtilities.getWindowAncestor(c);
+}

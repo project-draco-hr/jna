@@ -1,0 +1,10 @@
+{
+  if (c instanceof Window) {
+    Window w=(Window)c;
+    OSXTransparentContent content=installTransparentContent(w);
+    content.setMask(shape);
+    setBackgroundTransparent(w,shape != MASK_NONE);
+  }
+ else {
+  }
+}

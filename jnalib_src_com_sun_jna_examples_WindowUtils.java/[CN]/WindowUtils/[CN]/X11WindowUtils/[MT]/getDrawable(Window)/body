@@ -1,5 +1,0 @@
-{
-  int id=(int)Native.getWindowID(w);
-  if (id == X11.None)   return null;
-  return new X11.Window(id);
-}
