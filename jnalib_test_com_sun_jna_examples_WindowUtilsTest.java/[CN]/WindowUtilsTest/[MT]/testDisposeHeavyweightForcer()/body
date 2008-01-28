@@ -1,4 +1,5 @@
 {
+  if (GraphicsEnvironment.isHeadless())   return;
   Frame root=JOptionPane.getRootFrame();
   final JWindow w=new JWindow(root);
   w.getContentPane().add(new JLabel(getName()));
