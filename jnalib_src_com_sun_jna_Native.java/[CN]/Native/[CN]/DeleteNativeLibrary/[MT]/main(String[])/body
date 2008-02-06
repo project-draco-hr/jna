@@ -9,7 +9,10 @@
         }
  catch (        InterruptedException e) {
         }
-        if (System.currentTimeMillis() - start > 1000)         break;
+        if (System.currentTimeMillis() - start > 5000) {
+          System.err.println("Could not remove temp file: " + file.getAbsolutePath());
+          break;
+        }
       }
     }
   }

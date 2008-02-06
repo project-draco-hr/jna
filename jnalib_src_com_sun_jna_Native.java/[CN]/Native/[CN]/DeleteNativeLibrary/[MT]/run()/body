@@ -1,8 +1,10 @@
 {
-  try {
-    Runtime.getRuntime().exec(new String[]{System.getProperty("java.home") + "/bin/java","-cp",System.getProperty("java.class.path"),getClass().getName(),file.getAbsolutePath()});
-  }
- catch (  IOException e) {
-    e.printStackTrace();
+  if (!unload(file.getAbsolutePath()) || !file.delete()) {
+    try {
+      Runtime.getRuntime().exec(new String[]{System.getProperty("java.home") + "/bin/java","-cp",System.getProperty("java.class.path"),getClass().getName(),file.getAbsolutePath()});
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
   }
 }
