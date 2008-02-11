@@ -1,0 +1,13 @@
+{
+  File lib0=File.createTempFile("lib",".so.1");
+  lib0.deleteOnExit();
+  File lib1=File.createTempFile("lib",".so.2.0");
+  lib1.deleteOnExit();
+  File lib=File.createTempFile("lib",".so.2.1");
+  lib.deleteOnExit();
+  String name=lib.getName();
+  name=name.substring(3,name.length() - 5);
+  File dir=lib.getParentFile();
+  List path=Arrays.asList(new String[]{dir.getAbsolutePath()});
+  assertEquals("Versioned library not found when unversioned requested",lib.getAbsolutePath(),NativeLibrary.matchLibrary(name,path));
+}
