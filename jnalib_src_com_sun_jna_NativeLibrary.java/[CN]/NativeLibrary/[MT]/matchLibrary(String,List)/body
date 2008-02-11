@@ -1,7 +1,11 @@
 {
+  File lib=new File(libName);
+  if (lib.isAbsolute()) {
+    searchPath=Arrays.asList(new String[]{lib.getParent()});
+  }
   FilenameFilter filter=new FilenameFilter(){
     public boolean accept(    File dir,    String name){
-      return name.startsWith("lib" + libName) && isVersionedName(name);
+      return (name.startsWith("lib" + libName) || (name.startsWith(libName) && libName.startsWith("lib"))) && isVersionedName(name);
     }
   }
 ;
