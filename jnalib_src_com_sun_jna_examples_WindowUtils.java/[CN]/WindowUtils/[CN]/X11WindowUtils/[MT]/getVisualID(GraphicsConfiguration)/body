@@ -1,7 +1,7 @@
 {
   try {
     Object o=config.getClass().getMethod("getVisual",(Class[])null).invoke(config,(Object[])null);
-    return ((Integer)o).intValue();
+    return ((Number)o).longValue();
   }
  catch (  Exception e) {
     e.printStackTrace();

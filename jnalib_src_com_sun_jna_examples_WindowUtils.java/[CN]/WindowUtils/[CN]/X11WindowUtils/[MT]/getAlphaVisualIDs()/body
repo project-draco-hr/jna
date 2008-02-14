@@ -22,12 +22,12 @@
       for (int i=0; i < infos.length; i++) {
         XRenderPictFormat format=X11.Xrender.INSTANCE.XRenderFindVisualFormat(dpy,infos[i].visual);
         if (format.type == X11.Xrender.PictTypeDirect && format.direct.alphaMask != 0) {
-          list.add(new Integer(infos[i].visualID));
+          list.add(infos[i].visualid);
         }
       }
-      alphaVisualIDs=new int[list.size()];
+      alphaVisualIDs=new long[list.size()];
       for (int i=0; i < alphaVisualIDs.length; i++) {
-        alphaVisualIDs[i]=((Integer)list.get(i)).intValue();
+        alphaVisualIDs[i]=((Number)list.get(i)).longValue();
       }
       return alphaVisualIDs;
     }
