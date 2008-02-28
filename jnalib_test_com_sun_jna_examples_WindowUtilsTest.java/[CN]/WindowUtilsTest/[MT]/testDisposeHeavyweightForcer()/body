@@ -1,5 +1,6 @@
 {
   if (GraphicsEnvironment.isHeadless())   return;
+  if (Platform.isMac())   return;
   Frame root=JOptionPane.getRootFrame();
   final JWindow w=new JWindow(root);
   w.getContentPane().add(new JLabel(getName()));
