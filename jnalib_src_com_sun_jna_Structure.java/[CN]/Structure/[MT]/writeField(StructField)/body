@@ -5,7 +5,7 @@
   ToNativeConverter converter=structField.writeConverter;
   if (converter != null) {
     value=converter.toNative(value,new StructureWriteContext(this,structField.field));
-    nativeType=value != null ? value.getClass() : Pointer.class;
+    nativeType=converter.nativeType();
   }
   if (String.class == nativeType || WString.class == nativeType) {
     boolean wide=nativeType == WString.class;
@@ -122,7 +122,7 @@
     memory.setPointer(offset,CallbackReference.getFunctionPointer((Callback)value));
   }
  else {
-    String msg="Structure field \"" + structField.name + "\" was declared as "+ nativeType+ ", which is not supported within a Structure";
+    String msg="Structure field \"" + structField.name + "\" was declared as "+ structField.type+ (structField.type == nativeType ? "" : " (native type " + nativeType + ")")+ ", which is not supported within a Structure";
     throw new IllegalArgumentException(msg);
   }
 }

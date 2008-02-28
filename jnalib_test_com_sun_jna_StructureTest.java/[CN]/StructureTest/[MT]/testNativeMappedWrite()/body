@@ -1,0 +1,8 @@
+{
+class TestStructure extends Structure {
+    public ByteByReference ref;
+  }
+  TestStructure s=new TestStructure();
+  s.ref=null;
+  s.write();
+}
