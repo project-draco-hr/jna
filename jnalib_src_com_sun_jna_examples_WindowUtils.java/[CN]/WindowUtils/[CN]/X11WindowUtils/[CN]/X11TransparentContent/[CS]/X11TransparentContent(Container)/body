@@ -1,8 +1,3 @@
 {
-  super(new BorderLayout());
-  add(oldContent,BorderLayout.CENTER);
-  setTransparent(true);
-  if (oldContent instanceof JPanel) {
-    ((JComponent)oldContent).setOpaque(false);
-  }
+  super(oldContent);
 }

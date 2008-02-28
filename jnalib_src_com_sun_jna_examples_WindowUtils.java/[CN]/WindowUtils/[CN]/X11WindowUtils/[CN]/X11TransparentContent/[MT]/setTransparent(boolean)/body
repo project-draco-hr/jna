@@ -1,5 +1,0 @@
-{
-  this.transparent=transparent;
-  setOpaque(!transparent);
-  repaint();
-}

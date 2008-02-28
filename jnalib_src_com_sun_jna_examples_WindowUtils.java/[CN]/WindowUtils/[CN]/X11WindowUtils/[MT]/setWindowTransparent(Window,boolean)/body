@@ -9,7 +9,7 @@
     throw new IllegalArgumentException("Window GraphicsConfiguration '" + w.getGraphicsConfiguration() + "' does not support transparency");
   }
   boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
-  if (!(transparent ^ isTransparent))   return;
+  if (transparent == isTransparent)   return;
   whenDisplayable(w,new Runnable(){
     public void run(){
       JRootPane root=((RootPaneContainer)w).getRootPane();

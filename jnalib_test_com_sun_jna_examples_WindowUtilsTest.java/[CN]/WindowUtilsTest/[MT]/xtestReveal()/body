@@ -1,0 +1,62 @@
+{
+  final int SIZE=200;
+  System.setProperty("sun.java2d.noddraw","true");
+  GraphicsConfiguration gconfig=WindowUtils.getAlphaCompatibleGraphicsConfiguration();
+  Window w;
+  Container content;
+  if (true) {
+    JFrame frame=new JFrame(getName(),gconfig);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    content=frame.getContentPane();
+    w=frame;
+  }
+ else {
+    Frame frame=JOptionPane.getRootFrame();
+    JWindow window=new JWindow(frame,gconfig);
+    content=window.getContentPane();
+    w=window;
+  }
+  final Window f=w;
+  WindowUtils.setWindowTransparent(f,true);
+  content.add(new JButton("Quit"){
+{
+      addActionListener(new ActionListener(){
+        public void actionPerformed(        ActionEvent e){
+          System.exit(0);
+        }
+      }
+);
+    }
+  }
+,BorderLayout.SOUTH);
+  content.add(new JComponent(){
+    public Dimension getPreferredSize(){
+      return new Dimension(SIZE,SIZE);
+    }
+    protected void paintComponent(    Graphics graphics){
+      Graphics2D g=(Graphics2D)graphics.create();
+      g.setComposite(AlphaComposite.Clear);
+      g.fillRect(0,0,SIZE,SIZE);
+      g.dispose();
+      g=(Graphics2D)graphics.create();
+      Color[] colors={new Color(0,0,0),new Color(0,0,0,128),new Color(128,128,128),new Color(128,128,128,128),new Color(255,255,255),new Color(255,255,255,128)};
+      for (int i=0; i < colors.length; i++) {
+        g.setColor(colors[i]);
+        g.fillRect((SIZE * i) / colors.length,0,(SIZE + colors.length - 1) / colors.length,SIZE);
+      }
+      g.setColor(Color.red);
+      g.drawRect(0,0,SIZE - 1,SIZE - 1);
+      g.dispose();
+      SwingUtilities.getWindowAncestor(this).toFront();
+    }
+  }
+);
+  f.pack();
+  f.addMouseListener(handler);
+  f.addMouseMotionListener(handler);
+  f.setLocation(100,100);
+  f.setVisible(true);
+  while (f.isVisible()) {
+    Thread.sleep(1000);
+  }
+}

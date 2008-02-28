@@ -1,0 +1,36 @@
+{
+  Window window=SwingUtilities.getWindowAncestor(this);
+  X11 x11=X11.INSTANCE;
+  X11.Display dpy=x11.XOpenDisplay(null);
+  X11.Window win=getDrawable(window);
+  Point offset=new Point();
+  win=getContentWindow(window,dpy,win,offset);
+  X11.GC gc=x11.XCreateGC(dpy,win,new NativeLong(0),null);
+  Raster raster=buf.getData();
+  int w=bounds.width;
+  int h=bounds.height;
+  if (buffer == null || buffer.getSize() != w * h * 4) {
+    buffer=new Memory(w * h * 4);
+    pixels=new int[w * h];
+  }
+  for (int y=0; y < h; y++) {
+    for (int x=0; x < w; x++) {
+      raster.getPixel(x,y,pixel);
+      int alpha=pixel[3] & 0xFF;
+      int red=pixel[2] & 0xFF;
+      int green=pixel[1] & 0xFF;
+      int blue=pixel[0] & 0xFF;
+      pixels[y * w + x]=(alpha << 24) | (blue << 16) | (green << 8)| red;
+    }
+  }
+  X11.XWindowAttributes xwa=new X11.XWindowAttributes();
+  x11.XGetWindowAttributes(dpy,win,xwa);
+  X11.XImage image=x11.XCreateImage(dpy,xwa.visual,32,X11.ZPixmap,0,buffer,w,h,32,w * 4);
+  buffer.write(0,pixels,0,pixels.length);
+  offset.x+=bounds.x;
+  offset.y+=bounds.y;
+  x11.XPutImage(dpy,win,gc,image,0,0,offset.x,offset.y,w,h);
+  x11.XFree(image.getPointer());
+  x11.XFreeGC(dpy,gc);
+  x11.XCloseDisplay(dpy);
+}

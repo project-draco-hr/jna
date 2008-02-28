@@ -1,0 +1,23 @@
+{
+  final JFrame w=new JFrame(getName());
+  w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  w.getContentPane().add(new JLabel(getName()));
+  WindowUtils.setWindowMask(w,new Area(new Rectangle(600,20)));
+  w.pack();
+  w.setSize(600,600);
+  w.setResizable(false);
+  w.setVisible(true);
+  final Shape mask=new Rectangle(0,0,w.getWidth(),w.getHeight());
+  while (true) {
+    System.gc();
+    Thread.sleep(50);
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        WindowUtils.setWindowMask(w,mask);
+        Window[] owned=w.getOwnedWindows();
+        System.err.println(owned.length + ": " + Arrays.asList(w.getOwnedWindows()));
+      }
+    }
+);
+  }
+}

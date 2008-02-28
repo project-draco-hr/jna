@@ -6,7 +6,7 @@
     throw new UnsupportedOperationException("Set sun.java2d.noddraw=true to enable transparent windows");
   }
   boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
-  if (!(transparent ^ isTransparent))   return;
+  if (transparent == isTransparent)   return;
   whenDisplayable(w,new Runnable(){
     public void run(){
       User32 user=User32.INSTANCE;
