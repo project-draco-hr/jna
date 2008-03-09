@@ -3,16 +3,14 @@
   monitor.addWatch(tmpdir);
   File file=File.createTempFile(getName(),".tmp",tmpdir);
   file.deleteOnExit();
-  FileOutputStream os=new FileOutputStream(file);
-  os.write(getName().getBytes());
-  os.close();
-  FileEvent event=(FileEvent)events.get(new Integer(FileMonitor.FILE_MODIFIED));
-  long start=System.currentTimeMillis();
-  while (System.currentTimeMillis() - start < 5000 && event == null) {
-    Thread.sleep(10);
-    event=(FileEvent)events.get(new Integer(FileMonitor.FILE_MODIFIED));
+  final FileOutputStream os=new FileOutputStream(file);
+  try {
+    os.write(getName().getBytes());
   }
-  assertTrue("No events sent",events.size() != 0);
+  finally {
+    os.close();
+  }
+  final FileEvent event=waitForFileEvent(FileMonitor.FILE_MODIFIED);
   assertNotNull("No file modified event: " + events,event);
   assertEquals("Wrong target file for event (old)",file,event.getFile());
 }

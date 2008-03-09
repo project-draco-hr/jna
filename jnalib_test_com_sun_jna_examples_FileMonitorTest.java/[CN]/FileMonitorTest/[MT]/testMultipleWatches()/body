@@ -5,39 +5,9 @@
   try {
     monitor.addWatch(subdir1);
     monitor.addWatch(subdir2);
-    File file=File.createTempFile(getName(),".tmp",subdir1);
-    FileEvent event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
-    long start=System.currentTimeMillis();
-    while (System.currentTimeMillis() - start < 5000 && event == null) {
-      Thread.sleep(10);
-      event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
-    }
-    assertTrue("No events sent",events.size() != 0);
-    assertNotNull("No creation event: " + events,event);
-    assertEquals("Wrong target file for event",file,event.getFile());
-    events.clear();
-    file=File.createTempFile(getName(),".tmp",subdir2);
-    event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
-    start=System.currentTimeMillis();
-    while (System.currentTimeMillis() - start < 5000 && event == null) {
-      Thread.sleep(10);
-      event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
-    }
-    assertTrue("No events sent",events.size() != 0);
-    assertNotNull("No creation event: " + events,event);
-    assertEquals("Wrong target file for event",file,event.getFile());
-    events.clear();
-    file=File.createTempFile(getName(),".tmp",subdir1);
-    event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
-    start=System.currentTimeMillis();
-    while (System.currentTimeMillis() - start < 5000 && event == null) {
-      Thread.sleep(10);
-      event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
-    }
-    assertTrue("No events sent",events.size() != 0);
-    assertNotNull("No creation event: " + events,event);
-    assertEquals("Wrong target file for event",file,event.getFile());
-    events.clear();
+    assertFileEventCreated(File.createTempFile(getName(),".tmp",subdir1));
+    assertFileEventCreated(File.createTempFile(getName(),".tmp",subdir2));
+    assertFileEventCreated(File.createTempFile(getName(),".tmp",subdir1));
   }
   finally {
     delete(subdir1);

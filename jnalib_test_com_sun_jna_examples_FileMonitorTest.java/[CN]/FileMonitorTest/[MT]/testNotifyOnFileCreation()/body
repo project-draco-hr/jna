@@ -3,13 +3,5 @@
   monitor.addWatch(tmpdir);
   File file=File.createTempFile(getName(),".tmp",tmpdir);
   file.deleteOnExit();
-  FileEvent event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
-  long start=System.currentTimeMillis();
-  while (System.currentTimeMillis() - start < 5000 && event == null) {
-    Thread.sleep(10);
-    event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
-  }
-  assertTrue("No events sent",events.size() != 0);
-  assertNotNull("No creation event: " + events,event);
-  assertEquals("Wrong target file for event",file,event.getFile());
+  assertFileEventCreated(file);
 }

@@ -1,0 +1,11 @@
+{
+  final Integer expectedFileEventInteger=new Integer(expectedFileEvent);
+  FileEvent actualEvent=(FileEvent)events.get(expectedFileEventInteger);
+  final long start=System.currentTimeMillis();
+  while (System.currentTimeMillis() - start < 5000 && actualEvent == null) {
+    Thread.sleep(10);
+    actualEvent=(FileEvent)events.get(expectedFileEventInteger);
+  }
+  assertTrue("No events sent",events.size() != 0);
+  return actualEvent;
+}

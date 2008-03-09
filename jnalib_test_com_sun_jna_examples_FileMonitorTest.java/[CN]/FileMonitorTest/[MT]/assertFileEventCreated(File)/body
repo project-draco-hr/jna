@@ -1,0 +1,6 @@
+{
+  final FileEvent actualEvent=waitForFileEvent(FileMonitor.FILE_CREATED);
+  assertNotNull("No creation event: " + events,actualEvent);
+  assertEquals("Wrong target file for event",expectedFile,actualEvent.getFile());
+  events.clear();
+}

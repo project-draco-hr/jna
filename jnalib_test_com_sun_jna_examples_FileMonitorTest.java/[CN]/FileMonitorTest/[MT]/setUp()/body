@@ -1,7 +1,7 @@
 {
   if (!Platform.isWindows())   return;
   events=new HashMap();
-  listener=new FileListener(){
+  final FileListener listener=new FileListener(){
     public void fileChanged(    FileEvent e){
       events.put(new Integer(e.getType()),e);
     }
