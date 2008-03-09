@@ -26,6 +26,7 @@
     assertTrue("No events sent",events.size() != 0);
     assertNotNull("No creation event: " + events,event);
     assertEquals("Wrong target file for event",file,event.getFile());
+    events.clear();
     file=File.createTempFile(getName(),".tmp",subdir1);
     event=(FileEvent)events.get(new Integer(FileMonitor.FILE_CREATED));
     start=System.currentTimeMillis();
@@ -36,6 +37,7 @@
     assertTrue("No events sent",events.size() != 0);
     assertNotNull("No creation event: " + events,event);
     assertEquals("Wrong target file for event",file,event.getFile());
+    events.clear();
   }
   finally {
     delete(subdir1);
