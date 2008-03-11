@@ -1,0 +1,7 @@
+{
+  String[] VERSIONS={"1","1.2","1.2.3","1.2.3.4"};
+  double[] EXPECTED={1,1.02,1.0203,1.020304};
+  for (int i=0; i < VERSIONS.length; i++) {
+    assertEquals("Badly parsed version",EXPECTED[i],NativeLibrary.parseVersion(VERSIONS[i]),0.0000001);
+  }
+}

@@ -1,0 +1,25 @@
+{
+  double v=0;
+  double divisor=1;
+  int dot=ver.indexOf(".");
+  while (ver != null) {
+    String num;
+    if (dot != -1) {
+      num=ver.substring(0,dot);
+      ver=ver.substring(dot + 1);
+      dot=ver.indexOf(".");
+    }
+ else {
+      num=ver;
+      ver=null;
+    }
+    try {
+      v+=Integer.parseInt(num) / divisor;
+    }
+ catch (    NumberFormatException e) {
+      return 0;
+    }
+    divisor*=100;
+  }
+  return v;
+}

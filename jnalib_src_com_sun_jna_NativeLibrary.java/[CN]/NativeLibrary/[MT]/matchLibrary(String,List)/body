@@ -4,8 +4,8 @@
     searchPath=Arrays.asList(new String[]{lib.getParent()});
   }
   FilenameFilter filter=new FilenameFilter(){
-    public boolean accept(    File dir,    String name){
-      return (name.startsWith("lib" + libName) || (name.startsWith(libName) && libName.startsWith("lib"))) && isVersionedName(name);
+    public boolean accept(    File dir,    String filename){
+      return (filename.startsWith("lib" + libName) || (filename.startsWith(libName) && libName.startsWith("lib"))) && isVersionedName(filename);
     }
   }
 ;
@@ -16,17 +16,15 @@
       matches.addAll(Arrays.asList(files));
     }
   }
-  int version=0;
+  double bestVersion=0;
   String bestMatch=null;
   for (Iterator it=matches.iterator(); it.hasNext(); ) {
     String path=((File)it.next()).getAbsolutePath();
-    String num=path.substring(path.lastIndexOf('.') + 1);
-    try {
-      if (Integer.parseInt(num) >= version) {
-        bestMatch=path;
-      }
-    }
- catch (    NumberFormatException e) {
+    String ver=path.substring(path.lastIndexOf(".so.") + 4);
+    double version=parseVersion(ver);
+    if (version >= bestVersion) {
+      bestVersion=version;
+      bestMatch=path;
     }
   }
   return bestMatch;
