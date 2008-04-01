@@ -1,5 +1,8 @@
 {
+  Set rects=new HashSet();
+  Set prevLine=Collections.EMPTY_SET;
   for (int row=0; row < h; row++) {
+    Set curLine=new HashSet();
     int idxOffset=row * w;
     int startCol=-1;
     for (int col=0; col < w; col++) {
@@ -10,18 +13,23 @@
       }
  else {
         if (startCol >= 0) {
-          if (!out.outputRange(startCol,row,col - startCol,1)) {
-            return false;
-          }
+          curLine.add(new Rectangle(startCol,row,col - startCol,1));
           startCol=-1;
         }
       }
     }
     if (startCol >= 0) {
-      if (!out.outputRange(startCol,row,w - startCol,1)) {
-        return false;
-      }
-      startCol=-1;
+      curLine.add(new Rectangle(startCol,row,w - startCol,1));
+    }
+    Set unmerged=mergeRects(prevLine,curLine);
+    rects.addAll(unmerged);
+    prevLine=curLine;
+  }
+  rects.addAll(prevLine);
+  for (Iterator i=rects.iterator(); i.hasNext(); ) {
+    Rectangle r=(Rectangle)i.next();
+    if (!out.outputRange(r.x,r.y,r.width,r.height)) {
+      return false;
     }
   }
   return true;

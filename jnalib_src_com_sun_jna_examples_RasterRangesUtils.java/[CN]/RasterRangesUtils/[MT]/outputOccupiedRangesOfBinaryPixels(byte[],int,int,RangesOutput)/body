@@ -1,6 +1,9 @@
 {
+  Set rects=new HashSet();
+  Set prevLine=Collections.EMPTY_SET;
   int scanlineBytes=binaryBits.length / h;
   for (int row=0; row < h; row++) {
+    Set curLine=new HashSet();
     int rowOffsetBytes=row * scanlineBytes;
     int startCol=-1;
     for (int byteCol=0; byteCol < scanlineBytes; byteCol++) {
@@ -8,9 +11,7 @@
       byte byteColBits=binaryBits[rowOffsetBytes + byteCol];
       if (byteColBits == 0) {
         if (startCol >= 0) {
-          if (!output.outputRange(startCol,row,firstByteCol - startCol,1)) {
-            return false;
-          }
+          curLine.add(new Rectangle(startCol,row,firstByteCol - startCol,1));
           startCol=-1;
         }
       }
@@ -29,9 +30,7 @@
           }
  else {
             if (startCol >= 0) {
-              if (!output.outputRange(startCol,row,col - startCol,1)) {
-                return false;
-              }
+              curLine.add(new Rectangle(startCol,row,col - startCol,1));
               startCol=-1;
             }
           }
@@ -39,10 +38,17 @@
       }
     }
     if (startCol >= 0) {
-      if (!output.outputRange(startCol,row,w - startCol,1)) {
-        return false;
-      }
-      startCol=-1;
+      curLine.add(new Rectangle(startCol,row,w - startCol,1));
+    }
+    Set unmerged=mergeRects(prevLine,curLine);
+    rects.addAll(unmerged);
+    prevLine=curLine;
+  }
+  rects.addAll(prevLine);
+  for (Iterator i=rects.iterator(); i.hasNext(); ) {
+    Rectangle r=(Rectangle)i.next();
+    if (!out.outputRange(r.x,r.y,r.width,r.height)) {
+      return false;
     }
   }
   return true;

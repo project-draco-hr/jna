@@ -1,4 +1,4 @@
 byte[] binaryBits
 int w
 int h
-RangesOutput output
+RangesOutput out

@@ -1,0 +1,7 @@
+{
+  BufferedImage image=new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+  Graphics2D g=image.createGraphics();
+  g.fill(mask);
+  g.dispose();
+  return image.getRaster();
+}

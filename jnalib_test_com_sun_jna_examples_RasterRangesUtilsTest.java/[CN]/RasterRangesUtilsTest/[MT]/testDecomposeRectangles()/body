@@ -1,0 +1,14 @@
+{
+  Set EXPECTED=new HashSet(){
+{
+      add(new Rectangle(0,0,100,50));
+      add(new Rectangle(0,50,50,50));
+    }
+  }
+;
+  Area mask=new Area(new Rectangle(0,0,100,100));
+  mask.subtract(new Area(new Rectangle(50,50,50,50)));
+  RasterRangesUtils.outputOccupiedRanges(createRaster(mask),out);
+  assertEquals("Wrong number of rectangles",EXPECTED.size(),rects.size());
+  assertEquals("Wrong rectangles",EXPECTED,rects);
+}
