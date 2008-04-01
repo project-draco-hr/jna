@@ -2,7 +2,7 @@
   Set rects=new HashSet();
   Set prevLine=Collections.EMPTY_SET;
   for (int row=0; row < h; row++) {
-    Set curLine=new HashSet();
+    Set curLine=new TreeSet(COMPARATOR);
     int idxOffset=row * w;
     int startCol=-1;
     for (int col=0; col < w; col++) {

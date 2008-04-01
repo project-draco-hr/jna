@@ -1,0 +1,17 @@
+{
+  whenDisplayable(w,new Runnable(){
+    public void run(){
+      GDI32 gdi=GDI32.INSTANCE;
+      User32 user=User32.INSTANCE;
+      HWND hWnd=getHWnd(w);
+      try {
+        user.SetWindowRgn(hWnd,hrgn,true);
+        setForceHeavyweightPopups(getWindow(w),hrgn != null);
+      }
+  finally {
+        gdi.DeleteObject(hrgn);
+      }
+    }
+  }
+);
+}

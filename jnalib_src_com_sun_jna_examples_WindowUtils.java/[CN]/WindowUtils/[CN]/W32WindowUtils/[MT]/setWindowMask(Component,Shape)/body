@@ -1,0 +1,8 @@
+{
+  if (mask instanceof Area && ((Area)mask).isPolygonal()) {
+    setMask(w,(Area)mask);
+  }
+ else {
+    super.setWindowMask(w,mask);
+  }
+}

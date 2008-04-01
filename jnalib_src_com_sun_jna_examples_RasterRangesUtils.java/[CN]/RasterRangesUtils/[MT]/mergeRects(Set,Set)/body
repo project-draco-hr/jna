@@ -1,16 +1,24 @@
 {
   Set unmerged=new HashSet(prev);
-  for (Iterator i=current.iterator(); i.hasNext(); ) {
-    Rectangle lower=(Rectangle)i.next();
-    for (Iterator i2=prev.iterator(); i2.hasNext(); ) {
-      Rectangle upper=(Rectangle)i2.next();
-      if (upper.x == lower.x && upper.width == lower.width) {
-        unmerged.remove(upper);
-        lower.y=upper.y;
-        lower.height=upper.height + 1;
-        break;
+  if (!prev.isEmpty() && !current.isEmpty()) {
+    Rectangle[] pr=(Rectangle[])prev.toArray(new Rectangle[prev.size()]);
+    Rectangle[] cr=(Rectangle[])current.toArray(new Rectangle[current.size()]);
+    int ipr=0;
+    int icr=0;
+    while (ipr < pr.length && icr < cr.length) {
+      while (cr[icr].x < pr[ipr].x) {
+        if (++icr == cr.length) {
+          return unmerged;
+        }
       }
- else       if (upper.x > lower.x || upper.x + upper.width > lower.x) {
+      if (cr[icr].x == pr[ipr].x && cr[icr].width == pr[ipr].width) {
+        unmerged.remove(pr[ipr]);
+        cr[icr].y=pr[ipr].y;
+        cr[icr].height=pr[ipr].height + 1;
+        ++icr;
+      }
+ else {
+        ++ipr;
       }
     }
   }

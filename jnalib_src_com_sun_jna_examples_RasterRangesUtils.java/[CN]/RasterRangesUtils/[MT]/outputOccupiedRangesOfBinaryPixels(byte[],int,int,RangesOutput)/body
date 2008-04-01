@@ -3,7 +3,7 @@
   Set prevLine=Collections.EMPTY_SET;
   int scanlineBytes=binaryBits.length / h;
   for (int row=0; row < h; row++) {
-    Set curLine=new HashSet();
+    Set curLine=new TreeSet(COMPARATOR);
     int rowOffsetBytes=row * scanlineBytes;
     int startCol=-1;
     for (int byteCol=0; byteCol < scanlineBytes; byteCol++) {
