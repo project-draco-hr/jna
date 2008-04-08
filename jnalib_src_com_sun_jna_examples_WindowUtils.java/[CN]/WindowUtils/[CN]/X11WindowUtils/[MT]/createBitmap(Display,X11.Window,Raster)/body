@@ -10,20 +10,26 @@
   }
   x11.XSetForeground(dpy,gc,new NativeLong(0));
   x11.XFillRectangle(dpy,pm,gc,0,0,width,height);
-  final int UNMASKED=1;
-  x11.XSetForeground(dpy,gc,new NativeLong(UNMASKED));
-  X11.XWindowAttributes atts=new X11.XWindowAttributes();
-  int status=x11.XGetWindowAttributes(dpy,win,atts);
-  if (status == 0) {
-    return null;
-  }
+  final List rlist=new ArrayList();
   try {
     RasterRangesUtils.outputOccupiedRanges(raster,new RasterRangesUtils.RangesOutput(){
       public boolean outputRange(      int x,      int y,      int w,      int h){
-        return x11.XFillRectangle(dpy,pm,gc,x,y,w,h) != 0;
+        rlist.add(new Rectangle(x,y,w,h));
+        return true;
       }
     }
 );
+    X11.XRectangle[] rects=(X11.XRectangle[])new X11.XRectangle().toArray(rlist.size());
+    for (int i=0; i < rects.length; i++) {
+      Rectangle r=(Rectangle)rlist.get(i);
+      rects[i].x=(short)r.x;
+      rects[i].y=(short)r.y;
+      rects[i].width=(short)r.width;
+      rects[i].height=(short)r.height;
+    }
+    final int UNMASKED=1;
+    x11.XSetForeground(dpy,gc,new NativeLong(UNMASKED));
+    x11.XFillRectangles(dpy,pm,gc,rects,rects.length);
   }
   finally {
     x11.XFreeGC(dpy,gc);
