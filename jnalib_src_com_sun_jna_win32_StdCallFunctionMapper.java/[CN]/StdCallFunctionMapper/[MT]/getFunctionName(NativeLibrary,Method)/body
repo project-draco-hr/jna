@@ -6,10 +6,16 @@
     pop+=getArgumentNativeStackSize(argTypes[i]);
   }
   String decorated=name + "@" + pop;
+  int conv=StdCallLibrary.STDCALL_CONVENTION;
   try {
-    name=library.getFunction(decorated,StdCallLibrary.STDCALL_CONVENTION).getName();
+    name=library.getFunction(decorated,conv).getName();
   }
  catch (  UnsatisfiedLinkError e) {
+    try {
+      name=library.getFunction("_" + decorated,conv).getName();
+    }
+ catch (    UnsatisfiedLinkError e) {
+    }
   }
   return name;
 }
