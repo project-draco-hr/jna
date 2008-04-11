@@ -1,3 +1,3 @@
 {
-  super(new URL[]{new File("build/classes").toURI().toURL()},null);
+  super(new URL[]{new File("build" + System.getProperty(LibraryLoadTest.DIR_BUILD_SUFFIX,"") + "/classes").toURI().toURL()},null);
 }
