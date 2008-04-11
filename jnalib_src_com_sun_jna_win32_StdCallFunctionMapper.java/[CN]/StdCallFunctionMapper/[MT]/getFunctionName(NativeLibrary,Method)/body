@@ -14,7 +14,7 @@
     try {
       name=library.getFunction("_" + decorated,conv).getName();
     }
- catch (    UnsatisfiedLinkError e) {
+ catch (    UnsatisfiedLinkError e2) {
     }
   }
   return name;
