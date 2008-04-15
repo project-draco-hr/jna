@@ -24,6 +24,10 @@ synchronized (typeInfoMap) {
       typeInfoMap.put(cls,type);
       return type.getPointer();
     }
+    if (NativeMapped.class.isAssignableFrom(cls)) {
+      NativeMappedConverter c=NativeMappedConverter.getInstance(cls);
+      return get(c.toNative(obj,new ToNativeContext()),c.nativeType());
+    }
     if (cls.isArray()) {
       FFIType type=new FFIType(obj,cls);
       typeInfoMap.put(obj,type);
