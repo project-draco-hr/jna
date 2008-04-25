@@ -1,0 +1,4 @@
+{
+  ROStructure s=new ROStructure();
+  assertEquals("Field value should be writable from native",42,s.field);
+}

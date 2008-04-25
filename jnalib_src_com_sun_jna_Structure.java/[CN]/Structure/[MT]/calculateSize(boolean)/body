@@ -18,6 +18,9 @@
     StructField structField=new StructField();
     structField.isVolatile=Modifier.isVolatile(modifiers);
     structField.field=field;
+    if (Modifier.isFinal(modifiers)) {
+      field.setAccessible(true);
+    }
     structField.name=field.getName();
     structField.type=type;
     if (Callback.class.isAssignableFrom(type) && !type.isInterface()) {
