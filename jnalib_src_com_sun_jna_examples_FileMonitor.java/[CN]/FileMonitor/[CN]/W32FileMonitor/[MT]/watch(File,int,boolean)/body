@@ -31,7 +31,7 @@
     throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ": '"+ getSystemError(err)+ "' ("+ err+ ")");
   }
   if (watcher == null) {
-    watcher=new Thread("W32 File Monitor"){
+    watcher=new Thread("W32 File Monitor-" + (watcherThreadID++)){
       public void run(){
         FileInfo finfo;
         while (true) {

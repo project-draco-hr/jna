@@ -1,4 +1,8 @@
 {
+  int i=0;
+  for (Object[] keys=fileMap.keySet().toArray(); !fileMap.isEmpty(); ) {
+    unwatch((File)keys[i++]);
+  }
   Kernel32 klib=Kernel32.INSTANCE;
   klib.PostQueuedCompletionStatus(port,0,null,null);
   klib.CloseHandle(port);
