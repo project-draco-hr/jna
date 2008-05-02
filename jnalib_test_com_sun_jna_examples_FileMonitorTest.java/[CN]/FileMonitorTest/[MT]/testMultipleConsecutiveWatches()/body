@@ -1,7 +1,7 @@
 {
   if (!Platform.isWindows())   return;
-  File subdir1=createSubdir(tmpdir,"sub1");
-  File subdir2=createSubdir(tmpdir,"sub2");
+  File subdir1=createSubdir(tmpdir,"sub1-");
+  File subdir2=createSubdir(tmpdir,"sub2-");
   try {
     monitor.addWatch(subdir1);
     monitor.addWatch(subdir2);
