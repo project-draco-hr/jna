@@ -34,7 +34,17 @@
     watcher=new Thread("W32 File Monitor"){
       public void run(){
         FileInfo finfo;
-        while ((finfo=waitForChange()) != null) {
+        while (true) {
+          finfo=waitForChange();
+          if (finfo == null) {
+synchronized (W32FileMonitor.this) {
+              if (fileMap.isEmpty()) {
+                watcher=null;
+                break;
+              }
+            }
+            continue;
+          }
           try {
             handleChanges(finfo);
           }
