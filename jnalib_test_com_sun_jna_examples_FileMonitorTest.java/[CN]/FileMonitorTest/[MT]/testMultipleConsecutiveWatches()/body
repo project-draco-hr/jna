@@ -10,6 +10,7 @@
     assertFileEventCreated(File.createTempFile(getName(),".tmp",subdir2));
     monitor.removeWatch(subdir2);
     monitor.addWatch(subdir1);
+    Thread.sleep(10);
     assertFileEventCreated(File.createTempFile(getName(),".tmp",subdir1));
     monitor.removeWatch(subdir1);
   }
