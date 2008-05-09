@@ -1,3 +1,4 @@
 {
-  return getPointer().hashCode();
+  Pointer p=getPointer();
+  return p != null ? p.hashCode() : 0;
 }

@@ -1,4 +1,7 @@
 {
+  if (size == CALCULATE_SIZE) {
+    allocateMemory();
+  }
 synchronized (reading) {
     if (reading.contains(this))     return;
     reading.add(this);

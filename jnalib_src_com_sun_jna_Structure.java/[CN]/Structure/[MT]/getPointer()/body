@@ -1,3 +1,6 @@
 {
+  if (size == CALCULATE_SIZE) {
+    allocateMemory();
+  }
   return memory;
 }
