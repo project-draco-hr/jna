@@ -1,0 +1,7 @@
+{
+class NTStruct extends Structure {
+    public Sized field;
+  }
+  NTStruct s=new NTStruct();
+  assertNotNull("Field not initialized",s.field);
+}

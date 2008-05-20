@@ -1,0 +1,8 @@
+{
+class NTStruct extends Structure {
+    public Sized field;
+  }
+  NTStruct s=new NTStruct();
+  s.read();
+  assertNotNull("Integer type field should be initialized on read",s.field);
+}
