@@ -1,0 +1,12 @@
+{
+  File lib0=File.createTempFile("lib",".so.1");
+  File dir=lib0.getParentFile();
+  lib0.deleteOnExit();
+  String name=lib0.getName();
+  name=name.substring(3,name.indexOf(".so"));
+  File lib1=new File(dir,"lib" + name + "-client.so.2");
+  lib1.createNewFile();
+  lib1.deleteOnExit();
+  List path=Arrays.asList(new String[]{dir.getAbsolutePath()});
+  assertEquals("Library with similar prefix should be ignored",lib0.getAbsolutePath(),NativeLibrary.matchLibrary(name,path));
+}
