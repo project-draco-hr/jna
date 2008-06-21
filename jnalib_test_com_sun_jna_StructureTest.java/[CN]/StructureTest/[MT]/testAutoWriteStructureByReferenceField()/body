@@ -1,0 +1,7 @@
+{
+  StructureWithPointers s=new StructureWithPointers();
+  s.s1=new StructureTest.PublicTestStructure.ByReference();
+  s.s1.x=-1;
+  s.write();
+  assertEquals("Structure.ByReference not written automatically",-1,s.s1.getPointer().getInt(0));
+}

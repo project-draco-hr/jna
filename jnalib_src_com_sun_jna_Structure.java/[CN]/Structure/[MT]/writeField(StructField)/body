@@ -112,6 +112,9 @@
     Structure s=(Structure)value;
     if (ByReference.class.isAssignableFrom(nativeType)) {
       memory.setPointer(offset,s == null ? null : s.getPointer());
+      if (s != null) {
+        s.write();
+      }
     }
  else {
       s.useMemory(memory,offset);

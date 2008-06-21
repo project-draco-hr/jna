@@ -6,10 +6,14 @@ synchronized (reading) {
     if (reading.contains(this))     return;
     reading.add(this);
   }
-  for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
-    readField((StructField)i.next());
+  try {
+    for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
+      readField((StructField)i.next());
+    }
   }
+  finally {
 synchronized (reading) {
-    reading.remove(this);
+      reading.remove(this);
+    }
   }
 }

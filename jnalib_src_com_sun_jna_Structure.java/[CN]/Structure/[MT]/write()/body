@@ -5,10 +5,21 @@
   if (this instanceof ByValue) {
     getTypeInfo();
   }
-  for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
-    StructField sf=(StructField)i.next();
-    if (!sf.isVolatile) {
-      writeField(sf);
+synchronized (writing) {
+    if (writing.contains(this))     return;
+    writing.add(this);
+  }
+  try {
+    for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
+      StructField sf=(StructField)i.next();
+      if (!sf.isVolatile) {
+        writeField(sf);
+      }
+    }
+  }
+  finally {
+synchronized (writing) {
+      writing.remove(this);
     }
   }
 }
