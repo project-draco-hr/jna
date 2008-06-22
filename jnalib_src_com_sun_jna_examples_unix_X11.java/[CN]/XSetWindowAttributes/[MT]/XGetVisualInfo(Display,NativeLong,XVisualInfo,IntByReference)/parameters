@@ -1,4 +1,0 @@
-Display display
-NativeLong vinfo_mask
-XVisualInfo vinfo_template
-IntByReference nitems_return

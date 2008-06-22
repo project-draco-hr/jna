@@ -1,9 +1,0 @@
-Display display
-Window window
-String window_name
-String icon_name
-String[] argv
-int argc
-XSizeHints normal_hints
-Pointer wm_hints
-Pointer class_hints

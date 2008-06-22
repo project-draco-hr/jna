@@ -1,7 +1,0 @@
-Display display
-Drawable drawable
-GC gc
-int x
-int y
-int width
-int height

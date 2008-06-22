@@ -1,6 +1,0 @@
-Display display
-Window window
-WindowByReference root
-WindowByReference parent
-PointerByReference children
-IntByReference childCount

@@ -1,5 +1,0 @@
-Display display
-Drawable drawable
-GC gc
-XRectangle[] rectangles
-int nrectangles

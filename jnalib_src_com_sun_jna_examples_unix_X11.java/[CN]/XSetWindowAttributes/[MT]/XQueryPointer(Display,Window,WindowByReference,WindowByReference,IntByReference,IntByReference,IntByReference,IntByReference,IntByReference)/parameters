@@ -1,9 +1,0 @@
-Display display
-Window window
-WindowByReference root_return
-WindowByReference child_return
-IntByReference root_x_return
-IntByReference root_y_return
-IntByReference win_x_return
-IntByReference win_y_return
-IntByReference mask_return
