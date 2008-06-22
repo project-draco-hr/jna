@@ -1,0 +1,6 @@
+Display display
+Drawable drawable
+GC gc
+XPoint[] points
+int npoints
+int mode

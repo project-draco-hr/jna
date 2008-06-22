@@ -1,0 +1,4 @@
+Display display
+Window window
+NativeLong valuemask
+XSetWindowAttributes attributes

@@ -1,0 +1,10 @@
+Display dpy
+Drawable src
+Drawable dst
+GC gc
+int src_x
+int src_y
+int w
+int h
+int dst_x
+int dst_y

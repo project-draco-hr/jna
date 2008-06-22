@@ -1,0 +1,4 @@
+Display display
+Window w
+Visual visual
+int alloc

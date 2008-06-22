@@ -1,0 +1,5 @@
+Display display
+int colormap
+String color_name
+Pointer screen_def_return
+Pointer exact_def_return

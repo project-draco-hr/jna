@@ -1,0 +1,10 @@
+Display dpy
+Visual visual
+int depth
+int format
+int offset
+Pointer data
+int width
+int height
+int bitmap_pad
+int bytes_per_line

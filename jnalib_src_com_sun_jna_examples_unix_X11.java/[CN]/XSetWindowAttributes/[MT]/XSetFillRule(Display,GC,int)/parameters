@@ -1,0 +1,3 @@
+Display display
+GC gc
+int fill_rule

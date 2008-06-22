@@ -1,0 +1,8 @@
+Display display
+Window w
+Atom property
+Atom type
+int format
+int mode
+Pointer data
+int nelements

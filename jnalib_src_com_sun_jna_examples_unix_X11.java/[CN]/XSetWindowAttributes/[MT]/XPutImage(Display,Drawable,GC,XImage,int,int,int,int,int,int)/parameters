@@ -1,0 +1,10 @@
+Display dpy
+Drawable d
+GC gc
+XImage image
+int src_x
+int src_y
+int dest_x
+int dest_y
+int width
+int height
