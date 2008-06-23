@@ -1,7 +1,5 @@
 {
-  if (size == CALCULATE_SIZE) {
-    allocateMemory();
-  }
+  ensureAllocated();
   if (this instanceof ByValue) {
     getTypeInfo();
   }

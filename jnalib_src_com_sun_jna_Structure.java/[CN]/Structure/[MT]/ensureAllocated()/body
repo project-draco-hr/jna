@@ -1,0 +1,5 @@
+{
+  if (size == CALCULATE_SIZE) {
+    allocateMemory();
+  }
+}

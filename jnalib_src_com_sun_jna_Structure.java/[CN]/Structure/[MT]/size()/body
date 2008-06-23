@@ -1,6 +1,4 @@
 {
-  if (size == CALCULATE_SIZE) {
-    allocateMemory();
-  }
+  ensureAllocated();
   return size;
 }
