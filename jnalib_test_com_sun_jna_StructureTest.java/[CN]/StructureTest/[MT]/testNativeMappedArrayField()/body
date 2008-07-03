@@ -1,0 +1,21 @@
+{
+  final int SIZE=24;
+class TestStructure extends Structure {
+    public NativeLong[] longs=new NativeLong[SIZE];
+  }
+  TestStructure s=new TestStructure();
+  assertEquals("Wrong structure size",Native.LONG_SIZE * SIZE,s.size());
+  NativeLong[] aref=s.longs;
+  for (int i=0; i < s.longs.length; i++) {
+    s.longs[i]=new NativeLong(i);
+  }
+  s.write();
+  for (int i=0; i < s.longs.length; i++) {
+    assertEquals("Value not written to memory at index " + i,i,s.getPointer().getNativeLong(i * NativeLong.SIZE).intValue());
+  }
+  s.read();
+  assertEquals("Array reference should remain unchanged on read",aref,s.longs);
+  for (int i=0; i < s.longs.length; i++) {
+    assertEquals("Wrong value after read at index " + i,i,s.longs[i].intValue());
+  }
+}
