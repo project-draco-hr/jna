@@ -1,0 +1,5 @@
+{
+  long VALUE=20;
+  NativeLong nl=new NativeLong(VALUE);
+  assertEquals("Wrong initial value",VALUE,nl.longValue());
+}

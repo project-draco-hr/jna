@@ -54,12 +54,14 @@
     Class nativeType=type;
     if (NativeMapped.class.isAssignableFrom(type)) {
       NativeMappedConverter tc=NativeMappedConverter.getInstance(type);
-      value=tc.defaultValue();
+      if (value == null) {
+        value=tc.defaultValue();
+        setField(structField,value);
+      }
       nativeType=tc.nativeType();
       structField.writeConverter=tc;
       structField.readConverter=tc;
       structField.context=new StructureReadContext(this,field);
-      setField(structField,value);
     }
  else     if (typeMapper != null) {
       ToNativeConverter writeConverter=typeMapper.getToNativeConverter(type);

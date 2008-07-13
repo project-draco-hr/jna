@@ -27,10 +27,16 @@
  else {
     throw new IllegalArgumentException("Type " + type + " has unknown "+ "native alignment");
   }
-  if (alignType == ALIGN_NONE)   return 1;
-  if (alignType == ALIGN_MSVC)   return Math.min(8,alignment);
-  if (alignType == ALIGN_GNUC) {
-    if (!isFirstElement || !(Platform.isMac() && isPPC))     return Math.min(MAX_GNUC_ALIGNMENT,alignment);
+  if (alignType == ALIGN_NONE) {
+    alignment=1;
+  }
+ else   if (alignType == ALIGN_MSVC) {
+    alignment=Math.min(8,alignment);
+  }
+ else   if (alignType == ALIGN_GNUC) {
+    if (!isFirstElement || !(Platform.isMac() && isPPC)) {
+      alignment=Math.min(MAX_GNUC_ALIGNMENT,alignment);
+    }
   }
   return alignment;
 }

@@ -16,6 +16,7 @@
     }
  else {
       value=null;
+      nativeStrings.remove(structField.name);
     }
   }
   if (!writeValue(offset,value,nativeType)) {
