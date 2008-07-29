@@ -34,6 +34,15 @@ synchronized (customPaths) {
         }
       }
     }
+ else     if (Platform.isWindows()) {
+      libraryPath=findLibraryPath("lib" + libraryName,searchPath);
+      try {
+        handle=open(libraryPath);
+      }
+ catch (      UnsatisfiedLinkError e2) {
+        e=e2;
+      }
+    }
     if (handle == 0) {
       throw new UnsatisfiedLinkError("Unable to load library '" + libraryName + "': "+ e.getMessage());
     }

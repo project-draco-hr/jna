@@ -22,7 +22,7 @@
     String path=((File)it.next()).getAbsolutePath();
     String ver=path.substring(path.lastIndexOf(".so.") + 4);
     double version=parseVersion(ver);
-    if (version >= bestVersion) {
+    if (version > bestVersion) {
       bestVersion=version;
       bestMatch=path;
     }
