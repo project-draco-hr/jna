@@ -1,4 +1,5 @@
 {
+  Toolkit.getDefaultToolkit().removeAWTEventListener(listener);
   Window w=SwingUtilities.getWindowAncestor(this);
   w.removeComponentListener(listener);
   w.removeWindowListener(listener);

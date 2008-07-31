@@ -1,0 +1,8 @@
+{
+  Component src=(Component)e.getSource();
+  MouseEvent me=SwingUtilities.convertMouseEvent(src,(MouseEvent)e,content);
+  Component c=SwingUtilities.getDeepestComponentAt(content,me.getX(),me.getY());
+  if (c != null) {
+    setCursor(c.getCursor());
+  }
+}
