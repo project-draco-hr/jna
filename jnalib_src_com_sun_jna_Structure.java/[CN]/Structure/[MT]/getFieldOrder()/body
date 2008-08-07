@@ -1,0 +1,8 @@
+{
+synchronized (this) {
+    if (fieldOrder == null) {
+      fieldOrder=new ArrayList();
+    }
+    return fieldOrder;
+  }
+}

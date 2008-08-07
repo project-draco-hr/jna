@@ -1,0 +1,3 @@
+{
+  getFieldOrder().addAll(Arrays.asList(fields));
+}

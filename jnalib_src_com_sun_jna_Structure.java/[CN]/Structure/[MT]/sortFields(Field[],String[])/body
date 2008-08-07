@@ -1,0 +1,12 @@
+{
+  for (int i=0; i < names.length; i++) {
+    for (int f=i; f < fields.length; f++) {
+      if (names[i].equals(fields[f].getName())) {
+        Field tmp=fields[f];
+        fields[f]=fields[i];
+        fields[i]=tmp;
+        break;
+      }
+    }
+  }
+}
