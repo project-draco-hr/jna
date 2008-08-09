@@ -1,5 +1,9 @@
 {
   List searchPath=new LinkedList(librarySearchPath);
+  String webstartPath=Native.getWebStartLibraryPath(libraryName);
+  if (webstartPath != null) {
+    searchPath.add(webstartPath);
+  }
   List customPaths=(List)searchPaths.get(libraryName);
   if (customPaths != null) {
 synchronized (customPaths) {
