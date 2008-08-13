@@ -6,6 +6,9 @@
  else     if (dstType == WString.class) {
       value=new WString(((Pointer)value).getString(0,true));
     }
+ else     if (dstType == String[].class || dstType == WString[].class) {
+      value=((Pointer)value).getStringArray(0,dstType == WString[].class);
+    }
  else     if (Callback.class.isAssignableFrom(dstType)) {
       value=getCallback(dstType,(Pointer)value);
     }

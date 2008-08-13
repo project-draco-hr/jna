@@ -1,0 +1,11 @@
+{
+  List array=new ArrayList();
+  int offset=0;
+  Pointer p=getPointer(base);
+  while (p != null) {
+    array.add(p);
+    offset+=Pointer.SIZE;
+    p=getPointer(base + offset);
+  }
+  return (Pointer[])array.toArray(new Pointer[array.size()]);
+}

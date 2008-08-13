@@ -1,7 +1,12 @@
 {
   boolean returnWide=original instanceof WString[];
   for (int si=0; si < original.length; si++) {
-    String s=getPointer(si * Pointer.SIZE).getString(0,wide);
-    original[si]=returnWide ? new WString(s) : (Object)s;
+    Pointer p=getPointer(si * Pointer.SIZE);
+    Object s=null;
+    if (p != null) {
+      s=p.getString(0,wide);
+      if (returnWide)       s=new WString((String)s);
+    }
+    original[si]=s;
   }
 }

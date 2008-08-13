@@ -6,7 +6,7 @@
  else   if (NativeMapped.class.isAssignableFrom(cls)) {
     return NativeMappedConverter.getInstance(cls).nativeType();
   }
- else   if (cls == String.class || cls == WString.class || Callback.class.isAssignableFrom(cls)) {
+ else   if (cls == String.class || cls == WString.class || cls == String[].class || cls == WString[].class || Callback.class.isAssignableFrom(cls)) {
     return Pointer.class;
   }
   return cls;

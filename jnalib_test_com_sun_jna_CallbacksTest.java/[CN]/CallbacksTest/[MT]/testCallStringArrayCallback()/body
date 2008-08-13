@@ -1,0 +1,18 @@
+{
+  final boolean[] called={false};
+  final String[][] cbargs={null};
+  TestLibrary.StringArrayCallback cb=new TestLibrary.StringArrayCallback(){
+    public String[] callback(    String[] arg){
+      called[0]=true;
+      cbargs[0]=arg;
+      return arg;
+    }
+  }
+;
+  final String[] VALUE={"value",null};
+  Pointer value=lib.callStringArrayCallback(cb,VALUE);
+  assertTrue("Callback not called",called[0]);
+  assertEquals("Wrong callback argument 1",VALUE[0],cbargs[0][0]);
+  String[] result=value.getStringArray(0);
+  assertEquals("Wrong String return",VALUE[0],result[0]);
+}
