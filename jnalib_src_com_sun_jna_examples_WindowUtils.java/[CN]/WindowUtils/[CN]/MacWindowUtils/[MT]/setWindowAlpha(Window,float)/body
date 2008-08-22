@@ -1,12 +1,8 @@
 {
   if (w instanceof RootPaneContainer) {
-    SwingUtilities.invokeLater(new Runnable(){
-      public void run(){
-        JRootPane p=((RootPaneContainer)w).getRootPane();
-        p.putClientProperty("Window.alpha",new Float(alpha));
-      }
-    }
-);
+    JRootPane p=((RootPaneContainer)w).getRootPane();
+    p.putClientProperty("Window.alpha",new Float(alpha));
+    fixWindowDragging(w,"setWindowAlpha");
   }
   whenDisplayable(w,new Runnable(){
     public void run(){

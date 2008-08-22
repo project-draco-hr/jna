@@ -1,0 +1,12 @@
+{
+  if (w instanceof RootPaneContainer) {
+    JRootPane p=((RootPaneContainer)w).getRootPane();
+    Boolean oldDraggable=(Boolean)p.getClientProperty(WDRAG);
+    if (oldDraggable == null) {
+      p.putClientProperty(WDRAG,Boolean.FALSE);
+      if (w.isDisplayable()) {
+        System.err.println(context + "(): To avoid content dragging, " + context+ "() must be called before the window is realized, or "+ WDRAG+ " must be set to Boolean.FALSE before the window is realized.  If you really want content dragging, set "+ WDRAG+ " on the window's root pane to Boolean.TRUE before calling "+ context+ "() to hide this message.");
+      }
+    }
+  }
+}

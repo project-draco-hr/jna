@@ -3,7 +3,7 @@
     Window w=(Window)c;
     OSXTransparentContent content=installTransparentContent(w);
     content.setMask(shape);
-    setBackgroundTransparent(w,shape != MASK_NONE);
+    setBackgroundTransparent(w,shape != MASK_NONE,"setWindowMask");
   }
  else {
   }

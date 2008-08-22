@@ -3,7 +3,6 @@
   if (transparent) {
     if (rp != null) {
       rp.putClientProperty("bg.old",w.getBackground());
-      rp.putClientProperty("draggable.old",rp.getClientProperty("apple.awt.draggableWindowBackground"));
     }
     w.setBackground(new Color(0,0,0,0));
   }
@@ -15,8 +14,5 @@
       w.setBackground(null);
     }
   }
-  if (rp != null) {
-    Boolean old=(Boolean)rp.getClientProperty("apple.awt.draggableWindowBackground");
-    rp.putClientProperty("apple.awt.draggableWindowBackground",transparent ? Boolean.FALSE : old);
-  }
+  fixWindowDragging(w,context);
 }
