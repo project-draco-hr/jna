@@ -1,0 +1,6 @@
+{
+  ByValue16 data=new ByValue16();
+  final short DATA=(short)MAGIC;
+  data.data=DATA;
+  assertEquals("Failed to pass 16-bit struct by value",DATA,lib.testStructureByValueArgument16(data));
+}

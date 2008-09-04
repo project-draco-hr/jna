@@ -1,7 +1,7 @@
 {
   byte[] buf=new byte[1024];
   final byte MAGIC=(byte)0xED;
-  assertEquals("Wrong return value",buf.length,+lib.fillInt8Buffer(buf,buf.length,MAGIC));
+  assertEquals("Wrong return value",buf.length,lib.fillInt8Buffer(buf,buf.length,MAGIC));
   for (int i=0; i < buf.length; i++) {
     assertEquals("Bad value at index " + i,MAGIC,buf[i]);
   }

@@ -1,13 +1,17 @@
 {
   File trash=getTrashDirectory();
-  if (trash.exists()) {
-    boolean success=true;
-    for (int i=0; i < files.length; i++) {
-      File src=files[i];
-      File target=new File(trash,src.getName());
-      if (!src.renameTo(target))       success=false;
-    }
-    return success;
+  if (!trash.exists()) {
+    throw new IOException("No trash location found (define fileutils.trash to be the path to the trash)");
   }
-  return false;
+  List failed=new ArrayList();
+  for (int i=0; i < files.length; i++) {
+    File src=files[i];
+    File target=new File(trash,src.getName());
+    if (!src.renameTo(target)) {
+      failed.add(src);
+    }
+  }
+  if (failed.size() > 0) {
+    throw new IOException("The following files could not be trashed: " + failed);
+  }
 }

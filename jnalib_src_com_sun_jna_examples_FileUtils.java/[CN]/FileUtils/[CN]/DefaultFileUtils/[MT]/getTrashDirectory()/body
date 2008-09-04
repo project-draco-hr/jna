@@ -9,6 +9,9 @@
         trash=new File(desktop,".Trash");
         if (!trash.exists()) {
           trash=new File(desktop,"Trash");
+          if (!trash.exists()) {
+            trash=new File(System.getProperty("fileutils.trash","Trash"));
+          }
         }
       }
     }

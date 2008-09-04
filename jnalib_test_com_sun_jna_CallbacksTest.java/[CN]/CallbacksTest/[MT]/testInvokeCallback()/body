@@ -1,8 +1,9 @@
 {
-  TestLibrary.Int32Callback cb=lib.returnCallback();
+  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class);
+  TestLibrary.Int32CallbackX cb=lib.returnCallback();
   assertNotNull("Callback should not be null",cb);
   assertEquals("Callback should be callable",1,cb.callback(1));
-  TestLibrary.Int32Callback cb2=new TestLibrary.Int32Callback(){
+  TestLibrary.Int32CallbackX cb2=new TestLibrary.Int32CallbackX(){
     public int callback(    int arg){
       return 0;
     }

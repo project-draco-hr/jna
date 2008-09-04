@@ -28,7 +28,7 @@
   }
   if (!klib.ReadDirectoryChangesW(handle,finfo.info,finfo.info.size(),recursive,notifyMask,finfo.infoLength,finfo.overlapped,null)) {
     int err=klib.GetLastError();
-    throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ": '"+ getSystemError(err)+ "' ("+ err+ ")");
+    throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ", handle "+ handle+ ": '"+ getSystemError(err)+ "' ("+ err+ ")");
   }
   if (watcher == null) {
     watcher=new Thread("W32 File Monitor-" + (watcherThreadID++)){

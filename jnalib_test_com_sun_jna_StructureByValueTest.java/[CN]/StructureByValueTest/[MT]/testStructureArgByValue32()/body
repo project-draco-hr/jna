@@ -1,0 +1,6 @@
+{
+  ByValue32 data=new ByValue32();
+  final int DATA=(int)MAGIC;
+  data.data=DATA;
+  assertEquals("Failed to pass 32-bit struct by value",DATA,lib.testStructureByValueArgument32(data));
+}

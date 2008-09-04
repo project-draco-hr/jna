@@ -1,7 +1,7 @@
 {
   UnicodeLibrary.TestStructure s=new UnicodeLibrary.TestStructure();
-  s.getPointer().setInt(8,1);
-  s.getPointer().setInt(12,0);
+  s.getPointer().setInt(Pointer.SIZE * 2,1);
+  s.getPointer().setInt(Pointer.SIZE * 2 + 4,0);
   s.read();
   assertTrue("Wrong value read for TRUE",s.bool);
   assertFalse("Wrong value read for FALSE",s.bool2);

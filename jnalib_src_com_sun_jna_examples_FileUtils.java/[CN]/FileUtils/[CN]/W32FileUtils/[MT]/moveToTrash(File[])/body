@@ -8,5 +8,11 @@
   }
   fileop.pFrom=fileop.encodePaths(paths);
   fileop.fFlags=Shell32.FOF_ALLOWUNDO | Shell32.FOF_NOCONFIRMATION | Shell32.FOF_SILENT;
-  return shell.SHFileOperation(fileop) == 0;
+  int ret=shell.SHFileOperation(fileop);
+  if (ret != 0) {
+    throw new IOException("Move to trash failed: " + ret);
+  }
+  if (fileop.fAnyOperationsAborted) {
+    throw new IOException("Move to trash aborted");
+  }
 }

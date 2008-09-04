@@ -1,4 +1,5 @@
 {
   Structure s=new Shell32.SHFILEOPSTRUCT();
-  assertEquals("Wrong structure size",30,s.size());
+  final int SIZE=Pointer.SIZE * 5 + 10;
+  assertEquals("Wrong structure size",SIZE,s.size());
 }
