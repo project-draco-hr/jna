@@ -1,0 +1,16 @@
+{
+  if (cls == null) {
+    return null;
+  }
+  if (Library.class.isAssignableFrom(cls)) {
+    return cls;
+  }
+  if (Callback.class.isAssignableFrom(cls)) {
+    cls=findCallbackClass(cls);
+  }
+  Class fromDeclaring=findEnclosingLibraryClass(cls.getDeclaringClass());
+  if (fromDeclaring != null) {
+    return fromDeclaring;
+  }
+  return findEnclosingLibraryClass(cls.getSuperclass());
+}

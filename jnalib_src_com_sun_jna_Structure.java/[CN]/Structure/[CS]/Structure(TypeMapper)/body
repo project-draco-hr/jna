@@ -1,0 +1,3 @@
+{
+  this(CALCULATE_SIZE,ALIGN_DEFAULT,mapper);
+}

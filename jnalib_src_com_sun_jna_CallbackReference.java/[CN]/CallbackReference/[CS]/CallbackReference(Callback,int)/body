@@ -1,13 +1,11 @@
 {
   super(callback);
-  Class type=getCallbackClass(callback.getClass());
-  TypeMapper mapper=Native.getTypeMapper(type);
-  Method m=getCallbackMethod(callback);
+  TypeMapper mapper=Native.getTypeMapper(Native.findCallbackClass(callback.getClass()));
   if (callback instanceof CallbackProxy) {
     proxy=(CallbackProxy)callback;
   }
  else {
-    proxy=new DefaultCallbackProxy(m,mapper);
+    proxy=new DefaultCallbackProxy(getCallbackMethod(callback),mapper);
   }
   Class[] nativeParamTypes=proxy.getParameterTypes();
   Class returnType=proxy.getReturnType();
@@ -35,6 +33,5 @@
     String msg="Callback return type " + returnType + " requires custom type conversion";
     throw new IllegalArgumentException(msg);
   }
-  Method proxyMethod=getCallbackMethod(proxy);
-  cbstruct=createNativeCallback(proxy,proxyMethod,nativeParamTypes,returnType,callingConvention);
+  cbstruct=createNativeCallback(proxy,PROXY_CALLBACK_METHOD,nativeParamTypes,returnType,callingConvention);
 }

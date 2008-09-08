@@ -6,8 +6,8 @@ class BufferStructure extends Structure {
     }
   }
   try {
-    new BufferStructure(new byte[1024]);
-    fail("Buffer fields should fail immediately");
+    new BufferStructure(new byte[1024]).size();
+    fail("Buffer fields should not be allowed");
   }
  catch (  IllegalArgumentException e) {
   }

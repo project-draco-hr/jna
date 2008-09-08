@@ -1,0 +1,3 @@
+{
+  assertEquals("Wrong type mapper for callback class",TestCallback.TYPE_MAPPER,Native.getTypeMapper(TestCallback.class));
+}

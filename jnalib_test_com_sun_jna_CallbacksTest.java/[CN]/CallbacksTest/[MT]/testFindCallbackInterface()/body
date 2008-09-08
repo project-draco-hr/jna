@@ -1,0 +1,9 @@
+{
+  TestLibrary.Int32Callback cb=new TestLibrary.Int32Callback(){
+    public int callback(    int arg,    int arg2){
+      return arg + arg2;
+    }
+  }
+;
+  assertEquals("Wrong callback interface",TestLibrary.Int32Callback.class,Native.findCallbackClass(cb.getClass()));
+}

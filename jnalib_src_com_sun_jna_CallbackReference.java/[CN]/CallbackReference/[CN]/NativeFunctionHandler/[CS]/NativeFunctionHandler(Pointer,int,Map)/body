@@ -4,7 +4,7 @@
       String str=super.getName();
       if (options.containsKey(Function.OPTION_INVOKING_METHOD)) {
         Method m=(Method)options.get(Function.OPTION_INVOKING_METHOD);
-        Class cls=getCallbackClass(m.getDeclaringClass());
+        Class cls=Native.findCallbackClass(m.getDeclaringClass());
         str+=" (" + cls.getName() + ")";
       }
       return str;

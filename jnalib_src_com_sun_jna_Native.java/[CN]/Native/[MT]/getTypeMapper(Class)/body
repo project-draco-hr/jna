@@ -1,8 +1,9 @@
 {
 synchronized (libraries) {
-    Class interfaceClass=findLibraryClass(cls);
-    if (interfaceClass == null)     return null;
-    if (!loadInstance(interfaceClass) || !typeMappers.containsKey(interfaceClass)) {
+    Class interfaceClass=findEnclosingLibraryClass(cls);
+    if (interfaceClass != null)     loadLibraryInstance(interfaceClass);
+ else     interfaceClass=cls;
+    if (!typeMappers.containsKey(interfaceClass)) {
       try {
         Field field=interfaceClass.getField("TYPE_MAPPER");
         typeMappers.put(interfaceClass,field.get(null));

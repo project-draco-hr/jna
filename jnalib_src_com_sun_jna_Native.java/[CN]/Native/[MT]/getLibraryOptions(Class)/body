@@ -1,8 +1,9 @@
 {
 synchronized (libraries) {
-    Class interfaceClass=findLibraryClass(type);
-    if (interfaceClass == null)     return null;
-    if (!loadInstance(interfaceClass) || !options.containsKey(interfaceClass)) {
+    Class interfaceClass=findEnclosingLibraryClass(type);
+    if (interfaceClass != null)     loadLibraryInstance(interfaceClass);
+ else     interfaceClass=type;
+    if (!options.containsKey(interfaceClass)) {
       try {
         Field field=interfaceClass.getField("OPTIONS");
         options.put(interfaceClass,field.get(null));

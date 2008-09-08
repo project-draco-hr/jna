@@ -3,25 +3,25 @@
     memory.setInt(offset,Boolean.TRUE.equals(value) ? -1 : 0);
   }
  else   if (nativeType == byte.class || nativeType == Byte.class) {
-    memory.setByte(offset,((Byte)value).byteValue());
+    memory.setByte(offset,value == null ? 0 : ((Byte)value).byteValue());
   }
  else   if (nativeType == short.class || nativeType == Short.class) {
-    memory.setShort(offset,((Short)value).shortValue());
+    memory.setShort(offset,value == null ? 0 : ((Short)value).shortValue());
   }
  else   if (nativeType == char.class || nativeType == Character.class) {
-    memory.setChar(offset,((Character)value).charValue());
+    memory.setChar(offset,value == null ? 0 : ((Character)value).charValue());
   }
  else   if (nativeType == int.class || nativeType == Integer.class) {
-    memory.setInt(offset,((Integer)value).intValue());
+    memory.setInt(offset,value == null ? 0 : ((Integer)value).intValue());
   }
  else   if (nativeType == long.class || nativeType == Long.class) {
-    memory.setLong(offset,((Long)value).longValue());
+    memory.setLong(offset,value == null ? 0 : ((Long)value).longValue());
   }
  else   if (nativeType == float.class || nativeType == Float.class) {
-    memory.setFloat(offset,((Float)value).floatValue());
+    memory.setFloat(offset,value == null ? 0f : ((Float)value).floatValue());
   }
  else   if (nativeType == double.class || nativeType == Double.class) {
-    memory.setDouble(offset,((Double)value).doubleValue());
+    memory.setDouble(offset,value == null ? 0.0 : ((Double)value).doubleValue());
   }
  else   if (nativeType == Pointer.class) {
     memory.setPointer(offset,(Pointer)value);

@@ -1,0 +1,10 @@
+{
+class TestStructure extends Structure {
+    public Boolean zfield;
+    public Integer field;
+  }
+  TestStructure s=new TestStructure();
+  s.write();
+  s.read();
+  assertNotNull("Field should not be null after read",s.field);
+}

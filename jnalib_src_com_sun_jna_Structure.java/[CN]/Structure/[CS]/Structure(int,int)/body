@@ -1,5 +1,3 @@
 {
-  setAlignType(alignment);
-  setTypeMapper(null);
-  allocateMemory(size);
+  this(size,alignment,null);
 }

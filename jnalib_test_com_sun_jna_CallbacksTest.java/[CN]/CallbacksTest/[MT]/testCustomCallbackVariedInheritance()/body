@@ -1,0 +1,5 @@
+{
+  final boolean[] called={false};
+  TestLibrary.VoidCallbackCustom cb=new TestLibrary.VoidCallbackCustomDerived();
+  lib.callVoidCallback(cb);
+}

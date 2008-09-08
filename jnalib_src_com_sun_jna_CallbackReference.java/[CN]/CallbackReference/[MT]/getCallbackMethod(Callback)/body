@@ -1,15 +1,25 @@
 {
-  Method[] mlist=callback.getClass().getMethods();
-  for (int mi=0; mi < mlist.length; mi++) {
-    Method m=mlist[mi];
-    if (Callback.METHOD_NAME.equals(m.getName())) {
-      if (m.getParameterTypes().length > Function.MAX_NARGS) {
-        String msg="Method signature exceeds the maximum " + "parameter count: " + m;
-        throw new IllegalArgumentException(msg);
-      }
-      return m;
+  Class cls=Native.findCallbackClass(callback.getClass());
+  Method[] pubMethods=cls.getDeclaredMethods();
+  Method[] classMethods=cls.getMethods();
+  Set pmethods=new HashSet(Arrays.asList(pubMethods));
+  pmethods.retainAll(Arrays.asList(classMethods));
+  for (Iterator i=pmethods.iterator(); i.hasNext(); ) {
+    Method m=(Method)i.next();
+    if (Callback.FORBIDDEN_NAMES.contains(m.getName())) {
+      i.remove();
     }
   }
-  String msg="Callback must implement method named '" + Callback.METHOD_NAME + "'";
+  Method[] methods=(Method[])pmethods.toArray(new Method[pmethods.size()]);
+  if (methods.length == 1) {
+    return checkMethod(methods[0]);
+  }
+  for (int i=0; i < methods.length; i++) {
+    Method m=methods[i];
+    if (Callback.METHOD_NAME.equals(m.getName())) {
+      return checkMethod(m);
+    }
+  }
+  String msg="Callback must implement a single public method, " + "or one public method named '" + Callback.METHOD_NAME + "'";
   throw new IllegalArgumentException(msg);
 }

@@ -1,14 +1,15 @@
 {
 synchronized (libraries) {
-    Class interfaceClass=findLibraryClass(cls);
-    if (interfaceClass == null)     return Structure.ALIGN_DEFAULT;
-    if (!loadInstance(interfaceClass) || !alignments.containsKey(interfaceClass)) {
+    Class interfaceClass=findEnclosingLibraryClass(cls);
+    if (interfaceClass != null)     loadLibraryInstance(interfaceClass);
+ else     interfaceClass=cls;
+    if (!alignments.containsKey(interfaceClass)) {
       try {
         Field field=interfaceClass.getField("STRUCTURE_ALIGNMENT");
         alignments.put(interfaceClass,field.get(null));
       }
  catch (      NoSuchFieldException e) {
-        Map options=getLibraryOptions(cls);
+        Map options=getLibraryOptions(interfaceClass);
         if (options != null && options.containsKey(Library.OPTION_STRUCTURE_ALIGNMENT)) {
           alignments.put(interfaceClass,options.get(Library.OPTION_STRUCTURE_ALIGNMENT));
         }

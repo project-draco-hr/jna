@@ -26,8 +26,7 @@
     }
   }
 ;
-  assertEquals("Wrong result",0,lib.callInt32Callback(cb,0,0),0);
-  assertEquals("Wrong result",1,lib.callInt32Callback(cb,0,1),0);
-  assertEquals("Wrong result",2,lib.callInt32Callback(cb,1,1),0);
-  assertEquals("Wrong result",-2,lib.callInt32Callback(cb,-1,-1),0);
+  assertEquals("Wrong type mapper for callback class",mapper,Native.getTypeMapper(CallbackTestLibrary.Int32Callback.class));
+  assertEquals("Wrong type mapper for callback object",mapper,Native.getTypeMapper(cb.getClass()));
+  assertEquals("Wrong type mapper used in callback invocation",-2,lib.callInt32Callback(cb,-1,-1),0);
 }

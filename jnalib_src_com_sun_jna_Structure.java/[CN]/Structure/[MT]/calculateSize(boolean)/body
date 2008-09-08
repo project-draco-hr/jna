@@ -94,8 +94,16 @@
         throw new IllegalArgumentException(msg);
       }
     }
-    structField.size=getNativeSize(nativeType,value);
-    fieldAlignment=getNativeAlignment(nativeType,value,i == 0);
+    try {
+      structField.size=getNativeSize(nativeType,value);
+      fieldAlignment=getNativeAlignment(nativeType,value,i == 0);
+    }
+ catch (    IllegalArgumentException e) {
+      if (!force && typeMapper == null) {
+        return CALCULATE_SIZE;
+      }
+      throw e;
+    }
     structAlignment=Math.max(structAlignment,fieldAlignment);
     if ((calculatedSize % fieldAlignment) != 0) {
       calculatedSize+=fieldAlignment - (calculatedSize % fieldAlignment);

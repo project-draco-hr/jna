@@ -1,0 +1,24 @@
+{
+class TestField {
+  }
+class TestStructure extends Structure {
+    public TestField field;
+    public TestStructure(){
+      DefaultTypeMapper m=new DefaultTypeMapper();
+      m.addTypeConverter(TestField.class,new TypeConverter(){
+        public Object fromNative(        Object value,        FromNativeContext context){
+          return new TestField();
+        }
+        public Class nativeType(){
+          return String.class;
+        }
+        public Object toNative(        Object value,        ToNativeContext ctx){
+          return value == null ? null : value.toString();
+        }
+      }
+);
+      setTypeMapper(new DefaultTypeMapper());
+    }
+  }
+  new TestStructure();
+}

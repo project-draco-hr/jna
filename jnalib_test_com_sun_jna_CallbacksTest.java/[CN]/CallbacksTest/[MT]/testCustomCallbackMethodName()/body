@@ -1,0 +1,14 @@
+{
+  final boolean[] called={false};
+  TestLibrary.VoidCallbackCustom cb=new TestLibrary.VoidCallbackCustom(){
+    public void customMethodName(){
+      called[0]=true;
+    }
+    public String toString(){
+      return "Some debug output";
+    }
+  }
+;
+  lib.callVoidCallback(cb);
+  assertTrue("Callback with custom method name not called",called[0]);
+}

@@ -3,7 +3,7 @@ class BadFieldStructure extends Structure {
     public Function cb;
   }
   try {
-    BadFieldStructure s=new BadFieldStructure();
+    new BadFieldStructure().size();
     fail("Function fields should not be allowed");
   }
  catch (  IllegalArgumentException e) {

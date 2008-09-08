@@ -1,15 +1,12 @@
 {
-  if (libraries.containsKey(cls)) {
-    return true;
-  }
-  if (cls != null) {
+  if (cls != null && !libraries.containsKey(cls)) {
     try {
       Field[] fields=cls.getFields();
       for (int i=0; i < fields.length; i++) {
         Field field=fields[i];
         if (field.getType() == cls && Modifier.isStatic(field.getModifiers())) {
           libraries.put(cls,new WeakReference(field.get(null)));
-          return true;
+          break;
         }
       }
     }
@@ -17,5 +14,4 @@
       throw new IllegalArgumentException("Could not access instance of " + cls + " ("+ e+ ")");
     }
   }
-  return false;
 }
