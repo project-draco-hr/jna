@@ -1,0 +1,23 @@
+{
+  final int VALUE=0x12345678;
+  StructUnion u=new StructUnion();
+  IntStructure intStruct=new IntStructure();
+  intStruct.value=VALUE;
+  u.setTypedValue(intStruct);
+  u.write();
+  assertEquals("Wrong value written",VALUE,u.getPointer().getInt(0));
+  u=new StructUnion();
+  SubIntStructure subIntStructure=new SubIntStructure();
+  subIntStructure.value=VALUE;
+  u.setTypedValue(subIntStructure);
+  u.write();
+  assertEquals("Wrong value written",VALUE,u.getPointer().getInt(0));
+  u=new StructUnion();
+  Func1 func1=new Func1(){
+    public void callback(){
+      System.out.println("hi");
+    }
+  }
+;
+  u.setTypedValue(func1);
+}

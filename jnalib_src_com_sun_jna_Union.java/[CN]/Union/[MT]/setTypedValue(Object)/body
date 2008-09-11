@@ -1,0 +1,13 @@
+{
+  ensureAllocated();
+  Class type=object.getClass();
+  LinkedList interfaceQueue=new LinkedList();
+  while (type != Object.class) {
+    if (checkType(object,type,interfaceQueue))     return this;
+    type=type.getSuperclass();
+  }
+  while ((type=(Class)interfaceQueue.pollFirst()) != null) {
+    if (checkType(object,type,interfaceQueue))     return this;
+  }
+  throw new IllegalArgumentException("No field of type " + object.getClass() + " in "+ this);
+}
