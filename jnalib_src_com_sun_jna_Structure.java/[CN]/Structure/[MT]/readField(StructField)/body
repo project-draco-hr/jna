@@ -5,7 +5,7 @@
   if (readConverter != null) {
     nativeType=readConverter.nativeType();
   }
-  Object currentValue=(Structure.class.isAssignableFrom(nativeType) || Callback.class.isAssignableFrom(nativeType) || nativeType.isArray()) ? getField(structField) : null;
+  Object currentValue=(Structure.class.isAssignableFrom(nativeType) || Callback.class.isAssignableFrom(nativeType) || Buffer.class.isAssignableFrom(nativeType)|| Pointer.class.isAssignableFrom(nativeType)|| nativeType.isArray()) ? getField(structField) : null;
   Object result=readValue(offset,nativeType,currentValue);
   if (readConverter != null) {
     result=readConverter.fromNative(result,structField.context);

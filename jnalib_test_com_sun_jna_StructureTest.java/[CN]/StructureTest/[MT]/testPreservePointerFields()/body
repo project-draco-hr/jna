@@ -1,0 +1,10 @@
+{
+class TestStructure extends Structure {
+    public Pointer p=new Memory(256);
+  }
+  TestStructure s=new TestStructure();
+  final Pointer p=s.p;
+  s.write();
+  s.read();
+  assertSame("Should preserve Pointer references if peer unchanged",p,s.p);
+}
