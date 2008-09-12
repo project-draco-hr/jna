@@ -7,7 +7,9 @@
       s=newInstance(type);
       s.useMemory(address);
     }
-    s.read();
+    if (s.getAutoRead()) {
+      s.read();
+    }
   }
   return s;
 }

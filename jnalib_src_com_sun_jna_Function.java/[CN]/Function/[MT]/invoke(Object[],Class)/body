@@ -41,7 +41,9 @@
  else   if (Structure.class.isAssignableFrom(returnType)) {
     if (Structure.ByValue.class.isAssignableFrom(returnType)) {
       Structure s=invokeStructure(callingConvention,args,Structure.newInstance(returnType));
-      s.read();
+      if (s.getAutoRead()) {
+        s.read();
+      }
       result=s;
     }
  else {
@@ -49,7 +51,9 @@
       if (result != null) {
         Structure s=Structure.newInstance(returnType);
         s.useMemory((Pointer)result);
-        s.read();
+        if (s.getAutoRead()) {
+          s.read();
+        }
         result=s;
       }
     }

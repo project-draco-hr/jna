@@ -1,0 +1,4 @@
+{
+  setAutoRead(auto);
+  setAutoWrite(auto);
+}
