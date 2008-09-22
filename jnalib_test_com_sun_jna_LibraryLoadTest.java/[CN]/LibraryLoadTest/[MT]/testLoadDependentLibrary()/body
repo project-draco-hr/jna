@@ -1,0 +1,9 @@
+{
+  try {
+    TestLib2 lib=(TestLib2)Native.loadLibrary("testlib2",TestLib2.class);
+    lib.dependentReturnFalse();
+  }
+ catch (  UnsatisfiedLinkError e) {
+    fail("Failed to load dependent libraries: " + e);
+  }
+}
