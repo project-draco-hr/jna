@@ -6,6 +6,7 @@ synchronized (libraries) {
     if (!options.containsKey(interfaceClass)) {
       try {
         Field field=interfaceClass.getField("OPTIONS");
+        field.setAccessible(true);
         options.put(interfaceClass,field.get(null));
       }
  catch (      NoSuchFieldException e) {

@@ -4,6 +4,8 @@
     lib.dependentReturnFalse();
   }
  catch (  UnsatisfiedLinkError e) {
-    fail("Failed to load dependent libraries: " + e);
+    if (Platform.isWindows()) {
+      fail("Failed to load dependent libraries: " + e);
+    }
   }
 }

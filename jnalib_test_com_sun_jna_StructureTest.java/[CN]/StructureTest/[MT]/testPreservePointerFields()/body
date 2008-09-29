@@ -1,6 +1,12 @@
 {
 class TestStructure extends Structure {
     public Pointer p=new Memory(256);
+    public TestPointer p2=new TestPointer(){
+{
+        setPointer(new Memory(256));
+      }
+    }
+;
   }
   TestStructure s=new TestStructure();
   final Pointer p=s.p;

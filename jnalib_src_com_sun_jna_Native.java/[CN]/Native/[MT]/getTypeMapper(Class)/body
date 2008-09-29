@@ -6,6 +6,7 @@ synchronized (libraries) {
     if (!typeMappers.containsKey(interfaceClass)) {
       try {
         Field field=interfaceClass.getField("TYPE_MAPPER");
+        field.setAccessible(true);
         typeMappers.put(interfaceClass,field.get(null));
       }
  catch (      NoSuchFieldException e) {
