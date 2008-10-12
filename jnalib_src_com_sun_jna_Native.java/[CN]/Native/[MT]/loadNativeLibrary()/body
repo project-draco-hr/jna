@@ -1,54 +1,39 @@
 {
-  String libname=System.mapLibraryName("jnidispatch");
-  String resourceName=getNativeLibraryResourcePath() + "/" + libname;
-  URL url=Native.class.getResource(resourceName);
-  if (url == null && Platform.isMac() && resourceName.endsWith(".dylib")) {
-    resourceName=resourceName.substring(0,resourceName.lastIndexOf(".dylib")) + ".jnilib";
-    url=Native.class.getResource(resourceName);
-  }
-  if (url == null) {
-    throw new UnsatisfiedLinkError("jnidispatch (" + resourceName + ") not found in resource path");
-  }
-  File lib=null;
-  if (url.getProtocol().toLowerCase().equals("file")) {
-    lib=new File(URLDecoder.decode(url.getPath()));
-  }
- else {
-    InputStream is=Native.class.getResourceAsStream(resourceName);
-    if (is == null) {
-      throw new Error("Can't obtain jnidispatch InputStream");
-    }
-    FileOutputStream fos=null;
-    try {
-      lib=File.createTempFile("jna",null);
-      lib.deleteOnExit();
-      if (Platform.deleteNativeLibraryAfterVMExit()) {
-        Runtime.getRuntime().addShutdownHook(new DeleteNativeLibrary(lib));
-      }
-      fos=new FileOutputStream(lib);
-      int count;
-      byte[] buf=new byte[1024];
-      while ((count=is.read(buf,0,buf.length)) > 0) {
-        fos.write(buf,0,count);
-      }
-    }
- catch (    IOException e) {
-      throw new Error("Failed to create temporary file for jnidispatch library: " + e);
-    }
- finally {
+  String libName="jnidispatch";
+  String bootPath=System.getProperty("jna.boot.library.path");
+  if (bootPath != null) {
+    String[] dirs=bootPath.split(File.pathSeparator);
+    for (int i=0; i < dirs.length; ++i) {
+      String path=new File(new File(dirs[i]),System.mapLibraryName(libName)).getAbsolutePath();
       try {
-        is.close();
+        System.load(path);
+        return;
       }
- catch (      IOException e) {
+ catch (      UnsatisfiedLinkError ex) {
       }
-      if (fos != null) {
-        try {
-          fos.close();
+      if (Platform.isMac()) {
+        String orig, ext;
+        if (path.endsWith("dylib")) {
+          orig="dylib";
+          ext="jnilib";
         }
- catch (        IOException e) {
+ else {
+          orig="jnilib";
+          ext="dylib";
+        }
+        try {
+          System.load(path.substring(0,path.lastIndexOf(orig)) + ext);
+          return;
+        }
+ catch (        UnsatisfiedLinkError ex) {
         }
       }
     }
   }
-  System.load(lib.getAbsolutePath());
+  try {
+    System.loadLibrary(libName);
+  }
+ catch (  UnsatisfiedLinkError e) {
+    loadNativeLibraryFromJar();
+  }
 }
