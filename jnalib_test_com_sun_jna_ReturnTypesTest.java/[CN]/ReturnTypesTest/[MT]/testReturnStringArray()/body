@@ -1,0 +1,7 @@
+{
+  String value=getName();
+  String[] input={value,null};
+  String[] result=lib.returnPointerArgument(input);
+  assertEquals("Wrong array length",input.length - 1,result.length);
+  assertEquals("Wrong array element value",value,result[0]);
+}

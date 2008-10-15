@@ -1,0 +1,7 @@
+{
+  Pointer value=new Memory(10);
+  Pointer[] input={value,null};
+  Pointer[] result=lib.returnPointerArgument(input);
+  assertEquals("Wrong array length",input.length - 1,result.length);
+  assertEquals("Wrong array element value",value,result[0]);
+}
