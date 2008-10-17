@@ -1,0 +1,6 @@
+{
+  char[] chars=s.toCharArray();
+  char[] buf=new char[chars.length + 1];
+  System.arraycopy(chars,0,buf,0,chars.length);
+  return buf;
+}
