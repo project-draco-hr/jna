@@ -1,5 +1,5 @@
 {
-  List searchPath=new LinkedList(librarySearchPath);
+  List searchPath=new LinkedList();
   String webstartPath=Native.getWebStartLibraryPath(libraryName);
   if (webstartPath != null) {
     searchPath.add(webstartPath);
@@ -10,10 +10,20 @@ synchronized (customPaths) {
       searchPath.addAll(0,customPaths);
     }
   }
+  searchPath.addAll(userSearchPath);
   String libraryPath=findLibraryPath(libraryName,searchPath);
   long handle=0;
   try {
     handle=open(libraryPath);
+  }
+ catch (  UnsatisfiedLinkError e) {
+    searchPath.addAll(librarySearchPath);
+  }
+  try {
+    if (handle == 0) {
+      libraryPath=findLibraryPath(libraryName,searchPath);
+      handle=open(libraryPath);
+    }
   }
  catch (  UnsatisfiedLinkError e) {
     if (Platform.isLinux()) {
