@@ -1,0 +1,8 @@
+{
+  try {
+    return getIntProperty(X11.XA_CARDINAL,"_NET_WM_DESKTOP");
+  }
+ catch (  X11Exception e) {
+    return getIntProperty(X11.XA_CARDINAL,"_WIN_WORKSPACE");
+  }
+}

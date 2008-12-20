@@ -1,0 +1,6 @@
+{
+  X.Window wm=display.getWindowManagerInfo();
+  System.out.println("wm.getTitle() = " + wm.getTitle());
+  System.out.println("wm.getWindowClass() = " + wm.getWindowClass());
+  System.out.println("wm.getPID() = " + wm.getPID());
+}

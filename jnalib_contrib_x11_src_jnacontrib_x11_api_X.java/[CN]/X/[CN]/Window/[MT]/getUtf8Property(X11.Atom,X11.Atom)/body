@@ -1,0 +1,8 @@
+{
+  try {
+    return new String(getNullReplacedStringProperty(xa_prop_type,xa_prop_name),"UTF8");
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new X11Exception(e);
+  }
+}

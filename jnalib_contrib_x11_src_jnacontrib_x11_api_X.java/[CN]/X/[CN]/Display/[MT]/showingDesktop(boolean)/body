@@ -1,0 +1,3 @@
+{
+  getRootWindow().clientMsg("_NET_SHOWING_DESKTOP",state ? 1 : 0,0,0,0,0);
+}

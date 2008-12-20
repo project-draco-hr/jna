@@ -1,0 +1,4 @@
+{
+  X11.XModifierKeymapRef xModifierKeymapRef=modifierKeymap.toXModifierKeyamp();
+  x11.XSetModifierMapping(x11Display,xModifierKeymapRef);
+}

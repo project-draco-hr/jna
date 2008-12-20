@@ -1,0 +1,15 @@
+{
+  int count=xModifierKeymapRef.max_keypermod;
+  byte[] keys=xModifierKeymapRef.modifiermap.getByteArray(0,8 * count);
+  ArrayList[] allModifiers=getAllModifiers();
+  for (int modNr=0; modNr < 8; modNr++) {
+    ArrayList modifier=allModifiers[modNr];
+    modifier.clear();
+    for (int keyNr=0; keyNr < count; keyNr++) {
+      byte key=keys[modNr * count + keyNr];
+      if (key != 0) {
+        modifier.add(new Byte(key));
+      }
+    }
+  }
+}

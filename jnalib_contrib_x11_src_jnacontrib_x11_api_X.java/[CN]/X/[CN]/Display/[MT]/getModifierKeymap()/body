@@ -1,0 +1,6 @@
+{
+  X11.XModifierKeymapRef xModifierKeymapRef=x11.XGetModifierMapping(x11Display);
+  ModifierKeymap modifierKeymap=new ModifierKeymap(xModifierKeymapRef);
+  x11.XFreeModifiermap(xModifierKeymapRef);
+  return modifierKeymap;
+}

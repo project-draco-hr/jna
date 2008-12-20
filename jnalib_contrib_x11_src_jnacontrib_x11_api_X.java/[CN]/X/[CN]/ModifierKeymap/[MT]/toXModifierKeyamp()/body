@@ -1,0 +1,19 @@
+{
+  ArrayList[] allModifiers=getAllModifiers();
+  int count=0;
+  for (int i=0; i < allModifiers.length; i++) {
+    count=Math.max(count,allModifiers[i].size());
+  }
+  byte[] keys=new byte[8 * count];
+  for (int modNr=0; modNr < 8; modNr++) {
+    ArrayList modifier=allModifiers[modNr];
+    for (int keyNr=0; keyNr < modifier.size(); keyNr++) {
+      keys[modNr * count + keyNr]=((Byte)modifier.get(keyNr)).byteValue();
+    }
+  }
+  X11.XModifierKeymapRef xModifierKeymapRef=new X11.XModifierKeymapRef();
+  xModifierKeymapRef.max_keypermod=count;
+  xModifierKeymapRef.modifiermap=new Memory(keys.length);
+  xModifierKeymapRef.modifiermap.write(0,keys,0,keys.length);
+  return xModifierKeymapRef;
+}

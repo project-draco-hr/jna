@@ -1,0 +1,3 @@
+{
+  return getUtf8Property(X11.XA_STRING,X11.XA_WM_CLASS);
+}

@@ -1,0 +1,25 @@
+{
+  X11.XClientMessageEvent event;
+  NativeLong mask=new NativeLong(X11.SubstructureRedirectMask | X11.SubstructureNotifyMask);
+  event=new X11.XClientMessageEvent();
+  event.type=X11.ClientMessage;
+  event.serial=new NativeLong(0);
+  event.send_event=1;
+  event.message_type=display.getAtom(msg);
+  event.window=x11Window;
+  event.format=32;
+  event.data.setType(NativeLong[].class);
+  event.data.l[0]=data0;
+  event.data.l[1]=data1;
+  event.data.l[2]=data2;
+  event.data.l[3]=data3;
+  event.data.l[4]=data4;
+  X11.XEvent e=new X11.XEvent();
+  e.setTypedValue(event);
+  if (x11.XSendEvent(display.x11Display,display.getRootWindow().x11Window,0,mask,e) != 0) {
+    return X11.Success;
+  }
+ else {
+    throw new X11Exception("Cannot send " + msg + " event.");
+  }
+}

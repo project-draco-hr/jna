@@ -1,0 +1,5 @@
+{
+  int windowId=getIntProperty(xa_prop_type,xa_prop_name);
+  X11.Window x11Window=new X11.Window(windowId);
+  return new Window(display,x11Window);
+}

@@ -1,0 +1,6 @@
+{
+  this.x11Display=x11Display;
+  if (x11Display == null) {
+    throw new Error("X Display is null");
+  }
+}

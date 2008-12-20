@@ -1,0 +1,14 @@
+{
+  Window root=getRootWindow();
+  try {
+    return root.getIntProperty(X11.XA_CARDINAL,"_NET_NUMBER_OF_DESKTOPS");
+  }
+ catch (  X11Exception e) {
+    try {
+      return root.getIntProperty(X11.XA_CARDINAL,"_WIN_WORKSPACE_COUNT");
+    }
+ catch (    X11Exception e1) {
+      throw new X11Exception("Cannot get number of desktops properties (_NET_NUMBER_OF_DESKTOPS or _WIN_WORKSPACE_COUNT)");
+    }
+  }
+}

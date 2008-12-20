@@ -1,0 +1,6 @@
+{
+  x11Display=x11.XOpenDisplay(null);
+  if (x11Display == null) {
+    throw new Error("Can't open X Display");
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return new String(getProperty(xa_prop_type,xa_prop_name)).split("\0");
+}

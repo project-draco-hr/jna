@@ -1,0 +1,8 @@
+{
+  try {
+    return new String(getProperty(xa_prop_type,xa_prop_name),"UTF8").split("\0");
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new X11Exception(e);
+  }
+}

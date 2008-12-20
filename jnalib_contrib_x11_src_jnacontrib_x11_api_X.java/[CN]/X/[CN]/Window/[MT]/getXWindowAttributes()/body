@@ -1,0 +1,5 @@
+{
+  X11.XWindowAttributes xwa=new X11.XWindowAttributes();
+  x11.XGetWindowAttributes(display.x11Display,x11Window,xwa);
+  return xwa;
+}

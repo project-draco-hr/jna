@@ -1,0 +1,20 @@
+{
+  Window root=getRootWindow();
+  String[] desktopNames;
+  try {
+    desktopNames=root.getUtf8ListProperty(getAtom("UTF8_STRING"),"_NET_DESKTOP_NAMES");
+  }
+ catch (  X11Exception e) {
+    try {
+      desktopNames=root.getStringListProperty(X11.XA_STRING,"_WIN_WORKSPACE_NAMES");
+    }
+ catch (    X11Exception e1) {
+      throw new X11Exception("Cannot get desktop names properties (_NET_DESKTOP_NAMES or _WIN_WORKSPACE_NAMES)");
+    }
+  }
+  Desktop[] desktops=new Desktop[getDesktopCount()];
+  for (int i=0; i < desktops.length; i++) {
+    desktops[i]=new Desktop(this,i,desktopNames[i]);
+  }
+  return desktops;
+}

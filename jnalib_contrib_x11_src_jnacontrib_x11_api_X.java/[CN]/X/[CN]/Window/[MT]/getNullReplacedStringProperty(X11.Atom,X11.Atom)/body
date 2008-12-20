@@ -1,0 +1,10 @@
+{
+  byte[] bytes=getProperty(xa_prop_type,xa_prop_name);
+  int i;
+  for (i=0; i < bytes.length; i++) {
+    if (bytes[i] == '\0') {
+      bytes[i]='.';
+    }
+  }
+  return bytes;
+}

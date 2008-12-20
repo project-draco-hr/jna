@@ -1,0 +1,4 @@
+{
+  this.display=display;
+  this.x11Window=x11Window;
+}

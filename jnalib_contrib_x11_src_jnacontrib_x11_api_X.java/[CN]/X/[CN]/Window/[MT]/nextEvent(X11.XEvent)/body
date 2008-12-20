@@ -1,0 +1,3 @@
+{
+  return x11.XNextEvent(display.x11Display,event);
+}

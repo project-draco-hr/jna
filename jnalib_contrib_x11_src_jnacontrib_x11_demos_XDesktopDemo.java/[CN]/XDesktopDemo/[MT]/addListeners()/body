@@ -1,0 +1,93 @@
+{
+  refreshButton.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent event){
+      try {
+        refreshDesktopsAndWindows();
+      }
+ catch (      X.X11Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+  goToDesktopButton.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent event){
+      int desktopNr=desktopList.getSelectedIndex();
+      if (desktopNr >= 0) {
+        try {
+          display.switchDesktop(desktopNr);
+          display.flush();
+        }
+ catch (        X.X11Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+);
+  goToWindowButton.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent event){
+      X.Window window=getSelectedWindow();
+      try {
+        window.activate();
+        display.flush();
+      }
+ catch (      X.X11Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+  showDesktop.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent event){
+      try {
+        display.showingDesktop(true);
+        display.flush();
+      }
+ catch (      X.X11Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+  moveWindowToDesktopButton.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent event){
+      X.Window window=getSelectedWindow();
+      try {
+        window.moveToDesktop(desktopList.getSelectedIndex());
+        display.flush();
+      }
+ catch (      X.X11Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+  moveWindowAndGoToDesktopButton.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent event){
+      X.Window window=getSelectedWindow();
+      try {
+        window.moveToDesktop(desktopList.getSelectedIndex());
+        window.activate();
+        display.flush();
+      }
+ catch (      X.X11Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+  closeWindowButton.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent event){
+      X.Window window=getSelectedWindow();
+      try {
+        window.close();
+        display.flush();
+      }
+ catch (      X.X11Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+}

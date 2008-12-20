@@ -1,0 +1,14 @@
+{
+  X11.WindowByReference junkRoot=new X11.WindowByReference();
+  IntByReference junkX=new IntByReference();
+  IntByReference junkY=new IntByReference();
+  IntByReference x=new IntByReference();
+  IntByReference y=new IntByReference();
+  IntByReference width=new IntByReference();
+  IntByReference height=new IntByReference();
+  IntByReference borderWidth=new IntByReference();
+  IntByReference depth=new IntByReference();
+  x11.XGetGeometry(display.x11Display,x11Window,junkRoot,junkX,junkY,width,height,borderWidth,depth);
+  x11.XTranslateCoordinates(display.x11Display,x11Window,junkRoot.getValue(),junkX.getValue(),junkY.getValue(),x,y,junkRoot);
+  return new Geometry(x.getValue(),y.getValue(),width.getValue(),height.getValue(),borderWidth.getValue(),depth.getValue());
+}

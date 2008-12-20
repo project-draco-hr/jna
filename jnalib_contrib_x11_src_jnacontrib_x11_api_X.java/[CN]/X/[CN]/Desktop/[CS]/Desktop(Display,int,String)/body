@@ -1,0 +1,5 @@
+{
+  this.display=display;
+  this.number=number;
+  this.name=name;
+}

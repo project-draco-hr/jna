@@ -1,0 +1,14 @@
+{
+  Window rootWindow=getRootWindow();
+  try {
+    return rootWindow.getWindowProperty(X11.XA_WINDOW,"_NET_SUPPORTING_WM_CHECK");
+  }
+ catch (  X11Exception e) {
+    try {
+      return rootWindow.getWindowProperty(X11.XA_CARDINAL,"_WIN_SUPPORTING_WM_CHECK");
+    }
+ catch (    X11Exception e1) {
+      throw new X11Exception("Cannot get window manager info properties. (_NET_SUPPORTING_WM_CHECK or _WIN_SUPPORTING_WM_CHECK)");
+    }
+  }
+}

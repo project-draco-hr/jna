@@ -1,0 +1,16 @@
+{
+  Window root=getRootWindow();
+  int cur_desktop;
+  try {
+    cur_desktop=root.getIntProperty(X11.XA_CARDINAL,"_NET_CURRENT_DESKTOP");
+  }
+ catch (  X11Exception e) {
+    try {
+      cur_desktop=root.getIntProperty(X11.XA_CARDINAL,"_WIN_WORKSPACE");
+    }
+ catch (    X11Exception e1) {
+      throw new X11Exception("Cannot get current desktop properties (_NET_CURRENT_DESKTOP or _WIN_WORKSPACE property)");
+    }
+  }
+  return cur_desktop;
+}

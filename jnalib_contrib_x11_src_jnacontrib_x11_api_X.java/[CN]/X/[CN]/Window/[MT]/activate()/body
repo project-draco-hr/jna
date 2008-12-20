@@ -1,0 +1,4 @@
+{
+  clientMsg("_NET_ACTIVE_WINDOW",0,0,0,0,0);
+  x11.XMapRaised(display.x11Display,x11Window);
+}

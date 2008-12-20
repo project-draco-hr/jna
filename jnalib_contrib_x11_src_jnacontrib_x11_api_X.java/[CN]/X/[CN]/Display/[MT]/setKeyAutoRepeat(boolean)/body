@@ -1,0 +1,8 @@
+{
+  if (on) {
+    x11.XAutoRepeatOn(x11Display);
+  }
+ else {
+    x11.XAutoRepeatOff(x11Display);
+  }
+}

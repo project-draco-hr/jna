@@ -1,0 +1,3 @@
+{
+  x11.XSelectInput(display.x11Display,x11Window,new NativeLong(eventMask));
+}

@@ -1,0 +1,8 @@
+{
+  try {
+    return getUtf8Property(display.getAtom("UTF8_STRING"),"_NET_WM_NAME");
+  }
+ catch (  X11Exception e) {
+    return getUtf8Property(X11.XA_STRING,X11.XA_WM_NAME);
+  }
+}

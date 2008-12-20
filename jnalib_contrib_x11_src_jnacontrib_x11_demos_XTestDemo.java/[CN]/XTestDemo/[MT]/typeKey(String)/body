@@ -1,0 +1,4 @@
+{
+  X11.KeySym keysym=X11.INSTANCE.XStringToKeysym(keyName);
+  typeKey(X11.INSTANCE.XKeysymToKeycode(display.getX11Display(),keysym));
+}

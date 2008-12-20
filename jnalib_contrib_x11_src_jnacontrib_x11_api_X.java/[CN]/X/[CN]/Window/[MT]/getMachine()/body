@@ -1,0 +1,3 @@
+{
+  return getStringProperty(X11.XA_STRING,"WM_CLIENT_MACHINE");
+}

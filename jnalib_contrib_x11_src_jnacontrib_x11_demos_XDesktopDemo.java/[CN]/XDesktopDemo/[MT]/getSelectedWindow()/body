@@ -1,0 +1,4 @@
+{
+  WindowTableModel tableModel=(WindowTableModel)windowTable.getModel();
+  return tableModel.getWindow(windowTable.getSelectedRow());
+}

@@ -1,0 +1,7 @@
+{
+  if (keyCode == -1)   return;
+  X11.XTest.INSTANCE.XTestFakeKeyEvent(display.getX11Display(),keyCode,true,new NativeLong(DELAY));
+  X11.INSTANCE.XFlush(display.getX11Display());
+  X11.XTest.INSTANCE.XTestFakeKeyEvent(display.getX11Display(),keyCode,false,new NativeLong(DELAY));
+  X11.INSTANCE.XFlush(display.getX11Display());
+}

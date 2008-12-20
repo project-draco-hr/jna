@@ -1,0 +1,3 @@
+{
+  return getRootWindow().getWindowProperty(X11.XA_WINDOW,"_NET_ACTIVE_WINDOW");
+}

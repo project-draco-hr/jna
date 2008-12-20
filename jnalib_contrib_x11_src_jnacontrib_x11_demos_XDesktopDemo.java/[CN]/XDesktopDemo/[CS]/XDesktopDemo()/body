@@ -1,0 +1,10 @@
+{
+  super("XDesktopDemo");
+  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  initGui();
+  refreshDesktopsAndWindows();
+  pack();
+  addListeners();
+  setVisible(true);
+  printWmInfo();
+}

@@ -1,0 +1,3 @@
+{
+  return x11.XKeycodeToKeysym(x11Display,keyCode,index);
+}

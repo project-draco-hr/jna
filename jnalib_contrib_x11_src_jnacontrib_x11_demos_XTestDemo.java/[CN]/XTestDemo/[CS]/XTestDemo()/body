@@ -1,0 +1,15 @@
+{
+  IntByReference event_basep=new IntByReference();
+  IntByReference error_basep=new IntByReference();
+  IntByReference majorp=new IntByReference();
+  IntByReference minorp=new IntByReference();
+  if (X11.XTest.INSTANCE.XTestQueryExtension(display.getX11Display(),event_basep,error_basep,majorp,minorp)) {
+    System.out.println("event_basep.getValue() = " + event_basep.getValue());
+    System.out.println("error_basep.getValue() = " + error_basep.getValue());
+    System.out.println("majorp.getValue() = " + majorp.getValue());
+    System.out.println("minorp.getValue() = " + minorp.getValue());
+  }
+  Thread.sleep(1000);
+  type("hello world");
+  Thread.sleep(1000);
+}

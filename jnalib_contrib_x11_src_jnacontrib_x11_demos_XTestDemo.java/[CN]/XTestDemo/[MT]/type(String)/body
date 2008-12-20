@@ -1,0 +1,12 @@
+{
+  for (int i=0; i < text.length(); i++) {
+    char myChar=text.charAt(i);
+switch (myChar) {
+case ' ':
+      typeKey(65);
+    break;
+default :
+  typeKey("" + myChar);
+}
+}
+}

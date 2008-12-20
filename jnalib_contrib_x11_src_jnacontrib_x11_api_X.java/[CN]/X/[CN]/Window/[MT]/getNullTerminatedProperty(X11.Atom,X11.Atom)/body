@@ -1,0 +1,16 @@
+{
+  byte[] bytesOrig=getProperty(xa_prop_type,xa_prop_name);
+  byte[] bytesDest;
+  int i;
+  for (i=0; i < bytesOrig.length; i++) {
+    if (bytesOrig[i] == '\0')     break;
+  }
+  if (i < bytesOrig.length - 1) {
+    bytesDest=new byte[i + 1];
+    System.arraycopy(bytesOrig,0,bytesDest,0,i + 1);
+  }
+ else {
+    bytesDest=bytesOrig;
+  }
+  return bytesDest;
+}
