@@ -10,7 +10,7 @@
     return name;
   }
  else   if (Platform.isLinux()) {
-    if (isVersionedName(libName)) {
+    if (isVersionedName(libName) || libName.endsWith(".so")) {
       return libName;
     }
   }
