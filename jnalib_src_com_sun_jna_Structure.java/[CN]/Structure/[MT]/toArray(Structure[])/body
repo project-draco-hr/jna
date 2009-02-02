@@ -1,12 +1,10 @@
 {
-  if (size == CALCULATE_SIZE) {
-    allocateMemory();
-  }
-  if (Memory.class.equals(memory.getClass())) {
+  ensureAllocated();
+  if (memory instanceof AutoAllocated) {
     Memory m=(Memory)memory;
     int requiredSize=array.length * size();
     if (m.getSize() < requiredSize) {
-      m=new Memory(requiredSize);
+      m=new AutoAllocated(requiredSize);
       m.clear();
       useMemory(m);
     }

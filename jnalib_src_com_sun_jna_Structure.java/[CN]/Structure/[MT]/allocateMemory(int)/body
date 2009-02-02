@@ -6,11 +6,10 @@
     throw new IllegalArgumentException("Structure size must be greater than zero: " + size);
   }
   if (size != CALCULATE_SIZE) {
-    memory=new Memory(size);
-    memory.clear(size);
-    this.size=size;
-    if (this instanceof ByValue) {
-      getTypeInfo();
+    if (memory == null || memory instanceof AutoAllocated) {
+      memory=new AutoAllocated(size);
+      memory.clear(size);
     }
+    this.size=size;
   }
 }

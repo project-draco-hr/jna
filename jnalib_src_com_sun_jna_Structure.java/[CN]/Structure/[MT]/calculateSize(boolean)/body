@@ -113,7 +113,11 @@
     structFields.put(structField.name,structField);
   }
   if (calculatedSize > 0) {
-    return calculateAlignedSize(calculatedSize);
+    int size=calculateAlignedSize(calculatedSize);
+    if (this instanceof ByValue) {
+      getTypeInfo();
+    }
+    return size;
   }
   throw new IllegalArgumentException("Structure " + getClass() + " has unknown size (ensure "+ "all fields are public)");
 }

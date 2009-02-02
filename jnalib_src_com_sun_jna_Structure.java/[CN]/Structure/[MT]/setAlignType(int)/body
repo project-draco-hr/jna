@@ -9,5 +9,7 @@
   }
   this.alignType=alignType;
   this.size=CALCULATE_SIZE;
-  this.memory=null;
+  if (this.memory instanceof AutoAllocated) {
+    this.memory=null;
+  }
 }
