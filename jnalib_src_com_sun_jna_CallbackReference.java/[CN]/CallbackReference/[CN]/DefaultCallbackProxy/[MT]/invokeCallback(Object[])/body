@@ -17,13 +17,13 @@
       result=convertResult(callbackMethod.invoke(cb,callbackArgs));
     }
  catch (    IllegalArgumentException e) {
-      e.printStackTrace();
+      Native.getCallbackExceptionHandler().uncaughtException(cb,e);
     }
 catch (    IllegalAccessException e) {
-      e.printStackTrace();
+      Native.getCallbackExceptionHandler().uncaughtException(cb,e);
     }
 catch (    InvocationTargetException e) {
-      e.printStackTrace();
+      Native.getCallbackExceptionHandler().uncaughtException(cb,e.getTargetException());
     }
   }
   return result;

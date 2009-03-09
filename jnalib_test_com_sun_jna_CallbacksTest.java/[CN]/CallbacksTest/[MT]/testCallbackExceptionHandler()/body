@@ -1,0 +1,29 @@
+{
+  final RuntimeException ERROR=new RuntimeException(getName());
+  final Throwable CAUGHT[]={null};
+  final Callback CALLBACK[]={null};
+  UncaughtExceptionHandler old=Native.getCallbackExceptionHandler();
+  UncaughtExceptionHandler handler=new UncaughtExceptionHandler(){
+    public void uncaughtException(    Callback cb,    Throwable e){
+      CALLBACK[0]=cb;
+      CAUGHT[0]=e;
+    }
+  }
+;
+  Native.setCallbackExceptionHandler(handler);
+  try {
+    TestLibrary.CbCallback cb=new TestLibrary.CbCallback(){
+      public CbCallback callback(      CbCallback arg){
+        throw ERROR;
+      }
+    }
+;
+    TestLibrary.CbCallback cb2=lib.callCallbackWithCallback(cb);
+    assertNotNull("Exception handler not called",CALLBACK[0]);
+    assertEquals("Wrong callback argument to handler",cb,CALLBACK[0]);
+    assertEquals("Wrong exception passed to handler",ERROR,CAUGHT[0]);
+  }
+  finally {
+    Native.setCallbackExceptionHandler(old);
+  }
+}

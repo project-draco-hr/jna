@@ -1,0 +1,3 @@
+{
+  callbackExceptionHandler=eh == null ? DEFAULT_HANDLER : eh;
+}

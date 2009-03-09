@@ -1,9 +1,9 @@
 {
   try {
-    return callback_inner(args);
+    return invokeCallback(args);
   }
  catch (  Throwable t) {
-    t.printStackTrace();
+    Native.getCallbackExceptionHandler().uncaughtException(getCallback(),t);
     return null;
   }
 }

@@ -1,0 +1,4 @@
+{
+  Native.setCallbackExceptionHandler(null);
+  assertNotNull("Should not be able to set callback EH null",Native.getCallbackExceptionHandler());
+}
