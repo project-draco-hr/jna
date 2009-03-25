@@ -1,0 +1,9 @@
+{
+  StructUnion u=new StructUnion();
+  u.setType(u.testStruct.getClass());
+  u.write();
+  assertEquals("Wrong struct member base address",u.getPointer(),u.testStruct.getPointer());
+  u.setType(u.intStruct.getClass());
+  u.write();
+  assertEquals("Wrong struct member base address (2)",u.getPointer(),u.intStruct.getPointer());
+}
