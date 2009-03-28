@@ -1,5 +1,5 @@
 {
   Pointer p=getTypeInfo(this);
-  typeInfo=p.peer;
+  cacheTypeInfo(p);
   return p;
 }

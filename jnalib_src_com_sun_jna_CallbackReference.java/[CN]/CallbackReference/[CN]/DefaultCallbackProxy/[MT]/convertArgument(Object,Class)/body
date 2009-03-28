@@ -14,13 +14,15 @@
     }
  else     if (Structure.class.isAssignableFrom(dstType)) {
       Structure s=Structure.newInstance(dstType);
-      Pointer old=s.getPointer();
-      s.useMemory((Pointer)value);
-      s.read();
       if (Structure.ByValue.class.isAssignableFrom(dstType)) {
-        s.useMemory(old);
-        s.write();
+        byte[] buf=new byte[s.size()];
+        ((Pointer)value).read(0,buf,0,buf.length);
+        s.getPointer().write(0,buf,0,buf.length);
       }
+ else {
+        s.useMemory((Pointer)value);
+      }
+      s.read();
       value=s;
     }
   }
