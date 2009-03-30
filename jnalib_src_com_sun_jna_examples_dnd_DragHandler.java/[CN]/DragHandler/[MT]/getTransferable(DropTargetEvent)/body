@@ -1,7 +1,7 @@
 {
   if (e instanceof DropTargetDragEvent) {
     try {
-      return (Transferable)e.getClass().getMethod("getTransferable",null).invoke(e,null);
+      return (Transferable)e.getClass().getMethod("getTransferable",(Class[])null).invoke(e,(Object[])null);
     }
  catch (    Exception ex) {
     }
