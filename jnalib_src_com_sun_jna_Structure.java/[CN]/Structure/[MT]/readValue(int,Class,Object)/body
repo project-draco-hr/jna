@@ -65,6 +65,18 @@
       result=cb;
     }
   }
+ else   if (Buffer.class.isAssignableFrom(nativeType)) {
+    Pointer bp=memory.getPointer(offset);
+    if (bp == null) {
+      result=null;
+    }
+ else {
+      Pointer oldbp=currentValue == null ? null : Native.getDirectBufferPointer((Buffer)currentValue);
+      if (oldbp == null || !oldbp.equals(bp)) {
+        throw new IllegalStateException("Can't autogenerate a direct buffers on Structure read");
+      }
+    }
+  }
  else   if (nativeType.isArray()) {
     result=currentValue;
     if (result == null) {

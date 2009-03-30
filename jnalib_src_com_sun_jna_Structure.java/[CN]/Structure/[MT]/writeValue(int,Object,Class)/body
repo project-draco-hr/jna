@@ -48,6 +48,10 @@
  else   if (Callback.class.isAssignableFrom(nativeType)) {
     memory.setPointer(offset,CallbackReference.getFunctionPointer((Callback)value));
   }
+ else   if (nativeType == Buffer.class) {
+    Pointer p=value == null ? null : Native.getDirectBufferPointer((Buffer)value);
+    memory.setPointer(offset,p);
+  }
  else   if (nativeType.isArray()) {
     return writeArrayValue(offset,value,nativeType.getComponentType());
   }

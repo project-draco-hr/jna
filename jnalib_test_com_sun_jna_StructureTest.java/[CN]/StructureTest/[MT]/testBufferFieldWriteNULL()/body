@@ -1,0 +1,4 @@
+{
+  BufferStructure bs=new BufferStructure();
+  bs.write();
+}

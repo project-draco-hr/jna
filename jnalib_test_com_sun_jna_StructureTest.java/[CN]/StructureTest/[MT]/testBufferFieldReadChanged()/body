@@ -1,0 +1,22 @@
+{
+  BufferStructure bs=new BufferStructure();
+  if (Pointer.SIZE == 4) {
+    bs.getPointer().setInt(0,0x1);
+  }
+ else {
+    bs.getPointer().setLong(0,0x1);
+  }
+  try {
+    bs.read();
+    fail("Structure read should fail if Buffer pointer was set");
+  }
+ catch (  IllegalStateException e) {
+  }
+  bs.buffer=ByteBuffer.allocateDirect(16);
+  try {
+    bs.read();
+    fail("Structure read should fail if Buffer pointer has changed");
+  }
+ catch (  IllegalStateException e) {
+  }
+}

@@ -1,0 +1,5 @@
+{
+  BufferStructure bs=new BufferStructure();
+  bs.buffer=ByteBuffer.allocateDirect(16);
+  bs.write();
+}

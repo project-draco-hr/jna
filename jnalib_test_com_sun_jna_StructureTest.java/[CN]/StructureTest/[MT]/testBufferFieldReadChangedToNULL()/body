@@ -1,0 +1,6 @@
+{
+  BufferStructure bs=new BufferStructure();
+  bs.buffer=ByteBuffer.allocateDirect(16);
+  bs.read();
+  assertNull("Structure Buffer field should be set null",bs.buffer);
+}
