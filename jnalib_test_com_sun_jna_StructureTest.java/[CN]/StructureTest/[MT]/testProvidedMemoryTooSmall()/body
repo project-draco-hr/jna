@@ -11,7 +11,7 @@ class TestStructure extends Structure {
     }
   }
   try {
-    s=new TestStructure(new Memory(2));
+    TestStructure s=new TestStructure(new Memory(2));
     fail("Expect exception if provided memory is insufficient");
   }
  catch (  IllegalArgumentException e) {
