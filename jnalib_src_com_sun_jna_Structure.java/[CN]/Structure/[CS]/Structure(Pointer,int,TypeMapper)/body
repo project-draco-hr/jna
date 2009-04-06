@@ -1,0 +1,10 @@
+{
+  setAlignType(alignment);
+  setTypeMapper(mapper);
+  if (p != null) {
+    useMemory(p);
+  }
+ else {
+    allocateMemory(CALCULATE_SIZE);
+  }
+}

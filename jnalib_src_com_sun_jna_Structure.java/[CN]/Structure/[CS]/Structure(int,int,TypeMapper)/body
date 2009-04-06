@@ -1,5 +1,0 @@
-{
-  setAlignType(alignment);
-  setTypeMapper(mapper);
-  allocateMemory(size);
-}

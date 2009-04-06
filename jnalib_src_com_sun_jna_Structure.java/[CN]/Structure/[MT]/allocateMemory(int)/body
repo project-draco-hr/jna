@@ -6,9 +6,9 @@
     throw new IllegalArgumentException("Structure size must be greater than zero: " + size);
   }
   if (size != CALCULATE_SIZE) {
-    if (memory == null || memory instanceof AutoAllocated) {
-      memory=new AutoAllocated(size);
-      memory.clear(size);
+    if (this.memory == null || this.memory instanceof AutoAllocated) {
+      this.memory=new AutoAllocated(size);
+      this.memory.clear(size);
     }
     this.size=size;
   }

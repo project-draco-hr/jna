@@ -1,3 +1,8 @@
 {
-  this.memory=m.share(offset,size());
+  try {
+    this.memory=m.share(offset,size());
+  }
+ catch (  IndexOutOfBoundsException e) {
+    throw new IllegalArgumentException("Structure exceeds provided memory bounds");
+  }
 }
