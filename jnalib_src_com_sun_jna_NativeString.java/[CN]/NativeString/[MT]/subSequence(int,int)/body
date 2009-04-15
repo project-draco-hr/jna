@@ -1,3 +1,3 @@
 {
-  return CharBuffer.wrap(value).subSequence(start,end);
+  return CharBuffer.wrap(toString()).subSequence(start,end);
 }

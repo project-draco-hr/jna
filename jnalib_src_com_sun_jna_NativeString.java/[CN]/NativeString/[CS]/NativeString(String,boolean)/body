@@ -1,8 +1,8 @@
 {
-  this.value=string;
   if (string == null) {
     throw new NullPointerException("String must not be null");
   }
+  this.wide=wide;
   if (wide) {
     int len=(string.length() + 1) * Native.WCHAR_SIZE;
     pointer=new Memory(len);
