@@ -89,6 +89,12 @@
       result=p.getPointerArray(0);
     }
   }
+ else   if (allowObjects) {
+    result=invokeObject(callingConvention,args);
+    if (result != null && !returnType.isAssignableFrom(result.getClass())) {
+      throw new IllegalArgumentException("Return type " + returnType + " does not match result "+ result.getClass());
+    }
+  }
  else {
     throw new IllegalArgumentException("Unsupported return type " + returnType + " in function "+ getName());
   }

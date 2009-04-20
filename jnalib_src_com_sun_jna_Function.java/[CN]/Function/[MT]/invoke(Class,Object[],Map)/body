@@ -9,8 +9,9 @@
   }
   TypeMapper mapper=(TypeMapper)options.get(Library.OPTION_TYPE_MAPPER);
   Method invokingMethod=(Method)options.get(OPTION_INVOKING_METHOD);
+  boolean allowObjects=Boolean.TRUE.equals(options.get(Library.OPTION_ALLOW_OBJECTS));
   for (int i=0; i < args.length; i++) {
-    args[i]=convertArgument(args,i,invokingMethod,mapper);
+    args[i]=convertArgument(args,i,invokingMethod,mapper,allowObjects);
   }
   Class nativeType=returnType;
   FromNativeConverter resultConverter=null;
@@ -25,7 +26,7 @@
       nativeType=resultConverter.nativeType();
     }
   }
-  Object result=invoke(args,nativeType);
+  Object result=invoke(args,nativeType,allowObjects);
   if (resultConverter != null) {
     FromNativeContext context;
     if (invokingMethod != null) {

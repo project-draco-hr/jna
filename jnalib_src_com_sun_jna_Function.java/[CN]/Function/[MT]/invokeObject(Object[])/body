@@ -1,0 +1,3 @@
+{
+  return invoke(Object.class,args);
+}
