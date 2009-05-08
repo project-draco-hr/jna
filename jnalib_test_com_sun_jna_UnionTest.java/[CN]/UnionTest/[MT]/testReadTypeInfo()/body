@@ -1,6 +1,6 @@
 {
   SizedUnion u=new SizedUnion();
-  assertEquals("Type should be that of longest field if no field active",Structure.getTypeInfo(new Long(0)),u.getTypeInfo());
+  assertEquals("Type should be that of longest field if no field active",Structure.getTypeInfo(BigTestStructure.class),u.getTypeInfo());
   u.setType(int.class);
-  assertEquals("Type should be that of longest field if field active",Structure.getTypeInfo(new Long(0)),u.getTypeInfo());
+  assertEquals("Type should be that of longest field if field active",Structure.getTypeInfo(BigTestStructure.class),u.getTypeInfo());
 }
