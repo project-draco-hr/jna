@@ -17,9 +17,6 @@ synchronized (typeInfoMap) {
         typeInfoMap.put(cls,FFITypes.ffi_type_pointer);
         return FFITypes.ffi_type_pointer;
       }
-      if (Union.class.isAssignableFrom(cls)) {
-        return ((Union)obj).getTypeInfo();
-      }
       FFIType type=new FFIType((Structure)obj);
       typeInfoMap.put(cls,type);
       return type.getPointer();

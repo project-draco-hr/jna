@@ -2,7 +2,5 @@
   if (biggestField == null) {
     return null;
   }
-  Pointer p=getTypeInfo(getField(biggestField));
-  cacheTypeInfo(p);
-  return p;
+  return super.getTypeInfo();
 }
