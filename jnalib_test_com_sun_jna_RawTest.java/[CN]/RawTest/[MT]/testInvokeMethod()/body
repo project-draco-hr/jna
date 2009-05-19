@@ -1,0 +1,3 @@
+{
+  assertEquals("Wrong value",Math.cos(0),MathLibrary.cos(0d));
+}

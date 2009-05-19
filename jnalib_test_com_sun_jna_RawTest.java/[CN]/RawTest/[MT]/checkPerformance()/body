@@ -1,0 +1,65 @@
+{
+  System.out.println("Checking performance of different access methods");
+  MathInterface mlib=(MathInterface)Native.loadLibrary("m",MathInterface.class);
+  Function f=NativeLibrary.getInstance("m").getFunction("cos");
+  final int COUNT=1000000;
+  Object[] args={new Double(0)};
+  long start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    mlib.cos(0d);
+  }
+  long delta=System.currentTimeMillis() - start;
+  System.out.println("cos (JNA interface): " + delta + "ms");
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    f.invokeDouble(args);
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("cos (JNA Function): " + delta + "ms");
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    MathLibrary.cos(0d);
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("cos (JNA raw): " + delta + "ms");
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    JNI.cos(0d);
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("cos (JNI): " + delta + "ms");
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    Math.cos(0d);
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("cos (pure java): " + delta + "ms");
+  CInterface clib=(CInterface)Native.loadLibrary("c",CInterface.class);
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    clib.memset(null,0,0);
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("memset (JNA interface): " + delta + "ms");
+  f=NativeLibrary.getInstance("c").getFunction("memset");
+  args=new Object[]{null,new Integer(0),new Integer(0)};
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    f.invokePointer(args);
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("memset (JNA Function): " + delta + "ms");
+  f=NativeLibrary.getInstance("c").getFunction("memset");
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    CLibrary.memset(null,0,0);
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("memset (JNA raw): " + delta + "ms");
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    Pointer._setMemory(0L,0L,(byte)0);
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("memset (JNI): " + delta + "ms");
+}

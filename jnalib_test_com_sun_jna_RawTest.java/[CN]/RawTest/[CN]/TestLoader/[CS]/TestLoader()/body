@@ -1,0 +1,3 @@
+{
+  super(new URL[]{new File(BUILDDIR + "/classes").toURI().toURL(),new File(BUILDDIR + "/test-classes").toURI().toURL()},null);
+}

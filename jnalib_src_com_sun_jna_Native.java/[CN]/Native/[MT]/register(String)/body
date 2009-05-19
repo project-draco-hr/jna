@@ -1,0 +1,3 @@
+{
+  register(NativeLibrary.getInstance(libName));
+}

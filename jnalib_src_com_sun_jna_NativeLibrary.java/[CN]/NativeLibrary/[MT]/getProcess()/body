@@ -5,7 +5,7 @@
   }
   if (library == null) {
     long handle=open(null);
-    library=new NativeLibrary("<process>",null,handle);
+    library=new NativeLibrary("<process>",null,handle,Collections.EMPTY_MAP);
     currentProcess=new WeakReference(library);
   }
   return library;

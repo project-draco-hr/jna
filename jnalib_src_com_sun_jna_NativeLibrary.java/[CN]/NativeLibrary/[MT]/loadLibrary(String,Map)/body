@@ -61,5 +61,5 @@ synchronized (customPaths) {
       throw new UnsatisfiedLinkError("Unable to load library '" + libraryName + "': "+ e.getMessage());
     }
   }
-  return new NativeLibrary(libraryName,libraryPath,handle);
+  return new NativeLibrary(libraryName,libraryPath,handle,options);
 }

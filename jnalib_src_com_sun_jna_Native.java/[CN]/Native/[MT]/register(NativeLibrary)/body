@@ -1,0 +1,38 @@
+{
+  Class[] context=new SecurityManager(){
+    public Class[] getClassContext(){
+      return super.getClassContext();
+    }
+  }
+.getClassContext();
+  if (context.length < 4) {
+    throw new IllegalStateException("This method must be called from the static initializer of a class");
+  }
+  Class cls=context[3];
+  Method[] methods=cls.getDeclaredMethods();
+  List mlist=new ArrayList();
+  for (int i=0; i < methods.length; i++) {
+    if ((methods[i].getModifiers() & Modifier.NATIVE) != 0) {
+      mlist.add(methods[i]);
+    }
+  }
+  long[] handles=new long[mlist.size()];
+  for (int i=0; i < handles.length; i++) {
+    Method method=(Method)mlist.get(i);
+    String sig="(";
+    Class rtype=method.getReturnType();
+    Class[] ptypes=method.getParameterTypes();
+    for (int t=0; t < ptypes.length; t++) {
+      sig+=FFIType.getSignature(ptypes[t]);
+    }
+    sig+=")" + Structure.FFIType.getSignature(rtype);
+    String name=method.getName();
+    FunctionMapper mapper=(FunctionMapper)lib.getOptions().get(Library.OPTION_FUNCTION_MAPPER);
+    if (mapper != null) {
+      name=mapper.getFunctionName(lib,method);
+    }
+    Function f=lib.getFunction(name);
+    handles[i]=registerMethod(cls,method.getName(),sig,f,f.callingConvention);
+  }
+  registeredClasses.put(cls,handles);
+}
