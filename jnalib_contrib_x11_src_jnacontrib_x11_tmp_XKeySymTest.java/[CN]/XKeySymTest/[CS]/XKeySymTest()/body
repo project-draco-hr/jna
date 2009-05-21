@@ -1,3 +1,0 @@
-{
-  xevie.XevieStart(display.getX11Display());
-}
