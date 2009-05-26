@@ -1,0 +1,10 @@
+Class cls
+String name
+String signature
+int[] conversions
+long[] arg_types
+int rconversion
+long rtype
+Class rclass
+long fptr
+int callingConvention

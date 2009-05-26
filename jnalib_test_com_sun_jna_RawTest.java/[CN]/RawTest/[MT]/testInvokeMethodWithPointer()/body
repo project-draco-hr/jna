@@ -1,3 +1,0 @@
-{
-  assertNull("Returned pointer should be null",CLibrary.memset(null,0,0));
-}

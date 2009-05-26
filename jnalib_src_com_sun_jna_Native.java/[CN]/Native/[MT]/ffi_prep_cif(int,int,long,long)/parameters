@@ -1,0 +1,4 @@
+int abi
+int nargs
+long ffi_return_type
+long ffi_types

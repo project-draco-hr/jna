@@ -1,0 +1,17 @@
+{
+class UnregisterLibrary {
+class Inner {
+      public Class getNativeClass(){
+        return getNativeClassInner();
+      }
+      public Class getNativeClassInner(){
+        return Native.getNativeClass(Native.getCallingClass());
+      }
+    }
+    public native double cos(    double x);
+    public Class getNativeClass(){
+      return new Inner().getNativeClass();
+    }
+  }
+  assertEquals("Wrong native class found",UnregisterLibrary.class,new UnregisterLibrary().getNativeClass());
+}

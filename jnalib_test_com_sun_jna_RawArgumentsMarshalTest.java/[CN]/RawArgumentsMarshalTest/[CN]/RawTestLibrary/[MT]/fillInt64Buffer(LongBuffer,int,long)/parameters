@@ -1,0 +1,3 @@
+LongBuffer buf
+int len
+long value

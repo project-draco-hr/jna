@@ -1,5 +1,0 @@
-Class cls
-String name
-String signature
-Pointer fptr
-int callingConvention

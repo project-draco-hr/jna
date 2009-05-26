@@ -1,0 +1,9 @@
+{
+synchronized (registeredClasses) {
+    if (registeredClasses.containsKey(cls)) {
+      unregister(cls,(long[])registeredClasses.get(cls));
+      registeredClasses.remove(cls);
+      registeredLibraries.remove(cls);
+    }
+  }
+}

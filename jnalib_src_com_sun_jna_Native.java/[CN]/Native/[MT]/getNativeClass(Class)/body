@@ -1,0 +1,18 @@
+{
+  Method[] methods=cls.getDeclaredMethods();
+  for (int i=0; i < methods.length; i++) {
+    if ((methods[i].getModifiers() & Modifier.NATIVE) != 0) {
+      return cls;
+    }
+  }
+  int idx=cls.getName().lastIndexOf("$");
+  if (idx != -1) {
+    String name=cls.getName().substring(0,idx);
+    try {
+      return getNativeClass(Class.forName(name,true,cls.getClassLoader()));
+    }
+ catch (    ClassNotFoundException e) {
+    }
+  }
+  throw new IllegalArgumentException("Can't determine class with native methods from the current context (" + cls + ")");
+}

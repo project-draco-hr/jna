@@ -1,0 +1,12 @@
+{
+  Class[] context=new SecurityManager(){
+    public Class[] getClassContext(){
+      return super.getClassContext();
+    }
+  }
+.getClassContext();
+  if (context.length < 4) {
+    throw new IllegalStateException("This method must be called from the static initializer of a class");
+  }
+  return context[3];
+}
