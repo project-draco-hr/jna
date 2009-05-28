@@ -39,5 +39,8 @@ break;
 if (type.isPrimitive()) {
 return type == boolean.class ? CVT_BOOLEAN : CVT_DEFAULT;
 }
+if (Callback.class.isAssignableFrom(type)) {
+return CVT_CALLBACK;
+}
 return -1;
 }

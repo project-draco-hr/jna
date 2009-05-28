@@ -4,6 +4,7 @@
   this.library=library;
   this.functionName=functionName;
   this.callingConvention=callingConvention;
+  this.options=library.options;
   try {
     this.peer=library.getSymbolAddress(functionName);
   }

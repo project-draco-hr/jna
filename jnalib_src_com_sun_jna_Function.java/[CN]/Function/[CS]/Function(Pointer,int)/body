@@ -6,4 +6,5 @@
   this.functionName=functionAddress.toString();
   this.callingConvention=callingConvention;
   this.peer=functionAddress.peer;
+  this.options=Collections.EMPTY_MAP;
 }
