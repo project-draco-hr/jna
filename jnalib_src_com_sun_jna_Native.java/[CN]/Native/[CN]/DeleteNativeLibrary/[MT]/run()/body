@@ -1,5 +1,5 @@
 {
-  if (!unload(file.getAbsolutePath()) || !file.delete()) {
+  if (!unloadNativeLibrary(file.getAbsolutePath())) {
     try {
       Runtime.getRuntime().exec(new String[]{System.getProperty("java.home") + "/bin/java","-cp",System.getProperty("java.class.path"),getClass().getName(),file.getAbsolutePath()});
     }

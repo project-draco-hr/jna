@@ -1,6 +1,7 @@
 {
+  if (path == null || !new File(path).exists())   return true;
   try {
-    ClassLoader cl=getClass().getClassLoader();
+    ClassLoader cl=Native.class.getClassLoader();
     Field f=ClassLoader.class.getDeclaredField("nativeLibraries");
     f.setAccessible(true);
     List libs=(List)f.get(cl);
@@ -13,6 +14,10 @@
         Method m=lib.getClass().getDeclaredMethod("finalize",new Class[0]);
         m.setAccessible(true);
         m.invoke(lib,new Object[0]);
+        File file=new File(path);
+        if (file.exists()) {
+          return file.delete();
+        }
         return true;
       }
     }
