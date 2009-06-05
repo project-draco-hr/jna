@@ -1,5 +1,10 @@
 {
-  if (path == null || !new File(path).exists())   return true;
+  String path=nativeLibraryPath;
+  if (path == null)   return true;
+  File flib=new File(path);
+  if (unpacked) {
+    flib.delete();
+  }
   try {
     ClassLoader cl=Native.class.getClassLoader();
     Field f=ClassLoader.class.getDeclaredField("nativeLibraries");
@@ -10,13 +15,20 @@
       f=lib.getClass().getDeclaredField("name");
       f.setAccessible(true);
       String name=(String)f.get(lib);
-      if (name.equals(path)) {
+      if (name.equals(path) || name.indexOf(path) != -1) {
         Method m=lib.getClass().getDeclaredMethod("finalize",new Class[0]);
         m.setAccessible(true);
         m.invoke(lib,new Object[0]);
-        File file=new File(path);
-        if (file.exists()) {
-          return file.delete();
+        nativeLibraryPath=null;
+        if (unpacked) {
+          if (flib.exists()) {
+            if (flib.delete()) {
+              System.out.println("library deleted");
+              unpacked=false;
+              return true;
+            }
+            return false;
+          }
         }
         return true;
       }

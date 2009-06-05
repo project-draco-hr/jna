@@ -1,5 +1,6 @@
 {
-  if (!unloadNativeLibrary(file.getAbsolutePath())) {
+  System.out.println("unload on shutdown");
+  if (!unloadNativeLibrary()) {
     try {
       Runtime.getRuntime().exec(new String[]{System.getProperty("java.home") + "/bin/java","-cp",System.getProperty("java.class.path"),getClass().getName(),file.getAbsolutePath()});
     }

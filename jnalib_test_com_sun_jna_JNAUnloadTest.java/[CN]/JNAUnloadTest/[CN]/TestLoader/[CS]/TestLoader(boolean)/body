@@ -1,0 +1,3 @@
+{
+  super(new URL[]{new File(BUILDDIR + (fromJar ? "/jna.jar" : "/classes")).toURI().toURL()},null);
+}

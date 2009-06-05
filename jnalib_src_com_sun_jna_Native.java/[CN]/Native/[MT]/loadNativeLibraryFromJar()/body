@@ -49,6 +49,8 @@
         }
       }
     }
+    unpacked=true;
   }
   System.load(lib.getAbsolutePath());
+  nativeLibraryPath=lib.getAbsolutePath();
 }
