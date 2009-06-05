@@ -23,7 +23,6 @@
         if (unpacked) {
           if (flib.exists()) {
             if (flib.delete()) {
-              System.out.println("library deleted");
               unpacked=false;
               return true;
             }
