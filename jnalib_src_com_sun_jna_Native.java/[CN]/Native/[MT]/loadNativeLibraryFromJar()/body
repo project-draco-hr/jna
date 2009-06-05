@@ -22,7 +22,8 @@
     try {
       lib=File.createTempFile("jna",Platform.isWindows() ? ".dll" : null);
       lib.deleteOnExit();
-      if (Platform.deleteNativeLibraryAfterVMExit() && Native.class.getClassLoader().equals(ClassLoader.getSystemClassLoader())) {
+      ClassLoader cl=Native.class.getClassLoader();
+      if (Platform.deleteNativeLibraryAfterVMExit() && (cl == null || cl.equals(ClassLoader.getSystemClassLoader()))) {
         Runtime.getRuntime().addShutdownHook(new DeleteNativeLibrary(lib));
       }
       fos=new FileOutputStream(lib);
