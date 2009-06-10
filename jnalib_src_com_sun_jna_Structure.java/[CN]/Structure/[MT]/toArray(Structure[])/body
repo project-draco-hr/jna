@@ -16,5 +16,8 @@
     array[i].useMemory(memory.share(i * size,size));
     array[i].read();
   }
+  if (this instanceof ByReference) {
+    this.array=array;
+  }
   return array;
 }

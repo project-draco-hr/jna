@@ -36,8 +36,13 @@
     Structure s=(Structure)value;
     if (ByReference.class.isAssignableFrom(nativeType)) {
       memory.setPointer(offset,s == null ? null : s.getPointer());
-      if (s != null) {
+      if (s != null && s.getAutoWrite()) {
         s.write();
+        if (s.array != null) {
+          for (int i=1; i < s.array.length; i++) {
+            s.array[i].write();
+          }
+        }
       }
     }
  else {

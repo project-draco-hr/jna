@@ -37,6 +37,7 @@
       Pointer[] buf=new Pointer[sbuf.length];
       for (int i=0; i < sbuf.length; i++) {
         buf[i]=sbuf[i] == null ? null : sbuf[i].getPointer();
+        sbuf[i].write();
       }
       memory.write(offset,buf,0,buf.length);
     }
