@@ -1,0 +1,4 @@
+{
+  super(formatMessage(code));
+  this.errorCode=code;
+}

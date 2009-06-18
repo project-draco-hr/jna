@@ -4,7 +4,7 @@
   this.handle=handle;
   Object option=options.get(Library.OPTION_CALLING_CONVENTION);
   int callingConvention=option instanceof Integer ? ((Integer)option).intValue() : Function.C_CONVENTION;
-  this.callingConvention=callingConvention;
+  this.callFlags=callingConvention;
   this.options=options;
   if (Platform.isWindows() && "kernel32".equals(this.libraryName.toLowerCase())) {
 synchronized (functions) {

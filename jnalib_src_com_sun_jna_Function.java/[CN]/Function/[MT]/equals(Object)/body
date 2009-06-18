@@ -1,7 +1,7 @@
 {
   if (o instanceof Function) {
     Function other=(Function)o;
-    return other.callingConvention == this.callingConvention && other.options.equals(this.options) && other.peer == this.peer;
+    return other.callFlags == this.callFlags && other.options.equals(this.options) && other.peer == this.peer;
   }
   return false;
 }

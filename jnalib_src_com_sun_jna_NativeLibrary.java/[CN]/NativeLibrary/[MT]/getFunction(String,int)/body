@@ -3,7 +3,7 @@
 synchronized (functions) {
     Function function=(Function)functions.get(functionName);
     if (function == null) {
-      function=new Function(this,functionName,callingConvention);
+      function=new Function(this,functionName,callFlags);
       functions.put(functionName,function);
     }
     return function;

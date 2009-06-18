@@ -1,0 +1,3 @@
+{
+  return Platform.isWindows() ? "GetLastError() returned " + code : "errno was " + code;
+}

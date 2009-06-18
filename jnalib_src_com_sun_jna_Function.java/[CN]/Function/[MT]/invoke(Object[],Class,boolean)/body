@@ -1,55 +1,55 @@
 {
   Object result=null;
   if (returnType == null || returnType == void.class || returnType == Void.class) {
-    invokeVoid(callingConvention,args);
+    invokeVoid(callFlags,args);
     result=null;
   }
  else   if (returnType == boolean.class || returnType == Boolean.class) {
-    result=valueOf(invokeInt(callingConvention,args) != 0);
+    result=valueOf(invokeInt(callFlags,args) != 0);
   }
  else   if (returnType == byte.class || returnType == Byte.class) {
-    result=new Byte((byte)invokeInt(callingConvention,args));
+    result=new Byte((byte)invokeInt(callFlags,args));
   }
  else   if (returnType == short.class || returnType == Short.class) {
-    result=new Short((short)invokeInt(callingConvention,args));
+    result=new Short((short)invokeInt(callFlags,args));
   }
  else   if (returnType == char.class || returnType == Character.class) {
-    result=new Character((char)invokeInt(callingConvention,args));
+    result=new Character((char)invokeInt(callFlags,args));
   }
  else   if (returnType == int.class || returnType == Integer.class) {
-    result=new Integer(invokeInt(callingConvention,args));
+    result=new Integer(invokeInt(callFlags,args));
   }
  else   if (returnType == long.class || returnType == Long.class) {
-    result=new Long(invokeLong(callingConvention,args));
+    result=new Long(invokeLong(callFlags,args));
   }
  else   if (returnType == float.class || returnType == Float.class) {
-    result=new Float(invokeFloat(callingConvention,args));
+    result=new Float(invokeFloat(callFlags,args));
   }
  else   if (returnType == double.class || returnType == Double.class) {
-    result=new Double(invokeDouble(callingConvention,args));
+    result=new Double(invokeDouble(callFlags,args));
   }
  else   if (returnType == String.class) {
-    result=invokeString(callingConvention,args,false);
+    result=invokeString(callFlags,args,false);
   }
  else   if (returnType == WString.class) {
-    String s=invokeString(callingConvention,args,true);
+    String s=invokeString(callFlags,args,true);
     if (s != null) {
       result=new WString(s);
     }
   }
  else   if (Pointer.class.isAssignableFrom(returnType)) {
-    result=invokePointer(callingConvention,args);
+    result=invokePointer(callFlags,args);
   }
  else   if (Structure.class.isAssignableFrom(returnType)) {
     if (Structure.ByValue.class.isAssignableFrom(returnType)) {
-      Structure s=invokeStructure(callingConvention,args,Structure.newInstance(returnType));
+      Structure s=invokeStructure(callFlags,args,Structure.newInstance(returnType));
       if (s.getAutoRead()) {
         s.read();
       }
       result=s;
     }
  else {
-      result=invokePointer(callingConvention,args);
+      result=invokePointer(callFlags,args);
       if (result != null) {
         Structure s=Structure.newInstance(returnType);
         s.useMemory((Pointer)result);
@@ -61,19 +61,19 @@
     }
   }
  else   if (Callback.class.isAssignableFrom(returnType)) {
-    result=invokePointer(callingConvention,args);
+    result=invokePointer(callFlags,args);
     if (result != null) {
       result=CallbackReference.getCallback(returnType,(Pointer)result);
     }
   }
  else   if (returnType == String[].class) {
-    Pointer p=invokePointer(callingConvention,args);
+    Pointer p=invokePointer(callFlags,args);
     if (p != null) {
       result=p.getStringArray(0);
     }
   }
  else   if (returnType == WString[].class) {
-    Pointer p=invokePointer(callingConvention,args);
+    Pointer p=invokePointer(callFlags,args);
     if (p != null) {
       String[] arr=p.getStringArray(0,true);
       WString[] warr=new WString[arr.length];
@@ -84,13 +84,13 @@
     }
   }
  else   if (returnType == Pointer[].class) {
-    Pointer p=invokePointer(callingConvention,args);
+    Pointer p=invokePointer(callFlags,args);
     if (p != null) {
       result=p.getPointerArray(0);
     }
   }
  else   if (allowObjects) {
-    result=invokeObject(callingConvention,args);
+    result=invokeObject(callFlags,args);
     if (result != null && !returnType.isAssignableFrom(result.getClass())) {
       throw new ClassCastException("Return type " + returnType + " does not match result "+ result.getClass());
     }

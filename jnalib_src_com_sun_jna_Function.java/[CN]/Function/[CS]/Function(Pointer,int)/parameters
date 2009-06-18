@@ -1,2 +1,2 @@
 Pointer functionAddress
-int callingConvention
+int callFlags
