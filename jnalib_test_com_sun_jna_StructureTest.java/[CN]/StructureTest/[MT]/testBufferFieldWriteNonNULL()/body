@@ -1,5 +1,6 @@
 {
   BufferStructure bs=new BufferStructure();
   bs.buffer=ByteBuffer.allocateDirect(16);
+  bs.dbuffer=((ByteBuffer)bs.buffer).asDoubleBuffer();
   bs.write();
 }
