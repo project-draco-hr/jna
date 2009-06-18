@@ -1,0 +1,13 @@
+{
+  TestLibrary lib=new DirectTestLibrary();
+  final int ERROR=-1;
+  lib.noThrowLastError(ERROR);
+  assertEquals("Last error not preserved",ERROR,Native.getLastError());
+  try {
+    lib.throwLastError(ERROR);
+    fail("Method should throw LastErrorException");
+  }
+ catch (  LastErrorException e) {
+    assertEquals("Exception should contain error code",ERROR,e.errorCode);
+  }
+}

@@ -1,10 +1,11 @@
 {
   if (functionName == null)   throw new NullPointerException("Function name may not be null");
 synchronized (functions) {
-    Function function=(Function)functions.get(functionName);
+    String key=functionName + "|" + callFlags;
+    Function function=(Function)functions.get(key);
     if (function == null) {
       function=new Function(this,functionName,callFlags);
-      functions.put(functionName,function);
+      functions.put(key,function);
     }
     return function;
   }

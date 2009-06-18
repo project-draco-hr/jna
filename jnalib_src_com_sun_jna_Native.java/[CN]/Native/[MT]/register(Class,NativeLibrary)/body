@@ -39,9 +39,9 @@
     if (mapper != null) {
       name=mapper.getFunctionName(lib,method);
     }
-    Function f=lib.getFunction(name);
+    Function f=lib.getFunction(name,method);
     try {
-      handles[i]=registerMethod(cls,method.getName(),sig,cvt,atypes,rcvt,FFIType.get(rtype).peer,rtype,f.peer,f.callingConvention);
+      handles[i]=registerMethod(cls,method.getName(),sig,cvt,atypes,rcvt,FFIType.get(rtype).peer,rtype,f.peer,f.callFlags);
     }
  catch (    NoSuchMethodError e) {
       throw new UnsatisfiedLinkError("No method " + method.getName() + " with signature "+ sig+ " in "+ cls);

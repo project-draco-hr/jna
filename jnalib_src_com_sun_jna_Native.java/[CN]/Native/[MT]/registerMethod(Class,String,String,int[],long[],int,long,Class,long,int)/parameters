@@ -7,4 +7,4 @@ int rconversion
 long rtype
 Class rclass
 long fptr
-int callingConvention
+int callFlags
