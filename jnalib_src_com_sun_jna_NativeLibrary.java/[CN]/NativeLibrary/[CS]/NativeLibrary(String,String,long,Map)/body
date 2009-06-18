@@ -14,7 +14,7 @@ synchronized (functions) {
         }
       }
 ;
-      functions.put("GetLastError",f);
+      functions.put(functionKey("GetLastError",callFlags),f);
     }
   }
 }
