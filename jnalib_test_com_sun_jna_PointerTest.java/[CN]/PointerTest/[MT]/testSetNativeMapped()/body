@@ -1,0 +1,6 @@
+{
+  Pointer p=new Memory(Pointer.SIZE);
+  TestPointerType tp=new TestPointerType(p);
+  p.setValue(0,tp,tp.getClass());
+  assertEquals("Wrong value written",p,p.getPointer(0));
+}

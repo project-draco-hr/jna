@@ -1,0 +1,59 @@
+{
+  int length=0;
+  length=Array.getLength(o);
+  Object result=o;
+  if (cls == byte.class) {
+    read(offset,(byte[])result,0,length);
+  }
+ else   if (cls == short.class) {
+    read(offset,(short[])result,0,length);
+  }
+ else   if (cls == char.class) {
+    read(offset,(char[])result,0,length);
+  }
+ else   if (cls == int.class) {
+    read(offset,(int[])result,0,length);
+  }
+ else   if (cls == long.class) {
+    read(offset,(long[])result,0,length);
+  }
+ else   if (cls == float.class) {
+    read(offset,(float[])result,0,length);
+  }
+ else   if (cls == double.class) {
+    read(offset,(double[])result,0,length);
+  }
+ else   if (Pointer.class.isAssignableFrom(cls)) {
+    read(offset,(Pointer[])result,0,length);
+  }
+ else   if (Structure.class.isAssignableFrom(cls)) {
+    Structure[] sarray=(Structure[])result;
+    if (Structure.ByReference.class.isAssignableFrom(cls)) {
+      Pointer[] parray=getPointerArray(offset,sarray.length);
+      for (int i=0; i < sarray.length; i++) {
+        sarray[i]=Structure.updateStructureByReference(cls,sarray[i],parray[i]);
+      }
+    }
+ else {
+      for (int i=0; i < sarray.length; i++) {
+        if (sarray[i] == null) {
+          sarray[i]=Structure.newInstance(cls);
+        }
+        sarray[i].useMemory(this,(int)(offset + i * sarray[i].size()));
+        sarray[i].read();
+      }
+    }
+  }
+ else   if (NativeMapped.class.isAssignableFrom(cls)) {
+    NativeMapped[] array=(NativeMapped[])result;
+    NativeMappedConverter tc=NativeMappedConverter.getInstance(cls);
+    int size=Native.getNativeSize(result.getClass(),result) / array.length;
+    for (int i=0; i < array.length; i++) {
+      Object value=getValue(offset + size * i,tc.nativeType(),array[i]);
+      array[i]=(NativeMapped)tc.fromNative(value,new FromNativeContext(cls));
+    }
+  }
+ else {
+    throw new IllegalArgumentException("Reading array of " + cls + " from memory not supported");
+  }
+}

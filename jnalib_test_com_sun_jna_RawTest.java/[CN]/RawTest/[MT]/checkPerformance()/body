@@ -7,7 +7,7 @@
   String mname=Platform.isWindows() ? "msvcrt" : "m";
   MathInterface mlib=(MathInterface)Native.loadLibrary(mname,MathInterface.class);
   Function f=NativeLibrary.getInstance(mname).getFunction("cos");
-  final int COUNT=1000000;
+  final int COUNT=100000;
   Object[] args={new Double(0)};
   double dresult;
   long start=System.currentTimeMillis();

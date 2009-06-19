@@ -1,0 +1,6 @@
+{
+  TestLibrary.TestPointerType[] args={new TestLibrary.TestPointerType(new NativeString(getName()).getPointer()),null,new TestLibrary.TestPointerType(new NativeString(getName() + "2").getPointer())};
+  assertEquals("Wrong value returned",args[0],lib.returnPointerArrayElement(args,0));
+  assertNull("Wrong value returned",lib.returnPointerArrayElement(args,1));
+  assertEquals("Wrong value returned",args[2],lib.returnPointerArrayElement(args,2));
+}

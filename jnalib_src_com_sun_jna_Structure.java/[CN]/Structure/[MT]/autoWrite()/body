@@ -1,0 +1,10 @@
+{
+  if (getAutoWrite()) {
+    write();
+    if (array != null) {
+      for (int i=1; i < array.length; i++) {
+        array[i].autoWrite();
+      }
+    }
+  }
+}

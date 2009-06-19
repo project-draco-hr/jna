@@ -1,0 +1,9 @@
+{
+  Pointer p=new Memory(Pointer.SIZE);
+  p.setPointer(0,null);
+  Object o=p.getValue(0,TestPointerType.class,null);
+  assertNull("Wrong empty value: " + o,o);
+  p.setPointer(0,p);
+  TestPointerType tp=new TestPointerType(p);
+  assertEquals("Wrong value",tp,p.getValue(0,TestPointerType.class,null));
+}

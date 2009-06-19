@@ -26,9 +26,7 @@
   Class argClass=arg.getClass();
   if (arg instanceof Structure) {
     Structure struct=(Structure)arg;
-    if (struct.getAutoWrite()) {
-      struct.write();
-    }
+    struct.autoWrite();
     if (struct instanceof Structure.ByValue) {
       Class ptype=struct.getClass();
       if (invokingMethod != null) {
@@ -75,6 +73,9 @@
  else   if (Pointer[].class == argClass) {
     return new PointerArray((Pointer[])arg);
   }
+ else   if (NativeMapped[].class.isAssignableFrom(argClass)) {
+    return new NativeMappedArray((NativeMapped[])arg);
+  }
  else   if (Structure[].class.isAssignableFrom(argClass)) {
     Structure[] ss=(Structure[])arg;
     Class type=argClass.getComponentType();
@@ -90,30 +91,19 @@
       throw new IllegalArgumentException("Structure array must have non-zero length");
     }
  else     if (ss[0] == null) {
-      Structure struct=Structure.newInstance(type);
-      int size=struct.size();
-      Memory m=new Memory(size * ss.length);
-      struct.useMemory(m);
-      Structure[] tmp=struct.toArray(ss.length);
-      for (int si=0; si < ss.length; si++) {
-        ss[si]=tmp[si];
-      }
+      Structure.newInstance(type).toArray(ss);
       return ss[0].getPointer();
     }
  else {
       Pointer base=ss[0].getPointer();
       int size=ss[0].size();
-      if (ss[0].getAutoWrite()) {
-        ss[0].write();
-      }
+      ss[0].autoWrite();
       for (int si=1; si < ss.length; si++) {
         if (ss[si].getPointer().peer != base.peer + size * si) {
           String msg="Structure array elements must use" + " contiguous memory (at element index " + si + ")";
           throw new IllegalArgumentException(msg);
         }
-        if (ss[si].getAutoWrite()) {
-          ss[si].write();
-        }
+        ss[si].autoWrite();
       }
       return base;
     }

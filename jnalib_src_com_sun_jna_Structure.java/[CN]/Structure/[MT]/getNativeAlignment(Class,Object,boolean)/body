@@ -5,7 +5,7 @@
     type=tc.nativeType();
     value=tc.toNative(value,new ToNativeContext());
   }
-  int size=getNativeSize(type,value);
+  int size=Native.getNativeSize(type,value);
   if (type.isPrimitive() || Long.class == type || Integer.class == type || Short.class == type || Character.class == type || Byte.class == type || Boolean.class == type || Float.class == type || Double.class == type) {
     alignment=size;
   }

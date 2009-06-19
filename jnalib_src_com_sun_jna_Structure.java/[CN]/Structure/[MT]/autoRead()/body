@@ -1,0 +1,10 @@
+{
+  if (getAutoRead()) {
+    read();
+    if (array != null) {
+      for (int i=1; i < array.length; i++) {
+        array[i].autoRead();
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{
+  getValue(0,original.getClass(),original);
+}

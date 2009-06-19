@@ -95,7 +95,7 @@
       }
     }
     try {
-      structField.size=getNativeSize(nativeType,value);
+      structField.size=Native.getNativeSize(nativeType,value);
       fieldAlignment=getNativeAlignment(nativeType,value,i == 0);
     }
  catch (    IllegalArgumentException e) {

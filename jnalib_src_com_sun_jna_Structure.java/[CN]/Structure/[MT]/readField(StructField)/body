@@ -1,12 +1,12 @@
 {
   int offset=structField.offset;
-  Class nativeType=structField.type;
+  Class fieldType=structField.type;
   FromNativeConverter readConverter=structField.readConverter;
   if (readConverter != null) {
-    nativeType=readConverter.nativeType();
+    fieldType=readConverter.nativeType();
   }
-  Object currentValue=(Structure.class.isAssignableFrom(nativeType) || Callback.class.isAssignableFrom(nativeType) || Buffer.class.isAssignableFrom(nativeType)|| Pointer.class.isAssignableFrom(nativeType)|| nativeType.isArray()) ? getField(structField) : null;
-  Object result=readValue(offset,nativeType,currentValue);
+  Object currentValue=(Structure.class.isAssignableFrom(fieldType) || Callback.class.isAssignableFrom(fieldType) || Buffer.class.isAssignableFrom(fieldType)|| Pointer.class.isAssignableFrom(fieldType)|| fieldType.isArray()) ? getField(structField) : null;
+  Object result=memory.getValue(offset,fieldType,currentValue);
   if (readConverter != null) {
     result=readConverter.fromNative(result,structField.context);
   }

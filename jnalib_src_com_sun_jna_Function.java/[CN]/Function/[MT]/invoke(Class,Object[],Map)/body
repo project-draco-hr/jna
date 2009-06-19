@@ -43,9 +43,7 @@
       if (inArg == null)       continue;
       if (inArg instanceof Structure) {
         if (!(inArg instanceof Structure.ByValue)) {
-          if (((Structure)inArg).getAutoRead()) {
-            ((Structure)inArg).read();
-          }
+          ((Structure)inArg).autoRead();
         }
       }
  else       if (args[i] instanceof PostCallRead) {
@@ -65,9 +63,7 @@
  else       if (Structure[].class.isAssignableFrom(inArg.getClass())) {
         Structure[] ss=(Structure[])inArg;
         for (int si=0; si < ss.length; si++) {
-          if (ss[si].getAutoRead()) {
-            ss[si].read();
-          }
+          ss[si].autoRead();
         }
       }
     }

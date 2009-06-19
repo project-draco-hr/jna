@@ -1,14 +1,14 @@
 {
   int offset=structField.offset;
   Object value=getField(structField);
-  Class nativeType=structField.type;
+  Class fieldType=structField.type;
   ToNativeConverter converter=structField.writeConverter;
   if (converter != null) {
     value=converter.toNative(value,new StructureWriteContext(this,structField.field));
-    nativeType=converter.nativeType();
+    fieldType=converter.nativeType();
   }
-  if (String.class == nativeType || WString.class == nativeType) {
-    boolean wide=nativeType == WString.class;
+  if (String.class == fieldType || WString.class == fieldType) {
+    boolean wide=fieldType == WString.class;
     if (value != null) {
       NativeString nativeString=new NativeString(value.toString(),wide);
       nativeStrings.put(structField.name,nativeString);
@@ -19,8 +19,12 @@
       nativeStrings.remove(structField.name);
     }
   }
-  if (!writeValue(offset,value,nativeType)) {
-    String msg="Structure field \"" + structField.name + "\" was declared as "+ structField.type+ (structField.type == nativeType ? "" : " (native type " + nativeType + ")")+ ", which is not supported within a Structure";
+  try {
+    memory.setValue(offset,value,fieldType);
+  }
+ catch (  IllegalArgumentException e) {
+    e.printStackTrace();
+    String msg="Structure field \"" + structField.name + "\" was declared as "+ structField.type+ (structField.type == fieldType ? "" : " (native type " + fieldType + ")")+ ", which is not supported within a Structure";
     throw new IllegalArgumentException(msg);
   }
 }
