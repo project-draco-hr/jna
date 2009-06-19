@@ -1,15 +1,6 @@
 {
   Map options=new HashMap();
-  options.put(Library.OPTION_FUNCTION_MAPPER,new FunctionMapper(){
-    public String getFunctionName(    NativeLibrary library,    Method m){
-      if (m.getName().equals("noThrowLastError") || m.getName().equals("throwLastError")) {
-        return "setLastError";
-      }
-      return m.getName();
-    }
-  }
-);
-  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,options);
+  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,OPTIONS);
   final int ERROR=-1;
   lib.noThrowLastError(ERROR);
   assertEquals("Last error not preserved",ERROR,Native.getLastError());
