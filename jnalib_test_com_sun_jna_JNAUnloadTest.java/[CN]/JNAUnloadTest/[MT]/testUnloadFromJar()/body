@@ -13,17 +13,26 @@
   field=null;
   System.gc();
   for (int i=0; i < 100 && (ref.get() != null || clref.get() != null); i++) {
-    Thread.sleep(1);
+    Thread.sleep(10);
+    System.gc();
   }
   assertNull("Class not GC'd: " + ref.get(),ref.get());
   assertNull("ClassLoader not GC'd: " + clref.get(),clref.get());
   File f=new File(path);
-  for (int i=0; i < 1000 && f.exists(); i++) {
+  for (int i=0; i < 100 && f.exists(); i++) {
     Thread.sleep(10);
+    System.gc();
   }
-  assertFalse("Temporary native library not deleted: " + path,f.exists());
   try {
-    loader=new TestLoader(false);
+    if (Platform.isWindows()) {
+      ClassLoader.class.getDeclaredField("nativeLibraries");
+    }
+    assertFalse("Temporary native library not deleted: " + path,f.exists());
+  }
+ catch (  Exception e) {
+  }
+  try {
+    loader=new TestLoader(true);
     cls=Class.forName("com.sun.jna.Native",true,loader);
   }
  catch (  Throwable t) {
