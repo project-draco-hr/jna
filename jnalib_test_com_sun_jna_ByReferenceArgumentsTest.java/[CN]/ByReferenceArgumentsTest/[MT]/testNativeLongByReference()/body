@@ -1,0 +1,5 @@
+{
+  NativeLongByReference iref=new NativeLongByReference();
+  lib.incrementNativeLongByReference(iref);
+  assertEquals("Native long argument not modified",new NativeLong(1),iref.getValue());
+}

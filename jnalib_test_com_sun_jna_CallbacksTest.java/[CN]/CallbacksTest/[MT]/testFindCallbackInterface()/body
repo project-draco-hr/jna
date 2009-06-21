@@ -5,5 +5,5 @@
     }
   }
 ;
-  assertEquals("Wrong callback interface",TestLibrary.Int32Callback.class,Native.findCallbackClass(cb.getClass()));
+  assertEquals("Wrong callback interface",TestLibrary.Int32Callback.class,CallbackReference.findCallbackClass(cb.getClass()));
 }

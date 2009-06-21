@@ -1,18 +1,4 @@
 {
-  this.function=new Function(address,callingConvention){
-    public String getName(){
-      String str=super.getName();
-      if (options.containsKey(Function.OPTION_INVOKING_METHOD)) {
-        Method m=(Method)options.get(Function.OPTION_INVOKING_METHOD);
-        Class cls=Native.findCallbackClass(m.getDeclaringClass());
-        str+=" (" + cls.getName() + ")";
-      }
-      return str;
-    }
-  }
-;
-  this.options=new HashMap();
-  if (libOptions != null) {
-    options.putAll(libOptions);
-  }
+  this.function=new Function(address,callingConvention);
+  this.options=options;
 }

@@ -1,0 +1,8 @@
+{
+  try {
+    CallbackReference.getCallback(TestLibrary.NoMethodCallback.class,new Pointer(1));
+    fail("Callback with no callback method should fail");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

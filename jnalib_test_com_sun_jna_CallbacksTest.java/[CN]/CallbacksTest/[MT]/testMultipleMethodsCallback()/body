@@ -1,0 +1,3 @@
+{
+  CallbackReference.getCallback(TestLibrary.MultipleMethodsCallback.class,new Pointer(1));
+}

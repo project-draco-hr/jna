@@ -1,0 +1,8 @@
+{
+  try {
+    CallbackReference.getCallback(String.class,new Pointer(0));
+    fail("Request for non-Callback class should fail");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

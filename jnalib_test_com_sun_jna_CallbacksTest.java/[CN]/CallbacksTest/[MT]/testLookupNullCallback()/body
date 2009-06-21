@@ -1,0 +1,9 @@
+{
+  assertNull("NULL pointer should result in null callback",CallbackReference.getCallback(null,null));
+  try {
+    CallbackReference.getCallback(TestLibrary.VoidCallback.class,new Pointer(0));
+    fail("Null pointer lookup should fail");
+  }
+ catch (  NullPointerException e) {
+  }
+}

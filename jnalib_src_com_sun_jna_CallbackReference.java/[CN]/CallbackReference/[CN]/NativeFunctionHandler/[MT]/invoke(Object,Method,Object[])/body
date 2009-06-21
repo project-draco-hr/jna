@@ -1,6 +1,10 @@
 {
   if (Library.Handler.OBJECT_TOSTRING.equals(method)) {
-    return "Proxy interface to " + function;
+    String str="Proxy interface to " + function;
+    Method m=(Method)options.get(Function.OPTION_INVOKING_METHOD);
+    Class cls=findCallbackClass(m.getDeclaringClass());
+    str+=" (" + cls.getName() + ")";
+    return str;
   }
  else   if (Library.Handler.OBJECT_HASHCODE.equals(method)) {
     return new Integer(hashCode());

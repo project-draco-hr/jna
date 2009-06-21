@@ -1,6 +1,6 @@
 {
   super(callback);
-  TypeMapper mapper=Native.getTypeMapper(Native.findCallbackClass(callback.getClass()));
+  TypeMapper mapper=Native.getTypeMapper(callback.getClass());
   if (callback instanceof CallbackProxy) {
     proxy=(CallbackProxy)callback;
   }

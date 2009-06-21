@@ -6,7 +6,7 @@
     return cls;
   }
   if (Callback.class.isAssignableFrom(cls)) {
-    cls=findCallbackClass(cls);
+    cls=CallbackReference.findCallbackClass(cls);
   }
   Class fromDeclaring=findEnclosingLibraryClass(cls.getDeclaringClass());
   if (fromDeclaring != null) {

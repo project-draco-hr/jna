@@ -1,0 +1,4 @@
+{
+  byte[] buf={'a','b','c','\0','d','e'};
+  assertEquals("Wrong String generated","abc",Native.toString(buf));
+}
