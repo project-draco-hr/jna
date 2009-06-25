@@ -1,0 +1,14 @@
+{
+  String path=System.getProperty("user.home");
+  File deployment=new File(path + "/Application Data/Sun/Java/Deployment");
+  if (!deployment.exists()) {
+    deployment=new File(path + "/Library/Caches/Java");
+  }
+  if (!deployment.exists()) {
+    deployment=new File(path + "/.java/deployment");
+  }
+  if (!deployment.exists()) {
+    throw new Error("Deployment directory does not exist; save Java Control Panel settings to initialize it");
+  }
+  return new File(deployment,"deployment.properties");
+}

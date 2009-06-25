@@ -1,0 +1,31 @@
+{
+  if (getClass().equals(WebStartTest.class)) {
+    if (getName().equals("testDetectFailure")) {
+      try {
+        runTestUnderWebStart(getClass().getName(),getName());
+      }
+ catch (      AssertionFailedError e) {
+        return;
+      }
+      fail("Failed to detect test failure");
+    }
+ else     if (getName().equals("testDetectError")) {
+      try {
+        runTestUnderWebStart(getClass().getName(),getName());
+      }
+ catch (      AssertionFailedError e) {
+        fail("Wrong error type: " + e);
+      }
+catch (      Error e) {
+        return;
+      }
+      fail("Failed to detect test error");
+    }
+ else {
+      runTestUnderWebStart(getClass().getName(),getName());
+    }
+  }
+ else {
+    runTestUnderWebStart(getClass().getName(),getName());
+  }
+}

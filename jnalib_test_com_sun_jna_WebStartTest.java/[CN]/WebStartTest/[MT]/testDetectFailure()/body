@@ -1,0 +1,3 @@
+{
+  fail("This test is supposed to fail");
+}

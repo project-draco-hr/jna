@@ -1,0 +1,26 @@
+{
+  if (runningWebStart()) {
+    super.runBare();
+  }
+ else   if (!GraphicsEnvironment.isHeadless()) {
+    File policy=File.createTempFile(getName(),".policy");
+    policy.deleteOnExit();
+    OutputStream os=new FileOutputStream(policy);
+    os.write(POLICY.getBytes());
+    os.close();
+    File dpfile=findDeploymentProperties();
+    Properties saved=new Properties();
+    saved.load(new FileInputStream(dpfile));
+    Properties props=new Properties();
+    props.putAll(saved);
+    props.setProperty(CERTS_KEY,"jna.keystore");
+    props.setProperty(POLICY_KEY,policy.getAbsolutePath());
+    props.store(new FileOutputStream(dpfile),"deployment.properties (for testing)");
+    try {
+      runTestUnderWebStart();
+    }
+  finally {
+      saved.store(new FileOutputStream(dpfile),"deployment.properties");
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{
+  assertNotNull("Test not launched under web start",System.getProperty("javawebstart.version"));
+}
