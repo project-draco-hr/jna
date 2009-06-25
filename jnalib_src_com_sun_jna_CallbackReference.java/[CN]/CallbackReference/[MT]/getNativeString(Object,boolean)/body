@@ -1,0 +1,8 @@
+{
+  if (value != null) {
+    NativeString ns=new NativeString(value.toString(),wide);
+    allocations.put(value,ns);
+    return ns.getPointer();
+  }
+  return null;
+}

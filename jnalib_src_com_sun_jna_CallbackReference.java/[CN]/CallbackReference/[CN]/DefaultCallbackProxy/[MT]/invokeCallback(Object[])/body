@@ -6,9 +6,11 @@
     Object arg=args[i];
     if (fromNative[i] != null) {
       FromNativeContext context=new CallbackParameterContext(type,callbackMethod,args,i);
-      arg=fromNative[i].fromNative(arg,context);
+      callbackArgs[i]=fromNative[i].fromNative(arg,context);
     }
-    callbackArgs[i]=convertArgument(arg,type);
+ else {
+      callbackArgs[i]=convertArgument(arg,type);
+    }
   }
   Object result=null;
   Callback cb=getCallback();

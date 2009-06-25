@@ -8,9 +8,11 @@
 ;
   lib.callVoidCallback(cb);
   assertTrue("Callback not called",called[0]);
-  Map refs=CallbackReference.callbackMap;
+  Map refs=new WeakHashMap(CallbackReference.callbackMap);
+  refs.putAll(CallbackReference.directCallbackMap);
   assertTrue("Callback not cached",refs.containsKey(cb));
   CallbackReference ref=(CallbackReference)refs.get(cb);
+  refs=ref.proxy != null ? CallbackReference.callbackMap : CallbackReference.directCallbackMap;
   Pointer cbstruct=ref.cbstruct;
   cb=null;
   System.gc();
@@ -25,7 +27,7 @@
   assertFalse("Callback still in map",refs.containsValue(ref));
   ref=null;
   System.gc();
-  for (int i=0; i < 100 && cbstruct.peer != 0; ++i) {
+  for (int i=0; i < 100 && (cbstruct.peer != 0 || refs.size() > 0); ++i) {
     refs.size();
     try {
       Thread.sleep(10);

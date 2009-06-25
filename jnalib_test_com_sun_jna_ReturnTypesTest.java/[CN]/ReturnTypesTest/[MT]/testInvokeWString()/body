@@ -1,4 +1,5 @@
 {
   WString s=lib.returnWStringMagic();
-  assertEquals("Expect wstring magic",new WString(MAGIC),s);
+  assertEquals("Wrong length",MAGIC.length(),s.toString().length());
+  assertEquals("Expect WString magic",new WString(MAGIC),s);
 }

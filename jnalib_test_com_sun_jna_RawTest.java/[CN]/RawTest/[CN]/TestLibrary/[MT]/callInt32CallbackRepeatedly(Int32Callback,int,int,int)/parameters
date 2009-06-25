@@ -1,0 +1,4 @@
+Int32Callback cb
+int arg1
+int arg2
+int count

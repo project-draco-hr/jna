@@ -1,28 +1,3 @@
 {
-  if (p == null)   return null;
-  if (!type.isInterface())   throw new IllegalArgumentException("Callback type must be an interface");
-  Map map=AltCallingConvention.class.isAssignableFrom(type) ? altCallbackMap : callbackMap;
-synchronized (map) {
-    for (Iterator i=map.keySet().iterator(); i.hasNext(); ) {
-      Callback cb=(Callback)i.next();
-      if (type.isAssignableFrom(cb.getClass())) {
-        CallbackReference cbref=(CallbackReference)map.get(cb);
-        Pointer cbp=cbref != null ? cbref.getTrampoline() : getNativeFunctionPointer(cb);
-        if (p.equals(cbp)) {
-          return cb;
-        }
-      }
-    }
-    int ctype=AltCallingConvention.class.isAssignableFrom(type) ? Function.ALT_CONVENTION : Function.C_CONVENTION;
-    Map foptions=new HashMap();
-    Map options=Native.getLibraryOptions(type);
-    if (options != null) {
-      foptions.putAll(options);
-    }
-    foptions.put(Function.OPTION_INVOKING_METHOD,getCallbackMethod(type));
-    NativeFunctionHandler h=new NativeFunctionHandler(p,ctype,foptions);
-    Callback cb=(Callback)Proxy.newProxyInstance(type.getClassLoader(),new Class[]{type},h);
-    map.put(cb,null);
-    return cb;
-  }
+  return getCallback(type,p,false);
 }

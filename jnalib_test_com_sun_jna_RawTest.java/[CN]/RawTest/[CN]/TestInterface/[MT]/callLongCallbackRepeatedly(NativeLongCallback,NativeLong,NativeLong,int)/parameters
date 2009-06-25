@@ -1,0 +1,4 @@
+NativeLongCallback cb
+NativeLong arg1
+NativeLong arg2
+int count

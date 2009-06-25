@@ -1,0 +1,4 @@
+{
+  RawTestLibraryBoolean lib=new RawTestLibraryBoolean();
+  assertEquals("Failed to convert Boolean argument to Int",lib.MAGIC,lib.returnInt32Argument(true));
+}

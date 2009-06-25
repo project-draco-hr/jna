@@ -1,0 +1,6 @@
+Callback callback
+Method method
+Class[] parameterTypes
+Class returnType
+int callingConvention
+boolean direct

@@ -1,0 +1,3 @@
+{
+  super(Native.POINTER_SIZE,value);
+}

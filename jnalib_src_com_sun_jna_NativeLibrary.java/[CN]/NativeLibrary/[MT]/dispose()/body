@@ -1,10 +1,10 @@
 {
 synchronized (libraries) {
-    libraries.remove(getName());
+    libraries.remove(getName() + options);
     File path=getFile();
     if (path != null) {
-      libraries.remove(path.getAbsolutePath());
-      libraries.remove(path.getName());
+      libraries.remove(path.getAbsolutePath() + options);
+      libraries.remove(path.getName() + options);
     }
   }
 synchronized (this) {

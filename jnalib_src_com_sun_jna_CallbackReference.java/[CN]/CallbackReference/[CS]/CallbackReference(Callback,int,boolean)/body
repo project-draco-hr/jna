@@ -1,0 +1,66 @@
+{
+  super(callback);
+  TypeMapper mapper=Native.getTypeMapper(callback.getClass());
+  Class[] nativeParamTypes;
+  Class returnType;
+  String arch=System.getProperty("os.arch").toLowerCase();
+  boolean ppc="ppc".equals(arch) || "powerpc".equals(arch);
+  if (direct) {
+    Method m=getCallbackMethod(callback);
+    Class[] ptypes=m.getParameterTypes();
+    for (int i=0; i < ptypes.length; i++) {
+      if (ppc && (ptypes[i] == float.class || ptypes[i] == double.class)) {
+        direct=false;
+        break;
+      }
+      if (mapper != null && mapper.getFromNativeConverter(ptypes[i]) != null) {
+        direct=false;
+        break;
+      }
+    }
+    if (mapper != null && mapper.getToNativeConverter(m.getReturnType()) != null) {
+      direct=false;
+    }
+  }
+  if (direct) {
+    method=getCallbackMethod(callback);
+    nativeParamTypes=method.getParameterTypes();
+    returnType=method.getReturnType();
+    cbstruct=createNativeCallback(callback,method,nativeParamTypes,returnType,callingConvention,true);
+  }
+ else {
+    if (callback instanceof CallbackProxy) {
+      proxy=(CallbackProxy)callback;
+    }
+ else {
+      proxy=new DefaultCallbackProxy(getCallbackMethod(callback),mapper);
+    }
+    nativeParamTypes=proxy.getParameterTypes();
+    returnType=proxy.getReturnType();
+    if (mapper != null) {
+      for (int i=0; i < nativeParamTypes.length; i++) {
+        FromNativeConverter rc=mapper.getFromNativeConverter(nativeParamTypes[i]);
+        if (rc != null) {
+          nativeParamTypes[i]=rc.nativeType();
+        }
+      }
+      ToNativeConverter tn=mapper.getToNativeConverter(returnType);
+      if (tn != null) {
+        returnType=tn.nativeType();
+      }
+    }
+    for (int i=0; i < nativeParamTypes.length; i++) {
+      nativeParamTypes[i]=getNativeType(nativeParamTypes[i]);
+      if (!isAllowableNativeType(nativeParamTypes[i])) {
+        String msg="Callback argument " + nativeParamTypes[i] + " requires custom type conversion";
+        throw new IllegalArgumentException(msg);
+      }
+    }
+    returnType=getNativeType(returnType);
+    if (!isAllowableNativeType(returnType)) {
+      String msg="Callback return type " + returnType + " requires custom type conversion";
+      throw new IllegalArgumentException(msg);
+    }
+    cbstruct=createNativeCallback(proxy,PROXY_CALLBACK_METHOD,nativeParamTypes,returnType,callingConvention,false);
+  }
+}
