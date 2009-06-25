@@ -1,10 +1,13 @@
 {
   String path=System.getProperty("user.home");
-  File deployment=new File(path + "/Application Data/Sun/Java/Deployment");
-  if (!deployment.exists()) {
+  File deployment;
+  if (Platform.isWindows()) {
+    deployment=new File(path + "/Application Data/Sun/Java/Deployment");
+  }
+ else   if (Platform.isMac()) {
     deployment=new File(path + "/Library/Caches/Java");
   }
-  if (!deployment.exists()) {
+ else {
     deployment=new File(path + "/.java/deployment");
   }
   if (!deployment.exists()) {

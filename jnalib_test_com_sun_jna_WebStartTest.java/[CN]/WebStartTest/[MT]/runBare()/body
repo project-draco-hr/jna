@@ -1,4 +1,5 @@
 {
+  if (!Platform.isMac())   return;
   if (runningWebStart()) {
     super.runBare();
   }
@@ -13,7 +14,7 @@
     saved.load(new FileInputStream(dpfile));
     Properties props=new Properties();
     props.putAll(saved);
-    props.setProperty(CERTS_KEY,"jna.keystore");
+    props.setProperty(CERTS_KEY,new File("jna.keystore").getAbsolutePath());
     props.setProperty(POLICY_KEY,policy.getAbsolutePath());
     props.store(new FileOutputStream(dpfile),"deployment.properties (for testing)");
     try {
