@@ -5,16 +5,16 @@
       Object o=Array.get(value,0);
       return len * getNativeSize(type.getComponentType(),o);
     }
-    throw new IllegalArgumentException("Arrays of length zero not allowed in structure: " + type);
+    throw new IllegalArgumentException("Arrays of length zero not allowed: " + type);
   }
   if (Structure.class.isAssignableFrom(type) && !Structure.ByReference.class.isAssignableFrom(type)) {
     if (value == null)     value=Structure.newInstance(type);
     return ((Structure)value).size();
   }
   try {
-    return Native.getNativeSize(type);
+    return getNativeSize(type);
   }
  catch (  IllegalArgumentException e) {
-    throw new IllegalArgumentException("The type \"" + type.getName() + "\" is not supported as a structure field: "+ e.getMessage());
+    throw new IllegalArgumentException("The type \"" + type.getName() + "\" is not supported: "+ e.getMessage());
   }
 }
