@@ -10,22 +10,17 @@
       Enumeration e=result.failures();
       Throwable t=((TestFailure)e.nextElement()).thrownException();
       t.printStackTrace(new PrintStream(os));
-      s.close();
-      System.exit(1);
     }
  else     if (result.errorCount() != 0) {
       Enumeration e=result.errors();
       Throwable t=((TestFailure)e.nextElement()).thrownException();
       t.printStackTrace(new PrintStream(os));
-      s.close();
-      System.exit(2);
     }
     s.close();
-    Thread.sleep(5000);
     System.exit(0);
   }
  catch (  Throwable e) {
     showMessage("ERROR: " + e.getMessage());
-    System.exit(-1);
+    System.exit(0);
   }
 }

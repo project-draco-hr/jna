@@ -66,6 +66,8 @@ class SocketHandler extends Thread {
     out.start();
   }
  catch (  SocketTimeoutException e) {
+    p.destroy();
+    throw new Error("JWS Timed out");
   }
   p.waitFor();
   int code=p.exitValue();

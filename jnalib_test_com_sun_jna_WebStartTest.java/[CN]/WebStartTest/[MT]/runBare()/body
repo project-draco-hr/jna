@@ -1,5 +1,5 @@
 {
-  if (!Platform.isMac())   return;
+  if (!Platform.isMac() && !Platform.isWindows())   return;
   if (runningWebStart()) {
     super.runBare();
   }
@@ -16,12 +16,16 @@
     props.putAll(saved);
     props.setProperty(CERTS_KEY,new File("jna.keystore").getAbsolutePath());
     props.setProperty(POLICY_KEY,policy.getAbsolutePath());
-    props.store(new FileOutputStream(dpfile),"deployment.properties (for testing)");
+    os=new FileOutputStream(dpfile);
+    props.store(os,"deployment.properties (for testing)");
+    os.close();
     try {
       runTestUnderWebStart();
     }
   finally {
-      saved.store(new FileOutputStream(dpfile),"deployment.properties");
+      os=new FileOutputStream(dpfile);
+      saved.store(os,"deployment.properties");
+      os.close();
     }
   }
 }
