@@ -1,11 +1,8 @@
 {
-  String encoding=System.getProperty("jna.encoding");
-  if (encoding != null) {
-    try {
-      return s.getBytes(encoding);
-    }
- catch (    UnsupportedEncodingException e) {
-    }
+  try {
+    return getBytes(s,System.getProperty("jna.encoding"));
   }
-  return s.getBytes();
+ catch (  UnsupportedEncodingException e) {
+    return s.getBytes();
+  }
 }

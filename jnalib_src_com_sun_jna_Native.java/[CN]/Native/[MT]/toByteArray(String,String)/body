@@ -1,0 +1,6 @@
+{
+  byte[] bytes=getBytes(s,encoding);
+  byte[] buf=new byte[bytes.length + 1];
+  System.arraycopy(bytes,0,buf,0,bytes.length);
+  return buf;
+}

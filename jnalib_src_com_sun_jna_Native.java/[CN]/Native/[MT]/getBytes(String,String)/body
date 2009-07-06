@@ -1,0 +1,6 @@
+{
+  if (encoding != null) {
+    return s.getBytes(encoding);
+  }
+  return s.getBytes();
+}
