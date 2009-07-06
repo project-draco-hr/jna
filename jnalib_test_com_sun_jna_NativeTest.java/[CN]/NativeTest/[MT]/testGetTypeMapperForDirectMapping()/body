@@ -1,0 +1,9 @@
+{
+  final TypeMapper mapper=new DefaultTypeMapper();
+  Map options=new HashMap();
+  options.put(Library.OPTION_TYPE_MAPPER,mapper);
+  DirectMapping lib=new DirectMapping(options);
+  assertEquals("Wrong type mapper for direct mapping",mapper,Native.getTypeMapper(DirectMapping.class));
+  assertEquals("Wrong type mapper for direct mapping nested structure",mapper,Native.getTypeMapper(DirectMapping.DirectStructure.class));
+  assertEquals("Wrong type mapper for direct mapping nested callback",mapper,Native.getTypeMapper(DirectMapping.DirectCallback.class));
+}

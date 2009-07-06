@@ -1,0 +1,3 @@
+{
+  return (CallbackTestLibrary)Native.loadLibrary("testlib",CallbackTestLibrary.class,CallbackTestLibrary._OPTIONS);
+}

@@ -106,4 +106,5 @@ synchronized (registeredClasses) {
 registeredClasses.put(cls,handles);
 registeredLibraries.put(cls,lib);
 }
+cacheOptions(cls,lib.getOptions(),null);
 }

@@ -2,11 +2,6 @@
   Library.Handler handler=new Library.Handler(name,interfaceClass,libOptions);
   ClassLoader loader=interfaceClass.getClassLoader();
   Library proxy=(Library)Proxy.newProxyInstance(loader,new Class[]{interfaceClass},handler);
-synchronized (libraries) {
-    if (!libOptions.isEmpty())     options.put(interfaceClass,libOptions);
-    if (libOptions.containsKey(Library.OPTION_TYPE_MAPPER))     typeMappers.put(interfaceClass,libOptions.get(Library.OPTION_TYPE_MAPPER));
-    if (libOptions.containsKey(Library.OPTION_STRUCTURE_ALIGNMENT))     alignments.put(interfaceClass,libOptions.get(Library.OPTION_STRUCTURE_ALIGNMENT));
-    libraries.put(interfaceClass,new WeakReference(proxy));
-  }
+  cacheOptions(interfaceClass,libOptions,proxy);
   return proxy;
 }
