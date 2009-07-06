@@ -1,0 +1,4 @@
+{
+  junit.textui.TestRunner.run(DirectTest.class);
+  checkPerformance();
+}

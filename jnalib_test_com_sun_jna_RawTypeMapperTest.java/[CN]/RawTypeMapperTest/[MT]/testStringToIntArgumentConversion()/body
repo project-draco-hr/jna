@@ -1,5 +1,0 @@
-{
-  final int MAGIC=0x7BEDCF23;
-  RawTestLibraryString lib=new RawTestLibraryString();
-  assertEquals("Failed to convert String argument to Int",MAGIC,lib.returnInt32Argument(Integer.toHexString(MAGIC)));
-}

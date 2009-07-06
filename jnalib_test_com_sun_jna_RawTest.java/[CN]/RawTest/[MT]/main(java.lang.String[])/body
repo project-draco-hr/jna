@@ -1,4 +1,0 @@
-{
-  junit.textui.TestRunner.run(RawTest.class);
-  checkPerformance();
-}

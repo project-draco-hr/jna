@@ -1,5 +1,4 @@
 {
-  if (!Platform.isMac() && !Platform.isWindows())   return;
   if (runningWebStart()) {
     super.runBare();
   }

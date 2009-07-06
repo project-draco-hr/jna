@@ -1,0 +1,5 @@
+{
+  DirectBooleanTestLibrary lib=new DirectBooleanTestLibrary();
+  assertTrue("Failed to convert integer return to boolean TRUE",lib.returnInt32Argument(true));
+  assertFalse("Failed to convert integer return to boolean FALSE",lib.returnInt32Argument(false));
+}
