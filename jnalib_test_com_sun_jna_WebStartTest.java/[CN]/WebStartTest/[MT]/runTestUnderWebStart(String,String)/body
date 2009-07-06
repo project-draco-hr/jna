@@ -27,8 +27,8 @@
   }
   String PS=System.getProperty("path.separator");
   String[] cmd={"javaws","-Xnosplash","-wait",jnlp.toURI().toURL().toString()};
-  Process p=Runtime.getRuntime().exec(cmd);
-  StringBuffer output=new StringBuffer();
+  final Process p=Runtime.getRuntime().exec(cmd);
+  final StringBuffer output=new StringBuffer();
 class SocketHandler extends Thread {
     private InputStream is;
     private StringBuffer sb;
@@ -54,6 +54,7 @@ class SocketHandler extends Thread {
           }
         }
  catch (        IOException e) {
+          showMessage("read error: " + e.toString());
         }
       }
       try {
@@ -63,15 +64,24 @@ class SocketHandler extends Thread {
       }
     }
   }
+  Thread out=null;
   try {
-    Thread out=new SocketHandler(s.accept(),output);
+    out=new SocketHandler(s.accept(),output);
     out.start();
   }
  catch (  SocketTimeoutException e) {
-    p.destroy();
-    throw new Error("JWS Timed out");
+    try {
+      p.exitValue();
+    }
+ catch (    IllegalThreadStateException e2) {
+      p.destroy();
+      throw new Error("JWS Timed out");
+    }
   }
   p.waitFor();
+  if (out != null) {
+    out.join();
+  }
   int code=p.exitValue();
   String error=output.toString();
   if (code != 0 || !"".equals(error)) {
