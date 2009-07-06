@@ -1,0 +1,7 @@
+{
+  final String VALUE=getName();
+  char[] buf=Native.toCharArray(VALUE);
+  assertEquals("Wrong char array length",VALUE.length() + 1,buf.length);
+  assertEquals("Missing NUL terminator",(char)0,buf[buf.length - 1]);
+  assertEquals("Wrong char array contents: " + new String(buf),VALUE,new String(buf,0,buf.length - 1));
+}

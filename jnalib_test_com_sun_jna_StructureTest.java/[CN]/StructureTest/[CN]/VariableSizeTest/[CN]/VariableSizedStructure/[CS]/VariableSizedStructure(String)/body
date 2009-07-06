@@ -1,5 +1,0 @@
-{
-  length=arg.length() + 1;
-  buffer=new byte[length];
-  System.arraycopy(arg.getBytes(),0,buffer,0,arg.length());
-}

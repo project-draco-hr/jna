@@ -1,0 +1,43 @@
+{
+  String osPrefix;
+  arch=arch.toLowerCase();
+switch (osType) {
+case Platform.WINDOWS:
+    if ("i386".equals(arch))     arch="x86";
+  osPrefix="win32-" + arch;
+break;
+case Platform.MAC:
+osPrefix="darwin";
+break;
+case Platform.LINUX:
+if ("x86".equals(arch)) {
+arch="i386";
+}
+ else if ("x86_64".equals(arch)) {
+arch="amd64";
+}
+osPrefix="linux-" + arch;
+break;
+case Platform.SOLARIS:
+osPrefix="sunos-" + arch;
+break;
+default :
+osPrefix=name.toLowerCase();
+if ("x86".equals(arch)) {
+arch="i386";
+}
+if ("x86_64".equals(arch)) {
+arch="amd64";
+}
+if ("powerpc".equals(arch)) {
+arch="ppc";
+}
+int space=osPrefix.indexOf(" ");
+if (space != -1) {
+osPrefix=osPrefix.substring(0,space);
+}
+osPrefix+="-" + arch;
+break;
+}
+return "/com/sun/jna/" + osPrefix;
+}

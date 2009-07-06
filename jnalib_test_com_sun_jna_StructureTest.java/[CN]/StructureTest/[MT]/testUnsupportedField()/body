@@ -1,0 +1,21 @@
+{
+class BadNestedStructure extends Structure {
+    public BadFieldStructure badStruct=new BadFieldStructure();
+  }
+  try {
+    new BadFieldStructure().size();
+    fail("Should throw IllegalArgumentException on bad field");
+  }
+ catch (  IllegalArgumentException e) {
+    assertTrue("Exception should include field name",e.getMessage().indexOf("badField") != -1);
+  }
+  try {
+    new BadNestedStructure().size();
+    fail("Should throw IllegalArgumentException on bad field");
+  }
+ catch (  IllegalArgumentException e) {
+    assertTrue("Exception should include enclosing type: " + e,e.getMessage().indexOf(BadNestedStructure.class.getName()) != -1);
+    assertTrue("Exception should include nested field name: " + e,e.getMessage().indexOf("badStruct") != -1);
+    assertTrue("Exception should include field name: " + e,e.getMessage().indexOf("badField") != -1);
+  }
+}

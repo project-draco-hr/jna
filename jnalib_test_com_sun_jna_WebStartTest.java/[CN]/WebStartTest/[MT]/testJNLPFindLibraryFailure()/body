@@ -1,0 +1,8 @@
+{
+  try {
+    Native.getWebStartLibraryPath("xyzzy");
+    fail("Missing native libraries should throw UnsatisfiedLinkError");
+  }
+ catch (  UnsatisfiedLinkError e) {
+  }
+}

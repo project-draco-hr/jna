@@ -1,6 +1,8 @@
 {
   String libname=System.mapLibraryName("jnidispatch");
-  String resourceName=getNativeLibraryResourcePath() + "/" + libname;
+  String arch=System.getProperty("os.arch");
+  String name=System.getProperty("os.name");
+  String resourceName=getNativeLibraryResourcePath(Platform.getOSType(),arch,name) + "/" + libname;
   URL url=Native.class.getResource(resourceName);
   if (url == null && Platform.isMac() && resourceName.endsWith(".dylib")) {
     resourceName=resourceName.substring(0,resourceName.lastIndexOf(".dylib")) + ".jnilib";

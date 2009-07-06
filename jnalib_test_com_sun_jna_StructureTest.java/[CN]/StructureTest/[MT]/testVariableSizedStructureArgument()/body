@@ -1,6 +1,0 @@
-{
-  VariableSizeTest lib=(VariableSizeTest)Native.loadLibrary("testlib",VariableSizeTest.class);
-  String EXPECTED=getName();
-  VariableSizedStructure s=new VariableSizedStructure(EXPECTED);
-  assertEquals("Wrong string returned from variable sized struct",EXPECTED,lib.returnStringFromVariableSizedStructure(s));
-}

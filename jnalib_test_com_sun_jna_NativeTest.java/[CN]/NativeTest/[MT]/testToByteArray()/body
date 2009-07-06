@@ -1,0 +1,7 @@
+{
+  final String VALUE=getName();
+  byte[] buf=Native.toByteArray(VALUE);
+  assertEquals("Wrong byte array length",VALUE.length() + 1,buf.length);
+  assertEquals("Missing NUL terminator",(byte)0,buf[buf.length - 1]);
+  assertEquals("Wrong byte array contents",VALUE,new String(buf,0,buf.length - 1));
+}
