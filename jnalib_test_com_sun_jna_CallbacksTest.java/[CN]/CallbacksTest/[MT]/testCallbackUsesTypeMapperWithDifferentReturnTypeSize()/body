@@ -1,17 +1,17 @@
 {
   CallbackTestLibrary lib=loadCallbackTestLibrary();
-  final double[] ARGS=new double[2];
-  CallbackTestLibrary.DoubleCallback cb=new CallbackTestLibrary.DoubleCallback(){
-    public double callback(    double arg,    double arg2){
+  final float[] ARGS=new float[2];
+  CallbackTestLibrary.FloatCallback cb=new CallbackTestLibrary.FloatCallback(){
+    public float callback(    float arg,    float arg2){
       ARGS[0]=arg;
       ARGS[1]=arg2;
       return arg + arg2;
     }
   }
 ;
-  assertEquals("Wrong type mapper for callback class",lib._MAPPER,Native.getTypeMapper(CallbackTestLibrary.DoubleCallback.class));
+  assertEquals("Wrong type mapper for callback class",lib._MAPPER,Native.getTypeMapper(CallbackTestLibrary.FloatCallback.class));
   assertEquals("Wrong type mapper for callback object",lib._MAPPER,Native.getTypeMapper(cb.getClass()));
-  double result=lib.callInt32Callback(cb,-1,-1);
+  float result=lib.callInt64Callback(cb,-1,-1);
   assertEquals("Wrong callback argument 1",-1,ARGS[0],0);
   assertEquals("Wrong callback argument 2",-1,ARGS[1],0);
   assertEquals("Incorrect result of callback invocation",-2,result,0);
