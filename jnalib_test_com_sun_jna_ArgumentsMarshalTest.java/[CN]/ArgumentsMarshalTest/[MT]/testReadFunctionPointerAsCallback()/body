@@ -1,0 +1,6 @@
+{
+  TestLibrary.CbStruct s=new TestLibrary.CbStruct();
+  assertNull("Function pointer field should be null",s.cb);
+  lib.setCallbackInStruct(s);
+  assertNotNull("Callback field not set",s.cb);
+}

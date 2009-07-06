@@ -1,5 +1,4 @@
 {
-  lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class);
   try {
     lib.returnObjectArgument(new TestLibrary.TestObject());
     fail("Java Object return is not supported, should throw IllegalArgumentException");

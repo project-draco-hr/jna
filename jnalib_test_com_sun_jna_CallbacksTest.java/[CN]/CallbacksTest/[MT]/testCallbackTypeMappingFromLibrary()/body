@@ -6,7 +6,7 @@
     }
   }
 ;
-  CallbackTestLibrary lib=(CallbackTestLibrary)Native.loadLibrary("testlib",CallbackTestLibrary.class,options);
+  CallbackTestLibrary lib=loadCallbackTestLibrary(options);
   TypeConverter converter=new TypeConverter(){
     public Object fromNative(    Object value,    FromNativeContext context){
       return new Float(((Integer)value).intValue());

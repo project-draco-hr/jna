@@ -1,0 +1,13 @@
+{
+  TestLibrary.MinTestStructure s=new TestLibrary.MinTestStructure();
+  final int VALUE=42;
+  s.field=VALUE;
+  s.setAutoWrite(false);
+  lib.testStructurePointerArgument(s);
+  assertEquals("Auto write should be disabled",0,s.field);
+  final int EXPECTED=s.field;
+  s.getPointer().setInt(0,VALUE);
+  s.setAutoRead(false);
+  lib.testStructurePointerArgument(s);
+  assertEquals("Auto read should be disabled",EXPECTED,s.field);
+}

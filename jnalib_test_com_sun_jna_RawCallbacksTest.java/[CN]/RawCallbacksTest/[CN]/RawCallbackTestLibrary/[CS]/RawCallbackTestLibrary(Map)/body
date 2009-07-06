@@ -1,0 +1,3 @@
+{
+  Native.register(getClass(),NativeLibrary.getInstance("testlib",options));
+}

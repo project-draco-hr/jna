@@ -1,5 +1,5 @@
 {
-  NativeMappedLibrary lib=(NativeMappedLibrary)Native.loadLibrary("testlib",NativeMappedLibrary.class);
+  NativeMappedLibrary lib=loadNativeMappedLibrary();
   final int MAGIC=0x12345678;
   final Custom EXPECTED=new Custom(MAGIC);
   assertEquals("Argument not mapped",EXPECTED,lib.returnInt32Argument(MAGIC));

@@ -1,13 +1,12 @@
 {
   final boolean[] flag={false};
-  final CbStruct s=new CbStruct();
+  final TestLibrary.CbStruct s=new TestLibrary.CbStruct();
   s.cb=new Callback(){
     public void callback(){
       flag[0]=true;
     }
   }
 ;
-  CbTest lib=(CbTest)Native.loadLibrary("testlib",CbTest.class);
   lib.callCallbackInStruct(s);
   assertTrue("Callback not invoked",flag[0]);
 }

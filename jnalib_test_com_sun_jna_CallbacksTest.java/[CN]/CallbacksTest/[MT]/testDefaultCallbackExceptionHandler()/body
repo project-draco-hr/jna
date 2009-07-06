@@ -1,0 +1,20 @@
+{
+  final RuntimeException ERROR=new RuntimeException(getName());
+  PrintStream ps=System.err;
+  ByteArrayOutputStream s=new ByteArrayOutputStream();
+  System.setErr(new PrintStream(s));
+  try {
+    TestLibrary.CbCallback cb=new TestLibrary.CbCallback(){
+      public CbCallback callback(      CbCallback arg){
+        throw ERROR;
+      }
+    }
+;
+    TestLibrary.CbCallback cb2=lib.callCallbackWithCallback(cb);
+    String output=s.toString();
+    assertTrue("Default handler not called",output.length() > 0);
+  }
+  finally {
+    System.setErr(ps);
+  }
+}

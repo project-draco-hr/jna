@@ -1,0 +1,5 @@
+{
+  String EXPECTED=getName();
+  TestLibrary.VariableSizedStructure s=new TestLibrary.VariableSizedStructure(EXPECTED);
+  assertEquals("Wrong string returned from variable sized struct",EXPECTED,lib.returnStringFromVariableSizedStructure(s));
+}

@@ -1,0 +1,5 @@
+{
+  TestLibrary.CbStruct s=new TestLibrary.CbStruct();
+  lib.setCallbackInStruct(s);
+  assertEquals("Proxy to native function pointer failed: " + s.cb,3,s.cb.callback(1,2));
+}

@@ -1,0 +1,6 @@
+{
+  if (Platform.isWindows() && "IBM".equals(System.getProperty("java.vm.vendor"))) {
+    fail("XFAIL, crash avoided");
+  }
+  super.testWStringArgumentReturn();
+}
