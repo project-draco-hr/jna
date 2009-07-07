@@ -4,7 +4,6 @@
   }
  else   if (!GraphicsEnvironment.isHeadless()) {
     File policy=File.createTempFile(getName(),".policy");
-    policy.deleteOnExit();
     OutputStream os=new FileOutputStream(policy);
     os.write(POLICY.getBytes());
     os.close();
@@ -22,6 +21,7 @@
       runTestUnderWebStart();
     }
   finally {
+      policy.delete();
       os=new FileOutputStream(dpfile);
       saved.store(os,"deployment.properties");
       os.close();
