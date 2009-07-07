@@ -26,7 +26,11 @@
     }
   }
   String PS=System.getProperty("path.separator");
-  String[] cmd={"javaws","-Xnosplash","-wait",jnlp.toURI().toURL().toString()};
+  String path=System.getProperty("java.home") + "/bin/javaws";
+  if (Platform.isWindows())   path+=".exe";
+  File javaws=new File(path);
+  if (!javaws.exists())   path="javaws";
+  String[] cmd={path,"-Xnosplash","-wait",jnlp.toURI().toURL().toString()};
   final Process p=Runtime.getRuntime().exec(cmd);
   final StringBuffer output=new StringBuffer();
 class SocketHandler extends Thread {
