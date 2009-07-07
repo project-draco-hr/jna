@@ -3,16 +3,24 @@
   if (options.get(Library.OPTION_CALLING_CONVENTION) == null) {
     options.put(Library.OPTION_CALLING_CONVENTION,new Integer(Function.C_CONVENTION));
   }
-  if (libraryName == null)   throw new NullPointerException("Library name may not be null");
 synchronized (libraries) {
     WeakReference ref=(WeakReference)libraries.get(libraryName + options);
     NativeLibrary library=ref != null ? (NativeLibrary)ref.get() : null;
     if (library == null) {
-      library=loadLibrary(libraryName,options);
+      if (libraryName == null) {
+        if (Platform.isWindows())         throw new UnsatisfiedLinkError("getProcess() is not implemented on Windows");
+        library=new NativeLibrary("<process>",null,open(null),options);
+      }
+ else {
+        library=loadLibrary(libraryName,options);
+      }
       ref=new WeakReference(library);
       libraries.put(library.getName() + options,ref);
-      libraries.put(library.getFile().getAbsolutePath() + options,ref);
-      libraries.put(library.getFile().getName() + options,ref);
+      File file=library.getFile();
+      if (file != null) {
+        libraries.put(file.getAbsolutePath() + options,ref);
+        libraries.put(file.getName() + options,ref);
+      }
     }
     return library;
   }

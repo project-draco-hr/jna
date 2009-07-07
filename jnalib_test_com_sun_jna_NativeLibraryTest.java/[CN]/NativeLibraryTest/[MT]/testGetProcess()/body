@@ -1,0 +1,9 @@
+{
+  try {
+    NativeLibrary process=NativeLibrary.getProcess();
+    process.getFunction("printf");
+  }
+ catch (  UnsatisfiedLinkError e) {
+    if (!Platform.isWindows())     throw e;
+  }
+}

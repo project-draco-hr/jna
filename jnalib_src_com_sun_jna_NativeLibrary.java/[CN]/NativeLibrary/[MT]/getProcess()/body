@@ -1,12 +1,3 @@
 {
-  NativeLibrary library=null;
-  if (currentProcess != null) {
-    library=(NativeLibrary)currentProcess.get();
-  }
-  if (library == null) {
-    long handle=open(null);
-    library=new NativeLibrary("<process>",null,handle,Collections.EMPTY_MAP);
-    currentProcess=new WeakReference(library);
-  }
-  return library;
+  return getInstance(null);
 }
