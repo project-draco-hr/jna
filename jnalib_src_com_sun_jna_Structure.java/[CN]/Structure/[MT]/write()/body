@@ -3,10 +3,10 @@
   if (this instanceof ByValue) {
     getTypeInfo();
   }
-synchronized (writing) {
-    if (writing.contains(this))     return;
-    writing.add(this);
+  if (busy().contains(this)) {
+    return;
   }
+  busy().add(this);
   try {
     for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
       StructField sf=(StructField)i.next();
@@ -16,8 +16,6 @@ synchronized (writing) {
     }
   }
   finally {
-synchronized (writing) {
-      writing.remove(this);
-    }
+    busy().remove(this);
   }
 }

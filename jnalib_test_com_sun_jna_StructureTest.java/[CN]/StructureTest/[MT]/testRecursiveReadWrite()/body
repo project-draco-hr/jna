@@ -1,0 +1,9 @@
+{
+class TestStructureByRef extends Structure implements Structure.ByReference {
+    public TestStructureByRef s;
+  }
+  TestStructureByRef s=new TestStructureByRef();
+  s.s=s;
+  s.write();
+  s.read();
+}
