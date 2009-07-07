@@ -5,7 +5,7 @@
         runTestUnderWebStart(getClass().getName(),getName());
       }
  catch (      AssertionFailedError e) {
-        return;
+        if (e.getMessage().indexOf(FAILURE) != -1)         return;
       }
       fail("Failed to detect test failure");
     }
@@ -17,7 +17,7 @@
         fail("Wrong error type: " + e);
       }
 catch (      Error e) {
-        return;
+        if (e.getMessage().indexOf(ERROR) != -1)         return;
       }
       fail("Failed to detect test error");
     }
