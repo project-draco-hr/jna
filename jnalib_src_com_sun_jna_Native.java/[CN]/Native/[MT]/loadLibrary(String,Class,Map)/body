@@ -1,7 +1,7 @@
 {
-  Library.Handler handler=new Library.Handler(name,interfaceClass,libOptions);
+  Library.Handler handler=new Library.Handler(name,interfaceClass,options);
   ClassLoader loader=interfaceClass.getClassLoader();
   Library proxy=(Library)Proxy.newProxyInstance(loader,new Class[]{interfaceClass},handler);
-  cacheOptions(interfaceClass,libOptions,proxy);
+  cacheOptions(interfaceClass,options,proxy);
   return proxy;
 }
