@@ -1,0 +1,33 @@
+{
+  String JAVA_HOME=System.getProperty("java.home");
+  String LIB=new File(JAVA_HOME,"/lib").getAbsolutePath();
+  if (!new File(LIB,"javaws.jar").exists()) {
+    LIB=new File("/System/Library/Frameworks/JavaVM.framework/Resources/Deploy.bundle/Contents/Home/lib").getAbsolutePath();
+    if (!new File(LIB,"javaws.jar").exists()) {
+      if (!Platform.isWindows())       throw new IOException("javaws.jar not found");
+    }
+  }
+  String PS=System.getProperty("path.separator");
+  String path=System.getProperty("java.home") + "/bin/javaws";
+  File javaws=new File(path);
+  if (!javaws.exists()) {
+    if (Platform.isWindows()) {
+      FolderInfo info=(FolderInfo)Native.loadLibrary("shell32",FolderInfo.class);
+      char[] buf=new char[FolderInfo.MAX_PATH];
+      int flags=0;
+      int result=info.SHGetFolderPathW(null,FolderInfo.CSIDL_WINDOWS,null,0,buf);
+      path=Native.toString(buf);
+      if (Platform.is64Bit()) {
+        javaws=new File(path,"SysWOW64/javaws.exe");
+      }
+ else {
+        javaws=new File(path,"system32/javaws.exe");
+      }
+      path=javaws.getAbsolutePath();
+    }
+ else {
+      path=javaws.getName();
+    }
+  }
+  return path;
+}

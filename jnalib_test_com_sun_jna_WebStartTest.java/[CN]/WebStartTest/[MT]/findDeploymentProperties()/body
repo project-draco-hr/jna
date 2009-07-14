@@ -2,11 +2,22 @@
   String path=System.getProperty("user.home");
   File deployment;
   if (Platform.isWindows()) {
+    FolderInfo info=(FolderInfo)Native.loadLibrary("shell32",FolderInfo.class);
+    char[] buf=new char[FolderInfo.MAX_PATH];
+    int flags=0;
+    int result=info.SHGetFolderPathW(null,FolderInfo.CSIDL_APPDATA,null,0,buf);
+    path=Native.toString(buf);
     String vendor=System.getProperty("java.vm.vendor");
     if (vendor.indexOf(" ") != -1) {
       vendor=vendor.substring(0,vendor.indexOf(" "));
     }
-    deployment=new File(path + "/Application Data/" + vendor+ "/Java/Deployment");
+    deployment=new File(path + "/" + vendor+ "/Java/Deployment");
+    if (!deployment.exists() && deployment.getAbsolutePath().indexOf("Roaming") != -1) {
+      deployment=new File(deployment.getAbsolutePath().replace("Roaming","LocalLow"));
+      if (!deployment.exists()) {
+        deployment=new File(deployment.getAbsolutePath().replace("LocalLow","Local"));
+      }
+    }
   }
  else   if (Platform.isMac()) {
     deployment=new File(path + "/Library/Caches/Java");

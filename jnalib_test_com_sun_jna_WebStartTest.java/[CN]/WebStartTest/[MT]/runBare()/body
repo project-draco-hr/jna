@@ -2,6 +2,9 @@
   if (runningWebStart()) {
     super.runBare();
   }
+ else   if (Platform.isWindows() && Platform.is64Bit()) {
+    throw new Error("Web start launch not supported");
+  }
  else   if (!GraphicsEnvironment.isHeadless()) {
     File policy=File.createTempFile(getName(),".policy");
     OutputStream os=new FileOutputStream(policy);

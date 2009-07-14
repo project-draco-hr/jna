@@ -17,19 +17,7 @@
     os.write(contents.getBytes());
     os.close();
     File keystore=new File("jna.keystore");
-    String JAVA_HOME=System.getProperty("java.home");
-    String LIB=new File(JAVA_HOME,"/lib").getAbsolutePath();
-    if (!new File(LIB,"javaws.jar").exists()) {
-      LIB=new File("/System/Library/Frameworks/JavaVM.framework/Resources/Deploy.bundle/Contents/Home/lib").getAbsolutePath();
-      if (!new File(LIB,"javaws.jar").exists()) {
-        throw new IOException("javaws.jar not found");
-      }
-    }
-    String PS=System.getProperty("path.separator");
-    String path=System.getProperty("java.home") + "/bin/javaws";
-    if (Platform.isWindows())     path+=".exe";
-    File javaws=new File(path);
-    if (!javaws.exists())     path="javaws";
+    String path=findJWS();
     String[] cmd={path,"-Xnosplash","-wait",jnlp.toURI().toURL().toString()};
     final Process p=Runtime.getRuntime().exec(cmd);
     final StringBuffer output=new StringBuffer();

@@ -1,0 +1,5 @@
+Pointer owner
+int folder
+Pointer token
+int flags
+char[] path
