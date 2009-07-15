@@ -1,0 +1,13 @@
+{
+  final int SIZE=128;
+  Memory base=new Memory(SIZE);
+  int[] alignments={0,3,5,9,13};
+  for (int i=0; i < alignments.length; i++) {
+    try {
+      base.align(alignments[i]);
+      fail("Power-of-two alignments required");
+    }
+ catch (    IllegalArgumentException e) {
+    }
+  }
+}

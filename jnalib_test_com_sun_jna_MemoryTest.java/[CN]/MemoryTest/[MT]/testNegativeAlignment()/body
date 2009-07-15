@@ -1,0 +1,10 @@
+{
+  final int SIZE=128;
+  Memory base=new Memory(SIZE);
+  try {
+    base.align(-1);
+    fail("Negative alignments not allowed");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}
