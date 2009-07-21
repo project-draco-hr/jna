@@ -1,3 +1,3 @@
 {
-  return (NativeMapped)NativeMappedConverter.getInstance(cls).fromNative(value,null);
+  return (NativeMapped)NativeMappedConverter.getInstance(cls).fromNative(value,new FromNativeContext(cls));
 }

@@ -7,5 +7,6 @@
     if ((base.peer & mask) == base.peer)     unaligned=(Memory)base.share(1,SIZE - 1);
     Pointer aligned=unaligned.align(align);
     assertEquals("Memory not aligned (" + align + ")",aligned.peer & mask,aligned.peer);
+    assertSame("Alignment request on aligned memory should no-op",aligned,((Memory)aligned).align(align));
   }
 }
