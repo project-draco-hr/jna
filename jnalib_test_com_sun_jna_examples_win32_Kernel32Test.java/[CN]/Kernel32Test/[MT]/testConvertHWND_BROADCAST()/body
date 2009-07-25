@@ -1,0 +1,4 @@
+{
+  W32API.HWND hwnd=W32API.HWND_BROADCAST;
+  NativeMappedConverter.getInstance(hwnd.getClass()).toNative(hwnd,null);
+}
