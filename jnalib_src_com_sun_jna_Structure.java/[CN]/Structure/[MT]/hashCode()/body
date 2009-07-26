@@ -1,4 +1,5 @@
 {
-  Pointer p=getPointer();
-  return p != null ? p.hashCode() : 0;
+  clear();
+  write();
+  return Arrays.hashCode(getPointer().getByteArray(0,size()));
 }

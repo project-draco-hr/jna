@@ -1,11 +1,25 @@
 {
-class TestStructure extends Structure {
-    public byte first;
-    public int second;
+class OtherStructure extends Structure {
+    public int first;
+    public int[] second=new int[4];
+    public Pointer[] third=new Pointer[4];
   }
+class TestStructure extends Structure {
+    public int first;
+    public int[] second=new int[4];
+    public Pointer[] third=new Pointer[4];
+  }
+  OtherStructure s0=new OtherStructure();
   TestStructure s1=new TestStructure();
   TestStructure s2=new TestStructure();
-  s2.getPointer().setInt(0,-1);
-  s2.write();
-  assertEquals("Structure equals should ignore padding",s1,s2);
+  TestStructure s3=new TestStructure();
+  int VALUE=99;
+  s1.first=s2.first=s3.first=VALUE;
+  assertFalse("Structures of different classes with same fields are not equal",s1.equals(s0));
+  assertFalse("Structures of different classes with same fields are not equal (reflexive)",s0.equals(s1));
+  assertFalse("Compare to null failed",s1.equals(null));
+  assertTrue("Equals is not reflexive",s1.equals(s1));
+  assertTrue("Equals failed on identical structures",s1.equals(s2));
+  assertTrue("Equals is not symmetric",s2.equals(s1));
+  assertTrue("Equals is not transitive",s1.equals(s2) && s2.equals(s3) && s1.equals(s3));
 }

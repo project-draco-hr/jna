@@ -1,0 +1,9 @@
+{
+class TestStructure extends Structure {
+    public int first;
+  }
+  TestStructure s1=new TestStructure();
+  TestStructure s2=new TestStructure();
+  s1.first=s2.first=0x12345678;
+  assertEquals("hashCode should match when structures equal",s1.hashCode(),s2.hashCode());
+}

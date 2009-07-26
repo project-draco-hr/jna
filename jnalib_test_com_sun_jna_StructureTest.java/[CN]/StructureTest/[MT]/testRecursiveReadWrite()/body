@@ -6,4 +6,5 @@ class TestStructureByRef extends Structure implements Structure.ByReference {
   s.s=s;
   s.write();
   s.read();
+  assertEquals("Temporary storage should be cleared",0,s.busy().size());
 }
