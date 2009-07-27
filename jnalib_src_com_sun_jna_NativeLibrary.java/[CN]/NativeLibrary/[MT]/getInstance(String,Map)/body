@@ -3,6 +3,9 @@
   if (options.get(Library.OPTION_CALLING_CONVENTION) == null) {
     options.put(Library.OPTION_CALLING_CONVENTION,new Integer(Function.C_CONVENTION));
   }
+  if (Platform.isLinux() && "c".equals(libraryName)) {
+    libraryName=null;
+  }
 synchronized (libraries) {
     WeakReference ref=(WeakReference)libraries.get(libraryName + options);
     NativeLibrary library=ref != null ? (NativeLibrary)ref.get() : null;
