@@ -1,10 +1,8 @@
 {
   if (o == this)   return true;
   if (o == null)   return false;
-  if (o.getClass() != getClass()) {
-    if (!((o.getClass().isAssignableFrom(getClass()) && (ByReference.class.isAssignableFrom(getClass()) || ByValue.class.isAssignableFrom(getClass()))) || (getClass().isAssignableFrom(o.getClass()) && (ByReference.class.isAssignableFrom(o.getClass()) || ByValue.class.isAssignableFrom(o.getClass()))) || ((ByReference.class.isAssignableFrom(o.getClass()) || ByValue.class.isAssignableFrom(o.getClass())) && (ByReference.class.isAssignableFrom(getClass()) || ByValue.class.isAssignableFrom(getClass())) && (o.getClass().getSuperclass() == getClass().getSuperclass())))) {
-      return false;
-    }
+  if (o.getClass() != getClass() && ((Structure)o).baseClass() != baseClass()) {
+    return false;
   }
   Structure s=(Structure)o;
   if (s.size() == size()) {

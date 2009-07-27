@@ -1,0 +1,6 @@
+{
+  if ((this instanceof Structure.ByReference || this instanceof Structure.ByValue) && Structure.class.isAssignableFrom(getClass().getSuperclass())) {
+    return getClass().getSuperclass();
+  }
+  return getClass();
+}
