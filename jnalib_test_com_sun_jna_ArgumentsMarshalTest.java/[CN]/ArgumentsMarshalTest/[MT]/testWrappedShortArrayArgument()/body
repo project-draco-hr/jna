@@ -1,0 +1,9 @@
+{
+  short[] array=new short[1024];
+  ShortBuffer buf=ShortBuffer.wrap(array,512,512).slice();
+  final short MAGIC=(short)0xABED;
+  lib.fillInt16Buffer(buf,512,MAGIC);
+  for (int i=0; i < array.length; i++) {
+    assertEquals("Bad value at index " + i,i < 512 ? 0 : MAGIC,array[i]);
+  }
+}

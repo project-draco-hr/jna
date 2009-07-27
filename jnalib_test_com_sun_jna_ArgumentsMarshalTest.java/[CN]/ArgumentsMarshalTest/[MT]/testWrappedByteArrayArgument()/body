@@ -1,0 +1,9 @@
+{
+  byte[] array=new byte[1024];
+  ByteBuffer buf=ByteBuffer.wrap(array,512,512).slice();
+  final byte MAGIC=(byte)0xAB;
+  lib.fillInt8Buffer(buf,512,MAGIC);
+  for (int i=0; i < array.length; i++) {
+    assertEquals("Bad value at index " + i,i < 512 ? 0 : MAGIC,array[i]);
+  }
+}
