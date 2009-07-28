@@ -28,5 +28,10 @@ catch (    InvocationTargetException e) {
       Native.getCallbackExceptionHandler().uncaughtException(cb,e.getTargetException());
     }
   }
+  for (int i=0; i < callbackArgs.length; i++) {
+    if (callbackArgs[i] instanceof Structure && !(callbackArgs[i] instanceof Structure.ByValue)) {
+      ((Structure)callbackArgs[i]).autoWrite();
+    }
+  }
   return result;
 }
