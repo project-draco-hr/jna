@@ -61,10 +61,7 @@
         }
       }
  else       if (Structure[].class.isAssignableFrom(inArg.getClass())) {
-        Structure[] ss=(Structure[])inArg;
-        for (int si=0; si < ss.length; si++) {
-          ss[si].autoRead();
-        }
+        Structure.autoRead((Structure[])inArg);
       }
     }
   }

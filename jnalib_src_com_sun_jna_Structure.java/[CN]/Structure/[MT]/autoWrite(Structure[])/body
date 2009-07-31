@@ -1,0 +1,11 @@
+{
+  structureArrayCheck(ss);
+  if (ss[0].array == ss) {
+    ss[0].autoWrite();
+  }
+ else {
+    for (int si=0; si < ss.length; si++) {
+      ss[si].autoWrite();
+    }
+  }
+}
