@@ -3,6 +3,10 @@ class TestStructure extends Structure {
     public ByteByReference ref;
   }
   TestStructure s=new TestStructure();
+  ByteByReference ref=s.ref=new ByteByReference();
+  s.write();
+  assertEquals("Value not properly written",ref.getPointer(),s.getPointer().getPointer(0));
   s.ref=null;
   s.write();
+  assertNull("Non-null value was written: " + s.getPointer().getPointer(0),s.getPointer().getPointer(0));
 }
