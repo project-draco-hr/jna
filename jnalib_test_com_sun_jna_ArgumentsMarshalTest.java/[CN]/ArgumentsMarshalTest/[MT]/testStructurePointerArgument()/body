@@ -3,4 +3,6 @@
   assertEquals("Native address of structure should be returned",struct.getPointer(),lib.testStructurePointerArgument(struct));
   struct=new TestLibrary.CheckFieldAlignment.ByValue();
   assertEquals("Structure argument should be passed according to method " + "parameter type, not argument type",struct.getPointer(),lib.testStructurePointerArgument(struct));
+  struct=null;
+  assertNull("Null argument should be returned",lib.testStructurePointerArgument(struct));
 }
