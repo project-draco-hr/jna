@@ -78,14 +78,12 @@
     }
   }
  else   if (NativeMapped.class.isAssignableFrom(type)) {
-    System.out.println("read value of " + type);
     NativeMapped nm=(NativeMapped)currentValue;
     if (nm != null) {
       Object value=getValue(offset,nm.nativeType(),null);
       result=nm.fromNative(value,new FromNativeContext(type));
     }
  else {
-      System.out.println("read value of " + type + " value="+ currentValue);
       NativeMappedConverter tc=NativeMappedConverter.getInstance(type);
       Object value=getValue(offset,tc.nativeType(),null);
       result=tc.fromNative(value,new FromNativeContext(type));

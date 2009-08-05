@@ -1,11 +1,3 @@
 {
-  List strings=new ArrayList();
-  int offset=0;
-  Pointer p=getPointer(base);
-  while (p != null) {
-    strings.add(p.getString(0,wide));
-    offset+=SIZE;
-    p=getPointer(base + offset);
-  }
-  return (String[])strings.toArray(new String[strings.size()]);
+  return getStringArray(base,-1,wide);
 }

@@ -1,0 +1,21 @@
+{
+  List strings=new ArrayList();
+  int offset=0;
+  Pointer p=getPointer(base);
+  if (length != -1) {
+    int count=0;
+    while (count++ < length) {
+      strings.add(p.getString(0,wide));
+      offset+=SIZE;
+      p=getPointer(base + offset);
+    }
+  }
+ else {
+    while (p != null) {
+      strings.add(p.getString(0,wide));
+      offset+=SIZE;
+      p=getPointer(base + offset);
+    }
+  }
+  return (String[])strings.toArray(new String[strings.size()]);
+}
