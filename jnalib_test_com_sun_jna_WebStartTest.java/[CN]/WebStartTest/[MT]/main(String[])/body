@@ -1,6 +1,6 @@
 {
   try {
-    if (args.length == 4 && "javawebstart".equals(args[3])) {
+    if (args.length == 4 && "javawebstart".equals(args[3]) && !runningWebStart()) {
       System.setProperty("javawebstart.version","fake");
     }
     if (runningWebStart()) {
