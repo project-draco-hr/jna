@@ -1,0 +1,15 @@
+{
+  JFrame f=new JFrame("Web Start Test Failure");
+  f.getContentPane().add(new JScrollPane(new JLabel(msg)));
+  f.pack();
+  f.setLocation(100,100);
+  f.setVisible(true);
+  f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  if (timeout) {
+    try {
+      Thread.sleep(timeout);
+    }
+ catch (    Exception e) {
+    }
+  }
+}

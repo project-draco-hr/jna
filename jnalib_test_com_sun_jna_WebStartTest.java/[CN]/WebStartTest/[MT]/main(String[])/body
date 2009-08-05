@@ -1,11 +1,19 @@
 {
-  if (runningWebStart()) {
-    String testClass=args.length > 0 ? args[0] : WebStartTest.class.getName();
-    String testMethod=args.length > 1 ? args[1] : "testLaunchedUnderWebStart";
-    int port=args.length > 2 ? Integer.parseInt(args[2]) : 8080;
-    runTestCaseTest(testClass,testMethod,port);
-  }
+  try {
+    if (args.length == 4 && "javawebstart".equals(args[3])) {
+      System.setProperty("javawebstart.version","fake");
+    }
+    if (runningWebStart()) {
+      String testClass=args.length > 0 ? args[0] : WebStartTest.class.getName();
+      String testMethod=args.length > 1 ? args[1] : "testLaunchedUnderWebStart";
+      int port=args.length > 2 ? Integer.parseInt(args[2]) : 8080;
+      runTestCaseTest(testClass,testMethod,port);
+    }
  else {
-    junit.textui.TestRunner.run(WebStartTest.class);
+      junit.textui.TestRunner.run(WebStartTest.class);
+    }
+  }
+ catch (  Throwable t) {
+    showMessage("ERROR: " + t.getMessage());
   }
 }
