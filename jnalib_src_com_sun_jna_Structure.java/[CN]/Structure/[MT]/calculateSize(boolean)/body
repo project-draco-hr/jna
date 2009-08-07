@@ -33,10 +33,11 @@
     Class type=field.getType();
     StructField structField=new StructField();
     structField.isVolatile=Modifier.isVolatile(modifiers);
-    structField.field=field;
+    structField.isReadOnly=Modifier.isFinal(modifiers);
     if (Modifier.isFinal(modifiers)) {
       field.setAccessible(true);
     }
+    structField.field=field;
     structField.name=field.getName();
     structField.type=type;
     if (Callback.class.isAssignableFrom(type) && !type.isInterface()) {

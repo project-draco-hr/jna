@@ -1,4 +1,5 @@
 {
+  if (structField.isReadOnly)   return;
   int offset=structField.offset;
   Object value=getField(structField);
   Class fieldType=structField.type;
