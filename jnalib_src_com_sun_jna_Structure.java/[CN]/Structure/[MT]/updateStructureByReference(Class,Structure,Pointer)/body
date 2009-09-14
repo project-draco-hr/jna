@@ -4,8 +4,14 @@
   }
  else {
     if (s == null || !address.equals(s.getPointer())) {
-      s=newInstance(type);
-      s.useMemory(address);
+      Structure s1=(Structure)reading().get(address);
+      if (s1 != null && type.equals(s1.getClass())) {
+        s=s1;
+      }
+ else {
+        s=newInstance(type);
+        s.useMemory(address);
+      }
     }
     s.autoRead();
   }

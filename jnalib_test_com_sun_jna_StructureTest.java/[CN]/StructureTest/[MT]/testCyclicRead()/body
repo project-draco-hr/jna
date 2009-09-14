@@ -1,0 +1,14 @@
+{
+  CyclicTestStructure s=new CyclicTestStructure();
+  s.next=new CyclicTestStructure.ByReference();
+  Structure value=s.next;
+  s.next.next=s.next;
+  s.write();
+  s.read();
+  assertEquals("ByReference structure field not preserved",value,s.next);
+  value=s.next;
+  s.next.next=null;
+  s.read();
+  assertSame("ByReference structure field should reuse existing value",value,s.next);
+  assertSame("Nested ByReference structure field should reuse existing value",value,s.next.next);
+}

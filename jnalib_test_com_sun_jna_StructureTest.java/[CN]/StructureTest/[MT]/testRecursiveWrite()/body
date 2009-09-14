@@ -17,7 +17,9 @@ class TestStructureByRef extends Structure implements Structure.ByReference {
   assertEquals("Structure field contents not written",1,s.getPointer().getInt(0));
   assertEquals("ByReference structure field contents not written",2,s.s.getPointer().getInt(0));
   s.s.unique=0;
+  Structure value=s.s;
   s.read();
+  assertEquals("ByReference structure field not preserved",value,s.s);
   assertEquals("ByReference structure field contents not read",2,s.s.unique);
   assertTrue("Temporary storage should be cleared",s.busy().isEmpty());
 }

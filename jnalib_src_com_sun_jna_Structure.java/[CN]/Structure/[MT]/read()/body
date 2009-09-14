@@ -4,6 +4,9 @@
     return;
   }
   busy().add(this);
+  if (this instanceof Structure.ByReference) {
+    reading().put(getPointer(),this);
+  }
   try {
     for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
       readField((StructField)i.next());
@@ -11,5 +14,8 @@
   }
   finally {
     busy().remove(this);
+    if (reading().get(getPointer()) == this) {
+      reading().remove(getPointer());
+    }
   }
 }
