@@ -1,17 +1,10 @@
 {
-  Window w=SwingUtilities.getWindowAncestor(RepaintTrigger.this);
-  Window ew=SwingUtilities.getWindowAncestor((Component)e.getSource());
-  if (ew != w)   return;
-  if (e instanceof MouseEvent) {
-    Component src=(Component)e.getSource();
+  Component src=(Component)e.getSource();
+  if (SwingUtilities.isDescendingFrom(src,content)) {
     MouseEvent me=SwingUtilities.convertMouseEvent(src,(MouseEvent)e,content);
     Component c=SwingUtilities.getDeepestComponentAt(content,me.getX(),me.getY());
     if (c != null) {
       setCursor(c.getCursor());
     }
-  }
- else   if (e.getID() == ContainerEvent.COMPONENT_ADDED) {
-    Component child=((ContainerEvent)e).getChild();
-    WindowUtils.setDoubleBuffered(child,false);
   }
 }

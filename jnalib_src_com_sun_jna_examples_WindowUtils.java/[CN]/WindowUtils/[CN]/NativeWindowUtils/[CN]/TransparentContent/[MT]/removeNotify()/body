@@ -1,0 +1,4 @@
+{
+  Toolkit.getDefaultToolkit().removeAWTEventListener(this);
+  super.removeNotify();
+}

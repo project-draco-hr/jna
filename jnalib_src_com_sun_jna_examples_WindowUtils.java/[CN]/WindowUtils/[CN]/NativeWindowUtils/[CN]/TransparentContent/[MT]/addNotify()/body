@@ -1,0 +1,4 @@
+{
+  super.addNotify();
+  Toolkit.getDefaultToolkit().addAWTEventListener(this,AWTEvent.CONTAINER_EVENT_MASK);
+}
