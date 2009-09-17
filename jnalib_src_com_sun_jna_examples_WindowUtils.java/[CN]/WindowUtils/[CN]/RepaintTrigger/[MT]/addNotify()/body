@@ -4,5 +4,5 @@
   setSize(getParent().getSize());
   w.addComponentListener(listener);
   w.addWindowListener(listener);
-  Toolkit.getDefaultToolkit().addAWTEventListener(listener,AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK);
+  Toolkit.getDefaultToolkit().addAWTEventListener(listener,AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.CONTAINER_EVENT_MASK);
 }
