@@ -1,8 +1,7 @@
 {
   boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
   if (transparent != isTransparent) {
-    installTransparentContent(w);
+    installMaskingPane(w);
     setBackgroundTransparent(w,transparent,"setWindowTransparent");
-    setLayersTransparent(w,transparent);
   }
 }

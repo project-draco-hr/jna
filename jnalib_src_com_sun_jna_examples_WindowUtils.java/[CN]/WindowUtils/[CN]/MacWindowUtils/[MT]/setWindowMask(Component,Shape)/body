@@ -1,7 +1,7 @@
 {
   if (c instanceof Window) {
     Window w=(Window)c;
-    OSXTransparentContent content=installTransparentContent(w);
+    OSXMaskingContentPane content=installMaskingPane(w);
     content.setMask(shape);
     setBackgroundTransparent(w,shape != MASK_NONE,"setWindowMask");
   }

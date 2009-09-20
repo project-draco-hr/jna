@@ -15,11 +15,11 @@
       JRootPane root=((RootPaneContainer)w).getRootPane();
       JLayeredPane lp=root.getLayeredPane();
       Container content=root.getContentPane();
-      if (content instanceof W32TransparentContent) {
-        ((W32TransparentContent)content).setTransparent(transparent);
+      if (content instanceof W32TransparentContentPane) {
+        ((W32TransparentContentPane)content).setTransparent(transparent);
       }
  else       if (transparent) {
-        W32TransparentContent w32content=new W32TransparentContent(content);
+        W32TransparentContentPane w32content=new W32TransparentContentPane(content);
         root.setContentPane(w32content);
         lp.add(new RepaintTrigger(w32content),JLayeredPane.DRAG_LAYER);
       }

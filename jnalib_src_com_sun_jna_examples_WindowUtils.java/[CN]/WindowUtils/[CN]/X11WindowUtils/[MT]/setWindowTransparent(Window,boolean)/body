@@ -15,11 +15,11 @@
       JRootPane root=((RootPaneContainer)w).getRootPane();
       JLayeredPane lp=root.getLayeredPane();
       Container content=root.getContentPane();
-      if (content instanceof X11TransparentContent) {
-        ((X11TransparentContent)content).setTransparent(transparent);
+      if (content instanceof X11TransparentContentPane) {
+        ((X11TransparentContentPane)content).setTransparent(transparent);
       }
  else       if (transparent) {
-        X11TransparentContent x11content=new X11TransparentContent(content);
+        X11TransparentContentPane x11content=new X11TransparentContentPane(content);
         root.setContentPane(x11content);
         lp.add(new RepaintTrigger(x11content),JLayeredPane.DRAG_LAYER);
       }
