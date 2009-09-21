@@ -1,0 +1,4 @@
+{
+  assertNotNull("Custom library path not found by JNLP class loader",Native.getWebStartLibraryPath("jnidispatch"));
+  Native.loadLibrary("jnidispatch",Dummy.class);
+}

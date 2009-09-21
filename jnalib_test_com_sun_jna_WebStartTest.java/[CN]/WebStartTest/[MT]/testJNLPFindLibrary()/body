@@ -1,4 +1,0 @@
-{
-  String path=Native.getWebStartLibraryPath("jnidispatch");
-  assertNotNull("Web Start library path not found",path);
-}

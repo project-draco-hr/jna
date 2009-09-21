@@ -1,0 +1,5 @@
+{
+  String libname=Platform.isWindows() ? "msvcrt" : "c";
+  assertNull("Process library path not expected to be found by JNLP class loader",Native.getWebStartLibraryPath(libname));
+  Native.loadLibrary(libname,Dummy.class);
+}
