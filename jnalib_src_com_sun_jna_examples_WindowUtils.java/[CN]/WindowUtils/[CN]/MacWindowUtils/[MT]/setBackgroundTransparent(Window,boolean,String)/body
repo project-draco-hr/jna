@@ -2,13 +2,14 @@
   JRootPane rp=w instanceof RootPaneContainer ? ((RootPaneContainer)w).getRootPane() : null;
   if (transparent) {
     if (rp != null) {
-      rp.putClientProperty("bg.old",w.getBackground());
+      rp.putClientProperty(TRANSPARENT_OLD_BG,w.getBackground());
     }
     w.setBackground(new Color(0,0,0,0));
   }
  else {
     if (rp != null) {
-      w.setBackground((Color)rp.getClientProperty("bg.old"));
+      w.setBackground((Color)rp.getClientProperty(TRANSPARENT_OLD_BG));
+      rp.putClientProperty(TRANSPARENT_OLD_BG,null);
     }
  else {
       w.setBackground(null);
