@@ -8,7 +8,11 @@
   }
  else {
     if (rp != null) {
-      w.setBackground((Color)rp.getClientProperty(TRANSPARENT_OLD_BG));
+      Color bg=(Color)rp.getClientProperty(TRANSPARENT_OLD_BG);
+      if (bg instanceof apple.laf.CColorPaintUIResource) {
+        bg=new Color(bg.getRed(),bg.getGreen(),bg.getBlue(),bg.getAlpha());
+      }
+      w.setBackground(bg);
       rp.putClientProperty(TRANSPARENT_OLD_BG,null);
     }
  else {
