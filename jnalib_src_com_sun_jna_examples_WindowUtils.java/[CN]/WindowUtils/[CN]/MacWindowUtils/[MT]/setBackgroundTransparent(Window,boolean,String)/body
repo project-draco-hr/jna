@@ -9,7 +9,7 @@
  else {
     if (rp != null) {
       Color bg=(Color)rp.getClientProperty(TRANSPARENT_OLD_BG);
-      if (bg instanceof apple.laf.CColorPaintUIResource) {
+      if (bg != null) {
         bg=new Color(bg.getRed(),bg.getGreen(),bg.getBlue(),bg.getAlpha());
       }
       w.setBackground(bg);
