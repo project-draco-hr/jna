@@ -1,5 +1,5 @@
 {
-  if (e.getID() == ContainerEvent.COMPONENT_ADDED && SwingUtilities.isDescendingFrom((Component)e.getSource(),this)) {
+  if (e.getID() == ContainerEvent.COMPONENT_ADDED && SwingUtilities.isDescendingFrom(((ContainerEvent)e).getChild(),this)) {
     Component child=((ContainerEvent)e).getChild();
     NativeWindowUtils.this.setDoubleBuffered(child,false);
   }

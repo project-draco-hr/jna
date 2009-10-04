@@ -1,10 +1,12 @@
 {
-  Component src=(Component)e.getSource();
-  if (SwingUtilities.isDescendingFrom(src,content)) {
-    MouseEvent me=SwingUtilities.convertMouseEvent(src,(MouseEvent)e,content);
-    Component c=SwingUtilities.getDeepestComponentAt(content,me.getX(),me.getY());
-    if (c != null) {
-      setCursor(c.getCursor());
+  if (e instanceof MouseEvent) {
+    Component src=((MouseEvent)e).getComponent();
+    if (src != null && SwingUtilities.isDescendingFrom(src,content)) {
+      MouseEvent me=SwingUtilities.convertMouseEvent(src,(MouseEvent)e,content);
+      Component c=SwingUtilities.getDeepestComponentAt(content,me.getX(),me.getY());
+      if (c != null) {
+        setCursor(c.getCursor());
+      }
     }
   }
 }
