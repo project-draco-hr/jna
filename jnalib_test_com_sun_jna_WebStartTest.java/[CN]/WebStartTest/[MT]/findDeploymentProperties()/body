@@ -4,8 +4,7 @@
   if (Platform.isWindows()) {
     FolderInfo info=(FolderInfo)Native.loadLibrary("shell32",FolderInfo.class);
     char[] buf=new char[FolderInfo.MAX_PATH];
-    int flags=0;
-    int result=info.SHGetFolderPathW(null,FolderInfo.CSIDL_APPDATA,null,0,buf);
+    info.SHGetFolderPathW(null,FolderInfo.CSIDL_APPDATA,null,0,buf);
     path=Native.toString(buf);
     String vendor=System.getProperty("java.vm.vendor");
     if (vendor.indexOf(" ") != -1) {

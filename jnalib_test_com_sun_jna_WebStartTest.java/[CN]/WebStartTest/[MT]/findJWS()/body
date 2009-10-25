@@ -1,7 +1,6 @@
 {
   String JAVA_HOME=System.getProperty("java.home");
   String BIN=new File(JAVA_HOME,"/bin").getAbsolutePath();
-  String LIB=new File(JAVA_HOME,"/lib").getAbsolutePath();
   File javaws=new File(BIN,"javaws" + (Platform.isWindows() ? ".exe" : ""));
   if (!javaws.exists()) {
     if (Platform.isMac()) {
@@ -10,8 +9,7 @@
     if (Platform.isWindows()) {
       FolderInfo info=(FolderInfo)Native.loadLibrary("shell32",FolderInfo.class);
       char[] buf=new char[FolderInfo.MAX_PATH];
-      int flags=0;
-      int result=info.SHGetFolderPathW(null,FolderInfo.CSIDL_WINDOWS,null,0,buf);
+      info.SHGetFolderPathW(null,FolderInfo.CSIDL_WINDOWS,null,0,buf);
       String path=Native.toString(buf);
       if (Platform.is64Bit()) {
         javaws=new File(path,"SysWOW64/javaws.exe");

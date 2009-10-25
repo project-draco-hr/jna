@@ -16,7 +16,6 @@
     OutputStream os=new FileOutputStream(jnlp);
     os.write(contents.getBytes());
     os.close();
-    File keystore=new File("jna.keystore");
     String path=findJWS();
     String[] cmd={path,"-Xnosplash","-wait",jnlp.toURI().toURL().toString()};
     final Process p=Runtime.getRuntime().exec(cmd);
