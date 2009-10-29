@@ -13,7 +13,15 @@
   }
   File lib=null;
   if (url.getProtocol().toLowerCase().equals("file")) {
-    lib=new File(URLDecoder.decode(url.getPath()));
+    try {
+      lib=new File(url.toURI());
+    }
+ catch (    URISyntaxException e) {
+      lib=new File(url.getPath());
+    }
+    if (!lib.exists()) {
+      throw new Error("File URL " + url + " could not be properly decoded");
+    }
   }
  else {
     InputStream is=Native.class.getResourceAsStream(resourceName);
