@@ -1,0 +1,13 @@
+{
+class TestStructure extends Structure {
+    public int first=1;
+  }
+class TestStructureSub extends TestStructure {
+    public int second=2;
+  }
+  TestStructureSub s=new TestStructureSub();
+  assertEquals("Wrong size",8,s.size());
+  s.write();
+  assertEquals("Wrong first field: " + s,s.first,s.getPointer().getInt(0));
+  assertEquals("Wrong second field: " + s,s.second,s.getPointer().getInt(4));
+}

@@ -1,0 +1,27 @@
+{
+  List flist=new ArrayList();
+  for (Class cls=getClass(); !cls.equals(Structure.class); cls=cls.getSuperclass()) {
+    List classFields=new ArrayList();
+    Field[] fields=cls.getDeclaredFields();
+    for (int i=0; i < fields.length; i++) {
+      int modifiers=fields[i].getModifiers();
+      if (Modifier.isStatic(modifiers) || !Modifier.isPublic(modifiers))       continue;
+      classFields.add(fields[i]);
+    }
+    if (REVERSE_FIELDS) {
+      Collections.reverse(classFields);
+    }
+    flist.addAll(0,classFields);
+  }
+  if (REQUIRES_FIELD_ORDER || hasFieldOrder()) {
+    List fieldOrder=getFieldOrder();
+    if (fieldOrder.size() < flist.size()) {
+      if (force) {
+        throw new Error("This VM does not store fields in a predictable order; you must use Structure.setFieldOrder to explicitly indicate the field order: " + System.getProperty("java.vendor") + ", "+ System.getProperty("java.version"));
+      }
+      return null;
+    }
+    sortFields(flist,fieldOrder);
+  }
+  return flist;
+}
