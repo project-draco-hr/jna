@@ -7,8 +7,7 @@
   }
   if (size != CALCULATE_SIZE) {
     if (this.memory == null || this.memory instanceof AutoAllocated) {
-      this.memory=new AutoAllocated(size);
-      this.memory.clear(size);
+      this.memory=autoAllocate(size);
     }
     this.size=size;
   }

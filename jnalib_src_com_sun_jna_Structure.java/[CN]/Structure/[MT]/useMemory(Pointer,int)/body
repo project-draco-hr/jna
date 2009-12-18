@@ -1,5 +1,6 @@
 {
   try {
+    this.memory=m;
     this.memory=m.share(offset,size());
     this.array=null;
   }
