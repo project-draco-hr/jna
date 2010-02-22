@@ -1,0 +1,3 @@
+{
+  junit.textui.TestRunner.run(Secur32UtilTest.class);
+}

@@ -1,0 +1,20 @@
+{
+  char[] lpServer=(computerName == null) ? null : Native.toCharArray(computerName);
+  PointerByReference lpNameBuffer=new PointerByReference();
+  IntByReference bufferType=new IntByReference();
+  try {
+    int rc=Netapi32.INSTANCE.NetGetJoinInformation(lpServer,lpNameBuffer,bufferType);
+    if (Netapi32.NERR_Success != rc) {
+      throw new LastErrorException(rc);
+    }
+    return lpNameBuffer.getValue().getString(0,true);
+  }
+  finally {
+    if (lpNameBuffer.getPointer() != null) {
+      int rc=Netapi32.INSTANCE.NetApiBufferFree(lpNameBuffer.getPointer());
+      if (Netapi32.NERR_Success != rc) {
+        throw new LastErrorException(rc);
+      }
+    }
+  }
+}

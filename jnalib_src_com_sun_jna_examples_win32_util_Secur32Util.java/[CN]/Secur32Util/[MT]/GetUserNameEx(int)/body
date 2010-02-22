@@ -1,0 +1,20 @@
+{
+  char[] buffer=new char[128];
+  IntByReference len=new IntByReference(buffer.length);
+  boolean result=Secur32.INSTANCE.GetUserNameExW(format,buffer,len);
+  if (!result) {
+    int rc=Kernel32.INSTANCE.GetLastError();
+switch (rc) {
+case W32Errors.ERROR_MORE_DATA:
+      buffer=new char[len.getValue() + 1];
+    break;
+default :
+  throw new LastErrorException(Native.getLastError());
+}
+result=Secur32.INSTANCE.GetUserNameExW(format,buffer,len);
+}
+if (!result) {
+throw new LastErrorException(Native.getLastError());
+}
+return Native.toString(buffer);
+}

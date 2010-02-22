@@ -1,0 +1,4 @@
+{
+  int f=FACILITY_WIN32;
+  return (x <= 0 ? x : ((x) & 0x0000FFFF) | (f<<=16) | 0x80000000);
+}

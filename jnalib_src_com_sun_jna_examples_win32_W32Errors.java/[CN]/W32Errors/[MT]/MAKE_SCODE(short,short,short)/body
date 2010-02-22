@@ -1,0 +1,3 @@
+{
+  return ((sev << 31) | (fac << 16) | code);
+}

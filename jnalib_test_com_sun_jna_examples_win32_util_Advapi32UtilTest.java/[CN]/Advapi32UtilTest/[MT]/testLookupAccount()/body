@@ -1,0 +1,9 @@
+{
+  String username=Secur32Util.GetUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+  System.out.println("Username: " + username);
+  byte[] sid=Advapi32Util.LookupAccountName(null,username);
+  System.out.println("Sid bytes: " + sid.length);
+  String sidString=Advapi32Util.ConvertSidToStringSid(sid);
+  assertTrue(sidString.length() > 0);
+  assertTrue(sidString.startsWith("S-"));
+}

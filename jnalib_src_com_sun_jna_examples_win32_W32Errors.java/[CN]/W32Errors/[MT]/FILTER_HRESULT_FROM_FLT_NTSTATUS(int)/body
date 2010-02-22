@@ -1,0 +1,4 @@
+{
+  int f=FACILITY_USERMODE_FILTER_MANAGER;
+  return (((x) & 0x8000FFFF) | (f<<=16));
+}

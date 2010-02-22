@@ -1,0 +1,9 @@
+{
+  IntByReference len=new IntByReference();
+  assertFalse(Secur32.INSTANCE.GetUserNameExW(Secur32.EXTENDED_NAME_FORMAT.NameSamCompatible,null,len));
+  assertEquals(W32Errors.ERROR_MORE_DATA,Kernel32.INSTANCE.GetLastError());
+  char[] buffer=new char[len.getValue() + 1];
+  assertTrue(Secur32.INSTANCE.GetUserNameExW(Secur32.EXTENDED_NAME_FORMAT.NameSamCompatible,buffer,len));
+  String username=Native.toString(buffer);
+  assertTrue(username.length() > 0);
+}

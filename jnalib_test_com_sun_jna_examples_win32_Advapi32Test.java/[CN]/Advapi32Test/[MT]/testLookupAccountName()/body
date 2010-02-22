@@ -1,0 +1,14 @@
+{
+  IntByReference pSid=new IntByReference(0);
+  IntByReference pDomain=new IntByReference(0);
+  PointerByReference peUse=new PointerByReference();
+  char[] lpAccountName=Native.toCharArray("Administrator");
+  assertFalse(Advapi32.INSTANCE.LookupAccountNameW(null,lpAccountName,null,pSid,null,pDomain,peUse));
+  assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
+  assertTrue(pSid.getValue() > 0);
+  byte[] sid=new byte[pSid.getValue()];
+  char[] referencedDomainName=new char[pDomain.getValue() + 1];
+  assertTrue(Advapi32.INSTANCE.LookupAccountNameW(null,lpAccountName,sid,pSid,referencedDomainName,pDomain,peUse));
+  assertEquals(1,peUse.getPointer().getInt(0));
+  assertTrue(Native.toString(referencedDomainName).length() > 0);
+}
