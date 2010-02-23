@@ -1,0 +1,7 @@
+{
+  String expected="opaque@0xffffffff";
+  if (Pointer.SIZE == 8) {
+    expected+="ffffffff";
+  }
+  assertEquals("Wrong value",expected,W32API.INVALID_HANDLE_VALUE.toString());
+}
