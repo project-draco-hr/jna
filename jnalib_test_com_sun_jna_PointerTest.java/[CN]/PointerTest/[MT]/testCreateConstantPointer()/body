@@ -1,0 +1,6 @@
+{
+  Pointer p=Pointer.createConstant(0xFFFFFFFF);
+  assertEquals("Wrong peer value",p.peer,0xFFFFFFFF);
+  p=Pointer.createConstant(-1);
+  assertEquals("Wrong peer value",p.peer,-1);
+}
