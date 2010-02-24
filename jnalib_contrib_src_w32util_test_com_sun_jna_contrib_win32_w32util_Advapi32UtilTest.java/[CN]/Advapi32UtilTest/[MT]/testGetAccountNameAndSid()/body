@@ -1,0 +1,6 @@
+{
+  String accountName="Administrator";
+  byte[] sidBytes=Advapi32Util.getAccountSid(accountName);
+  assertTrue(sidBytes.length > 0);
+  assertEquals(accountName,Advapi32Util.getAccountName(sidBytes));
+}

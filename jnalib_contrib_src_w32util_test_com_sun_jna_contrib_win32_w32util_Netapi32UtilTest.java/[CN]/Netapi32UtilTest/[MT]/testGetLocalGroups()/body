@@ -1,0 +1,10 @@
+{
+  String[] localGroups=Netapi32Util.getLocalGroups();
+  int totalLength=0;
+  for (  String localGroup : localGroups) {
+    totalLength+=localGroup.length();
+  }
+  assertTrue(totalLength / localGroups.length > 1);
+  assertNotNull(localGroups);
+  assertTrue(localGroups.length > 0);
+}

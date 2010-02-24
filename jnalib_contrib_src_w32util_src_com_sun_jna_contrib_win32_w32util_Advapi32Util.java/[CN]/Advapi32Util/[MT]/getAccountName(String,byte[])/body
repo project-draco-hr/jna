@@ -1,0 +1,18 @@
+{
+  IntByReference cchName=new IntByReference();
+  IntByReference cchReferencedDomainName=new IntByReference();
+  PointerByReference peUse=new PointerByReference();
+  if (Advapi32.INSTANCE.LookupAccountSid(null,sid,null,cchName,null,cchReferencedDomainName,peUse)) {
+    throw new Exception("LookupAccountSidW was expected to fail with ERROR_INSUFFICIENT_BUFFER");
+  }
+  int rc=Kernel32.INSTANCE.GetLastError();
+  if (cchName.getValue() == 0 || rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+    throw new LastErrorException(rc);
+  }
+  char[] referencedDomainName=new char[cchReferencedDomainName.getValue()];
+  char[] name=new char[cchName.getValue()];
+  if (!Advapi32.INSTANCE.LookupAccountSid(null,sid,name,cchName,referencedDomainName,cchReferencedDomainName,peUse)) {
+    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+  }
+  return Native.toString(name);
+}

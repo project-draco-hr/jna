@@ -1,0 +1,18 @@
+{
+  IntByReference pSid=new IntByReference(0);
+  IntByReference pDomain=new IntByReference(0);
+  PointerByReference peUse=new PointerByReference();
+  if (Advapi32.INSTANCE.LookupAccountName(systemName,accountName,null,pSid,null,pDomain,peUse)) {
+    throw new Exception("LookupAccountNameW was expected to fail with ERROR_INSUFFICIENT_BUFFER");
+  }
+  int rc=Kernel32.INSTANCE.GetLastError();
+  if (pSid.getValue() == 0 || rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+    throw new LastErrorException(rc);
+  }
+  byte[] sid=new byte[pSid.getValue()];
+  char[] referencedDomainName=new char[pDomain.getValue() + 1];
+  if (!Advapi32.INSTANCE.LookupAccountName(systemName,accountName,sid,pSid,referencedDomainName,pDomain,peUse)) {
+    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+  }
+  return sid;
+}

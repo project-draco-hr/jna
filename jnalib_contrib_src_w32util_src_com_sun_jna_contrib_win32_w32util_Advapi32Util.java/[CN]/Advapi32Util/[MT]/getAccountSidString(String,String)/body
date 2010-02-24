@@ -1,0 +1,3 @@
+{
+  return convertSidToStringSid(getAccountSid(systemName,accountName));
+}

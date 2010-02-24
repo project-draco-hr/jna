@@ -1,7 +1,0 @@
-{
-  String computerName=System.getenv("COMPUTERNAME");
-  System.out.println(computerName);
-  String domain=Netapi32Util.GetDomainName(computerName);
-  System.out.println(domain);
-  assertTrue(domain.length() > 0);
-}

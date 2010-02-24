@@ -1,0 +1,4 @@
+{
+  String username=Advapi32Util.getUserName();
+  assertTrue(username.length() > 0);
+}

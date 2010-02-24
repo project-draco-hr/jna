@@ -1,6 +1,0 @@
-{
-  String usernameSamCompatible=Secur32Util.GetUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
-  System.out.println(usernameSamCompatible);
-  assertTrue(usernameSamCompatible.length() > 0);
-  assertTrue(usernameSamCompatible.indexOf('\\') > 0);
-}

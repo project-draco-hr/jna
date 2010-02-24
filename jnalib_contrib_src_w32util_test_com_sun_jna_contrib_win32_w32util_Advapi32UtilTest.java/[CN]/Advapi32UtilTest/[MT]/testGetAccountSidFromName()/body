@@ -1,0 +1,3 @@
+{
+  assertEquals("S-1-1-0",Advapi32Util.getAccountSidString("Everyone"));
+}

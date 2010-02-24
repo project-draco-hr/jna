@@ -1,0 +1,8 @@
+{
+  junit.textui.TestRunner.run(Advapi32UtilTest.class);
+  System.out.println("GetUserName: " + Advapi32Util.getUserName());
+  System.out.println("ConvertSidToStringSid: " + Advapi32Util.convertSidToStringSid(Advapi32Util.getAccountSid(Advapi32Util.getUserName())));
+  System.out.println("AccountSidString: " + Advapi32Util.getAccountSidString(Advapi32Util.getUserName()));
+  System.out.println("AccountNameBySid: " + Advapi32Util.getAccountName(Advapi32Util.getAccountSid(Advapi32Util.getUserName())));
+  System.out.println("AccountNameBySidString: " + Advapi32Util.getAccountName(Advapi32Util.getAccountSidString(Advapi32Util.getUserName())));
+}

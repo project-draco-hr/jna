@@ -1,0 +1,5 @@
+{
+  String usernameSamCompatible=Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
+  assertTrue(usernameSamCompatible.length() > 1);
+  assertTrue(usernameSamCompatible.indexOf('\\') > 0);
+}
