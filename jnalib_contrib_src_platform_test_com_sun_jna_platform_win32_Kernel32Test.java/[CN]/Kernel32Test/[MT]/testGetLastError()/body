@@ -1,0 +1,15 @@
+{
+  Kernel32 kernel=Kernel32.INSTANCE;
+  int ERRCODE=8;
+  kernel.SetLastError(ERRCODE);
+  int code=kernel.GetLastError();
+  assertEquals("Wrong error value after SetLastError",ERRCODE,code);
+  if (kernel.GetProcessVersion(-1) == 0) {
+    final int INVALID_PARAMETER=87;
+    code=kernel.GetLastError();
+    assertEquals("Wrong error value after failed syscall",INVALID_PARAMETER,code);
+  }
+ else {
+    fail("GetProcessId(NULL) should fail");
+  }
+}

@@ -1,4 +1,4 @@
 {
-  unicode=(UnicodeLibrary)Native.loadLibrary("testlib",UnicodeLibrary.class,W32API.UNICODE_OPTIONS);
-  ascii=(ASCIILibrary)Native.loadLibrary("testlib",ASCIILibrary.class,W32API.ASCII_OPTIONS);
+  unicode=(UnicodeLibrary)Native.loadLibrary("testlib",UnicodeLibrary.class,W32APIOptions.UNICODE_OPTIONS);
+  ascii=(ASCIILibrary)Native.loadLibrary("testlib",ASCIILibrary.class,W32APIOptions.ASCII_OPTIONS);
 }

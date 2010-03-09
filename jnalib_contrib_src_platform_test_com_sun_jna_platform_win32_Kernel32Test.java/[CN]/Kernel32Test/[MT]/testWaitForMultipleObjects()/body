@@ -1,0 +1,12 @@
+{
+  W32API.HANDLE[] handles=new W32API.HANDLE[2];
+  handles[0]=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
+  handles[1]=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
+  assertEquals(W32Errors.WAIT_TIMEOUT,Kernel32.INSTANCE.WaitForMultipleObjects(handles.length,handles,false,1000));
+  Kernel32.INSTANCE.CloseHandle(handles[0]);
+  Kernel32.INSTANCE.CloseHandle(handles[1]);
+  handles[0]=W32API.INVALID_HANDLE_VALUE;
+  handles[1]=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
+  assertEquals(WinBase.WAIT_FAILED,Kernel32.INSTANCE.WaitForMultipleObjects(handles.length,handles,false,5000));
+  Kernel32.INSTANCE.CloseHandle(handles[1]);
+}

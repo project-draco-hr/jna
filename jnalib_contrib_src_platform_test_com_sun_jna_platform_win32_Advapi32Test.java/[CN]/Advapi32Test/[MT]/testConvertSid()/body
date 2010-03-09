@@ -1,0 +1,14 @@
+{
+  String sidString="S-1-1-0";
+  PointerByReference sid=new PointerByReference();
+  assertTrue(Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
+  int sidLength=Advapi32.INSTANCE.GetLengthSid(sid);
+  assertTrue(sidLength > 0);
+  byte[] sidBytes=sid.getValue().getByteArray(0,sidLength);
+  PointerByReference convertedSidStringPtr=new PointerByReference();
+  assertTrue(Advapi32.INSTANCE.ConvertSidToStringSid(sidBytes,convertedSidStringPtr));
+  String convertedSidString=convertedSidStringPtr.getValue().getString(0,true);
+  assertEquals(convertedSidString,sidString);
+  assertEquals(null,Kernel32.INSTANCE.LocalFree(convertedSidStringPtr.getValue()));
+  assertEquals(null,Kernel32.INSTANCE.LocalFree(sid.getValue()));
+}
