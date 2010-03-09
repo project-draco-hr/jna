@@ -1,5 +1,0 @@
-{
-  List list=new ArrayList(listeners);
-  list.add(x);
-  listeners=list;
-}

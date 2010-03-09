@@ -1,3 +1,0 @@
-{
-  junit.textui.TestRunner.run(Shell32Test.class);
-}
