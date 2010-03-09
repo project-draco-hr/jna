@@ -1,0 +1,4 @@
+{
+  junit.textui.TestRunner.run(Advapi32UtilTest.class);
+  System.out.println("GetComputerName: " + Kernel32Util.getComputerName());
+}

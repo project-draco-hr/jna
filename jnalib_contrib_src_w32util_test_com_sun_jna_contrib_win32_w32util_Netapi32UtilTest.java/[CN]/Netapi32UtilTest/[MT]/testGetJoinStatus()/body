@@ -1,0 +1,4 @@
+{
+  int joinStatus=Netapi32Util.getJoinStatus();
+  assertTrue(joinStatus == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName || joinStatus == LMJoin.NETSETUP_JOIN_STATUS.NetSetupUnjoined || joinStatus == LMJoin.NETSETUP_JOIN_STATUS.NetSetupWorkgroupName);
+}

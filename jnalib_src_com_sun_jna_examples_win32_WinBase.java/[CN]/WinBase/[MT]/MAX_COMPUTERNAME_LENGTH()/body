@@ -1,0 +1,8 @@
+{
+  if (Platform.isMac()) {
+    return 15;
+  }
+ else {
+    return 31;
+  }
+}

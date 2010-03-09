@@ -14,5 +14,10 @@
   if (!Advapi32.INSTANCE.LookupAccountSid(null,sid,name,cchName,referencedDomainName,cchReferencedDomainName,peUse)) {
     throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
   }
-  return Native.toString(name);
+  if (cchReferencedDomainName.getValue() > 0) {
+    return Native.toString(referencedDomainName) + "\\" + Native.toString(name);
+  }
+ else {
+    return Native.toString(name);
+  }
 }

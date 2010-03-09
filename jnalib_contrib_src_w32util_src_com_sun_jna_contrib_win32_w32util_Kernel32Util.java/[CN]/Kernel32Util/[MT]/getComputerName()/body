@@ -1,0 +1,8 @@
+{
+  char buffer[]=new char[WinBase.MAX_COMPUTERNAME_LENGTH() + 1];
+  IntByReference lpnSize=new IntByReference(buffer.length);
+  if (!Kernel32.INSTANCE.GetComputerName(buffer,lpnSize)) {
+    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+  }
+  return Native.toString(buffer);
+}
