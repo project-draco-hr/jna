@@ -3,7 +3,7 @@
   IntByReference cchReferencedDomainName=new IntByReference();
   PointerByReference peUse=new PointerByReference();
   if (Advapi32.INSTANCE.LookupAccountSid(null,sid,null,cchName,null,cchReferencedDomainName,peUse)) {
-    throw new Exception("LookupAccountSidW was expected to fail with ERROR_INSUFFICIENT_BUFFER");
+    throw new RuntimeException("LookupAccountSidW was expected to fail with ERROR_INSUFFICIENT_BUFFER");
   }
   int rc=Kernel32.INSTANCE.GetLastError();
   if (cchName.getValue() == 0 || rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
