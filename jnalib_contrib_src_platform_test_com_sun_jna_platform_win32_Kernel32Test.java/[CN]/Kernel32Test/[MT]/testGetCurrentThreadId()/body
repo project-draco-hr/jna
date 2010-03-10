@@ -1,0 +1,3 @@
+{
+  assertTrue(Kernel32.INSTANCE.GetCurrentThreadId() > 0);
+}

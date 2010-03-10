@@ -1,5 +1,5 @@
 {
   HANDLEByReference phToken=new HANDLEByReference();
   assertFalse(Advapi32.INSTANCE.LogonUser("AccountDoesntExist",".","passwordIsInvalid",WinBase.LOGON32_LOGON_NETWORK,WinBase.LOGON32_PROVIDER_DEFAULT,phToken));
-  assertEquals(W32Errors.ERROR_LOGON_TYPE_NOT_GRANTED,Kernel32.INSTANCE.GetLastError());
+  assertTrue(W32Errors.ERROR_SUCCESS != Kernel32.INSTANCE.GetLastError());
 }

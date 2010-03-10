@@ -1,0 +1,3 @@
+{
+  assertTrue(Kernel32.INSTANCE.GetCurrentProcessId() > 0);
+}

@@ -1,0 +1,7 @@
+{
+  HANDLEByReference phToken=new HANDLEByReference();
+  HANDLE threadHandle=Kernel32.INSTANCE.GetCurrentThread();
+  assertNotNull(threadHandle);
+  assertFalse(Advapi32.INSTANCE.OpenThreadToken(threadHandle,WinNT.TOKEN_READ,false,phToken));
+  assertEquals(W32Errors.ERROR_NO_TOKEN,Kernel32.INSTANCE.GetLastError());
+}
