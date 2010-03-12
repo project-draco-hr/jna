@@ -1,25 +1,24 @@
 {
   String sidString="S-1-1-0";
-  PointerByReference sid=new PointerByReference();
+  PSIDByReference sid=new PSIDByReference();
   assertTrue(Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
-  int sidLength=Advapi32.INSTANCE.GetLengthSid(sid);
+  int sidLength=Advapi32.INSTANCE.GetLengthSid(sid.getValue());
   assertTrue(sidLength > 0);
-  byte[] sidBytes=sid.getValue().getByteArray(0,sidLength);
-  assertEquals(null,Kernel32.INSTANCE.LocalFree(sid.getValue()));
   IntByReference cchName=new IntByReference();
   IntByReference cchReferencedDomainName=new IntByReference();
   PointerByReference peUse=new PointerByReference();
-  assertFalse(Advapi32.INSTANCE.LookupAccountSid(null,sidBytes,null,cchName,null,cchReferencedDomainName,peUse));
+  assertFalse(Advapi32.INSTANCE.LookupAccountSid(null,sid.getValue(),null,cchName,null,cchReferencedDomainName,peUse));
   assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
   assertTrue(cchName.getValue() > 0);
   assertTrue(cchReferencedDomainName.getValue() > 0);
   char[] referencedDomainName=new char[cchReferencedDomainName.getValue()];
   char[] name=new char[cchName.getValue()];
-  assertTrue(Advapi32.INSTANCE.LookupAccountSid(null,sidBytes,name,cchName,referencedDomainName,cchReferencedDomainName,peUse));
+  assertTrue(Advapi32.INSTANCE.LookupAccountSid(null,sid.getValue(),name,cchName,referencedDomainName,cchReferencedDomainName,peUse));
   assertEquals(5,peUse.getPointer().getInt(0));
   String nameString=Native.toString(name);
   String referencedDomainNameString=Native.toString(referencedDomainName);
   assertTrue(nameString.length() > 0);
   assertEquals("Everyone",nameString);
   assertTrue(referencedDomainNameString.length() == 0);
+  assertEquals(null,Kernel32.INSTANCE.LocalFree(sid.getValue().getPointer()));
 }

@@ -1,0 +1,6 @@
+{
+  HANDLEByReference phToken=new HANDLEByReference();
+  HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
+  assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,phToken));
+  assertTrue(Kernel32.INSTANCE.CloseHandle(phToken.getValue()));
+}

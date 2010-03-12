@@ -1,2 +1,2 @@
 String systemName
-byte[] sid
+PSID sid

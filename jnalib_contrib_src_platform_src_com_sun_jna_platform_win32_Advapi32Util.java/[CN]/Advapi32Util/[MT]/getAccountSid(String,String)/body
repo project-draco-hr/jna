@@ -9,10 +9,11 @@
   if (pSid.getValue() == 0 || rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
     throw new LastErrorException(rc);
   }
-  byte[] sid=new byte[pSid.getValue()];
+  Memory sidMemory=new Memory(pSid.getValue());
+  PSID result=new PSID(sidMemory);
   char[] referencedDomainName=new char[pDomain.getValue() + 1];
-  if (!Advapi32.INSTANCE.LookupAccountName(systemName,accountName,sid,pSid,referencedDomainName,pDomain,peUse)) {
+  if (!Advapi32.INSTANCE.LookupAccountName(systemName,accountName,result,pSid,referencedDomainName,pDomain,peUse)) {
     throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
   }
-  return sid;
+  return result.getBytes();
 }

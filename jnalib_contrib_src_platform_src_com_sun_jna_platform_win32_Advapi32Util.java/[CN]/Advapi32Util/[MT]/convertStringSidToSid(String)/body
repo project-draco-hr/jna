@@ -1,10 +1,7 @@
 {
-  PointerByReference sidBytes=new PointerByReference();
-  if (!Advapi32.INSTANCE.ConvertStringSidToSid(sid,sidBytes)) {
+  PSIDByReference pSID=new PSIDByReference();
+  if (!Advapi32.INSTANCE.ConvertStringSidToSid(sid,pSID)) {
     throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
   }
-  int sidLength=Advapi32.INSTANCE.GetLengthSid(sidBytes);
-  byte[] result=sidBytes.getValue().getByteArray(0,sidLength);
-  Kernel32.INSTANCE.LocalFree(sidBytes.getValue());
-  return result;
+  return pSID.getValue().getBytes();
 }
