@@ -1,8 +1,18 @@
 {
   junit.textui.TestRunner.run(Advapi32UtilTest.class);
-  System.out.println("GetUserName: " + Advapi32Util.getUserName());
-  System.out.println("ConvertSidToStringSid: " + Advapi32Util.convertSidToStringSid(new PSID(Advapi32Util.getAccountSid(Advapi32Util.getUserName()))));
-  System.out.println("AccountSidString: " + Advapi32Util.getAccountSidString(Advapi32Util.getUserName()));
-  System.out.println("AccountNameBySid: " + Advapi32Util.getAccountName(new PSID(Advapi32Util.getAccountSid(Advapi32Util.getUserName()))));
-  System.out.println("AccountNameBySidString: " + Advapi32Util.getAccountName(Advapi32Util.getAccountSidString(Advapi32Util.getUserName())));
+  String currentUserName=Advapi32Util.getUserName();
+  System.out.println("GetUserName: " + currentUserName);
+  for (  Advapi32Util.Group group : Advapi32Util.getCurrentUserGroups()) {
+    System.out.println(" " + group.name + " ["+ group.sidString+ "]");
+  }
+  Account accountByName=Advapi32Util.getAccountByName(currentUserName);
+  System.out.println("AccountByName: " + currentUserName);
+  System.out.println(" Fqn: " + accountByName.fqn);
+  System.out.println(" Domain: " + accountByName.domain);
+  System.out.println(" Sid: " + accountByName.sidString);
+  Account accountBySid=Advapi32Util.getAccountBySid(new PSID(accountByName.sid));
+  System.out.println("AccountBySid: " + accountByName.sidString);
+  System.out.println(" Fqn: " + accountBySid.fqn);
+  System.out.println(" Name: " + accountBySid.name);
+  System.out.println(" Domain: " + accountBySid.domain);
 }

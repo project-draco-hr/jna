@@ -1,0 +1,42 @@
+{
+  IntByReference pSid=new IntByReference(0);
+  IntByReference cchDomainName=new IntByReference(0);
+  PointerByReference peUse=new PointerByReference();
+  if (Advapi32.INSTANCE.LookupAccountName(systemName,accountName,null,pSid,null,cchDomainName,peUse)) {
+    throw new RuntimeException("LookupAccountNameW was expected to fail with ERROR_INSUFFICIENT_BUFFER");
+  }
+  int rc=Kernel32.INSTANCE.GetLastError();
+  if (pSid.getValue() == 0 || rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+    throw new LastErrorException(rc);
+  }
+  Memory sidMemory=new Memory(pSid.getValue());
+  PSID result=new PSID(sidMemory);
+  char[] referencedDomainName=new char[cchDomainName.getValue() + 1];
+  if (!Advapi32.INSTANCE.LookupAccountName(systemName,accountName,result,pSid,referencedDomainName,cchDomainName,peUse)) {
+    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+  }
+  Account account=new Account();
+  account.accountType=peUse.getPointer().getInt(0);
+  account.name=accountName;
+  String[] accountNamePartsBs=accountName.split("\\\\",2);
+  String[] accountNamePartsAt=accountName.split("@",2);
+  if (accountNamePartsBs.length == 2) {
+    account.name=accountNamePartsBs[1];
+  }
+ else   if (accountNamePartsAt.length == 2) {
+    account.name=accountNamePartsAt[0];
+  }
+ else {
+    account.name=accountName;
+  }
+  if (cchDomainName.getValue() > 0) {
+    account.domain=Native.toString(referencedDomainName);
+    account.fqn=account.domain + "\\" + account.name;
+  }
+ else {
+    account.fqn=account.name;
+  }
+  account.sid=result.getBytes();
+  account.sidString=convertSidToStringSid(new PSID(account.sid));
+  return account;
+}

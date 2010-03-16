@@ -1,3 +1,0 @@
-{
-  return convertSidToStringSid(new PSID(getAccountSid(null,accountName)));
-}

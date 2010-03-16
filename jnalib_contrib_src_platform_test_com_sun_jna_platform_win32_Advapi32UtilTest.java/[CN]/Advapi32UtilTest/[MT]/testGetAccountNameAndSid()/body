@@ -1,7 +1,0 @@
-{
-  String accountName=Kernel32Util.getComputerName() + "\\Administrator";
-  byte[] sidBytes=Advapi32Util.getAccountSid(accountName);
-  assertTrue(sidBytes.length > 0);
-  String accountNameFromSid=Advapi32Util.getAccountName(new PSID(sidBytes));
-  assertEquals(accountName.toLowerCase(),accountNameFromSid.toLowerCase());
-}

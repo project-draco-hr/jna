@@ -1,0 +1,10 @@
+{
+  String accountName=Advapi32Util.getUserName();
+  Account currentUser=Advapi32Util.getAccountByName(accountName);
+  Account account=Advapi32Util.getAccountBySid(new PSID(currentUser.sid));
+  assertEquals(SID_NAME_USE.SidTypeUser,account.accountType);
+  assertEquals(currentUser.fqn.toLowerCase(),account.fqn.toLowerCase());
+  assertEquals(currentUser.name.toLowerCase(),account.name.toLowerCase());
+  assertEquals(currentUser.domain.toLowerCase(),account.domain.toLowerCase());
+  assertEquals(currentUser.sidString,account.sidString);
+}

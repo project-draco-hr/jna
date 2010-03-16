@@ -1,0 +1,3 @@
+{
+  return getAccountBySid(null,sid);
+}

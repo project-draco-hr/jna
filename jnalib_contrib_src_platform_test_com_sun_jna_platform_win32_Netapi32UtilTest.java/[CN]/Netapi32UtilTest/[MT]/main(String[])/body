@@ -1,3 +1,9 @@
 {
   junit.textui.TestRunner.run(Netapi32UtilTest.class);
+  System.out.println("Domain: " + Netapi32Util.getDomainName("localhost"));
+  LocalGroup[] localGroups=Netapi32Util.getLocalGroups();
+  System.out.println("Local groups: " + localGroups.length);
+  for (  LocalGroup localGroup : localGroups) {
+    System.out.println(localGroup.name + " (" + localGroup.comment+ ")");
+  }
 }

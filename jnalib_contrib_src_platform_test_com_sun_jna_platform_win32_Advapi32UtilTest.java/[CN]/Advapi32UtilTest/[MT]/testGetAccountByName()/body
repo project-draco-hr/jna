@@ -1,0 +1,5 @@
+{
+  String accountName=Advapi32Util.getUserName();
+  Account account=Advapi32Util.getAccountByName(accountName);
+  assertEquals(SID_NAME_USE.SidTypeUser,account.accountType);
+}
