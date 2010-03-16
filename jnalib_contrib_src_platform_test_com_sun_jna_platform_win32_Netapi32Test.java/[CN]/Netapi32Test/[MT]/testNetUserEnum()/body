@@ -1,0 +1,12 @@
+{
+  PointerByReference bufptr=new PointerByReference();
+  IntByReference entriesread=new IntByReference();
+  IntByReference totalentries=new IntByReference();
+  assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetUserEnum(null,1,0,bufptr,LMCons.MAX_PREFERRED_LENGTH,entriesread,totalentries,null));
+  USER_INFO_1 userinfo=new USER_INFO_1(bufptr.getValue());
+  USER_INFO_1[] userinfos=(USER_INFO_1[])userinfo.toArray(entriesread.getValue());
+  for (  USER_INFO_1 ui : userinfos) {
+    assertTrue(ui.usri1_name.length() > 0);
+  }
+  assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetApiBufferFree(bufptr.getValue()));
+}

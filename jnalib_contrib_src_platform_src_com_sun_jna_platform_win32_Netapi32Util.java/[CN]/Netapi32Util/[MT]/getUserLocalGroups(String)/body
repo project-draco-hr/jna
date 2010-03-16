@@ -1,0 +1,3 @@
+{
+  return getUserLocalGroups(userName,null);
+}

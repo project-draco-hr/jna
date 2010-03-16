@@ -1,0 +1,13 @@
+{
+  String currentUser=Advapi32Util.getUserName();
+  PointerByReference bufptr=new PointerByReference();
+  IntByReference entriesread=new IntByReference();
+  IntByReference totalentries=new IntByReference();
+  assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetUserGetGroups(null,currentUser,0,bufptr,LMCons.MAX_PREFERRED_LENGTH,entriesread,totalentries));
+  GROUP_USERS_INFO_0 lgroup=new GROUP_USERS_INFO_0(bufptr.getValue());
+  GROUP_USERS_INFO_0[] lgroups=(GROUP_USERS_INFO_0[])lgroup.toArray(entriesread.getValue());
+  for (  GROUP_USERS_INFO_0 localGroupInfo : lgroups) {
+    assertTrue(localGroupInfo.grui0_name.length() > 0);
+  }
+  assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetApiBufferFree(bufptr.getValue()));
+}

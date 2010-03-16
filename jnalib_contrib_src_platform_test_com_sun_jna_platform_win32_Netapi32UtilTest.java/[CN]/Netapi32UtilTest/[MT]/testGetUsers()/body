@@ -1,0 +1,8 @@
+{
+  Netapi32Util.User[] users=Netapi32Util.getUsers();
+  assertNotNull(users);
+  for (  Netapi32Util.User user : users) {
+    assertTrue(user.name.length() > 0);
+  }
+  assertTrue(users.length > 0);
+}

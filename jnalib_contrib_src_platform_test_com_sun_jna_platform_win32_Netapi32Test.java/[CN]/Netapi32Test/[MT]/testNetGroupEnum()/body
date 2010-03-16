@@ -1,0 +1,12 @@
+{
+  PointerByReference bufptr=new PointerByReference();
+  IntByReference entriesread=new IntByReference();
+  IntByReference totalentries=new IntByReference();
+  assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetGroupEnum(null,2,bufptr,LMCons.MAX_PREFERRED_LENGTH,entriesread,totalentries,null));
+  GROUP_INFO_2 group=new GROUP_INFO_2(bufptr.getValue());
+  GROUP_INFO_2[] groups=(GROUP_INFO_2[])group.toArray(entriesread.getValue());
+  for (  GROUP_INFO_2 grpi : groups) {
+    assertTrue(grpi.grpi2_name.length() > 0);
+  }
+  assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetApiBufferFree(bufptr.getValue()));
+}

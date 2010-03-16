@@ -1,7 +1,7 @@
 {
-  LocalGroup[] localGroups=Netapi32Util.getLocalGroups();
+  Netapi32Util.LocalGroup[] localGroups=Netapi32Util.getLocalGroups();
   assertNotNull(localGroups);
-  for (  LocalGroup localGroup : localGroups) {
+  for (  Netapi32Util.LocalGroup localGroup : localGroups) {
     assertTrue(localGroup.name.length() > 0);
   }
   assertTrue(localGroups.length > 0);

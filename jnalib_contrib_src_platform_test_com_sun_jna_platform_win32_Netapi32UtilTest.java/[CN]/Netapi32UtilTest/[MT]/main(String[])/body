@@ -1,9 +1,29 @@
 {
   junit.textui.TestRunner.run(Netapi32UtilTest.class);
   System.out.println("Domain: " + Netapi32Util.getDomainName("localhost"));
-  LocalGroup[] localGroups=Netapi32Util.getLocalGroups();
+  Netapi32Util.LocalGroup[] localGroups=Netapi32Util.getLocalGroups();
   System.out.println("Local groups: " + localGroups.length);
-  for (  LocalGroup localGroup : localGroups) {
-    System.out.println(localGroup.name + " (" + localGroup.comment+ ")");
+  for (  Netapi32Util.LocalGroup localGroup : localGroups) {
+    System.out.println(" " + localGroup.name + " ("+ localGroup.comment+ ")");
+  }
+  Netapi32Util.Group[] groups=Netapi32Util.getGlobalGroups();
+  System.out.println("Global groups: " + groups.length);
+  for (  Netapi32Util.Group group : groups) {
+    System.out.println(" " + group.name);
+  }
+  Netapi32Util.User[] users=Netapi32Util.getUsers();
+  System.out.println("Users: " + users.length);
+  for (  Netapi32Util.User user : users) {
+    System.out.println(" " + user.name);
+  }
+  Netapi32Util.Group[] userLocalGroups=Netapi32Util.getCurrentUserLocalGroups();
+  System.out.println("Local user groups: " + userLocalGroups.length);
+  for (  Netapi32Util.Group localGroup : userLocalGroups) {
+    System.out.println(" " + localGroup.name);
+  }
+  Netapi32Util.Group[] userGroups=Netapi32Util.getCurrentUserGroups();
+  System.out.println("Domain user groups: " + userGroups.length);
+  for (  Netapi32Util.Group group : userGroups) {
+    System.out.println(" " + group.name);
   }
 }

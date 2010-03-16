@@ -1,0 +1,3 @@
+{
+  return getUserGroups(Advapi32Util.getUserName());
+}

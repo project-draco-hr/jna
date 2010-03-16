@@ -1,0 +1,8 @@
+{
+  Netapi32Util.Group[] groups=Netapi32Util.getGlobalGroups();
+  assertNotNull(groups);
+  for (  Netapi32Util.Group group : groups) {
+    assertTrue(group.name.length() > 0);
+  }
+  assertTrue(groups.length > 0);
+}
