@@ -1,0 +1,12 @@
+{
+  IntByReference tokenInformationLength=new IntByReference();
+  if (Advapi32.INSTANCE.GetTokenInformation(hToken,WinNT.TOKEN_INFORMATION_CLASS.TokenUser,null,0,tokenInformationLength) || Kernel32.INSTANCE.GetLastError() != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+    throw new RuntimeException("Expected GetTokenInformation to fail with ERROR_INSUFFICIENT_BUFFER");
+  }
+  Memory tokenInformationBuffer=new Memory(tokenInformationLength.getValue());
+  WinNT.TOKEN_USER user=new WinNT.TOKEN_USER(tokenInformationBuffer);
+  if (!Advapi32.INSTANCE.GetTokenInformation(hToken,WinNT.TOKEN_INFORMATION_CLASS.TokenUser,user,tokenInformationLength.getValue(),tokenInformationLength)) {
+    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+  }
+  return getAccountBySid(user.User.Sid);
+}
