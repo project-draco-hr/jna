@@ -14,7 +14,7 @@
   File lib=null;
   if (url.getProtocol().toLowerCase().equals("file")) {
     try {
-      lib=new File(url.toURI());
+      lib=new File(new URI(url.toString()));
     }
  catch (    URISyntaxException e) {
       lib=new File(url.getPath());
