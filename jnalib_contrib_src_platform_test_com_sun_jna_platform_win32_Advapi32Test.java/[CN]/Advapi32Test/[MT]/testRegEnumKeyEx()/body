@@ -1,0 +1,14 @@
+{
+  HKEYByReference phKey=new HKEYByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegOpenKeyEx(WinReg.HKEY_CURRENT_USER,"Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",0,WinNT.KEY_READ,phKey));
+  IntByReference lpcSubKeys=new IntByReference();
+  IntByReference lpcMaxSubKeyLen=new IntByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegQueryInfoKey(phKey.getValue(),null,null,null,lpcSubKeys,lpcMaxSubKeyLen,null,null,null,null,null,null));
+  char[] name=new char[lpcMaxSubKeyLen.getValue() + 1];
+  for (int i=0; i < lpcSubKeys.getValue(); i++) {
+    IntByReference lpcchValueName=new IntByReference(lpcMaxSubKeyLen.getValue() + 1);
+    assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegEnumKeyEx(phKey.getValue(),i,name,lpcchValueName,null,null,null,null));
+    assertEquals(Native.toString(name).length(),lpcchValueName.getValue());
+  }
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegCloseKey(phKey.getValue()));
+}

@@ -1,0 +1,8 @@
+{
+  Pointer p=getPointer().getPointer(0);
+  if (p == null)   return null;
+  if (W32API.INVALID_HANDLE_VALUE.getPointer().equals(p))   return (HKEY)W32API.INVALID_HANDLE_VALUE;
+  HKEY h=new HKEY();
+  h.setPointer(p);
+  return h;
+}

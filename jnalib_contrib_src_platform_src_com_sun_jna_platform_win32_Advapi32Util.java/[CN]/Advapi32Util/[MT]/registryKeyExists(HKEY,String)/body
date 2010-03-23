@@ -1,0 +1,13 @@
+{
+  HKEYByReference phkKey=new HKEYByReference();
+  int rc=Advapi32.INSTANCE.RegOpenKeyEx(root,key,0,WinNT.KEY_READ,phkKey);
+switch (rc) {
+case W32Errors.ERROR_SUCCESS:
+    Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
+  return true;
+case W32Errors.ERROR_FILE_NOT_FOUND:
+return false;
+default :
+throw new LastErrorException(rc);
+}
+}

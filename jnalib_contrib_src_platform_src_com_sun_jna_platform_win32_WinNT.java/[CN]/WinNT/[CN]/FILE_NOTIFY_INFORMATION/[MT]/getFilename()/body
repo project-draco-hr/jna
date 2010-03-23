@@ -1,0 +1,3 @@
+{
+  return new String(FileName,0,FileNameLength / 2);
+}

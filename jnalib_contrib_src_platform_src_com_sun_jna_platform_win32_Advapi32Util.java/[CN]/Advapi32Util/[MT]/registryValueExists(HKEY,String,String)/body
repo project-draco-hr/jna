@@ -1,0 +1,34 @@
+{
+  HKEYByReference phkKey=new HKEYByReference();
+  int rc=Advapi32.INSTANCE.RegOpenKeyEx(root,key,0,WinNT.KEY_READ,phkKey);
+  try {
+switch (rc) {
+case W32Errors.ERROR_SUCCESS:
+      break;
+case W32Errors.ERROR_FILE_NOT_FOUND:
+    return false;
+default :
+  throw new LastErrorException(rc);
+}
+IntByReference lpcbData=new IntByReference();
+IntByReference lpType=new IntByReference();
+rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,(char[])null,lpcbData);
+switch (rc) {
+case W32Errors.ERROR_SUCCESS:
+case W32Errors.ERROR_INSUFFICIENT_BUFFER:
+return true;
+case W32Errors.ERROR_FILE_NOT_FOUND:
+return false;
+default :
+throw new LastErrorException(rc);
+}
+}
+  finally {
+if (phkKey.getValue() != Kernel32.INVALID_HANDLE_VALUE) {
+rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
+if (rc != W32Errors.ERROR_SUCCESS) {
+throw new LastErrorException(rc);
+}
+}
+}
+}

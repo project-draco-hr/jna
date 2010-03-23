@@ -1,0 +1,16 @@
+{
+  HKEYByReference phkKey=new HKEYByReference();
+  int rc=Advapi32.INSTANCE.RegOpenKeyEx(root,parentPath,0,WinNT.KEY_CREATE_SUB_KEY,phkKey);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new LastErrorException(rc);
+  }
+  try {
+    registryCreateKey(phkKey.getValue(),keyName);
+  }
+  finally {
+    rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
+    if (rc != W32Errors.ERROR_SUCCESS) {
+      throw new LastErrorException(rc);
+    }
+  }
+}

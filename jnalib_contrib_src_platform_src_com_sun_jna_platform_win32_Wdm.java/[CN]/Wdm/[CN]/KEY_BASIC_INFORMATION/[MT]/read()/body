@@ -1,0 +1,5 @@
+{
+  super.read();
+  Name=new char[NameLength / 2];
+  readField("Name");
+}

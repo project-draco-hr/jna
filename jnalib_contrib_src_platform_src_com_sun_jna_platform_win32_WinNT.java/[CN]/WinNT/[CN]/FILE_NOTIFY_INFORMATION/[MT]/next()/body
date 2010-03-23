@@ -1,0 +1,7 @@
+{
+  if (NextEntryOffset == 0)   return null;
+  FILE_NOTIFY_INFORMATION next=new FILE_NOTIFY_INFORMATION();
+  next.useMemory(getPointer(),NextEntryOffset);
+  next.read();
+  return next;
+}

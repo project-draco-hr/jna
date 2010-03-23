@@ -1,5 +1,5 @@
 {
   if (!Platform.isWindows())   return;
   Kernel32 kernel=Kernel32.INSTANCE;
-  assertEquals("Wrong drive type.",Kernel32.DRIVE_FIXED,kernel.GetDriveType("c:"));
+  assertEquals("Wrong drive type.",WinBase.DRIVE_FIXED,kernel.GetDriveType("c:"));
 }

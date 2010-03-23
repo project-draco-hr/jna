@@ -1,0 +1,30 @@
+{
+  HKEYByReference phkKey=new HKEYByReference();
+  int rc=Advapi32.INSTANCE.RegOpenKeyEx(root,key,0,WinNT.KEY_READ,phkKey);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new LastErrorException(rc);
+  }
+  try {
+    IntByReference lpcbData=new IntByReference();
+    IntByReference lpType=new IntByReference();
+    rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,(char[])null,lpcbData);
+    if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+      throw new LastErrorException(rc);
+    }
+    if (lpType.getValue() != WinNT.REG_SZ) {
+      throw new RuntimeException("Unexpected registry type " + lpType.getValue() + ", expected REG_SZ");
+    }
+    char[] data=new char[lpcbData.getValue()];
+    rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
+    if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+      throw new LastErrorException(rc);
+    }
+    return Native.toString(data);
+  }
+  finally {
+    rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
+    if (rc != W32Errors.ERROR_SUCCESS) {
+      throw new LastErrorException(rc);
+    }
+  }
+}

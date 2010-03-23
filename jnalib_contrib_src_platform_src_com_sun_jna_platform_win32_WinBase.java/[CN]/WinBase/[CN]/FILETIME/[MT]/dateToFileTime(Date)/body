@@ -1,0 +1,5 @@
+{
+  final long ms_since_19700101=date.getTime();
+  final long ms_since_16010101=ms_since_19700101 + EPOCH_DIFF;
+  return ms_since_16010101 * 1000 * 10;
+}

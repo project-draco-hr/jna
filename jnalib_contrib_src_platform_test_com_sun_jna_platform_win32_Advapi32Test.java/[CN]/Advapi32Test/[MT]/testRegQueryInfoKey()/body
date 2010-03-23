@@ -1,0 +1,13 @@
+{
+  IntByReference lpcClass=new IntByReference();
+  IntByReference lpcSubKeys=new IntByReference();
+  IntByReference lpcMaxSubKeyLen=new IntByReference();
+  IntByReference lpcValues=new IntByReference();
+  IntByReference lpcMaxClassLen=new IntByReference();
+  IntByReference lpcMaxValueNameLen=new IntByReference();
+  IntByReference lpcMaxValueLen=new IntByReference();
+  IntByReference lpcbSecurityDescriptor=new IntByReference();
+  FILETIME lpftLastWriteTime=new FILETIME();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegQueryInfoKey(WinReg.HKEY_LOCAL_MACHINE,null,lpcClass,null,lpcSubKeys,lpcMaxSubKeyLen,lpcMaxClassLen,lpcValues,lpcMaxValueNameLen,lpcMaxValueLen,lpcbSecurityDescriptor,lpftLastWriteTime));
+  assertTrue(lpcSubKeys.getValue() > 0);
+}

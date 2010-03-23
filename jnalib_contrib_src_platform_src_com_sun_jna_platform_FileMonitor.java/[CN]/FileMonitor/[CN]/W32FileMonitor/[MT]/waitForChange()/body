@@ -3,7 +3,7 @@
   IntByReference rcount=new IntByReference();
   HANDLEByReference rkey=new HANDLEByReference();
   PointerByReference roverlap=new PointerByReference();
-  klib.GetQueuedCompletionStatus(port,rcount,rkey,roverlap,Kernel32.INFINITE);
+  klib.GetQueuedCompletionStatus(port,rcount,rkey,roverlap,WinBase.INFINITE);
 synchronized (this) {
     return (FileInfo)handleMap.get(rkey.getValue());
   }

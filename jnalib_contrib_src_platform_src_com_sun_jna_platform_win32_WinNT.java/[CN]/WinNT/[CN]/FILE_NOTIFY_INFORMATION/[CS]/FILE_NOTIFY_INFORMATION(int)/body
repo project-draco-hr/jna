@@ -1,0 +1,6 @@
+{
+  if (size < size()) {
+    throw new IllegalArgumentException("Size must greater than " + size() + ", requested "+ size);
+  }
+  allocateMemory(size);
+}

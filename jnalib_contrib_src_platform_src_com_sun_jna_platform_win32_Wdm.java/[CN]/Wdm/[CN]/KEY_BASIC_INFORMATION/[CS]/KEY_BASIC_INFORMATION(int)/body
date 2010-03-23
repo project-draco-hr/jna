@@ -1,0 +1,5 @@
+{
+  NameLength=size - 16;
+  Name=new char[NameLength];
+  allocateMemory();
+}

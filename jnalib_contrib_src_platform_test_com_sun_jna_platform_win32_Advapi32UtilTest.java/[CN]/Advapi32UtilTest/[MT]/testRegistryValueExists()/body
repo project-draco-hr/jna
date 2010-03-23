@@ -1,0 +1,5 @@
+{
+  assertFalse(Advapi32Util.registryValueExists(WinReg.HKEY_LOCAL_MACHINE,"Software\\Microsoft",""));
+  assertFalse(Advapi32Util.registryValueExists(WinReg.HKEY_LOCAL_MACHINE,"Software\\Microsoft","KeyDoesNotExist"));
+  assertTrue(Advapi32Util.registryValueExists(WinReg.HKEY_LOCAL_MACHINE,"SYSTEM\\CurrentControlSet\\Control","SystemBootDevice"));
+}

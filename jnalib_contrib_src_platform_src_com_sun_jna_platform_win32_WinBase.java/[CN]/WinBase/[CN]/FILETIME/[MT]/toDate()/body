@@ -1,0 +1,3 @@
+{
+  return filetimeToDate(dwHighDateTime,dwLowDateTime);
+}

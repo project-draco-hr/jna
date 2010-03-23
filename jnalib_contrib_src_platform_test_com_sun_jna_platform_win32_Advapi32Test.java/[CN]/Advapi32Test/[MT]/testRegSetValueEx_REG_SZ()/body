@@ -1,0 +1,20 @@
+{
+  HKEYByReference phKey=new HKEYByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegOpenKeyEx(WinReg.HKEY_CURRENT_USER,"Software",0,WinNT.KEY_WRITE | WinNT.KEY_READ,phKey));
+  HKEYByReference phkTest=new HKEYByReference();
+  IntByReference lpdwDisposition=new IntByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegCreateKeyEx(phKey.getValue(),"JNAAdvapi32Test",0,null,0,WinNT.KEY_ALL_ACCESS,null,phkTest,lpdwDisposition));
+  char[] lpData=Native.toCharArray("Test");
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegSetValueEx(phkTest.getValue(),"REG_SZ",0,WinNT.REG_SZ,lpData,lpData.length * 2));
+  IntByReference lpType=new IntByReference();
+  IntByReference lpcbData=new IntByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegQueryValueEx(phkTest.getValue(),"REG_SZ",0,lpType,(char[])null,lpcbData));
+  assertEquals(WinNT.REG_SZ,lpType.getValue());
+  assertTrue(lpcbData.getValue() > 0);
+  char[] buffer=new char[lpcbData.getValue()];
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegQueryValueEx(phkTest.getValue(),"REG_SZ",0,lpType,buffer,lpcbData));
+  assertEquals("Test",Native.toString(buffer));
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegCloseKey(phkTest.getValue()));
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegDeleteKey(phKey.getValue(),"JNAAdvapi32Test"));
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegCloseKey(phKey.getValue()));
+}

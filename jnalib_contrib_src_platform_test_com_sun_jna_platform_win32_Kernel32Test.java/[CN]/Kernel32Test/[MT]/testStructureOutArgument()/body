@@ -1,6 +1,6 @@
 {
   Kernel32 kernel=Kernel32.INSTANCE;
-  Kernel32.SYSTEMTIME time=new Kernel32.SYSTEMTIME();
+  WinBase.SYSTEMTIME time=new WinBase.SYSTEMTIME();
   kernel.GetSystemTime(time);
   Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("UTC"));
   assertEquals("Hour not properly set",cal.get(Calendar.HOUR_OF_DAY),time.wHour);

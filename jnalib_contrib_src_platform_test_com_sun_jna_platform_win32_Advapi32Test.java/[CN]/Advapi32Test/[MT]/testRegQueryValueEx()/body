@@ -1,0 +1,12 @@
+{
+  HKEYByReference phKey=new HKEYByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegOpenKeyEx(WinReg.HKEY_CURRENT_USER,"Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",0,WinNT.KEY_READ,phKey));
+  IntByReference lpcbData=new IntByReference();
+  IntByReference lpType=new IntByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegQueryValueEx(phKey.getValue(),"User Agent",0,lpType,(char[])null,lpcbData));
+  assertEquals(WinNT.REG_SZ,lpType.getValue());
+  assertTrue(lpcbData.getValue() > 0);
+  char[] buffer=new char[lpcbData.getValue()];
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegQueryValueEx(phKey.getValue(),"User Agent",0,lpType,buffer,lpcbData));
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegCloseKey(phKey.getValue()));
+}

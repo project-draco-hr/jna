@@ -1,0 +1,3 @@
+HKEY root
+String keyPath
+String keyName

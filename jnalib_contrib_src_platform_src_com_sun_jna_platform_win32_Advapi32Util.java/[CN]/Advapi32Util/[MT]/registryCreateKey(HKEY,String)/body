@@ -1,0 +1,7 @@
+{
+  HKEYByReference phkResult=new HKEYByReference();
+  int rc=Advapi32.INSTANCE.RegCreateKeyEx(hKey,keyName,0,null,0,WinNT.KEY_READ,null,phkResult,null);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new LastErrorException(rc);
+  }
+}
