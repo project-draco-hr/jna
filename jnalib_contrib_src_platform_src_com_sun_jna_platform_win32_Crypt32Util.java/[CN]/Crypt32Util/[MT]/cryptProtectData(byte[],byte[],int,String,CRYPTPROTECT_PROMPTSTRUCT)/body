@@ -1,0 +1,16 @@
+{
+  DATA_BLOB pDataIn=new DATA_BLOB(data);
+  DATA_BLOB pDataProtected=new DATA_BLOB();
+  DATA_BLOB pEntropy=(entropy == null) ? null : new DATA_BLOB(entropy);
+  try {
+    if (!Crypt32.INSTANCE.CryptProtectData(pDataIn,description,pEntropy,null,prompt,flags,pDataProtected)) {
+      throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+    }
+    return pDataProtected.getData();
+  }
+  finally {
+    if (pDataProtected.pbData != null) {
+      Kernel32.INSTANCE.LocalFree(pDataProtected.pbData);
+    }
+  }
+}

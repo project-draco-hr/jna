@@ -1,0 +1,10 @@
+{
+  byte[] data=new byte[2];
+  data[0]=42;
+  data[1]=12;
+  byte[] protectedData=Crypt32Util.cryptProtectData(data);
+  byte[] unprotectedData=Crypt32Util.cryptUnprotectData(protectedData);
+  assertEquals(data.length,unprotectedData.length);
+  assertEquals(data[0],unprotectedData[0]);
+  assertEquals(data[1],unprotectedData[1]);
+}

@@ -1,0 +1,3 @@
+{
+  junit.textui.TestRunner.run(Crypt32Test.class);
+}

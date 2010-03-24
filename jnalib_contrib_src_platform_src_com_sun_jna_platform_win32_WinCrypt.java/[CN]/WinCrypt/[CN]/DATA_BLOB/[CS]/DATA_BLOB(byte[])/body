@@ -1,0 +1,6 @@
+{
+  pbData=new Memory(data.length);
+  pbData.write(0,data,0,data.length);
+  cbData=data.length;
+  allocateMemory();
+}

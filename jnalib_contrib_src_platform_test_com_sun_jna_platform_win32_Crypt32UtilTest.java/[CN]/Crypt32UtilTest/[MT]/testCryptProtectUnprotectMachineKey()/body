@@ -1,0 +1,8 @@
+{
+  String s="Hello World";
+  byte[] data=Native.toByteArray(s);
+  byte[] protectedData=Crypt32Util.cryptProtectData(data,WinCrypt.CRYPTPROTECT_LOCAL_MACHINE | WinCrypt.CRYPTPROTECT_UI_FORBIDDEN);
+  byte[] unprotectedData=Crypt32Util.cryptUnprotectData(protectedData,WinCrypt.CRYPTPROTECT_LOCAL_MACHINE);
+  String unprotectedString=Native.toString(unprotectedData);
+  assertEquals(s,unprotectedString);
+}

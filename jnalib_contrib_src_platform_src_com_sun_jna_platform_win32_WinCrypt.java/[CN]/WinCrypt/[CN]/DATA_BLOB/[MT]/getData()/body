@@ -1,0 +1,3 @@
+{
+  return pbData == null ? null : pbData.getByteArray(0,cbData);
+}

@@ -1,0 +1,3 @@
+{
+  return cryptUnprotectData(data,null,flags,null);
+}

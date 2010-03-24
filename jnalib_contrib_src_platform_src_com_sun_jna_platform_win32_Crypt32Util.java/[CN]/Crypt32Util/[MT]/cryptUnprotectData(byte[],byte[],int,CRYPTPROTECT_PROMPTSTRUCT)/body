@@ -1,0 +1,20 @@
+{
+  DATA_BLOB pDataIn=new DATA_BLOB(data);
+  DATA_BLOB pDataUnprotected=new DATA_BLOB();
+  DATA_BLOB pEntropy=(entropy == null) ? null : new DATA_BLOB(entropy);
+  PointerByReference pDescription=new PointerByReference();
+  try {
+    if (!Crypt32.INSTANCE.CryptUnprotectData(pDataIn,pDescription,pEntropy,null,prompt,flags,pDataUnprotected)) {
+      throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+    }
+    return pDataUnprotected.getData();
+  }
+  finally {
+    if (pDataUnprotected.pbData != null) {
+      Kernel32.INSTANCE.LocalFree(pDataUnprotected.pbData);
+    }
+    if (pDescription.getValue() != null) {
+      Kernel32.INSTANCE.LocalFree(pDescription.getValue());
+    }
+  }
+}

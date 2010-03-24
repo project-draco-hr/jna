@@ -1,0 +1,4 @@
+byte[] data
+byte[] entropy
+int flags
+CRYPTPROTECT_PROMPTSTRUCT prompt
