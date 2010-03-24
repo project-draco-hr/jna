@@ -4,4 +4,8 @@
   if (rc != W32Errors.ERROR_SUCCESS) {
     throw new LastErrorException(rc);
   }
+  rc=Advapi32.INSTANCE.RegCloseKey(phkResult.getValue());
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new LastErrorException(rc);
+  }
 }

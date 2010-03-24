@@ -1,0 +1,10 @@
+{
+  Advapi32Util.registryCreateKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
+  Advapi32Util.registrySetIntValue(WinReg.HKEY_CURRENT_USER,"Software\\JNA","FourtyTwo",42);
+  Advapi32Util.registrySetStringValue(WinReg.HKEY_CURRENT_USER,"Software\\JNA","42","FourtyTwo");
+  TreeMap<String,Object> values=Advapi32Util.registryGetValues(WinReg.HKEY_CURRENT_USER,"Software\\JNA");
+  assertEquals(2,values.keySet().size());
+  assertEquals("FourtyTwo",values.get("42"));
+  assertEquals(42,values.get("FourtyTwo"));
+  Advapi32Util.registryDeleteKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
+}

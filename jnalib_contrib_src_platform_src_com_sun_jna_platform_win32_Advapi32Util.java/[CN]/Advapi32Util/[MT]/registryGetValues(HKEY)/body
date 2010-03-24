@@ -1,0 +1,37 @@
+{
+  IntByReference lpcValues=new IntByReference();
+  IntByReference lpcMaxValueNameLen=new IntByReference();
+  IntByReference lpcMaxValueLen=new IntByReference();
+  int rc=Advapi32.INSTANCE.RegQueryInfoKey(hKey,null,null,null,null,null,null,lpcValues,lpcMaxValueNameLen,lpcMaxValueLen,null,null);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new LastErrorException(rc);
+  }
+  TreeMap<String,Object> keyValues=new TreeMap<String,Object>();
+  char[] name=new char[lpcMaxValueNameLen.getValue() + 1];
+  byte[] data=new byte[lpcMaxValueLen.getValue()];
+  for (int i=0; i < lpcValues.getValue(); i++) {
+    IntByReference lpcchValueName=new IntByReference(lpcMaxValueNameLen.getValue() + 1);
+    IntByReference lpcbData=new IntByReference(lpcMaxValueLen.getValue());
+    IntByReference lpType=new IntByReference();
+    rc=Advapi32.INSTANCE.RegEnumValue(hKey,i,name,lpcchValueName,null,lpType,data,lpcbData);
+    if (rc != W32Errors.ERROR_SUCCESS) {
+      throw new LastErrorException(rc);
+    }
+switch (lpType.getValue()) {
+case WinNT.REG_DWORD:
+      keyValues.put(Native.toString(name),((int)(data[0] & 0xff)) + (((int)(data[1] & 0xff)) << 8) + (((int)(data[2] & 0xff)) << 16)+ (((int)(data[3] & 0xff)) << 24));
+    break;
+case WinNT.REG_SZ:
+  try {
+    keyValues.put(Native.toString(name),new String(data,0,data.length - 2,"UTF-16LE"));
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new RuntimeException(e.getMessage());
+  }
+break;
+default :
+throw new RuntimeException("Unsupported type: " + lpType.getValue());
+}
+}
+return keyValues;
+}
