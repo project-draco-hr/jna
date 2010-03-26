@@ -1,0 +1,4 @@
+{
+  dwLower=new NativeLong(0);
+  dwUpper=new NativeLong(0);
+}

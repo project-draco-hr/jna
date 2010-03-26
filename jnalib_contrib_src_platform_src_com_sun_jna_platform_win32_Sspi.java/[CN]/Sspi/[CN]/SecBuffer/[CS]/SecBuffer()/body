@@ -1,0 +1,5 @@
+{
+  cbBuffer=new NativeLong(0);
+  pvBuffer=null;
+  BufferType=new NativeLong(SECBUFFER_EMPTY);
+}

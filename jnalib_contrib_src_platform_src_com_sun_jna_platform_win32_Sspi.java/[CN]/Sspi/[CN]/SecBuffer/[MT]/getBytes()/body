@@ -1,0 +1,3 @@
+{
+  return getPointer().getByteArray(0,super.size());
+}

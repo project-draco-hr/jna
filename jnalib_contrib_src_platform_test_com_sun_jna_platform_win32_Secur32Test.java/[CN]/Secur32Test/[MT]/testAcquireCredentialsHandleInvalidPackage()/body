@@ -1,0 +1,5 @@
+{
+  CredHandle phCredential=new CredHandle();
+  TimeStamp ptsExpiry=new TimeStamp();
+  assertEquals(W32Errors.SEC_E_SECPKG_NOT_FOUND,Secur32.INSTANCE.AcquireCredentialsHandle(null,"PackageDoesntExist",new NativeLong(Sspi.SECPKG_CRED_OUTBOUND),null,null,null,null,phCredential,ptsExpiry));
+}

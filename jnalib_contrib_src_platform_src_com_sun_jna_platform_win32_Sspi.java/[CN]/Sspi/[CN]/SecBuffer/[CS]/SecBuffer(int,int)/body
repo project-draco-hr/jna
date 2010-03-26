@@ -1,0 +1,6 @@
+{
+  cbBuffer=new NativeLong(size);
+  pvBuffer=new Memory(size);
+  BufferType=new NativeLong(type);
+  allocateMemory();
+}
