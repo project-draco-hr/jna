@@ -1,0 +1,7 @@
+{
+  SecurityPackage[] sps=Secur32Util.getSecurityPackages();
+  for (  SecurityPackage sp : sps) {
+    assertTrue(sp.name.length() > 0);
+    assertTrue(sp.comment.length() >= 0);
+  }
+}

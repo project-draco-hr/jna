@@ -1,0 +1,11 @@
+{
+  IntByReference pcPackages=new IntByReference();
+  PSecPkgInfo.ByReference pPackageInfo=new PSecPkgInfo.ByReference();
+  assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.EnumerateSecurityPackages(pcPackages,pPackageInfo));
+  SecPkgInfo.ByReference[] packagesInfo=pPackageInfo.toArray(pcPackages.getValue());
+  for (  SecPkgInfo.ByReference packageInfo : packagesInfo) {
+    assertTrue(packageInfo.Name.length() > 0);
+    assertTrue(packageInfo.Comment.length() >= 0);
+  }
+  assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.FreeContextBuffer(pPackageInfo.getPointer()));
+}

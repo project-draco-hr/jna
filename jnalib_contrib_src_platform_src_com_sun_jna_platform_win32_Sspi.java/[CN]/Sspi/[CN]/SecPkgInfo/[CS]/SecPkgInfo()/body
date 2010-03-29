@@ -1,0 +1,6 @@
+{
+  fCapabilities=new NativeLong(0);
+  wVersion=1;
+  wRPCID=0;
+  cbMaxToken=new NativeLong(0);
+}
