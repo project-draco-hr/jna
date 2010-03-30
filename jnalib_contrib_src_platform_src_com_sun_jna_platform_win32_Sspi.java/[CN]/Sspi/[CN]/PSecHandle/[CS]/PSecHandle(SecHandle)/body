@@ -1,0 +1,4 @@
+{
+  useMemory(h.getPointer());
+  read();
+}

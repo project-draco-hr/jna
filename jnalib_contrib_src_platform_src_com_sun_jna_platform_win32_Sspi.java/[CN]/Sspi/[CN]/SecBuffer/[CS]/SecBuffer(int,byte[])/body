@@ -1,0 +1,7 @@
+{
+  cbBuffer=new NativeLong(token.length);
+  pvBuffer=new Memory(token.length);
+  pvBuffer.write(0,token,0,token.length);
+  BufferType=new NativeLong(type);
+  allocateMemory();
+}
