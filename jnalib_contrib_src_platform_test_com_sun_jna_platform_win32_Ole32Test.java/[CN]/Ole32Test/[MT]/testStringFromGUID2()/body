@@ -1,0 +1,15 @@
+{
+  GUID.ByReference pguid=new GUID.ByReference();
+  pguid.Data1=0;
+  pguid.Data2=0;
+  pguid.Data3=0;
+  for (int i=0; i < pguid.Data4.length; i++) {
+    pguid.Data4[i]=0;
+  }
+  int max=39;
+  char[] lpsz=new char[max];
+  int len=Ole32.INSTANCE.StringFromGUID2(pguid,lpsz,max);
+  assertTrue(len > 1);
+  lpsz[len - 1]=0;
+  assertEquals("{00000000-0000-0000-0000-000000000000}",Native.toString(lpsz));
+}

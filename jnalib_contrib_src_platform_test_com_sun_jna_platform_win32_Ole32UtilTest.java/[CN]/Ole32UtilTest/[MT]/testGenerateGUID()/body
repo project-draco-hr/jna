@@ -1,0 +1,6 @@
+{
+  GUID guid1=Ole32Util.generateGUID();
+  GUID guid2=Ole32Util.generateGUID();
+  assertTrue(guid1 != guid2);
+  assertTrue(Ole32Util.getStringFromGUID(guid1) != Ole32Util.getStringFromGUID(guid2));
+}

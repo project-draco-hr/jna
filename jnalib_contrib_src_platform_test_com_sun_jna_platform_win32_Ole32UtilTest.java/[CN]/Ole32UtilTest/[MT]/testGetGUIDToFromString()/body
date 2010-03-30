@@ -1,0 +1,4 @@
+{
+  GUID guid=Ole32Util.generateGUID();
+  assertEquals(guid,Ole32Util.getGUIDFromString(Ole32Util.getStringFromGUID(guid)));
+}

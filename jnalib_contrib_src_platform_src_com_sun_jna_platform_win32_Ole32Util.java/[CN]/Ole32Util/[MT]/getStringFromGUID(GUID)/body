@@ -1,0 +1,11 @@
+{
+  GUID.ByReference pguid=new GUID.ByReference(guid.getPointer());
+  int max=39;
+  char[] lpsz=new char[max];
+  int len=Ole32.INSTANCE.StringFromGUID2(pguid,lpsz,max);
+  if (len == 0) {
+    throw new RuntimeException("StringFromGUID2");
+  }
+  lpsz[len - 1]=0;
+  return Native.toString(lpsz);
+}

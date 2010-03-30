@@ -1,0 +1,15 @@
+{
+  GUID.ByReference lpiid=new GUID.ByReference();
+  assertEquals(W32Errors.S_OK,Ole32.INSTANCE.IIDFromString("{13709620-C279-11CE-A49E-444553540000}",lpiid));
+  assertEquals(0x13709620,lpiid.Data1);
+  assertEquals(0xFFFFC279,lpiid.Data2);
+  assertEquals(0x11CE,lpiid.Data3);
+  assertEquals(0xFFFFFFA4,lpiid.Data4[0]);
+  assertEquals(0xFFFFFF9E,lpiid.Data4[1]);
+  assertEquals(0x44,lpiid.Data4[2]);
+  assertEquals(0x45,lpiid.Data4[3]);
+  assertEquals(0x53,lpiid.Data4[4]);
+  assertEquals(0x54,lpiid.Data4[5]);
+  assertEquals(0,lpiid.Data4[6]);
+  assertEquals(0,lpiid.Data4[7]);
+}

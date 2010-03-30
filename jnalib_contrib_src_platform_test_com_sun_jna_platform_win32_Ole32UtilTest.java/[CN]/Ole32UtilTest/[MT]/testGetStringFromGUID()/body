@@ -1,0 +1,4 @@
+{
+  assertEquals("{00000000-0000-0000-0000-000000000000}",Ole32Util.getStringFromGUID(new GUID()));
+  assertFalse("{00000000-0000-0000-0000-000000000000}" == Ole32Util.getStringFromGUID(Ole32Util.generateGUID()));
+}
