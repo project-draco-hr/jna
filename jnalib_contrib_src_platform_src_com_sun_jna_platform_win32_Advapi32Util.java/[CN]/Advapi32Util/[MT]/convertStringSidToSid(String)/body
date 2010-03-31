@@ -1,7 +1,7 @@
 {
   PSIDByReference pSID=new PSIDByReference();
   if (!Advapi32.INSTANCE.ConvertStringSidToSid(sid,pSID)) {
-    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }
   return pSID.getValue().getBytes();
 }

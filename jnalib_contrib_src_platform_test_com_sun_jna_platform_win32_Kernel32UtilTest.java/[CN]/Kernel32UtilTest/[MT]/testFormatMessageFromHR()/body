@@ -1,0 +1,3 @@
+{
+  assertEquals("The operation completed successfully.",Kernel32Util.formatMessageFromHR(W32Errors.S_OK));
+}

@@ -1,0 +1,4 @@
+{
+  super(Kernel32Util.formatMessageFromHR(hr));
+  _hr=hr;
+}

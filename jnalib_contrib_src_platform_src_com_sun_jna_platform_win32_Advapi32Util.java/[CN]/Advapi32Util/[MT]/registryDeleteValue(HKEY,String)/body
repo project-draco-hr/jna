@@ -1,6 +1,6 @@
 {
   int rc=Advapi32.INSTANCE.RegDeleteValue(hKey,valueName);
   if (rc != W32Errors.ERROR_SUCCESS) {
-    throw new LastErrorException(rc);
+    throw new Win32Exception(rc);
   }
 }

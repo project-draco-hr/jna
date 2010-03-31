@@ -1,7 +1,7 @@
 {
   PointerByReference stringSid=new PointerByReference();
   if (!Advapi32.INSTANCE.ConvertSidToStringSid(sid,stringSid)) {
-    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }
   String result=stringSid.getValue().getString(0,true);
   Kernel32.INSTANCE.LocalFree(stringSid.getValue());

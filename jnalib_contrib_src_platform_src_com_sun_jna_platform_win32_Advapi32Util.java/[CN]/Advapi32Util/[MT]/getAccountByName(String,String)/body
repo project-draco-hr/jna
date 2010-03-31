@@ -7,13 +7,13 @@
   }
   int rc=Kernel32.INSTANCE.GetLastError();
   if (pSid.getValue() == 0 || rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
-    throw new LastErrorException(rc);
+    throw new Win32Exception(rc);
   }
   Memory sidMemory=new Memory(pSid.getValue());
   PSID result=new PSID(sidMemory);
   char[] referencedDomainName=new char[cchDomainName.getValue() + 1];
   if (!Advapi32.INSTANCE.LookupAccountName(systemName,accountName,result,pSid,referencedDomainName,cchDomainName,peUse)) {
-    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }
   Account account=new Account();
   account.accountType=peUse.getPointer().getInt(0);

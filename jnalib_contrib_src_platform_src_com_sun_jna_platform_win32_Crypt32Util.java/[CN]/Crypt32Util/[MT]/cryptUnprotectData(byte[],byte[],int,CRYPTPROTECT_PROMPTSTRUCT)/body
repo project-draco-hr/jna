@@ -5,7 +5,7 @@
   PointerByReference pDescription=new PointerByReference();
   try {
     if (!Crypt32.INSTANCE.CryptUnprotectData(pDataIn,pDescription,pEntropy,null,prompt,flags,pDataUnprotected)) {
-      throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
     }
     return pDataUnprotected.getData();
   }

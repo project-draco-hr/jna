@@ -3,7 +3,7 @@
   PSecPkgInfo.ByReference pPackageInfo=new PSecPkgInfo.ByReference();
   int rc=Secur32.INSTANCE.EnumerateSecurityPackages(pcPackages,pPackageInfo);
   if (W32Errors.SEC_E_OK != rc) {
-    throw new LastErrorException(rc);
+    throw new Win32Exception(rc);
   }
   SecPkgInfo.ByReference[] packagesInfo=pPackageInfo.toArray(pcPackages.getValue());
   ArrayList<SecurityPackage> packages=new ArrayList<SecurityPackage>(pcPackages.getValue());
@@ -15,7 +15,7 @@
   }
   rc=Secur32.INSTANCE.FreeContextBuffer(pPackageInfo.getPointer());
   if (W32Errors.SEC_E_OK != rc) {
-    throw new LastErrorException(rc);
+    throw new Win32Exception(rc);
   }
   return packages.toArray(new SecurityPackage[0]);
 }

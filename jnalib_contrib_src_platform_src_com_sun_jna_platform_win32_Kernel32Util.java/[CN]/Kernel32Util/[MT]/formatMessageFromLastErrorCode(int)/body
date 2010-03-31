@@ -1,0 +1,3 @@
+{
+  return formatMessageFromHR(W32Errors.HRESULT_FROM_WIN32(code));
+}

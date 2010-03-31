@@ -1,0 +1,8 @@
+{
+  try {
+    throw new Win32Exception(W32Errors.S_OK);
+  }
+ catch (  Win32Exception e) {
+    assertEquals("The operation completed successfully.",e.getMessage());
+  }
+}

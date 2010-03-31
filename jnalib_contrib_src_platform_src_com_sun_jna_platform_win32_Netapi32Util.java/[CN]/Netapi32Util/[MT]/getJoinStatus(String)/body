@@ -4,7 +4,7 @@
   try {
     int rc=Netapi32.INSTANCE.NetGetJoinInformation(computerName,lpNameBuffer,bufferType);
     if (LMErr.NERR_Success != rc) {
-      throw new LastErrorException(rc);
+      throw new Win32Exception(rc);
     }
     return bufferType.getValue();
   }
@@ -12,7 +12,7 @@
     if (lpNameBuffer.getPointer() != null) {
       int rc=Netapi32.INSTANCE.NetApiBufferFree(lpNameBuffer.getValue());
       if (LMErr.NERR_Success != rc) {
-        throw new LastErrorException(rc);
+        throw new Win32Exception(rc);
       }
     }
   }

@@ -9,12 +9,12 @@ case W32Errors.ERROR_INSUFFICIENT_BUFFER:
       buffer=new char[len.getValue()];
     break;
 default :
-  throw new LastErrorException(Native.getLastError());
+  throw new Win32Exception(Native.getLastError());
 }
 result=Advapi32.INSTANCE.GetUserNameW(buffer,len);
 }
 if (!result) {
-throw new LastErrorException(Native.getLastError());
+throw new Win32Exception(Native.getLastError());
 }
 return Native.toString(buffer);
 }

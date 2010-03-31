@@ -1,0 +1,3 @@
+{
+  assertEquals("The remote server has been paused or is in the process of being started.",Kernel32Util.formatMessageFromLastErrorCode(W32Errors.ERROR_SHARING_PAUSED));
+}

@@ -9,12 +9,12 @@ case W32Errors.ERROR_MORE_DATA:
       buffer=new char[len.getValue() + 1];
     break;
 default :
-  throw new LastErrorException(Native.getLastError());
+  throw new Win32Exception(Native.getLastError());
 }
 result=Secur32.INSTANCE.GetUserNameEx(format,buffer,len);
 }
 if (!result) {
-throw new LastErrorException(Native.getLastError());
+throw new Win32Exception(Native.getLastError());
 }
 return Native.toString(buffer);
 }

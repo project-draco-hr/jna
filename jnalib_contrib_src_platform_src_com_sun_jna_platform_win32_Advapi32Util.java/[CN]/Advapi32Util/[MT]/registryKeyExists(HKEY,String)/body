@@ -8,6 +8,6 @@ case W32Errors.ERROR_SUCCESS:
 case W32Errors.ERROR_FILE_NOT_FOUND:
 return false;
 default :
-throw new LastErrorException(rc);
+throw new Win32Exception(rc);
 }
 }

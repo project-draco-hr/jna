@@ -4,7 +4,7 @@
   IntByReference lpcMaxValueLen=new IntByReference();
   int rc=Advapi32.INSTANCE.RegQueryInfoKey(hKey,null,null,null,null,null,null,lpcValues,lpcMaxValueNameLen,lpcMaxValueLen,null,null);
   if (rc != W32Errors.ERROR_SUCCESS) {
-    throw new LastErrorException(rc);
+    throw new Win32Exception(rc);
   }
   TreeMap<String,Object> keyValues=new TreeMap<String,Object>();
   char[] name=new char[lpcMaxValueNameLen.getValue() + 1];
@@ -15,7 +15,7 @@
     IntByReference lpType=new IntByReference();
     rc=Advapi32.INSTANCE.RegEnumValue(hKey,i,name,lpcchValueName,null,lpType,data,lpcbData);
     if (rc != W32Errors.ERROR_SUCCESS) {
-      throw new LastErrorException(rc);
+      throw new Win32Exception(rc);
     }
 switch (lpType.getValue()) {
 case WinNT.REG_DWORD:

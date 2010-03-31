@@ -6,6 +6,6 @@
   data[3]=(byte)((value >> 24) & 0xff);
   int rc=Advapi32.INSTANCE.RegSetValueEx(hKey,name,0,WinNT.REG_DWORD,data,4);
   if (rc != W32Errors.ERROR_SUCCESS) {
-    throw new LastErrorException(rc);
+    throw new Win32Exception(rc);
   }
 }

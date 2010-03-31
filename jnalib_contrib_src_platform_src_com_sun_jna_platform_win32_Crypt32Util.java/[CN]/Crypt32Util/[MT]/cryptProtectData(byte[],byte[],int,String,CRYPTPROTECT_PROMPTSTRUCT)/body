@@ -4,7 +4,7 @@
   DATA_BLOB pEntropy=(entropy == null) ? null : new DATA_BLOB(entropy);
   try {
     if (!Crypt32.INSTANCE.CryptProtectData(pDataIn,description,pEntropy,null,prompt,flags,pDataProtected)) {
-      throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
     }
     return pDataProtected.getData();
   }

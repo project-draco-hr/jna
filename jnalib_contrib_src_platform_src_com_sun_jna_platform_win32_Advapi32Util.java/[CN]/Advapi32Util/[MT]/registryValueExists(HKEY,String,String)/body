@@ -8,7 +8,7 @@ case W32Errors.ERROR_SUCCESS:
 case W32Errors.ERROR_FILE_NOT_FOUND:
     return false;
 default :
-  throw new LastErrorException(rc);
+  throw new Win32Exception(rc);
 }
 IntByReference lpcbData=new IntByReference();
 IntByReference lpType=new IntByReference();
@@ -20,14 +20,14 @@ return true;
 case W32Errors.ERROR_FILE_NOT_FOUND:
 return false;
 default :
-throw new LastErrorException(rc);
+throw new Win32Exception(rc);
 }
 }
   finally {
 if (phkKey.getValue() != Kernel32.INVALID_HANDLE_VALUE) {
 rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
 if (rc != W32Errors.ERROR_SUCCESS) {
-throw new LastErrorException(rc);
+throw new Win32Exception(rc);
 }
 }
 }
