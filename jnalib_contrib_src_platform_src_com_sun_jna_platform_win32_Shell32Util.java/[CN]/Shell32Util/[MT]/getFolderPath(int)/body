@@ -1,0 +1,3 @@
+{
+  return getFolderPath(null,nFolder,ShlObj.SHGFP_TYPE_CURRENT);
+}

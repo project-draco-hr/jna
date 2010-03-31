@@ -1,9 +1,0 @@
-{
-  super(parseMessage(msg));
-  try {
-    this.errorCode=Integer.parseInt(msg);
-  }
- catch (  NumberFormatException e) {
-    this.errorCode=-1;
-  }
-}

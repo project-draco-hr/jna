@@ -1,0 +1,61 @@
+{
+  File dir=file;
+  if (!dir.isDirectory()) {
+    recursive=false;
+    dir=file.getParentFile();
+  }
+  while (dir != null && !dir.exists()) {
+    recursive=true;
+    dir=dir.getParentFile();
+  }
+  if (dir == null) {
+    throw new FileNotFoundException("No ancestor found for " + file);
+  }
+  Kernel32 klib=Kernel32.INSTANCE;
+  int mask=WinNT.FILE_SHARE_READ | WinNT.FILE_SHARE_WRITE | WinNT.FILE_SHARE_DELETE;
+  int flags=WinNT.FILE_FLAG_BACKUP_SEMANTICS | WinNT.FILE_FLAG_OVERLAPPED;
+  HANDLE handle=klib.CreateFile(file.getAbsolutePath(),WinNT.FILE_LIST_DIRECTORY,mask,null,WinNT.OPEN_EXISTING,flags,null);
+  if (Kernel32.INVALID_HANDLE_VALUE.equals(handle)) {
+    throw new IOException("Unable to open " + file + " ("+ klib.GetLastError()+ ")");
+  }
+  int notifyMask=convertMask(eventMask);
+  FileInfo finfo=new FileInfo(file,handle,notifyMask,recursive);
+  fileMap.put(file,finfo);
+  handleMap.put(handle,finfo);
+  port=klib.CreateIoCompletionPort(handle,port,handle.getPointer(),0);
+  if (Kernel32.INVALID_HANDLE_VALUE.equals(port)) {
+    throw new IOException("Unable to create/use I/O Completion port " + "for " + file + " ("+ klib.GetLastError()+ ")");
+  }
+  if (!klib.ReadDirectoryChangesW(handle,finfo.info,finfo.info.size(),recursive,notifyMask,finfo.infoLength,finfo.overlapped,null)) {
+    int err=klib.GetLastError();
+    throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ", handle "+ handle+ ": '"+ Kernel32Util.formatMessageFromLastErrorCode(err)+ "' ("+ err+ ")");
+  }
+  if (watcher == null) {
+    watcher=new Thread("W32 File Monitor-" + (watcherThreadID++)){
+      public void run(){
+        FileInfo finfo;
+        while (true) {
+          finfo=waitForChange();
+          if (finfo == null) {
+synchronized (W32FileMonitor.this) {
+              if (fileMap.isEmpty()) {
+                watcher=null;
+                break;
+              }
+            }
+            continue;
+          }
+          try {
+            handleChanges(finfo);
+          }
+ catch (          IOException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+;
+    watcher.setDaemon(true);
+    watcher.start();
+  }
+}

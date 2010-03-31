@@ -1,0 +1,12 @@
+{
+  events=new HashMap();
+  final FileListener listener=new FileListener(){
+    public void fileChanged(    FileEvent e){
+      events.put(new Integer(e.getType()),e);
+    }
+  }
+;
+  monitor=FileMonitor.getInstance();
+  monitor.addFileListener(listener);
+  tmpdir=new File(Kernel32Util.getTempPath());
+}

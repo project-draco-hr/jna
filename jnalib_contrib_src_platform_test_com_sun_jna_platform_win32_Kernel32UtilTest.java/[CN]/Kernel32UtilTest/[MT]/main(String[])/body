@@ -1,4 +1,5 @@
 {
   junit.textui.TestRunner.run(Advapi32UtilTest.class);
-  System.out.println("GetComputerName: " + Kernel32Util.getComputerName());
+  System.out.println("Computer name: " + Kernel32Util.getComputerName());
+  System.out.println("    Temp path: " + Kernel32Util.getTempPath());
 }

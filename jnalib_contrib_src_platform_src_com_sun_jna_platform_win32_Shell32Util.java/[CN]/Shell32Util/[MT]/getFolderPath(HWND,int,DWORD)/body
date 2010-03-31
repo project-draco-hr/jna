@@ -1,0 +1,8 @@
+{
+  char[] pszPath=new char[WinDef.MAX_PATH];
+  HRESULT hr=Shell32.INSTANCE.SHGetFolderPath(hwnd,nFolder,null,dwFlags,pszPath);
+  if (!hr.equals(W32Errors.S_OK)) {
+    throw new Win32Exception(hr);
+  }
+  return Native.toString(pszPath);
+}

@@ -1,0 +1,3 @@
+{
+  assertTrue(Shell32Util.getFolderPath(ShlObj.CSIDL_WINDOWS).length() > 0);
+}

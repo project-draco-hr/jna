@@ -1,0 +1,8 @@
+{
+  monitor.addWatch(tmpdir);
+  File file=File.createTempFile(getName(),".tmp",tmpdir);
+  file.delete();
+  final FileEvent event=waitForFileEvent(FileMonitor.FILE_DELETED);
+  assertNotNull("No delete event: " + events,event);
+  assertEquals("Wrong target file for event",file,event.getFile());
+}

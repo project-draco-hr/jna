@@ -1,0 +1,4 @@
+{
+  char[] buffer=new char[WinDef.MAX_PATH];
+  assertTrue(Kernel32.INSTANCE.GetTempPath(new DWORD(WinDef.MAX_PATH),buffer).intValue() > 0);
+}

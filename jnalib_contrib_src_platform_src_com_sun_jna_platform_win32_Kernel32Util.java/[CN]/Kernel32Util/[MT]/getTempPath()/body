@@ -1,0 +1,8 @@
+{
+  DWORD nBufferLength=new DWORD(WinDef.MAX_PATH);
+  char[] buffer=new char[nBufferLength.intValue()];
+  if (Kernel32.INSTANCE.GetTempPath(nBufferLength,buffer).intValue() == 0) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  return Native.toString(buffer);
+}

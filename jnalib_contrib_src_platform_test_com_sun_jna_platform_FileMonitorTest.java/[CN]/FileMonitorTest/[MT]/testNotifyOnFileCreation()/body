@@ -1,7 +1,0 @@
-{
-  if (!Platform.isWindows())   return;
-  monitor.addWatch(tmpdir);
-  File file=File.createTempFile(getName(),".tmp",tmpdir);
-  file.deleteOnExit();
-  assertFileEventCreated(file);
-}
