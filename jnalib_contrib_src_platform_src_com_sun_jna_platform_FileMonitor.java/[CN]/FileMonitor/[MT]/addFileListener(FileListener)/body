@@ -1,5 +1,5 @@
 {
-  List list=new ArrayList(listeners);
+  List<FileListener> list=new ArrayList<FileListener>(listeners);
   list.add(listener);
   listeners=list;
 }

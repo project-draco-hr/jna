@@ -1,5 +1,5 @@
 {
-  events=new HashMap();
+  events=new HashMap<Integer,FileEvent>();
   final FileListener listener=new FileListener(){
     public void fileChanged(    FileEvent e){
       events.put(new Integer(e.getType()),e);

@@ -33,7 +33,9 @@ unwatch(finfo.file);
 return;
 }
 if (!klib.ReadDirectoryChangesW(finfo.handle,finfo.info,finfo.info.size(),finfo.recursive,finfo.notifyMask,finfo.infoLength,finfo.overlapped,null)) {
+if (!disposing) {
 int err=klib.GetLastError();
 throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ": '"+ Kernel32Util.formatMessageFromLastErrorCode(err)+ "' ("+ err+ ")");
+}
 }
 }

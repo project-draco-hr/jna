@@ -1,5 +1,5 @@
 {
-  for (Iterator i=listeners.iterator(); i.hasNext(); ) {
-    ((FileListener)i.next()).fileChanged(e);
+  for (  FileListener listener : listeners) {
+    listener.fileChanged(e);
   }
 }
