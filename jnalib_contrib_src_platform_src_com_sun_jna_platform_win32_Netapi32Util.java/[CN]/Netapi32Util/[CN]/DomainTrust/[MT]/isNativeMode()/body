@@ -1,0 +1,3 @@
+{
+  return (flags & DsGetDC.DS_DOMAIN_NATIVE_MODE) != 0;
+}

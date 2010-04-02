@@ -1,0 +1,6 @@
+{
+  if (Netapi32Util.getJoinStatus() != LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName)   return;
+  DomainController dc=Netapi32Util.getDC();
+  assertTrue(dc.address.startsWith("\\\\"));
+  assertTrue(dc.domainName.length() > 0);
+}

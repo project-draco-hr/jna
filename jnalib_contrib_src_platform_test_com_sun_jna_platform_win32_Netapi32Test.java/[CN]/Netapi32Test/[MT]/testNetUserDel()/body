@@ -1,3 +1,3 @@
 {
-  assertEquals(LMErr.NERR_UserNotFound,Netapi32.INSTANCE.NetUserDel(null,"JNANetapi32TestUserDoesntExist"));
+  assertEquals(LMErr.NERR_UserNotFound,Netapi32.INSTANCE.NetUserDel(Kernel32Util.getComputerName(),"JNANetapi32TestUserDoesntExist"));
 }

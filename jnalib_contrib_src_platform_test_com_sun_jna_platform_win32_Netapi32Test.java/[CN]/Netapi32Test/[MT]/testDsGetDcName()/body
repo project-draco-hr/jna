@@ -1,0 +1,6 @@
+{
+  if (Netapi32Util.getJoinStatus() != LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName)   return;
+  PDOMAIN_CONTROLLER_INFO.ByReference pdci=new PDOMAIN_CONTROLLER_INFO.ByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Netapi32.INSTANCE.DsGetDcName(null,null,null,null,0,pdci));
+  assertEquals(W32Errors.ERROR_SUCCESS,Netapi32.INSTANCE.NetApiBufferFree(pdci.getPointer()));
+}

@@ -1,0 +1,11 @@
+{
+  if (Netapi32Util.getJoinStatus() != LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName)   return;
+  DomainTrust[] trusts=Netapi32Util.getDomainTrusts();
+  assertTrue(trusts.length >= 0);
+  for (  DomainTrust trust : trusts) {
+    assertTrue(trust.NetbiosDomainName.length() > 0);
+    assertTrue(trust.DnsDomainName.length() > 0);
+    assertTrue(Advapi32.INSTANCE.IsValidSid(trust.DomainSid));
+    assertTrue(trust.isInbound() || trust.isOutbound() || trust.isPrimary());
+  }
+}

@@ -1,3 +1,3 @@
 {
-  return getUserLocalGroups(Advapi32Util.getUserName());
+  return getUserLocalGroups(Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible));
 }

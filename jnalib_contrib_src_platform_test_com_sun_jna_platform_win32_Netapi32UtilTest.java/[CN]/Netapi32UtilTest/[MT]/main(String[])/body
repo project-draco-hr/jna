@@ -21,9 +21,22 @@
   for (  Netapi32Util.Group localGroup : userLocalGroups) {
     System.out.println(" " + localGroup.name);
   }
-  Netapi32Util.Group[] userGroups=Netapi32Util.getCurrentUserGroups();
-  System.out.println("Domain user groups: " + userGroups.length);
-  for (  Netapi32Util.Group group : userGroups) {
-    System.out.println(" " + group.name);
+  if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName) {
+    System.out.println("Pdc: " + Netapi32Util.getDCName());
+    DomainController dc=Netapi32Util.getDC();
+    System.out.println("Domain controller:");
+    System.out.println("    name: " + dc.name);
+    System.out.println(" address: " + dc.address);
+    System.out.println("  domain: " + dc.domainName);
+    System.out.println("    site: " + dc.clientSiteName);
+    System.out.println("  forest: " + dc.dnsForestName);
+    System.out.println("    guid: " + Ole32Util.getStringFromGUID(dc.domainGuid));
+  }
+  if (Netapi32Util.getJoinStatus() == LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName) {
+    DomainTrust[] trusts=Netapi32Util.getDomainTrusts();
+    System.out.println("Domain trusts: (" + trusts.length + ")");
+    for (    DomainTrust trust : trusts) {
+      System.out.println(" " + trust.NetbiosDomainName + ": "+ trust.DnsDomainName+ " ("+ trust.DomainSidString+ ")");
+    }
   }
 }

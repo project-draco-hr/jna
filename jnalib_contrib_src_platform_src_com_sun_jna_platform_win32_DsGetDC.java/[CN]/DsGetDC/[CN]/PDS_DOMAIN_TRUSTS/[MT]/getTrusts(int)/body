@@ -1,0 +1,3 @@
+{
+  return (DS_DOMAIN_TRUSTS[])t.toArray(count);
+}

@@ -1,5 +1,5 @@
 {
-  String currentUser=Advapi32Util.getUserName();
+  String currentUser=Secur32Util.getUserNameEx(EXTENDED_NAME_FORMAT.NameSamCompatible);
   PointerByReference bufptr=new PointerByReference();
   IntByReference entriesread=new IntByReference();
   IntByReference totalentries=new IntByReference();

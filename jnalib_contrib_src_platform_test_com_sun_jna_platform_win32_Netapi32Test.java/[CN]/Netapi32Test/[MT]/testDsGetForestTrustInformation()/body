@@ -1,0 +1,32 @@
+{
+  if (Netapi32Util.getJoinStatus() != LMJoin.NETSETUP_JOIN_STATUS.NetSetupDomainName)   return;
+  String domainController=Netapi32Util.getDCName();
+  PLSA_FOREST_TRUST_INFORMATION.ByReference pfti=new PLSA_FOREST_TRUST_INFORMATION.ByReference();
+  assertEquals(W32Errors.NO_ERROR,Netapi32.INSTANCE.DsGetForestTrustInformation(domainController,null,0,pfti));
+  assertTrue(pfti.fti.RecordCount.intValue() >= 0);
+  for (  PLSA_FOREST_TRUST_RECORD precord : pfti.fti.getEntries()) {
+    LSA_FOREST_TRUST_RECORD.UNION data=precord.tr.u;
+switch (precord.tr.ForestTrustType) {
+case NTSecApi.ForestTrustTopLevelName:
+case NTSecApi.ForestTrustTopLevelNameEx:
+      assertTrue(data.TopLevelName.Length > 0);
+    assertTrue(data.TopLevelName.MaximumLength > 0);
+  assertTrue(data.TopLevelName.MaximumLength >= data.TopLevelName.Length);
+assertTrue(data.TopLevelName.getString().length() > 0);
+break;
+case NTSecApi.ForestTrustDomainInfo:
+assertTrue(data.DomainInfo.DnsName.Length > 0);
+assertTrue(data.DomainInfo.DnsName.MaximumLength > 0);
+assertTrue(data.DomainInfo.DnsName.MaximumLength >= data.DomainInfo.DnsName.Length);
+assertTrue(data.DomainInfo.DnsName.getString().length() > 0);
+assertTrue(data.DomainInfo.NetbiosName.Length > 0);
+assertTrue(data.DomainInfo.NetbiosName.MaximumLength > 0);
+assertTrue(data.DomainInfo.NetbiosName.MaximumLength >= data.DomainInfo.NetbiosName.Length);
+assertTrue(data.DomainInfo.NetbiosName.getString().length() > 0);
+assertTrue(Advapi32.INSTANCE.IsValidSid(data.DomainInfo.Sid));
+assertTrue(Advapi32Util.convertSidToStringSid(data.DomainInfo.Sid).startsWith("S-"));
+break;
+}
+}
+assertEquals(W32Errors.ERROR_SUCCESS,Netapi32.INSTANCE.NetApiBufferFree(pfti.getPointer()));
+}
