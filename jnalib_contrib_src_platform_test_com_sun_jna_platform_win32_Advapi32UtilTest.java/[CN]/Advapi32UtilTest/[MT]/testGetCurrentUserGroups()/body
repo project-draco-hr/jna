@@ -1,7 +1,7 @@
 {
-  Advapi32Util.Group[] groups=Advapi32Util.getCurrentUserGroups();
+  Account[] groups=Advapi32Util.getCurrentUserGroups();
   assertTrue(groups.length > 0);
-  for (  Advapi32Util.Group group : groups) {
+  for (  Account group : groups) {
     assertTrue(group.name.length() > 0);
     assertTrue(group.sidString.length() > 0);
     assertTrue(group.sid.length > 0);

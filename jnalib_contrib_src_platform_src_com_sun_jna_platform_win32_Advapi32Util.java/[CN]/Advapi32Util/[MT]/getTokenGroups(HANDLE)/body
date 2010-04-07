@@ -8,22 +8,21 @@
   if (!Advapi32.INSTANCE.GetTokenInformation(hToken,WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,groups,tokenInformationLength.getValue(),tokenInformationLength)) {
     throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }
-  ArrayList<Group> userGroups=new ArrayList<Group>();
+  ArrayList<Account> userGroups=new ArrayList<Account>();
   for (  SID_AND_ATTRIBUTES sidAndAttribute : groups.getGroups()) {
-    Group group=new Group();
-    group.sid=sidAndAttribute.Sid.getBytes();
-    group.sidString=Advapi32Util.convertSidToStringSid(sidAndAttribute.Sid);
+    Account group=null;
     try {
-      Account account=Advapi32Util.getAccountBySid(sidAndAttribute.Sid);
-      group.name=account.name;
-      group.domain=account.domain;
-      group.fqn=account.fqn;
+      group=Advapi32Util.getAccountBySid(sidAndAttribute.Sid);
     }
  catch (    Exception e) {
+      group=new Account();
+      group.sid=sidAndAttribute.Sid.getBytes();
+      group.sidString=Advapi32Util.convertSidToStringSid(sidAndAttribute.Sid);
       group.name=group.sidString;
       group.fqn=group.sidString;
+      group.accountType=SID_NAME_USE.SidTypeGroup;
     }
     userGroups.add(group);
   }
-  return userGroups.toArray(new Group[0]);
+  return userGroups.toArray(new Account[0]);
 }

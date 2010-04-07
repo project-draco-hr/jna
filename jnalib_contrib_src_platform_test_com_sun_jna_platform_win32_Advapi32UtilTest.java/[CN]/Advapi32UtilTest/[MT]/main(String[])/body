@@ -2,7 +2,7 @@
   junit.textui.TestRunner.run(Advapi32UtilTest.class);
   String currentUserName=Advapi32Util.getUserName();
   System.out.println("GetUserName: " + currentUserName);
-  for (  Advapi32Util.Group group : Advapi32Util.getCurrentUserGroups()) {
+  for (  Account group : Advapi32Util.getCurrentUserGroups()) {
     System.out.println(" " + group.fqn + " ["+ group.sidString+ "]");
   }
   Account accountByName=Advapi32Util.getAccountByName(currentUserName);
