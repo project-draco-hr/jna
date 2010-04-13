@@ -98,6 +98,9 @@
     if (this instanceof ByValue) {
       getTypeInfo();
     }
+    if (this.memory != null && !(this.memory instanceof AutoAllocated)) {
+      this.memory=this.memory.share(0,size);
+    }
     return size;
   }
   throw new IllegalArgumentException("Structure " + getClass() + " has unknown size (ensure "+ "all fields are public)");

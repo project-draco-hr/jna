@@ -1,4 +1,7 @@
 {
   ensureAllocated();
+  if (size == CALCULATE_SIZE) {
+    size=calculateSize(true);
+  }
   return size;
 }
