@@ -1,7 +1,7 @@
 {
   final double MAGIC=1234.5678;
   Memory m=new Memory(8);
-  ByteBuffer buf=m.getByteBuffer(0,m.getSize()).order(ByteOrder.nativeOrder());
+  ByteBuffer buf=m.getByteBuffer(0,m.size()).order(ByteOrder.nativeOrder());
   DoubleBuffer db=buf.asDoubleBuffer();
   db.put(MAGIC).flip();
   assertEquals("Int not written to memory",MAGIC,m.getDouble(0));
