@@ -1,0 +1,7 @@
+{
+  Memory m=new Memory(Pointer.SIZE);
+  m.clear();
+  String[] arr=m.getStringArray(0,1);
+  assertEquals("Wrong array size",1,arr.length);
+  assertNull("Array element should be null",arr[0]);
+}
