@@ -1,3 +1,0 @@
-{
-  return (SID_AND_ATTRIBUTES[])Group0.toArray(GroupCount);
-}

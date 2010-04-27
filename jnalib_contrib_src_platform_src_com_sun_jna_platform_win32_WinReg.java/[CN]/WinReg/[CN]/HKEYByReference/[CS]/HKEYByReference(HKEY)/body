@@ -1,4 +1,0 @@
-{
-  super(Pointer.SIZE);
-  setValue(h);
-}

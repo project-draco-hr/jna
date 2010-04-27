@@ -1,9 +1,0 @@
-{
-  if (pBuffers == null || cBuffers == null) {
-    throw new RuntimeException("pBuffers | cBuffers");
-  }
-  if (cBuffers.intValue() == 1) {
-    return pBuffers[0].getBytes();
-  }
-  throw new RuntimeException("cBuffers > 1");
-}

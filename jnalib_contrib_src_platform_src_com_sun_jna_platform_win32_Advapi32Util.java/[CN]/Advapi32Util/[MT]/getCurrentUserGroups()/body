@@ -14,7 +14,7 @@
     return getTokenGroups(phToken.getValue());
   }
   finally {
-    if (phToken.getValue() != Kernel32.INVALID_HANDLE_VALUE) {
+    if (phToken.getValue() != WinBase.INVALID_HANDLE_VALUE) {
       if (!Kernel32.INSTANCE.CloseHandle(phToken.getValue())) {
         throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
       }

@@ -1,6 +1,0 @@
-{
-  super();
-  Memory memory=new Memory(data.length);
-  memory.write(0,data,0,data.length);
-  setPointer(memory);
-}

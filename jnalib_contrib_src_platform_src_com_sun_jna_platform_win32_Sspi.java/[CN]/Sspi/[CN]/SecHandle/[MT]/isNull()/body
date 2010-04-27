@@ -1,3 +1,0 @@
-{
-  return dwLower == null && dwUpper == null;
-}

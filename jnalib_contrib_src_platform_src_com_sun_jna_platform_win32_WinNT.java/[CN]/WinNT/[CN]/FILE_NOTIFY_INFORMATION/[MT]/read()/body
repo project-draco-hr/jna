@@ -1,5 +1,0 @@
-{
-  FileName=new char[0];
-  super.read();
-  FileName=getPointer().getCharArray(12,FileNameLength / 2);
-}

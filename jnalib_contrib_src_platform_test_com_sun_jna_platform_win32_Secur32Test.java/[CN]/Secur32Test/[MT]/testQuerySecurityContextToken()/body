@@ -14,10 +14,14 @@
   int serverRc=W32Errors.SEC_I_CONTINUE_NEEDED;
   do {
     SecBufferDesc pbClientToken=new SecBufferDesc(Sspi.SECBUFFER_TOKEN,Sspi.MAX_TOKEN_SIZE);
-    clientRc=Secur32.INSTANCE.InitializeSecurityContext(phClientCredential,phClientContext.isNull() ? null : phClientContext,Advapi32Util.getUserName(),new NativeLong(Sspi.ISC_REQ_CONNECTION),new NativeLong(0),new NativeLong(Sspi.SECURITY_NATIVE_DREP),pbServerToken,new NativeLong(0),phClientContext,pbClientToken,pfClientContextAttr,null);
-    assertTrue(clientRc == W32Errors.SEC_I_CONTINUE_NEEDED || clientRc == W32Errors.SEC_E_OK);
-    serverRc=Secur32.INSTANCE.AcceptSecurityContext(phServerCredential,phServerContext.isNull() ? null : phServerContext,pbClientToken,new NativeLong(Sspi.ISC_REQ_CONNECTION),new NativeLong(Sspi.SECURITY_NATIVE_DREP),phServerContext,pbServerToken,pfServerContextAttr,ptsServerExpiry);
-    assertTrue(serverRc == W32Errors.SEC_I_CONTINUE_NEEDED || serverRc == W32Errors.SEC_E_OK);
+    if (clientRc == W32Errors.SEC_I_CONTINUE_NEEDED) {
+      clientRc=Secur32.INSTANCE.InitializeSecurityContext(phClientCredential,phClientContext.isNull() ? null : phClientContext,Advapi32Util.getUserName(),new NativeLong(Sspi.ISC_REQ_CONNECTION),new NativeLong(0),new NativeLong(Sspi.SECURITY_NATIVE_DREP),pbServerToken,new NativeLong(0),phClientContext,pbClientToken,pfClientContextAttr,null);
+      assertTrue(clientRc == W32Errors.SEC_I_CONTINUE_NEEDED || clientRc == W32Errors.SEC_E_OK);
+    }
+    if (serverRc == W32Errors.SEC_I_CONTINUE_NEEDED) {
+      serverRc=Secur32.INSTANCE.AcceptSecurityContext(phServerCredential,phServerContext.isNull() ? null : phServerContext,pbClientToken,new NativeLong(Sspi.ISC_REQ_CONNECTION),new NativeLong(Sspi.SECURITY_NATIVE_DREP),phServerContext,pbServerToken,pfServerContextAttr,ptsServerExpiry);
+      assertTrue(serverRc == W32Errors.SEC_I_CONTINUE_NEEDED || serverRc == W32Errors.SEC_E_OK);
+    }
   }
  while (serverRc != W32Errors.SEC_E_OK || clientRc != W32Errors.SEC_E_OK);
   HANDLEByReference phContextToken=new HANDLEByReference();

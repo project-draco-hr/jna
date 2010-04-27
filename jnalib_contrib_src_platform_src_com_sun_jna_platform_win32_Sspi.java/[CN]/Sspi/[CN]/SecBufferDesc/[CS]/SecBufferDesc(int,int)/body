@@ -1,7 +1,0 @@
-{
-  ulVersion=new NativeLong(SECBUFFER_VERSION);
-  cBuffers=new NativeLong(1);
-  SecBuffer.ByReference secBuffer=new SecBuffer.ByReference(type,tokenSize);
-  pBuffers=(SecBuffer.ByReference[])secBuffer.toArray(1);
-  allocateMemory();
-}

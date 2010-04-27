@@ -1,3 +1,0 @@
-{
-  getPointer().setPointer(0,h != null ? h.getPointer() : null);
-}

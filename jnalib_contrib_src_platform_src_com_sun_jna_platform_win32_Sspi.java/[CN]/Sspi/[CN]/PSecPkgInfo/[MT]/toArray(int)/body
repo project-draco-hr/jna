@@ -1,3 +1,0 @@
-{
-  return (SecPkgInfo.ByReference[])pPkgInfo.toArray(size);
-}

@@ -6,11 +6,13 @@
     FileEvent event=null;
     File file=new File(finfo.file,fni.getFilename());
 switch (fni.Action) {
+case 0:
+      break;
 case WinNT.FILE_ACTION_MODIFIED:
-      event=new FileEvent(file,FILE_MODIFIED);
-    break;
+    event=new FileEvent(file,FILE_MODIFIED);
+  break;
 case WinNT.FILE_ACTION_ADDED:
-  event=new FileEvent(file,FILE_CREATED);
+event=new FileEvent(file,FILE_CREATED);
 break;
 case WinNT.FILE_ACTION_REMOVED:
 event=new FileEvent(file,FILE_DELETED);
@@ -24,7 +26,9 @@ break;
 default :
 System.err.println("Unrecognized file action '" + fni.Action + "'");
 }
-if (event != null) notify(event);
+if (event != null) {
+notify(event);
+}
 fni=fni.next();
 }
  while (fni != null);

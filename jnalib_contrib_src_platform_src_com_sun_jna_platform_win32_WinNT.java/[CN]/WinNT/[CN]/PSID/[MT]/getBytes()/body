@@ -1,4 +1,0 @@
-{
-  int len=Advapi32.INSTANCE.GetLengthSid(this);
-  return getPointer().getByteArray(0,len);
-}

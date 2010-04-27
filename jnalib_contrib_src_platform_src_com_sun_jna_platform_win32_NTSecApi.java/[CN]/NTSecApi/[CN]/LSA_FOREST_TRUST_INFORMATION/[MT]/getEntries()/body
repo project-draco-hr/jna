@@ -1,3 +1,0 @@
-{
-  return (PLSA_FOREST_TRUST_RECORD[])Entries.toArray(RecordCount.intValue());
-}

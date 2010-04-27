@@ -17,7 +17,7 @@
       }
     }
   finally {
-      if (phUser.getValue() != Kernel32.INVALID_HANDLE_VALUE) {
+      if (phUser.getValue() != WinBase.INVALID_HANDLE_VALUE) {
         Kernel32.INSTANCE.CloseHandle(phUser.getValue());
       }
     }

@@ -1,5 +1,5 @@
 {
-  W32API.HANDLE handle=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
+  HANDLE handle=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
   assertEquals(W32Errors.WAIT_TIMEOUT,Kernel32.INSTANCE.WaitForSingleObject(handle,1000));
   Kernel32.INSTANCE.CloseHandle(handle);
 }

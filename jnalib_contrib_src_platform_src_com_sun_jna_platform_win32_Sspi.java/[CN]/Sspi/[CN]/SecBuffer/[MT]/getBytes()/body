@@ -1,3 +1,0 @@
-{
-  return pvBuffer.getByteArray(0,cbBuffer.intValue());
-}
