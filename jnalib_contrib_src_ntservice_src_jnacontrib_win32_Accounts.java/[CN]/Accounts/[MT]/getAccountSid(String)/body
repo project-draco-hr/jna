@@ -3,7 +3,6 @@
   IntByReference cbSid;
   IntByReference cchReferencedDomainName;
   PointerByReference peUse;
-  String sidString=null;
   byte[] sid;
   char[] referencedDomainName;
   advapi32=Advapi32.INSTANCE;

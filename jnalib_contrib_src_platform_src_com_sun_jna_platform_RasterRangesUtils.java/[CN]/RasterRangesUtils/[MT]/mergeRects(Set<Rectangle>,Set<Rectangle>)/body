@@ -1,8 +1,8 @@
 {
-  Set unmerged=new HashSet(prev);
+  Set<Rectangle> unmerged=new HashSet<Rectangle>(prev);
   if (!prev.isEmpty() && !current.isEmpty()) {
-    Rectangle[] pr=(Rectangle[])prev.toArray(new Rectangle[prev.size()]);
-    Rectangle[] cr=(Rectangle[])current.toArray(new Rectangle[current.size()]);
+    Rectangle[] pr=prev.toArray(new Rectangle[prev.size()]);
+    Rectangle[] cr=current.toArray(new Rectangle[current.size()]);
     int ipr=0;
     int icr=0;
     while (ipr < pr.length && icr < cr.length) {

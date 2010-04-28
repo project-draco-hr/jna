@@ -1,5 +1,5 @@
 {
-  X11.Atom atom=(X11.Atom)atomsHash.get(name);
+  X11.Atom atom=atomsHash.get(name);
   if (atom == null) {
     atom=x11.XInternAtom(x11Display,name,false);
     atomsHash.put(name,atom);

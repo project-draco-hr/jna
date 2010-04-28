@@ -1,9 +1,10 @@
 {
-  Set EXPECTED=new HashSet(){
+  Set<Rectangle> EXPECTED=new HashSet<Rectangle>(){
 {
       add(new Rectangle(0,0,100,50));
       add(new Rectangle(0,50,50,50));
     }
+    private static final long serialVersionUID=1L;
   }
 ;
   Area mask=new Area(new Rectangle(0,0,100,100));

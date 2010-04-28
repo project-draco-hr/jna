@@ -10,7 +10,7 @@
   }
   x11.XSetForeground(dpy,gc,new NativeLong(0));
   x11.XFillRectangle(dpy,pm,gc,0,0,width,height);
-  final List rlist=new ArrayList();
+  final List<Rectangle> rlist=new ArrayList<Rectangle>();
   try {
     RasterRangesUtils.outputOccupiedRanges(raster,new RasterRangesUtils.RangesOutput(){
       public boolean outputRange(      int x,      int y,      int w,      int h){

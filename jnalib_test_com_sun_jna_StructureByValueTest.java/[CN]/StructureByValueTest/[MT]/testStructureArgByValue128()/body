@@ -1,6 +1,6 @@
 {
   ByValue128 data=new ByValue128();
-  final long DATA=(long)MAGIC;
+  final long DATA=MAGIC;
   data.data=DATA;
   data.data1=DATA;
   assertEquals("Failed to pass 128-bit struct by value",2 * DATA,lib.testStructureByValueArgument128(data));

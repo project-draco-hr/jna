@@ -79,17 +79,17 @@
         hide();
       }
     }
-@SuppressWarnings("serial") final class ComponentEar extends ComponentAdapter {
+final class ComponentEar extends ComponentAdapter {
       public void componentMoved(      ComponentEvent e){
         hide();
       }
     }
-@SuppressWarnings("serial") final class MouseEar extends MouseAdapter {
+final class MouseEar extends MouseAdapter {
       public void mousePressed(      MouseEvent e){
         hide();
       }
     }
-@SuppressWarnings("serial") final class FocusEar extends FocusAdapter {
+final class FocusEar extends FocusAdapter {
       public void focusLost(      FocusEvent e){
         hide();
       }

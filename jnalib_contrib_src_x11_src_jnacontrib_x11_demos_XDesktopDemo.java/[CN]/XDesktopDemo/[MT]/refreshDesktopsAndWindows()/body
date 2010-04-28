@@ -1,6 +1,6 @@
 {
   X.Desktop[] desktops=display.getDesktops();
-  ArrayList list=new ArrayList(desktops.length);
+  ArrayList<Object> list=new ArrayList<Object>(desktops.length);
   for (int i=0; i < desktops.length; i++) {
     list.add(desktops[i].name);
   }

@@ -1,9 +1,9 @@
 {
-  Set rects=new HashSet();
-  Set prevLine=Collections.EMPTY_SET;
+  Set<Rectangle> rects=new HashSet<Rectangle>();
+  Set<Rectangle> prevLine=Collections.EMPTY_SET;
   int scanlineBytes=binaryBits.length / h;
   for (int row=0; row < h; row++) {
-    Set curLine=new TreeSet(COMPARATOR);
+    Set<Rectangle> curLine=new TreeSet<Rectangle>(COMPARATOR);
     int rowOffsetBytes=row * scanlineBytes;
     int startCol=-1;
     for (int byteCol=0; byteCol < scanlineBytes; byteCol++) {
@@ -40,13 +40,13 @@
     if (startCol >= 0) {
       curLine.add(new Rectangle(startCol,row,w - startCol,1));
     }
-    Set unmerged=mergeRects(prevLine,curLine);
+    Set<Rectangle> unmerged=mergeRects(prevLine,curLine);
     rects.addAll(unmerged);
     prevLine=curLine;
   }
   rects.addAll(prevLine);
-  for (Iterator i=rects.iterator(); i.hasNext(); ) {
-    Rectangle r=(Rectangle)i.next();
+  for (Iterator<Rectangle> i=rects.iterator(); i.hasNext(); ) {
+    Rectangle r=i.next();
     if (!out.outputRange(r.x,r.y,r.width,r.height)) {
       return false;
     }

@@ -1,0 +1,2 @@
+Set<Rectangle> prev
+Set<Rectangle> current

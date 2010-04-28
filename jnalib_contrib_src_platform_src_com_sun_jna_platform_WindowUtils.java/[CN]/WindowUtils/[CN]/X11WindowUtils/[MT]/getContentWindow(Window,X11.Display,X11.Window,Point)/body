@@ -8,8 +8,8 @@
     x11.XQueryTree(dpy,win,rootp,parentp,childrenp,countp);
     Pointer p=childrenp.getValue();
     int[] ids=p.getIntArray(0,countp.getValue());
-    for (int i=0; i < ids.length; i++) {
-      X11.Window child=new X11.Window(ids[i]);
+    for (    int id : ids) {
+      X11.Window child=new X11.Window(id);
       X11.XWindowAttributes xwa=new X11.XWindowAttributes();
       x11.XGetWindowAttributes(dpy,child,xwa);
       offset.x=-xwa.x;

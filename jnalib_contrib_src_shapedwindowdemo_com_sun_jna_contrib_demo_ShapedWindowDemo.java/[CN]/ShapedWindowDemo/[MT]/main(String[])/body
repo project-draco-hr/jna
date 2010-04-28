@@ -14,12 +14,14 @@
         public void actionPerformed(        ActionEvent e){
           frame.setState(JFrame.ICONIFIED);
         }
+        private static final long serialVersionUID=1L;
       }
 );
       m.add(new AbstractAction("Close"){
         public void actionPerformed(        ActionEvent e){
           System.exit(0);
         }
+        private static final long serialVersionUID=1L;
       }
 );
       m.pack();

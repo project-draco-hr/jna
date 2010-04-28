@@ -19,6 +19,7 @@
   final Window f=w;
   WindowUtils.setWindowTransparent(f,true);
   content.add(new JButton("Quit"){
+    private static final long serialVersionUID=1L;
 {
       addActionListener(new ActionListener(){
         public void actionPerformed(        ActionEvent e){
@@ -30,6 +31,7 @@
   }
 ,BorderLayout.SOUTH);
   content.add(new JComponent(){
+    private static final long serialVersionUID=1L;
     public Dimension getPreferredSize(){
       return new Dimension(SIZE,SIZE);
     }

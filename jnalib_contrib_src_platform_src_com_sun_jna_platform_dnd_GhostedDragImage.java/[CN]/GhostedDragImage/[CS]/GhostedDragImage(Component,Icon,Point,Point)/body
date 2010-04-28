@@ -2,6 +2,7 @@
   Window parent=dragSource instanceof Window ? (Window)dragSource : SwingUtilities.getWindowAncestor(dragSource);
   GraphicsConfiguration gc=parent.getGraphicsConfiguration();
   dragImage=new Window(JOptionPane.getRootFrame(),gc){
+    private static final long serialVersionUID=1L;
     public void paint(    Graphics g){
       icon.paintIcon(this,g,0,0);
     }
