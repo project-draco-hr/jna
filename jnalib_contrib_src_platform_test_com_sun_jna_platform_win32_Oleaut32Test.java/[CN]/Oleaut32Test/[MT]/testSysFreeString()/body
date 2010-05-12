@@ -1,0 +1,3 @@
+{
+  Oleaut32.INSTANCE.SysFreeString(null);
+}

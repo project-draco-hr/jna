@@ -1,0 +1,6 @@
+{
+  assertEquals(null,Oleaut32.INSTANCE.SysAllocString(null));
+  Pointer p=Oleaut32.INSTANCE.SysAllocString("hello world");
+  assertEquals("hello world",p.getString(0,true));
+  Oleaut32.INSTANCE.SysFreeString(p);
+}
