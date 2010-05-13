@@ -1,0 +1,11 @@
+{
+  HRESULT hrCI=Ole32.INSTANCE.CoInitializeEx(null,0);
+  GUID guid=Ole32Util.getGUIDFromString("{13709620-C279-11CE-A49E-444553540000}");
+  GUID riid=Ole32Util.getGUIDFromString("{D8F015C0-C278-11CE-A49E-444553540000}");
+  PointerByReference iUnknown=new PointerByReference();
+  int dwClsContext=Ole32.CLSCTX_ALL;
+  HRESULT hr=Ole32.INSTANCE.CoCreateInstance(guid,null,dwClsContext,riid,iUnknown);
+  assertTrue(W32Errors.SUCCEEDED(hr.intValue()));
+  assertTrue(!iUnknown.getValue().equals(Pointer.NULL));
+  if (W32Errors.SUCCEEDED(hrCI.intValue()))   Ole32.INSTANCE.CoUninitialize();
+}
