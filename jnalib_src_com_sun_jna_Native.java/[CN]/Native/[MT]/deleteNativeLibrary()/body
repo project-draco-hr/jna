@@ -17,7 +17,7 @@
       f=lib.getClass().getDeclaredField("name");
       f.setAccessible(true);
       String name=(String)f.get(lib);
-      if (name.equals(path) || name.indexOf(path) != -1) {
+      if (name.equals(path) || name.indexOf(path) != -1 || name.equals(flib.getCanonicalPath())) {
         Method m=lib.getClass().getDeclaredMethod("finalize",new Class[0]);
         m.setAccessible(true);
         m.invoke(lib,new Object[0]);
