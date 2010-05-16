@@ -3,8 +3,7 @@
   if (Advapi32.INSTANCE.GetTokenInformation(hToken,WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,null,0,tokenInformationLength) || Kernel32.INSTANCE.GetLastError() != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
     throw new RuntimeException("Expected GetTokenInformation to fail with ERROR_INSUFFICIENT_BUFFER");
   }
-  Memory tokenInformationBuffer=new Memory(tokenInformationLength.getValue());
-  WinNT.TOKEN_GROUPS groups=new WinNT.TOKEN_GROUPS(tokenInformationBuffer);
+  WinNT.TOKEN_GROUPS groups=new WinNT.TOKEN_GROUPS(tokenInformationLength.getValue());
   if (!Advapi32.INSTANCE.GetTokenInformation(hToken,WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,groups,tokenInformationLength.getValue(),tokenInformationLength)) {
     throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }

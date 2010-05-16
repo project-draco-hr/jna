@@ -5,8 +5,7 @@
   IntByReference tokenInformationLength=new IntByReference();
   assertFalse(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenUser,null,0,tokenInformationLength));
   assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
-  Memory tokenInformationBuffer=new Memory(tokenInformationLength.getValue());
-  WinNT.TOKEN_USER user=new WinNT.TOKEN_USER(tokenInformationBuffer);
+  WinNT.TOKEN_USER user=new WinNT.TOKEN_USER(tokenInformationLength.getValue());
   assertTrue(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenUser,user,tokenInformationLength.getValue(),tokenInformationLength));
   assertTrue(tokenInformationLength.getValue() > 0);
   assertTrue(Advapi32.INSTANCE.IsValidSid(user.User.Sid));
