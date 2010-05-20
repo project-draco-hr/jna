@@ -10,7 +10,7 @@ synchronized (customPaths) {
       searchPath.addAll(0,customPaths);
     }
   }
-  searchPath.addAll(userSearchPath);
+  searchPath.addAll(initPaths("jna.library.path"));
   String libraryPath=findLibraryPath(libraryName,searchPath);
   long handle=0;
   try {
