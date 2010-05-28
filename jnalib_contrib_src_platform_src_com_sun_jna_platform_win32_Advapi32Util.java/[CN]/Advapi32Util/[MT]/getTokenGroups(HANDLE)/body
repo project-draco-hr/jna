@@ -1,7 +1,11 @@
 {
   IntByReference tokenInformationLength=new IntByReference();
-  if (Advapi32.INSTANCE.GetTokenInformation(hToken,WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,null,0,tokenInformationLength) || Kernel32.INSTANCE.GetLastError() != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+  if (Advapi32.INSTANCE.GetTokenInformation(hToken,WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,null,0,tokenInformationLength)) {
     throw new RuntimeException("Expected GetTokenInformation to fail with ERROR_INSUFFICIENT_BUFFER");
+  }
+  int rc=Kernel32.INSTANCE.GetLastError();
+  if (rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+    throw new Win32Exception(rc);
   }
   WinNT.TOKEN_GROUPS groups=new WinNT.TOKEN_GROUPS(tokenInformationLength.getValue());
   if (!Advapi32.INSTANCE.GetTokenInformation(hToken,WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,groups,tokenInformationLength.getValue(),tokenInformationLength)) {
