@@ -1,0 +1,11 @@
+{
+  PSID pSid=new PSID(WinNT.SECURITY_MAX_SID_SIZE);
+  IntByReference cbSid=new IntByReference(WinNT.SECURITY_MAX_SID_SIZE);
+  assertTrue(Advapi32.INSTANCE.CreateWellKnownSid(WELL_KNOWN_SID_TYPE.WinWorldSid,null,pSid,cbSid));
+  assertTrue(Advapi32.INSTANCE.IsWellKnownSid(pSid,WELL_KNOWN_SID_TYPE.WinWorldSid));
+  assertTrue(cbSid.getValue() <= WinNT.SECURITY_MAX_SID_SIZE);
+  PointerByReference convertedSidStringPtr=new PointerByReference();
+  assertTrue(Advapi32.INSTANCE.ConvertSidToStringSid(pSid,convertedSidStringPtr));
+  String convertedSidString=convertedSidStringPtr.getValue().getString(0,true);
+  assertEquals("S-1-1-0",convertedSidString);
+}
