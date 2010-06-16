@@ -1,0 +1,8 @@
+{
+  String everyoneString="S-1-1-0";
+  assertTrue(Advapi32Util.isWellKnownSid(everyoneString,WELL_KNOWN_SID_TYPE.WinWorldSid));
+  assertFalse(Advapi32Util.isWellKnownSid(everyoneString,WELL_KNOWN_SID_TYPE.WinAccountAdministratorSid));
+  byte[] everyoneBytes=Advapi32Util.convertStringSidToSid(everyoneString);
+  assertTrue(Advapi32Util.isWellKnownSid(everyoneBytes,WELL_KNOWN_SID_TYPE.WinWorldSid));
+  assertFalse(Advapi32Util.isWellKnownSid(everyoneBytes,WELL_KNOWN_SID_TYPE.WinAccountAdministratorSid));
+}

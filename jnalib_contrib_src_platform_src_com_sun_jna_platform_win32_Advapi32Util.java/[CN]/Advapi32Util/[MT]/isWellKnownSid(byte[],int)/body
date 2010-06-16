@@ -1,0 +1,4 @@
+{
+  PSID pSID=new PSID(sidBytes);
+  return Advapi32.INSTANCE.IsWellKnownSid(pSID,wellKnownSidType);
+}

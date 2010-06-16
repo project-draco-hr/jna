@@ -3,5 +3,5 @@
   if (!Advapi32.INSTANCE.ConvertStringSidToSid(sidString,pSID)) {
     throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }
-  return pSID.getValue().getBytes();
+  return Advapi32.INSTANCE.IsWellKnownSid(pSID.getValue(),wellKnownSidType);
 }
