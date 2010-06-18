@@ -1,0 +1,16 @@
+{
+  StringBuffer buf=new StringBuffer();
+  while (true) {
+    int idx=str.indexOf(s1);
+    if (idx == -1) {
+      buf.append(str);
+      break;
+    }
+ else {
+      buf.append(str.substring(0,idx));
+      buf.append(s2);
+      str=str.substring(idx + s1.length());
+    }
+  }
+  return buf.toString();
+}

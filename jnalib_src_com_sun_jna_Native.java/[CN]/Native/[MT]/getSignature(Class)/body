@@ -13,5 +13,5 @@
     if (cls == float.class)     return "F";
     if (cls == double.class)     return "D";
   }
-  return "L" + cls.getName().replace(".","/") + ";";
+  return "L" + replace(".","/",cls.getName()) + ";";
 }
