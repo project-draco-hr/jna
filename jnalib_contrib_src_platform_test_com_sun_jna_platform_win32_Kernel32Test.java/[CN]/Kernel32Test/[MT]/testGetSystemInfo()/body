@@ -1,0 +1,5 @@
+{
+  SYSTEM_INFO lpSystemInfo=new SYSTEM_INFO();
+  Kernel32.INSTANCE.GetSystemInfo(lpSystemInfo);
+  assertTrue(lpSystemInfo.dwNumberOfProcessors.intValue() > 0);
+}

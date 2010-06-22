@@ -1,0 +1,10 @@
+{
+  try {
+    IntByReference isWow64=new IntByReference(42);
+    HANDLE hProcess=Kernel32.INSTANCE.GetCurrentProcess();
+    assertTrue(Kernel32.INSTANCE.IsWow64Process(hProcess,isWow64));
+    assertTrue(0 == isWow64.getValue() || 1 == isWow64.getValue());
+  }
+ catch (  UnsatisfiedLinkError e) {
+  }
+}

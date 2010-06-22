@@ -1,0 +1,9 @@
+{
+  try {
+    SYSTEM_INFO lpSystemInfo=new SYSTEM_INFO();
+    Kernel32.INSTANCE.GetNativeSystemInfo(lpSystemInfo);
+    assertTrue(lpSystemInfo.dwNumberOfProcessors.intValue() > 0);
+  }
+ catch (  UnsatisfiedLinkError e) {
+  }
+}

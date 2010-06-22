@@ -1,0 +1,12 @@
+{
+  OSVERSIONINFOEX lpVersionInfo=new OSVERSIONINFOEX();
+  assertEquals(lpVersionInfo.size(),lpVersionInfo.dwOSVersionInfoSize.longValue());
+  assertTrue(Kernel32.INSTANCE.GetVersionEx(lpVersionInfo));
+  assertTrue(lpVersionInfo.dwMajorVersion.longValue() > 0);
+  assertTrue(lpVersionInfo.dwMinorVersion.longValue() >= 0);
+  assertEquals(lpVersionInfo.size(),lpVersionInfo.dwOSVersionInfoSize.longValue());
+  assertTrue(lpVersionInfo.dwPlatformId.longValue() > 0);
+  assertTrue(lpVersionInfo.dwBuildNumber.longValue() > 0);
+  assertTrue(Native.toString(lpVersionInfo.szCSDVersion).length() >= 0);
+  assertTrue(lpVersionInfo.wProductType >= 0);
+}
