@@ -1,0 +1,5 @@
+{
+  DWORD version=Kernel32.INSTANCE.GetVersion();
+  assertTrue(version.getHigh().intValue() != 0);
+  assertTrue(version.getLow().intValue() >= 0);
+}

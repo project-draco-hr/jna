@@ -1,7 +1,7 @@
 {
   GDI32 gdi=GDI32.INSTANCE;
   PathIterator pi=area.getPathIterator(null);
-  int mode=pi.getWindingRule() == PathIterator.WIND_NON_ZERO ? GDI32.WINDING : GDI32.ALTERNATE;
+  int mode=pi.getWindingRule() == PathIterator.WIND_NON_ZERO ? WinGDI.WINDING : WinGDI.ALTERNATE;
   float[] coords=new float[6];
   List<POINT> points=new ArrayList<POINT>();
   int size=0;

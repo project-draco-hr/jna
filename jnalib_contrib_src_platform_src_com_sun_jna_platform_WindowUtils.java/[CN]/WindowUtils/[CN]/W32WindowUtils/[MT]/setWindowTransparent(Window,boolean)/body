@@ -11,7 +11,7 @@
     public void run(){
       User32 user=User32.INSTANCE;
       HWND hWnd=getHWnd(w);
-      int flags=user.GetWindowLong(hWnd,User32.GWL_EXSTYLE);
+      int flags=user.GetWindowLong(hWnd,WinUser.GWL_EXSTYLE);
       JRootPane root=((RootPaneContainer)w).getRootPane();
       JLayeredPane lp=root.getLayeredPane();
       Container content=root.getContentPane();
@@ -24,12 +24,12 @@
         lp.add(new RepaintTrigger(w32content),JLayeredPane.DRAG_LAYER);
       }
       if (transparent && !usingUpdateLayeredWindow(w)) {
-        flags|=User32.WS_EX_LAYERED;
-        user.SetWindowLong(hWnd,User32.GWL_EXSTYLE,flags);
+        flags|=WinUser.WS_EX_LAYERED;
+        user.SetWindowLong(hWnd,WinUser.GWL_EXSTYLE,flags);
       }
  else       if (!transparent && usingUpdateLayeredWindow(w)) {
-        flags&=~User32.WS_EX_LAYERED;
-        user.SetWindowLong(hWnd,User32.GWL_EXSTYLE,flags);
+        flags&=~WinUser.WS_EX_LAYERED;
+        user.SetWindowLong(hWnd,WinUser.GWL_EXSTYLE,flags);
       }
       setLayersTransparent(w,transparent);
       setForceHeavyweightPopups(w,transparent);

@@ -5,9 +5,9 @@
   if (!alphaWindow.isDisplayable()) {
     alphaWindow.pack();
     hWnd=getHwnd(alphaWindow);
-    int flags=user.GetWindowLong(hWnd,User32.GWL_EXSTYLE);
-    flags|=User32.WS_EX_LAYERED;
-    user.SetWindowLong(hWnd,User32.GWL_EXSTYLE,flags);
+    int flags=user.GetWindowLong(hWnd,WinUser.GWL_EXSTYLE);
+    flags|=WinUser.WS_EX_LAYERED;
+    user.SetWindowLong(hWnd,WinUser.GWL_EXSTYLE,flags);
     Window parent=alphaWindow.getOwner();
     Point where=parent.getLocationOnScreen();
     where.translate(parent.getWidth(),0);
@@ -32,10 +32,10 @@
       bmi.bmiHeader.biHeight=h;
       bmi.bmiHeader.biPlanes=1;
       bmi.bmiHeader.biBitCount=32;
-      bmi.bmiHeader.biCompression=GDI32.BI_RGB;
+      bmi.bmiHeader.biCompression=WinGDI.BI_RGB;
       bmi.bmiHeader.biSizeImage=w * h * 4;
       PointerByReference ppbits=new PointerByReference();
-      hBitmap=gdi.CreateDIBSection(memDC,bmi,GDI32.DIB_RGB_COLORS,ppbits,null,0);
+      hBitmap=gdi.CreateDIBSection(memDC,bmi,WinGDI.DIB_RGB_COLORS,ppbits,null,0);
       oldBitmap=gdi.SelectObject(memDC,hBitmap);
       Pointer pbits=ppbits.getValue();
       Raster raster=buf.getData();
@@ -61,8 +61,8 @@
       POINT srcLoc=new POINT();
       BLENDFUNCTION blend=new BLENDFUNCTION();
       blend.SourceConstantAlpha=(byte)(alpha * 255);
-      blend.AlphaFormat=User32.AC_SRC_ALPHA;
-      user.UpdateLayeredWindow(hWnd,screenDC,loc,size,memDC,srcLoc,0,blend,User32.ULW_ALPHA);
+      blend.AlphaFormat=WinUser.AC_SRC_ALPHA;
+      user.UpdateLayeredWindow(hWnd,screenDC,loc,size,memDC,srcLoc,0,blend,WinUser.ULW_ALPHA);
     }
   finally {
       user.ReleaseDC(null,screenDC);
@@ -76,8 +76,8 @@
  else   if (a) {
     BLENDFUNCTION blend=new BLENDFUNCTION();
     blend.SourceConstantAlpha=(byte)(alpha * 255);
-    blend.AlphaFormat=User32.AC_SRC_ALPHA;
-    user.UpdateLayeredWindow(hWnd,null,null,null,null,null,0,blend,User32.ULW_ALPHA);
+    blend.AlphaFormat=WinUser.AC_SRC_ALPHA;
+    user.UpdateLayeredWindow(hWnd,null,null,null,null,null,0,blend,WinUser.ULW_ALPHA);
   }
   if (!alphaWindow.isVisible()) {
     alphaWindow.setVisible(true);

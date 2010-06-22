@@ -25,10 +25,10 @@
       bmi.bmiHeader.biHeight=wh;
       bmi.bmiHeader.biPlanes=1;
       bmi.bmiHeader.biBitCount=32;
-      bmi.bmiHeader.biCompression=GDI32.BI_RGB;
+      bmi.bmiHeader.biCompression=WinGDI.BI_RGB;
       bmi.bmiHeader.biSizeImage=ww * wh * 4;
       PointerByReference ppbits=new PointerByReference();
-      hBitmap=gdi.CreateDIBSection(memDC,bmi,GDI32.DIB_RGB_COLORS,ppbits,null,0);
+      hBitmap=gdi.CreateDIBSection(memDC,bmi,WinGDI.DIB_RGB_COLORS,ppbits,null,0);
       pbits=ppbits.getValue();
       bitmapSize=new Dimension(ww,wh);
     }
@@ -61,15 +61,15 @@
     IntByReference iref=new IntByReference();
     byte level=getAlpha(win);
     try {
-      if (user.GetLayeredWindowAttributes(hWnd,null,bref,iref) && (iref.getValue() & User32.LWA_ALPHA) != 0) {
+      if (user.GetLayeredWindowAttributes(hWnd,null,bref,iref) && (iref.getValue() & WinUser.LWA_ALPHA) != 0) {
         level=bref.getValue();
       }
     }
  catch (    UnsatisfiedLinkError e) {
     }
     blend.SourceConstantAlpha=level;
-    blend.AlphaFormat=User32.AC_SRC_ALPHA;
-    user.UpdateLayeredWindow(hWnd,screenDC,winLoc,winSize,memDC,srcLoc,0,blend,User32.ULW_ALPHA);
+    blend.AlphaFormat=WinUser.AC_SRC_ALPHA;
+    user.UpdateLayeredWindow(hWnd,screenDC,winLoc,winSize,memDC,srcLoc,0,blend,WinUser.ULW_ALPHA);
   }
   finally {
     user.ReleaseDC(null,screenDC);

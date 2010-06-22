@@ -1,3 +1,6 @@
 {
+  OSVERSIONINFO lpVersionInfo=new OSVERSIONINFO();
+  assertTrue(Kernel32.INSTANCE.GetVersionEx(lpVersionInfo));
+  System.out.println("Operating system: " + lpVersionInfo.dwMajorVersion.longValue() + "."+ lpVersionInfo.dwMinorVersion.longValue()+ " ("+ lpVersionInfo.dwBuildNumber+ ")"+ " ["+ Native.toString(lpVersionInfo.szCSDVersion)+ "]");
   junit.textui.TestRunner.run(Kernel32Test.class);
 }

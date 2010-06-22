@@ -6,22 +6,22 @@
     public void run(){
       HWND hWnd=getHWnd(w);
       User32 user=User32.INSTANCE;
-      int flags=user.GetWindowLong(hWnd,User32.GWL_EXSTYLE);
+      int flags=user.GetWindowLong(hWnd,WinUser.GWL_EXSTYLE);
       byte level=(byte)((int)(255 * alpha) & 0xFF);
       if (usingUpdateLayeredWindow(w)) {
-        User32.BLENDFUNCTION blend=new User32.BLENDFUNCTION();
+        BLENDFUNCTION blend=new BLENDFUNCTION();
         blend.SourceConstantAlpha=level;
-        blend.AlphaFormat=User32.AC_SRC_ALPHA;
-        user.UpdateLayeredWindow(hWnd,null,null,null,null,null,0,blend,User32.ULW_ALPHA);
+        blend.AlphaFormat=WinUser.AC_SRC_ALPHA;
+        user.UpdateLayeredWindow(hWnd,null,null,null,null,null,0,blend,WinUser.ULW_ALPHA);
       }
  else       if (alpha == 1f) {
-        flags&=~User32.WS_EX_LAYERED;
-        user.SetWindowLong(hWnd,User32.GWL_EXSTYLE,flags);
+        flags&=~WinUser.WS_EX_LAYERED;
+        user.SetWindowLong(hWnd,WinUser.GWL_EXSTYLE,flags);
       }
  else {
-        flags|=User32.WS_EX_LAYERED;
-        user.SetWindowLong(hWnd,User32.GWL_EXSTYLE,flags);
-        user.SetLayeredWindowAttributes(hWnd,0,level,User32.LWA_ALPHA);
+        flags|=WinUser.WS_EX_LAYERED;
+        user.SetWindowLong(hWnd,WinUser.GWL_EXSTYLE,flags);
+        user.SetLayeredWindowAttributes(hWnd,0,level,WinUser.LWA_ALPHA);
       }
       setForceHeavyweightPopups(w,alpha != 1f);
       storeAlpha(w,level);
