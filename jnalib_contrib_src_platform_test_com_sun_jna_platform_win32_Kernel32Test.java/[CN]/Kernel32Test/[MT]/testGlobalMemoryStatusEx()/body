@@ -1,0 +1,7 @@
+{
+  MEMORYSTATUSEX lpBuffer=new MEMORYSTATUSEX();
+  assertTrue(Kernel32.INSTANCE.GlobalMemoryStatusEx(lpBuffer));
+  assertTrue(lpBuffer.ullTotalPhys.longValue() > 0);
+  assertTrue(lpBuffer.dwMemoryLoad.intValue() >= 0 && lpBuffer.dwMemoryLoad.intValue() <= 100);
+  assertEquals(0,lpBuffer.ullAvailExtendedVirtual.intValue());
+}

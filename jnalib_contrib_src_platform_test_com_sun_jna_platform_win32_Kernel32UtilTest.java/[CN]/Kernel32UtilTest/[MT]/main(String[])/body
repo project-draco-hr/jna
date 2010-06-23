@@ -1,5 +1,17 @@
 {
-  junit.textui.TestRunner.run(Advapi32UtilTest.class);
   System.out.println("Computer name: " + Kernel32Util.getComputerName());
-  System.out.println("    Temp path: " + Kernel32Util.getTempPath());
+  System.out.println("Temp path: " + Kernel32Util.getTempPath());
+  System.out.println("Logical drives: ");
+  String[] logicalDrives=Kernel32Util.getLogicalDriveStrings();
+  for (  String logicalDrive : logicalDrives) {
+    System.out.println(" " + logicalDrive + " ("+ Kernel32.INSTANCE.GetDriveType(logicalDrive)+ ")");
+    LARGE_INTEGER.ByReference lpFreeBytesAvailable=new LARGE_INTEGER.ByReference();
+    LARGE_INTEGER.ByReference lpTotalNumberOfBytes=new LARGE_INTEGER.ByReference();
+    LARGE_INTEGER.ByReference lpTotalNumberOfFreeBytes=new LARGE_INTEGER.ByReference();
+    if (Kernel32.INSTANCE.GetDiskFreeSpaceEx(logicalDrive,lpFreeBytesAvailable,lpTotalNumberOfBytes,lpTotalNumberOfFreeBytes)) {
+      System.out.println("  Total: " + formatBytes(lpTotalNumberOfBytes.getValue()));
+      System.out.println("   Free: " + formatBytes(lpTotalNumberOfFreeBytes.getValue()));
+    }
+  }
+  junit.textui.TestRunner.run(Kernel32UtilTest.class);
 }

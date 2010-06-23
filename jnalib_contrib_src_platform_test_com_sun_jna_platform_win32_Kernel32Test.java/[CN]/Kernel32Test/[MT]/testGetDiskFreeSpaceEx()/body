@@ -1,0 +1,8 @@
+{
+  LARGE_INTEGER.ByReference lpFreeBytesAvailable=new LARGE_INTEGER.ByReference();
+  LARGE_INTEGER.ByReference lpTotalNumberOfBytes=new LARGE_INTEGER.ByReference();
+  LARGE_INTEGER.ByReference lpTotalNumberOfFreeBytes=new LARGE_INTEGER.ByReference();
+  assertTrue(Kernel32.INSTANCE.GetDiskFreeSpaceEx(null,lpFreeBytesAvailable,lpTotalNumberOfBytes,lpTotalNumberOfFreeBytes));
+  assertTrue(lpTotalNumberOfFreeBytes.getValue() > 0);
+  assertTrue(lpTotalNumberOfFreeBytes.getValue() < lpTotalNumberOfBytes.getValue());
+}

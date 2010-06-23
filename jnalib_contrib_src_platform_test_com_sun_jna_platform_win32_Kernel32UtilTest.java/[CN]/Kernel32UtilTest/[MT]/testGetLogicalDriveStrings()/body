@@ -1,0 +1,7 @@
+{
+  String[] logicalDrives=Kernel32Util.getLogicalDriveStrings();
+  assertTrue(logicalDrives.length > 0);
+  for (  String logicalDrive : logicalDrives) {
+    assertTrue(logicalDrive.length() > 0);
+  }
+}

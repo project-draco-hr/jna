@@ -1,0 +1,23 @@
+{
+  DWORD dwSize=Kernel32.INSTANCE.GetLogicalDriveStrings(new DWORD(0),null);
+  if (dwSize.intValue() <= 0) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  char buf[]=new char[dwSize.intValue()];
+  dwSize=Kernel32.INSTANCE.GetLogicalDriveStrings(dwSize,buf);
+  if (dwSize.intValue() <= 0) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  List<String> drives=new ArrayList<String>();
+  String drive="";
+  for (int i=0; i < buf.length - 1; i++) {
+    if (buf[i] == 0) {
+      drives.add(drive);
+      drive="";
+    }
+ else {
+      drive+=buf[i];
+    }
+  }
+  return drives.toArray(new String[0]);
+}
