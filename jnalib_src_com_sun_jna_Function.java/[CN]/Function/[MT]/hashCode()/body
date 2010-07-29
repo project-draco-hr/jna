@@ -1,0 +1,3 @@
+{
+  return callFlags + options.hashCode() + peer.hashCode();
+}
