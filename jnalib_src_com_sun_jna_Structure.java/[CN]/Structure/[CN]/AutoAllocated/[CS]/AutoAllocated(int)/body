@@ -1,4 +1,4 @@
 {
   super(size);
-  clear();
+  super.clear();
 }
