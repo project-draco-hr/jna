@@ -1,4 +1,4 @@
 {
-  boundsCheck(bOff,length * 4);
+  boundsCheck(bOff,length * 4L);
   super.read(bOff,buf,index,length);
 }
