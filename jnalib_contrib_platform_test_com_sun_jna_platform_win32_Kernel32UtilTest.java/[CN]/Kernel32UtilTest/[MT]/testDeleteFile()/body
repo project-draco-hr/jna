@@ -1,0 +1,6 @@
+{
+  String filename=Kernel32Util.getTempPath() + "\\FileDoesNotExist.jna";
+  File f=new File(filename);
+  f.createNewFile();
+  Kernel32Util.deleteFile(filename);
+}

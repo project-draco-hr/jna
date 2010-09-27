@@ -1,0 +1,17 @@
+{
+  HANDLE h=Advapi32.INSTANCE.OpenEventLog(null,"Application");
+  assertNotNull(h);
+  String backupFileName=Kernel32Util.getTempPath() + "\\JNADevEventLog.bak";
+  File f=new File(backupFileName);
+  if (f.exists()) {
+    f.delete();
+  }
+  assertTrue(Advapi32.INSTANCE.BackupEventLog(h,backupFileName));
+  HANDLE hBackup=Advapi32.INSTANCE.OpenBackupEventLog(null,backupFileName);
+  assertNotNull(hBackup);
+  IntByReference n=new IntByReference();
+  assertTrue(Advapi32.INSTANCE.GetNumberOfEventLogRecords(hBackup,n));
+  assertTrue(n.getValue() >= 0);
+  assertTrue(Advapi32.INSTANCE.CloseEventLog(h));
+  assertTrue(Advapi32.INSTANCE.CloseEventLog(hBackup));
+}

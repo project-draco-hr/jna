@@ -1,0 +1,23 @@
+{
+  String applicationEventLog="SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application";
+  String jnaEventSource="JNADevEventSource";
+  String jnaEventSourceRegistryPath=applicationEventLog + "\\" + jnaEventSource;
+  Advapi32Util.registryCreateKey(WinReg.HKEY_LOCAL_MACHINE,jnaEventSourceRegistryPath);
+  HANDLE h=Advapi32.INSTANCE.RegisterEventSource(null,jnaEventSource);
+  IntByReference before=new IntByReference();
+  assertTrue(Advapi32.INSTANCE.GetNumberOfEventLogRecords(h,before));
+  assertNotNull(h);
+  String s[]={"JNA","Event"};
+  Memory m=new Memory(4);
+  m.setByte(0,(byte)1);
+  m.setByte(1,(byte)2);
+  m.setByte(2,(byte)3);
+  m.setByte(3,(byte)4);
+  assertTrue(Advapi32.INSTANCE.ReportEvent(h,WinNT.EVENTLOG_ERROR_TYPE,0,0,null,2,4,s,m));
+  IntByReference after=new IntByReference();
+  assertTrue(Advapi32.INSTANCE.GetNumberOfEventLogRecords(h,after));
+  assertTrue(before.getValue() < after.getValue());
+  assertFalse(h.equals(WinBase.INVALID_HANDLE_VALUE));
+  assertTrue(Advapi32.INSTANCE.DeregisterEventSource(h));
+  Advapi32Util.registryDeleteKey(WinReg.HKEY_LOCAL_MACHINE,jnaEventSourceRegistryPath);
+}

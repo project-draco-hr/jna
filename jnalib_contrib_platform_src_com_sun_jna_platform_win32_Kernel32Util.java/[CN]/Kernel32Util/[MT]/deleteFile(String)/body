@@ -1,0 +1,5 @@
+{
+  if (!Kernel32.INSTANCE.DeleteFile(filename)) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+}

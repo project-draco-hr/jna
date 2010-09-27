@@ -1,0 +1,5 @@
+{
+  String filename=Kernel32Util.getTempPath() + "\\FileDoesNotExist.jna";
+  assertFalse(Kernel32.INSTANCE.DeleteFile(filename));
+  assertEquals(W32Errors.ERROR_FILE_NOT_FOUND,Kernel32.INSTANCE.GetLastError());
+}

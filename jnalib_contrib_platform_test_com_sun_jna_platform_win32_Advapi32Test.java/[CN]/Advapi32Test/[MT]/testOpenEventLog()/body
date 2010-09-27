@@ -1,0 +1,6 @@
+{
+  HANDLE h=Advapi32.INSTANCE.OpenEventLog(null,"Application");
+  assertNotNull(h);
+  assertFalse(h.equals(WinBase.INVALID_HANDLE_VALUE));
+  assertTrue(Advapi32.INSTANCE.CloseEventLog(h));
+}
