@@ -5,7 +5,7 @@
     throw new Win32Exception(rc);
   }
   try {
-    registryCreateKey(phkKey.getValue(),keyName);
+    return registryCreateKey(phkKey.getValue(),keyName);
   }
   finally {
     rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());

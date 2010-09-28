@@ -1,6 +1,7 @@
 {
   HKEYByReference phkResult=new HKEYByReference();
-  int rc=Advapi32.INSTANCE.RegCreateKeyEx(hKey,keyName,0,null,0,WinNT.KEY_READ,null,phkResult,null);
+  IntByReference lpdwDisposition=new IntByReference();
+  int rc=Advapi32.INSTANCE.RegCreateKeyEx(hKey,keyName,0,null,WinNT.REG_OPTION_NON_VOLATILE,WinNT.KEY_READ,null,phkResult,lpdwDisposition);
   if (rc != W32Errors.ERROR_SUCCESS) {
     throw new Win32Exception(rc);
   }
@@ -8,4 +9,5 @@
   if (rc != W32Errors.ERROR_SUCCESS) {
     throw new Win32Exception(rc);
   }
+  return WinNT.REG_CREATED_NEW_KEY == lpdwDisposition.getValue();
 }
