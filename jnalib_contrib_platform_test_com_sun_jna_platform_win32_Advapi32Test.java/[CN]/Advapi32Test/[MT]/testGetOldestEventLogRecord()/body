@@ -1,0 +1,7 @@
+{
+  HANDLE h=Advapi32.INSTANCE.OpenEventLog(null,"Application");
+  IntByReference oldestRecord=new IntByReference();
+  assertTrue(Advapi32.INSTANCE.GetOldestEventLogRecord(h,oldestRecord));
+  assertTrue(oldestRecord.getValue() >= 0);
+  assertTrue(Advapi32.INSTANCE.CloseEventLog(h));
+}

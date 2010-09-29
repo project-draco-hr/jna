@@ -1,0 +1,21 @@
+{
+  HANDLE h=Advapi32.INSTANCE.OpenEventLog(null,"Application");
+  IntByReference pnBytesRead=new IntByReference();
+  IntByReference pnMinNumberOfBytesNeeded=new IntByReference();
+  Memory buffer=new Memory(1024 * 64);
+  IntByReference pOldestRecord=new IntByReference();
+  assertTrue(Advapi32.INSTANCE.GetOldestEventLogRecord(h,pOldestRecord));
+  int dwRecord=pOldestRecord.getValue();
+  while (Advapi32.INSTANCE.ReadEventLog(h,WinNT.EVENTLOG_SEQUENTIAL_READ | WinNT.EVENTLOG_FORWARDS_READ,0,buffer,(int)buffer.size(),pnBytesRead,pnMinNumberOfBytesNeeded)) {
+    int dwRead=pnBytesRead.getValue();
+    Pointer pevlr=buffer;
+    int max=3;
+    while (dwRead > 0 && max-- > 0) {
+      EVENTLOGRECORD record=new EVENTLOGRECORD(pevlr);
+      dwRecord++;
+      dwRead-=record.Length.intValue();
+      pevlr=pevlr.share(record.Length.intValue());
+    }
+  }
+  assertTrue(Advapi32.INSTANCE.CloseEventLog(h));
+}

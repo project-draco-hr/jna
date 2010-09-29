@@ -3,8 +3,7 @@
   IntByReference pnBytesRead=new IntByReference();
   IntByReference pnMinNumberOfBytesNeeded=new IntByReference();
   Memory buffer=new Memory(1);
-  PointerByReference p=new PointerByReference(buffer);
-  assertFalse(Advapi32.INSTANCE.ReadEventLog(h,WinNT.EVENTLOG_SEQUENTIAL_READ | WinNT.EVENTLOG_BACKWARDS_READ,0,p,(int)buffer.size(),pnBytesRead,pnMinNumberOfBytesNeeded));
+  assertFalse(Advapi32.INSTANCE.ReadEventLog(h,WinNT.EVENTLOG_SEQUENTIAL_READ | WinNT.EVENTLOG_BACKWARDS_READ,0,buffer,(int)buffer.size(),pnBytesRead,pnMinNumberOfBytesNeeded));
   assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
   assertTrue(pnMinNumberOfBytesNeeded.getValue() > 0);
   assertTrue(Advapi32.INSTANCE.CloseEventLog(h));
