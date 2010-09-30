@@ -1,0 +1,5 @@
+{
+  _record=new EVENTLOGRECORD(pevlr);
+  _recordId=recordId;
+  _source=pevlr.getString(_record.size(),true);
+}

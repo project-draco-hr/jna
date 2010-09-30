@@ -1,0 +1,9 @@
+{
+  _done=true;
+  if (_h != null) {
+    if (!Advapi32.INSTANCE.CloseEventLog(_h)) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+    _h=null;
+  }
+}

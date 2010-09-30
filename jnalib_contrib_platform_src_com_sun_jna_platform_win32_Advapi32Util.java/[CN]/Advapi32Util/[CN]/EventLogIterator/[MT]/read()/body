@@ -1,0 +1,26 @@
+{
+  if (_done || _dwRead > 0) {
+    return false;
+  }
+  IntByReference pnBytesRead=new IntByReference();
+  IntByReference pnMinNumberOfBytesNeeded=new IntByReference();
+  if (!Advapi32.INSTANCE.ReadEventLog(_h,WinNT.EVENTLOG_SEQUENTIAL_READ | WinNT.EVENTLOG_FORWARDS_READ,0,_buffer,(int)_buffer.size(),pnBytesRead,pnMinNumberOfBytesNeeded)) {
+    int rc=Kernel32.INSTANCE.GetLastError();
+    if (rc == W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+      _buffer=new Memory(pnMinNumberOfBytesNeeded.getValue());
+      if (!Advapi32.INSTANCE.ReadEventLog(_h,WinNT.EVENTLOG_SEQUENTIAL_READ | WinNT.EVENTLOG_FORWARDS_READ,0,_buffer,(int)_buffer.size(),pnBytesRead,pnMinNumberOfBytesNeeded)) {
+        throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+      }
+    }
+ else {
+      close();
+      if (rc != W32Errors.ERROR_HANDLE_EOF) {
+        throw new Win32Exception(rc);
+      }
+      return false;
+    }
+  }
+  _dwRead=pnBytesRead.getValue();
+  _pevlr=_buffer;
+  return true;
+}

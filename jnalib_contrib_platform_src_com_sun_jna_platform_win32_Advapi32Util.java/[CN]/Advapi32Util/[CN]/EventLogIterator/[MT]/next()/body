@@ -1,0 +1,8 @@
+{
+  read();
+  EventLogRecord record=new EventLogRecord(_dwRecord,_pevlr);
+  _dwRecord++;
+  _dwRead-=record.getLength();
+  _pevlr=_pevlr.share(record.getLength());
+  return record;
+}

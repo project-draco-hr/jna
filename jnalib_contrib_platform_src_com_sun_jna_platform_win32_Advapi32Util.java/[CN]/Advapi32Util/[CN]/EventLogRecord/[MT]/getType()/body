@@ -1,0 +1,17 @@
+{
+switch (_record.EventType.intValue()) {
+case WinNT.EVENTLOG_SUCCESS:
+case WinNT.EVENTLOG_INFORMATION_TYPE:
+    return EventLogType.Informational;
+case WinNT.EVENTLOG_AUDIT_FAILURE:
+  return EventLogType.AuditFailure;
+case WinNT.EVENTLOG_AUDIT_SUCCESS:
+return EventLogType.AuditSuccess;
+case WinNT.EVENTLOG_ERROR_TYPE:
+return EventLogType.Error;
+case WinNT.EVENTLOG_WARNING_TYPE:
+return EventLogType.Warning;
+default :
+throw new RuntimeException("Invalid type: " + _record.EventType.intValue());
+}
+}
