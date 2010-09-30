@@ -1,0 +1,18 @@
+{
+  EventLogIterator iter=new EventLogIterator(null,"Application",WinNT.EVENTLOG_BACKWARDS_READ);
+  try {
+    int max=100;
+    int lastId=-1;
+    while (iter.hasNext()) {
+      EventLogRecord record=iter.next();
+      assertTrue(record.getRecordNumber() < lastId || lastId == -1);
+      lastId=record.getRecordNumber();
+      if (max-- <= 0) {
+        break;
+      }
+    }
+  }
+  finally {
+    iter.close();
+  }
+}

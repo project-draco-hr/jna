@@ -1,0 +1,20 @@
+{
+  EventLogIterator iter=new EventLogIterator("Application");
+  try {
+    int max=100;
+    int lastId=0;
+    while (iter.hasNext()) {
+      EventLogRecord record=iter.next();
+      assertTrue(record.getRecordNumber() > lastId);
+      lastId=record.getRecordNumber();
+      assertNotNull(record.getType().name());
+      assertNotNull(record.getSource());
+      if (max-- <= 0) {
+        break;
+      }
+    }
+  }
+  finally {
+    iter.close();
+  }
+}

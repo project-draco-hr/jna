@@ -1,0 +1,7 @@
+{
+  _flags=flags;
+  _h=Advapi32.INSTANCE.OpenEventLog(serverName,sourceName);
+  if (_h == null) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+}
