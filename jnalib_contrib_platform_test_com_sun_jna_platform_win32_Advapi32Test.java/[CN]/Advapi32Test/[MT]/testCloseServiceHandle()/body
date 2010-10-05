@@ -1,0 +1,7 @@
+{
+  SC_HANDLE handle=Advapi32.INSTANCE.OpenSCManager(null,null,Winsvc.SC_MANAGER_CONNECT);
+  assertNotNull(handle);
+  assertTrue(Advapi32.INSTANCE.CloseServiceHandle(handle));
+  assertFalse(Advapi32.INSTANCE.CloseServiceHandle(null));
+  assertEquals(W32Errors.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
+}

@@ -1,0 +1,14 @@
+{
+  assertNull(Advapi32.INSTANCE.OpenService(null,"eventlog",Winsvc.SERVICE_QUERY_CONFIG));
+  assertEquals(W32Errors.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
+  SC_HANDLE scmHandle=Advapi32.INSTANCE.OpenSCManager(null,null,Winsvc.SC_MANAGER_CONNECT);
+  assertNotNull(scmHandle);
+  SC_HANDLE serviceHandle=Advapi32.INSTANCE.OpenService(scmHandle,"eventlog",Winsvc.SERVICE_QUERY_CONFIG);
+  assertNotNull(serviceHandle);
+  assertTrue(Advapi32.INSTANCE.CloseServiceHandle(serviceHandle));
+  assertNull(Advapi32.INSTANCE.OpenService(scmHandle,"slashesArentValidChars/",Winsvc.SERVICE_QUERY_CONFIG));
+  assertEquals(W32Errors.ERROR_INVALID_NAME,Kernel32.INSTANCE.GetLastError());
+  assertNull(Advapi32.INSTANCE.OpenService(scmHandle,"serviceDoesNotExist",Winsvc.SERVICE_QUERY_CONFIG));
+  assertEquals(W32Errors.ERROR_SERVICE_DOES_NOT_EXIST,Kernel32.INSTANCE.GetLastError());
+  assertTrue(Advapi32.INSTANCE.CloseServiceHandle(scmHandle));
+}

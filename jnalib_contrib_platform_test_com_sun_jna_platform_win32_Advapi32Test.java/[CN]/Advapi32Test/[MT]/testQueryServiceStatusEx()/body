@@ -1,0 +1,15 @@
+{
+  SC_HANDLE scmHandle=Advapi32.INSTANCE.OpenSCManager(null,null,Winsvc.SC_MANAGER_CONNECT);
+  assertNotNull(scmHandle);
+  SC_HANDLE serviceHandle=Advapi32.INSTANCE.OpenService(scmHandle,"eventlog",Winsvc.SERVICE_QUERY_STATUS);
+  assertNotNull(serviceHandle);
+  IntByReference pcbBytesNeeded=new IntByReference();
+  assertFalse(Advapi32.INSTANCE.QueryServiceStatusEx(serviceHandle,SC_STATUS_TYPE.SC_STATUS_PROCESS_INFO,null,0,pcbBytesNeeded));
+  assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
+  assertTrue(pcbBytesNeeded.getValue() > 0);
+  SERVICE_STATUS_PROCESS status=new SERVICE_STATUS_PROCESS(pcbBytesNeeded.getValue());
+  assertTrue(Advapi32.INSTANCE.QueryServiceStatusEx(serviceHandle,SC_STATUS_TYPE.SC_STATUS_PROCESS_INFO,status,status.size(),pcbBytesNeeded));
+  assertTrue(status.dwCurrentState == Winsvc.SERVICE_STOPPED || status.dwCurrentState == Winsvc.SERVICE_RUNNING);
+  assertTrue(Advapi32.INSTANCE.CloseServiceHandle(serviceHandle));
+  assertTrue(Advapi32.INSTANCE.CloseServiceHandle(scmHandle));
+}

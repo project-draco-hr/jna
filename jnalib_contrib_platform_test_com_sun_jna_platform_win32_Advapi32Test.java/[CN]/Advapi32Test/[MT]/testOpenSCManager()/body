@@ -1,0 +1,9 @@
+{
+  SC_HANDLE handle=Advapi32.INSTANCE.OpenSCManager(null,null,Winsvc.SC_MANAGER_CONNECT);
+  assertNotNull(handle);
+  assertTrue(Advapi32.INSTANCE.CloseServiceHandle(handle));
+  assertNull(Advapi32.INSTANCE.OpenSCManager("invalidMachineName",null,Winsvc.SC_MANAGER_CONNECT));
+  assertEquals(W32Errors.RPC_S_SERVER_UNAVAILABLE,Kernel32.INSTANCE.GetLastError());
+  assertNull(Advapi32.INSTANCE.OpenSCManager(null,"invalidDatabase",Winsvc.SC_MANAGER_CONNECT));
+  assertEquals(W32Errors.ERROR_INVALID_NAME,Kernel32.INSTANCE.GetLastError());
+}

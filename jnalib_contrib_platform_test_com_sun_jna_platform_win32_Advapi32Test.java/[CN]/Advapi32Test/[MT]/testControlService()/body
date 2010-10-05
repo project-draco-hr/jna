@@ -1,0 +1,12 @@
+{
+  SC_HANDLE scmHandle=Advapi32.INSTANCE.OpenSCManager(null,null,Winsvc.SC_MANAGER_CONNECT);
+  assertNotNull(scmHandle);
+  SC_HANDLE serviceHandle=Advapi32.INSTANCE.OpenService(scmHandle,"eventlog",Winsvc.SERVICE_QUERY_CONFIG);
+  assertNotNull(serviceHandle);
+  Winsvc.SERVICE_STATUS serverStatus=new Winsvc.SERVICE_STATUS();
+  assertNotNull(serviceHandle);
+  assertFalse(Advapi32.INSTANCE.ControlService(serviceHandle,Winsvc.SERVICE_CONTROL_STOP,serverStatus));
+  assertEquals(W32Errors.ERROR_ACCESS_DENIED,Kernel32.INSTANCE.GetLastError());
+  assertTrue(Advapi32.INSTANCE.CloseServiceHandle(serviceHandle));
+  assertTrue(Advapi32.INSTANCE.CloseServiceHandle(scmHandle));
+}
