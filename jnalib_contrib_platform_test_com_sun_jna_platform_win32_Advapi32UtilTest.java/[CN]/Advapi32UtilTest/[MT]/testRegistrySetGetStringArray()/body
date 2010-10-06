@@ -1,0 +1,12 @@
+{
+  Advapi32Util.registryCreateKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
+  String[] dataWritten={"Hello","World"};
+  Advapi32Util.registrySetStringArray(WinReg.HKEY_CURRENT_USER,"Software\\JNA","MultiStringValue",dataWritten);
+  assertTrue(Advapi32Util.registryValueExists(WinReg.HKEY_CURRENT_USER,"Software\\JNA","MultiStringValue"));
+  String[] dataRead=Advapi32Util.registryGetStringArray(WinReg.HKEY_CURRENT_USER,"Software\\JNA","MultiStringValue");
+  assertEquals(dataWritten.length,dataRead.length);
+  for (int i=0; i < dataRead.length; i++) {
+    assertEquals(dataWritten[i],dataRead[i]);
+  }
+  Advapi32Util.registryDeleteKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
+}
