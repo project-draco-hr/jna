@@ -1,4 +1,4 @@
 HKEY root
 String keyPath
 String name
-byte[] value
+byte[] data

@@ -5,7 +5,7 @@
     throw new Win32Exception(rc);
   }
   try {
-    registrySetBinaryValue(phkKey.getValue(),name,value);
+    registrySetBinaryValue(phkKey.getValue(),name,data);
   }
   finally {
     rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
