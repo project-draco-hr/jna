@@ -1,0 +1,25 @@
+{
+  SERVICE_STATUS_PROCESS status=queryStatus();
+  int previousCheckPoint=status.dwCheckPoint;
+  int checkpointStartTickCount=Kernel32.INSTANCE.GetTickCount();
+  ;
+  while (isPendingState(status.dwCurrentState)) {
+    if (status.dwCheckPoint > previousCheckPoint) {
+      previousCheckPoint=status.dwCheckPoint;
+      checkpointStartTickCount=Kernel32.INSTANCE.GetTickCount();
+    }
+    if (Kernel32.INSTANCE.GetTickCount() - checkpointStartTickCount > status.dwWaitHint) {
+      throw new RuntimeException("Timeout waiting for service to change to a non-pending state.");
+    }
+    int dwWaitTime=status.dwWaitHint / 10;
+    if (dwWaitTime < 1000)     dwWaitTime=1000;
+ else     if (dwWaitTime > 10000)     dwWaitTime=10000;
+    try {
+      Thread.sleep(dwWaitTime);
+    }
+ catch (    InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+    status=queryStatus();
+  }
+}

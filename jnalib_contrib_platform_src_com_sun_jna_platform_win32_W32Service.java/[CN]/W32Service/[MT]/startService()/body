@@ -1,0 +1,13 @@
+{
+  waitForNonPendingState();
+  if (queryStatus().dwCurrentState == Winsvc.SERVICE_RUNNING) {
+    return;
+  }
+  if (!Advapi32.INSTANCE.StartService(_serviceHandle,0,null)) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  waitForNonPendingState();
+  if (queryStatus().dwCurrentState != Winsvc.SERVICE_RUNNING) {
+    throw new RuntimeException("Unable to start the service");
+  }
+}

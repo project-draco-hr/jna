@@ -1,0 +1,11 @@
+{
+switch (state) {
+case Winsvc.SERVICE_CONTINUE_PENDING:
+case Winsvc.SERVICE_STOP_PENDING:
+case Winsvc.SERVICE_PAUSE_PENDING:
+case Winsvc.SERVICE_START_PENDING:
+    return true;
+default :
+  return false;
+}
+}

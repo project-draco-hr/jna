@@ -1,0 +1,8 @@
+{
+  int tick1=Kernel32.INSTANCE.GetTickCount();
+  Thread.sleep(10);
+  int tick2=Kernel32.INSTANCE.GetTickCount();
+  Thread.sleep(10);
+  int tick3=Kernel32.INSTANCE.GetTickCount();
+  assertTrue(tick2 > tick1 || tick3 > tick2);
+}

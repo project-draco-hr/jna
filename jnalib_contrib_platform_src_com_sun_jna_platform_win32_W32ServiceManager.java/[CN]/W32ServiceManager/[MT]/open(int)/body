@@ -1,0 +1,7 @@
+{
+  close();
+  _handle=Advapi32.INSTANCE.OpenSCManager(_machineName,_databaseName,permissions);
+  if (_handle == null) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+}

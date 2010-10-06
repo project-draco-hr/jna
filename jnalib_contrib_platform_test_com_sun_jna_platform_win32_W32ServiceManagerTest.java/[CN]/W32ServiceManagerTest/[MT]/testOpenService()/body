@@ -1,0 +1,14 @@
+{
+  W32ServiceManager manager=new W32ServiceManager();
+  manager.open(Winsvc.SC_MANAGER_CONNECT);
+  try {
+    manager.openService("invalidServiceName",Winsvc.SERVICE_QUERY_CONFIG);
+    fail("Open service should have failed due to invalid service name.");
+  }
+ catch (  Win32Exception e) {
+    assertEquals(W32Errors.HRESULT_FROM_WIN32(W32Errors.ERROR_SERVICE_DOES_NOT_EXIST),e.getHR());
+  }
+ finally {
+    manager.close();
+  }
+}

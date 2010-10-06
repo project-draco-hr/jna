@@ -1,0 +1,13 @@
+{
+  waitForNonPendingState();
+  if (queryStatus().dwCurrentState == Winsvc.SERVICE_STOPPED) {
+    return;
+  }
+  if (!Advapi32.INSTANCE.ControlService(_serviceHandle,Winsvc.SERVICE_CONTROL_STOP,new Winsvc.SERVICE_STATUS())) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  waitForNonPendingState();
+  if (queryStatus().dwCurrentState != Winsvc.SERVICE_STOPPED) {
+    throw new RuntimeException("Unable to stop the service");
+  }
+}

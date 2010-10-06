@@ -1,0 +1,8 @@
+{
+  W32ServiceManager manager=new W32ServiceManager();
+  manager.close();
+  manager.open(Winsvc.SC_MANAGER_CONNECT);
+  manager.open(Winsvc.SC_MANAGER_CONNECT);
+  manager.close();
+  manager.close();
+}

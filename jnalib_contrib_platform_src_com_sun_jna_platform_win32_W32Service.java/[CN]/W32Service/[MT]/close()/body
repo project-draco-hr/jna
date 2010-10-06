@@ -1,0 +1,8 @@
+{
+  if (_serviceHandle != null) {
+    if (!Advapi32.INSTANCE.CloseServiceHandle(_serviceHandle)) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+    _serviceHandle=null;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  SC_HANDLE serviceHandle=Advapi32.INSTANCE.OpenService(_handle,serviceName,permissions);
+  if (serviceHandle == null) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  return new W32Service(serviceHandle);
+}

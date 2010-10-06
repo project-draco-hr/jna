@@ -1,0 +1,9 @@
+{
+  IntByReference size=new IntByReference();
+  Advapi32.INSTANCE.QueryServiceStatusEx(_serviceHandle,SC_STATUS_TYPE.SC_STATUS_PROCESS_INFO,null,0,size);
+  SERVICE_STATUS_PROCESS status=new SERVICE_STATUS_PROCESS(size.getValue());
+  if (!Advapi32.INSTANCE.QueryServiceStatusEx(_serviceHandle,SC_STATUS_TYPE.SC_STATUS_PROCESS_INFO,status,status.size(),size)) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  return status;
+}

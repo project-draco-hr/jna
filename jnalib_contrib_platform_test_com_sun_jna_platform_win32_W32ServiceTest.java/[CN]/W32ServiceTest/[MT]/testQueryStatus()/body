@@ -1,0 +1,6 @@
+{
+  W32Service service=_serviceManager.openService("eventlog",Winsvc.SERVICE_QUERY_STATUS);
+  SERVICE_STATUS_PROCESS status=service.queryStatus();
+  assertTrue(status.dwCurrentState == Winsvc.SERVICE_RUNNING || status.dwCurrentState == Winsvc.SERVICE_STOPPED);
+  service.close();
+}
