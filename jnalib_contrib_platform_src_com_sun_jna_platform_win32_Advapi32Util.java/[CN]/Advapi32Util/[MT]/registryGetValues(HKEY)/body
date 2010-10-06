@@ -29,6 +29,13 @@ case WinNT.REG_SZ:
     throw new RuntimeException(e.getMessage());
   }
 break;
+case WinNT.REG_BINARY:
+byte[] dataRead=new byte[lpcbData.getValue()];
+for (int dataIndex=0; dataIndex < lpcbData.getValue(); dataIndex++) {
+dataRead[dataIndex]=data[dataIndex];
+}
+keyValues.put(Native.toString(name),dataRead);
+break;
 default :
 throw new RuntimeException("Unsupported type: " + lpType.getValue());
 }
