@@ -1,9 +1,0 @@
-{
-  Netapi32.DOMAIN_CONTROLLER_INFO dci;
-  String domainController=null;
-  dci=getDomainControllerInfo();
-  if (dci != null) {
-    domainController=dci.DomainControllerName;
-  }
-  return (domainController);
-}

@@ -1,9 +1,0 @@
-{
-  String name=null;
-  byte[] sid;
-  sid=convertStringToSid(sidString);
-  if (sid != null) {
-    name=getAccountName(sid);
-  }
-  return (name);
-}
