@@ -1,4 +1,20 @@
 {
   _record=new EVENTLOGRECORD(pevlr);
   _source=pevlr.getString(_record.size(),true);
+  if (_record.DataLength.intValue() > 0) {
+    _data=pevlr.getByteArray(_record.DataOffset.intValue(),_record.DataLength.intValue());
+  }
+  if (_record.NumStrings.intValue() > 0) {
+    ArrayList<String> strings=new ArrayList<String>();
+    int count=_record.NumStrings.intValue();
+    long offset=_record.StringOffset.intValue();
+    while (count > 0) {
+      String s=pevlr.getString(offset,true);
+      strings.add(s);
+      offset+=s.length() * Native.WCHAR_SIZE;
+      offset+=Native.WCHAR_SIZE;
+      count--;
+    }
+    _strings=strings.toArray(new String[0]);
+  }
 }
