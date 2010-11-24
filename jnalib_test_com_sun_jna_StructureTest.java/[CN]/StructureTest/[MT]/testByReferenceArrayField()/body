@@ -1,0 +1,14 @@
+{
+  TestByReferenceArrayField.ByReference s=new TestByReferenceArrayField.ByReference();
+  s.value1=22;
+  s.array[0]=s;
+  s.value2=42;
+  s.write();
+  TestByReferenceArrayField s2=new TestByReferenceArrayField(s.getPointer());
+  assertEquals("value1 not properly read from Pointer",s.value1,s2.value1);
+  assertNotNull("Structure.ByReference array field was not initialized",s2.array);
+  assertEquals("Structure.ByReference array field initialized to incorrect length",13,s2.array.length);
+  assertNotNull("Structure.ByReference array field element was not initialized",s2.array[0]);
+  assertEquals("Incorrect value for Structure.ByReference array field element",s.array[0].getPointer(),s2.array[0].getPointer());
+  assertEquals("Field 'value2' not properly read from Pointer",s.value2,s2.value2);
+}
