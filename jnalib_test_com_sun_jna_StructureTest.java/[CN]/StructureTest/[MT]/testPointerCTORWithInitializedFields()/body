@@ -3,9 +3,18 @@ class TestStructure extends Structure {
     public byte[] field=new byte[256];
     public TestStructure(    Pointer p){
       super(p);
+      read();
     }
   }
   Memory p=new Memory(256);
-  Structure s=new TestStructure(p);
+  p.setByte(0,(byte)1);
+  p.setByte(1,(byte)2);
+  p.setByte(2,(byte)3);
+  p.setByte(3,(byte)4);
+  TestStructure s=new TestStructure(p);
   assertEquals("Wrong structure size",p.size(),s.size());
+  assertEquals("Structure primitive array field not initialized",(byte)1,s.field[0]);
+  assertEquals("Structure primitive array field not initialized",(byte)2,s.field[1]);
+  assertEquals("Structure primitive array field not initialized",(byte)3,s.field[2]);
+  assertEquals("Structure primitive array field not initialized",(byte)4,s.field[4]);
 }
