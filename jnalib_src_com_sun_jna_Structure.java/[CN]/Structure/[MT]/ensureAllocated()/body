@@ -2,4 +2,7 @@
   if (memory == null) {
     allocateMemory();
   }
+ else   if (size == CALCULATE_SIZE) {
+    size=calculateSize(true);
+  }
 }
