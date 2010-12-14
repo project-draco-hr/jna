@@ -4,7 +4,7 @@
   int checkpointStartTickCount=Kernel32.INSTANCE.GetTickCount();
   ;
   while (isPendingState(status.dwCurrentState)) {
-    if (status.dwCheckPoint > previousCheckPoint) {
+    if (status.dwCheckPoint != previousCheckPoint) {
       previousCheckPoint=status.dwCheckPoint;
       checkpointStartTickCount=Kernel32.INSTANCE.GetTickCount();
     }

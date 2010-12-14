@@ -3,7 +3,7 @@
   if (queryStatus().dwCurrentState == Winsvc.SERVICE_RUNNING) {
     return;
   }
-  if (!Advapi32.INSTANCE.ControlService(_serviceHandle,Winsvc.SERVICE_CONTROL_CONTINUE,new Winsvc.SERVICE_STATUS())) {
+  if (!Advapi32.INSTANCE.ControlService(_handle,Winsvc.SERVICE_CONTROL_CONTINUE,new Winsvc.SERVICE_STATUS())) {
     throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }
   waitForNonPendingState();
