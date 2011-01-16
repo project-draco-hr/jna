@@ -1,0 +1,5 @@
+{
+  IntByReference lpExitCode=new IntByReference(0);
+  assertTrue(Kernel32.INSTANCE.GetExitCodeProcess(Kernel32.INSTANCE.GetCurrentProcess(),lpExitCode));
+  assertEquals(WinBase.STILL_ACTIVE,lpExitCode.getValue());
+}

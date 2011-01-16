@@ -1,0 +1,10 @@
+{
+  String expected="KEY=value\0" + "KEY_EMPTY=\0" + "KEY_NUMBER=2\0"+ "\0";
+  Map<String,String> mockEnvironment=new TreeMap<String,String>();
+  mockEnvironment.put("KEY","value");
+  mockEnvironment.put("KEY_EMPTY","");
+  mockEnvironment.put("KEY_NUMBER","2");
+  mockEnvironment.put("KEY_NULL",null);
+  String block=Advapi32Util.getEnvironmentBlock(mockEnvironment);
+  assertEquals(expected,block);
+}

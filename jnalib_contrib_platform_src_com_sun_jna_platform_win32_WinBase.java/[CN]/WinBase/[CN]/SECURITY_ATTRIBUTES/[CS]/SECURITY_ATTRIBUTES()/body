@@ -1,0 +1,3 @@
+{
+  dwLength=new DWORD(size());
+}

@@ -1,0 +1,9 @@
+{
+  StringBuffer out=new StringBuffer();
+  for (  Entry<String,String> entry : environment.entrySet()) {
+    if (entry.getValue() != null) {
+      out.append(entry.getKey() + "=" + entry.getValue()+ "\0");
+    }
+  }
+  return out.toString() + "\0";
+}

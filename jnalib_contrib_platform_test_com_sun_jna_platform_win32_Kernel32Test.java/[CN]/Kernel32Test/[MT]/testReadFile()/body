@@ -1,0 +1,16 @@
+{
+  String expected="jna - testReadFile";
+  File tmp=File.createTempFile("testReadFile","jna");
+  tmp.deleteOnExit();
+  FileWriter fw=new FileWriter(tmp);
+  fw.append(expected);
+  fw.close();
+  HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+  assertFalse(hFile == WinBase.INVALID_HANDLE_VALUE);
+  ByteBuffer b=ByteBuffer.allocate(2048);
+  IntByReference lpNumberOfBytesRead=new IntByReference(0);
+  assertTrue(Kernel32.INSTANCE.ReadFile(hFile,b,b.capacity(),lpNumberOfBytesRead,null));
+  assertEquals(expected.length(),lpNumberOfBytesRead.getValue());
+  assertEquals(expected,Native.toString(b.array()));
+  assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
+}

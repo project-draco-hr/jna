@@ -1,0 +1,7 @@
+{
+  HANDLEByReference hReadPipe=new HANDLEByReference();
+  HANDLEByReference hWritePipe=new HANDLEByReference();
+  assertTrue(Kernel32.INSTANCE.CreatePipe(hReadPipe,hWritePipe,null,0));
+  assertTrue(Kernel32.INSTANCE.CloseHandle(hReadPipe.getValue()));
+  assertTrue(Kernel32.INSTANCE.CloseHandle(hWritePipe.getValue()));
+}
