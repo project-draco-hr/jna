@@ -1,0 +1,12 @@
+{
+  WinNT.LUID luid=new WinNT.LUID();
+  assertFalse(Advapi32.INSTANCE.LookupPrivilegeValue(null,"InvalidName",luid));
+  assertEquals(Kernel32.INSTANCE.GetLastError(),W32Errors.ERROR_NO_SUCH_PRIVILEGE);
+  assertTrue(Advapi32.INSTANCE.LookupPrivilegeValue(null,WinNT.SE_BACKUP_NAME,luid));
+  assertTrue(luid.LowPart > 0 || luid.HighPart > 0);
+  char[] lpName=new char[256];
+  IntByReference cchName=new IntByReference(lpName.length);
+  assertTrue(Advapi32.INSTANCE.LookupPrivilegeName(null,luid,lpName,cchName));
+  assertEquals(WinNT.SE_BACKUP_NAME.length(),cchName.getValue());
+  assertEquals(WinNT.SE_BACKUP_NAME,Native.toString(lpName));
+}

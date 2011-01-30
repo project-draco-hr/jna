@@ -4,4 +4,5 @@
   assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,hToken));
   assertFalse(Advapi32.INSTANCE.CreateProcessAsUser(hToken.getValue(),null,"InvalidCmdLine.jna",null,null,false,0,null,null,new WinBase.STARTUPINFO(),new WinBase.PROCESS_INFORMATION()));
   assertEquals(W32Errors.ERROR_FILE_NOT_FOUND,Kernel32.INSTANCE.GetLastError());
+  assertTrue(Kernel32.INSTANCE.CloseHandle(hToken.getValue()));
 }
