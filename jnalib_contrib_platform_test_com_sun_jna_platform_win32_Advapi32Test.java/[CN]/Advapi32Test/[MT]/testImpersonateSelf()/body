@@ -1,0 +1,4 @@
+{
+  assertTrue(Advapi32.INSTANCE.ImpersonateSelf(WinNT.SECURITY_IMPERSONATION_LEVEL.SecurityAnonymous));
+  assertTrue(Advapi32.INSTANCE.RevertToSelf());
+}
