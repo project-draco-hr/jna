@@ -1,8 +1,5 @@
 {
   ensureAllocated();
-  StructField f=(StructField)fields().get(name);
-  if (f != null) {
-    setType(f.type);
-  }
-  super.writeField(name,value);
+  setType(fieldName);
+  super.writeField(fieldName,value);
 }

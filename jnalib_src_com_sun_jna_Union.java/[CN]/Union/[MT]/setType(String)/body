@@ -1,0 +1,10 @@
+{
+  ensureAllocated();
+  StructField f=(StructField)fields().get(fieldName);
+  if (f != null) {
+    activeField=f;
+  }
+ else {
+    throw new IllegalArgumentException("No field named " + fieldName + " in "+ this);
+  }
+}
