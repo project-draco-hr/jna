@@ -1,0 +1,7 @@
+{
+  int fileAttributes=Kernel32.INSTANCE.GetFileAttributes(fileName);
+  if (fileAttributes == WinBase.INVALID_FILE_ATTRIBUTES) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  return fileAttributes;
+}
