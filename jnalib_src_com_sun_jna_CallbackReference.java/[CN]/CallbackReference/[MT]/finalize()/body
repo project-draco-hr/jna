@@ -1,4 +1,3 @@
 {
-  freeNativeCallback(cbstruct.peer);
-  cbstruct.peer=0;
+  dispose();
 }

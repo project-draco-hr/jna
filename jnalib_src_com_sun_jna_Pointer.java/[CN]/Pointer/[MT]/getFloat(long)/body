@@ -1,3 +1,3 @@
 {
-  return _getFloat(peer + offset);
+  return Native.getFloat(peer + offset);
 }

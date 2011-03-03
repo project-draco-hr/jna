@@ -9,7 +9,7 @@ synchronized (libraries) {
   }
 synchronized (this) {
     if (handle != 0) {
-      close(handle);
+      Native.close(handle);
       handle=0;
     }
   }

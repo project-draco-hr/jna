@@ -11,7 +11,7 @@ synchronized (libraries) {
     NativeLibrary library=ref != null ? (NativeLibrary)ref.get() : null;
     if (library == null) {
       if (libraryName == null) {
-        library=new NativeLibrary("<process>",null,open(null),options);
+        library=new NativeLibrary("<process>",null,Native.open(null),options);
       }
  else {
         library=loadLibrary(libraryName,options);

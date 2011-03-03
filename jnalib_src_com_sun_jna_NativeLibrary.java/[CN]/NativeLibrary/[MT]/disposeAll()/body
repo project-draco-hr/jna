@@ -1,0 +1,13 @@
+{
+  Set values;
+synchronized (libraries) {
+    values=new HashSet(libraries.values());
+  }
+  for (Iterator i=values.iterator(); i.hasNext(); ) {
+    Reference ref=(WeakReference)i.next();
+    NativeLibrary lib=(NativeLibrary)ref.get();
+    if (lib != null) {
+      lib.dispose();
+    }
+  }
+}

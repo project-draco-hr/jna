@@ -14,7 +14,7 @@ synchronized (customPaths) {
   String libraryPath=findLibraryPath(libraryName,searchPath);
   long handle=0;
   try {
-    handle=open(libraryPath);
+    handle=Native.open(libraryPath);
   }
  catch (  UnsatisfiedLinkError e) {
     searchPath.addAll(librarySearchPath);
@@ -22,7 +22,7 @@ synchronized (customPaths) {
   try {
     if (handle == 0) {
       libraryPath=findLibraryPath(libraryName,searchPath);
-      handle=open(libraryPath);
+      handle=Native.open(libraryPath);
     }
   }
  catch (  UnsatisfiedLinkError e) {
@@ -30,7 +30,7 @@ synchronized (customPaths) {
       libraryPath=matchLibrary(libraryName,searchPath);
       if (libraryPath != null) {
         try {
-          handle=open(libraryPath);
+          handle=Native.open(libraryPath);
         }
  catch (        UnsatisfiedLinkError e2) {
           e=e2;
@@ -41,7 +41,7 @@ synchronized (customPaths) {
       libraryPath="/System/Library/Frameworks/" + libraryName + ".framework/"+ libraryName;
       if (new File(libraryPath).exists()) {
         try {
-          handle=open(libraryPath);
+          handle=Native.open(libraryPath);
         }
  catch (        UnsatisfiedLinkError e2) {
           e=e2;
@@ -51,7 +51,7 @@ synchronized (customPaths) {
  else     if (Platform.isWindows()) {
       libraryPath=findLibraryPath("lib" + libraryName,searchPath);
       try {
-        handle=open(libraryPath);
+        handle=Native.open(libraryPath);
       }
  catch (      UnsatisfiedLinkError e2) {
         e=e2;

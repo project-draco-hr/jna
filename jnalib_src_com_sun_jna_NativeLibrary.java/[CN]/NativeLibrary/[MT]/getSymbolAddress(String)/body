@@ -2,5 +2,5 @@
   if (handle == 0) {
     throw new UnsatisfiedLinkError("Library has been unloaded");
   }
-  return findSymbol(handle,name);
+  return Native.findSymbol(handle,name);
 }

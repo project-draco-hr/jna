@@ -1,0 +1,4 @@
+{
+  NativeLibrary.disposeAll();
+  deleteNativeLibrary();
+}

@@ -1,0 +1,4 @@
+{
+  long peer=_getDirectBufferPointer(b);
+  return peer == 0 ? null : new Pointer(peer);
+}
