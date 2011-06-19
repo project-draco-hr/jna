@@ -1,0 +1,4 @@
+{
+  useMemory(memory);
+  read();
+}

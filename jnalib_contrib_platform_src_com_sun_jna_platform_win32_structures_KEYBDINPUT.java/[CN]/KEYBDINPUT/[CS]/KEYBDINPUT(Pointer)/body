@@ -1,0 +1,5 @@
+{
+  setAlignType(Structure.ALIGN_MSVC);
+  useMemory(memory);
+  read();
+}
