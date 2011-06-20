@@ -1,6 +1,6 @@
 {
   char[] data=Native.toCharArray(value);
-  int rc=Advapi32.INSTANCE.RegSetValueEx(hKey,name,0,WinNT.REG_SZ,data,data.length * 2);
+  int rc=Advapi32.INSTANCE.RegSetValueEx(hKey,name,0,WinNT.REG_SZ,data,data.length * Native.WCHAR_SIZE);
   if (rc != W32Errors.ERROR_SUCCESS) {
     throw new Win32Exception(rc);
   }
