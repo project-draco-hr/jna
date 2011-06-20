@@ -1,3 +1,0 @@
-{
-  cb=new WinDef.DWORD(size());
-}
