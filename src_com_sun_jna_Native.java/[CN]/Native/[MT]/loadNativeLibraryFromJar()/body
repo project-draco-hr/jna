@@ -31,7 +31,6 @@
     FileOutputStream fos=null;
     try {
       File dir=getTempDir();
-      dir.mkdirs();
       lib=File.createTempFile("jna",Platform.isWindows() ? ".dll" : null,dir);
       lib.deleteOnExit();
       fos=new FileOutputStream(lib);
