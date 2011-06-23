@@ -1,0 +1,19 @@
+{
+  File dir=getTempDir();
+  FilenameFilter filter=new FilenameFilter(){
+    public boolean accept(    File dir,    String name){
+      return name.endsWith(".x");
+    }
+  }
+;
+  File[] files=dir.listFiles(filter);
+  for (int i=0; files != null && i < files.length; i++) {
+    File marker=files[i];
+    String name=marker.getName();
+    name=name.substring(0,name.length() - 2);
+    File target=new File(marker.getParentFile(),name);
+    if (target.delete()) {
+      marker.delete();
+    }
+  }
+}

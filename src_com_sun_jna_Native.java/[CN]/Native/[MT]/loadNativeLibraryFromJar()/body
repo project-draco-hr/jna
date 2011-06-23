@@ -30,12 +30,10 @@
     }
     FileOutputStream fos=null;
     try {
-      lib=File.createTempFile("jna",Platform.isWindows() ? ".dll" : null);
+      File dir=getTempDir();
+      dir.mkdirs();
+      lib=File.createTempFile("jna",Platform.isWindows() ? ".dll" : null,dir);
       lib.deleteOnExit();
-      ClassLoader cl=Native.class.getClassLoader();
-      if (Platform.deleteNativeLibraryAfterVMExit() && (cl == null || cl.equals(ClassLoader.getSystemClassLoader()))) {
-        Runtime.getRuntime().addShutdownHook(new DeleteNativeLibrary(lib));
-      }
       fos=new FileOutputStream(lib);
       int count;
       byte[] buf=new byte[1024];

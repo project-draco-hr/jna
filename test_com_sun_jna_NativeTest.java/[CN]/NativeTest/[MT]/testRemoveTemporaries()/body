@@ -1,0 +1,8 @@
+{
+  File dir=Native.getTempDir();
+  File tmp=new File(dir,"temp");
+  assertTrue("Couldn't create temporary file",tmp.createNewFile());
+  Native.markTemporaryFile(tmp);
+  Native.removeTemporaryFiles();
+  assertFalse("Temporary file still exists",tmp.exists());
+}

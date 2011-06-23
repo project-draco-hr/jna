@@ -1,4 +1,5 @@
 {
+  removeTemporaryFiles();
   String libName="jnidispatch";
   String bootPath=System.getProperty("jna.boot.library.path");
   if (bootPath != null) {
