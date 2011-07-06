@@ -1,3 +1,0 @@
-{
-  dwSize=new WinDef.DWORD(size());
-}

@@ -1,4 +1,0 @@
-{
-  useMemory(memory);
-  read();
-}
