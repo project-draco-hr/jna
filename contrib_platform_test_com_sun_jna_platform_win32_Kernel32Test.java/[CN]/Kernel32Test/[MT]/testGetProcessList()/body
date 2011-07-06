@@ -1,0 +1,13 @@
+{
+  WinNT.HANDLE processEnumHandle=Kernel32.INSTANCE.CreateToolhelp32Snapshot(Tlhelp32.TH32CS_SNAPALL,new WinDef.DWORD(0));
+  assertFalse(WinBase.INVALID_HANDLE_VALUE.equals(processEnumHandle));
+  Tlhelp32.PROCESSENTRY32W.ByReference processEntry=new Tlhelp32.PROCESSENTRY32W.ByReference();
+  assertTrue(Kernel32.INSTANCE.Process32FirstW(processEnumHandle,processEntry));
+  List<Long> processIdList=new ArrayList<Long>();
+  processIdList.add(processEntry.th32ProcessID.longValue());
+  while (Kernel32.INSTANCE.Process32NextW(processEnumHandle,processEntry)) {
+    processIdList.add(processEntry.th32ProcessID.longValue());
+  }
+  assertTrue(Kernel32.INSTANCE.CloseHandle(processEnumHandle));
+  assertTrue(processIdList.size() > 4);
+}

@@ -1,0 +1,9 @@
+{
+  File source=File.createTempFile("testMoveFileEx","jna");
+  source.deleteOnExit();
+  File destination=File.createTempFile("testCopyFile","jna");
+  destination.deleteOnExit();
+  Kernel32.INSTANCE.MoveFileEx(source.getCanonicalPath(),destination.getCanonicalPath(),new DWORD(WinBase.MOVEFILE_REPLACE_EXISTING));
+  assertTrue(destination.exists());
+  assertFalse(source.exists());
+}
