@@ -1,0 +1,6 @@
+{
+  File tmp=new File(System.getProperty("java.io.tmpdir"));
+  File jnatmp=new File(tmp,"jna");
+  jnatmp.mkdirs();
+  return jnatmp.exists() ? jnatmp : tmp;
+}

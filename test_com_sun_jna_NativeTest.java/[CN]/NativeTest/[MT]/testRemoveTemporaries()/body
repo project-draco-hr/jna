@@ -1,0 +1,14 @@
+{
+  File dir=Native.getTempDir();
+  File tmp=new File(dir,"jna");
+  tmp.delete();
+  try {
+    assertTrue("Couldn't create temporary file " + tmp,tmp.createNewFile());
+    Native.markTemporaryFile(tmp);
+    Native.removeTemporaryFiles();
+    assertFalse("Temporary file still exists",tmp.exists());
+  }
+  finally {
+    tmp.delete();
+  }
+}

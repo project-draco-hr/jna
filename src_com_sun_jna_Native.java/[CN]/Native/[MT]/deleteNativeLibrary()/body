@@ -1,0 +1,12 @@
+{
+  String path=nativeLibraryPath;
+  if (path == null || !unpacked)   return true;
+  File flib=new File(path);
+  if (flib.delete()) {
+    nativeLibraryPath=null;
+    unpacked=false;
+    return true;
+  }
+  markTemporaryFile(flib);
+  return false;
+}
