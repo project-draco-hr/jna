@@ -24,7 +24,7 @@
     }
     contents+="  " + type + " "+ sf.name+ index+ "@"+ Integer.toHexString(sf.offset);
     if (value instanceof Structure) {
-      value=((Structure)value).toString(indent + 1,!(value instanceof Structure.ByReference));
+      value=((Structure)value).toString(indent + 1,!(value instanceof Structure.ByReference),dumpMemory);
     }
     contents+="=";
     if (value instanceof Long) {
@@ -45,7 +45,7 @@
     contents+=LS;
     if (!i.hasNext())     contents+=prefix + "}";
   }
-  if (indent == 0 && Boolean.getBoolean("jna.dump_memory")) {
+  if (indent == 0 && dumpMemory) {
     byte[] buf=getPointer().getByteArray(0,size());
     final int BYTES_PER_ROW=4;
     contents+=LS + "memory dump" + LS;
