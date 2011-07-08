@@ -33,7 +33,9 @@
     }
   }
   try {
-    if (loader == null)     fail("Native library not unloaded: " + throwable.getMessage());
+    if (loader == null) {
+      fail("Native library not unloaded: " + throwable.getMessage());
+    }
   }
   finally {
     loader=null;
