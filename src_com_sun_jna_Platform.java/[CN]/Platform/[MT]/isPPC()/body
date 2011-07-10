@@ -1,0 +1,9 @@
+{
+  String arch=System.getProperty("os.arch").toLowerCase().trim();
+  if (arch.equals("ppc") || arch.equals("ppc64")) {
+    return true;
+  }
+ else {
+    return false;
+  }
+}

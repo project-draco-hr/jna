@@ -1,0 +1,9 @@
+{
+  String arch=System.getProperty("os.arch").toLowerCase().trim();
+  if (arch.equals("arm")) {
+    return true;
+  }
+ else {
+    return false;
+  }
+}
