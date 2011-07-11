@@ -1,0 +1,14 @@
+{
+  char[] componentBuffer=new char[40];
+  assertTrue(W32Errors.ERROR_SUCCESS == Msi.INSTANCE.MsiEnumComponents(new WinDef.DWORD(0),componentBuffer));
+  String component=new String(componentBuffer).trim();
+  char[] productBuffer=new char[40];
+  assertTrue(W32Errors.ERROR_SUCCESS == Msi.INSTANCE.MsiGetProductCodeW(new WString(component),productBuffer));
+  String product=new String(productBuffer).trim();
+  assertTrue(product.length() > 0);
+  char[] pathBuffer=new char[WinDef.MAX_PATH];
+  IntByReference pathBufferSize=new IntByReference(pathBuffer.length);
+  Msi.INSTANCE.MsiGetComponentPathW(new WString(product),new WString(component),pathBuffer,pathBufferSize);
+  String path=new String(pathBuffer,0,pathBufferSize.getValue()).trim();
+  assertTrue(path.length() > 0);
+}

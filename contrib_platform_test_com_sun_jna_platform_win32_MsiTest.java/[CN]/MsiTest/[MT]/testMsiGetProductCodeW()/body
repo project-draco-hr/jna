@@ -1,0 +1,9 @@
+{
+  char[] componentBuffer=new char[40];
+  assertTrue(W32Errors.ERROR_SUCCESS == Msi.INSTANCE.MsiEnumComponents(new WinDef.DWORD(0),componentBuffer));
+  String component=new String(componentBuffer).trim();
+  char[] productBuffer=new char[40];
+  assertTrue(W32Errors.ERROR_SUCCESS == Msi.INSTANCE.MsiGetProductCodeW(new WString(component),productBuffer));
+  String product=new String(productBuffer).trim();
+  assertTrue(product.length() > 0);
+}

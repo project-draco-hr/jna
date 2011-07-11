@@ -1,0 +1,9 @@
+{
+  File source=File.createTempFile("testMoveFile","jna");
+  source.deleteOnExit();
+  File destination=new File(source.getParent(),source.getName() + "-destination");
+  destination.deleteOnExit();
+  Kernel32.INSTANCE.MoveFile(source.getCanonicalPath(),destination.getCanonicalPath());
+  assertTrue(destination.exists());
+  assertFalse(source.exists());
+}
