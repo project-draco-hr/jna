@@ -19,6 +19,7 @@
   for (int i=0; i < 100 && (ref.get() != null || refs.containsValue(ref)); ++i) {
     try {
       Thread.sleep(10);
+      System.gc();
     }
   finally {
     }

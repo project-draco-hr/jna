@@ -3,7 +3,7 @@
     SizeTest lib=(SizeTest)Native.loadLibrary("testlib",SizeTest.class);
     Class cls=Class.forName(getClass().getName() + "$TestStructure" + index);
     Structure s=Structure.newInstance(cls);
-    assertEquals("Incorrect size: " + s,lib.getStructureSize(index),s.size());
+    assertEquals("Incorrect size for structure " + index + "=>"+ s.toString(true),lib.getStructureSize(index),s.size());
   }
  catch (  Exception e) {
     throw new Error(e);
