@@ -4,7 +4,7 @@
   String component=new String(componentBuffer).trim();
   char[] pathBuffer=new char[WinDef.MAX_PATH];
   IntByReference pathBufferSize=new IntByReference(pathBuffer.length);
-  Msi.INSTANCE.MsiLocateComponentW(new WString(component),pathBuffer,pathBufferSize);
+  Msi.INSTANCE.MsiLocateComponent(component,pathBuffer,pathBufferSize);
   String path=new String(pathBuffer,0,pathBufferSize.getValue()).trim();
   assertTrue(path.length() > 0);
 }
