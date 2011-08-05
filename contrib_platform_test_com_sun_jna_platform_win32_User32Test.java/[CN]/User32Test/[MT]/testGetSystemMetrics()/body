@@ -1,4 +1,4 @@
 {
-  int cursorWidth=User32.INSTANCE.GetSystemMetrics(WinUser.SM_CXCURSOR);
+  int cursorWidth=INSTANCE.GetSystemMetrics(WinUser.SM_CXCURSOR);
   assertTrue(cursorWidth > 0);
 }

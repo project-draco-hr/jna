@@ -1,0 +1,19 @@
+{
+  WinUser.MSG msg=new WinUser.MSG();
+  try {
+    long time=System.currentTimeMillis();
+    while (true) {
+      while (INSTANCE.PeekMessage(msg,null,0,0,1)) {
+        if (msg.message == WinUser.WM_HOTKEY) {
+          return msg;
+        }
+      }
+      if (System.currentTimeMillis() - time > timeout)       break;
+      Thread.sleep(50);
+    }
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+  return null;
+}
