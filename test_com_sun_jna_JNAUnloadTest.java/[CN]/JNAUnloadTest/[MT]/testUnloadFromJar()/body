@@ -1,6 +1,8 @@
 {
   File jar=new File(BUILDDIR + "/jna.jar");
-  assertTrue("Expected JNA jar file at " + jar + " is missing",jar.exists());
+  if (!jar.exists()) {
+    throw new Error("Expected JNA jar file at " + jar + " is missing");
+  }
   ClassLoader loader=new TestLoader(true);
   Class cls=Class.forName("com.sun.jna.Native",true,loader);
   assertEquals("Wrong class loader",loader,cls.getClassLoader());
@@ -24,16 +26,6 @@
   for (int i=0; i < 100 && f.exists(); i++) {
     Thread.sleep(10);
     System.gc();
-  }
-  try {
-    if (Platform.isWindows()) {
-      ClassLoader.class.getDeclaredField("nativeLibraries");
-    }
-    if (f.exists() && !f.delete()) {
-      assertFalse("Temporary native library still locked: " + path,f.exists());
-    }
-  }
- catch (  Exception e) {
   }
   try {
     loader=new TestLoader(true);

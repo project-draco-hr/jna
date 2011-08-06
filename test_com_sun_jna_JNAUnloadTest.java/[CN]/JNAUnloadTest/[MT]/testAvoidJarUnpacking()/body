@@ -1,0 +1,13 @@
+{
+  System.setProperty("jna.nounpack","true");
+  ClassLoader loader=new TestLoader(true);
+  try {
+    Class cls=Class.forName("com.sun.jna.Native",true,loader);
+    fail("Native class should not be loadable if jna.nounpack=true: " + cls.getClassLoader());
+  }
+ catch (  UnsatisfiedLinkError e) {
+  }
+ finally {
+    System.setProperty("jna.nounpack","false");
+  }
+}

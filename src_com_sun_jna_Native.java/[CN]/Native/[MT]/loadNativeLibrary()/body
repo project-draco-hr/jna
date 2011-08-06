@@ -39,6 +39,9 @@
     nativeLibraryPath=libName;
   }
  catch (  UnsatisfiedLinkError e) {
+    if (Boolean.getBoolean("jna.nounpack")) {
+      throw e;
+    }
     loadNativeLibraryFromJar();
   }
 }
