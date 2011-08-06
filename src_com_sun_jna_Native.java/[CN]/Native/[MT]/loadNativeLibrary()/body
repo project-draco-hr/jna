@@ -36,7 +36,6 @@
   }
   try {
     System.loadLibrary(libName);
-    nativeLibraryPath=libName;
   }
  catch (  UnsatisfiedLinkError e) {
     if (Boolean.getBoolean("jna.nounpack")) {

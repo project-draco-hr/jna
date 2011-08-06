@@ -9,6 +9,7 @@
   Field field=cls.getDeclaredField("nativeLibraryPath");
   field.setAccessible(true);
   String path=(String)field.get(null);
+  assertNotNull("Native library path unavailable",path);
   assertTrue("Native library not unpacked from jar: " + path,path.startsWith(System.getProperty("java.io.tmpdir")));
   WeakReference ref=new WeakReference(cls);
   WeakReference clref=new WeakReference(loader);
@@ -27,12 +28,15 @@
     Thread.sleep(10);
     System.gc();
   }
+  if (f.exists()) {
+    assertTrue("Temporary jnidispatch not marked for later deletion: " + f,new File(f.getAbsolutePath() + ".x").exists());
+  }
   try {
     loader=new TestLoader(true);
     cls=Class.forName("com.sun.jna.Native",true,loader);
   }
  catch (  Throwable t) {
-    fail("Native library not unloaded: " + t.getMessage());
+    fail("Couldn't load class again after discarding first load: " + t.getMessage());
   }
  finally {
     loader=null;

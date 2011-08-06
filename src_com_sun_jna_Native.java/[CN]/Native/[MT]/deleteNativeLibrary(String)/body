@@ -1,0 +1,8 @@
+{
+  File flib=new File(path);
+  if (flib.delete()) {
+    return true;
+  }
+  markTemporaryFile(flib);
+  return false;
+}

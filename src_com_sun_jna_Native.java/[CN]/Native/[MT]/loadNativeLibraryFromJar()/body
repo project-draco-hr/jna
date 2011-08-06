@@ -57,8 +57,7 @@
         }
       }
     }
-    unpacked=true;
   }
   System.load(lib.getAbsolutePath());
-  nativeLibraryPath=lib.getAbsolutePath();
+  deleteNativeLibrary(nativeLibraryPath=lib.getAbsolutePath());
 }

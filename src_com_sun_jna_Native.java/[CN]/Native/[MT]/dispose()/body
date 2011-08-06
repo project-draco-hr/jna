@@ -1,4 +1,4 @@
 {
   NativeLibrary.disposeAll();
-  deleteNativeLibrary();
+  nativeLibraryPath=null;
 }
