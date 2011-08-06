@@ -4,6 +4,7 @@
   String name=System.getProperty("os.name");
   String resourceName=getNativeLibraryResourcePath(Platform.getOSType(),arch,name) + "/" + libname;
   URL url=Native.class.getResource(resourceName);
+  boolean unpacked=false;
   if (url == null && Platform.isMac() && resourceName.endsWith(".dylib")) {
     resourceName=resourceName.substring(0,resourceName.lastIndexOf(".dylib")) + ".jnilib";
     url=Native.class.getResource(resourceName);
@@ -39,6 +40,7 @@
       while ((count=is.read(buf,0,buf.length)) > 0) {
         fos.write(buf,0,count);
       }
+      unpacked=true;
     }
  catch (    IOException e) {
       throw new Error("Failed to create temporary file for jnidispatch library: " + e);
@@ -59,5 +61,8 @@
     }
   }
   System.load(lib.getAbsolutePath());
-  deleteNativeLibrary(nativeLibraryPath=lib.getAbsolutePath());
+  nativeLibraryPath=lib.getAbsolutePath();
+  if (unpacked) {
+    deleteNativeLibrary(lib.getAbsolutePath());
+  }
 }
