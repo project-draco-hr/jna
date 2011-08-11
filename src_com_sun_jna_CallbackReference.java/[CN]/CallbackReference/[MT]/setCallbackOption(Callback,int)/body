@@ -1,0 +1,16 @@
+{
+  Map map=callbackMap;
+synchronized (map) {
+    CallbackReference ref=(CallbackReference)map.get(cb);
+    if (ref != null) {
+      ref.setCallbackOption(options);
+    }
+ else {
+      Integer current=(Integer)pendingOptions.get(cb);
+      if (current != null) {
+        options|=current.intValue();
+      }
+      pendingOptions.put(cb,new Integer(options));
+    }
+  }
+}

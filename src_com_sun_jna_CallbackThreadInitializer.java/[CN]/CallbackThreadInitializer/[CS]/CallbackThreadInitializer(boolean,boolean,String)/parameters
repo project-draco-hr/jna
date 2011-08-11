@@ -1,0 +1,3 @@
+boolean daemon
+boolean detach
+String name

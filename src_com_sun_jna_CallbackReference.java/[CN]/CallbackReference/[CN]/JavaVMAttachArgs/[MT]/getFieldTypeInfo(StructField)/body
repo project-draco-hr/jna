@@ -1,0 +1,6 @@
+{
+  if (ThreadGroup.class.equals(f.type)) {
+    return getTypeInfo(Pointer.class);
+  }
+  return super.getFieldTypeInfo(f);
+}

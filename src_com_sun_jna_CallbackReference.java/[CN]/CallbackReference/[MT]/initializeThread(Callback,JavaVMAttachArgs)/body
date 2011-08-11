@@ -1,0 +1,24 @@
+{
+  CallbackThreadInitializer init=null;
+synchronized (initializers) {
+    init=(CallbackThreadInitializer)initializers.get(cb);
+  }
+  if (init != null) {
+    String name=init.getName(cb);
+    if (name != null) {
+      args.name=name;
+    }
+    ThreadGroup group=init.getThreadGroup(cb);
+    if (group != null) {
+      args.group=group;
+    }
+    int options=0;
+    if (init.isDaemon(cb)) {
+      options|=Native.CB_DAEMON;
+    }
+    if (!init.detach(cb)) {
+      options|=Native.CB_NODETACH;
+    }
+    setCallbackOption(cb,options);
+  }
+}

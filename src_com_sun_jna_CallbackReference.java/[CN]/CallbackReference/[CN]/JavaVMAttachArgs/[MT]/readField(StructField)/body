@@ -1,0 +1,6 @@
+{
+  if (ThreadGroup.class.equals(f.type)) {
+    return null;
+  }
+  return super.readField(f);
+}

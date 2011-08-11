@@ -1,0 +1,6 @@
+{
+  this.daemon=daemon;
+  this.detach=detach;
+  this.name=name;
+  this.group=group;
+}

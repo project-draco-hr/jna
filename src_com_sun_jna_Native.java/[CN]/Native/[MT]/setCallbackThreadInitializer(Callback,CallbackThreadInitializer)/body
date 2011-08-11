@@ -1,0 +1,4 @@
+{
+  CallbackReference.setCallbackThreadInitializer(cb,initializer);
+  setCallbackOptions(cb,CB_HAS_INITIALIZER);
+}
