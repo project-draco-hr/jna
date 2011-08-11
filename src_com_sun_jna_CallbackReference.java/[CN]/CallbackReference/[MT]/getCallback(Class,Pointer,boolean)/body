@@ -3,7 +3,7 @@
     return null;
   }
   if (!type.isInterface())   throw new IllegalArgumentException("Callback type must be an interface");
-  Map map=direct ? directCallbackMap : callbackMap;
+  Map map=callbackMap;
 synchronized (map) {
     for (Iterator i=map.keySet().iterator(); i.hasNext(); ) {
       Callback cb=(Callback)i.next();

@@ -7,12 +7,16 @@
     return fp;
   }
   int callingConvention=cb instanceof AltCallingConvention ? Function.ALT_CONVENTION : Function.C_CONVENTION;
-  Map map=direct ? directCallbackMap : callbackMap;
+  Map map=callbackMap;
 synchronized (map) {
     CallbackReference cbref=(CallbackReference)map.get(cb);
     if (cbref == null) {
       cbref=new CallbackReference(cb,callingConvention,direct);
       map.put(cb,cbref);
+      if (pendingOptions.containsKey(cb)) {
+        cbref.setCallbackOptions(((Integer)pendingOptions.get(cb)).intValue());
+        pendingOptions.remove(cb);
+      }
     }
     return cbref.getTrampoline();
   }

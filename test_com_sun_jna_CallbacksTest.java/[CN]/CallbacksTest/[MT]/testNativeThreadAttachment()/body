@@ -1,0 +1,15 @@
+{
+  final boolean[] called={false};
+  final Set threads=new HashSet();
+  int COUNT=10;
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      System.out.println("in callback: " + Thread.currentThread());
+      called[0]=true;
+      threads.add(Thread.currentThread());
+    }
+  }
+;
+  lib.callVoidCallbackThreaded(cb,COUNT,1000);
+  Thread.sleep(10000);
+}
