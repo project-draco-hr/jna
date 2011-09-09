@@ -1,0 +1,22 @@
+{
+  final int[] called={0};
+  final boolean[] daemon={false};
+  final String[] name={null};
+  final ThreadGroup[] group={null};
+  final Thread[] t={null};
+  ThreadGroup testGroup=new ThreadGroup(getName());
+  CallbackThreadInitializer init=new CallbackThreadInitializer();
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      Thread thread=Thread.currentThread();
+      daemon[0]=thread.isDaemon();
+      name[0]=thread.getName();
+      group[0]=thread.getThreadGroup();
+      t[0]=thread;
+      ++called[0];
+    }
+  }
+;
+  callCallback(cb,init,1,100,called);
+  assertFalse("Callback thread default should not be attached as daemon",daemon[0]);
+}

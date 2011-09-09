@@ -98,7 +98,7 @@
     getArrayValue(offset,result,type.getComponentType());
   }
  else {
-    throw new IllegalArgumentException("Reading \"" + type + "\" from memory is not supported");
+    result=getObject(offset);
   }
   return result;
 }

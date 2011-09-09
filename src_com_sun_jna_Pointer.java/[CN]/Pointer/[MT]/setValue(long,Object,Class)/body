@@ -61,6 +61,6 @@
     setArrayValue(offset,value,type.getComponentType());
   }
  else {
-    throw new IllegalArgumentException("Writing " + type + " to memory is not supported");
+    setObject(offset,value);
   }
 }

@@ -1,5 +1,7 @@
 {
 synchronized (callbackMap) {
     initializers.put(cb,initializer);
+    int options=getCallbackOptions(cb);
+    setCallbackOptions(cb,options | Native.CB_HAS_INITIALIZER);
   }
 }

@@ -1,0 +1,15 @@
+{
+  final int[] called={0};
+  final Set threads=new HashSet();
+  ThreadGroup testGroup=new ThreadGroup(getName());
+  CallbackThreadInitializer init=new CallbackThreadInitializer(true,false,getName(),testGroup);
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      threads.add(Thread.currentThread());
+      ++called[0];
+    }
+  }
+;
+  callCallback(cb,init,10,100,called);
+  assertEquals("Should only map a single Java Thread",1,threads.size());
+}

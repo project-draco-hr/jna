@@ -3,11 +3,11 @@
 synchronized (map) {
     CallbackReference ref=(CallbackReference)map.get(cb);
     if (ref != null) {
-      ref.setCallbackOptions(options);
+      return ref.getCallbackOptions();
     }
  else {
       Integer old=(Integer)pendingOptions.get(cb);
-      pendingOptions.put(cb,new Integer(options));
+      return old != null ? old.intValue() : 0;
     }
   }
 }

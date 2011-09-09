@@ -1,0 +1,3 @@
+{
+  return cbstruct.getInt(Pointer.SIZE);
+}

@@ -1,4 +1,0 @@
-{
-  options|=cbstruct.getInt(Pointer.SIZE);
-  cbstruct.setInt(Pointer.SIZE,options);
-}

@@ -1,0 +1,31 @@
+{
+  final int[] called={0};
+  final Set threads=new HashSet();
+  ThreadGroup testGroup=new ThreadGroup(getName());
+  CallbackThreadInitializer init=new CallbackThreadInitializer(true,true,getName(),testGroup);
+  final int COUNT=10;
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      threads.add(Thread.currentThread());
+      int count=called[0] + 1;
+      if (count == 1) {
+        Native.detach(false);
+      }
+ else       if (count == COUNT) {
+        Native.detach(true);
+      }
+      called[0]=count;
+    }
+  }
+;
+  callCallback(cb,init,COUNT,100,called);
+  assertEquals("Should only map a single Java Thread",1,threads.size());
+  Thread thread=(Thread)threads.iterator().next();
+  long start=System.currentTimeMillis();
+  while (thread.isAlive()) {
+    Thread.sleep(10);
+    if (System.currentTimeMillis() - start > 5000) {
+      fail("Timed out waiting for callback thread to die");
+    }
+  }
+}
