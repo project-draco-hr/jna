@@ -1,9 +1,7 @@
 {
   final int[] called={0};
   final Set threads=new HashSet();
-  ThreadGroup testGroup=new ThreadGroup(getName());
-  CallbackThreadInitializer init=new CallbackThreadInitializer(true,true,getName(),testGroup);
-  final int COUNT=10;
+  final int COUNT=5;
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
     public void callback(){
       threads.add(Thread.currentThread());
@@ -18,14 +16,24 @@
     }
   }
 ;
-  callCallback(cb,init,COUNT,100,called);
-  assertEquals("Should only map a single Java Thread",1,threads.size());
+  callCallback(cb,null,COUNT,100,called);
+  assertEquals("Native thread mapping not preserved: " + threads,1,threads.size());
   Thread thread=(Thread)threads.iterator().next();
   long start=System.currentTimeMillis();
   while (thread.isAlive()) {
+    System.gc();
     Thread.sleep(10);
     if (System.currentTimeMillis() - start > 5000) {
-      fail("Timed out waiting for callback thread to die");
+      PrintStream ps=System.err;
+      ByteArrayOutputStream s=new ByteArrayOutputStream();
+      System.setErr(new PrintStream(s));
+      try {
+        thread.dumpStack();
+      }
+  finally {
+        System.setErr(ps);
+      }
+      fail("Timed out waiting for callback thread " + thread + " to die: "+ s);
     }
   }
 }
