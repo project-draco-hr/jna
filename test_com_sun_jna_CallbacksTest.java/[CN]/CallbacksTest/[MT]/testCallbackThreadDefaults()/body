@@ -5,7 +5,6 @@
   final ThreadGroup[] group={null};
   final Thread[] t={null};
   ThreadGroup testGroup=new ThreadGroup(getName());
-  CallbackThreadInitializer init=new CallbackThreadInitializer();
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
     public void callback(){
       Thread thread=Thread.currentThread();
@@ -17,6 +16,6 @@
     }
   }
 ;
-  callCallback(cb,init,1,100,called);
+  callCallback(cb,null,1,100,called);
   assertFalse("Callback thread default should not be attached as daemon",daemon[0]);
 }

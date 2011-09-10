@@ -1,6 +1,0 @@
-{
-  if (ThreadGroup.class.equals(type)) {
-    return Pointer.SIZE;
-  }
-  return super.getNativeSize(type,value);
-}

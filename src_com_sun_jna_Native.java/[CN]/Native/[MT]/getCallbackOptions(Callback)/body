@@ -1,3 +1,0 @@
-{
-  return CallbackReference.getCallbackOptions(cb);
-}

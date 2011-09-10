@@ -1,6 +1,0 @@
-{
-  if (ThreadGroup.class.equals(type)) {
-    type=Pointer.class;
-  }
-  return super.getNativeAlignment(type,value,isFirstElement);
-}
