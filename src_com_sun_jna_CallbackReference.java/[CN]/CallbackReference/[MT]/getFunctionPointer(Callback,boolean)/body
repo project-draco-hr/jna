@@ -13,9 +13,8 @@ synchronized (map) {
     if (cbref == null) {
       cbref=new CallbackReference(cb,callingConvention,direct);
       map.put(cb,cbref);
-      if (pendingOptions.containsKey(cb)) {
-        cbref.setCallbackOptions(((Integer)pendingOptions.get(cb)).intValue());
-        pendingOptions.remove(cb);
+      if (initializers.containsKey(cb)) {
+        cbref.setCallbackOptions(Native.CB_HAS_INITIALIZER);
       }
     }
     return cbref.getTrampoline();
