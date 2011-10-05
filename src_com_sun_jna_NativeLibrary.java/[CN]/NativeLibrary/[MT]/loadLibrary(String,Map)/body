@@ -14,6 +14,7 @@ synchronized (customPaths) {
   String libraryPath=findLibraryPath(libraryName,searchPath);
   long handle=0;
   try {
+    System.out.println("Attempt " + libraryPath);
     handle=Native.open(libraryPath);
   }
  catch (  UnsatisfiedLinkError e) {
@@ -22,7 +23,11 @@ synchronized (customPaths) {
   try {
     if (handle == 0) {
       libraryPath=findLibraryPath(libraryName,searchPath);
+      System.out.println("Attempt " + libraryPath);
       handle=Native.open(libraryPath);
+      if (handle == 0) {
+        throw new UnsatisfiedLinkError("Failed to load library '" + libraryName + "'");
+      }
     }
   }
  catch (  UnsatisfiedLinkError e) {
