@@ -35,12 +35,19 @@
     }
   }
   try {
-    System.loadLibrary(libName);
+    if (!Boolean.getBoolean("jna.nosys")) {
+      System.loadLibrary(libName);
+      return;
+    }
   }
  catch (  UnsatisfiedLinkError e) {
     if (Boolean.getBoolean("jna.nounpack")) {
       throw e;
     }
-    loadNativeLibraryFromJar();
   }
+  if (!Boolean.getBoolean("jna.nounpack")) {
+    loadNativeLibraryFromJar();
+    return;
+  }
+  throw new UnsatisfiedLinkError("Native jnidispatch library not found");
 }
