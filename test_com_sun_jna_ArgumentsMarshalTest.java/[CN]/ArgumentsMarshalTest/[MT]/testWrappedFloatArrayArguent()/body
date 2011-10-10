@@ -4,6 +4,6 @@
   final float MAGIC=-118.625f;
   lib.fillFloatBuffer(buf,512,MAGIC);
   for (int i=0; i < array.length; i++) {
-    assertEquals("Bad value at index " + i,i < 512 ? 0 : MAGIC,array[i]);
+    assertEquals("Bad value at index " + i,i < 512 ? 0 : MAGIC,array[i],0f);
   }
 }

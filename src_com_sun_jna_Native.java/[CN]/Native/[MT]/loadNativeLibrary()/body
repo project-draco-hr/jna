@@ -3,15 +3,22 @@
   String libName="jnidispatch";
   String bootPath=System.getProperty("jna.boot.library.path");
   if (bootPath != null) {
-    String[] dirs=bootPath.split(File.pathSeparator);
-    for (int i=0; i < dirs.length; ++i) {
-      String path=new File(new File(dirs[i]),System.mapLibraryName(libName)).getAbsolutePath();
-      try {
-        System.load(path);
-        nativeLibraryPath=path;
-        return;
-      }
- catch (      UnsatisfiedLinkError ex) {
+    StringTokenizer dirs=new StringTokenizer(bootPath,File.pathSeparator);
+    while (dirs.hasMoreTokens()) {
+      String dir=dirs.nextToken();
+      File file=new File(new File(dir),System.mapLibraryName(libName));
+      String path=file.getAbsolutePath();
+      if (file.exists()) {
+        System.out.println("Try " + path);
+        try {
+          System.load(path);
+          System.out.println("Loaded " + path);
+          nativeLibraryPath=path;
+          return;
+        }
+ catch (        UnsatisfiedLinkError ex) {
+          ex.printStackTrace();
+        }
       }
       if (Platform.isMac()) {
         String orig, ext;
@@ -23,13 +30,15 @@
           orig="jnilib";
           ext="dylib";
         }
-        try {
-          path=path.substring(0,path.lastIndexOf(orig)) + ext;
-          System.load(path);
-          nativeLibraryPath=path;
-          return;
-        }
- catch (        UnsatisfiedLinkError ex) {
+        path=path.substring(0,path.lastIndexOf(orig)) + ext;
+        if (new File(path).exists()) {
+          try {
+            System.load(path);
+            nativeLibraryPath=path;
+            return;
+          }
+ catch (          UnsatisfiedLinkError ex) {
+          }
         }
       }
     }

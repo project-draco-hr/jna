@@ -4,5 +4,5 @@
   ByteBuffer buf=m.getByteBuffer(0,m.size()).order(ByteOrder.nativeOrder());
   DoubleBuffer db=buf.asDoubleBuffer();
   m.setDouble(0,MAGIC);
-  assertEquals("Double not read from memory",MAGIC,db.get(0));
+  assertEquals("Double not read from memory",MAGIC,db.get(0),0d);
 }

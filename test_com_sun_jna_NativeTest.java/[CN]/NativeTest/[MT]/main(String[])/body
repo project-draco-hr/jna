@@ -1,3 +1,13 @@
 {
-  junit.textui.TestRunner.run(NativeTest.class);
+  try {
+    junit.textui.TestRunner.run(NativeTest.class);
+  }
+ catch (  Throwable t) {
+    t.printStackTrace();
+  }
+  try {
+    Thread.sleep(60000);
+  }
+ catch (  Exception e) {
+  }
 }
