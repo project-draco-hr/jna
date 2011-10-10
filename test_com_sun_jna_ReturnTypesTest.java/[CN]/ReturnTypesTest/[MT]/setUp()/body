@@ -1,3 +1,4 @@
 {
+  System.out.println("test: " + getName());
   lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class);
 }

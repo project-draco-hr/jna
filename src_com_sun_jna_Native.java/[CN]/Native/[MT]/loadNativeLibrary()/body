@@ -9,10 +9,8 @@
       File file=new File(new File(dir),System.mapLibraryName(libName));
       String path=file.getAbsolutePath();
       if (file.exists()) {
-        System.out.println("Try " + path);
         try {
           System.load(path);
-          System.out.println("Loaded " + path);
           nativeLibraryPath=path;
           return;
         }

@@ -7,7 +7,7 @@ synchronized (typeInfoMap) {
     if (o instanceof FFIType) {
       return ((FFIType)o).getPointer();
     }
-    if (Buffer.class.isAssignableFrom(cls) || Callback.class.isAssignableFrom(cls)) {
+    if ((Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(cls)) || Callback.class.isAssignableFrom(cls)) {
       typeInfoMap.put(cls,FFITypes.ffi_type_pointer);
       return FFITypes.ffi_type_pointer;
     }

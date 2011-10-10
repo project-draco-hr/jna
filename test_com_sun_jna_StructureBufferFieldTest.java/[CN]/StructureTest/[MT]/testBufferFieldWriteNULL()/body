@@ -1,0 +1,5 @@
+{
+  if (!Platform.HAS_BUFFERS)   return;
+  BufferStructure bs=new BufferStructure();
+  bs.write();
+}
