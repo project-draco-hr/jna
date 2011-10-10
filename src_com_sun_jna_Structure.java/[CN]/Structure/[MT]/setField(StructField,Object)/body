@@ -3,6 +3,9 @@
     structField.field.set(this,value);
   }
  catch (  IllegalAccessException e) {
+    if ((structField.field.getModifiers() & Modifier.FINAL) != 0) {
+      throw new UnsupportedOperationException("Read-only (final) structure fields may only be updated from native memory (field '" + structField.name + "' within "+ getClass()+ ")");
+    }
     throw new Error("Unexpectedly unable to write to field '" + structField.name + "' within "+ getClass()+ ": "+ e);
   }
 }
