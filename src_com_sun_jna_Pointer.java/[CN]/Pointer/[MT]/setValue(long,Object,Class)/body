@@ -48,7 +48,7 @@
  else   if (Callback.class.isAssignableFrom(type)) {
     setPointer(offset,CallbackReference.getFunctionPointer((Callback)value));
   }
- else   if (Buffer.class.isAssignableFrom(type)) {
+ else   if (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(type)) {
     Pointer p=value == null ? null : Native.getDirectBufferPointer((Buffer)value);
     setPointer(offset,p);
   }

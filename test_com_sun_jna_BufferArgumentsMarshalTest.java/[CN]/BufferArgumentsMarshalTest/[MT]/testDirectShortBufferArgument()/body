@@ -1,0 +1,9 @@
+{
+  ByteBuffer buf=ByteBuffer.allocateDirect(1024 * 2).order(ByteOrder.nativeOrder());
+  ShortBuffer shortBuf=buf.asShortBuffer();
+  final short MAGIC=(short)0xABED;
+  blib.fillInt16Buffer(shortBuf,1024,MAGIC);
+  for (int i=0; i < shortBuf.capacity(); i++) {
+    assertEquals("Bad value at index " + i,MAGIC,shortBuf.get(i));
+  }
+}

@@ -1,0 +1,3 @@
+short[] buf
+int len
+short value

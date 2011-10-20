@@ -1,9 +1,0 @@
-{
-  BufferStructure bs=new BufferStructure();
-  Buffer b=ByteBuffer.allocateDirect(16);
-  bs.buffer=b;
-  bs.dbuffer=((ByteBuffer)bs.buffer).asDoubleBuffer();
-  bs.write();
-  bs.read();
-  assertEquals("Buffer field should be unchanged",b,bs.buffer);
-}

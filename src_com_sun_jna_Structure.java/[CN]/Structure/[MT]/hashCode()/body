@@ -1,5 +1,7 @@
 {
   clear();
   write();
-  return Arrays.hashCode(getPointer().getByteArray(0,size()));
+  Adler32 code=new Adler32();
+  code.update(getPointer().getByteArray(0,size()));
+  return (int)code.getValue();
 }

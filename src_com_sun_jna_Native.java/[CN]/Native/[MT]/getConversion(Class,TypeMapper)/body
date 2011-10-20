@@ -20,7 +20,7 @@
   if (WString.class.isAssignableFrom(type)) {
     return CVT_WSTRING;
   }
-  if (Buffer.class.isAssignableFrom(type)) {
+  if (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(type)) {
     return CVT_BUFFER;
   }
   if (Structure.class.isAssignableFrom(type)) {

@@ -1,4 +1,4 @@
 {
   TestLibrary.CheckFieldAlignment.ByValue struct=new TestLibrary.CheckFieldAlignment.ByValue();
-  assertEquals("Wrong sum of fields for " + struct.toString(true),21d,lib.testStructureByValueArgument(struct));
+  assertEquals("Wrong sum of fields for " + struct.toString(true),21d,lib.testStructureByValueArgument(struct),0d);
 }

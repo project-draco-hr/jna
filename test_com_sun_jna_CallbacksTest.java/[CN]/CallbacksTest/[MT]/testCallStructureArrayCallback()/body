@@ -12,6 +12,6 @@
   }
 ;
   SmallTestStructure value=lib.callStructureCallback(cb,s);
-  assertEquals("Structure array element 0 not synched on callback return",MAGIC,array[0].value);
-  assertEquals("Structure array element 1 not synched on callback return",MAGIC * 2,array[1].value);
+  assertEquals("Structure array element 0 not synched on callback return",MAGIC,array[0].value,0d);
+  assertEquals("Structure array element 1 not synched on callback return",MAGIC * 2,array[1].value,0d);
 }

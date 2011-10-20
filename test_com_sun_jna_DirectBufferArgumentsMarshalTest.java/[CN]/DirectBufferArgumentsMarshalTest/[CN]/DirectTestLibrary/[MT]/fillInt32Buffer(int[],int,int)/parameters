@@ -1,0 +1,3 @@
+int[] buf
+int len
+int value

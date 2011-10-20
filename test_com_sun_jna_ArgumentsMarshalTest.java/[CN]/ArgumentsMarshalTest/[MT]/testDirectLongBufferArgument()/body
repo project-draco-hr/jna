@@ -1,9 +1,0 @@
-{
-  ByteBuffer buf=ByteBuffer.allocateDirect(1024 * 8).order(ByteOrder.nativeOrder());
-  LongBuffer longBuf=buf.asLongBuffer();
-  final long MAGIC=0x1234567887654321L;
-  lib.fillInt64Buffer(longBuf,1024,MAGIC);
-  for (int i=0; i < longBuf.capacity(); i++) {
-    assertEquals("Bad value at index " + i,MAGIC,longBuf.get(i));
-  }
-}

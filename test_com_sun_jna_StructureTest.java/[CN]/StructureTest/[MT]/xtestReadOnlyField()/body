@@ -1,0 +1,21 @@
+{
+  ROStructure s=new ROStructure();
+  s.getPointer().setInt(0,42);
+  s.read();
+  s=avoidConstantFieldOptimization(s);
+  assertEquals("Field value should be set from native",42,s.field);
+  s.getPointer().setInt(0,0);
+  s.read();
+  s=avoidConstantFieldOptimization(s);
+  assertEquals("Field value not synched after native change",0,s.field);
+  s.getPointer().setInt(0,42);
+  try {
+    s.write();
+  }
+ catch (  UnsupportedOperationException e) {
+  }
+  assertEquals("Field should not be written",42,s.getPointer().getInt(0));
+  s.read();
+  s=avoidConstantFieldOptimization(s);
+  assertEquals("Field value not synched after native change (2)",42,s.field);
+}
