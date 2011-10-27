@@ -46,9 +46,9 @@
     if (!i.hasNext())     contents+=prefix + "}";
   }
   if (indent == 0 && dumpMemory) {
-    byte[] buf=getPointer().getByteArray(0,size());
     final int BYTES_PER_ROW=4;
     contents+=LS + "memory dump" + LS;
+    byte[] buf=getPointer().getByteArray(0,size());
     for (int i=0; i < buf.length; i++) {
       if ((i % BYTES_PER_ROW) == 0)       contents+="[";
       if (buf[i] >= 0 && buf[i] < 16)       contents+="0";

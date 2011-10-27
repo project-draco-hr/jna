@@ -1,0 +1,8 @@
+{
+  int8Field=(byte)fieldOffset("int8Field");
+  int16Field=(short)fieldOffset("int16Field");
+  int32Field=fieldOffset("int32Field");
+  int64Field=fieldOffset("int64Field");
+  floatField=fieldOffset("floatField");
+  doubleField=fieldOffset("doubleField");
+}
