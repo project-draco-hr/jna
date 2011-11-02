@@ -15,7 +15,6 @@
           return;
         }
  catch (        UnsatisfiedLinkError ex) {
-          System.err.println("File found at " + file + " but not loadable: "+ ex.getMessage());
         }
       }
       if (Platform.isMac()) {
