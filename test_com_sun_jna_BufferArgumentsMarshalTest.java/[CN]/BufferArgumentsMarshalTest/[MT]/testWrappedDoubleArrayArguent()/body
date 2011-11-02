@@ -1,9 +1,9 @@
 {
   double[] array=new double[1024];
-  DoubleBuffer buf=DoubleBuffer.wrap(array,512,512).slice();
+  DoubleBuffer buf=DoubleBuffer.wrap(array,512,512);
   final double MAGIC=-118.625;
-  blib.fillDoubleBuffer(buf,512,MAGIC);
+  lib.fillDoubleBuffer(buf,512,MAGIC);
   for (int i=0; i < array.length; i++) {
-    assertEquals("Bad value at index " + i,i < 512 ? 0 : MAGIC,array[i],0d);
+    assertEquals("Bad value at index " + i,i < 512 ? 0 : MAGIC,array[i]);
   }
 }

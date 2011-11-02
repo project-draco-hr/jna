@@ -24,6 +24,6 @@
       pevlr=pevlr.share(record.Length.intValue());
     }
   }
-  assertTrue(rc == W32Errors.ERROR_HANDLE_EOF || rc == 0);
-  assertTrue(Advapi32.INSTANCE.CloseEventLog(h));
+  assertTrue("Unexpected error after reading event log: " + rc,rc == W32Errors.ERROR_HANDLE_EOF || rc == 0);
+  assertTrue("Error closing event log",Advapi32.INSTANCE.CloseEventLog(h));
 }

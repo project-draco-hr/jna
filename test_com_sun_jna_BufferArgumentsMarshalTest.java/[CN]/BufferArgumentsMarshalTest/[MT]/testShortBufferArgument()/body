@@ -1,7 +1,7 @@
 {
   ShortBuffer buf=ShortBuffer.allocate(1024);
   final short MAGIC=(short)0xABED;
-  blib.fillInt16Buffer(buf,1024,MAGIC);
+  lib.fillInt16Buffer(buf,1024,MAGIC);
   for (int i=0; i < buf.capacity(); i++) {
     assertEquals("Bad value at index " + i,MAGIC,buf.get(i));
   }
