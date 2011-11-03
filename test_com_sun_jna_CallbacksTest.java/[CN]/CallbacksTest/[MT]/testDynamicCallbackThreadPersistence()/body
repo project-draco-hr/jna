@@ -16,7 +16,7 @@
     }
   }
 ;
-  callCallback(cb,null,COUNT,100,called);
+  callThreadedCallback(cb,null,COUNT,100,called);
   assertEquals("Native thread mapping not preserved: " + threads,1,threads.size());
   Thread thread=(Thread)threads.iterator().next();
   long start=System.currentTimeMillis();

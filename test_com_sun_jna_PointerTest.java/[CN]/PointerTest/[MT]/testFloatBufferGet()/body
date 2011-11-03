@@ -1,8 +1,0 @@
-{
-  final float MAGIC=1234.5678f;
-  Memory m=new Memory(8);
-  ByteBuffer buf=m.getByteBuffer(0,m.size()).order(ByteOrder.nativeOrder());
-  FloatBuffer fb=buf.asFloatBuffer();
-  m.setFloat(0,MAGIC);
-  assertEquals("Float not read from memory",MAGIC,fb.get(0));
-}

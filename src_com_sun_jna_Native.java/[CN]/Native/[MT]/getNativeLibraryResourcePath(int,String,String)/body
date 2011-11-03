@@ -1,10 +1,19 @@
 {
   String osPrefix;
   arch=arch.toLowerCase();
+  if ("powerpc".equals(arch)) {
+    arch="ppc";
+  }
+ else   if ("powerpc64".equals(arch)) {
+    arch="ppc64";
+  }
 switch (osType) {
 case Platform.WINDOWS:
     if ("i386".equals(arch))     arch="x86";
   osPrefix="win32-" + arch;
+break;
+case Platform.WINDOWSCE:
+osPrefix="w32ce-" + arch;
 break;
 case Platform.MAC:
 osPrefix="darwin";
@@ -28,9 +37,6 @@ arch="i386";
 }
 if ("x86_64".equals(arch)) {
 arch="amd64";
-}
-if ("powerpc".equals(arch)) {
-arch="ppc";
 }
 int space=osPrefix.indexOf(" ");
 if (space != -1) {

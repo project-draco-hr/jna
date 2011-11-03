@@ -16,6 +16,6 @@
     }
   }
 ;
-  callCallback(cb,null,1,100,called);
+  callThreadedCallback(cb,null,1,100,called);
   assertFalse("Callback thread default should not be attached as daemon",daemon[0]);
 }

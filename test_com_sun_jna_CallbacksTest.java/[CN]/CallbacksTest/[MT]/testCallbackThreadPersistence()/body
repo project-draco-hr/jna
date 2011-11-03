@@ -15,6 +15,6 @@
     }
   }
 ;
-  callCallback(cb,init,COUNT,100,called);
+  callThreadedCallback(cb,init,COUNT,100,called);
   assertEquals("Native thread mapping not preserved: " + threads,1,threads.size());
 }

@@ -5,6 +5,7 @@
   final ThreadGroup[] group={null};
   final Thread[] t={null};
   final String tname=getName() + " thread";
+  final boolean[] alive={false};
   ThreadGroup testGroup=new ThreadGroup(getName() + " thread group");
   CallbackThreadInitializer init=new CallbackThreadInitializer(true,false,tname,testGroup);
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
@@ -14,16 +15,21 @@
       name[0]=thread.getName();
       group[0]=thread.getThreadGroup();
       t[0]=thread;
-      if (called[0] == 1) {
+      if (thread.isAlive()) {
+        alive[0]=true;
+      }
+      if (++called[0] == 2) {
         Native.detach(true);
       }
-      ++called[0];
     }
   }
 ;
-  callCallback(cb,init,1,100,called);
+  callThreadedCallback(cb,init,1,5000,called);
   assertTrue("Callback thread not attached as daemon",daemon[0]);
   assertEquals("Wrong thread name",tname,name[0]);
   assertEquals("Wrong thread group",testGroup,group[0]);
+  if (!alive[0]) {
+    throw new Error("VM incorrectly reports Thread.isAlive() == false within callback");
+  }
   assertTrue("Thread should still be alive",t[0].isAlive());
 }

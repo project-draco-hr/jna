@@ -65,7 +65,7 @@
       result=cb;
     }
   }
- else   if (Buffer.class.isAssignableFrom(type)) {
+ else   if (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(type)) {
     Pointer bp=getPointer(offset);
     if (bp == null) {
       result=null;
