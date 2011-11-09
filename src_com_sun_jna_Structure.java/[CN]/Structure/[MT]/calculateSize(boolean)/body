@@ -13,7 +13,10 @@
     StructField structField=new StructField();
     structField.isVolatile=Modifier.isVolatile(modifiers);
     structField.isReadOnly=Modifier.isFinal(modifiers);
-    if (Modifier.isFinal(modifiers)) {
+    if (structField.isReadOnly) {
+      if (!Platform.RO_FIELDS) {
+        throw new IllegalArgumentException("This VM does not support read-only fields (field '" + field.getName() + "' within "+ getClass()+ ")");
+      }
       field.setAccessible(true);
     }
     structField.field=field;

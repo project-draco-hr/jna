@@ -12,8 +12,8 @@
       try {
         junit.textui.TestRunner.run(Class.forName(args[i]));
       }
- catch (      ClassNotFoundException e) {
-        System.err.println("No such class: " + args[i]);
+ catch (      Throwable e) {
+        e.printStackTrace();
       }
     }
     try {
