@@ -1,0 +1,15 @@
+{
+  try {
+    structField.field.set(this,value);
+  }
+ catch (  IllegalAccessException e) {
+    int modifiers=structField.field.getModifiers();
+    if (Modifier.isFinal(modifiers)) {
+      if (overrideFinal) {
+        throw new UnsupportedOperationException("This VM does not support Structures with final fields (field '" + structField.name + "' within "+ getClass()+ ")");
+      }
+      throw new UnsupportedOperationException("Attempt to write to read-only field '" + structField.name + "' within "+ getClass());
+    }
+    throw new Error("Unexpectedly unable to write to field '" + structField.name + "' within "+ getClass()+ ": "+ e);
+  }
+}

@@ -10,9 +10,6 @@
   if (readConverter != null) {
     result=readConverter.fromNative(result,structField.context);
   }
-  if (Modifier.isFinal(structField.field.getModifiers())) {
-    structField.field.setAccessible(true);
-  }
-  setField(structField,result);
+  setField(structField,result,true);
   return result;
 }
