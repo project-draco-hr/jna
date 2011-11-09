@@ -1,8 +1,10 @@
 {
-  String model=System.getProperty("sun.arch.data.model");
-  if (model != null)   return "64".equals(model);
+  String model=System.getProperty("sun.arch.data.model",System.getProperty("com.ibm.vm.bitmode"));
+  if (model != null) {
+    return "64".equals(model);
+  }
   String arch=System.getProperty("os.arch").toLowerCase();
-  if ("x86_64".equals(arch) || "ppc64".equals(arch) || "sparcv9".equals(arch)|| "amd64".equals(arch)) {
+  if ("x86_64".equals(arch) || "ia64".equals(arch) || "ppc64".equals(arch)|| "sparcv9".equals(arch)|| "amd64".equals(arch)) {
     return true;
   }
   return Native.POINTER_SIZE == 8;
