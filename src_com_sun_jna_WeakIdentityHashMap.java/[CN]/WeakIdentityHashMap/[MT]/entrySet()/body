@@ -1,0 +1,23 @@
+{
+  reap();
+  Set ret=new HashSet();
+  for (Iterator i=backingStore.entrySet().iterator(); i.hasNext(); ) {
+    Map.Entry ref=(Map.Entry)i.next();
+    final Object key=((IdentityWeakReference)ref.getKey()).get();
+    final Object value=ref.getValue();
+    Map.Entry entry=new Map.Entry(){
+      public Object getKey(){
+        return key;
+      }
+      public Object getValue(){
+        return value;
+      }
+      public Object setValue(      Object value){
+        throw new UnsupportedOperationException();
+      }
+    }
+;
+    ret.add(entry);
+  }
+  return Collections.unmodifiableSet(ret);
+}
