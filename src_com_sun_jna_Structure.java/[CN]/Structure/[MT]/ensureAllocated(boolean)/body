@@ -1,0 +1,8 @@
+{
+  if (memory == null) {
+    allocateMemory(avoidFFIType);
+  }
+ else   if (size == CALCULATE_SIZE) {
+    size=calculateSize(true,avoidFFIType);
+  }
+}

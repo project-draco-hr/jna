@@ -1,0 +1,5 @@
+{
+  super(p);
+  Native.initialize_ffi_type(p.peer);
+  read();
+}

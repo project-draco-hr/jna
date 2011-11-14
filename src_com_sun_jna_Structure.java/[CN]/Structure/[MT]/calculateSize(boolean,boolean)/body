@@ -1,0 +1,110 @@
+{
+  structAlignment=1;
+  int calculatedSize=0;
+  List fields=getFields(force);
+  if (fields == null) {
+    return CALCULATE_SIZE;
+  }
+  boolean firstField=true;
+  for (Iterator i=fields.iterator(); i.hasNext(); firstField=false) {
+    Field field=(Field)i.next();
+    int modifiers=field.getModifiers();
+    Class type=field.getType();
+    StructField structField=new StructField();
+    structField.isVolatile=Modifier.isVolatile(modifiers);
+    structField.isReadOnly=Modifier.isFinal(modifiers);
+    if (structField.isReadOnly) {
+      if (!Platform.RO_FIELDS) {
+        throw new IllegalArgumentException("This VM does not support read-only fields (field '" + field.getName() + "' within "+ getClass()+ ")");
+      }
+      field.setAccessible(true);
+    }
+    structField.field=field;
+    structField.name=field.getName();
+    structField.type=type;
+    if (Callback.class.isAssignableFrom(type) && !type.isInterface()) {
+      throw new IllegalArgumentException("Structure Callback field '" + field.getName() + "' must be an interface");
+    }
+    if (type.isArray() && Structure.class.equals(type.getComponentType())) {
+      String msg="Nested Structure arrays must use a " + "derived Structure type so that the size of " + "the elements can be determined";
+      throw new IllegalArgumentException(msg);
+    }
+    int fieldAlignment=1;
+    if (!Modifier.isPublic(field.getModifiers()))     continue;
+    Object value=getField(structField);
+    if (value == null) {
+      if (Structure.class.isAssignableFrom(type) && !(ByReference.class.isAssignableFrom(type))) {
+        try {
+          value=newInstance(type);
+          setField(structField,value);
+        }
+ catch (        IllegalArgumentException e) {
+          String msg="Can't determine size of nested structure: " + e.getMessage();
+          throw new IllegalArgumentException(msg);
+        }
+      }
+ else       if (type.isArray()) {
+        if (force) {
+          throw new IllegalStateException("Array fields must be initialized");
+        }
+        return CALCULATE_SIZE;
+      }
+    }
+    Class nativeType=type;
+    if (NativeMapped.class.isAssignableFrom(type)) {
+      NativeMappedConverter tc=NativeMappedConverter.getInstance(type);
+      if (value == null) {
+        value=tc.defaultValue();
+        setField(structField,value);
+      }
+      nativeType=tc.nativeType();
+      structField.writeConverter=tc;
+      structField.readConverter=tc;
+      structField.context=new StructureReadContext(this,field);
+    }
+ else     if (typeMapper != null) {
+      ToNativeConverter writeConverter=typeMapper.getToNativeConverter(type);
+      FromNativeConverter readConverter=typeMapper.getFromNativeConverter(type);
+      if (writeConverter != null && readConverter != null) {
+        value=writeConverter.toNative(value,new StructureWriteContext(this,structField.field));
+        nativeType=value != null ? value.getClass() : Pointer.class;
+        structField.writeConverter=writeConverter;
+        structField.readConverter=readConverter;
+        structField.context=new StructureReadContext(this,field);
+      }
+ else       if (writeConverter != null || readConverter != null) {
+        String msg="Structures require bidirectional type conversion for " + type;
+        throw new IllegalArgumentException(msg);
+      }
+    }
+    try {
+      structField.size=getNativeSize(nativeType,value);
+      fieldAlignment=getNativeAlignment(nativeType,value,firstField);
+    }
+ catch (    IllegalArgumentException e) {
+      if (!force && typeMapper == null) {
+        return CALCULATE_SIZE;
+      }
+      String msg="Invalid Structure field in " + getClass() + ", field name '"+ structField.name+ "', "+ structField.type+ ": "+ e.getMessage();
+      throw new IllegalArgumentException(msg);
+    }
+    structAlignment=Math.max(structAlignment,fieldAlignment);
+    if ((calculatedSize % fieldAlignment) != 0) {
+      calculatedSize+=fieldAlignment - (calculatedSize % fieldAlignment);
+    }
+    structField.offset=calculatedSize;
+    calculatedSize+=structField.size;
+    structFields.put(structField.name,structField);
+  }
+  if (calculatedSize > 0) {
+    int size=calculateAlignedSize(calculatedSize);
+    if (this instanceof ByValue && !avoidFFIType) {
+      getTypeInfo();
+    }
+    if (this.memory != null && !(this.memory instanceof AutoAllocated)) {
+      this.memory=this.memory.share(0,size);
+    }
+    return size;
+  }
+  throw new IllegalArgumentException("Structure " + getClass() + " has unknown size (ensure "+ "all fields are public)");
+}
