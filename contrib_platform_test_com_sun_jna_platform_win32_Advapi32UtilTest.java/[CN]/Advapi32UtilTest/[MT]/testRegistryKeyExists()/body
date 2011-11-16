@@ -1,5 +1,5 @@
 {
   assertTrue(Advapi32Util.registryKeyExists(WinReg.HKEY_LOCAL_MACHINE,""));
-  assertTrue(Advapi32Util.registryKeyExists(WinReg.HKEY_LOCAL_MACHINE,"Software\\Microsoft"));
-  assertFalse(Advapi32Util.registryKeyExists(WinReg.HKEY_LOCAL_MACHINE,"KeyDoesNotExist\\SubKeyDoesNotExist"));
+  assertTrue(Advapi32Util.registryKeyExists(WinReg.HKEY_LOCAL_MACHINE,"Software\\\\Microsoft"));
+  assertFalse(Advapi32Util.registryKeyExists(WinReg.HKEY_LOCAL_MACHINE,"KeyDoesNotExist\\\\SubKeyDoesNotExist"));
 }

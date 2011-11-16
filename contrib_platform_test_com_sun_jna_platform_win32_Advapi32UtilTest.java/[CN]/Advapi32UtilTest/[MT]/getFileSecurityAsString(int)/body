@@ -1,0 +1,22 @@
+{
+  final String[] FLAGS={"DELETE","READ_CONTROL","WRITE_DAC","WRITE_OWNER","SYNCHRONIZE","STANDARD_RIGHTS_REQUIRED","STANDARD_RIGHTS_ALL","SPECIFIC_RIGHTS_ALL","GENERIC_ALL","GENERIC_EXECUTE","GENERIC_WRITE","GENERIC_READ","FILE_READ_DATA","FILE_LIST_DIRECTORY","FILE_WRITE_DATA","FILE_ADD_FILE","FILE_APPEND_DATA","FILE_ADD_SUBDIRECTORY","FILE_CREATE_PIPE_INSTANCE","FILE_READ_EA","FILE_WRITE_EA","FILE_EXECUTE","FILE_TRAVERSE","FILE_DELETE_CHILD","FILE_READ_ATTRIBUTES","FILE_WRITE_ATTRIBUTES"};
+  String asString="";
+  for (  String flag : FLAGS) {
+    try {
+      Field field=WinNT.class.getDeclaredField(flag);
+      int int1=field.getInt(null);
+      if ((int1 & accessMask) == int1) {
+        asString+=flag + " ";
+      }
+    }
+ catch (    IllegalArgumentException e) {
+    }
+catch (    IllegalAccessException e) {
+    }
+catch (    SecurityException e) {
+    }
+catch (    NoSuchFieldException e) {
+    }
+  }
+  return asString.trim();
+}

@@ -1,0 +1,3 @@
+{
+  return getUserInfo(accountName,Netapi32Util.getDCName());
+}

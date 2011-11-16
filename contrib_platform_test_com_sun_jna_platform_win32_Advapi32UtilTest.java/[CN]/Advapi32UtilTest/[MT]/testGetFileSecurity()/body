@@ -1,0 +1,18 @@
+{
+  final String userUnderTest="iFinder";
+  final Account userUnderTestAccount=Advapi32Util.getAccountByName(userUnderTest);
+  final String userUnderTestSID=userUnderTestAccount.sidString;
+  final String groupUnderTest="Sales";
+  final Account groupUnderTestAccount=Advapi32Util.getAccountByName(groupUnderTest);
+  final String groupUnderTestSID=groupUnderTestAccount.sidString;
+  final String testRootDir="C:\\Projekte\\JNA-fileAccessRights\\";
+  ACCESS_ACEStructure[] fileSecurity_UmGr=Advapi32Util.getFileSecurity(testRootDir + "UmGr-w.txt",false);
+  System.out.println("UmGr-w.txt");
+  checkFileSecurity(fileSecurity_UmGr,userUnderTestSID,new String[]{"0 0 DELETE READ_CONTROL SYNCHRONIZE FILE_READ_DATA FILE_LIST_DIRECTORY FILE_WRITE_DATA FILE_ADD_FILE FILE_APPEND_DATA FILE_ADD_SUBDIRECTORY FILE_CREATE_PIPE_INSTANCE FILE_READ_EA FILE_WRITE_EA FILE_EXECUTE FILE_TRAVERSE FILE_READ_ATTRIBUTES FILE_WRITE_ATTRIBUTES"},groupUnderTestSID,new String[]{"0 1 FILE_WRITE_DATA FILE_ADD_FILE FILE_APPEND_DATA FILE_ADD_SUBDIRECTORY FILE_CREATE_PIPE_INSTANCE FILE_WRITE_EA FILE_WRITE_ATTRIBUTES","0 0 READ_CONTROL SYNCHRONIZE FILE_READ_DATA FILE_LIST_DIRECTORY FILE_READ_EA FILE_READ_ATTRIBUTES"});
+  ACCESS_ACEStructure[] fileSecurity_Uf=Advapi32Util.getFileSecurity(testRootDir + "Uf.txt",false);
+  System.out.println("Uf.txt");
+  checkFileSecurity(fileSecurity_Uf,userUnderTestSID,new String[]{"0 0 DELETE READ_CONTROL WRITE_DAC WRITE_OWNER SYNCHRONIZE STANDARD_RIGHTS_REQUIRED STANDARD_RIGHTS_ALL FILE_READ_DATA FILE_LIST_DIRECTORY FILE_WRITE_DATA FILE_ADD_FILE FILE_APPEND_DATA FILE_ADD_SUBDIRECTORY FILE_CREATE_PIPE_INSTANCE FILE_READ_EA FILE_WRITE_EA FILE_EXECUTE FILE_TRAVERSE FILE_DELETE_CHILD FILE_READ_ATTRIBUTES FILE_WRITE_ATTRIBUTES"},null,null);
+  ACCESS_ACEStructure[] fileSecurity_Grw_Cp=Advapi32Util.getFileSecurity(testRootDir + "UrwGr.dir\\Grw.txt",false);
+  System.out.println("UrwGr.dir\\Grw.txt");
+  checkFileSecurity(fileSecurity_Grw_Cp,null,null,groupUnderTestSID,new String[]{"16 0 READ_CONTROL SYNCHRONIZE FILE_READ_DATA FILE_LIST_DIRECTORY FILE_READ_EA FILE_READ_ATTRIBUTES"});
+}

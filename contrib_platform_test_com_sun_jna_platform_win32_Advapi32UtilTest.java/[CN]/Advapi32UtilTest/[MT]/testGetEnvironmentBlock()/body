@@ -1,5 +1,5 @@
 {
-  String expected="KEY=value\0" + "KEY_EMPTY=\0" + "KEY_NUMBER=2\0"+ "\0";
+  String expected="KEY=value\\0" + "KEY_EMPTY=\\0" + "KEY_NUMBER=2\\0"+ "\\0";
   Map<String,String> mockEnvironment=new TreeMap<String,String>();
   mockEnvironment.put("KEY","value");
   mockEnvironment.put("KEY_EMPTY","");

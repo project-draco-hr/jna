@@ -1,7 +1,7 @@
 {
   Advapi32Util.registryCreateKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
-  Advapi32Util.registrySetExpandableStringValue(WinReg.HKEY_CURRENT_USER,"Software\\JNA","StringValue","Temp is %TEMP%");
-  assertEquals("Temp is %TEMP%",Advapi32Util.registryGetExpandableStringValue(WinReg.HKEY_CURRENT_USER,"Software\\JNA","StringValue"));
-  assertTrue(Advapi32Util.registryValueExists(WinReg.HKEY_CURRENT_USER,"Software\\JNA","StringValue"));
+  Advapi32Util.registrySetExpandableStringValue(WinReg.HKEY_CURRENT_USER,"Software\\\\JNA","StringValue","Temp is %TEMP%");
+  assertEquals("Temp is %TEMP%",Advapi32Util.registryGetExpandableStringValue(WinReg.HKEY_CURRENT_USER,"Software\\\\JNA","StringValue"));
+  assertTrue(Advapi32Util.registryValueExists(WinReg.HKEY_CURRENT_USER,"Software\\\\JNA","StringValue"));
   Advapi32Util.registryDeleteKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
 }

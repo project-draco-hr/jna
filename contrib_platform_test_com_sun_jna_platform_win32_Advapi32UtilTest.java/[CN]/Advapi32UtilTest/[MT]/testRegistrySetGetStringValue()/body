@@ -1,7 +1,7 @@
 {
   Advapi32Util.registryCreateKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
-  Advapi32Util.registrySetStringValue(WinReg.HKEY_CURRENT_USER,"Software\\JNA","StringValue","Hello World");
-  assertEquals("Hello World",Advapi32Util.registryGetStringValue(WinReg.HKEY_CURRENT_USER,"Software\\JNA","StringValue"));
-  assertTrue(Advapi32Util.registryValueExists(WinReg.HKEY_CURRENT_USER,"Software\\JNA","StringValue"));
+  Advapi32Util.registrySetStringValue(WinReg.HKEY_CURRENT_USER,"Software\\\\JNA","StringValue","Hello World");
+  assertEquals("Hello World",Advapi32Util.registryGetStringValue(WinReg.HKEY_CURRENT_USER,"Software\\\\JNA","StringValue"));
+  assertTrue(Advapi32Util.registryValueExists(WinReg.HKEY_CURRENT_USER,"Software\\\\JNA","StringValue"));
   Advapi32Util.registryDeleteKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
 }
