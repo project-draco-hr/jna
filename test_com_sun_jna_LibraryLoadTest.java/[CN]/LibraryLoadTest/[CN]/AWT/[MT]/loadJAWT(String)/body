@@ -1,0 +1,10 @@
+{
+  Frame f=new Frame(name);
+  f.pack();
+  try {
+    Native.getWindowPointer(f);
+  }
+  finally {
+    f.dispose();
+  }
+}

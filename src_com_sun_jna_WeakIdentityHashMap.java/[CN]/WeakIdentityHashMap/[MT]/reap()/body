@@ -1,0 +1,8 @@
+{
+  Object zombie=queue.poll();
+  while (zombie != null) {
+    IdentityWeakReference victim=(IdentityWeakReference)zombie;
+    backingStore.remove(victim);
+    zombie=queue.poll();
+  }
+}

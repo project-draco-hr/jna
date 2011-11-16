@@ -1,3 +1,12 @@
 {
-  return FFIType.get(getField(f),f.type);
+  Class type=f.type;
+  Object value=getField(f);
+  if (typeMapper != null) {
+    ToNativeConverter nc=typeMapper.getToNativeConverter(type);
+    if (nc != null) {
+      type=nc.nativeType();
+      value=nc.toNative(value,new ToNativeContext());
+    }
+  }
+  return FFIType.get(value,type);
 }

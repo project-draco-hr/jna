@@ -1,6 +1,6 @@
 {
   StringBuffer buf=new StringBuffer();
-  final int MAX=2000000;
+  final int MAX=Platform.isWindowsCE() ? 200000 : 2000000;
   for (int i=0; i < MAX; i++) {
     buf.append('a');
   }

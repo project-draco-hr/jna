@@ -1,0 +1,3 @@
+{
+  return backingStore.equals(((WeakIdentityHashMap)o).backingStore);
+}

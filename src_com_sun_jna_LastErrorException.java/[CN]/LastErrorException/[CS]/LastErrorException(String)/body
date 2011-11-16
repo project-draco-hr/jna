@@ -1,6 +1,9 @@
 {
-  super(parseMessage(msg));
+  super(parseMessage(msg.trim()));
   try {
+    if (msg.startsWith("[")) {
+      msg=msg.substring(1,msg.indexOf("]"));
+    }
     this.errorCode=Integer.parseInt(msg);
   }
  catch (  NumberFormatException e) {
