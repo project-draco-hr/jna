@@ -4,7 +4,7 @@
   userInfo.usri1_password=new WString("!JNAP$$Wrd0");
   userInfo.usri1_priv=LMAccess.USER_PRIV_USER;
   try {
-    assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetUserAdd(null,1,userInfo,null));
+    assertEquals("Error in NetUserAdd",LMErr.NERR_Success,Netapi32.INSTANCE.NetUserAdd(null,1,userInfo,null));
     HANDLEByReference phUser=new HANDLEByReference();
     try {
       assertTrue(Advapi32.INSTANCE.LogonUser(userInfo.usri1_name.toString(),null,userInfo.usri1_password.toString(),WinBase.LOGON32_LOGON_NETWORK,WinBase.LOGON32_PROVIDER_DEFAULT,phUser));
@@ -23,6 +23,6 @@
     }
   }
   finally {
-    assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetUserDel(null,userInfo.usri1_name.toString()));
+    assertEquals("Error in NetUserDel",LMErr.NERR_Success,Netapi32.INSTANCE.NetUserDel(null,userInfo.usri1_name.toString()));
   }
 }
