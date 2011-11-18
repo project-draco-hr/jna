@@ -1,19 +1,21 @@
 {
-  int RequestedInformation=WinNT.DACL_SECURITY_INFORMATION;
+  int infoType=WinNT.DACL_SECURITY_INFORMATION;
   int nLength=1024;
   boolean repeat=false;
   Memory memory=null;
   do {
     repeat=false;
     memory=new Memory(nLength);
-    IntByReference lpnLengthNeeded=new IntByReference();
-    boolean succeded=Advapi32.INSTANCE.GetFileSecurityW(new WString(fileName),RequestedInformation,memory,nLength,lpnLengthNeeded);
+    IntByReference lpnSize=new IntByReference();
+    boolean succeded=Advapi32.INSTANCE.GetFileSecurity(new WString(fileName),infoType,memory,nLength,lpnSize);
     if (!succeded) {
       int lastError=Kernel32.INSTANCE.GetLastError();
       memory.clear();
-      if (W32Errors.ERROR_INSUFFICIENT_BUFFER != lastError)       throw new Win32Exception(lastError);
+      if (W32Errors.ERROR_INSUFFICIENT_BUFFER != lastError) {
+        throw new Win32Exception(lastError);
+      }
     }
-    int lengthNeeded=lpnLengthNeeded.getValue();
+    int lengthNeeded=lpnSize.getValue();
     if (nLength < lengthNeeded) {
       repeat=true;
       nLength=lengthNeeded;
@@ -21,9 +23,9 @@
     }
   }
  while (repeat);
-  SECURITY_DESCRIPTOR_RELATIVE securityDESCRIPTORRELATIVE=new WinNT.SECURITY_DESCRIPTOR_RELATIVE(memory);
+  SECURITY_DESCRIPTOR_RELATIVE sdr=new WinNT.SECURITY_DESCRIPTOR_RELATIVE(memory);
   memory.clear();
-  ACL dacl=securityDESCRIPTORRELATIVE.getDiscretionaryACL();
+  ACL dacl=sdr.getDiscretionaryACL();
   ACCESS_ACEStructure[] aceStructures=dacl.getACEStructures();
   if (compact) {
     Map<String,ACCESS_ACEStructure> aceMap=new HashMap<String,ACCESS_ACEStructure>();

@@ -1,6 +1,6 @@
 {
   Advapi32Util.registryCreateKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
-  assertTrue(Advapi32Util.registryKeyExists(WinReg.HKEY_CURRENT_USER,"Software\\\\JNA"));
+  assertTrue(Advapi32Util.registryKeyExists(WinReg.HKEY_CURRENT_USER,"Software\\JNA"));
   Advapi32Util.registryDeleteKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
-  assertFalse(Advapi32Util.registryKeyExists(WinReg.HKEY_CURRENT_USER,"Software\\\\JNA"));
+  assertFalse(Advapi32Util.registryKeyExists(WinReg.HKEY_CURRENT_USER,"Software\\JNA"));
 }
