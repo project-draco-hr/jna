@@ -3,8 +3,7 @@
   IntByReference len=new IntByReference(buffer.length);
   boolean result=Advapi32.INSTANCE.GetUserNameW(buffer,len);
   if (!result) {
-    int rc=Kernel32.INSTANCE.GetLastError();
-switch (rc) {
+switch (Kernel32.INSTANCE.GetLastError()) {
 case W32Errors.ERROR_INSUFFICIENT_BUFFER:
       buffer=new char[len.getValue()];
     break;

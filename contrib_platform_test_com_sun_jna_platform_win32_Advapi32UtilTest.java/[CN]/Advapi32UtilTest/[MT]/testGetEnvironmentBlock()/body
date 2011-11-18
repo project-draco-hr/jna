@@ -6,5 +6,5 @@
   mockEnvironment.put("KEY_NUMBER","2");
   mockEnvironment.put("KEY_NULL",null);
   String block=Advapi32Util.getEnvironmentBlock(mockEnvironment);
-  assertEquals(expected,block);
+  assertEquals("Environment block must comprise key=value pairs separated by NUL characters",expected,block);
 }

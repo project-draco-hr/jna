@@ -11,10 +11,10 @@
     if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
       throw new Win32Exception(rc);
     }
-    if (lpType.getValue() != WinNT.REG_DWORD) {
-      throw new RuntimeException("Unexpected registry type " + lpType.getValue() + ", expected REG_DWORD");
+    if (lpType.getValue() != WinNT.REG_QWORD) {
+      throw new RuntimeException("Unexpected registry type " + lpType.getValue() + ", expected REG_QWORD");
     }
-    IntByReference data=new IntByReference();
+    LongByReference data=new LongByReference();
     rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
     if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
       throw new Win32Exception(rc);

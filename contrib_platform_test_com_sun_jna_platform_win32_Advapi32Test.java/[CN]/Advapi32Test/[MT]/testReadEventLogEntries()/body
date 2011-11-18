@@ -11,6 +11,7 @@
       rc=Kernel32.INSTANCE.GetLastError();
       if (rc == W32Errors.ERROR_INSUFFICIENT_BUFFER) {
         buffer=new Memory(pnMinNumberOfBytesNeeded.getValue());
+        rc=0;
         continue;
       }
       break;
@@ -24,6 +25,6 @@
       pevlr=pevlr.share(record.Length.intValue());
     }
   }
-  assertTrue("Unexpected error after reading event log: " + rc,rc == W32Errors.ERROR_HANDLE_EOF || rc == 0);
+  assertTrue("Unexpected error after reading event log: " + new Win32Exception(rc),rc == W32Errors.ERROR_HANDLE_EOF || rc == 0);
   assertTrue("Error closing event log",Advapi32.INSTANCE.CloseEventLog(h));
 }

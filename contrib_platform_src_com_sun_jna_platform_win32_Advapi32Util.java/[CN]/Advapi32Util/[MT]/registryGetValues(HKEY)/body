@@ -21,36 +21,41 @@
     Memory byteData=new Memory(lpcbData.getValue());
     byteData.write(0,data,0,lpcbData.getValue());
 switch (lpType.getValue()) {
-case WinNT.REG_DWORD:
+case WinNT.REG_QWORD:
 {
-        keyValues.put(nameString,byteData.getInt(0));
+        keyValues.put(nameString,byteData.getLong(0));
         break;
       }
+case WinNT.REG_DWORD:
+{
+      keyValues.put(nameString,byteData.getInt(0));
+      break;
+    }
 case WinNT.REG_SZ:
 case WinNT.REG_EXPAND_SZ:
 {
-      keyValues.put(nameString,byteData.getString(0,true));
-      break;
-    }
-case WinNT.REG_BINARY:
-{
-    keyValues.put(nameString,byteData.getByteArray(0,lpcbData.getValue()));
+    keyValues.put(nameString,byteData.getString(0,true));
     break;
   }
+case WinNT.REG_BINARY:
+{
+  keyValues.put(nameString,byteData.getByteArray(0,lpcbData.getValue()));
+  break;
+}
 case WinNT.REG_MULTI_SZ:
 {
-  Memory stringData=new Memory(lpcbData.getValue());
-  stringData.write(0,data,0,lpcbData.getValue());
-  ArrayList<String> result=new ArrayList<String>();
-  int offset=0;
-  while (offset < stringData.size()) {
-    String s=stringData.getString(offset,true);
-    offset+=s.length() * Native.WCHAR_SIZE;
-    offset+=Native.WCHAR_SIZE;
-    result.add(s);
-  }
-  keyValues.put(nameString,result.toArray(new String[0]));
-  break;
+Memory stringData=new Memory(lpcbData.getValue());
+stringData.write(0,data,0,lpcbData.getValue());
+ArrayList<String> result=new ArrayList<String>();
+int offset=0;
+while (offset < stringData.size()) {
+  String s=stringData.getString(offset,true);
+  offset+=s.length() * Native.WCHAR_SIZE;
+  offset+=Native.WCHAR_SIZE;
+  result.add(s);
+}
+keyValues.put(nameString,result.toArray(new String[0]));
+break;
 }
 default :
 throw new RuntimeException("Unsupported type: " + lpType.getValue());

@@ -1,5 +1,5 @@
 {
-  String sidString="S-1-1-0";
+  String sidString=EVERYONE;
   PSIDByReference sid=new PSIDByReference();
   assertTrue(Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
   PointerByReference convertedSidStringPtr=new PointerByReference();
