@@ -1,0 +1,14 @@
+{
+class TestStructure extends Structure {
+    public byte[] variable;
+    public TestStructure(){
+      this(16);
+    }
+    public TestStructure(    int size){
+      this.variable=new byte[size];
+    }
+  }
+  Structure ts=new TestStructure(8);
+  Structure ts2=new TestStructure(16);
+  assertNotSame("Structure layout should not be cached",ts.fields(),ts2.fields());
+}

@@ -1,3 +1,4 @@
 {
+  ensureAllocated();
   return structFields;
 }

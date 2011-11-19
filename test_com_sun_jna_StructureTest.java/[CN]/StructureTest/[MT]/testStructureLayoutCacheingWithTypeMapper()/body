@@ -1,0 +1,26 @@
+{
+class TestStructure extends Structure {
+    public boolean field;
+    public TestStructure(){
+      DefaultTypeMapper m=new DefaultTypeMapper();
+      TypeConverter tc=new TypeConverter(){
+        public Class nativeType(){
+          return int.class;
+        }
+        public Object fromNative(        Object nativeValue,        FromNativeContext c){
+          return new Boolean(nativeValue.equals(new Integer(0)));
+        }
+        public Object toNative(        Object value,        ToNativeContext c){
+          return new Integer(Boolean.TRUE.equals(value) ? -1 : 0);
+        }
+      }
+;
+      m.addTypeConverter(boolean.class,tc);
+      m.addTypeConverter(Boolean.class,tc);
+      setTypeMapper(m);
+    }
+  }
+  Structure ts=new TestStructure();
+  Structure ts2=new TestStructure();
+  assertNotSame("Structure layout should not be cached",ts.fields(),ts2.fields());
+}

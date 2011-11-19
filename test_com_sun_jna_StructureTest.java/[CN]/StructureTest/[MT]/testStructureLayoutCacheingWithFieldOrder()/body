@@ -1,0 +1,13 @@
+{
+class TestStructure extends Structure {
+    public int second;
+    public int third;
+    public int first;
+    public TestStructure(){
+      setFieldOrder(new String[]{"first","second","third"});
+    }
+  }
+  Structure ts=new TestStructure();
+  Structure ts2=new TestStructure();
+  assertSame("Structure layout should be cached",ts.fields(),ts2.fields());
+}
