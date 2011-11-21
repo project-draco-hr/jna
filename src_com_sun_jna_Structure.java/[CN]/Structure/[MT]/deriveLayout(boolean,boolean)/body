@@ -37,31 +37,15 @@
       continue;
     }
     Object value=getField(structField);
-    if (value == null) {
-      if (Structure.class.isAssignableFrom(type) && !(ByReference.class.isAssignableFrom(type))) {
-        try {
-          value=newInstance(type);
-          setField(structField,value);
-        }
- catch (        IllegalArgumentException e) {
-          String msg="Can't determine size of nested structure: " + e.getMessage();
-          throw new IllegalArgumentException(msg);
-        }
+    if (value == null && type.isArray()) {
+      if (force) {
+        throw new IllegalStateException("Array fields must be initialized");
       }
- else       if (type.isArray()) {
-        if (force) {
-          throw new IllegalStateException("Array fields must be initialized");
-        }
-        return null;
-      }
+      return null;
     }
     Class nativeType=type;
     if (NativeMapped.class.isAssignableFrom(type)) {
       NativeMappedConverter tc=NativeMappedConverter.getInstance(type);
-      if (value == null) {
-        value=tc.defaultValue();
-        setField(structField,value);
-      }
       nativeType=tc.nativeType();
       structField.writeConverter=tc;
       structField.readConverter=tc;
@@ -81,6 +65,9 @@
         String msg="Structures require bidirectional type conversion for " + type;
         throw new IllegalArgumentException(msg);
       }
+    }
+    if (value == null) {
+      value=initializeField(structField,type);
     }
     try {
       structField.size=getNativeSize(nativeType,value);

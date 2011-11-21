@@ -12,7 +12,7 @@
     }
     size=calculateAlignedSize(fsize);
     if (size > 0) {
-      if (this instanceof ByValue) {
+      if (this instanceof ByValue && !avoidFFIType) {
         getTypeInfo();
       }
     }

@@ -1,8 +1,6 @@
 {
-class TestStructure extends Structure {
-    public boolean field;
-    public TestStructure(){
-      DefaultTypeMapper m=new DefaultTypeMapper();
+class TestTypeMapper extends DefaultTypeMapper {
+{
       TypeConverter tc=new TypeConverter(){
         public Class nativeType(){
           return int.class;
@@ -15,12 +13,26 @@ class TestStructure extends Structure {
         }
       }
 ;
-      m.addTypeConverter(boolean.class,tc);
-      m.addTypeConverter(Boolean.class,tc);
-      setTypeMapper(m);
+      addTypeConverter(boolean.class,tc);
+      addTypeConverter(Boolean.class,tc);
+    }
+  }
+  final TypeMapper m=new TestTypeMapper();
+class TestStructure extends Structure {
+    public boolean field;
+    public TestStructure(){
+      this(false);
+    }
+    public TestStructure(    boolean create){
+      this(create ? new TestTypeMapper() : m);
+    }
+    public TestStructure(    TypeMapper m){
+      super(m);
     }
   }
   Structure ts=new TestStructure();
   Structure ts2=new TestStructure();
-  assertNotSame("Structure layout should not be cached",ts.fields(),ts2.fields());
+  ts.size();
+  ts2.size();
+  assertSame("Structure layout should not be cached when type mapper is in use",ts.fields(),ts2.fields());
 }

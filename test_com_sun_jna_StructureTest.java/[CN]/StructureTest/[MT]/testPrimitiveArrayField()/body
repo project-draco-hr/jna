@@ -3,8 +3,11 @@ class TestStructure extends Structure {
     public byte[] buffer=new byte[1024];
   }
   TestStructure s=new TestStructure();
+  TestStructure s2=new TestStructure();
   assertEquals("Wrong size for structure with nested array",1024,s.size());
+  assertEquals("Wrong size for structure with nested array (cached)",1024,s2.size());
   assertNotNull("Array should be initialized",s.buffer);
+  assertNotNull("Array should be initialized (cached)",s2.buffer);
   s.write();
   s.read();
 }

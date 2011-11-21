@@ -1,4 +1,5 @@
 {
+  ensureAllocated();
   String LS=System.getProperty("line.separator");
   String name=format(getClass()) + "(" + getPointer()+ ")";
   if (!(getPointer() instanceof Memory)) {

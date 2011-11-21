@@ -9,10 +9,12 @@ class TestStructure extends Structure {
     public NativeLong uninitialized;
   }
   TestStructure ts=new TestStructure();
+  TestStructure ts2=new TestStructure();
   assertEquals("Wrong value in field",VALUE,ts.nl.longValue());
   assertSame("Initial value overwritten",INITIAL,ts.nl);
   assertEquals("Wrong field value before write",VALUE,ts.nl.longValue());
   assertNotNull("Uninitialized field should be initialized",ts.uninitialized);
+  assertNotNull("Uninitialized field should be initialized (cached)",ts2.uninitialized);
   assertEquals("Wrong initialized value",0,ts.uninitialized.longValue());
   ts.write();
   assertEquals("Wrong field value written",VALUE,ts.getPointer().getNativeLong(0).longValue());
