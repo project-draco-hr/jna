@@ -5,6 +5,6 @@
   PointerByReference roverlap=new PointerByReference();
   klib.GetQueuedCompletionStatus(port,rcount,rkey,roverlap,WinBase.INFINITE);
 synchronized (this) {
-    return (FileInfo)handleMap.get(rkey.getValue());
+    return handleMap.get(rkey.getValue());
   }
 }

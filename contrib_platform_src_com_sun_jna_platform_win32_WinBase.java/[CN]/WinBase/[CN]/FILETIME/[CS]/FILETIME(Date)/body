@@ -1,5 +1,0 @@
-{
-  long rawValue=dateToFileTime(date);
-  dwHighDateTime=(int)(rawValue >> 32 & 0xffffffffL);
-  dwLowDateTime=(int)(rawValue & 0xffffffffL);
-}

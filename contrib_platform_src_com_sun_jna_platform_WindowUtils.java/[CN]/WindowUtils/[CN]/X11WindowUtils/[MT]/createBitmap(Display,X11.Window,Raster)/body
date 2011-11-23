@@ -21,7 +21,7 @@
 );
     X11.XRectangle[] rects=(X11.XRectangle[])new X11.XRectangle().toArray(rlist.size());
     for (int i=0; i < rects.length; i++) {
-      Rectangle r=(Rectangle)rlist.get(i);
+      Rectangle r=rlist.get(i);
       rects[i].x=(short)r.x;
       rects[i].y=(short)r.y;
       rects[i].width=(short)r.width;
