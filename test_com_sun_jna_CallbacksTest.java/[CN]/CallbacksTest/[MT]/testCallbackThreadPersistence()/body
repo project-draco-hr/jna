@@ -1,0 +1,20 @@
+{
+  final int[] called={0};
+  final Set threads=new HashSet();
+  final int COUNT=5;
+  CallbackThreadInitializer init=new CallbackThreadInitializer(true,false){
+    public String getName(    Callback cb){
+      return CallbacksTest.this.getName() + " thread " + called[0];
+    }
+  }
+;
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      threads.add(Thread.currentThread());
+      ++called[0];
+    }
+  }
+;
+  callThreadedCallback(cb,init,COUNT,100,called);
+  assertEquals("Native thread mapping not preserved: " + threads,1,threads.size());
+}

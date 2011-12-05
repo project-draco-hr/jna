@@ -1,4 +1,5 @@
 {
+  if (Platform.isWindowsCE())   return;
 class TestStructure extends Structure {
     public int intField;
     public PublicTestStructure inner;

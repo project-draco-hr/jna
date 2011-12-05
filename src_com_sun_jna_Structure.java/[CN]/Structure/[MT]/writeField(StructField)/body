@@ -24,7 +24,6 @@
     memory.setValue(offset,value,fieldType);
   }
  catch (  IllegalArgumentException e) {
-    e.printStackTrace();
     String msg="Structure field \"" + structField.name + "\" was declared as "+ structField.type+ (structField.type == fieldType ? "" : " (native type " + fieldType + ")")+ ", which is not supported within a Structure";
     throw new IllegalArgumentException(msg);
   }

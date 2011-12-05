@@ -1,0 +1,16 @@
+{
+  if (GraphicsEnvironment.isHeadless()) {
+    throw new HeadlessException("No native windows when headless");
+  }
+  Component c=(Component)o;
+  if (c.isLightweight()) {
+    throw new IllegalArgumentException("Component must be heavyweight");
+  }
+  if (!c.isDisplayable())   throw new IllegalStateException("Component must be displayable");
+  if (Platform.isX11() && System.getProperty("java.version").startsWith("1.4")) {
+    if (!c.isVisible()) {
+      throw new IllegalStateException("Component must be visible");
+    }
+  }
+  return Native.getWindowHandle0(c);
+}

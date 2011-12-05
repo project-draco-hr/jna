@@ -1,5 +1,4 @@
 {
-  ensureAllocated();
   StructField f=findField(object.getClass());
   if (f != null) {
     activeField=f;

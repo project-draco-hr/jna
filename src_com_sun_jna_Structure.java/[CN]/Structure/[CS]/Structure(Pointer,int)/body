@@ -1,3 +1,3 @@
 {
-  this(p,alignment,null);
+  this(p,alignType,null);
 }

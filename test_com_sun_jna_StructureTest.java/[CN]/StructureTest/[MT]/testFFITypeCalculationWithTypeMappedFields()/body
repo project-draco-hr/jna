@@ -1,0 +1,45 @@
+{
+  final TypeMapper mapper=new TypeMapper(){
+    public FromNativeConverter getFromNativeConverter(    Class cls){
+      if (Boolean.class.equals(cls) || boolean.class.equals(cls)) {
+        return new FromNativeConverter(){
+          public Class nativeType(){
+            return byte.class;
+          }
+          public Object fromNative(          Object nativeValue,          FromNativeContext context){
+            return nativeValue.equals(new Byte((byte)0)) ? Boolean.FALSE : Boolean.TRUE;
+          }
+        }
+;
+      }
+      return null;
+    }
+    public ToNativeConverter getToNativeConverter(    Class javaType){
+      if (Boolean.class.equals(javaType) || boolean.class.equals(javaType)) {
+        return new ToNativeConverter(){
+          public Object toNative(          Object value,          ToNativeContext context){
+            return new Byte(Boolean.TRUE.equals(value) ? (byte)1 : (byte)0);
+          }
+          public Class nativeType(){
+            return byte.class;
+          }
+        }
+;
+      }
+      return null;
+    }
+  }
+;
+class TestStructure extends Structure {
+    public boolean b;
+    public short s;
+    public int p0, p1, p2, p3, p4, p5, p6, p7;
+    public TestStructure(){
+      setTypeMapper(mapper);
+    }
+  }
+  Structure s=new TestStructure();
+  assertEquals("Wrong type mapper for structure",mapper,s.getTypeMapper());
+  FFIType ffi_type=new FFIType(Structure.getTypeInfo(s));
+  assertEquals("Java Structure size does not match FFIType size",s.size(),ffi_type.size.intValue());
+}

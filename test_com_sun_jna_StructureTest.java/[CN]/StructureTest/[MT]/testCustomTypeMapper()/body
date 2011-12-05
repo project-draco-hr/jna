@@ -1,10 +1,11 @@
 {
+  final DefaultTypeMapper mapper=new DefaultTypeMapper();
 class TestField {
   }
 class TestStructure extends Structure {
     public TestField field;
     public TestStructure(){
-      DefaultTypeMapper m=new DefaultTypeMapper();
+      DefaultTypeMapper m=mapper;
       m.addTypeConverter(TestField.class,new TypeConverter(){
         public Object fromNative(        Object value,        FromNativeContext context){
           return new TestField();
@@ -17,8 +18,9 @@ class TestStructure extends Structure {
         }
       }
 );
-      setTypeMapper(new DefaultTypeMapper());
+      setTypeMapper(m);
     }
   }
-  new TestStructure();
+  Structure s=new TestStructure();
+  assertEquals("Wrong type mapper: " + s,mapper,s.getTypeMapper());
 }

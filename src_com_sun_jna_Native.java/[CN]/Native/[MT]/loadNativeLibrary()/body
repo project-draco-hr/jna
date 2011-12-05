@@ -1,17 +1,21 @@
 {
   removeTemporaryFiles();
-  String libName="jnidispatch";
+  String libName=System.getProperty("jna.boot.library.name","jnidispatch");
   String bootPath=System.getProperty("jna.boot.library.path");
   if (bootPath != null) {
-    String[] dirs=bootPath.split(File.pathSeparator);
-    for (int i=0; i < dirs.length; ++i) {
-      String path=new File(new File(dirs[i]),System.mapLibraryName(libName)).getAbsolutePath();
-      try {
-        System.load(path);
-        nativeLibraryPath=path;
-        return;
-      }
- catch (      UnsatisfiedLinkError ex) {
+    StringTokenizer dirs=new StringTokenizer(bootPath,File.pathSeparator);
+    while (dirs.hasMoreTokens()) {
+      String dir=dirs.nextToken();
+      File file=new File(new File(dir),System.mapLibraryName(libName));
+      String path=file.getAbsolutePath();
+      if (file.exists()) {
+        try {
+          System.load(path);
+          nativeLibraryPath=path;
+          return;
+        }
+ catch (        UnsatisfiedLinkError ex) {
+        }
       }
       if (Platform.isMac()) {
         String orig, ext;
@@ -23,24 +27,34 @@
           orig="jnilib";
           ext="dylib";
         }
-        try {
-          path=path.substring(0,path.lastIndexOf(orig)) + ext;
-          System.load(path);
-          nativeLibraryPath=path;
-          return;
-        }
- catch (        UnsatisfiedLinkError ex) {
+        path=path.substring(0,path.lastIndexOf(orig)) + ext;
+        if (new File(path).exists()) {
+          try {
+            System.load(path);
+            nativeLibraryPath=path;
+            return;
+          }
+ catch (          UnsatisfiedLinkError ex) {
+            System.err.println("File found at " + path + " but not loadable: "+ ex.getMessage());
+          }
         }
       }
     }
   }
   try {
-    System.loadLibrary(libName);
+    if (!Boolean.getBoolean("jna.nosys")) {
+      System.loadLibrary(libName);
+      return;
+    }
   }
  catch (  UnsatisfiedLinkError e) {
     if (Boolean.getBoolean("jna.nounpack")) {
       throw e;
     }
-    loadNativeLibraryFromJar();
   }
+  if (!Boolean.getBoolean("jna.nounpack")) {
+    loadNativeLibraryFromJar();
+    return;
+  }
+  throw new UnsatisfiedLinkError("Native jnidispatch library not found");
 }

@@ -1,0 +1,18 @@
+{
+  CallbackThreadInitializer init=null;
+  if (cb instanceof DefaultCallbackProxy) {
+    cb=((DefaultCallbackProxy)cb).getCallback();
+  }
+synchronized (initializers) {
+    init=(CallbackThreadInitializer)initializers.get(cb);
+  }
+  ThreadGroup group=null;
+  if (init != null) {
+    group=init.getThreadGroup(cb);
+    args.name=init.getName(cb);
+    args.daemon=init.isDaemon(cb);
+    args.detach=init.detach(cb);
+    args.write();
+  }
+  return group;
+}

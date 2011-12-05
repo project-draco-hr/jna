@@ -1,0 +1,8 @@
+{
+class TestStructure extends Structure {
+    public int field;
+  }
+  Structure ts=new TestStructure();
+  Structure ts2=new TestStructure();
+  assertSame("Structure layout not cached",ts.fields(),ts2.fields());
+}

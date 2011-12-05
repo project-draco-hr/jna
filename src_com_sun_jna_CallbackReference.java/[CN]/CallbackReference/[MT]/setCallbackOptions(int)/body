@@ -1,0 +1,3 @@
+{
+  cbstruct.setInt(Pointer.SIZE,options);
+}

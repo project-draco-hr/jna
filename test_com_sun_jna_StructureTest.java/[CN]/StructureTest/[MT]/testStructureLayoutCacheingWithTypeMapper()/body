@@ -1,0 +1,38 @@
+{
+class TestTypeMapper extends DefaultTypeMapper {
+{
+      TypeConverter tc=new TypeConverter(){
+        public Class nativeType(){
+          return int.class;
+        }
+        public Object fromNative(        Object nativeValue,        FromNativeContext c){
+          return new Boolean(nativeValue.equals(new Integer(0)));
+        }
+        public Object toNative(        Object value,        ToNativeContext c){
+          return new Integer(Boolean.TRUE.equals(value) ? -1 : 0);
+        }
+      }
+;
+      addTypeConverter(boolean.class,tc);
+      addTypeConverter(Boolean.class,tc);
+    }
+  }
+  final TypeMapper m=new TestTypeMapper();
+class TestStructure extends Structure {
+    public boolean field;
+    public TestStructure(){
+      this(false);
+    }
+    public TestStructure(    boolean create){
+      this(create ? new TestTypeMapper() : m);
+    }
+    public TestStructure(    TypeMapper m){
+      super(m);
+    }
+  }
+  Structure ts=new TestStructure();
+  Structure ts2=new TestStructure();
+  ts.size();
+  ts2.size();
+  assertSame("Structure layout should not be cached when type mapper is in use",ts.fields(),ts2.fields());
+}

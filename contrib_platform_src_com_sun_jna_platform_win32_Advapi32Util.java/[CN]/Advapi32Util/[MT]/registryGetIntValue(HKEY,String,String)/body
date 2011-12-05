@@ -12,7 +12,7 @@
       throw new Win32Exception(rc);
     }
     if (lpType.getValue() != WinNT.REG_DWORD) {
-      throw new RuntimeException("Unexpected registry type " + lpType.getValue() + ", expected REG_SZ");
+      throw new RuntimeException("Unexpected registry type " + lpType.getValue() + ", expected REG_DWORD");
     }
     IntByReference data=new IntByReference();
     rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);

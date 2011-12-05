@@ -9,6 +9,9 @@
     return false;
   }
   Structure s=(Structure)o;
+  if (s.getPointer().equals(getPointer())) {
+    return true;
+  }
   if (s.size() == size()) {
     clear();
     write();

@@ -10,7 +10,7 @@
       value=((Pointer)value).getStringArray(0,dstType == WString[].class);
     }
  else     if (Callback.class.isAssignableFrom(dstType)) {
-      value=getCallback(dstType,(Pointer)value);
+      value=CallbackReference.this.getCallback(dstType,(Pointer)value);
     }
  else     if (Structure.class.isAssignableFrom(dstType)) {
       Structure s=Structure.newInstance(dstType);

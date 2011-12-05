@@ -1,0 +1,9 @@
+{
+  reap();
+  Set ret=new HashSet();
+  for (Iterator i=backingStore.keySet().iterator(); i.hasNext(); ) {
+    IdentityWeakReference ref=(IdentityWeakReference)i.next();
+    ret.add(ref.get());
+  }
+  return Collections.unmodifiableSet(ret);
+}

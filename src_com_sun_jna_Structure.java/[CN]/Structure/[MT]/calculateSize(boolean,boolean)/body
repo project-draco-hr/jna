@@ -1,0 +1,28 @@
+{
+  LayoutInfo info;
+  boolean needsInit=true;
+synchronized (layoutInfo) {
+    info=(LayoutInfo)layoutInfo.get(getClass());
+  }
+  if (info == null || this.alignType != info.alignType || this.typeMapper != info.typeMapper || !fieldOrderMatch(info.fieldOrder)) {
+    info=deriveLayout(force,avoidFFIType);
+    needsInit=false;
+  }
+  if (info != null) {
+    this.structAlignment=info.alignment;
+    this.structFields=info.fields;
+    info.alignType=this.alignType;
+    info.typeMapper=this.typeMapper;
+    info.fieldOrder=this.fieldOrder;
+    if (!info.variable) {
+synchronized (layoutInfo) {
+        layoutInfo.put(getClass(),info);
+      }
+    }
+    if (needsInit) {
+      initializeFields();
+    }
+    return info.size;
+  }
+  return CALCULATE_SIZE;
+}

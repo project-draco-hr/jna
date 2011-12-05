@@ -1,0 +1,4 @@
+boolean daemon
+boolean detach
+String name
+ThreadGroup group

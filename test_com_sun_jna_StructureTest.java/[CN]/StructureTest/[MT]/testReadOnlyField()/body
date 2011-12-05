@@ -1,4 +1,13 @@
 {
+  if (!Platform.RO_FIELDS) {
+    try {
+      new ROStructure();
+      fail("Creation of a Structure with final fields should fail");
+    }
+ catch (    Exception e) {
+    }
+    return;
+  }
   ROStructure s=new ROStructure();
   s.getPointer().setInt(0,42);
   s.read();
@@ -9,7 +18,11 @@
   s=avoidConstantFieldOptimization(s);
   assertEquals("Field value not synched after native change",0,s.field);
   s.getPointer().setInt(0,42);
-  s.write();
+  try {
+    s.write();
+  }
+ catch (  UnsupportedOperationException e) {
+  }
   assertEquals("Field should not be written",42,s.getPointer().getInt(0));
   s.read();
   s=avoidConstantFieldOptimization(s);

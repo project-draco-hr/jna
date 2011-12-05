@@ -1,5 +1,5 @@
 {
-  setAlignType(alignment);
+  setAlignType(alignType);
   setTypeMapper(mapper);
   if (p != null) {
     useMemory(p);

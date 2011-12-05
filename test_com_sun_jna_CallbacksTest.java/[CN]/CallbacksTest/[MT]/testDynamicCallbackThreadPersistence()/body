@@ -1,0 +1,39 @@
+{
+  final int[] called={0};
+  final Set threads=new HashSet();
+  final int COUNT=5;
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      threads.add(Thread.currentThread());
+      int count=called[0] + 1;
+      if (count == 1) {
+        Native.detach(false);
+      }
+ else       if (count == COUNT) {
+        Native.detach(true);
+      }
+      called[0]=count;
+    }
+  }
+;
+  callThreadedCallback(cb,null,COUNT,100,called);
+  assertEquals("Native thread mapping not preserved: " + threads,1,threads.size());
+  Thread thread=(Thread)threads.iterator().next();
+  long start=System.currentTimeMillis();
+  while (thread.isAlive()) {
+    System.gc();
+    Thread.sleep(10);
+    if (System.currentTimeMillis() - start > 5000) {
+      PrintStream ps=System.err;
+      ByteArrayOutputStream s=new ByteArrayOutputStream();
+      System.setErr(new PrintStream(s));
+      try {
+        thread.dumpStack();
+      }
+  finally {
+        System.setErr(ps);
+      }
+      fail("Timed out waiting for callback thread " + thread + " to die: "+ s);
+    }
+  }
+}

@@ -9,7 +9,7 @@
   Raster raster=buf.getData();
   int w=bounds.width;
   int h=bounds.height;
-  if (buffer == null || buffer.getSize() != w * h * 4) {
+  if (buffer == null || buffer.size() != w * h * 4) {
     buffer=new Memory(w * h * 4);
     pixels=new int[w * h];
   }

@@ -1,0 +1,5 @@
+TestLibrary.VoidCallback cb
+CallbackThreadInitializer cti
+int repeat
+int sleepms
+int[] called

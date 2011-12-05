@@ -13,7 +13,7 @@
     }
   }
   Object result=null;
-  Callback cb=getCallback();
+  Callback cb=DefaultCallbackProxy.this.getCallback();
   if (cb != null) {
     try {
       result=convertResult(callbackMethod.invoke(cb,callbackArgs));

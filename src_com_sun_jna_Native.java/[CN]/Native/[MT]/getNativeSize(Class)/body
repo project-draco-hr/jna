@@ -16,7 +16,7 @@
     }
     return POINTER_SIZE;
   }
-  if (Pointer.class.isAssignableFrom(cls) || Buffer.class.isAssignableFrom(cls) || Callback.class.isAssignableFrom(cls)|| String.class == cls || WString.class == cls) {
+  if (Pointer.class.isAssignableFrom(cls) || (Platform.HAS_BUFFERS && Buffers.isBuffer(cls)) || Callback.class.isAssignableFrom(cls)|| String.class == cls || WString.class == cls) {
     return POINTER_SIZE;
   }
   throw new IllegalArgumentException("Native size for type \"" + cls.getName() + "\" is unknown");

@@ -1,24 +1,24 @@
 {
   List strings=new ArrayList();
   Pointer p;
-  int offset=0;
+  int addOffset=0;
   if (length != -1) {
-    p=getPointer(base + offset);
+    p=getPointer(offset + addOffset);
     int count=0;
     while (count++ < length) {
       String s=p == null ? null : p.getString(0,wide);
       strings.add(s);
       if (count < length) {
-        offset+=SIZE;
-        p=getPointer(base + offset);
+        addOffset+=SIZE;
+        p=getPointer(offset + addOffset);
       }
     }
   }
  else {
-    while ((p=getPointer(base + offset)) != null) {
+    while ((p=getPointer(offset + addOffset)) != null) {
       String s=p == null ? null : p.getString(0,wide);
       strings.add(s);
-      offset+=SIZE;
+      addOffset+=SIZE;
     }
   }
   return (String[])strings.toArray(new String[strings.size()]);

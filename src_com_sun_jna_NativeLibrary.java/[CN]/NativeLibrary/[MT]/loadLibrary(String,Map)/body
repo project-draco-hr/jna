@@ -23,6 +23,9 @@ synchronized (customPaths) {
     if (handle == 0) {
       libraryPath=findLibraryPath(libraryName,searchPath);
       handle=Native.open(libraryPath);
+      if (handle == 0) {
+        throw new UnsatisfiedLinkError("Failed to load library '" + libraryName + "'");
+      }
     }
   }
  catch (  UnsatisfiedLinkError e) {

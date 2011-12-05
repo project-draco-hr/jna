@@ -1,0 +1,3 @@
+double[] buf
+int len
+double value
