@@ -1,0 +1,7 @@
+{
+  LASTINPUTINFO plii=new LASTINPUTINFO();
+  assertEquals(plii.size(),plii.cbSize);
+  assertTrue(User32.INSTANCE.GetLastInputInfo(plii));
+  assertTrue(Kernel32.INSTANCE.GetTickCount() >= plii.dwTime);
+  assertTrue(plii.dwTime > 0);
+}

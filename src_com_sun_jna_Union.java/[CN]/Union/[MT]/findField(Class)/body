@@ -1,4 +1,5 @@
 {
+  ensureAllocated();
   for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
     StructField f=(StructField)i.next();
     if (f.type.isAssignableFrom(type)) {

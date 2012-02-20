@@ -25,14 +25,14 @@
     pi.next();
   }
   POINT[] lppt=(POINT[])new POINT().toArray(points.size());
-  POINT[] pts=(POINT[])points.toArray(new POINT[points.size()]);
+  POINT[] pts=points.toArray(new POINT[points.size()]);
   for (int i=0; i < lppt.length; i++) {
     lppt[i].x=pts[i].x;
     lppt[i].y=pts[i].y;
   }
   int[] counts=new int[sizes.size()];
   for (int i=0; i < counts.length; i++) {
-    counts[i]=((Integer)sizes.get(i)).intValue();
+    counts[i]=sizes.get(i).intValue();
   }
   HRGN hrgn=gdi.CreatePolyPolygonRgn(lppt,counts,counts.length,mode);
   setWindowRegion(w,hrgn);

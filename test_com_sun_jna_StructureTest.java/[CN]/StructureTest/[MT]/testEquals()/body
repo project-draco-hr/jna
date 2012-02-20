@@ -1,9 +1,17 @@
 {
 class TestStructure extends Structure {
     public int field;
+    public TestStructure(){
+    }
+    public TestStructure(    Pointer p){
+      super(p);
+      read();
+    }
   }
   Structure s=new TestStructure();
   assertTrue("Should match self",s.equals(s));
   assertFalse("Not equal null",s.equals(null));
   assertFalse("Not equal some other object",s.equals(new Object()));
+  Structure s1=new TestStructure(s.getPointer());
+  assertEquals("Same base address/type should be equal",s,s1);
 }

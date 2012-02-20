@@ -1,4 +1,5 @@
 {
+  ensureAllocated();
   String LS=System.getProperty("line.separator");
   String name=format(getClass()) + "(" + getPointer()+ ")";
   if (!(getPointer() instanceof Memory)) {
@@ -12,7 +13,7 @@
   if (!showContents) {
     contents="...}";
   }
- else   for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
+ else   for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
     StructField sf=(StructField)i.next();
     Object value=getField(sf);
     String type=format(sf.type);

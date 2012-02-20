@@ -8,7 +8,7 @@
     reading().put(getPointer(),this);
   }
   try {
-    for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
+    for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
       readField((StructField)i.next());
     }
   }

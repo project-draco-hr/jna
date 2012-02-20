@@ -1,0 +1,8 @@
+{
+  if (alignType != ALIGN_NONE) {
+    if ((calculatedSize % alignment) != 0) {
+      calculatedSize+=alignment - (calculatedSize % alignment);
+    }
+  }
+  return calculatedSize;
+}

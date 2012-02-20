@@ -1,0 +1,12 @@
+{
+class TestStructure extends Structure {
+    public byte first;
+    public int second;
+    public TestStructure(){
+      setAlignType(ALIGN_NONE);
+    }
+  }
+  Structure ts=new TestStructure();
+  Structure ts2=new TestStructure();
+  assertSame("Structure layout should be cached",ts.fields(),ts2.fields());
+}

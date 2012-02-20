@@ -1,8 +1,8 @@
 {
-  String sidString="S-1-1-0";
+  String sidString=EVERYONE;
   PSIDByReference sid=new PSIDByReference();
-  assertTrue(Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
-  assertTrue(Advapi32.INSTANCE.IsValidSid(sid.getValue()));
+  assertTrue("SID conversion failed",Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
+  assertTrue("Converted SID not valid: " + sid.getValue(),Advapi32.INSTANCE.IsValidSid(sid.getValue()));
   int sidLength=Advapi32.INSTANCE.GetLengthSid(sid.getValue());
   assertTrue(sidLength > 0);
   assertTrue(Advapi32.INSTANCE.IsValidSid(sid.getValue()));

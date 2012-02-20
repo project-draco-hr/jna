@@ -1,10 +1,10 @@
 {
   Kernel32 klib=Kernel32.INSTANCE;
   IntByReference rcount=new IntByReference();
-  HANDLEByReference rkey=new HANDLEByReference();
+  ULONG_PTRByReference rkey=new ULONG_PTRByReference();
   PointerByReference roverlap=new PointerByReference();
   klib.GetQueuedCompletionStatus(port,rcount,rkey,roverlap,WinBase.INFINITE);
 synchronized (this) {
-    return (FileInfo)handleMap.get(rkey.getValue());
+    return handleMap.get(rkey.getValue());
   }
 }

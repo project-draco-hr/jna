@@ -1,0 +1,25 @@
+{
+class TestType extends IntegerType {
+    public TestType(    int size,    long value){
+      super(size,value);
+    }
+  }
+  try {
+    new TestType(1,0x100L);
+    fail("Exception should be thrown if byte value out of bounds");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    new TestType(2,0x10000L);
+    fail("Exception should be thrown if short value out of bounds");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    new TestType(4,0x100000000L);
+    fail("Exception should be thrown if int value out of bounds");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

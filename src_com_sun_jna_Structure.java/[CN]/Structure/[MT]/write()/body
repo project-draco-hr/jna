@@ -8,7 +8,7 @@
   }
   busy().add(this);
   try {
-    for (Iterator i=structFields.values().iterator(); i.hasNext(); ) {
+    for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
       StructField sf=(StructField)i.next();
       if (!sf.isVolatile) {
         writeField(sf);

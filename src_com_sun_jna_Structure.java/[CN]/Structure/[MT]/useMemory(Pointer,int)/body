@@ -1,6 +1,6 @@
 {
   try {
-    this.memory=m;
+    this.memory=m.share(offset);
     if (size == CALCULATE_SIZE) {
       size=calculateSize(false);
     }
