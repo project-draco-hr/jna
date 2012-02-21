@@ -25,7 +25,7 @@
       String s=data.getString(offset,true);
       offset+=s.length() * Native.WCHAR_SIZE;
       offset+=Native.WCHAR_SIZE;
-      if (s.length() == 0 && offset == stringData.size()) {
+      if (s.length() == 0 && offset == data.size()) {
       }
  else {
         result.add(s);

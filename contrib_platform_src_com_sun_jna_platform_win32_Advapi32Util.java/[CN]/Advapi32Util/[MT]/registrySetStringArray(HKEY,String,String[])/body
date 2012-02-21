@@ -4,12 +4,16 @@
     size+=s.length() * Native.WCHAR_SIZE;
     size+=Native.WCHAR_SIZE;
   }
+  size+=Native.WCHAR_SIZE;
   int offset=0;
   Memory data=new Memory(size);
   for (  String s : arr) {
     data.setString(offset,s,true);
     offset+=s.length() * Native.WCHAR_SIZE;
     offset+=Native.WCHAR_SIZE;
+  }
+  for (int i=0; i < Native.WCHAR_SIZE; i++) {
+    data.setByte(offset++,(byte)0);
   }
   int rc=Advapi32.INSTANCE.RegSetValueEx(hKey,name,0,WinNT.REG_MULTI_SZ,data.getByteArray(0,size),size);
   if (rc != W32Errors.ERROR_SUCCESS) {
