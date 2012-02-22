@@ -8,5 +8,9 @@
   for (int i=0; i < dataRead.length; i++) {
     assertEquals(dataWritten[i],dataRead[i]);
   }
+  dataWritten=new String[0];
+  Advapi32Util.registrySetStringArray(WinReg.HKEY_CURRENT_USER,"Software\\JNA","EmptyMultiString",dataWritten);
+  dataRead=Advapi32Util.registryGetStringArray(WinReg.HKEY_CURRENT_USER,"Software\\JNA","EmptyMultiString");
+  assertEquals(0,dataRead.length);
   Advapi32Util.registryDeleteKey(WinReg.HKEY_CURRENT_USER,"Software","JNA");
 }

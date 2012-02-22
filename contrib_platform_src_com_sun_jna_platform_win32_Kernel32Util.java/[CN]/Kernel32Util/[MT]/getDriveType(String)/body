@@ -1,0 +1,3 @@
+{
+  return Kernel32.INSTANCE.GetDriveType(rootName);
+}
