@@ -3,7 +3,7 @@
   if (options.get(Library.OPTION_CALLING_CONVENTION) == null) {
     options.put(Library.OPTION_CALLING_CONVENTION,new Integer(Function.C_CONVENTION));
   }
-  if (Platform.isLinux() && "c".equals(libraryName)) {
+  if ((Platform.isLinux() || Platform.isAix()) && "c".equals(libraryName)) {
     libraryName=null;
   }
 synchronized (libraries) {
