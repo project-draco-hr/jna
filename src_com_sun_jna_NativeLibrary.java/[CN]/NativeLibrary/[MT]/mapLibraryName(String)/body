@@ -14,6 +14,14 @@
       return libName;
     }
   }
+ else   if (Platform.isAix()) {
+    if (libName.startsWith("lib")) {
+      return libName;
+    }
+ else {
+      return System.mapLibraryName(libName);
+    }
+  }
  else   if (Platform.isWindows()) {
     if (libName.endsWith(".drv") || libName.endsWith(".dll")) {
       return libName;
