@@ -1,0 +1,12 @@
+import subprocess
+import re
+import os
+import errno
+import collections
+import sys
+sdk_re = re.compile('.*-sdk ([a-zA-Z0-9.]*)')
+desktop_sdk_info = sdkinfo('macosx')
+desktop_sdk = latest_sdks()
+headers_seen = collections.defaultdict(set)
+if (__name__ == '__main__'):
+    main()

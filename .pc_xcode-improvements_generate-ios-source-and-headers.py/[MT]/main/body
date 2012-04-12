@@ -1,4 +1,5 @@
 def main():
+    make_tramp()
     move_source_tree('src', 'ios/src', 'ios/include')
     move_source_tree('include', None, 'ios/include')
     build_target(simulator_platform)

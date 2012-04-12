@@ -1,6 +1,5 @@
 def move_file(src_dir, dst_dir, filename, file_suffix=None, prefix='', suffix=''):
-    if (not os.path.exists(dst_dir)):
-        os.makedirs(dst_dir)
+    mkdir_p(dst_dir)
     out_filename = filename
     if file_suffix:
         split_name = os.path.splitext(filename)
