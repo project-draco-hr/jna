@@ -1,5 +1,8 @@
 {
 class TestStructure extends Structure {
+{
+      setFieldOrder(new String[]{"zfield","field"});
+    }
     public Boolean zfield;
     public Integer field;
   }

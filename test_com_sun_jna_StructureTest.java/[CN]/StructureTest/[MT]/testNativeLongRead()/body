@@ -1,5 +1,8 @@
 {
 class TestStructure extends Structure {
+{
+      setFieldOrder(new String[]{"i","l"});
+    }
     public int i;
     public NativeLong l;
   }

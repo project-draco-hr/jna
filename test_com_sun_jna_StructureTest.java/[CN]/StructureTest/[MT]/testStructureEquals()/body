@@ -1,10 +1,16 @@
 {
 class OtherStructure extends Structure {
+{
+      setFieldOrder(new String[]{"first","second","third"});
+    }
     public int first;
     public int[] second=new int[4];
     public Pointer[] third=new Pointer[4];
   }
 class TestStructure extends Structure {
+{
+      setFieldOrder(new String[]{"first","second","third"});
+    }
     public int first;
     public int[] second=new int[4];
     public Pointer[] third=new Pointer[4];

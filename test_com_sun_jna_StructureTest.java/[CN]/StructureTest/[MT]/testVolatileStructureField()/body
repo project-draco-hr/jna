@@ -1,5 +1,8 @@
 {
 class VolatileStructure extends Structure {
+{
+      setFieldOrder(new String[]{"counter","value"});
+    }
     public volatile int counter;
     public int value;
   }

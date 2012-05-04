@@ -29,7 +29,16 @@ synchronized (customPaths) {
     }
   }
  catch (  UnsatisfiedLinkError e) {
-    if (Platform.isLinux()) {
+    if (Platform.isAndroid()) {
+      try {
+        System.loadLibrary(libraryName);
+        handle=Native.open(libraryPath);
+      }
+ catch (      UnsatisfiedLinkError e2) {
+        e=e2;
+      }
+    }
+ else     if (Platform.isLinux()) {
       libraryPath=matchLibrary(libraryName,searchPath);
       if (libraryPath != null) {
         try {

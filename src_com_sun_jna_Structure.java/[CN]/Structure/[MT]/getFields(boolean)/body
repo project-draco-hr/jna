@@ -13,7 +13,7 @@
     }
     flist.addAll(0,classFields);
   }
-  if (REQUIRES_FIELD_ORDER || hasFieldOrder()) {
+  if ((REQUIRES_FIELD_ORDER || hasFieldOrder()) && flist.size() > 1 && !(this instanceof Union)) {
     List fieldOrder=getFieldOrder();
     if (fieldOrder.size() < flist.size()) {
       if (force) {
