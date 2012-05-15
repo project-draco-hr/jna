@@ -1,4 +1,2 @@
 {
-  UserInfo userInfo=Netapi32Util.getUserInfo(System.getProperty("user.name"));
-  assertNotNull(userInfo);
 }
