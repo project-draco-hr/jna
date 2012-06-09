@@ -6,11 +6,19 @@
     if (rc == LMErr.NERR_Success) {
       USER_INFO_23 info_23=new USER_INFO_23(bufptr.getValue());
       UserInfo userInfo=new UserInfo();
-      userInfo.comment=info_23.usri23_comment.toString();
+      if (info_23.usri23_comment != null) {
+        userInfo.comment=info_23.usri23_comment.toString();
+      }
       userInfo.flags=info_23.usri23_flags;
-      userInfo.fullName=info_23.usri23_full_name.toString();
-      userInfo.name=info_23.usri23_name.toString();
-      userInfo.sidString=Advapi32Util.convertSidToStringSid(info_23.usri23_user_sid);
+      if (info_23.usri23_full_name != null) {
+        userInfo.fullName=info_23.usri23_full_name.toString();
+      }
+      if (info_23.usri23_name != null) {
+        userInfo.name=info_23.usri23_name.toString();
+      }
+      if (info_23.usri23_user_sid != null) {
+        userInfo.sidString=Advapi32Util.convertSidToStringSid(info_23.usri23_user_sid);
+      }
       userInfo.sid=info_23.usri23_user_sid;
       return userInfo;
     }

@@ -12,7 +12,9 @@
     ArrayList<User> result=new ArrayList<User>();
     for (    LMAccess.USER_INFO_1 lu : users) {
       User auser=new User();
-      auser.name=lu.usri1_name.toString();
+      if (lu.usri1_name != null) {
+        auser.name=lu.usri1_name.toString();
+      }
       result.add(auser);
     }
     return result.toArray(new User[0]);

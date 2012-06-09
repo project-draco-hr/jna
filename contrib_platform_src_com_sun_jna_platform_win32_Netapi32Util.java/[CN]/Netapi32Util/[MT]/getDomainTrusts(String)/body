@@ -10,13 +10,23 @@
     ArrayList<DomainTrust> trusts=new ArrayList<DomainTrust>(domainCountValue);
     for (    DS_DOMAIN_TRUSTS trust : domains.getTrusts(domainCountValue)) {
       DomainTrust t=new DomainTrust();
-      t.DnsDomainName=trust.DnsDomainName.toString();
-      t.NetbiosDomainName=trust.NetbiosDomainName.toString();
+      if (trust.DnsDomainName != null) {
+        t.DnsDomainName=trust.DnsDomainName.toString();
+      }
+      if (trust.NetbiosDomainName != null) {
+        t.NetbiosDomainName=trust.NetbiosDomainName.toString();
+      }
       t.DomainSid=trust.DomainSid;
-      t.DomainSidString=Advapi32Util.convertSidToStringSid(trust.DomainSid);
+      if (trust.DomainSid != null) {
+        t.DomainSidString=Advapi32Util.convertSidToStringSid(trust.DomainSid);
+      }
       t.DomainGuid=trust.DomainGuid;
-      t.DomainGuidString=Ole32Util.getStringFromGUID(trust.DomainGuid);
-      t.flags=trust.Flags.intValue();
+      if (trust.DomainGuid != null) {
+        t.DomainGuidString=Ole32Util.getStringFromGUID(trust.DomainGuid);
+      }
+      if (trust.Flags != null) {
+        t.flags=trust.Flags.intValue();
+      }
       trusts.add(t);
     }
     return trusts.toArray(new DomainTrust[0]);
