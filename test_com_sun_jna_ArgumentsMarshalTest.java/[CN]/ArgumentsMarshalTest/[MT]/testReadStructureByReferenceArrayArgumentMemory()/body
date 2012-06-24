@@ -1,0 +1,10 @@
+{
+  TestLibrary.CheckFieldAlignment.ByReference[] array={new TestLibrary.CheckFieldAlignment.ByReference(),new TestLibrary.CheckFieldAlignment.ByReference(),new TestLibrary.CheckFieldAlignment.ByReference(),new TestLibrary.CheckFieldAlignment.ByReference()};
+  lib.modifyStructureByReferenceArray(array,array.length);
+  for (int i=0; i < array.length; i++) {
+    assertEquals("Wrong value for int32 field of structure at " + i,i,array[i].int32Field);
+    assertEquals("Wrong value for int64 field of structure at " + i,i + 1,array[i].int64Field);
+    assertEquals("Wrong value for float field of structure at " + i,i + 2,array[i].floatField,0);
+    assertEquals("Wrong value for double field of structure at " + i,i + 3,array[i].doubleField,0);
+  }
+}
