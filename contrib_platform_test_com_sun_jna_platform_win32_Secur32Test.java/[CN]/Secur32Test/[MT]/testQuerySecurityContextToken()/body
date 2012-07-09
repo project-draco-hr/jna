@@ -1,25 +1,25 @@
 {
   CredHandle phClientCredential=new CredHandle();
   TimeStamp ptsClientExpiry=new TimeStamp();
-  assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.AcquireCredentialsHandle(null,"Negotiate",new NativeLong(Sspi.SECPKG_CRED_OUTBOUND),null,null,null,null,phClientCredential,ptsClientExpiry));
+  assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.AcquireCredentialsHandle(null,"Negotiate",Sspi.SECPKG_CRED_OUTBOUND,null,null,null,null,phClientCredential,ptsClientExpiry));
   CtxtHandle phClientContext=new CtxtHandle();
-  NativeLongByReference pfClientContextAttr=new NativeLongByReference();
+  IntByReference pfClientContextAttr=new IntByReference();
   CredHandle phServerCredential=new CredHandle();
   TimeStamp ptsServerExpiry=new TimeStamp();
-  assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.AcquireCredentialsHandle(null,"Negotiate",new NativeLong(Sspi.SECPKG_CRED_INBOUND),null,null,null,null,phServerCredential,ptsServerExpiry));
+  assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.AcquireCredentialsHandle(null,"Negotiate",Sspi.SECPKG_CRED_INBOUND,null,null,null,null,phServerCredential,ptsServerExpiry));
   CtxtHandle phServerContext=new CtxtHandle();
   SecBufferDesc pbServerToken=new SecBufferDesc(Sspi.SECBUFFER_TOKEN,Sspi.MAX_TOKEN_SIZE);
-  NativeLongByReference pfServerContextAttr=new NativeLongByReference();
+  IntByReference pfServerContextAttr=new IntByReference();
   int clientRc=W32Errors.SEC_I_CONTINUE_NEEDED;
   int serverRc=W32Errors.SEC_I_CONTINUE_NEEDED;
   do {
     SecBufferDesc pbClientToken=new SecBufferDesc(Sspi.SECBUFFER_TOKEN,Sspi.MAX_TOKEN_SIZE);
     if (clientRc == W32Errors.SEC_I_CONTINUE_NEEDED) {
-      clientRc=Secur32.INSTANCE.InitializeSecurityContext(phClientCredential,phClientContext.isNull() ? null : phClientContext,Advapi32Util.getUserName(),new NativeLong(Sspi.ISC_REQ_CONNECTION),new NativeLong(0),new NativeLong(Sspi.SECURITY_NATIVE_DREP),pbServerToken,new NativeLong(0),phClientContext,pbClientToken,pfClientContextAttr,null);
+      clientRc=Secur32.INSTANCE.InitializeSecurityContext(phClientCredential,phClientContext.isNull() ? null : phClientContext,Advapi32Util.getUserName(),Sspi.ISC_REQ_CONNECTION,0,Sspi.SECURITY_NATIVE_DREP,pbServerToken,0,phClientContext,pbClientToken,pfClientContextAttr,null);
       assertTrue(clientRc == W32Errors.SEC_I_CONTINUE_NEEDED || clientRc == W32Errors.SEC_E_OK);
     }
     if (serverRc == W32Errors.SEC_I_CONTINUE_NEEDED) {
-      serverRc=Secur32.INSTANCE.AcceptSecurityContext(phServerCredential,phServerContext.isNull() ? null : phServerContext,pbClientToken,new NativeLong(Sspi.ISC_REQ_CONNECTION),new NativeLong(Sspi.SECURITY_NATIVE_DREP),phServerContext,pbServerToken,pfServerContextAttr,ptsServerExpiry);
+      serverRc=Secur32.INSTANCE.AcceptSecurityContext(phServerCredential,phServerContext.isNull() ? null : phServerContext,pbClientToken,Sspi.ISC_REQ_CONNECTION,Sspi.SECURITY_NATIVE_DREP,phServerContext,pbServerToken,pfServerContextAttr,ptsServerExpiry);
       assertTrue(serverRc == W32Errors.SEC_I_CONTINUE_NEEDED || serverRc == W32Errors.SEC_E_OK);
     }
   }

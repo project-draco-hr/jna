@@ -1,5 +1,0 @@
-ACCESS_ACEStructure[] fileSecurity
-String userUnderTestSID
-String[] expectedUsrMasks
-String groupUnderTestSID
-String[] expectedGrpMasks
