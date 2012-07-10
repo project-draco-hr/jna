@@ -10,6 +10,10 @@
   if (readConverter != null) {
     result=readConverter.fromNative(result,structField.context);
   }
+  if (fieldType.equals(String.class) || fieldType.equals(WString.class)) {
+    nativeStrings.put(structField.name + ".ptr",memory.getPointer(offset));
+    nativeStrings.put(structField.name + ".val",result);
+  }
   setField(structField,result,true);
   return result;
 }
