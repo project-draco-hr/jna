@@ -1,6 +1,17 @@
 {
   for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
     StructField f=(StructField)i.next();
-    initializeField(f,f.type);
+    try {
+      Object o=f.field.get(this);
+      if (o == null) {
+        initializeField(f,f.type);
+      }
+    }
+ catch (    IllegalArgumentException e) {
+      e.printStackTrace();
+    }
+catch (    IllegalAccessException e) {
+      e.printStackTrace();
+    }
   }
 }

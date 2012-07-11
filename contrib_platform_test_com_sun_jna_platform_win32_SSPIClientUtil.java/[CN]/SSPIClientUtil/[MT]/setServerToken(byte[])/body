@@ -1,0 +1,7 @@
+{
+  if (serverToken != null && serverToken.length > 0) {
+    this.serverToken=new SecBufferDesc(Sspi.SECBUFFER_TOKEN,serverToken);
+    this.update(this.serverToken);
+  }
+  return this.getClientToken();
+}

@@ -1,0 +1,16 @@
+{
+  phServerCredential=new CredHandle();
+  ptsServerExpiry=new TimeStamp();
+  phServerContext=new CtxtHandle();
+  pfServerContextAttr=new IntByReference();
+  this.serverToken=new SecBufferDesc(Sspi.SECBUFFER_TOKEN,Sspi.MAX_TOKEN_SIZE);
+  this.clientToken=new SecBufferDesc(Sspi.SECBUFFER_TOKEN,Sspi.MAX_TOKEN_SIZE);
+  try {
+    if (W32Errors.SEC_E_OK != Secur32.INSTANCE.AcquireCredentialsHandle(null,"Kerberos",new Long(Sspi.SECPKG_CRED_INBOUND).longValue(),null,null,null,null,phServerCredential,ptsServerExpiry)) {
+      throw new RuntimeException("AcquireCredentialsHandle");
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}
