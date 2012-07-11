@@ -11,14 +11,18 @@
   if (String.class == fieldType || WString.class == fieldType) {
     boolean wide=fieldType == WString.class;
     if (value != null) {
+      if (nativeStrings.containsKey(structField.name + ".ptr") && value.equals(nativeStrings.get(structField.name + ".val"))) {
+        return;
+      }
       NativeString nativeString=new NativeString(value.toString(),wide);
       nativeStrings.put(structField.name,nativeString);
       value=nativeString.getPointer();
     }
  else {
-      value=null;
       nativeStrings.remove(structField.name);
     }
+    nativeStrings.remove(structField.name + ".ptr");
+    nativeStrings.remove(structField.name + ".val");
   }
   try {
     memory.setValue(offset,value,fieldType);
