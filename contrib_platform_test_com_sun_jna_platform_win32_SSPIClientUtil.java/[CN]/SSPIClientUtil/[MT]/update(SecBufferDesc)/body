@@ -1,0 +1,18 @@
+{
+  this.serverToken=serverToken;
+  try {
+    int clientRc=-1;
+    this.clientToken=new SecBufferDesc(Sspi.SECBUFFER_TOKEN,Sspi.MAX_TOKEN_SIZE);
+    clientRc=Secur32.INSTANCE.InitializeSecurityContext(phClientCredential,phClientContext.isNull() ? null : phClientContext,Advapi32Util.getUserName(),new Long(Sspi.ISC_REQ_CONNECTION).longValue(),new Long(0).longValue(),new Long(Sspi.SECURITY_NATIVE_DREP).longValue(),serverToken,new Long(0).longValue(),phClientContext,clientToken,pfClientContextAttr,null);
+    if (clientRc == W32Errors.SEC_E_OK) {
+      this.initialized=true;
+      return;
+    }
+    if (clientRc != W32Errors.SEC_I_CONTINUE_NEEDED) {
+      throw new RuntimeException("InitializeSecurityContext");
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}
