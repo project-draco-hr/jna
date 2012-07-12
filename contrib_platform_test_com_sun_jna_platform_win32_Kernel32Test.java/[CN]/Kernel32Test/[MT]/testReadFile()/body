@@ -10,7 +10,8 @@
   Memory m=new Memory(2048);
   IntByReference lpNumberOfBytesRead=new IntByReference(0);
   assertTrue(Kernel32.INSTANCE.ReadFile(hFile,m,(int)m.size(),lpNumberOfBytesRead,null));
-  assertEquals(expected.length(),lpNumberOfBytesRead.getValue());
-  assertEquals(expected,m.getString(0));
+  int read=lpNumberOfBytesRead.getValue();
+  assertEquals(expected.length(),read);
+  assertEquals(expected,new String(m.getByteArray(0,read)));
   assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
 }
