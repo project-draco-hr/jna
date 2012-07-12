@@ -1,8 +1,0 @@
-{
-  IntByReference len=new IntByReference();
-  Secur32.INSTANCE.GetUserNameEx(Secur32.EXTENDED_NAME_FORMAT.NameUserPrincipal,null,len);
-  char[] buffer=new char[len.getValue() + 1];
-  Secur32.INSTANCE.GetUserNameEx(Secur32.EXTENDED_NAME_FORMAT.NameUserPrincipal,buffer,len);
-  String username=Native.toString(buffer);
-  return username;
-}

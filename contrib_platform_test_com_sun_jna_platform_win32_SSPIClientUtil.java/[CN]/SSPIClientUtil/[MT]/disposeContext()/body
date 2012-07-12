@@ -1,4 +1,0 @@
-{
-  Secur32.INSTANCE.DeleteSecurityContext(this.phClientContext);
-  Secur32.INSTANCE.FreeCredentialsHandle(this.phClientCredential);
-}
