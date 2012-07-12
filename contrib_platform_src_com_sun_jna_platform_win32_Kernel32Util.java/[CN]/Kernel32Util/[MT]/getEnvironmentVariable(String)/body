@@ -1,0 +1,15 @@
+{
+  int size=Kernel32.INSTANCE.GetEnvironmentVariable(name,null,0);
+  if (size == 0) {
+    return null;
+  }
+ else   if (size < 0) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  char[] buffer=new char[size];
+  size=Kernel32.INSTANCE.GetEnvironmentVariable(name,buffer,buffer.length);
+  if (size <= 0) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  return Native.toString(buffer);
+}
