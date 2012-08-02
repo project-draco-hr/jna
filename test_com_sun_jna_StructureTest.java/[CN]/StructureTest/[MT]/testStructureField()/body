@@ -2,6 +2,9 @@
 class TestStructure extends Structure {
     public PublicTestStructure s1, s2;
     public int after;
+{
+      setFieldOrder(new String[]{"s1","s2","after"});
+    }
   }
   TestStructure s=new TestStructure();
   TestStructure s2=new TestStructure();

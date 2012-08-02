@@ -37,9 +37,12 @@ class TestStructure extends Structure {
     public TestStructure(){
       setTypeMapper(mapper);
     }
+{
+      setFieldOrder(new String[]{"b","s","p0","p1","p2","p3","p4","p5","p6","p7"});
+    }
   }
   Structure s=new TestStructure();
   assertEquals("Wrong type mapper for structure",mapper,s.getTypeMapper());
-  FFIType ffi_type=new FFIType(Structure.getTypeInfo(s));
+  TestFFIType ffi_type=new TestFFIType(Structure.getTypeInfo(s));
   assertEquals("Java Structure size does not match FFIType size",s.size(),ffi_type.size.intValue());
 }

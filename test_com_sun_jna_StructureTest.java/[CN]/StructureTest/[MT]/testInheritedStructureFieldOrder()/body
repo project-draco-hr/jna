@@ -1,9 +1,15 @@
 {
 class TestStructure extends Structure {
     public int first=1;
+{
+      setFieldOrder(new String[]{"first"});
+    }
   }
 class TestStructureSub extends TestStructure {
     public int second=2;
+{
+      setFieldOrder(new String[]{"second"});
+    }
   }
   TestStructureSub s=new TestStructureSub();
   assertEquals("Wrong size",8,s.size());

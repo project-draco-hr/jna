@@ -1,4 +1,5 @@
 {
+  initFieldOrder();
   int length=Array.getLength(array);
   Pointer[] els=new Pointer[length + 1];
   Pointer p=get(null,type.getComponentType());

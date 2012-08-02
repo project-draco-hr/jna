@@ -36,7 +36,7 @@
     if (!Modifier.isPublic(field.getModifiers())) {
       continue;
     }
-    Object value=getField(structField);
+    Object value=getFieldValue(structField.field);
     if (value == null && type.isArray()) {
       if (force) {
         throw new IllegalStateException("Array fields must be initialized");
@@ -67,7 +67,7 @@
       }
     }
     if (value == null) {
-      value=initializeField(structField,type);
+      value=initializeField(structField.field,type);
     }
     try {
       structField.size=getNativeSize(nativeType,value);
@@ -92,9 +92,6 @@
     int size=calculateAlignedSize(calculatedSize,info.alignment);
     if (this instanceof ByValue && !avoidFFIType) {
       getTypeInfo();
-    }
-    if (this.memory != null && !(this.memory instanceof AutoAllocated)) {
-      this.memory=this.memory.share(0,size);
     }
     info.size=size;
     return info;

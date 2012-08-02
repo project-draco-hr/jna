@@ -2,6 +2,9 @@
 class TestStructure extends Structure {
     public Boolean zfield;
     public Integer field;
+{
+      setFieldOrder(new String[]{"zfield","field"});
+    }
   }
   TestStructure s=new TestStructure();
   s.write();

@@ -1,0 +1,9 @@
+{
+  List flist=getFieldList();
+  ArrayList list=new ArrayList();
+  for (Iterator i=flist.iterator(); i.hasNext(); ) {
+    Field f=(Field)i.next();
+    list.add(f.getName());
+  }
+  return list;
+}

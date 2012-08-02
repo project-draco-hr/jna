@@ -5,7 +5,7 @@
     if (f.type == type) {
       activeField=f;
       read();
-      return getField(activeField);
+      return getFieldValue(activeField.field);
     }
   }
   throw new IllegalArgumentException("No field of type " + type + " in "+ this);

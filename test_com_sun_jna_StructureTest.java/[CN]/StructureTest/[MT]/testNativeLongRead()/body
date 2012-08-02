@@ -2,6 +2,9 @@
 class TestStructure extends Structure {
     public int i;
     public NativeLong l;
+{
+      setFieldOrder(new String[]{"i","l"});
+    }
   }
   TestStructure s=new TestStructure();
   if (NativeLong.SIZE == 8) {

@@ -1,12 +1,11 @@
 {
+  int size=CALCULATE_SIZE;
   LayoutInfo info;
-  boolean needsInit=true;
 synchronized (layoutInfo) {
     info=(LayoutInfo)layoutInfo.get(getClass());
   }
-  if (info == null || this.alignType != info.alignType || this.typeMapper != info.typeMapper || !fieldOrderMatch(info.fieldOrder)) {
+  if (info == null || this.alignType != info.alignType || this.typeMapper != info.typeMapper || (this.fieldOrder != null && !this.fieldOrder.equals(info.fieldOrder))) {
     info=deriveLayout(force,avoidFFIType);
-    needsInit=false;
   }
   if (info != null) {
     this.structAlignment=info.alignment;
@@ -19,10 +18,7 @@ synchronized (layoutInfo) {
         layoutInfo.put(getClass(),info);
       }
     }
-    if (needsInit) {
-      initializeFields();
-    }
-    return info.size;
+    size=info.size;
   }
-  return CALCULATE_SIZE;
+  return size;
 }

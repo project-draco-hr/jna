@@ -1,9 +1,10 @@
 {
+  initFieldOrder();
   Pointer[] els;
   ref.ensureAllocated(true);
   if (ref instanceof Union) {
     StructField sf=((Union)ref).biggestField;
-    els=new Pointer[]{get(ref.getField(sf),sf.type),null};
+    els=new Pointer[]{get(ref.getFieldValue(sf.field),sf.type),null};
   }
  else {
     els=new Pointer[ref.fields().size() + 1];

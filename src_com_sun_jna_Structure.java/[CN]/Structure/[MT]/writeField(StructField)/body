@@ -1,7 +1,7 @@
 {
   if (structField.isReadOnly)   return;
   int offset=structField.offset;
-  Object value=getField(structField);
+  Object value=getFieldValue(structField.field);
   Class fieldType=structField.type;
   ToNativeConverter converter=structField.writeConverter;
   if (converter != null) {

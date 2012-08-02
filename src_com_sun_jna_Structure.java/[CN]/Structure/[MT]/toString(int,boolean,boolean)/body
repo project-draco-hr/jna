@@ -15,7 +15,7 @@
   }
  else   for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
     StructField sf=(StructField)i.next();
-    Object value=getField(sf);
+    Object value=getFieldValue(sf.field);
     String type=format(sf.type);
     String index="";
     contents+=prefix;

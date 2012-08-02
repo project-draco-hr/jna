@@ -4,5 +4,8 @@
   }
  else   if (size == CALCULATE_SIZE) {
     this.size=calculateSize(true,avoidFFIType);
+    if (!(this.memory instanceof AutoAllocated)) {
+      this.memory=this.memory.share(0,this.size);
+    }
   }
 }

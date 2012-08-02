@@ -7,6 +7,9 @@ class TestStructure extends Structure {
     }
     public NativeLong nl=INITIAL;
     public NativeLong uninitialized;
+{
+      setFieldOrder(new String[]{"nl","uninitialized"});
+    }
   }
   TestStructure ts=new TestStructure();
   TestStructure ts2=new TestStructure();

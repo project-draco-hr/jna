@@ -1,9 +1,15 @@
 {
-  for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
-    StructField f=(StructField)i.next();
-    Object o=this.getField(f);
-    if (o == null) {
-      initializeField(f,f.type);
+  List flist=getFieldList();
+  for (Iterator i=flist.iterator(); i.hasNext(); ) {
+    Field f=(Field)i.next();
+    try {
+      Object o=f.get(this);
+      if (o == null) {
+        initializeField(f,f.getType());
+      }
+    }
+ catch (    Exception e) {
+      throw new Error("Exception reading field '" + f.getName() + "' in "+ getClass()+ ": "+ e);
     }
   }
 }

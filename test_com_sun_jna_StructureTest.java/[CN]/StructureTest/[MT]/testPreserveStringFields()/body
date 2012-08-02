@@ -2,6 +2,9 @@
 class TestStructure extends Structure {
     public String s;
     public WString ws;
+{
+      setFieldOrder(new String[]{"s","ws"});
+    }
   }
   TestStructure s=new TestStructure();
   Memory m=new Memory(getName().length() + 1);

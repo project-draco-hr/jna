@@ -5,7 +5,7 @@
   if (readConverter != null) {
     fieldType=readConverter.nativeType();
   }
-  Object currentValue=(Structure.class.isAssignableFrom(fieldType) || Callback.class.isAssignableFrom(fieldType) || (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(fieldType))|| Pointer.class.isAssignableFrom(fieldType)|| NativeMapped.class.isAssignableFrom(fieldType)|| fieldType.isArray()) ? getField(structField) : null;
+  Object currentValue=(Structure.class.isAssignableFrom(fieldType) || Callback.class.isAssignableFrom(fieldType) || (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(fieldType))|| Pointer.class.isAssignableFrom(fieldType)|| NativeMapped.class.isAssignableFrom(fieldType)|| fieldType.isArray()) ? getFieldValue(structField.field) : null;
   Object result=memory.getValue(offset,fieldType,currentValue);
   if (readConverter != null) {
     result=readConverter.fromNative(result,structField.context);
@@ -14,6 +14,6 @@
     nativeStrings.put(structField.name + ".ptr",memory.getPointer(offset));
     nativeStrings.put(structField.name + ".val",result);
   }
-  setField(structField,result,true);
+  setFieldValue(structField.field,result,true);
   return result;
 }

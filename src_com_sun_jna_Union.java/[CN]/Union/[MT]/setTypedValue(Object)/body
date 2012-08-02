@@ -2,7 +2,7 @@
   StructField f=findField(object.getClass());
   if (f != null) {
     activeField=f;
-    setField(f,object);
+    setFieldValue(f.field,object);
     return this;
   }
   throw new IllegalArgumentException("No field of type " + object.getClass() + " in "+ this);

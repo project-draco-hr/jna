@@ -7,6 +7,9 @@ class TestStructure extends Structure {
       }
     }
 ;
+{
+      setFieldOrder(new String[]{"p","p2"});
+    }
   }
   TestStructure s=new TestStructure();
   final Pointer p=s.p;

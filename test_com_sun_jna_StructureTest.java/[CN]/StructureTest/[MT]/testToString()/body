@@ -3,6 +3,9 @@
 class TestStructure extends Structure {
     public int intField;
     public PublicTestStructure inner;
+{
+      setFieldOrder(new String[]{"intField","inner"});
+    }
   }
   TestStructure s=new TestStructure();
   final String LS=System.getProperty("line.separator");

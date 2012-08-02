@@ -8,8 +8,5 @@
     }
   }
   this.alignType=alignType;
-  this.size=CALCULATE_SIZE;
-  if (this.memory instanceof AutoAllocated) {
-    this.memory=null;
-  }
+  layoutChanged();
 }

@@ -6,6 +6,9 @@ class TestStructure extends Structure {
       super(p);
       read();
     }
+{
+      setFieldOrder(new String[]{"intField","arrayField"});
+    }
   }
   Memory p=new Memory(260);
   p.setInt(0,1);

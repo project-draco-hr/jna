@@ -7,4 +7,5 @@
  else {
     allocateMemory(CALCULATE_SIZE);
   }
+  initializeFields();
 }

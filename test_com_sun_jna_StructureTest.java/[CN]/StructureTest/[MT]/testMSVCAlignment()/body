@@ -6,6 +6,9 @@ class TestStructure extends Structure {
     public long l;
     public float f;
     public double d;
+{
+      setFieldOrder(new String[]{"b","s","i","l","f","d"});
+    }
   }
   TestStructure s=new TestStructure();
   s.setAlignType(Structure.ALIGN_MSVC);

@@ -4,6 +4,7 @@ class TestStructure extends Structure {
     public int second;
     public TestStructure(){
       setAlignType(ALIGN_NONE);
+      setFieldOrder(new String[]{"first","second"});
     }
   }
   Structure ts=new TestStructure();

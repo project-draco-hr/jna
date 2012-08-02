@@ -1,0 +1,19 @@
+{
+class TestStructureX extends Structure {
+    public int field1, field2;
+    public TestStructureX(){
+      setFieldOrder(new String[]{"field1","field2"});
+    }
+    public TestStructureX(    Pointer p){
+      super(p);
+      setFieldOrder(new String[]{"field1","field2"});
+    }
+  }
+  Structure s=new TestStructureX();
+  Pointer p=s.getPointer();
+  Structure s1=new TestStructureX(p);
+  Pointer p1=s1.getPointer();
+  assertEquals("Constructor address not used",p,p1);
+  assertFalse("Pointer should not be auto-allocated",p.getClass().equals(p1.getClass()));
+  assertNotSame("Initial pointer should not be used directly: " + p,p,p1);
+}

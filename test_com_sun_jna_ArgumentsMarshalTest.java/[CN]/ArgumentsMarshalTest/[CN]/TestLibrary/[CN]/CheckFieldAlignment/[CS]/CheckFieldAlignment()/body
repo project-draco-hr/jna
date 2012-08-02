@@ -1,4 +1,5 @@
 {
+  setFieldOrder(new String[]{"int8Field","int16Field","int32Field","int64Field","floatField","doubleField"});
   int8Field=(byte)fieldOffset("int8Field");
   int16Field=(short)fieldOffset("int16Field");
   int32Field=fieldOffset("int32Field");

@@ -9,6 +9,9 @@ class TestStructure extends Structure implements Structure.ByValue {
     public double d;
     public Pointer[] parray=new Pointer[2];
     public byte[] barray=new byte[2];
+{
+      setFieldOrder(new String[]{"b","c","s","i","j","f","d","parray","barray"});
+    }
   }
   Structure s=new TestStructure();
   s.size();

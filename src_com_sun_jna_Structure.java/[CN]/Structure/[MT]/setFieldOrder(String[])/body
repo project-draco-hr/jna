@@ -1,7 +1,4 @@
 {
   getFieldOrder().addAll(Arrays.asList(fields));
-  this.size=CALCULATE_SIZE;
-  if (this.memory instanceof AutoAllocated) {
-    this.memory=null;
-  }
+  layoutChanged();
 }
