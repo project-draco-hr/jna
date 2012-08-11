@@ -1,6 +1,9 @@
 {
 class BadFieldStructure extends Structure {
     public Function cb;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"cb"});
+    }
   }
   try {
     new BadFieldStructure().size();

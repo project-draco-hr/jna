@@ -1,4 +1,3 @@
 {
-  getFieldOrder().addAll(Arrays.asList(fields));
-  layoutChanged();
+  throw new Error("This method is obsolete, use getFieldOrder() instead");
 }

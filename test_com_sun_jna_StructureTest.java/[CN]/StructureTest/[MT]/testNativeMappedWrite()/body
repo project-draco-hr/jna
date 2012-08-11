@@ -1,6 +1,9 @@
 {
 class TestStructure extends Structure {
     public ByteByReference ref;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"ref"});
+    }
   }
   TestStructure s=new TestStructure();
   ByteByReference ref=s.ref=new ByteByReference();

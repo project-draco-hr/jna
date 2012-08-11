@@ -4,6 +4,9 @@ class TestField {
   }
 class TestStructure extends Structure {
     public TestField field;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
+    }
     public TestStructure(){
       DefaultTypeMapper m=mapper;
       m.addTypeConverter(TestField.class,new TypeConverter(){

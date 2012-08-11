@@ -1,9 +1,15 @@
 {
 class TestStructure extends Structure {
     public int f1, f2;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"f1","f2"});
+    }
+  }
+class TestStructure2 extends TestStructure {
+    public int f3;
   }
   try {
-    new TestStructure();
+    new TestStructure2();
     fail("Expected an error when creating a structure without an explicit call to setFieldOrder()");
   }
  catch (  Error e) {

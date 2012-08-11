@@ -1,18 +1,11 @@
 {
   List flist=getFieldList();
-  List fieldOrder=getFieldOrder();
-  if (fieldOrder.size() < flist.size() && flist.size() > 1) {
+  List fieldOrder=fieldOrder();
+  if (fieldOrder.size() != flist.size() && flist.size() > 1) {
     if (force) {
-      if (!Boolean.getBoolean("jna.predictable_field_order")) {
-        throw new Error("You must call Structure.setFieldOrder() in the base constructor for " + getClass() + " to ensure that JNA can accurately determine your Structure's memory layout.  To avoid this message, either call Structure.setFieldOrder() in your Structures constructor, or set jna.predictable_field_order=true if you are certain the VM you are using provides fields in a predictable order.");
-      }
-      if (REQUIRES_FIELD_ORDER) {
-        throw new Error("This VM does not store fields in a predictable order; you must use Structure.setFieldOrder on " + getClass() + " to explicitly indicate the field order: "+ System.getProperty("java.vendor")+ ", "+ System.getProperty("java.version"));
-      }
+      throw new Error("There is an error in Structure.getFieldOrder() on " + getClass());
     }
-    if (!Boolean.getBoolean("jna.predictable_field_order")) {
-      return null;
-    }
+    return null;
   }
   sortFields(flist,fieldOrder);
   return flist;

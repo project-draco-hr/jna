@@ -2,8 +2,8 @@
 class TestStructure extends Structure {
     public byte first;
     public int second;
-{
-      setFieldOrder(new String[]{"first","second"});
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"first","second"});
     }
   }
   TestStructure s1=new TestStructure();

@@ -1,6 +1,9 @@
 {
 class UninitializedArrayFieldStructure extends Structure {
     public byte[] array;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"array"});
+    }
   }
   try {
     Structure s=new UninitializedArrayFieldStructure();

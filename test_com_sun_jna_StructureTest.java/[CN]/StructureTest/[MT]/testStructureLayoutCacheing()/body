@@ -1,6 +1,9 @@
 {
 class TestStructure extends Structure {
     public int field;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
+    }
   }
   Structure ts=new TestStructure();
   Structure ts2=new TestStructure();

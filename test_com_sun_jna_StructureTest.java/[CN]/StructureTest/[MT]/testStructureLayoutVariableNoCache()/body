@@ -1,8 +1,8 @@
 {
 class TestStructure extends Structure {
     public byte[] variable;
-    public TestStructure(){
-      this(16);
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"variable"});
     }
     public TestStructure(    int size){
       this.variable=new byte[size];
