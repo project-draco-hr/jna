@@ -26,7 +26,11 @@
     method=getCallbackMethod(callback);
     nativeParamTypes=method.getParameterTypes();
     returnType=method.getReturnType();
-    long peer=Native.createNativeCallback(callback,method,nativeParamTypes,returnType,callingConvention,true);
+    int flags=Native.CB_OPTION_DIRECT;
+    if (callback instanceof DLLCallback) {
+      flags|=Native.CB_OPTION_IN_DLL;
+    }
+    long peer=Native.createNativeCallback(callback,method,nativeParamTypes,returnType,callingConvention,flags);
     cbstruct=peer != 0 ? new Pointer(peer) : null;
   }
  else {
@@ -62,7 +66,8 @@
       String msg="Callback return type " + returnType + " requires custom type conversion";
       throw new IllegalArgumentException(msg);
     }
-    long peer=Native.createNativeCallback(proxy,PROXY_CALLBACK_METHOD,nativeParamTypes,returnType,callingConvention,false);
+    int flags=callback instanceof DLLCallback ? Native.CB_OPTION_IN_DLL : 0;
+    long peer=Native.createNativeCallback(proxy,PROXY_CALLBACK_METHOD,nativeParamTypes,returnType,callingConvention,flags);
     cbstruct=peer != 0 ? new Pointer(peer) : null;
   }
 }

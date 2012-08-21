@@ -1,0 +1,11 @@
+{
+  final boolean[] called={false};
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      called[0]=true;
+    }
+  }
+;
+  lib.callVoidCallback(cb);
+  assertTrue("Callback not called",called[0]);
+}

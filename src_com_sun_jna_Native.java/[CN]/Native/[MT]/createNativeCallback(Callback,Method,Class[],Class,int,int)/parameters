@@ -3,4 +3,4 @@ Method method
 Class[] parameterTypes
 Class returnType
 int callingConvention
-boolean direct
+int flags
