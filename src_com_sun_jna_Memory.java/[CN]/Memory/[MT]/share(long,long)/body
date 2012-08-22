@@ -1,5 +1,4 @@
 {
-  if (offset == 0 && sz == getSize())   return this;
   boundsCheck(offset,sz);
   return new SharedMemory(offset);
 }

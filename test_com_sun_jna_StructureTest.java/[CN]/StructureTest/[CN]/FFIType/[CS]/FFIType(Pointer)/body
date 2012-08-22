@@ -1,5 +1,6 @@
 {
   super(p);
+  setFieldOrder(new String[]{"size","alignment","type","elements"});
   Native.initialize_ffi_type(p.peer);
   read();
 }
