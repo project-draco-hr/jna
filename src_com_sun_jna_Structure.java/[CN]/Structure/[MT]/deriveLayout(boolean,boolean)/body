@@ -3,6 +3,7 @@
   int calculatedSize=0;
   List fields=getFields(force);
   if (fields == null) {
+    validateFields();
     return null;
   }
   boolean firstField=true;
@@ -77,7 +78,7 @@
       if (!force && typeMapper == null) {
         return null;
       }
-      String msg="Invalid Structure field in " + getClass() + ", field name '"+ structField.name+ "', "+ structField.type+ ": "+ e.getMessage();
+      String msg="Invalid Structure field in " + getClass() + ", field name '"+ structField.name+ "' ("+ structField.type+ "): "+ e.getMessage();
       throw new IllegalArgumentException(msg);
     }
     info.alignment=Math.max(info.alignment,fieldAlignment);

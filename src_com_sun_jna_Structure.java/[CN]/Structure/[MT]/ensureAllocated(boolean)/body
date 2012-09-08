@@ -5,7 +5,12 @@
  else   if (size == CALCULATE_SIZE) {
     this.size=calculateSize(true,avoidFFIType);
     if (!(this.memory instanceof AutoAllocated)) {
-      this.memory=this.memory.share(0,this.size);
+      try {
+        this.memory=this.memory.share(0,this.size);
+      }
+ catch (      IndexOutOfBoundsException e) {
+        throw new IllegalArgumentException("Structure exceeds provided memory bounds");
+      }
     }
   }
 }

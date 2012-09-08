@@ -7,6 +7,7 @@ class TestStructure extends Structure {
     }
     public int field;
     public int fieldCount(){
+      ensureAllocated();
       return fields().size();
     }
   }

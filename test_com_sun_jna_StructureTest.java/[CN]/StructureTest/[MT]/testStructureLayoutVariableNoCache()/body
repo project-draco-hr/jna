@@ -10,7 +10,7 @@ class TestStructure extends Structure {
   }
   Structure ts=new TestStructure(8);
   Structure ts2=new TestStructure(16);
-  ts.size();
-  ts2.size();
+  ts.ensureAllocated();
+  ts2.ensureAllocated();
   assertNotSame("Structure layout should not be cached",ts.fields(),ts2.fields());
 }

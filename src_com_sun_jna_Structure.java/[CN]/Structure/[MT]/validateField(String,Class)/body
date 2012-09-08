@@ -1,0 +1,21 @@
+{
+  if (typeMapper != null) {
+    ToNativeConverter toNative=typeMapper.getToNativeConverter(type);
+    if (toNative != null) {
+      validateField(name,toNative.nativeType());
+      return;
+    }
+  }
+  if (type.isArray()) {
+    validateField(name,type.getComponentType());
+  }
+ else {
+    try {
+      getNativeSize(type);
+    }
+ catch (    IllegalArgumentException e) {
+      String msg="Invalid Structure field in " + getClass() + ", field name '"+ name+ "' ("+ type+ "): "+ e.getMessage();
+      throw new IllegalArgumentException(msg);
+    }
+  }
+}

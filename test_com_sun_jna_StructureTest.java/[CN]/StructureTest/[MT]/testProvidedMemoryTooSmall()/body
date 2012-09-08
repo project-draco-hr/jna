@@ -1,18 +1,18 @@
 {
-class TestStructure extends Structure {
-    public TestStructure(){
-    }
-    public TestStructure(    Pointer p){
+class TestStructureLazy extends Structure {
+    public TestStructureLazy(    Pointer p){
       super(p);
     }
-    public int field;
+    public int field1;
     public int fieldCount(){
+      ensureAllocated();
       return fields().size();
     }
   }
   try {
-    TestStructure s=new TestStructure(new Memory(2));
-    fail("Expect exception if provided memory is insufficient");
+    TestStructureLazy lazy=new TestStructureLazy(new Memory(2));
+    lazy.ensureAllocated();
+    fail("Exception should be thrown if provided memory is insufficiently large");
   }
  catch (  IllegalArgumentException e) {
   }

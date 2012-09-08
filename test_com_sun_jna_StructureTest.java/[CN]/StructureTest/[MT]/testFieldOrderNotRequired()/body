@@ -4,8 +4,8 @@ class TestStructure extends Structure {
   }
   try {
     new TestStructure();
-    fail("Expected an error when creating a structure without an explicit call to setFieldOrder()");
   }
  catch (  Error e) {
+    fail("Field order should be optional");
   }
 }
