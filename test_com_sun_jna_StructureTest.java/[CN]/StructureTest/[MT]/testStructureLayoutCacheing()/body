@@ -3,6 +3,8 @@ class TestStructure extends Structure {
     public int field;
   }
   Structure ts=new TestStructure();
+  ts.ensureAllocated();
   Structure ts2=new TestStructure();
+  ts2.ensureAllocated();
   assertSame("Structure layout not cached",ts.fields(),ts2.fields());
 }

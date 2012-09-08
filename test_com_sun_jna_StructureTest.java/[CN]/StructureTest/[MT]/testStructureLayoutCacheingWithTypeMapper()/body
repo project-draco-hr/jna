@@ -32,7 +32,7 @@ class TestStructure extends Structure {
   }
   Structure ts=new TestStructure();
   Structure ts2=new TestStructure();
-  ts.size();
-  ts2.size();
+  ts.ensureAllocated();
+  ts2.ensureAllocated();
   assertSame("Structure layout should not be cached when type mapper is in use",ts.fields(),ts2.fields());
 }

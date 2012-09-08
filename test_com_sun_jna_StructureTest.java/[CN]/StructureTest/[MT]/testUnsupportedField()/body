@@ -3,14 +3,14 @@ class BadNestedStructure extends Structure {
     public BadFieldStructure badStruct=new BadFieldStructure();
   }
   try {
-    new BadFieldStructure().size();
+    new BadFieldStructure();
     fail("Should throw IllegalArgumentException on bad field");
   }
  catch (  IllegalArgumentException e) {
-    assertTrue("Exception should include field name",e.getMessage().indexOf("badField") != -1);
+    assertTrue("Exception should include field name: " + e,e.getMessage().indexOf("badField") != -1);
   }
   try {
-    new BadNestedStructure().size();
+    new BadNestedStructure();
     fail("Should throw IllegalArgumentException on bad field");
   }
  catch (  IllegalArgumentException e) {
