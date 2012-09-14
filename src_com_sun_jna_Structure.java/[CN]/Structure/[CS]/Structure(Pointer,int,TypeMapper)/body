@@ -1,6 +1,6 @@
 {
   setAlignType(alignType);
-  setTypeMapper(mapper);
+  initializeTypeMapper(mapper);
   if (p != null) {
     useMemory(p);
   }
