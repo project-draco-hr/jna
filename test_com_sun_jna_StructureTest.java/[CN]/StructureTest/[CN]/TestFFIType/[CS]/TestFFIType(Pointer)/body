@@ -1,6 +1,5 @@
 {
   super(p);
-  setFieldOrder(new String[]{"size","alignment","type","elements"});
   read();
   assertTrue("Test FFIType type not initialized: " + this,this.type != 0);
   int size=Native.initialize_ffi_type(p.peer);

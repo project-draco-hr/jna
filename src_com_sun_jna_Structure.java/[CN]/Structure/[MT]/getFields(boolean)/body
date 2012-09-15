@@ -4,21 +4,16 @@
   for (Iterator i=flist.iterator(); i.hasNext(); ) {
     names.add(((Field)i.next()).getName());
   }
-  List fieldOrder=getFieldOrder();
-  if (fieldOrder.size() < flist.size()) {
+  List fieldOrder=fieldOrder();
+  if (fieldOrder.size() != flist.size() && flist.size() > 1) {
     if (force) {
-      if (REQUIRES_EXPLICIT_FIELD_ORDER) {
-        throw new Error("This VM does not store fields in a predictable order; you must use Structure.setFieldOrder on " + getClass() + " to explicitly indicate the field order: "+ System.getProperty("java.vendor")+ ", "+ System.getProperty("java.version"));
-      }
-      fieldOrder=new ArrayList(names);
+      throw new Error("Structure.getFieldOrder() on " + getClass() + " does not provide enough names ("+ sort(fieldOrder)+ ") to match declared fields ("+ sort(names)+ ")");
     }
- else {
-      return null;
-    }
+    return null;
   }
   Set orderedNames=new HashSet(fieldOrder);
   if (!orderedNames.equals(names)) {
-    throw new Error("The names declared in setFieldOrder (" + orderedNames + ") in "+ getClass()+ " do not match declared field names ("+ names+ ")");
+    throw new Error("Structure.getFieldOrder() on " + getClass() + " returns names ("+ sort(fieldOrder)+ ") which do not match declared field names ("+ sort(names)+ ")");
   }
   sortFields(flist,fieldOrder);
   return flist;

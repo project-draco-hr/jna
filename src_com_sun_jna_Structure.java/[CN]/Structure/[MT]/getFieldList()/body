@@ -8,9 +8,6 @@
       if (Modifier.isStatic(modifiers) || !Modifier.isPublic(modifiers))       continue;
       classFields.add(fields[i]);
     }
-    if (REVERSE_FIELDS) {
-      Collections.reverse(classFields);
-    }
     flist.addAll(0,classFields);
   }
   return flist;

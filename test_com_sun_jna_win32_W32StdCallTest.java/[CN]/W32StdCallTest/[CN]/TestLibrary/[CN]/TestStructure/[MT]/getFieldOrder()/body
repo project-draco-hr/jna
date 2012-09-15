@@ -1,0 +1,3 @@
+{
+  return Arrays.asList(new String[]{"c","s","i","j","inner"});
+}

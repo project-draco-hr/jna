@@ -1,14 +1,16 @@
 {
 class TestStructure extends Structure {
     public int first=1;
-{
-      setFieldOrder(new String[]{"first"});
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"first"});
     }
   }
 class TestStructureSub extends TestStructure {
     public int second=2;
-{
-      setFieldOrder(new String[]{"second"});
+    protected List getFieldOrder(){
+      List list=new ArrayList(super.getFieldOrder());
+      list.addAll(Arrays.asList(new String[]{"second"}));
+      return list;
     }
   }
   TestStructureSub s=new TestStructureSub();

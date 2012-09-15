@@ -37,8 +37,8 @@ class TestStructure extends Structure {
     public TestStructure(){
       super(mapper);
     }
-{
-      setFieldOrder(new String[]{"b","s","p0","p1","p2","p3","p4","p5","p6","p7"});
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"b","s","p0","p1","p2","p3","p4","p5","p6","p7"});
     }
   }
   Structure s=new TestStructure();

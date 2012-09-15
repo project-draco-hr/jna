@@ -1,6 +1,9 @@
 {
 class TestStructure extends Structure {
     public PublicTestStructure.ByReference[] array=new PublicTestStructure.ByReference[2];
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"array"});
+    }
   }
   TestStructure s=new TestStructure();
   assertEquals("Wrong structure size",2 * Pointer.SIZE,s.size());

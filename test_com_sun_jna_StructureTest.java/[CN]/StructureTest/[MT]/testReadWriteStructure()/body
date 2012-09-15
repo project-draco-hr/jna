@@ -19,8 +19,8 @@ class TestStructure extends Structure {
     public float[] fa=new float[3];
     public double[] da=new double[3];
     public PublicTestStructure nested;
-{
-      setFieldOrder(new String[]{"z","b","c","s","i","l","f","d","ba","ca","sa","ia","la","fa","da","nested"});
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"z","b","c","s","i","l","f","d","ba","ca","sa","ia","la","fa","da","nested"});
     }
   }
   TestStructure s=new TestStructure();
