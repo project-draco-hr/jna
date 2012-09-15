@@ -3,7 +3,6 @@
   int calculatedSize=0;
   List fields=getFields(force);
   if (fields == null) {
-    validateFields();
     return null;
   }
   boolean firstField=true;
