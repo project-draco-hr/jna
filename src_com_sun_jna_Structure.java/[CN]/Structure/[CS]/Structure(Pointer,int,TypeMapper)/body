@@ -1,6 +1,7 @@
 {
   setAlignType(alignType);
   initializeTypeMapper(mapper);
+  validateFields();
   if (p != null) {
     useMemory(p);
   }
