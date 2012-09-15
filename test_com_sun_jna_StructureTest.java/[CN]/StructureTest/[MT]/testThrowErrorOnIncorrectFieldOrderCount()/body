@@ -1,0 +1,14 @@
+{
+class TestStructure extends Structure {
+    public int f1, f2;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"f1","f2","f3"});
+    }
+  }
+  try {
+    new TestStructure();
+    fail("Expected an error when creating a structure with wrong number of fiels in getFieldOrder()");
+  }
+ catch (  Error e) {
+  }
+}

@@ -1,11 +1,11 @@
 {
   try {
-    new ArrayOfStructure();
-    fail("Structure[] not allowed as a field of Structure");
+    new StructureWithArrayOfStructureField();
+    fail("Structure[] should not be allowed as a field of Structure");
   }
  catch (  IllegalArgumentException e) {
   }
 catch (  Exception e) {
-    fail("Wrong exception thrown on Structure[] field in Structure: " + e);
+    fail("Wrong exception thrown when Structure[] field encountered in a Structure: " + e);
   }
 }

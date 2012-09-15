@@ -1,3 +1,0 @@
-{
-  throw new RuntimeException("Unions do not need to specify field order");
-}

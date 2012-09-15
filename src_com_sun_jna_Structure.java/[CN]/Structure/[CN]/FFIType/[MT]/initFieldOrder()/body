@@ -1,3 +1,0 @@
-{
-  setFieldOrder(new String[]{"size","alignment","type","elements"});
-}

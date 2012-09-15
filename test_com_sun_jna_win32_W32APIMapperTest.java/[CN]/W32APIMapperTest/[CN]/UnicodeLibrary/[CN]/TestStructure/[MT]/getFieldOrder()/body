@@ -1,0 +1,3 @@
+{
+  return Arrays.asList(new String[]{"string","string2","bool","bool2"});
+}

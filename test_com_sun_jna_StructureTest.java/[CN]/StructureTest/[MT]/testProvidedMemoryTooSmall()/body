@@ -1,17 +1,15 @@
 {
 class TestStructure extends Structure {
-    public TestStructure(){
-    }
     public TestStructure(    Pointer p){
       super(p);
     }
     public int field;
-    public int fieldCount(){
-      return fields().size();
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
     }
   }
   try {
-    TestStructure s=new TestStructure(new Memory(2));
+    new TestStructure(new Memory(2));
     fail("Expect exception if provided memory is insufficient");
   }
  catch (  IllegalArgumentException e) {

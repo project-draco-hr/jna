@@ -1,3 +1,4 @@
 {
+  ensureAllocated();
   memory.clear(size());
 }

@@ -2,6 +2,9 @@
   final int SIZE=24;
 class TestStructure extends Structure {
     public NativeLong[] longs=new NativeLong[SIZE];
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"longs"});
+    }
   }
   TestStructure s=new TestStructure();
   assertEquals("Wrong structure size",Native.LONG_SIZE * SIZE,s.size());
