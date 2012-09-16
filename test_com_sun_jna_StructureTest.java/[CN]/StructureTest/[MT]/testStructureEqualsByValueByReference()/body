@@ -3,8 +3,8 @@ class TestStructure extends Structure {
     public int first;
     public int[] second=new int[4];
     public Pointer[] third=new Pointer[4];
-{
-      setFieldOrder(new String[]{"first","second","third"});
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"first","second","third"});
     }
   }
 class ByReference extends TestStructure implements Structure.ByReference {

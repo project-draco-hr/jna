@@ -1,0 +1,3 @@
+{
+  return Arrays.asList(new String[]{"int32Field","int64Field","floatField","doubleField"});
+}

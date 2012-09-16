@@ -7,8 +7,8 @@ class TestStructure extends Structure {
       }
     }
 ;
-{
-      setFieldOrder(new String[]{"p","p2"});
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"p","p2"});
     }
   }
   TestStructure s=new TestStructure();

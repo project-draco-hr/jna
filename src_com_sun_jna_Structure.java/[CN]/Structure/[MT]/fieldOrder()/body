@@ -1,0 +1,10 @@
+{
+synchronized (fieldOrder) {
+    List list=(List)fieldOrder.get(getClass());
+    if (list == null) {
+      list=getFieldOrder();
+      fieldOrder.put(getClass(),list);
+    }
+    return list;
+  }
+}

@@ -1,6 +1,9 @@
 {
 class TestStructure extends Structure {
     public NativeLong l;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"l"});
+    }
   }
   Structure s=new TestStructure();
   assertEquals("Wrong size",NativeLong.SIZE,s.size());

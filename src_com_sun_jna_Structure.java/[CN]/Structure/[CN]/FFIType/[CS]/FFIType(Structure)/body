@@ -1,5 +1,4 @@
 {
-  initFieldOrder();
   Pointer[] els;
   ref.ensureAllocated(true);
   if (ref instanceof Union) {

@@ -1,6 +1,9 @@
 {
 class TestStructure extends Structure {
     public int[] inner=new int[5];
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"inner"});
+    }
   }
   Structure s=new TestStructure();
   Pointer p=s.getTypeInfo();

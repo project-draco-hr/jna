@@ -4,18 +4,17 @@
 synchronized (layoutInfo) {
     info=(LayoutInfo)layoutInfo.get(getClass());
   }
-  if (info == null || this.alignType != info.alignType || this.typeMapper != info.typeMapper || (this.fieldOrder != null && !this.fieldOrder.equals(info.fieldOrder))) {
+  if (info == null || this.alignType != info.alignType || this.typeMapper != info.typeMapper) {
     info=deriveLayout(force,avoidFFIType);
   }
   if (info != null) {
     this.structAlignment=info.alignment;
     this.structFields=info.fields;
-    info.alignType=this.alignType;
-    info.typeMapper=this.typeMapper;
-    info.fieldOrder=this.fieldOrder;
     if (!info.variable) {
 synchronized (layoutInfo) {
-        layoutInfo.put(getClass(),info);
+        if (!layoutInfo.containsKey(getClass()) || this.alignType != ALIGN_DEFAULT || this.typeMapper != null) {
+          layoutInfo.put(getClass(),info);
+        }
       }
     }
     size=info.size;

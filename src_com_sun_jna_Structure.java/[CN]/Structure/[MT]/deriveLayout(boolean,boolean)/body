@@ -1,10 +1,12 @@
 {
-  LayoutInfo info=new LayoutInfo();
   int calculatedSize=0;
   List fields=getFields(force);
   if (fields == null) {
     return null;
   }
+  LayoutInfo info=new LayoutInfo();
+  info.alignType=this.alignType;
+  info.typeMapper=this.typeMapper;
   boolean firstField=true;
   for (Iterator i=fields.iterator(); i.hasNext(); firstField=false) {
     Field field=(Field)i.next();

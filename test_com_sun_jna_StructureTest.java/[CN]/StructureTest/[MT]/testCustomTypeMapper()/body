@@ -23,6 +23,9 @@ class TestStructure extends Structure {
     public TestStructure(){
       super(mapper);
     }
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
+    }
   }
   Structure s=new TestStructure();
   assertEquals("Wrong type mapper: " + s,mapper,s.getTypeMapper());
