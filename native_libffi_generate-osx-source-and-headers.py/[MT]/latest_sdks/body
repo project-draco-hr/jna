@@ -1,0 +1,8 @@
+def latest_sdks():
+    latest_desktop = None
+    for line in subprocess.Popen(['xcodebuild', '-showsdks'], stdout=subprocess.PIPE).stdout:
+        match = sdk_re.match(line)
+        if match:
+            if ('OS X' in line):
+                latest_desktop = match.group(1)
+    return latest_desktop
