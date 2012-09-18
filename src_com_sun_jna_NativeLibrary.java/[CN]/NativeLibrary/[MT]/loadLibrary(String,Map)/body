@@ -41,8 +41,8 @@ synchronized (customPaths) {
       }
     }
  else     if (Platform.isMac() && !libraryName.endsWith(".dylib")) {
-      libraryPath="/System/Library/Frameworks/" + libraryName + ".framework/"+ libraryName;
-      if (new File(libraryPath).exists()) {
+      libraryPath=matchFramework(libraryName);
+      if (libraryPath != null) {
         try {
           handle=Native.open(libraryPath);
         }
