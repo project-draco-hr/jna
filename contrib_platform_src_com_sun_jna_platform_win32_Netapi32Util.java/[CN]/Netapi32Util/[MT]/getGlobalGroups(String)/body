@@ -12,9 +12,12 @@
     ArrayList<LocalGroup> result=new ArrayList<LocalGroup>();
     for (    LMAccess.GROUP_INFO_1 lgpi : groups) {
       LocalGroup lgp=new LocalGroup();
-      lgp.name=lgpi.grpi1_name.toString();
-      lgp.comment=lgpi.grpi1_comment.toString();
-      ;
+      if (lgpi.grpi1_name != null) {
+        lgp.name=lgpi.grpi1_name.toString();
+      }
+      if (lgpi.grpi1_comment != null) {
+        lgp.comment=lgpi.grpi1_comment.toString();
+      }
       result.add(lgp);
     }
     return result.toArray(new LocalGroup[0]);

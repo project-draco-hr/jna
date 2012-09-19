@@ -5,6 +5,9 @@ class TestStructure extends Structure {
     }
     public int intField;
     public byte[] arrayField=new byte[256];
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"intField","arrayField"});
+    }
     public TestStructure(    Pointer p){
       super(p);
       read();

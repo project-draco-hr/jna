@@ -1,0 +1,8 @@
+{
+  assertTrue(Kernel32.INSTANCE.SetEnvironmentVariable("jna-getenvironment-test","42"));
+  int size=Kernel32.INSTANCE.GetEnvironmentVariable("jna-getenvironment-test",null,0);
+  assertTrue(size == 3);
+  char[] data=new char[size];
+  assertEquals(size - 1,Kernel32.INSTANCE.GetEnvironmentVariable("jna-getenvironment-test",data,size));
+  assertEquals(size - 1,Native.toString(data).length());
+}

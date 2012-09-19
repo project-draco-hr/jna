@@ -5,11 +5,19 @@ class TestStructure extends Structure {
     }
     public byte first;
     public int second;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"first","second"});
+    }
     public TestStructure(){
       setAlignType(ALIGN_NONE);
+    }
+    public TestStructure(    int alignType){
+      super(alignType);
     }
   }
   Structure ts=new TestStructure();
   Structure ts2=new TestStructure();
-  assertSame("Structure layout should be cached",ts.fields(),ts2.fields());
+  Structure ts3=new TestStructure(Structure.ALIGN_NONE);
+  assertSame("Structure layout should be cached with custom alignment",ts.fields(),ts2.fields());
+  assertSame("Structure layout should be cached with custom alignment, regardless of how set",ts.fields(),ts3.fields());
 }

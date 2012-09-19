@@ -1,11 +1,14 @@
 {
 class TestStructure extends Structure {
     public int[] inner=new int[5];
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"inner"});
+    }
   }
-  TestStructure s=new TestStructure();
+  Structure s=new TestStructure();
   Pointer p=s.getTypeInfo();
   assertNotNull("Type info should not be null",p);
-  FFIType ffi_type=new FFIType(p);
+  TestFFIType ffi_type=new TestFFIType(p);
   assertEquals("Wrong structure size",20,s.size());
   assertEquals("FFIType info size mismatch",s.size(),ffi_type.size.intValue());
 }

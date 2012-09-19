@@ -1,27 +1,20 @@
 {
-  List flist=new ArrayList();
-  for (Class cls=getClass(); !cls.equals(Structure.class); cls=cls.getSuperclass()) {
-    List classFields=new ArrayList();
-    Field[] fields=cls.getDeclaredFields();
-    for (int i=0; i < fields.length; i++) {
-      int modifiers=fields[i].getModifiers();
-      if (Modifier.isStatic(modifiers) || !Modifier.isPublic(modifiers))       continue;
-      classFields.add(fields[i]);
-    }
-    if (REVERSE_FIELDS) {
-      Collections.reverse(classFields);
-    }
-    flist.addAll(0,classFields);
+  List flist=getFieldList();
+  Set names=new HashSet();
+  for (Iterator i=flist.iterator(); i.hasNext(); ) {
+    names.add(((Field)i.next()).getName());
   }
-  if ((REQUIRES_FIELD_ORDER || hasFieldOrder()) && flist.size() > 1 && !(this instanceof Union)) {
-    List fieldOrder=getFieldOrder();
-    if (fieldOrder.size() < flist.size()) {
-      if (force) {
-        throw new Error("This VM does not store fields in a predictable order; you must use Structure.setFieldOrder to explicitly indicate the field order: " + System.getProperty("java.vendor") + ", "+ System.getProperty("java.version"));
-      }
-      return null;
+  List fieldOrder=fieldOrder();
+  if (fieldOrder.size() != flist.size() && flist.size() > 1) {
+    if (force) {
+      throw new Error("Structure.getFieldOrder() on " + getClass() + " does not provide enough names ("+ sort(fieldOrder)+ ") to match declared fields ("+ sort(names)+ ")");
     }
-    sortFields(flist,fieldOrder);
+    return null;
   }
+  Set orderedNames=new HashSet(fieldOrder);
+  if (!orderedNames.equals(names)) {
+    throw new Error("Structure.getFieldOrder() on " + getClass() + " returns names ("+ sort(fieldOrder)+ ") which do not match declared field names ("+ sort(names)+ ")");
+  }
+  sortFields(flist,fieldOrder);
   return flist;
 }

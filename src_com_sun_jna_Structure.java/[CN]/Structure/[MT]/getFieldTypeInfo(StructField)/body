@@ -1,6 +1,6 @@
 {
   Class type=f.type;
-  Object value=getField(f);
+  Object value=getFieldValue(f.field);
   if (typeMapper != null) {
     ToNativeConverter nc=typeMapper.getToNativeConverter(type);
     if (nc != null) {

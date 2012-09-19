@@ -1,7 +1,7 @@
 {
   CredHandle phCredential=new CredHandle();
   TimeStamp ptsExpiry=new TimeStamp();
-  assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.AcquireCredentialsHandle(null,"Negotiate",new NativeLong(Sspi.SECPKG_CRED_OUTBOUND),null,null,null,null,phCredential,ptsExpiry));
+  assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.AcquireCredentialsHandle(null,"Negotiate",Sspi.SECPKG_CRED_OUTBOUND,null,null,null,null,phCredential,ptsExpiry));
   assertTrue(phCredential.dwLower != null);
   assertTrue(phCredential.dwUpper != null);
   assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.FreeCredentialsHandle(phCredential));

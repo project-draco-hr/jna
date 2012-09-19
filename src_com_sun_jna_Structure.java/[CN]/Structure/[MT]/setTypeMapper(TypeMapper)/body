@@ -1,13 +1,3 @@
 {
-  if (mapper == null) {
-    Class declaring=getClass().getDeclaringClass();
-    if (declaring != null) {
-      mapper=Native.getTypeMapper(declaring);
-    }
-  }
-  this.typeMapper=mapper;
-  this.size=CALCULATE_SIZE;
-  if (this.memory instanceof AutoAllocated) {
-    this.memory=null;
-  }
+  initializeTypeMapper(mapper);
 }

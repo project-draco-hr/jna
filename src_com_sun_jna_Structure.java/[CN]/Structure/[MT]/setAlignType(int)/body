@@ -1,4 +1,5 @@
 {
+  this.alignType=alignType;
   if (alignType == ALIGN_DEFAULT) {
     Class declaring=getClass().getDeclaringClass();
     if (declaring != null)     alignType=Native.getStructureAlignment(declaring);
@@ -7,9 +8,6 @@
  else       alignType=ALIGN_GNUC;
     }
   }
-  this.alignType=alignType;
-  this.size=CALCULATE_SIZE;
-  if (this.memory instanceof AutoAllocated) {
-    this.memory=null;
-  }
+  this.actualAlignType=alignType;
+  layoutChanged();
 }

@@ -1,0 +1,9 @@
+{
+  if (this.size != CALCULATE_SIZE) {
+    this.size=CALCULATE_SIZE;
+    if (this.memory instanceof AutoAllocated) {
+      this.memory=null;
+    }
+    ensureAllocated();
+  }
+}

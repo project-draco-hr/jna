@@ -1,0 +1,7 @@
+{
+  TestLibrary.CheckFieldAlignment.ByReference[] array={new TestLibrary.CheckFieldAlignment.ByReference(),new TestLibrary.CheckFieldAlignment.ByReference(),new TestLibrary.CheckFieldAlignment.ByReference(),new TestLibrary.CheckFieldAlignment.ByReference()};
+  for (int i=0; i < array.length; i++) {
+    array[i].int32Field=i;
+  }
+  assertEquals("Structure.ByReference array memory not properly initialized",-1,lib.testStructureByReferenceArrayInitialization(array,array.length));
+}

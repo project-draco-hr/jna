@@ -10,12 +10,12 @@
     if (vendor.indexOf(" ") != -1) {
       vendor=vendor.substring(0,vendor.indexOf(" "));
     }
+    if ("Oracle".equals(vendor)) {
+      vendor="Sun";
+    }
     deployment=new File(path + "/" + vendor+ "/Java/Deployment");
-    if (!deployment.exists() && deployment.getAbsolutePath().indexOf("Roaming") != -1) {
-      deployment=new File(deployment.getAbsolutePath().replace("Roaming","LocalLow"));
-      if (!deployment.exists()) {
-        deployment=new File(deployment.getAbsolutePath().replace("LocalLow","Local"));
-      }
+    if (!deployment.exists()) {
+      deployment=new File(deployment.getAbsolutePath().replace("Local","LocalLow").replace("Roaming","LocalLow"));
     }
   }
  else   if (Platform.isMac()) {

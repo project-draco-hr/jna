@@ -1,6 +1,9 @@
 {
 class NTStruct extends Structure {
     public Sized field;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
+    }
   }
   NTStruct s=new NTStruct();
   s.read();

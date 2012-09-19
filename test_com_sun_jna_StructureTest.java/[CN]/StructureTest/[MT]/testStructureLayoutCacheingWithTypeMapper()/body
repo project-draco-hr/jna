@@ -17,14 +17,14 @@ class TestTypeMapper extends DefaultTypeMapper {
       addTypeConverter(Boolean.class,tc);
     }
   }
-  final TypeMapper m=new TestTypeMapper();
+  final TestTypeMapper m=new TestTypeMapper();
 class TestStructure extends Structure {
     public boolean field;
-    public TestStructure(){
-      this(false);
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
     }
-    public TestStructure(    boolean create){
-      this(create ? new TestTypeMapper() : m);
+    public TestStructure(){
+      super(m);
     }
     public TestStructure(    TypeMapper m){
       super(m);
@@ -32,7 +32,7 @@ class TestStructure extends Structure {
   }
   Structure ts=new TestStructure();
   Structure ts2=new TestStructure();
-  ts.size();
-  ts2.size();
-  assertSame("Structure layout should not be cached when type mapper is in use",ts.fields(),ts2.fields());
+  Structure ts3=new TestStructure(m);
+  assertSame("Structure layout should be cached with custom type mapper",ts.fields(),ts2.fields());
+  assertSame("Structure layout should be cached with custom type mapper, regardless of constructor type",ts.fields(),ts3.fields());
 }

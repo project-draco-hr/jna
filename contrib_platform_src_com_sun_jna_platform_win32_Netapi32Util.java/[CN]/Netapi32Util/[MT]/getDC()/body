@@ -5,14 +5,24 @@
     throw new Win32Exception(rc);
   }
   DomainController dc=new DomainController();
-  dc.address=pdci.dci.DomainControllerAddress.toString();
+  if (pdci.dci.DomainControllerAddress != null) {
+    dc.address=pdci.dci.DomainControllerAddress.toString();
+  }
   dc.addressType=pdci.dci.DomainControllerAddressType;
-  dc.clientSiteName=pdci.dci.ClientSiteName.toString();
-  dc.dnsForestName=pdci.dci.DnsForestName.toString();
+  if (pdci.dci.ClientSiteName != null) {
+    dc.clientSiteName=pdci.dci.ClientSiteName.toString();
+  }
+  if (pdci.dci.DnsForestName != null) {
+    dc.dnsForestName=pdci.dci.DnsForestName.toString();
+  }
   dc.domainGuid=pdci.dci.DomainGuid;
-  dc.domainName=pdci.dci.DomainName.toString();
+  if (pdci.dci.DomainName != null) {
+    dc.domainName=pdci.dci.DomainName.toString();
+  }
   dc.flags=pdci.dci.Flags;
-  dc.name=pdci.dci.DomainControllerName.toString();
+  if (pdci.dci.DomainControllerName != null) {
+    dc.name=pdci.dci.DomainControllerName.toString();
+  }
   rc=Netapi32.INSTANCE.NetApiBufferFree(pdci.dci.getPointer());
   if (LMErr.NERR_Success != rc) {
     throw new Win32Exception(rc);

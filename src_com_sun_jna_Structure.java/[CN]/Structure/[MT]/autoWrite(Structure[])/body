@@ -5,7 +5,9 @@
   }
  else {
     for (int si=0; si < ss.length; si++) {
-      ss[si].autoWrite();
+      if (ss[si] != null) {
+        ss[si].autoWrite();
+      }
     }
   }
 }

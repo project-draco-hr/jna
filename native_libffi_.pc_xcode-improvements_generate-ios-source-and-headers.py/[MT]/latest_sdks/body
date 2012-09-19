@@ -1,0 +1,11 @@
+def latest_sdks():
+    latest_sim = None
+    latest_device = None
+    for line in subprocess.Popen(['xcodebuild', '-showsdks'], stdout=subprocess.PIPE).stdout:
+        match = sdk_re.match(line)
+        if match:
+            if ('Simulator' in line):
+                latest_sim = match.group(1)
+            elif ('iOS' in line):
+                latest_device = match.group(1)
+    return (latest_sim, latest_device)

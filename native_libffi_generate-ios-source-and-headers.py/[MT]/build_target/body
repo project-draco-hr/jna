@@ -1,0 +1,18 @@
+def build_target(platform):
+
+    def xcrun_cmd(cmd):
+        return subprocess.check_output(['xcrun', '-sdk', platform.sdkroot, '-find', cmd]).strip()
+    build_dir = ('build_' + platform.name)
+    if (not os.path.exists(build_dir)):
+        os.makedirs(build_dir)
+        env = dict(CC=xcrun_cmd('clang'), LD=xcrun_cmd('ld'), CFLAGS=('-arch %s -isysroot %s -miphoneos-version-min=4.0' % (platform.arch, platform.sdkroot)))
+        working_dir = os.getcwd()
+        try:
+            os.chdir(build_dir)
+            subprocess.check_call(['../configure', '-host', platform.triple], env=env)
+            move_source_tree('.', None, '../ios/include', arch=platform.arch, prefix=platform.prefix, suffix=platform.suffix)
+            move_source_tree('./include', None, '../ios/include', arch=platform.arch, prefix=platform.prefix, suffix=platform.suffix)
+        finally:
+            os.chdir(working_dir)
+        for (header_name, archs) in headers_seen.iteritems():
+            (basename, suffix) = os.path.splitext(header_name)

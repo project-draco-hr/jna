@@ -9,8 +9,11 @@ class TestStructure extends Structure {
     public long l;
     public float f;
     public double d;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"b","s","i","l","f","d"});
+    }
   }
-  TestStructure s=new TestStructure();
+  Structure s=new TestStructure();
   s.setAlignType(Structure.ALIGN_MSVC);
   assertEquals("Wrong structure size",32,s.size());
 }

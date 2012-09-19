@@ -1,12 +1,9 @@
 {
-  final DefaultTypeMapper mapper=new DefaultTypeMapper();
 class TestField {
   }
-class TestStructure extends Structure {
-    public TestField field;
-    public TestStructure(){
-      DefaultTypeMapper m=mapper;
-      m.addTypeConverter(TestField.class,new TypeConverter(){
+  final DefaultTypeMapper mapper=new DefaultTypeMapper(){
+{
+      addTypeConverter(TestField.class,new TypeConverter(){
         public Object fromNative(        Object value,        FromNativeContext context){
           return new TestField();
         }
@@ -18,7 +15,16 @@ class TestStructure extends Structure {
         }
       }
 );
-      setTypeMapper(m);
+    }
+  }
+;
+class TestStructure extends Structure {
+    public TestField field;
+    public TestStructure(){
+      super(mapper);
+    }
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
     }
   }
   Structure s=new TestStructure();

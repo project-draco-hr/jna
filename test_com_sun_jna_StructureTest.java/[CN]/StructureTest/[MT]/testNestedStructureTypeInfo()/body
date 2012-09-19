@@ -2,8 +2,8 @@
   NestedTypeInfoStructure s=new NestedTypeInfoStructure();
   Pointer p=s.getTypeInfo();
   assertNotNull("Type info should not be null",p);
-  FFIType ffi_type=new FFIType(p);
-  assertEquals("FFIType size mismatch",s.size(),ffi_type.size.intValue());
+  TestFFIType ffi_type=new TestFFIType(p);
+  assertEquals("FFIType size mismatch: " + ffi_type,s.size(),ffi_type.size.intValue());
   Pointer els=ffi_type.elements;
   Pointer inner=s.inner.getTypeInfo();
   assertEquals("Wrong type information for 'inner' field",inner,els.getPointer(0));

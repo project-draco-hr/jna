@@ -1,0 +1,11 @@
+def main():
+    make_tramp()
+    move_source_tree('src', 'ios/src', 'ios/include')
+    move_source_tree('include', None, 'ios/include')
+    build_target(simulator_platform)
+    build_target(device_platform)
+    for (header_name, archs) in headers_seen.iteritems():
+        (basename, suffix) = os.path.splitext(header_name)
+        with open(os.path.join('ios/include', header_name), 'w') as header:
+            for arch in archs:
+                header.write(('#include <%s_%s%s>\n' % (basename, arch, suffix)))

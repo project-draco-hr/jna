@@ -1,10 +1,12 @@
 {
-  LayoutInfo info=new LayoutInfo();
   int calculatedSize=0;
   List fields=getFields(force);
   if (fields == null) {
     return null;
   }
+  LayoutInfo info=new LayoutInfo();
+  info.alignType=this.alignType;
+  info.typeMapper=this.typeMapper;
   boolean firstField=true;
   for (Iterator i=fields.iterator(); i.hasNext(); firstField=false) {
     Field field=(Field)i.next();
@@ -36,7 +38,7 @@
     if (!Modifier.isPublic(field.getModifiers())) {
       continue;
     }
-    Object value=getField(structField);
+    Object value=getFieldValue(structField.field);
     if (value == null && type.isArray()) {
       if (force) {
         throw new IllegalStateException("Array fields must be initialized");
@@ -67,7 +69,7 @@
       }
     }
     if (value == null) {
-      value=initializeField(structField,type);
+      value=initializeField(structField.field,type);
     }
     try {
       structField.size=getNativeSize(nativeType,value);
@@ -77,7 +79,7 @@
       if (!force && typeMapper == null) {
         return null;
       }
-      String msg="Invalid Structure field in " + getClass() + ", field name '"+ structField.name+ "', "+ structField.type+ ": "+ e.getMessage();
+      String msg="Invalid Structure field in " + getClass() + ", field name '"+ structField.name+ "' ("+ structField.type+ "): "+ e.getMessage();
       throw new IllegalArgumentException(msg);
     }
     info.alignment=Math.max(info.alignment,fieldAlignment);
@@ -92,9 +94,6 @@
     int size=calculateAlignedSize(calculatedSize,info.alignment);
     if (this instanceof ByValue && !avoidFFIType) {
       getTypeInfo();
-    }
-    if (this.memory != null && !(this.memory instanceof AutoAllocated)) {
-      this.memory=this.memory.share(0,size);
     }
     info.size=size;
     return info;

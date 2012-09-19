@@ -6,7 +6,11 @@ class TestStructure extends Structure {
       super(p);
     }
     public int field;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
+    }
     public int fieldCount(){
+      ensureAllocated();
       return fields().size();
     }
   }

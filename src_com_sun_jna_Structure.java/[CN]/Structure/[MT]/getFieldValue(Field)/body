@@ -1,0 +1,8 @@
+{
+  try {
+    return field.get(this);
+  }
+ catch (  Exception e) {
+    throw new Error("Exception reading field '" + field.getName() + "' in "+ getClass()+ ": "+ e);
+  }
+}

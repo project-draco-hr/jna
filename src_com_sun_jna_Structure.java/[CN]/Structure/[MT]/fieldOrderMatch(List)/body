@@ -1,3 +1,0 @@
-{
-  return this.fieldOrder == fieldOrder || (this.fieldOrder != null && this.fieldOrder.equals(fieldOrder));
-}

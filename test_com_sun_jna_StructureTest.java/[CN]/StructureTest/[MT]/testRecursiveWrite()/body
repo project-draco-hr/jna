@@ -10,6 +10,9 @@ class TestStructureByRef extends Structure implements Structure.ByReference {
     }
     public int unique;
     public TestStructureByRef s;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"unique","s"});
+    }
   }
   TestStructureByRef s=new TestStructureByRef();
   s.s=new TestStructureByRef();

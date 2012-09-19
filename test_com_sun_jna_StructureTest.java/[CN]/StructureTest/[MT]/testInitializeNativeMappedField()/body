@@ -10,6 +10,9 @@ class TestStructure extends Structure {
     }
     public NativeLong nl=INITIAL;
     public NativeLong uninitialized;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"nl","uninitialized"});
+    }
   }
   TestStructure ts=new TestStructure();
   TestStructure ts2=new TestStructure();

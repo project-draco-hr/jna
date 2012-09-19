@@ -3,7 +3,7 @@
   String domainController=Netapi32Util.getDCName();
   PLSA_FOREST_TRUST_INFORMATION.ByReference pfti=new PLSA_FOREST_TRUST_INFORMATION.ByReference();
   assertEquals(W32Errors.NO_ERROR,Netapi32.INSTANCE.DsGetForestTrustInformation(domainController,null,0,pfti));
-  assertTrue(pfti.fti.RecordCount.intValue() >= 0);
+  assertTrue(pfti.fti.RecordCount >= 0);
   for (  PLSA_FOREST_TRUST_RECORD precord : pfti.fti.getEntries()) {
     LSA_FOREST_TRUST_RECORD.UNION data=precord.tr.u;
 switch (precord.tr.ForestTrustType) {

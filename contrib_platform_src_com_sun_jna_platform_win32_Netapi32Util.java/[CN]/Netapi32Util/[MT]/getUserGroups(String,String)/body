@@ -12,7 +12,9 @@
     ArrayList<Group> result=new ArrayList<Group>();
     for (    GROUP_USERS_INFO_0 lgpi : lgroups) {
       Group lgp=new Group();
-      lgp.name=lgpi.grui0_name.toString();
+      if (lgpi.grui0_name != null) {
+        lgp.name=lgpi.grui0_name.toString();
+      }
       result.add(lgp);
     }
     return result.toArray(new Group[0]);

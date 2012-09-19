@@ -1,10 +1,12 @@
 {
   setAlignType(alignType);
-  setTypeMapper(mapper);
+  initializeTypeMapper(mapper);
+  validateFields();
   if (p != null) {
     useMemory(p);
   }
  else {
     allocateMemory(CALCULATE_SIZE);
   }
+  initializeFields();
 }
