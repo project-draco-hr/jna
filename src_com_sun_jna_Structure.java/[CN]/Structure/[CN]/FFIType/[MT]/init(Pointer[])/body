@@ -1,5 +1,4 @@
 {
-  setFieldOrder(new String[]{"size","alignment","type","elements"});
   elements=new Memory(Pointer.SIZE * els.length);
   elements.write(0,els,0,els.length);
   write();

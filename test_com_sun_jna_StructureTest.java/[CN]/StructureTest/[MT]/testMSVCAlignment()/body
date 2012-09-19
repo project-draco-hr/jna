@@ -1,8 +1,5 @@
 {
 class TestStructure extends Structure {
-{
-      setFieldOrder(new String[]{"b","s","i","l","f","d"});
-    }
     public byte b;
     public short s;
     public int i;

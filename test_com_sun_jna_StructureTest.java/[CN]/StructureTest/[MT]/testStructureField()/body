@@ -1,8 +1,5 @@
 {
 class TestStructure extends Structure {
-{
-      setFieldOrder(new String[]{"s1","s2","after"});
-    }
     public PublicTestStructure s1, s2;
     public int after;
     protected List getFieldOrder(){

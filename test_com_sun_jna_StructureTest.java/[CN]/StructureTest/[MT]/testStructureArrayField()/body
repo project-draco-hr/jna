@@ -1,8 +1,5 @@
 {
 class TestStructure extends Structure {
-{
-      setFieldOrder(new String[]{"inner","inner2"});
-    }
     public PublicTestStructure[] inner=new PublicTestStructure[2];
     public PublicTestStructure[] inner2=(PublicTestStructure[])new PublicTestStructure().toArray(2);
     protected List getFieldOrder(){

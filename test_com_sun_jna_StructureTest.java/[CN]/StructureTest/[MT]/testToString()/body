@@ -1,9 +1,6 @@
 {
   if (Platform.isWindowsCE())   return;
 class TestStructure extends Structure {
-{
-      setFieldOrder(new String[]{"intField","inner"});
-    }
     public int intField;
     public PublicTestStructure inner;
     protected List getFieldOrder(){

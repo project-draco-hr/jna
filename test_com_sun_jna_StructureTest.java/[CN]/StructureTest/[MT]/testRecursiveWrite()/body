@@ -5,9 +5,6 @@ class TestStructureByRef extends Structure implements Structure.ByReference {
     }
     public TestStructureByRef(){
     }
-{
-      setFieldOrder(new String[]{"unique","s"});
-    }
     public int unique;
     public TestStructureByRef s;
     protected List getFieldOrder(){

@@ -3,9 +3,6 @@ class TestStructure extends Structure {
     public TestStructure(){
       allocateMemory();
     }
-{
-      setFieldOrder(new String[]{"z","b","c","s","i","l","f","d","ba","ca","sa","ia","la","fa","da","nested"});
-    }
     public boolean z;
     public byte b;
     public char c;

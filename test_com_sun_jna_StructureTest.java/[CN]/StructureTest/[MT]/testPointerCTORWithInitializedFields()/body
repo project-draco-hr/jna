@@ -1,8 +1,5 @@
 {
 class TestStructure extends Structure {
-{
-      setFieldOrder(new String[]{"intField","arrayField"});
-    }
     public int intField;
     public byte[] arrayField=new byte[256];
     protected List getFieldOrder(){

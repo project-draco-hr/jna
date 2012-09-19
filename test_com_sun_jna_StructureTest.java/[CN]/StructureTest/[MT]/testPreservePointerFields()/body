@@ -1,8 +1,5 @@
 {
 class TestStructure extends Structure {
-{
-      setFieldOrder(new String[]{"p","p2"});
-    }
     public Pointer p=new Memory(256);
     public TestPointer p2=new TestPointer(){
 {

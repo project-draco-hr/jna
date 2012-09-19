@@ -3,9 +3,6 @@
   final NativeLong INITIAL=new NativeLong(VALUE);
 class TestStructure extends Structure {
 {
-      setFieldOrder(new String[]{"nl","uninitialized"});
-    }
-{
       setAlignType(ALIGN_NONE);
     }
     public NativeLong nl=INITIAL;
