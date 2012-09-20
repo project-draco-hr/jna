@@ -41,6 +41,9 @@
       }
     }
   }
+  if (Platform.isAndroid()) {
+    System.setProperty("jna.nounpack","true");
+  }
   try {
     if (!Boolean.getBoolean("jna.nosys")) {
       System.loadLibrary(libName);
