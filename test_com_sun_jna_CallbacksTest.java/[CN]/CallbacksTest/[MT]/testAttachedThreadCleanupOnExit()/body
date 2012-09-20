@@ -1,5 +1,4 @@
 {
-  if (!Platform.isMac())   return;
   final Set threads=new HashSet();
   final int[] called={0};
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
