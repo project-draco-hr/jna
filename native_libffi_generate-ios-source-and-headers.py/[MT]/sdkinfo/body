@@ -1,0 +1,8 @@
+def sdkinfo(sdkname):
+    ret = {}
+    for line in subprocess.Popen(['xcodebuild', '-sdk', sdkname, '-version'], stdout=subprocess.PIPE).stdout:
+        kv = line.strip().split(': ', 1)
+        if (len(kv) == 2):
+            (k, v) = kv
+            ret[k] = v
+    return ret

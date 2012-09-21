@@ -1,0 +1,13 @@
+import subprocess
+import re
+import os
+import errno
+import collections
+import sys
+sdk_re = re.compile('.*-sdk ([a-zA-Z0-9.]*)')
+sim_sdk_info = sdkinfo('iphonesimulator')
+device_sdk_info = sdkinfo('iphoneos')
+(sim_sdk, device_sdk) = latest_sdks()
+headers_seen = collections.defaultdict(set)
+if (__name__ == '__main__'):
+    main()

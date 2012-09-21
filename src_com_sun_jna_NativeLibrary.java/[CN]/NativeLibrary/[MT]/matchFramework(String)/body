@@ -1,0 +1,11 @@
+{
+  final String[] PREFIXES={System.getProperty("user.home"),"","/System"};
+  String suffix=libraryName.indexOf(".framework") == -1 ? libraryName + ".framework/" + libraryName : libraryName;
+  for (int i=0; i < PREFIXES.length; i++) {
+    String libraryPath=PREFIXES[i] + "/Library/Frameworks/" + suffix;
+    if (new File(libraryPath).exists()) {
+      return libraryPath;
+    }
+  }
+  return null;
+}
