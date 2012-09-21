@@ -40,12 +40,4 @@ class TestCallback implements TestLibrary.VoidCallback, com.sun.jna.win32.DLLCal
   cbstruct=ref.cbstruct;
   assertTrue("Callback not called",called[0]);
   assertEquals("Same (in-DLL) address should be re-used for DLL callbacks",first_fptr,cbstruct.getPointer(0));
-  try {
-    for (int i=0; i <= TestCallback.DLL_FPTRS; i++) {
-      lib.callVoidCallback(new TestCallback());
-    }
-    fail("Expected out of memory error when all DLL callbacks used");
-  }
- catch (  OutOfMemoryError e) {
-  }
 }

@@ -1,0 +1,19 @@
+{
+  if (!Platform.HAS_DLL_CALLBACKS) {
+    return;
+  }
+  final boolean[] called={false};
+class TestCallback implements TestLibrary.VoidCallback, com.sun.jna.win32.DLLCallback {
+    public void callback(){
+      called[0]=true;
+    }
+  }
+  try {
+    for (int i=0; i <= TestCallback.DLL_FPTRS; i++) {
+      lib.callVoidCallback(new TestCallback());
+    }
+    fail("Expected out of memory error when all DLL callbacks used");
+  }
+ catch (  OutOfMemoryError e) {
+  }
+}
