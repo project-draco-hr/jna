@@ -3,7 +3,5 @@
   if (arch.equals("ppc") || arch.equals("ppc64") || arch.equals("powerpc")|| arch.equals("powerpc64")) {
     return true;
   }
- else {
-    return false;
-  }
+  return false;
 }
