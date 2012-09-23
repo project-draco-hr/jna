@@ -1,4 +1,7 @@
 {
+  if (Platform.isAndroid()) {
+    fail("dlopen(NULL) segfaults on Android");
+  }
   NativeLibrary process=NativeLibrary.getProcess();
   process.getFunction("printf");
 }

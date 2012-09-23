@@ -16,5 +16,5 @@
   }
 ;
   callThreadedCallback(cb,init,COUNT,100,called);
-  assertEquals("Native thread mapping not preserved: " + threads,1,threads.size());
+  assertEquals("Multiple callbacks on a given native thread should use the same Thread mapping: " + threads,1,threads.size());
 }

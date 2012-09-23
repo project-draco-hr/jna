@@ -10,7 +10,7 @@
     url=Native.class.getResource(resourceName);
   }
   if (url == null) {
-    throw new UnsatisfiedLinkError("jnidispatch (" + resourceName + ") not found in resource path");
+    throw new UnsatisfiedLinkError("JNA native support (" + resourceName + ") not found in resource path");
   }
   File lib=null;
   if (url.getProtocol().toLowerCase().equals("file")) {
