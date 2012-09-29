@@ -1,0 +1,10 @@
+String lpApplicationName
+String lpCommandLine
+SECURITY_ATTRIBUTES lpProcessAttributes
+SECURITY_ATTRIBUTES lpThreadAttributes
+boolean bInheritHandles
+int dwCreationFlags
+Pointer lpEnvironment
+String lpCurrentDirectory
+STARTUPINFO lpStartupInfo
+PROCESS_INFORMATION lpProcessInformation
