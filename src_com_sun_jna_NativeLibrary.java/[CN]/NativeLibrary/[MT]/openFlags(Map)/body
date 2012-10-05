@@ -1,0 +1,8 @@
+{
+  try {
+    return ((Integer)options.get(Library.OPTION_OPEN_FLAGS)).intValue();
+  }
+ catch (  Throwable t) {
+    return DEFAULT_OPEN_OPTIONS;
+  }
+}

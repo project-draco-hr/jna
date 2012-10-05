@@ -1,5 +1,6 @@
 {
   List searchPath=new LinkedList();
+  int openFlags=openFlags(options);
   String webstartPath=Native.getWebStartLibraryPath(libraryName);
   if (webstartPath != null) {
     searchPath.add(webstartPath);
@@ -14,7 +15,7 @@ synchronized (customPaths) {
   String libraryPath=findLibraryPath(libraryName,searchPath);
   long handle=0;
   try {
-    handle=Native.open(libraryPath);
+    handle=Native.open(libraryPath,openFlags);
   }
  catch (  UnsatisfiedLinkError e) {
     searchPath.addAll(librarySearchPath);
@@ -22,7 +23,7 @@ synchronized (customPaths) {
   try {
     if (handle == 0) {
       libraryPath=findLibraryPath(libraryName,searchPath);
-      handle=Native.open(libraryPath);
+      handle=Native.open(libraryPath,openFlags);
       if (handle == 0) {
         throw new UnsatisfiedLinkError("Failed to load library '" + libraryName + "'");
       }
@@ -32,7 +33,7 @@ synchronized (customPaths) {
     if (Platform.isAndroid()) {
       try {
         System.loadLibrary(libraryName);
-        handle=Native.open(libraryPath);
+        handle=Native.open(libraryPath,openFlags);
       }
  catch (      UnsatisfiedLinkError e2) {
         e=e2;
@@ -42,7 +43,7 @@ synchronized (customPaths) {
       libraryPath=matchLibrary(libraryName,searchPath);
       if (libraryPath != null) {
         try {
-          handle=Native.open(libraryPath);
+          handle=Native.open(libraryPath,openFlags);
         }
  catch (        UnsatisfiedLinkError e2) {
           e=e2;
@@ -53,7 +54,7 @@ synchronized (customPaths) {
       libraryPath=matchFramework(libraryName);
       if (libraryPath != null) {
         try {
-          handle=Native.open(libraryPath);
+          handle=Native.open(libraryPath,openFlags);
         }
  catch (        UnsatisfiedLinkError e2) {
           e=e2;
@@ -63,7 +64,7 @@ synchronized (customPaths) {
  else     if (Platform.isWindows()) {
       libraryPath=findLibraryPath("lib" + libraryName,searchPath);
       try {
-        handle=Native.open(libraryPath);
+        handle=Native.open(libraryPath,openFlags);
       }
  catch (      UnsatisfiedLinkError e2) {
         e=e2;

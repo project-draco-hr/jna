@@ -3,7 +3,7 @@
   if (options.get(Library.OPTION_CALLING_CONVENTION) == null) {
     options.put(Library.OPTION_CALLING_CONVENTION,new Integer(Function.C_CONVENTION));
   }
-  if ((Platform.isLinux() || Platform.isAix()) && "c".equals(libraryName)) {
+  if ((Platform.isLinux() || Platform.isAix()) && Platform.C_LIBRARY_NAME.equals(libraryName)) {
     libraryName=null;
   }
 synchronized (libraries) {
@@ -11,7 +11,7 @@ synchronized (libraries) {
     NativeLibrary library=ref != null ? (NativeLibrary)ref.get() : null;
     if (library == null) {
       if (libraryName == null) {
-        library=new NativeLibrary("<process>",null,Native.open(null),options);
+        library=new NativeLibrary("<process>",null,Native.open(null,openFlags(options)),options);
       }
  else {
         library=loadLibrary(libraryName,options);
