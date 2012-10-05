@@ -9,6 +9,9 @@
   Object result=memory.getValue(offset,fieldType,currentValue);
   if (readConverter != null) {
     result=readConverter.fromNative(result,structField.context);
+    if (currentValue != null && currentValue.equals(result)) {
+      result=currentValue;
+    }
   }
   if (fieldType.equals(String.class) || fieldType.equals(WString.class)) {
     nativeStrings.put(structField.name + ".ptr",memory.getPointer(offset));

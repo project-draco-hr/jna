@@ -13,7 +13,9 @@ class TestStructure extends Structure {
   }
   TestStructure s=new TestStructure();
   final Pointer p=s.p;
+  final TestPointer p2=s.p2;
   s.write();
   s.read();
   assertSame("Should preserve Pointer references if peer unchanged",p,s.p);
+  assertSame("Should preserve PointerType references if peer unchanged",p2,s.p2);
 }

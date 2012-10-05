@@ -9,7 +9,7 @@
   if (type.isPrimitive() || Long.class == type || Integer.class == type || Short.class == type || Character.class == type || Byte.class == type || Boolean.class == type || Float.class == type || Double.class == type) {
     alignment=size;
   }
- else   if (Pointer.class == type || (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(type)) || Callback.class.isAssignableFrom(type) || WString.class == type || String.class == type) {
+ else   if ((Pointer.class.isAssignableFrom(type) && !Function.class.isAssignableFrom(type)) || (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(type)) || Callback.class.isAssignableFrom(type)|| WString.class == type || String.class == type) {
     alignment=Pointer.SIZE;
   }
  else   if (Structure.class.isAssignableFrom(type)) {
