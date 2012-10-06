@@ -1,0 +1,16 @@
+{
+  String cpu=System.getProperty("os.arch").toLowerCase().trim();
+  String kernel=Platform.iskFreeBSD() ? "-kfreebsd" : (Platform.isGNU() ? "" : "-linux");
+  String libc="-gnu";
+  if (Platform.isIntel()) {
+    cpu=(Platform.is64Bit() ? "x86_64" : "i386");
+  }
+ else   if (Platform.isPPC()) {
+    cpu=(Platform.is64Bit() ? "powerpc64" : "powerpc");
+  }
+ else   if (Platform.isARM()) {
+    cpu="arm";
+    libc="-gnueabi";
+  }
+  return cpu + kernel + libc;
+}
