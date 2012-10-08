@@ -1,0 +1,7 @@
+{
+  String valueName="EmptyValue";
+  registrySetEmptyValue(root,keyPath,valueName,valueType);
+  Map<String,Object> values=Advapi32Util.registryGetValues(root,keyPath);
+  assertEquals(1,values.size());
+  assertTrue(values.containsKey(valueName));
+}

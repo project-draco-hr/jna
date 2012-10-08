@@ -1,0 +1,11 @@
+{
+  HKEY root=WinReg.HKEY_CURRENT_USER;
+  String keyPath="Software\\JNA";
+  Advapi32Util.registryCreateKey(root,"Software","JNA");
+  doTestRegistryGetEmptyValues(root,keyPath,WinNT.REG_BINARY);
+  doTestRegistryGetEmptyValues(root,keyPath,WinNT.REG_EXPAND_SZ);
+  doTestRegistryGetEmptyValues(root,keyPath,WinNT.REG_MULTI_SZ);
+  doTestRegistryGetEmptyValues(root,keyPath,WinNT.REG_NONE);
+  doTestRegistryGetEmptyValues(root,keyPath,WinNT.REG_SZ);
+  Advapi32Util.registryDeleteKey(root,"Software","JNA");
+}

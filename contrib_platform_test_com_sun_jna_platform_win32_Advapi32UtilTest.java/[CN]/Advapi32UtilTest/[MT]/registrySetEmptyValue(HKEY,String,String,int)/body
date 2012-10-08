@@ -1,0 +1,20 @@
+{
+  HKEYByReference phkKey=new HKEYByReference();
+  int rc=Advapi32.INSTANCE.RegOpenKeyEx(root,keyPath,0,WinNT.KEY_READ | WinNT.KEY_WRITE,phkKey);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new Win32Exception(rc);
+  }
+  try {
+    char[] data=new char[0];
+    rc=Advapi32.INSTANCE.RegSetValueEx(phkKey.getValue(),name,0,valueType,data,0);
+    if (rc != W32Errors.ERROR_SUCCESS) {
+      throw new Win32Exception(rc);
+    }
+  }
+  finally {
+    rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
+    if (rc != W32Errors.ERROR_SUCCESS) {
+      throw new Win32Exception(rc);
+    }
+  }
+}
