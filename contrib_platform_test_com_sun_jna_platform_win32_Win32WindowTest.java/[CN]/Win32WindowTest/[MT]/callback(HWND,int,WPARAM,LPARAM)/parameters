@@ -1,0 +1,4 @@
+HWND hwnd
+int uMsg
+WPARAM wParam
+LPARAM lParam
