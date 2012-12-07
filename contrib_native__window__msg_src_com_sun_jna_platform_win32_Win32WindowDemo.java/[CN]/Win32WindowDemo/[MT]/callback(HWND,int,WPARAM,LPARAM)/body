@@ -1,0 +1,26 @@
+{
+switch (uMsg) {
+case WinUser.WM_CREATE:
+{
+      onCreate(wParam,lParam);
+      return new LRESULT(0);
+    }
+case WinUser.WM_DESTROY:
+{
+    User32.INSTANCE.PostQuitMessage(0);
+    return new LRESULT(0);
+  }
+case WinUser.WM_SESSION_CHANGE:
+{
+  this.onSessionChange(wParam,lParam);
+  return new LRESULT(0);
+}
+case WinUser.WM_DEVICECHANGE:
+{
+this.onDeviceChange(wParam,lParam);
+return new LRESULT(0);
+}
+default :
+return User32.INSTANCE.DefWindowProc(hwnd,uMsg,wParam,lParam);
+}
+}

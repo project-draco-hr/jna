@@ -1,0 +1,5 @@
+{
+  testWTSRegisterSessionNotification();
+  boolean result=Wtsapi32.INSTANCE.WTSUnRegisterSessionNotification(hwnd);
+  assertEquals(true,result);
+}

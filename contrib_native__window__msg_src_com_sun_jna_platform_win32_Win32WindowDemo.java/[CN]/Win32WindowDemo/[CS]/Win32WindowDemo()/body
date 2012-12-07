@@ -3,7 +3,7 @@
   HMODULE hInst=Kernel32.INSTANCE.GetModuleHandle("");
   WNDCLASSEX wClass=new WNDCLASSEX();
   wClass.hInstance=hInst;
-  wClass.lpfnWndProc=Win32WindowTest.this;
+  wClass.lpfnWndProc=Win32WindowDemo.this;
   wClass.lpszClassName=windowClass;
   User32.INSTANCE.RegisterClassEx(wClass);
   getLastError();
@@ -11,11 +11,18 @@
   getLastError();
   System.out.println("window sucessfully created! window hwnd: " + hWnd.getPointer().toString());
   Wtsapi32.INSTANCE.WTSRegisterSessionNotification(hWnd,Wtsapi32.NOTIFY_FOR_THIS_SESSION);
+  DEV_BROADCAST_DEVICEINTERFACE notificationFilter=new DEV_BROADCAST_DEVICEINTERFACE();
+  notificationFilter.dbcc_devicetype=DBT.DBT_DEVTYP_DEVICEINTERFACE;
+  notificationFilter.dbcc_classguid=DBT.GUID_DEVINTERFACE_HID;
+  HDEVNOTIFY hDevNotify=User32.INSTANCE.RegisterDeviceNotification(hWnd,notificationFilter,User32.DEVICE_NOTIFY_ALL_INTERFACE_CLASSES);
+  getLastError();
+  if (hDevNotify != null)   System.out.println("RegisterDeviceNotification was sucessfully!");
   MSG msg=new MSG();
-  while (User32.INSTANCE.GetMessage(msg,hWnd,0,0) != 0) {
+  while (User32.INSTANCE.GetMessage(msg,null,0,0) != 0) {
     User32.INSTANCE.TranslateMessage(msg);
     User32.INSTANCE.DispatchMessage(msg);
   }
+  User32.INSTANCE.UnregisterDeviceNotification(hDevNotify);
   Wtsapi32.INSTANCE.WTSUnRegisterSessionNotification(hWnd);
   User32.INSTANCE.UnregisterClass(windowClass,hInst);
   User32.INSTANCE.DestroyWindow(hWnd);
