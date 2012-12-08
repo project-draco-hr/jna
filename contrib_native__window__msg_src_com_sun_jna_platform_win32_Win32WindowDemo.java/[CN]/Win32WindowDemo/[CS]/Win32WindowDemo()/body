@@ -13,12 +13,12 @@
   Wtsapi32.INSTANCE.WTSRegisterSessionNotification(hWnd,Wtsapi32.NOTIFY_FOR_THIS_SESSION);
   DEV_BROADCAST_DEVICEINTERFACE notificationFilter=new DEV_BROADCAST_DEVICEINTERFACE();
   notificationFilter.dbcc_devicetype=DBT.DBT_DEVTYP_DEVICEINTERFACE;
-  notificationFilter.dbcc_classguid=DBT.GUID_DEVINTERFACE_HID;
-  HDEVNOTIFY hDevNotify=User32.INSTANCE.RegisterDeviceNotification(hWnd,notificationFilter,User32.DEVICE_NOTIFY_ALL_INTERFACE_CLASSES);
+  notificationFilter.dbcc_classguid=DBT.GUID_DEVINTERFACE_USB_DEVICE;
+  HDEVNOTIFY hDevNotify=User32.INSTANCE.RegisterDeviceNotification(hWnd,notificationFilter,User32.DEVICE_NOTIFY_WINDOW_HANDLE);
   getLastError();
   if (hDevNotify != null)   System.out.println("RegisterDeviceNotification was sucessfully!");
   MSG msg=new MSG();
-  while (User32.INSTANCE.GetMessage(msg,null,0,0) != 0) {
+  while (User32.INSTANCE.GetMessage(msg,hWnd,0,0) != 0) {
     User32.INSTANCE.TranslateMessage(msg);
     User32.INSTANCE.DispatchMessage(msg);
   }
