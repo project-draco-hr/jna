@@ -1,0 +1,4 @@
+{
+  if (hr != null)   return hr.intValue() >= 0;
+ else   return false;
+}
