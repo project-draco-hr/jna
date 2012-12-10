@@ -1,0 +1,7 @@
+{
+  GUID ole32Guid=Ole32Util.getGUIDFromString("{A5DCBF10-6530-11D2-901F-00C04FB951ED}");
+  GUID jnaGuid=new GUID("{A5DCBF10-6530-11D2-901F-00C04FB951ED}");
+  String ole32Guidstr=Ole32Util.getStringFromGUID(ole32Guid);
+  String jnaGuidStr=jnaGuid.toGuidString();
+  assertEquals(ole32Guidstr,jnaGuidStr);
+}

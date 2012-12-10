@@ -1,0 +1,8 @@
+{
+  byte[] sourceGuidBArr=new byte[]{(byte)0xA5,(byte)0xDC,(byte)0xBF,(byte)0x10,(byte)0x65,(byte)0x30,(byte)0x11,(byte)0xD2,(byte)0x90,(byte)0x1F,(byte)0x00,(byte)0xC0,(byte)0x4F,(byte)0xB9,(byte)0x51,(byte)0xED};
+  GUID targetGuid=new GUID(sourceGuidBArr);
+  byte[] targetGuidBArr=targetGuid.toByteArray();
+  for (int i=0; i < sourceGuidBArr.length; i++) {
+    assertEquals(targetGuidBArr[i],sourceGuidBArr[i]);
+  }
+}
