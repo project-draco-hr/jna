@@ -1,0 +1,4 @@
+{
+  boolean result=Wtsapi32.INSTANCE.WTSRegisterSessionNotification(hwnd,Wtsapi32.NOTIFY_FOR_ALL_SESSIONS);
+  assertEquals(true,result);
+}

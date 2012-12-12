@@ -1,0 +1,5 @@
+{
+  String sourceGuidStr="{A5DCBF10-6530-11D2-901F-00C04FB951ED}";
+  GUID targetGuid=new GUID(sourceGuidStr);
+  assertEquals(targetGuid.toGuidString(),sourceGuidStr);
+}

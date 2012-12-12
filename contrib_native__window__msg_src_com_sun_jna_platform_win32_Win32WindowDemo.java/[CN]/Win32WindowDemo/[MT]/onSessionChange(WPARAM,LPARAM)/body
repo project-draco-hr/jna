@@ -1,0 +1,34 @@
+{
+switch (wParam.intValue()) {
+case Wtsapi32.WTS_CONSOLE_CONNECT:
+{
+      this.onConsoleConnect(lParam.intValue());
+      break;
+    }
+case Wtsapi32.WTS_CONSOLE_DISCONNECT:
+{
+    this.onConsoleDisconnect(lParam.intValue());
+    break;
+  }
+case Wtsapi32.WTS_SESSION_LOGON:
+{
+  this.onMachineLogon(lParam.intValue());
+  break;
+}
+case Wtsapi32.WTS_SESSION_LOGOFF:
+{
+this.onMachineLogoff(lParam.intValue());
+break;
+}
+case Wtsapi32.WTS_SESSION_LOCK:
+{
+this.onMachineLocked(lParam.intValue());
+break;
+}
+case Wtsapi32.WTS_SESSION_UNLOCK:
+{
+this.onMachineUnlocked(lParam.intValue());
+break;
+}
+}
+}

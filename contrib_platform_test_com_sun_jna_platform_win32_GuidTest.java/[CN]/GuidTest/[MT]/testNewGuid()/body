@@ -1,0 +1,6 @@
+{
+  GUID newGuid=GUID.newGuid();
+  String guidString=newGuid.toGuidString();
+  GUID guidFromString=Ole32Util.getGUIDFromString(guidString);
+  assertEquals(guidFromString.toGuidString(),guidString);
+}
