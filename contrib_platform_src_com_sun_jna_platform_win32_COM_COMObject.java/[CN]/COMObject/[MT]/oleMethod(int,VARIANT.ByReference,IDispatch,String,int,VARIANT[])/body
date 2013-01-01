@@ -1,0 +1,18 @@
+{
+  if (pDisp == null)   return new HRESULT(COMUtils.E_FAIL);
+  WString[] ptName=new WString[]{new WString(name)};
+  DISPPARAMS.ByReference dp=new DISPPARAMS.ByReference();
+  DISPID dispidNamed=new DISPID(OleAut32.DISPATCH_PROPERTYPUT);
+  DISPID.ByReference pdispID=new DISPID.ByReference();
+  HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
+  COMUtils.SUCCEEDED(hr);
+  dp.cArgs=cArgs;
+  dp.rgvarg=pArgs;
+  if (nType == OleAut32.DISPATCH_PROPERTYPUT) {
+    dp.cNamedArgs=1;
+    dp.rgdispidNamedArgs[0]=dispidNamed;
+  }
+  hr=pDisp.Invoke(pdispID.getDISPID(),Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,null,null);
+  COMUtils.SUCCEEDED(hr);
+  return hr;
+}

@@ -1,0 +1,10 @@
+{
+  SAFEARRAY psa;
+  SAFEARRAYBOUND[] rgsabound=new SAFEARRAYBOUND[1];
+  SAFEARRAYBOUND element=new SAFEARRAYBOUND();
+  element.lLbound=new LONG(0);
+  element.cElements=new ULONG(size);
+  rgsabound[0]=element;
+  psa=OleAut32.INSTANCE.SafeArrayCreate(Variant.VT_DECIMAL,1,rgsabound);
+  return psa;
+}

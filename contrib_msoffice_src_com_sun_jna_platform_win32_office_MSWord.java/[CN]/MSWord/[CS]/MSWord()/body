@@ -1,0 +1,3 @@
+{
+  super("Word.Application");
+}

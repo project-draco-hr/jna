@@ -1,0 +1,6 @@
+{
+  Pointer vptr=this.pvInstance.getPointer(0);
+  Function func=Function.getFunction(vptr.getPointer(24));
+  int hr=func.invokeInt(new Object[]{this.pvInstance,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr});
+  return new HRESULT(hr);
+}

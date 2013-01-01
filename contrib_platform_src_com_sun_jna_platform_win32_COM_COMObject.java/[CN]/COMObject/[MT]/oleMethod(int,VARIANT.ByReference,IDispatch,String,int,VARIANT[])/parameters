@@ -1,0 +1,6 @@
+int nType
+VARIANT.ByReference pvResult
+IDispatch pDisp
+String name
+int cArgs
+VARIANT[] pArgs

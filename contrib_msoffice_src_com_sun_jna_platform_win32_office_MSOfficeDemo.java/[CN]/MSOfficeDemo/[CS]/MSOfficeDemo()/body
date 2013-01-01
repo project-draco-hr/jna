@@ -1,0 +1,18 @@
+{
+  MSWord msWord=null;
+  try {
+    msWord=new MSWord();
+    msWord.setVisible(true);
+  }
+ catch (  COMException e) {
+    e.printStackTrace();
+  }
+ finally {
+    if (msWord != null)     try {
+      msWord.quit();
+    }
+ catch (    COMException e) {
+      e.printStackTrace();
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  System.out.println("start 'testQueryInterface'");
+  PointerByReference ppvObject=new PointerByReference();
+  this.iDispatch.QueryInterface(IDispatch.IID_IDispatch,ppvObject);
+  System.out.println("ppvObject:" + ppvObject.toString());
+  System.out.println("end 'testQueryInterface'");
+}

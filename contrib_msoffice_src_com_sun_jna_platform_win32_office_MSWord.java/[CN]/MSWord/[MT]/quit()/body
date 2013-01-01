@@ -1,0 +1,4 @@
+{
+  HRESULT hr=this.oleMethod(OleAut32.DISPATCH_METHOD,null,this.iDispatch,"Quit",1,new VARIANT[1]);
+  COMUtils.SUCCEEDED(hr);
+}
