@@ -1,0 +1,7 @@
+{
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  OleAut32.INSTANCE.VariantInit(result);
+  HRESULT hr=this.oleMethod(OleAut32.DISPATCH_PROPERTYGET,result,this.iDispatch,"Version");
+  COMUtils.SUCCEEDED(hr);
+  return result.getBSTR().toString();
+}

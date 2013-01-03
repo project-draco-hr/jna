@@ -1,6 +1,6 @@
 {
-  Pointer vptr=this.pvInstance.getPointer(0);
+  Pointer vptr=this.getPointer().getPointer(0);
   Function func=Function.getFunction(vptr.getPointer(12));
-  int hr=func.invokeInt(new Object[]{this.pvInstance,pctinfo});
+  int hr=func.invokeInt(new Object[]{this.getPointer(),pctinfo});
   return new HRESULT(hr);
 }

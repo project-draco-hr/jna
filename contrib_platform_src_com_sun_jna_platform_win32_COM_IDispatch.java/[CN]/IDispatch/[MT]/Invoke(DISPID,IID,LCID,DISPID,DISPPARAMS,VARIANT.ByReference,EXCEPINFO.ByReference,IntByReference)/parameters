@@ -2,7 +2,7 @@ DISPID dispIdMember
 IID riid
 LCID lcid
 DISPID wFlags
-DISPPARAMS.ByReference pDispParams
+DISPPARAMS pDispParams
 VARIANT.ByReference pVarResult
 EXCEPINFO.ByReference pExcepInfo
 IntByReference puArgErr

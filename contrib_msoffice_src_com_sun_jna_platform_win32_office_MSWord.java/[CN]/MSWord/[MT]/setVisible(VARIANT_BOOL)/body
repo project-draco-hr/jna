@@ -1,0 +1,9 @@
+{
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  OleAut32.INSTANCE.VariantInit(result);
+  VARIANT varVisible=new VARIANT();
+  varVisible.setVarType(Variant.VT_I4);
+  varVisible.setI4(1);
+  HRESULT hr=this.oleMethod(OleAut32.DISPATCH_PROPERTYPUT,result,this.iDispatch,"Visible",varVisible);
+  COMUtils.SUCCEEDED(hr);
+}

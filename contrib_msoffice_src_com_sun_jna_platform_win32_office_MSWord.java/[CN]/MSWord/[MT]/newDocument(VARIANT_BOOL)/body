@@ -1,0 +1,12 @@
+{
+  HRESULT hr;
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  OleAut32.INSTANCE.VariantInit(result);
+  hr=oleMethod(OleAut32.DISPATCH_PROPERTYGET,result,this.iDispatch,"Documents");
+  m_pDocuments=new Documents(result.getDispVal());
+  VARIANT.ByReference result2=new VARIANT.ByReference();
+  OleAut32.INSTANCE.VariantInit(result);
+  hr=oleMethod(OleAut32.DISPATCH_METHOD,result2,m_pDocuments.getIDispatch(),"Add");
+  m_pActiveDocument=new ActiveDocument(result2.getDispVal());
+  return hr;
+}

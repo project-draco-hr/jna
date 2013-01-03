@@ -2,7 +2,7 @@
   MSWord msWord=null;
   try {
     msWord=new MSWord();
-    msWord.setVisible(true);
+    msWord.setVisible(Variant.VARIANT_TRUE);
   }
  catch (  COMException e) {
     e.printStackTrace();

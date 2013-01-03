@@ -1,0 +1,19 @@
+{
+  HRESULT hr;
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  OleAut32.INSTANCE.VariantInit(result);
+  hr=oleMethod(OleAut32.DISPATCH_PROPERTYGET,result,this.iDispatch,"Documents");
+  COMUtils.SUCCEEDED(hr);
+  m_pDocuments=new Documents(result.getDispVal());
+  VARIANT[] variantArgs=new VARIANT[1];
+  variantArgs[0]=new VARIANT(new BSTR(szFilename));
+  VARIANT.ByReference result2=new VARIANT.ByReference();
+  OleAut32.INSTANCE.VariantInit(result2);
+  COMUtils.SUCCEEDED(hr);
+  m_pDocuments=new Documents(result.getDispVal());
+  VARIANT.ByReference result3=new VARIANT.ByReference();
+  OleAut32.INSTANCE.VariantInit(result3);
+  oleMethod(OleAut32.DISPATCH_PROPERTYGET,result3,m_pActiveDocument.getIDispatch(),"Application");
+  m_pActiveDocument=new ActiveDocument(result2.getDispVal());
+  return hr;
+}
