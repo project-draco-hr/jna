@@ -7,8 +7,12 @@
   HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
   COMUtils.SUCCEEDED(hr);
   if ((pArgs != null) && (pArgs.length > 0)) {
+    SAFEARRAY varArray=OleAut32Util.createVarArray(pArgs.length);
+    for (int i=0; i < pArgs.length; i++) {
+      OleAut32Util.SafeArrayPutElement(varArray,0,pArgs[i]);
+    }
     dp.cArgs=pArgs.length;
-    dp.rgvarg=pArgs;
+    dp.rgvarg=varArray;
   }
   if (nType == OleAut32.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=1;

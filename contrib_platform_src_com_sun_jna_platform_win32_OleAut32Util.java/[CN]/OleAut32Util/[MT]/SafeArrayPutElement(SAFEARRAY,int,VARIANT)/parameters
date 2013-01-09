@@ -1,0 +1,3 @@
+SAFEARRAY array
+int index
+VARIANT arg
