@@ -1,0 +1,4 @@
+{
+  SAFEARRAY varArray=OleAut32Util.createVarArray(10);
+  assertTrue(varArray != null);
+}

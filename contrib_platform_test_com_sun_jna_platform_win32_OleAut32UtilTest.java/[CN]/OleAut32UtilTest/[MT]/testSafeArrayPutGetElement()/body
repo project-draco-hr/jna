@@ -1,0 +1,23 @@
+{
+  SAFEARRAY varArray=OleAut32Util.createVarArray(10);
+  for (int i=0; i < 10; i++) {
+    try {
+      VARIANT variant=new VARIANT(new BSTR("TEST_" + i));
+      System.out.println(variant.toString(true));
+      OleAut32Util.SafeArrayPutElement(varArray,i,variant);
+    }
+ catch (    COMException e) {
+      e.printStackTrace();
+    }
+  }
+  assertTrue(varArray != null);
+  for (int i=0; i < 10; i++) {
+    try {
+      VARIANT element=OleAut32Util.SafeArrayGetElement(varArray,i);
+      System.out.println(element.toString(true));
+    }
+ catch (    COMException e) {
+      e.printStackTrace();
+    }
+  }
+}
