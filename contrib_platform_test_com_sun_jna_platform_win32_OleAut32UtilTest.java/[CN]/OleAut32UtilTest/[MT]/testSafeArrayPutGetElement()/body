@@ -1,5 +1,5 @@
 {
-  SAFEARRAY varArray=OleAut32Util.createVarArray(10);
+  SAFEARRAY varArray=OleAut32Util.createVarArray(Variant.VT_VARIANT,1);
   for (int i=0; i < 1; i++) {
     try {
       VARIANT variant=new VARIANT(i + 3333333);
