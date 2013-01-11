@@ -1,8 +1,5 @@
 {
-  VARIANT.ByReference varSave=new VARIANT.ByReference();
-  varSave.setVarType(Variant.VT_BOOL);
-  varSave.setBoolVal(bSave);
-  HRESULT hr=oleMethod(OleAut32.DISPATCH_METHOD,null,m_pActiveDocument.getIDispatch(),"Close",varSave);
+  HRESULT hr=oleMethod(OleAut32.DISPATCH_METHOD,null,m_pActiveDocument.getIDispatch(),"Close",new VARIANT(bSave));
   this.m_pActiveDocument=null;
   COMUtils.SUCCEEDED(hr);
   return hr;

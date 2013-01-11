@@ -1,5 +1,4 @@
 {
-  VARTYPE arrayType=new VARTYPE(0x2000 | 3);
   SAFEARRAY psa;
   SAFEARRAYBOUND[] rgsabound=new SAFEARRAYBOUND[1];
   rgsabound[0]=new SAFEARRAYBOUND(size,0);
