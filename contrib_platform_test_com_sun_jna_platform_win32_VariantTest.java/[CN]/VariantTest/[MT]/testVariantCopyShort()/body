@@ -1,0 +1,12 @@
+{
+  System.out.println("------------------------------------------");
+  VARIANT variantSource=new VARIANT(new SHORT(33333));
+  VARIANT variantDest=new VARIANT();
+  System.out.println(variantSource.toString(true));
+  HRESULT hr=OleAut32.INSTANCE.VariantCopy(variantDest.getPointer(),variantSource);
+  assertTrue("hr: " + hr.intValue(),hr.intValue() == 0);
+  System.out.println(variantDest.toString(true));
+  System.out.println("variant type  :" + variantDest.getVarType());
+  System.out.println("variant value :" + variantDest.getValue());
+  System.out.println("------------------------------------------");
+}

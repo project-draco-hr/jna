@@ -12,7 +12,7 @@
       OleAut32Util.SafeArrayPutElement(safeArg,i,pArgs[i]);
     }
     dp.cArgs=pArgs.length;
-    dp.rgvarg=new VARIANT(Variant.VARIANT_TRUE);
+    dp.rgvarg=safeArg;
   }
   if (nType == OleAut32.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=1;

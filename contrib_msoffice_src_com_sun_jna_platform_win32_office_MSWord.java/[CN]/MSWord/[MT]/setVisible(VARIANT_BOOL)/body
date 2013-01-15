@@ -1,6 +1,5 @@
 {
   VARIANT.ByReference result=new VARIANT.ByReference();
-  OleAut32.INSTANCE.VariantInit(result);
   HRESULT hr=this.oleMethod(OleAut32.DISPATCH_PROPERTYPUT,result,this.iDispatch,"Visible",new VARIANT(bVisible));
   COMUtils.SUCCEEDED(hr);
 }
