@@ -1,3 +1,4 @@
 {
+  Native.setProtected(true);
   junit.textui.TestRunner.run(Oleaut32Test.class);
 }
