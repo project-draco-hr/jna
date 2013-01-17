@@ -1,0 +1,13 @@
+{
+  VARIANT[] varArgs=new VARIANT[]{new VARIANT(Variant.VARIANT_TRUE)};
+  DISPPARAMS dp=new DISPPARAMS();
+  SAFEARRAY.ByReference safeArg=OleAut32Util.createVarArray(1);
+  OleAut32Util.SafeArrayPutElement(safeArg,0,varArgs[0]);
+  dp.cArgs=1;
+  dp.rgvarg=safeArg;
+  dp.cNamedArgs=1;
+  dp.rgdispidNamedArgs=new DISPID.ByReference(OleAut32.DISPATCH_PROPERTYPUT);
+  System.out.println(safeArg.toString(true));
+  System.out.println("\n\n\n----------------------------------------------\n\n\n");
+  System.out.println(dp.toString(true));
+}

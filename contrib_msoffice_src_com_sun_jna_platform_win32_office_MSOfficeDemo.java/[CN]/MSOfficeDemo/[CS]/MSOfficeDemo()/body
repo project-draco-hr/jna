@@ -4,14 +4,14 @@
     msWord=new MSWord();
     msWord.setVisible(Variant.VARIANT_TRUE);
   }
- catch (  COMException e) {
+ catch (  AutomationException e) {
     e.printStackTrace();
   }
  finally {
     if (msWord != null)     try {
       msWord.quit();
     }
- catch (    COMException e) {
+ catch (    AutomationException e) {
       e.printStackTrace();
     }
   }
