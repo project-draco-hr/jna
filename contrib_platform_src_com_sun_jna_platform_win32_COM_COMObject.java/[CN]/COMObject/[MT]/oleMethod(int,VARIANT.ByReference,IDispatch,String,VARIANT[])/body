@@ -11,9 +11,10 @@
   }
   if ((pArgs != null) && (pArgs.length > 0)) {
     dp.cArgs=new UINT(pArgs.length);
-    dp.rgvarg._variant=pArgs;
+    dp.rgvarg=null;
     dp.write();
     System.out.println(dp.toString(true));
+    System.out.println("dp size: " + dp.size());
   }
   hr=pDisp.Invoke(pdispID.getValue(),Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,null,null);
   COMUtils.SUCCEEDED(hr);
