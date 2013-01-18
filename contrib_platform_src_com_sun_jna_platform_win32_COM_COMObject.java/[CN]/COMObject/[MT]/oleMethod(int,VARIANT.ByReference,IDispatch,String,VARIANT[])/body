@@ -5,19 +5,16 @@
   DISPIDbyReference pdispID=new DISPIDbyReference();
   HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
   COMUtils.SUCCEEDED(hr);
-  if ((pArgs != null) && (pArgs.length > 0)) {
-    SAFEARRAY safeArg=OleAut32Util.createVarArray(pArgs.length);
-    for (int i=0; i < pArgs.length; i++) {
-      OleAut32Util.SafeArrayPutElement(safeArg,i,pArgs[i]);
-    }
-    dp.cArgs=new UINT(pArgs.length);
-    dp.rgvarg=safeArg;
-  }
   if (nType == OleAut32.DISPATCH_PROPERTYPUT) {
-    dp.cNamedArgs=new UINT(1);
+    dp.cNamedArgs=new UINT(pArgs.length);
     dp.rgdispidNamedArgs=new DISPID(OleAut32.DISPATCH_PROPERTYPUT);
   }
-  dp.write();
+  if ((pArgs != null) && (pArgs.length > 0)) {
+    dp.cArgs=new UINT(pArgs.length);
+    dp.rgvarg._variant=pArgs;
+    dp.write();
+    System.out.println(dp.toString(true));
+  }
   hr=pDisp.Invoke(pdispID.getValue(),Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,null,null);
   COMUtils.SUCCEEDED(hr);
   return hr;

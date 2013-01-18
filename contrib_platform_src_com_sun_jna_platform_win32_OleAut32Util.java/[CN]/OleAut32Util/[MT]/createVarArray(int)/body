@@ -1,5 +1,5 @@
 {
-  SAFEARRAY psa;
+  SAFEARRAY.ByReference psa;
   SAFEARRAYBOUND[] rgsabound=new SAFEARRAYBOUND[1];
   rgsabound[0]=new SAFEARRAYBOUND(size,0);
   psa=OleAut32.INSTANCE.SafeArrayCreate(new VARTYPE(Variant.VT_VARIANT),1,rgsabound);

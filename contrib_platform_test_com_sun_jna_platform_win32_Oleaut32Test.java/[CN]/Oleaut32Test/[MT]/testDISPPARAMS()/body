@@ -1,5 +1,5 @@
 {
-  SAFEARRAY safeArg=OleAut32Util.createVarArray(1);
+  SAFEARRAY.ByReference safeArg=OleAut32Util.createVarArray(1);
   OleAut32Util.SafeArrayPutElement(safeArg,0,new VARIANT(Variant.VARIANT_TRUE));
   DISPPARAMS dp=new DISPPARAMS(safeArg,new DISPID(OleAut32.DISPATCH_PROPERTYPUT),1,1);
   System.out.println(safeArg.toString(true));

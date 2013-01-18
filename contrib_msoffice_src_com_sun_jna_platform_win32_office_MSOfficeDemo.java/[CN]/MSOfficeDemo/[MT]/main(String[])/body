@@ -1,3 +1,4 @@
 {
+  System.out.println("OS name: " + System.getProperty("os.name"));
   new MSOfficeDemo();
 }
