@@ -1,0 +1,4 @@
+{
+  if (hr != S_OK)   return true;
+ else   return false;
+}

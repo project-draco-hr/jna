@@ -3,16 +3,22 @@
   try {
     msWord=new MSWord();
     msWord.setVisible(Variant.VARIANT_TRUE);
+    msWord.newDocument();
+    Thread.currentThread().sleep(2000);
+    Thread.currentThread().sleep(2000);
+    msWord.closeActiveDocument(Variant.VARIANT_FALSE);
+    Thread.currentThread().sleep(2000);
+    msWord.quit();
   }
- catch (  AutomationException e) {
-    e.printStackTrace();
+ catch (  InterruptedException ie) {
+    ie.printStackTrace();
   }
- finally {
-    if (msWord != null)     try {
-      msWord.quit();
+catch (  AutomationException e) {
+    if (e.getExcepInfo() != null) {
+      System.out.println("bstrSource: " + e.getExcepInfo().bstrSource);
+      System.out.println("bstrDescription: " + e.getExcepInfo().bstrDescription);
     }
- catch (    AutomationException e) {
-      e.printStackTrace();
-    }
+ else     e.printStackTrace();
+    if (msWord != null)     msWord.quit();
   }
 }

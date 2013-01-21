@@ -1,2 +1,2 @@
-String szFilename
+String filename
 boolean bVisible

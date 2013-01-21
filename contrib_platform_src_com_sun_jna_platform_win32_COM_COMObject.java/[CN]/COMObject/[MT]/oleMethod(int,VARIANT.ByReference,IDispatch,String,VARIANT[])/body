@@ -1,22 +1,24 @@
 {
-  if (pDisp == null)   throw new AutomationException("pDisp parameter is null!");
+  if (pDisp == null)   throw new AutomationException("pDisp (IDispatch) parameter is null!");
   WString[] ptName=new WString[]{new WString(name)};
   DISPPARAMS dp=new DISPPARAMS();
   DISPIDbyReference pdispID=new DISPIDbyReference();
+  VariantArg.ByReference variantArg=new VariantArg.ByReference();
+  variantArg.variantArg=pArgs;
+  EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
+  IntByReference puArgErr=new IntByReference();
   HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
-  COMUtils.SUCCEEDED(hr);
+  COMUtils.throwNewException(hr);
   if (nType == OleAut32.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=new UINT(pArgs.length);
-    dp.rgdispidNamedArgs=new DISPID(OleAut32.DISPATCH_PROPERTYPUT);
+    dp.rgdispidNamedArgs=new DISPIDbyReference(OaIdl.DISPID_PROPERTYPUT);
   }
   if ((pArgs != null) && (pArgs.length > 0)) {
     dp.cArgs=new UINT(pArgs.length);
-    dp.rgvarg=null;
+    dp.rgvarg=variantArg;
     dp.write();
-    System.out.println(dp.toString(true));
-    System.out.println("dp size: " + dp.size());
   }
-  hr=pDisp.Invoke(pdispID.getValue(),Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,null,null);
-  COMUtils.SUCCEEDED(hr);
+  hr=pDisp.Invoke(pdispID.getValue(),Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,pExcepInfo,puArgErr);
+  COMUtils.throwNewException(hr,pExcepInfo,puArgErr);
   return hr;
 }

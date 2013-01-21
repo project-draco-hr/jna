@@ -1,0 +1,3 @@
+String message
+EXCEPINFO pExcepInfo
+IntByReference puArgErr
