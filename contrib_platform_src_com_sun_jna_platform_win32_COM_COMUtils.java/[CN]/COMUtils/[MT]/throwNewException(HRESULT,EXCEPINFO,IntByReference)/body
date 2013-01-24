@@ -38,6 +38,8 @@ case DISP_E_TYPEMISMATCH:
 throw new AutomationException("One or more of the arguments could not be coerced. The index of the first parameter with the incorrect type within rgvarg is returned in puArgErr!",pExcepInfo,puArgErr);
 case DISP_E_UNKNOWNINTERFACE:
 throw new AutomationException("The interface identifier passed in riid is not IID_NULL!");
+case CO_E_OBJNOTCONNECTED:
+throw new AutomationException("The method is not connected to the Dispatch pointer!");
 default :
 throw new AutomationException("Unexpected COM error code : " + hr.intValue());
 }

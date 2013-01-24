@@ -4,16 +4,11 @@
     msWord=new MSWord();
     msWord.setVisible(Variant.VARIANT_TRUE);
     msWord.newDocument();
-    Thread.currentThread().sleep(2000);
-    Thread.currentThread().sleep(2000);
-    msWord.closeActiveDocument(Variant.VARIANT_FALSE);
-    Thread.currentThread().sleep(2000);
+    msWord.insertText("Hello from JNA!");
+    msWord.closeActiveDocument(Variant.VARIANT_TRUE);
     msWord.quit();
   }
- catch (  InterruptedException ie) {
-    ie.printStackTrace();
-  }
-catch (  AutomationException e) {
+ catch (  AutomationException e) {
     if (e.getExcepInfo() != null) {
       System.out.println("bstrSource: " + e.getExcepInfo().bstrSource);
       System.out.println("bstrDescription: " + e.getExcepInfo().bstrDescription);

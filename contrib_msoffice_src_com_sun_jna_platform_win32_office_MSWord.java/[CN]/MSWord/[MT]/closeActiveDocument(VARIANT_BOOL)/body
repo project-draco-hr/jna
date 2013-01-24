@@ -1,5 +1,4 @@
 {
-  HRESULT hr=oleMethod(OleAut32.DISPATCH_METHOD,null,m_pActiveDocument.getIDispatch(),"Close",new VARIANT(bSave));
-  this.m_pActiveDocument=null;
+  HRESULT hr=oleMethod(OleAut32.DISPATCH_METHOD,null,getActiveDocument().getIDispatch(),"Close",new VARIANT(bSave));
   return hr;
 }
