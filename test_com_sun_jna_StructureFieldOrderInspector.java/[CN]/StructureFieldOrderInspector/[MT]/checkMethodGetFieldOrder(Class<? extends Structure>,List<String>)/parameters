@@ -1,2 +1,2 @@
 Class<? extends Structure> structureSubType
-List<Class> ignoreConstructorError
+List<String> ignoreConstructorError

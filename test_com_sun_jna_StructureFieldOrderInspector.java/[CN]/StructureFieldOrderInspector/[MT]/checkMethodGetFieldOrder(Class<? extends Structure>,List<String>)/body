@@ -36,8 +36,13 @@ catch (  IllegalAccessException e) {
     throw new RuntimeException("Could not instantiate Structure sub type: " + structureSubType.getName(),e);
   }
 catch (  InvocationTargetException e) {
-    if (ignoreConstructorError != null && ignoreConstructorError.contains(structureSubType)) {
-      return;
+    if (ignoreConstructorError != null) {
+      final String structSubtypeName=structureSubType.getName();
+      for (      final String classPrefix : ignoreConstructorError) {
+        if (structSubtypeName.startsWith(classPrefix)) {
+          return;
+        }
+      }
     }
     throw new RuntimeException("Could not instantiate Structure sub type: " + structureSubType.getName(),e);
   }

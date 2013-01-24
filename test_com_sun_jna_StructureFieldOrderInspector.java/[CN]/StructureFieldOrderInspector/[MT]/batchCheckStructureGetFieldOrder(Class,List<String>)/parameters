@@ -1,2 +1,2 @@
 Class classDeclaredInSourceTreeToSearch
-List<Class> ignoreConstructorError
+List<String> ignoreConstructorError
