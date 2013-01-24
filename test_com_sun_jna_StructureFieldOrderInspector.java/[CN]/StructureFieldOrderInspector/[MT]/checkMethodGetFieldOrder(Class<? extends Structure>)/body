@@ -1,0 +1,65 @@
+{
+  if (Structure.ByValue.class.isAssignableFrom(structureSubType) || Structure.ByReference.class.isAssignableFrom(structureSubType)) {
+    return;
+  }
+  final Method methodGetFieldOrder;
+  try {
+    methodGetFieldOrder=structureSubType.getDeclaredMethod("getFieldOrder",new Class[]{});
+  }
+ catch (  NoSuchMethodException e) {
+    throw new IllegalArgumentException("The Structure sub type: " + structureSubType.getName() + " \nmust define the method: getFieldOrder()."+ " \nSee the javadoc for Structure.getFieldOrder() for details.",e);
+  }
+  if (Modifier.isAbstract(structureSubType.getModifiers())) {
+    return;
+  }
+  final Constructor<? extends Structure> structConstructor;
+  try {
+    structConstructor=structureSubType.getDeclaredConstructor();
+  }
+ catch (  NoSuchMethodException e) {
+    if (structureSubType == Structure.FFIType.class) {
+      return;
+    }
+    throw new RuntimeException("Parameterless constructor failed on Structure sub type: " + structureSubType.getName());
+  }
+  if (!structConstructor.isAccessible()) {
+    structConstructor.setAccessible(true);
+  }
+  final Structure structure;
+  try {
+    structure=structConstructor.newInstance();
+  }
+ catch (  InstantiationException e) {
+    throw new RuntimeException("Could not instantiate Structure sub type: " + structureSubType.getName(),e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException("Could not instantiate Structure sub type: " + structureSubType.getName(),e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException("Could not instantiate Structure sub type: " + structureSubType.getName(),e);
+  }
+  final List methodCallFieldList;
+  try {
+    methodCallFieldList=(List)methodGetFieldOrder.invoke(structure);
+  }
+ catch (  IllegalAccessException e) {
+    throw new RuntimeException("Could not invoke getFieldOrder() on Structure sub type: " + structureSubType.getName(),e);
+  }
+catch (  InvocationTargetException e) {
+    throw new RuntimeException("Could not invoke getFieldOrder() on Structure sub type: " + structureSubType.getName(),e);
+  }
+  final Field[] actualFields=structureSubType.getDeclaredFields();
+  final List actualFieldNames=new ArrayList(actualFields.length);
+  for (  final Field field : actualFields) {
+    final String actualFieldName=field.getName();
+    if (!methodCallFieldList.contains(actualFieldName)) {
+      throw new IllegalArgumentException(structureSubType.getName() + ".getFieldOrder() [" + methodCallFieldList+ "] does not include declared field: "+ actualFieldName);
+    }
+    actualFieldNames.add(actualFieldName);
+  }
+  for (  final Object methodCallField : methodCallFieldList) {
+    if (!actualFieldNames.contains(methodCallField)) {
+      throw new IllegalArgumentException(structureSubType.getName() + ".getFieldOrder() [" + methodCallFieldList+ "] includes undeclared field: "+ methodCallField);
+    }
+  }
+}

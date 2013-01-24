@@ -1,8 +1,0 @@
-{
-  List<ClassLoader> classLoadersList=new LinkedList<ClassLoader>();
-  classLoadersList.add(ClasspathHelper.contextClassLoader());
-  classLoadersList.add(ClasspathHelper.staticClassLoader());
-  Reflections reflections=new Reflections(new ConfigurationBuilder().setScanners(new SubTypesScanner(false),new ResourcesScanner()).setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0]))).filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix("org.your.package"))));
-  Set<Class<Structure>> classes=(Set<Class<Structure>>)reflections.getSubTypesOf(Structure.class);
-  return classes;
-}
