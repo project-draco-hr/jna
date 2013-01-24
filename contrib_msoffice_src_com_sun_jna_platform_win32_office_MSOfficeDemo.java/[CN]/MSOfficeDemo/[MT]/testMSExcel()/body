@@ -1,0 +1,20 @@
+{
+  MSExcel msExcel=null;
+  try {
+    msExcel=new MSExcel();
+    System.out.println("MSExcel version: " + msExcel.getVersion());
+    msExcel.setVisible(Variant.VARIANT_TRUE);
+    msExcel.openExcelBook(currentWorkingDir + "jnatest.xls",true);
+    msExcel.insertValue("A1","Hello from JNA!");
+    msExcel.closeActiveWorkbook(Variant.VARIANT_TRUE);
+    msExcel.quit();
+  }
+ catch (  COMException e) {
+    if (e.getExcepInfo() != null) {
+      System.out.println("bstrSource: " + e.getExcepInfo().bstrSource);
+      System.out.println("bstrDescription: " + e.getExcepInfo().bstrDescription);
+    }
+ else     e.printStackTrace();
+    if (msExcel != null)     msExcel.quit();
+  }
+}

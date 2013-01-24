@@ -1,0 +1,5 @@
+{
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  this.oleMethod(OleAut32.DISPATCH_PROPERTYGET,result,this.iDispatch,"Version");
+  return result.getValue().toString();
+}

@@ -1,0 +1,12 @@
+{
+  HRESULT hr;
+  BSTR bstrRange=OleAut32.INSTANCE.SysAllocString(range);
+  VARIANT varRange=new VARIANT(bstrRange);
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  hr=oleMethod(OleAut32.DISPATCH_PROPERTYGET,result,this.getActiveSheet().getIDispatch(),"Range",varRange);
+  Range pRange=new Range((IDispatch)result.getValue());
+  BSTR bstrValue=OleAut32.INSTANCE.SysAllocString(value);
+  VARIANT varText=new VARIANT(bstrValue);
+  hr=oleMethod(OleAut32.DISPATCH_PROPERTYPUT,null,pRange.getIDispatch(),"Value",varText);
+  return hr;
+}
