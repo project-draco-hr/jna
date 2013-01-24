@@ -2,13 +2,7 @@
   if (Structure.ByValue.class.isAssignableFrom(structureSubType) || Structure.ByReference.class.isAssignableFrom(structureSubType)) {
     return;
   }
-  final Method methodGetFieldOrder;
-  try {
-    methodGetFieldOrder=structureSubType.getDeclaredMethod("getFieldOrder",new Class[]{});
-  }
- catch (  NoSuchMethodException e) {
-    throw new IllegalArgumentException("The Structure sub type: " + structureSubType.getName() + " must define the method: getFieldOrder()."+ " See the javadoc for Structure.getFieldOrder() for details.",e);
-  }
+  final Method methodGetFieldOrder=getMethodGetFieldOrder(structureSubType);
   if (Modifier.isAbstract(structureSubType.getModifiers())) {
     return;
   }
@@ -59,7 +53,7 @@ catch (  InvocationTargetException e) {
 catch (  InvocationTargetException e) {
     throw new RuntimeException("Could not invoke getFieldOrder() on Structure sub type: " + structureSubType.getName(),e);
   }
-  final Field[] actualFields=structureSubType.getDeclaredFields();
+  final Field[] actualFields=structureSubType.getFields();
   final List actualFieldNames=new ArrayList(actualFields.length);
   for (  final Field field : actualFields) {
     if (!Modifier.isStatic(field.getModifiers())) {
