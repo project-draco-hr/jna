@@ -1,5 +1,5 @@
 {
-  if (pDisp == null)   throw new AutomationException("pDisp (IDispatch) parameter is null!");
+  if (pDisp == null)   throw new COMException("pDisp (IDispatch) parameter is null!");
   WString[] ptName=new WString[]{new WString(name)};
   DISPPARAMS dp=new DISPPARAMS();
   DISPIDbyReference pdispID=new DISPIDbyReference();

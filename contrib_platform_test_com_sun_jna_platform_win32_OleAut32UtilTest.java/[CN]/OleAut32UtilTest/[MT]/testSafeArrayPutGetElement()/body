@@ -6,7 +6,7 @@
       System.out.println(variant.toString(true));
       OleAut32Util.SafeArrayPutElement(varArray,i,variant);
     }
- catch (    AutomationException e) {
+ catch (    COMException e) {
       e.printStackTrace();
     }
   }
@@ -20,7 +20,7 @@
       System.out.println("variant type: " + element.getVarType());
       System.out.println("value: " + element.getValue());
     }
- catch (    AutomationException e) {
+ catch (    COMException e) {
       e.printStackTrace();
     }
   }

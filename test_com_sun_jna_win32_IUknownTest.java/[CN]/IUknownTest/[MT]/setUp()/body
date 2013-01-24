@@ -5,17 +5,17 @@
   HRESULT hr=Ole32.INSTANCE.CoInitialize(null);
   if (W32Errors.FAILED(hr)) {
     this.tearDown();
-    throw new AutomationException("CoInitialize() failed");
+    throw new COMException("CoInitialize() failed");
   }
   CLSID.ByReference clsid=new CLSID.ByReference();
   hr=Ole32.INSTANCE.CLSIDFromProgID("InternetExplorer.Application",clsid);
   if (W32Errors.FAILED(hr)) {
     Ole32.INSTANCE.CoUninitialize();
-    throw new AutomationException("CLSIDFromProgID() failed!");
+    throw new COMException("CLSIDFromProgID() failed!");
   }
   hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,WTypes.CLSCTX_LOCAL_SERVER,IDispatch.IID_IDispatch,this.pDispatch);
   if (W32Errors.FAILED(hr)) {
-    throw new AutomationException("Internet Explorer not registered properly!");
+    throw new COMException("Internet Explorer not registered properly!");
   }
   this.iDispatch=new IDispatch(pDispatch.getPointer());
 }
