@@ -1,0 +1,7 @@
+{
+  final List<String> ignoreConstructorError=new ArrayList<String>();
+  if (Platform.isWindows()) {
+    ignoreConstructorError.add(X11.class.getName() + "$");
+  }
+  StructureFieldOrderInspector.batchCheckStructureGetFieldOrder(FileUtils.class,ignoreConstructorError);
+}
