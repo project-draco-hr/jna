@@ -7,7 +7,7 @@
     methodGetFieldOrder=structureSubType.getDeclaredMethod("getFieldOrder",new Class[]{});
   }
  catch (  NoSuchMethodException e) {
-    throw new IllegalArgumentException("The Structure sub type: " + structureSubType.getName() + " \nmust define the method: getFieldOrder()."+ " \nSee the javadoc for Structure.getFieldOrder() for details.",e);
+    throw new IllegalArgumentException("The Structure sub type: " + structureSubType.getName() + " must define the method: getFieldOrder()."+ " See the javadoc for Structure.getFieldOrder() for details.",e);
   }
   if (Modifier.isAbstract(structureSubType.getModifiers())) {
     return;
