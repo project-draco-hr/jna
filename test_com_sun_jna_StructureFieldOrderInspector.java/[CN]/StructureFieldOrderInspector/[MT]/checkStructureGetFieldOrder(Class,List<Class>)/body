@@ -1,6 +1,6 @@
 {
   final Set<Class<? extends Structure>> classes=StructureFieldOrderInspector.findSubTypesOfStructure(classDeclaredInSourceTreeToSearch);
   for (  final Class<? extends Structure> structureSubType : classes) {
-    StructureFieldOrderInspector.checkMethodGetFieldOrder(structureSubType);
+    StructureFieldOrderInspector.checkMethodGetFieldOrder(structureSubType,ignoreConstructorError);
   }
 }

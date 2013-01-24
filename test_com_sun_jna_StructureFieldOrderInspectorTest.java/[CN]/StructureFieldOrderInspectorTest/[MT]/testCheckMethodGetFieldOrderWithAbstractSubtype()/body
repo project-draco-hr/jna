@@ -1,3 +1,3 @@
 {
-  StructureFieldOrderInspector.checkMethodGetFieldOrder(Union.class);
+  StructureFieldOrderInspector.checkMethodGetFieldOrder(Union.class,null);
 }

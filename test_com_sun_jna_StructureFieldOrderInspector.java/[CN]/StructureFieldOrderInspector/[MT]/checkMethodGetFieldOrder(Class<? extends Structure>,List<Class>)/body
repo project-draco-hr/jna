@@ -36,6 +36,9 @@ catch (  IllegalAccessException e) {
     throw new RuntimeException("Could not instantiate Structure sub type: " + structureSubType.getName(),e);
   }
 catch (  InvocationTargetException e) {
+    if (ignoreConstructorError != null && ignoreConstructorError.contains(structureSubType)) {
+      return;
+    }
     throw new RuntimeException("Could not instantiate Structure sub type: " + structureSubType.getName(),e);
   }
   if (!methodGetFieldOrder.isAccessible()) {

@@ -1,6 +1,6 @@
 {
   try {
-    StructureFieldOrderInspector.checkMethodGetFieldOrder(MyStructExtraField.class);
+    StructureFieldOrderInspector.checkMethodGetFieldOrder(MyStructExtraField.class,null);
     fail("Expected Error: Structure.getFieldOrder()...");
   }
  catch (  RuntimeException e) {
