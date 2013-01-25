@@ -1,7 +1,0 @@
-{
-  final List<String> ignoreConstructorError=new ArrayList<String>();
-  if (Platform.isWindows()) {
-    ignoreConstructorError.add(X11.class.getName() + "$");
-  }
-  StructureFieldOrderInspector.checkMethodGetFieldOrder(com.sun.jna.platform.win32.SetupApi.SP_DEVICE_INTERFACE_DATA.class,ignoreConstructorError);
-}
