@@ -1,6 +1,6 @@
 {
   Frame frame=new Frame();
   frame.setVisible(true);
-  this.peer=((WComponentPeer)frame.getPeer()).getHWnd();
+  this.peer=Native.getWindowID(frame);
   this.hwnd=new HWND(new Pointer(peer));
 }
