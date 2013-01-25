@@ -1,0 +1,3 @@
+{
+  StructureFieldOrderInspector.checkMethodGetFieldOrder(StructureByValueTest.TestNativeMappedInStructure.class,null);
+}
