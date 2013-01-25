@@ -1,0 +1,4 @@
+{
+  origPropJNANoSys=System.getProperty("jna.nosys");
+  System.setProperty("jna.nosys","true");
+}
