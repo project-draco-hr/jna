@@ -1,0 +1,19 @@
+{
+  CLSID.ByReference clsid=new CLSID.ByReference();
+  HRESULT hr=Ole32.INSTANCE.CLSIDFromString(new WString("{00020905-0000-0000-C000-000000000046}"),clsid);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+  LCID lcid=Kernel32.INSTANCE.GetUserDefaultLCID();
+  PointerByReference pWordTypeLib=new PointerByReference();
+  hr=OleAut32.INSTANCE.LoadRegTypeLib(clsid,8,3,lcid,pWordTypeLib);
+  ITypeLib wordTypeLib=new ITypeLib(pWordTypeLib.getValue());
+  UINTbyReference pcTInfo=new UINTbyReference();
+  hr=wordTypeLib.GetTypeInfoCount(pcTInfo);
+  BSTR pBstrName=new BSTR();
+  BSTR pBstrDocString=new BSTR();
+  BSTR pBstrHelpFile=new BSTR();
+  wordTypeLib.GetDocumentation(0,pBstrName,pBstrDocString,new DWORD(),pBstrHelpFile);
+  System.out.println(pBstrName.toString());
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+}

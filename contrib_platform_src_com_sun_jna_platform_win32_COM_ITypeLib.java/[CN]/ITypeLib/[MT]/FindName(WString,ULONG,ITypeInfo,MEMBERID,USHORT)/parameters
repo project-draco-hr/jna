@@ -1,0 +1,5 @@
+WString szNameBuf
+ULONG lHashVal
+ITypeInfo ppTInfo
+MEMBERID rgMemId
+USHORT pcFound

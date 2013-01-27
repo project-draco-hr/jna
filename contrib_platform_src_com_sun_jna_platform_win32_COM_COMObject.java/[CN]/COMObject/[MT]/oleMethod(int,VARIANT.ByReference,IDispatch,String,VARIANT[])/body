@@ -8,7 +8,7 @@
   EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
   IntByReference puArgErr=new IntByReference();
   HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
-  COMUtils.throwNewException(hr);
+  COMUtils.checkAutoRC(hr);
   if (nType == OleAut32.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=new UINT(pArgs.length);
     dp.rgdispidNamedArgs=new DISPIDbyReference(OaIdl.DISPID_PROPERTYPUT);
@@ -19,6 +19,6 @@
     dp.write();
   }
   hr=pDisp.Invoke(pdispID.getValue(),Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,pExcepInfo,puArgErr);
-  COMUtils.throwNewException(hr,pExcepInfo,puArgErr);
+  COMUtils.checkAutoRC(hr,pExcepInfo,puArgErr);
   return hr;
 }

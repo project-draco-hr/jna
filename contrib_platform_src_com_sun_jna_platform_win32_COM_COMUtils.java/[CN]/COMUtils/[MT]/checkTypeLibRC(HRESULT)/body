@@ -1,0 +1,24 @@
+{
+switch (hr.intValue()) {
+case S_OK:
+    return;
+case WinError.E_INVALIDARG:
+  throw new COMException("One or more of the arguments is not valid.");
+case WinError.E_OUTOFMEMORY:
+throw new COMException("Insufficient memory to complete the operation.");
+case WinError.TYPE_E_IOERROR:
+throw new COMException("The function could not write to the file.");
+case WinError.TYPE_E_INVALIDSTATE:
+throw new COMException("The type library could not be opened.");
+case WinError.TYPE_E_INVDATAREAD:
+throw new COMException("The function could not read from the file. ");
+case WinError.TYPE_E_UNSUPFORMAT:
+throw new COMException("The type library has an older format.");
+case WinError.TYPE_E_UNKNOWNLCID:
+throw new COMException("The LCID could not be found in the OLE-supported DLLs.");
+case WinError.TYPE_E_CANTLOADLIBRARY:
+throw new COMException("The type library or DLL could not be loaded.");
+default :
+throw new COMException("Unexpected Typelib error code : " + hr.intValue());
+}
+}

@@ -1,0 +1,3 @@
+WString szNameBuf
+ULONG lHashVal
+BOOL pfName
