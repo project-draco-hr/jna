@@ -9,9 +9,9 @@
   IntByReference puArgErr=new IntByReference();
   HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
   COMUtils.checkAutoRC(hr);
-  if (nType == OleAut32.DISPATCH_PROPERTYPUT) {
+  if (nType == OleAuto.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=new UINT(pArgs.length);
-    dp.rgdispidNamedArgs=new DISPIDbyReference(OaIdl.DISPID_PROPERTYPUT);
+    dp.rgdispidNamedArgs=new DISPIDbyReference(OAIdl.DISPID_PROPERTYPUT);
   }
   if ((pArgs != null) && (pArgs.length > 0)) {
     dp.cArgs=new UINT(pArgs.length);

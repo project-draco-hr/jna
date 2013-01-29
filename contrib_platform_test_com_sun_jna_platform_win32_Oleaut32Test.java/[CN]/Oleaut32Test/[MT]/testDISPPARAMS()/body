@@ -1,5 +1,0 @@
-{
-  SAFEARRAY.ByReference safeArg=OleAut32Util.createVarArray(1);
-  OleAut32Util.SafeArrayPutElement(safeArg,0,new VARIANT(Variant.VARIANT_TRUE));
-  System.out.println(safeArg.toString(true));
-}

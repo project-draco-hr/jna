@@ -1,6 +1,0 @@
-{
-  assertEquals(null,OleAut32.INSTANCE.SysAllocString(null));
-  BSTR p=OleAut32.INSTANCE.SysAllocString("hello world");
-  assertEquals("hello world",p.getValue());
-  OleAut32.INSTANCE.SysFreeString(p);
-}

@@ -1,6 +1,6 @@
 {
-  BSTR bstrFilename=OleAut32.INSTANCE.SysAllocString(filename);
+  BSTR bstrFilename=OleAuto.INSTANCE.SysAllocString(filename);
   VARIANT varFilename=new VARIANT(bstrFilename);
-  HRESULT hr=oleMethod(OleAut32.DISPATCH_METHOD,null,getDocuments().getIDispatch(),"Open",varFilename);
+  HRESULT hr=oleMethod(OleAuto.DISPATCH_METHOD,null,getDocuments().getIDispatch(),"Open",varFilename);
   return hr;
 }

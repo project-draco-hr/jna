@@ -1,0 +1,4 @@
+{
+  Native.setProtected(true);
+  junit.textui.TestRunner.run(OleAutoTest.class);
+}

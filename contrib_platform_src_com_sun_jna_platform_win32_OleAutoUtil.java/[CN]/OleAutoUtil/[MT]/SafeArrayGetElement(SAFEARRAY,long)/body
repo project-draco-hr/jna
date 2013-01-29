@@ -1,0 +1,8 @@
+{
+  long[] idx=new long[1];
+  idx[0]=index;
+  VARIANT result=new VARIANT();
+  HRESULT hr=OleAuto.INSTANCE.SafeArrayGetElement(array,idx,result.getPointer());
+  COMUtils.SUCCEEDED(hr);
+  return result;
+}

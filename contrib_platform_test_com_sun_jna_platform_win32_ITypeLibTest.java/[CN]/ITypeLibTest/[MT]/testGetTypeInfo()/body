@@ -1,0 +1,7 @@
+{
+  ITypeLib shellTypeLib=loadShellTypeLib();
+  ITypeInfo.ByReference ppTInfo=new ITypeInfo.ByReference();
+  HRESULT hr=shellTypeLib.GetTypeInfo(new UINT(0),ppTInfo);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+}

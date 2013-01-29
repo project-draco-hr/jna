@@ -3,7 +3,7 @@
   VARIANT variantSource=new VARIANT(Variant.VARIANT_TRUE);
   VARIANT variantDest=new VARIANT();
   System.out.println(variantSource.toString(true));
-  HRESULT hr=OleAut32.INSTANCE.VariantCopy(variantDest.getPointer(),variantSource);
+  HRESULT hr=OleAuto.INSTANCE.VariantCopy(variantDest.getPointer(),variantSource);
   assertTrue("hr: " + hr.intValue(),hr.intValue() == 0);
   System.out.println(variantDest.toString(true));
   System.out.println("variant type  :" + variantDest.getVarType());

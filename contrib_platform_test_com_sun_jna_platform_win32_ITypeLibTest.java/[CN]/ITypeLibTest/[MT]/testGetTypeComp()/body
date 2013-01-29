@@ -1,0 +1,8 @@
+{
+  ITypeLib shellTypeLib=loadShellTypeLib();
+  ITypeComp.ByReference ppTComp=new ITypeComp.ByReference();
+  HRESULT hr=shellTypeLib.GetTypeComp(ppTComp);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("ppTComp: " + ppTComp.toString());
+}

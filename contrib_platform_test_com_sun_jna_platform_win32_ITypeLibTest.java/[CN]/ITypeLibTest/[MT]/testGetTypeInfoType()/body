@@ -1,0 +1,8 @@
+{
+  ITypeLib shellTypeLib=loadShellTypeLib();
+  IntByReference pTKind=new IntByReference();
+  HRESULT hr=shellTypeLib.GetTypeInfoType(new UINT(0),pTKind);
+  System.out.println("TYPEKIND: " + pTKind);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+}

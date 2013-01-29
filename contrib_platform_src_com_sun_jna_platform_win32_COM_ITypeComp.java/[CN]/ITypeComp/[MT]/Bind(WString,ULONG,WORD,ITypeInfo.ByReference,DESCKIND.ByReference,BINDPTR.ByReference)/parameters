@@ -1,0 +1,6 @@
+WString szName
+ULONG lHashVal
+WORD wFlags
+ITypeInfo.ByReference ppTInfo
+DESCKIND.ByReference pDescKind
+BINDPTR.ByReference pBindPtr

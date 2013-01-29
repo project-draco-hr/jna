@@ -1,4 +1,0 @@
-ULONG wFlags
-PVOID pvData
-LPCOLESTR szFieldName
-VARIANT pvarField

@@ -1,6 +1,0 @@
-{
-  long[] idx=new long[1];
-  idx[0]=index;
-  HRESULT hr=OleAut32.INSTANCE.SafeArrayPutElement(array,idx,arg);
-  COMUtils.SUCCEEDED(hr);
-}

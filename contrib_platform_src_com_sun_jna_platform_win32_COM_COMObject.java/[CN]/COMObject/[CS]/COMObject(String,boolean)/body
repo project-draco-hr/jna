@@ -12,7 +12,7 @@
     throw new COMException("CLSIDFromProgID() failed!");
   }
   if (useActiveInstance) {
-    hr=OleAut32.INSTANCE.GetActiveObject(clsid,null,this.pUnknown);
+    hr=OleAuto.INSTANCE.GetActiveObject(clsid,null,this.pUnknown);
     if (COMUtils.SUCCEEDED(hr)) {
       this.iUnknown=new IUnknown(this.pUnknown.getValue());
       hr=iUnknown.QueryInterface(IDispatch.IID_IDispatch,this.pDispatch);

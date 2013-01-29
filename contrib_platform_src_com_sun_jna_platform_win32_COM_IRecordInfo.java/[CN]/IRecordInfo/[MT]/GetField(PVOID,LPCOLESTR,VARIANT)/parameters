@@ -1,3 +1,0 @@
-PVOID pvData
-LPCOLESTR szFieldName
-VARIANT pvarField

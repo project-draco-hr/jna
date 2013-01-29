@@ -1,6 +1,6 @@
 {
   VARIANT.ByReference result=new VARIANT.ByReference();
-  HRESULT hr=oleMethod(OleAut32.DISPATCH_PROPERTYGET,result,this.iDispatch,"ActiveDocument");
+  HRESULT hr=oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.iDispatch,"ActiveDocument");
   COMUtils.SUCCEEDED(hr);
   return new ActiveDocument((IDispatch)result.getValue());
 }
