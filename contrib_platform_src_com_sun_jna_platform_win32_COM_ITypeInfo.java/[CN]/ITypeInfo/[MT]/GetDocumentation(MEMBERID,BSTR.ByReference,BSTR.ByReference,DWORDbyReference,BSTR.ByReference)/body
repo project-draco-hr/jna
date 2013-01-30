@@ -1,0 +1,6 @@
+{
+  Pointer vptr=this.getPointer().getPointer(0);
+  Function func=Function.getFunction(vptr.getPointer(48));
+  int hr=func.invokeInt(new Object[]{this.getPointer(),memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile});
+  return new HRESULT(hr);
+}

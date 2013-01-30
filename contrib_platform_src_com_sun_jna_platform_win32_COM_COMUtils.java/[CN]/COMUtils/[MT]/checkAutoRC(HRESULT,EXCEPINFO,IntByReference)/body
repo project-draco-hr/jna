@@ -41,6 +41,6 @@ throw new COMException("The interface identifier passed in riid is not IID_NULL!
 case CO_E_OBJNOTCONNECTED:
 throw new COMException("The method is not connected to the Dispatch pointer!");
 default :
-throw new COMException("Unexpected COM error code : " + hr.intValue());
+throw new COMException("Unexpected COM error code : " + toHexStr(hr));
 }
 }

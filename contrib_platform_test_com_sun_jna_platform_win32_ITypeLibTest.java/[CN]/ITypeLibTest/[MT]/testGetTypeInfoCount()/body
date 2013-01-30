@@ -1,5 +1,5 @@
 {
   ITypeLib shellTypeLib=loadShellTypeLib();
   UINT typeInfoCount=shellTypeLib.GetTypeInfoCount();
-  System.out.println("getTypeInfoCount: " + typeInfoCount);
+  System.out.println("GetTypeInfoCount: " + typeInfoCount);
 }

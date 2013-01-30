@@ -1,0 +1,3 @@
+MEMBERID memid
+INVOKEKIND invKind
+PointerByReference ppv

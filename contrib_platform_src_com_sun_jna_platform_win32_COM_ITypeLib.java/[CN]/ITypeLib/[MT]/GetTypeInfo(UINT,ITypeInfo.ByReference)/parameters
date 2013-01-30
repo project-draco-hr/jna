@@ -1,2 +1,2 @@
 UINT index
-ITypeInfo.ByReference ppTInfo
+ITypeInfo.ByReference pTInfo

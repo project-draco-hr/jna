@@ -11,7 +11,7 @@
   COMUtils.checkAutoRC(hr);
   if (nType == OleAuto.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=new UINT(pArgs.length);
-    dp.rgdispidNamedArgs=new DISPIDbyReference(OAIdl.DISPID_PROPERTYPUT);
+    dp.rgdispidNamedArgs=new DISPIDbyReference(OaIdl.DISPID_PROPERTYPUT);
   }
   if ((pArgs != null) && (pArgs.length > 0)) {
     dp.cArgs=new UINT(pArgs.length);
