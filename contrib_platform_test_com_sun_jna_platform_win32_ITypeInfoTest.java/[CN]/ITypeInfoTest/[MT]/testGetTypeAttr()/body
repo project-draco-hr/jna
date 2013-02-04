@@ -1,6 +1,6 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
-  TYPEATTR pTypeAttr=new TYPEATTR();
+  TYPEATTR.ByReference pTypeAttr=new TYPEATTR.ByReference();
   HRESULT hr=typeInfo.GetTypeAttr(pTypeAttr);
   COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());
