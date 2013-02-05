@@ -1,0 +1,12 @@
+{
+  ITypeInfo typeInfo=getTypeInfo();
+  MEMBERID memid=new MEMBERID(1);
+  BSTR.ByReference rgBstrNames=new BSTR.ByReference();
+  UINT cMaxNames=new UINT(0);
+  UINTbyReference pcNames=new UINTbyReference();
+  HRESULT hr=typeInfo.GetNames(memid,rgBstrNames,cMaxNames,pcNames);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("rgBstrNames: " + rgBstrNames.toString());
+  System.out.println("pcNames: " + pcNames.getValue().intValue());
+}

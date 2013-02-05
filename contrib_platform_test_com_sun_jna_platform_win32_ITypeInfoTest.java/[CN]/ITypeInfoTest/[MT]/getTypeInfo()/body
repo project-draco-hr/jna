@@ -1,7 +1,6 @@
 {
-  COMObject shellObj=new COMObject("Word.Application",true);
   LCID lcid=Kernel32.INSTANCE.GetUserDefaultLCID();
   PointerByReference ppTInfo=new PointerByReference();
-  shellObj.getIDispatch().GetTypeInfo(new UINT(0),lcid,ppTInfo);
+  comObj.getIDispatch().GetTypeInfo(new UINT(0),lcid,ppTInfo);
   return new ITypeInfo(ppTInfo.getValue());
 }
