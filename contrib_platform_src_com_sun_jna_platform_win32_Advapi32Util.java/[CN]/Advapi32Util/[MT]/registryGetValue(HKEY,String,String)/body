@@ -1,0 +1,56 @@
+{
+  Object result=null;
+  HKEYByReference phkKey=new HKEYByReference();
+  int rc=Advapi32.INSTANCE.RegOpenKeyEx(root,key,0,WinNT.KEY_READ,phkKey);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new Win32Exception(rc);
+  }
+  try {
+    IntByReference lpcbData=new IntByReference();
+    IntByReference lpType=new IntByReference();
+    rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,(char[])null,lpcbData);
+    if (lpcbData.getValue() == 0)     return null;
+    if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+      throw new Win32Exception(rc);
+    }
+    if (lpType.getValue() == WinNT.REG_DWORD) {
+      IntByReference data=new IntByReference();
+      rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
+      if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+        throw new Win32Exception(rc);
+      }
+      result=new Integer(data.getValue());
+    }
+ else     if (lpType.getValue() == WinNT.REG_QWORD) {
+      LongByReference data=new LongByReference();
+      rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
+      if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+        throw new Win32Exception(rc);
+      }
+      result=new Long(data.getValue());
+    }
+ else     if (lpType.getValue() == WinNT.REG_BINARY) {
+      byte[] data=new byte[lpcbData.getValue()];
+      rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
+      if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+        throw new Win32Exception(rc);
+      }
+      result=data;
+    }
+ else     if ((lpType.getValue() == WinNT.REG_SZ) || (lpType.getValue() == WinNT.REG_EXPAND_SZ)) {
+      char[] data=new char[lpcbData.getValue()];
+      rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
+      if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+        throw new Win32Exception(rc);
+      }
+      result=Native.toString(data);
+    }
+    return result;
+  }
+  finally {
+    rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
+    if (rc != W32Errors.ERROR_SUCCESS) {
+      throw new Win32Exception(rc);
+    }
+  }
+}
