@@ -1,0 +1,3 @@
+{
+  return SUCCEEDED(hr.intValue());
+}

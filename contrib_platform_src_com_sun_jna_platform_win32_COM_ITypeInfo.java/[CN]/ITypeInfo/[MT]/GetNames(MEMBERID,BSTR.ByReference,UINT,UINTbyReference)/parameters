@@ -1,0 +1,4 @@
+MEMBERID memid
+BSTR.ByReference rgBstrNames
+UINT cMaxNames
+UINTbyReference pcNames

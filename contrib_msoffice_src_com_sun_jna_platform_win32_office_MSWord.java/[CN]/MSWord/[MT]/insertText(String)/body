@@ -1,0 +1,10 @@
+{
+  HRESULT hr;
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  hr=oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.iDispatch,"Selection");
+  Selection pSelection=new Selection((IDispatch)result.getValue());
+  BSTR bstrText=OleAuto.INSTANCE.SysAllocString(text);
+  VARIANT varText=new VARIANT(bstrText);
+  hr=oleMethod(OleAuto.DISPATCH_METHOD,null,pSelection.getIDispatch(),"TypeText",varText);
+  return hr;
+}

@@ -1,0 +1,16 @@
+{
+  ITypeInfo typeInfo=getTypeInfo();
+  MEMBERID memid=new MEMBERID(0);
+  BSTR.ByReference pBstrName=new BSTR.ByReference();
+  BSTR.ByReference pBstrDocString=new BSTR.ByReference();
+  DWORDbyReference pdwHelpContext=new DWORDbyReference();
+  BSTR.ByReference pBstrHelpFile=new BSTR.ByReference();
+  HRESULT hr=typeInfo.GetDocumentation(memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("memid: " + memid.toString());
+  System.out.println("pBstrName: " + pBstrName.toString());
+  System.out.println("pBstrDocString: " + pBstrDocString.toString());
+  System.out.println("pdwHelpContext: " + pdwHelpContext.toString());
+  System.out.println("pBstrHelpFile: " + pBstrHelpFile.toString());
+}

@@ -1,0 +1,6 @@
+{
+  BSTR bstrFilename=OleAuto.INSTANCE.SysAllocString(filename);
+  VARIANT varFilename=new VARIANT(bstrFilename);
+  HRESULT hr=oleMethod(OleAuto.DISPATCH_METHOD,null,getWorkbooks().getIDispatch(),"Open",varFilename);
+  return hr;
+}

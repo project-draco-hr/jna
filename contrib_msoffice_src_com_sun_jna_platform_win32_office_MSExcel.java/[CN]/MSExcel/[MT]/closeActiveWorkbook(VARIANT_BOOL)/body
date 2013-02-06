@@ -1,0 +1,4 @@
+{
+  HRESULT hr=oleMethod(OleAuto.DISPATCH_METHOD,null,getActiveWorkbook().getIDispatch(),"Close",new VARIANT(bSave));
+  return hr;
+}

@@ -1,0 +1,4 @@
+PVOID pvData
+WString szFieldName
+VARIANT pvarField
+PVOID ppvDataCArray

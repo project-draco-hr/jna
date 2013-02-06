@@ -1,0 +1,8 @@
+{
+  System.out.println("------------------------------------------");
+  VARIANT variant=new VARIANT(new SHORT(33333));
+  HRESULT hr=OleAuto.INSTANCE.VariantClear(variant.getPointer());
+  assertTrue("hr: " + hr.intValue(),hr.intValue() == 0);
+  System.out.println(variant.toString(true));
+  System.out.println("------------------------------------------");
+}

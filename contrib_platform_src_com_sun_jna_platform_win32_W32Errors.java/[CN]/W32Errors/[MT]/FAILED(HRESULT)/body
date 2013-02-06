@@ -1,4 +1,4 @@
 {
-  if (hr != null)   return hr.intValue() >= 0;
+  if (hr != null)   return FAILED(hr.intValue());
  else   return false;
 }

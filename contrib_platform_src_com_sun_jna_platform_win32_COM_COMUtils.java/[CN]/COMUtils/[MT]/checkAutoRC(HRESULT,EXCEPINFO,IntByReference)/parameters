@@ -1,0 +1,3 @@
+HRESULT hr
+EXCEPINFO pExcepInfo
+IntByReference puArgErr

@@ -1,0 +1,5 @@
+{
+  if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+    throw new Win32Exception(rc);
+  }
+}

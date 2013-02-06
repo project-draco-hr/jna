@@ -1,0 +1,5 @@
+{
+  Pointer vptr=this.getPointer().getPointer(0);
+  Function func=Function.getFunction(vptr.getPointer(80));
+  func.invokeInt(new Object[]{this.getPointer(),pFuncDesc});
+}

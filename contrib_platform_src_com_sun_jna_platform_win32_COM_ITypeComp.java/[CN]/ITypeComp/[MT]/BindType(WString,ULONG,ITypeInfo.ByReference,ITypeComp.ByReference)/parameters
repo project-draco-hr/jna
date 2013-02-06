@@ -1,0 +1,4 @@
+WString szName
+ULONG lHashVal
+ITypeInfo.ByReference ppTInfo
+ITypeComp.ByReference ppTComp

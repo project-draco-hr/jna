@@ -1,0 +1,4 @@
+ULONG wFlags
+PVOID pvData
+WString szFieldName
+VARIANT pvarField

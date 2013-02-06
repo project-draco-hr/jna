@@ -1,0 +1,5 @@
+WString szNameBuf
+ULONG lHashVal
+ITypeInfo.ByReference ppTInfo
+MEMBERIDbyReference rgMemId
+USHORTbyReference pcFound

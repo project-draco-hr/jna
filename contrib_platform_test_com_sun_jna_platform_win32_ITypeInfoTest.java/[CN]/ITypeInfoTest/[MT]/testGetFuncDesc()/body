@@ -1,0 +1,8 @@
+{
+  ITypeInfo typeInfo=getTypeInfo();
+  FUNCDESC.ByReference pFuncDesc=new FUNCDESC.ByReference();
+  HRESULT hr=typeInfo.GetFuncDesc(new UINT(1),pFuncDesc);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("GetFuncDesc: " + pFuncDesc.toString(true));
+}

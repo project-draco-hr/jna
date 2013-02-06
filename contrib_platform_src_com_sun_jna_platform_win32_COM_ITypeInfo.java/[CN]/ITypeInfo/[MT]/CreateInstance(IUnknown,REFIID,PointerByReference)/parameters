@@ -1,0 +1,3 @@
+IUnknown pUnkOuter
+REFIID riid
+PointerByReference ppvObj
