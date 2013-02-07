@@ -1,56 +1,26 @@
 {
   Object result=null;
-  HKEYByReference phkKey=new HKEYByReference();
-  int rc=Advapi32.INSTANCE.RegOpenKeyEx(root,key,0,WinNT.KEY_READ,phkKey);
-  if (rc != W32Errors.ERROR_SUCCESS) {
+  IntByReference lpType=new IntByReference();
+  byte[] lpData=new byte[Advapi32.MAX_VALUE_NAME];
+  IntByReference lpcbData=new IntByReference(Advapi32.MAX_VALUE_NAME);
+  int rc=Advapi32.INSTANCE.RegGetValue(hkKey,subKey,lpValueName,Advapi32.RRF_RT_ANY,lpType,lpData,lpcbData);
+  if (lpType.getValue() == WinNT.REG_NONE)   return null;
+  if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
     throw new Win32Exception(rc);
   }
-  try {
-    IntByReference lpcbData=new IntByReference();
-    IntByReference lpType=new IntByReference();
-    rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,(char[])null,lpcbData);
-    if (lpcbData.getValue() == 0)     return null;
-    if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
-      throw new Win32Exception(rc);
-    }
-    if (lpType.getValue() == WinNT.REG_DWORD) {
-      IntByReference data=new IntByReference();
-      rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
-      if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
-        throw new Win32Exception(rc);
-      }
-      result=new Integer(data.getValue());
-    }
- else     if (lpType.getValue() == WinNT.REG_QWORD) {
-      LongByReference data=new LongByReference();
-      rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
-      if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
-        throw new Win32Exception(rc);
-      }
-      result=new Long(data.getValue());
-    }
- else     if (lpType.getValue() == WinNT.REG_BINARY) {
-      byte[] data=new byte[lpcbData.getValue()];
-      rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
-      if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
-        throw new Win32Exception(rc);
-      }
-      result=data;
-    }
- else     if ((lpType.getValue() == WinNT.REG_SZ) || (lpType.getValue() == WinNT.REG_EXPAND_SZ)) {
-      char[] data=new char[lpcbData.getValue()];
-      rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
-      if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
-        throw new Win32Exception(rc);
-      }
-      result=Native.toString(data);
-    }
-    return result;
+  Memory byteData=new Memory(lpcbData.getValue());
+  byteData.write(0,lpData,0,lpcbData.getValue());
+  if (lpType.getValue() == WinNT.REG_DWORD) {
+    result=new Integer(byteData.getInt(0));
   }
-  finally {
-    rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
-    if (rc != W32Errors.ERROR_SUCCESS) {
-      throw new Win32Exception(rc);
-    }
+ else   if (lpType.getValue() == WinNT.REG_QWORD) {
+    result=new Long(byteData.getLong(0));
   }
+ else   if (lpType.getValue() == WinNT.REG_BINARY) {
+    result=byteData.getByteArray(0,lpcbData.getValue());
+  }
+ else   if ((lpType.getValue() == WinNT.REG_SZ) || (lpType.getValue() == WinNT.REG_EXPAND_SZ)) {
+    result=byteData.getString(0,true);
+  }
+  return result;
 }
