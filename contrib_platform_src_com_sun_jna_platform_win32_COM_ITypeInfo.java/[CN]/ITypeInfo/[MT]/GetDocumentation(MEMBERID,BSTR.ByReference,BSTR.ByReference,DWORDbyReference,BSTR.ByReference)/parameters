@@ -1,5 +1,0 @@
-MEMBERID memid
-BSTR.ByReference pBstrName
-BSTR.ByReference pBstrDocString
-DWORDbyReference pdwHelpContext
-BSTR.ByReference pBstrHelpFile

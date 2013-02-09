@@ -1,5 +1,5 @@
 MEMBERID memid
 INVOKEKIND invKind
-BSTR.ByReference pBstrDllName
-BSTR.ByReference pBstrName
+BSTR pBstrDllName
+BSTR pBstrName
 WORDbyReference pwOrdinal

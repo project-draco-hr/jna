@@ -1,0 +1,3 @@
+WString[] rgszNames
+UINT cNames
+MEMBERID[] pMemId

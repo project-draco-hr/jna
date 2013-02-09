@@ -1,10 +1,10 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
-  WString rgszNames=new WString("Visible");
-  UINT cNames=new UINT(0);
-  MEMBERIDbyReference pMemId=new MEMBERIDbyReference();
+  WString[] rgszNames={new WString("Visible")};
+  UINT cNames=new UINT(1);
+  MEMBERID[] pMemId=new MEMBERID[1];
   HRESULT hr=typeInfo.GetIDsOfNames(rgszNames,cNames,pMemId);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkAutoRC(hr);
   assertEquals(0,hr.intValue());
-  System.out.println("GetIDsOfNames: " + pMemId.toString());
+  System.out.println("pMemId: " + pMemId.toString());
 }

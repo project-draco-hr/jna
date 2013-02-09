@@ -1,7 +1,7 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
   MEMBERID memid=new MEMBERID(0);
-  BSTR.ByReference pBstrMops=new BSTR.ByReference();
+  BSTR pBstrMops=new BSTR();
   HRESULT hr=typeInfo.GetMops(memid,pBstrMops);
   COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());
