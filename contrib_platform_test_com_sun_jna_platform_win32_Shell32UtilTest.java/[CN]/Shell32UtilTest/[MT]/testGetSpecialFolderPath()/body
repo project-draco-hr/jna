@@ -1,0 +1,3 @@
+{
+  assertFalse(Shell32Util.getSpecialFolderPath(ShlObj.CSIDL_APPDATA,false).isEmpty());
+}

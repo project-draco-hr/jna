@@ -1,0 +1,3 @@
+{
+  if (!Kernel32.INSTANCE.WritePrivateProfileString(appName,keyName,string,fileName))   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+}

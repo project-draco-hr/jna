@@ -1,0 +1,10 @@
+{
+  final File tmp=File.createTempFile("testGetPrivateProfileInt","ini");
+  tmp.deleteOnExit();
+  final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
+  writer.println("[Section]");
+  writer.println("existingKey = 123");
+  writer.close();
+  assertEquals(123,Kernel32Util.getPrivateProfileInt("Section","existingKey",456,tmp.getCanonicalPath()));
+  assertEquals(456,Kernel32Util.getPrivateProfileInt("Section","missingKey",456,tmp.getCanonicalPath()));
+}

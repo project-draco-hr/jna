@@ -1,0 +1,11 @@
+{
+  final File tmp=File.createTempFile("testGetPrivateProfileString","ini");
+  tmp.deleteOnExit();
+  final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
+  writer.println("[Section]");
+  writer.println("existingKey = ABC");
+  writer.close();
+  final char[] buffer=new char[8];
+  assertEquals("ABC",Kernel32.INSTANCE.GetPrivateProfileString("Section","existingKey","DEF",buffer,new DWORD(buffer.length),tmp.getCanonicalPath()));
+  assertEquals("DEF",Kernel32.INSTANCE.GetPrivateProfileString("Section","missingKey","DEF",buffer,new DWORD(buffer.length),tmp.getCanonicalPath()));
+}

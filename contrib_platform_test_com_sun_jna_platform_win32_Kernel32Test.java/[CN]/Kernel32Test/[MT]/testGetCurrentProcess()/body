@@ -3,5 +3,5 @@
   assertNotNull(h);
   assertFalse(h.equals(0));
   assertFalse(Kernel32.INSTANCE.CloseHandle(h));
-  assertEquals(W32Errors.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
+  assertEquals(WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
 }

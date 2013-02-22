@@ -3,4 +3,5 @@
   System.out.println("Windows: " + Shell32Util.getFolderPath(ShlObj.CSIDL_WINDOWS));
   System.out.println(" System: " + Shell32Util.getFolderPath(ShlObj.CSIDL_SYSTEM));
   System.out.println("AppData: " + Shell32Util.getFolderPath(ShlObj.CSIDL_APPDATA));
+  System.out.println("AppData: " + Shell32Util.getSpecialFolderPath(ShlObj.CSIDL_APPDATA,false));
 }
