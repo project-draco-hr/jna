@@ -1,0 +1,11 @@
+String className
+String windowName
+int style
+int x
+int y
+int width
+int height
+HWND parent
+HMENU menu
+HINSTANCE instance
+LPVOID param

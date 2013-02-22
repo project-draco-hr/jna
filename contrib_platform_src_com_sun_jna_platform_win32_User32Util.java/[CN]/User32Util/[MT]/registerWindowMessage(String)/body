@@ -1,0 +1,5 @@
+{
+  final int messageId=User32.INSTANCE.RegisterWindowMessage(lpString);
+  if (messageId == 0)   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  return messageId;
+}

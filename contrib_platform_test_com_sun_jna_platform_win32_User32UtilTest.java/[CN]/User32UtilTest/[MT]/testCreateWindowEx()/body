@@ -1,0 +1,3 @@
+{
+  assertTrue(Pointer.nativeValue(User32Util.createWindowEx(0,"Message",null,0,0,0,0,0,null,null,null,null).getPointer()) > 0);
+}
