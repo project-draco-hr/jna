@@ -1,0 +1,4 @@
+String appName
+String keyName
+String defaultValue
+String fileName

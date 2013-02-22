@@ -2,7 +2,7 @@
   HANDLE[] handles=new HANDLE[2];
   handles[0]=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
   handles[1]=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
-  assertEquals(W32Errors.WAIT_TIMEOUT,Kernel32.INSTANCE.WaitForMultipleObjects(handles.length,handles,false,1000));
+  assertEquals(WinError.WAIT_TIMEOUT,Kernel32.INSTANCE.WaitForMultipleObjects(handles.length,handles,false,1000));
   Kernel32.INSTANCE.CloseHandle(handles[0]);
   Kernel32.INSTANCE.CloseHandle(handles[1]);
   handles[0]=WinBase.INVALID_HANDLE_VALUE;

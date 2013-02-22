@@ -14,7 +14,7 @@ switch (type) {
 case WinNT.FILE_TYPE_UNKNOWN:
       int err=Kernel32.INSTANCE.GetLastError();
 switch (err) {
-case W32Errors.NO_ERROR:
+case WinError.NO_ERROR:
       break;
 default :
     throw new Win32Exception(err);
