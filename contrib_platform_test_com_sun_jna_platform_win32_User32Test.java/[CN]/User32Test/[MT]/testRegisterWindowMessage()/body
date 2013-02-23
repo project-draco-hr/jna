@@ -1,0 +1,4 @@
+{
+  final int msg=User32.INSTANCE.RegisterWindowMessage("RM_UNITTEST");
+  assertTrue(msg >= 0xC000 && msg <= 0xFFFF);
+}
