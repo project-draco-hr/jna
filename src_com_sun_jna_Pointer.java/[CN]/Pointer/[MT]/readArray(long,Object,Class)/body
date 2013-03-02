@@ -35,12 +35,25 @@
       }
     }
  else {
-      for (int i=0; i < sarray.length; i++) {
+      Structure first=sarray[0];
+      if (first == null) {
+        first=Structure.newInstance(cls,share(offset));
+        first.conditionalRead();
+        sarray[0]=first;
+      }
+ else {
+        first.useMemory(this,(int)offset);
+        first.read();
+      }
+      Structure[] tmp=first.toArray(sarray.length);
+      for (int i=1; i < sarray.length; i++) {
         if (sarray[i] == null) {
-          sarray[i]=Structure.newInstance(cls);
+          sarray[i]=tmp[i];
         }
-        sarray[i].useMemory(this,(int)(offset + i * sarray[i].size()));
-        sarray[i].read();
+ else {
+          sarray[i].useMemory(this,(int)(offset + i * sarray[i].size()));
+          sarray[i].read();
+        }
       }
     }
   }

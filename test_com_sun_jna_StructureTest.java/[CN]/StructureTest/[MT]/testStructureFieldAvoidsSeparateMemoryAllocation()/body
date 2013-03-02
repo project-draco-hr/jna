@@ -1,0 +1,12 @@
+{
+class TestStructure extends Structure {
+    public NonAllocatingTestStructure s1;
+    public TestStructure(){
+    }
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"s1"});
+    }
+  }
+  TestStructure ts=new TestStructure();
+  assertNotNull("Inner structure should be initialized",ts.s1);
+}
