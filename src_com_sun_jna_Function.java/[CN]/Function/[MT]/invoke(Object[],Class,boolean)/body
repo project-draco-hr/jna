@@ -49,9 +49,8 @@
  else {
       result=invokePointer(callFlags,args);
       if (result != null) {
-        Structure s=Structure.newInstance(returnType);
-        s.useMemory((Pointer)result);
-        s.autoRead();
+        Structure s=Structure.newInstance(returnType,(Pointer)result);
+        s.conditionalRead();
         result=s;
       }
     }
