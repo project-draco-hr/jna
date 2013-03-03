@@ -9,8 +9,7 @@
         s=s1;
       }
  else {
-        s=newInstance(type);
-        s.useMemory(address);
+        s=newInstance(type,address);
       }
     }
     s.autoRead();
