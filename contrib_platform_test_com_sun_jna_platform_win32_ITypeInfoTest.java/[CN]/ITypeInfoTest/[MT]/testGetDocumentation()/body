@@ -1,16 +1,16 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
   MEMBERID memid=new MEMBERID(0);
-  BSTR.ByReference pBstrName=new BSTR.ByReference();
-  BSTR.ByReference pBstrDocString=new BSTR.ByReference();
+  BSTR pBstrName=new BSTR();
+  BSTR pBstrDocString=new BSTR();
   DWORDbyReference pdwHelpContext=new DWORDbyReference();
-  BSTR.ByReference pBstrHelpFile=new BSTR.ByReference();
+  BSTR pBstrHelpFile=new BSTR();
   HRESULT hr=typeInfo.GetDocumentation(memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkAutoRC(hr);
   assertEquals(0,hr.intValue());
-  System.out.println("memid: " + memid.toString());
-  System.out.println("pBstrName: " + pBstrName.toString());
-  System.out.println("pBstrDocString: " + pBstrDocString.toString());
-  System.out.println("pdwHelpContext: " + pdwHelpContext.toString());
-  System.out.println("pBstrHelpFile: " + pBstrHelpFile.toString());
+  System.out.println("memid: " + memid.intValue());
+  System.out.println("pBstrName: " + pBstrName.getValue());
+  System.out.println("pBstrDocString: " + pBstrDocString.getValue());
+  System.out.println("pdwHelpContext: " + pdwHelpContext.getValue());
+  System.out.println("pBstrHelpFile: " + pBstrHelpFile.getValue());
 }

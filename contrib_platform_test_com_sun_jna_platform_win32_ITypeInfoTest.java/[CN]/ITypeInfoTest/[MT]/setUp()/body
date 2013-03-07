@@ -1,5 +1,5 @@
 {
   if (this.comObj == null) {
-    this.comObj=new COMObject("InternetExplorer.Application",false);
+    this.comObj=new COMObject("Shell.Application",false);
   }
 }

@@ -1,0 +1,3 @@
+HKEY hkKey
+String subKey
+String lpValueName

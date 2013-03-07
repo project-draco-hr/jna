@@ -1,0 +1,2 @@
+HKEY hKey
+int lpcbSecurityDescriptor

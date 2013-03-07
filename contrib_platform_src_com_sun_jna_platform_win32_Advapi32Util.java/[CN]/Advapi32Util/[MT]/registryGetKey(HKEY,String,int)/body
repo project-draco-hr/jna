@@ -1,0 +1,8 @@
+{
+  HKEYByReference phkKey=new HKEYByReference();
+  int rc=Advapi32.INSTANCE.RegOpenKeyEx(root,keyPath,0,samDesired,phkKey);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new Win32Exception(rc);
+  }
+  return phkKey;
+}

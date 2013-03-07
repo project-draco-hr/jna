@@ -1,0 +1,8 @@
+{
+  InfoKey infoKey=new InfoKey(hKey,lpcbSecurityDescriptor);
+  int rc=Advapi32.INSTANCE.RegQueryInfoKey(hKey,infoKey.lpClass,infoKey.lpcClass,null,infoKey.lpcSubKeys,infoKey.lpcMaxSubKeyLen,infoKey.lpcMaxClassLen,infoKey.lpcValues,infoKey.lpcMaxValueNameLen,infoKey.lpcMaxValueLen,infoKey.lpcbSecurityDescriptor,infoKey.lpftLastWriteTime);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new Win32Exception(rc);
+  }
+  return infoKey;
+}
