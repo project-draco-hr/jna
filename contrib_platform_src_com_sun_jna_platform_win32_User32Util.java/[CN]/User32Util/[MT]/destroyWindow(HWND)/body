@@ -1,0 +1,3 @@
+{
+  if (!User32.INSTANCE.DestroyWindow(hWnd))   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+}

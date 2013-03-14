@@ -1,0 +1,3 @@
+{
+  StructureFieldOrderInspector.checkMethodGetFieldOrder(MyStructChildEmpty.class,null);
+}

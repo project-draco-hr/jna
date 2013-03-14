@@ -1,0 +1,19 @@
+{
+  final Set<Class<? extends Structure>> classes=StructureFieldOrderInspector.findSubTypesOfStructure(classDeclaredInSourceTreeToSearch);
+  final List<Throwable> problems=new ArrayList<Throwable>();
+  for (  final Class<? extends Structure> structureSubType : classes) {
+    try {
+      StructureFieldOrderInspector.checkMethodGetFieldOrder(structureSubType,ignoreConstructorError);
+    }
+ catch (    Throwable t) {
+      problems.add(t);
+    }
+  }
+  if (problems.size() > 0) {
+    String msg="";
+    for (    final Throwable t : problems) {
+      msg+=t.getMessage() + "; \n";
+    }
+    throw new RuntimeException("Some Structure sub types (" + problems.size() + ") have problems with getFieldOrder(): \n"+ msg);
+  }
+}

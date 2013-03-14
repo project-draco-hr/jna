@@ -1,5 +1,5 @@
 {
   HANDLE h=Kernel32.INSTANCE.OpenProcess(0,false,Kernel32.INSTANCE.GetCurrentProcessId());
   assertNull(h);
-  assertEquals(W32Errors.ERROR_ACCESS_DENIED,Kernel32.INSTANCE.GetLastError());
+  assertEquals(WinError.ERROR_ACCESS_DENIED,Kernel32.INSTANCE.GetLastError());
 }
