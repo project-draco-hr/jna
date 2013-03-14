@@ -1,5 +1,5 @@
 {
   final char buffer[]=new char[1024];
-  Kernel32.INSTANCE.GetPrivateProfileString(appName,keyName,defaultValue,buffer,new DWORD(buffer.length),fileName);
+  Kernel32.INSTANCE.GetPrivateProfileString(lpAppName,lpKeyName,lpDefault,buffer,new DWORD(buffer.length),lpFileName);
   return Native.toString(buffer);
 }
