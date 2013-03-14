@@ -1,0 +1,4 @@
+{
+  this.hKey=hKey;
+  this.lpcbSecurityDescriptor=new IntByReference(securityDescriptor);
+}

@@ -1,0 +1,8 @@
+{
+  EnumKey enumKey=new EnumKey(hKey,dwIndex);
+  int rc=Advapi32.INSTANCE.RegEnumKeyEx(hKey,enumKey.dwIndex,enumKey.lpName,enumKey.lpcName,null,enumKey.lpClass,enumKey.lpcbClass,enumKey.lpftLastWriteTime);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new Win32Exception(rc);
+  }
+  return enumKey;
+}

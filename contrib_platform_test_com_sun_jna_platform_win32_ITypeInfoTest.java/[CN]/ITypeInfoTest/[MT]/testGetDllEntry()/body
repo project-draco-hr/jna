@@ -1,14 +1,14 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
   MEMBERID memid=new MEMBERID(0);
-  BSTR.ByReference pBstrDllName=new BSTR.ByReference();
-  BSTR.ByReference pBstrName=new BSTR.ByReference();
+  BSTR pBstrDllName=new BSTR();
+  BSTR pBstrName=new BSTR();
   WORDbyReference pwOrdinal=new WORDbyReference();
   HRESULT hr=typeInfo.GetDllEntry(memid,INVOKEKIND.INVOKE_FUNC,pBstrDllName,pBstrName,pwOrdinal);
   COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());
-  System.out.println("memid: " + memid.toString());
-  System.out.println("pBstrDllName: " + pBstrDllName.toString());
-  System.out.println("pBstrName: " + pBstrName.toString());
-  System.out.println("pwOrdinal: " + pwOrdinal.toString());
+  System.out.println("memid: " + memid.intValue());
+  System.out.println("pBstrDllName: " + pBstrDllName.getValue());
+  System.out.println("pBstrName: " + pBstrName.getValue());
+  System.out.println("pwOrdinal: " + pwOrdinal.getValue());
 }
