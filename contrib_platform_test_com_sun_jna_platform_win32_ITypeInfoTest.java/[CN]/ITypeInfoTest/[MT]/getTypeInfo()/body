@@ -1,6 +1,5 @@
 {
-  LCID lcid=Kernel32.INSTANCE.GetUserDefaultLCID();
   PointerByReference ppTInfo=new PointerByReference();
-  comObj.getIDispatch().GetTypeInfo(new UINT(0),lcid,ppTInfo);
+  comObj.getIDispatch().GetTypeInfo(new UINT(0),new LCID(0),ppTInfo);
   return new ITypeInfo(ppTInfo.getValue());
 }
