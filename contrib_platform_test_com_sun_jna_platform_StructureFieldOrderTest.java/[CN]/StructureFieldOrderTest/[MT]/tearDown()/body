@@ -1,8 +1,0 @@
-{
-  if (origPropJNANoSys == null) {
-    System.getProperties().remove("jna.nosys");
-  }
- else {
-    System.setProperty("jna.nosys",origPropJNANoSys);
-  }
-}

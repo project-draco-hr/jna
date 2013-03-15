@@ -1,5 +1,0 @@
-{
-  final List<String> ignoreConstructorError=new ArrayList<String>();
-  ignoreConstructorError.add(StructureFieldOrderInspectorTest.class.getName());
-  StructureFieldOrderInspector.checkMethodGetFieldOrder(MyStructExtraField.class,ignoreConstructorError);
-}

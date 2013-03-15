@@ -1,7 +1,0 @@
-{
-  final Set<Class<? extends Structure>> classes=StructureFieldOrderInspector.findSubTypesOfStructure(Platform.class);
-  assertTrue("Found no Structure sub types.",classes.size() > 0);
-  for (  final Class<? extends Structure> structureSubType : classes) {
-    assertTrue(structureSubType.getName(),Structure.class.isAssignableFrom(structureSubType));
-  }
-}

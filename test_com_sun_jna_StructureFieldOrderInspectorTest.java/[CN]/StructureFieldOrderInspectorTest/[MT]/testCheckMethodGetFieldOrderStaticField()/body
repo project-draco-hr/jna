@@ -1,3 +1,0 @@
-{
-  StructureFieldOrderInspector.checkMethodGetFieldOrder(MyStructStaticField.class,null);
-}

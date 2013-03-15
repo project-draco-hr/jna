@@ -1,3 +1,0 @@
-{
-  StructureFieldOrderInspector.checkStructureGetFieldOrder(Platform.class,null);
-}
