@@ -1,0 +1,2 @@
+Class<? extends Structure> structureSubType
+List<String> ignoreConstructorError

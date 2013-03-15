@@ -1,0 +1,9 @@
+{
+  try {
+    StructureFieldOrderInspector.checkMethodGetFieldOrder(MyStructExtraField.class,null);
+    fail("Expected Error: Structure.getFieldOrder()...");
+  }
+ catch (  RuntimeException e) {
+    assertTrue(e.getCause().getCause().getMessage().contains("not match declared field names"));
+  }
+}
