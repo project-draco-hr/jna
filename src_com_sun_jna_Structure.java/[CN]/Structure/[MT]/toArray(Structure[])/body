@@ -11,7 +11,7 @@
   int size=size();
   for (int i=1; i < array.length; i++) {
     array[i]=newInstance(getClass(),memory.share(i * size,size));
-    array[i].conditionalRead();
+    array[i].conditionalAutoRead();
   }
   if (!(this instanceof ByValue)) {
     this.array=array;
