@@ -98,5 +98,5 @@
     info.size=size;
     return info;
   }
-  throw new IllegalArgumentException("Structure " + getClass() + " has unknown size (ensure "+ "all fields are public)");
+  throw new IllegalArgumentException("Structure " + getClass() + " has unknown or zero size (ensure "+ "all fields are public)");
 }
