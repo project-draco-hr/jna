@@ -1,8 +1,6 @@
 {
-  Pointer vptr=this.getPointer().getPointer(0);
-  Function func=Function.getFunction(vptr.getPointer(16));
   PointerByReference ppTInfo=new PointerByReference();
-  int hr=func.invokeInt(new Object[]{this.getPointer(),index,ppTInfo});
+  int hr=this.invoke(12,new Object[]{this.getPointer(),index,ppTInfo});
   pTInfo.setPointer(ppTInfo.getValue());
   return new HRESULT(hr);
 }

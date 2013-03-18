@@ -6,6 +6,7 @@
     msWord.setVisible(Variant.VARIANT_TRUE);
     msWord.newDocument();
     msWord.insertText("Hello from JNA!");
+    Thread.currentThread().sleep(10000);
     msWord.closeActiveDocument(Variant.VARIANT_TRUE);
     msWord.quit();
   }
@@ -16,5 +17,8 @@
     }
  else     e.printStackTrace();
     if (msWord != null)     msWord.quit();
+  }
+catch (  Exception e) {
+    e.printStackTrace();
   }
 }

@@ -1,6 +1,4 @@
 {
-  Pointer vptr=this.getPointer().getPointer(0);
-  Function func=Function.getFunction(vptr.getPointer(12));
-  int count=func.invokeInt(new Object[]{this.getPointer()});
+  int count=this.invoke(16,new Object[]{this.getPointer()});
   return new UINT(count);
 }

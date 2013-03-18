@@ -1,5 +1,3 @@
 {
-  Pointer vptr=this.getPointer().getPointer(0);
-  Function func=Function.getFunction(vptr.getPointer(8));
-  return func.invokeInt(new Object[]{this.getPointer()});
+  return this.invoke(8,new Object[]{this.getPointer()});
 }

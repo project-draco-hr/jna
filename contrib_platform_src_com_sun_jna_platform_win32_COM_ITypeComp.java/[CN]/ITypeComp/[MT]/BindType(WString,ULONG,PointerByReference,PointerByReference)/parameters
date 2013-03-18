@@ -1,0 +1,4 @@
+WString szName
+ULONG lHashVal
+PointerByReference ppTInfo
+PointerByReference ppTComp

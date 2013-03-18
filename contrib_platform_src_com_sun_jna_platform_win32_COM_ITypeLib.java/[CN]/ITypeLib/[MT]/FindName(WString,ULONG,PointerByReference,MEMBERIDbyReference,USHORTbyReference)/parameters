@@ -1,5 +1,5 @@
 WString szNameBuf
 ULONG lHashVal
-ITypeInfo.ByReference ppTInfo
+PointerByReference ppTInfo
 MEMBERIDbyReference rgMemId
 USHORTbyReference pcFound
