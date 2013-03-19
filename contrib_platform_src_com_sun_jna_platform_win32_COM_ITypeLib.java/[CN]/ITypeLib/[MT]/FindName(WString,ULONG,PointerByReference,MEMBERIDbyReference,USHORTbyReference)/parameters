@@ -1,5 +1,0 @@
-WString szNameBuf
-ULONG lHashVal
-PointerByReference ppTInfo
-MEMBERIDbyReference rgMemId
-USHORTbyReference pcFound

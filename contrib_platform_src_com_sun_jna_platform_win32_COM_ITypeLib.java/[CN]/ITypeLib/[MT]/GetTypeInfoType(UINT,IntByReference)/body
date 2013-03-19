@@ -1,6 +1,4 @@
 {
-  Pointer vptr=this.getPointer().getPointer(0);
-  Function func=Function.getFunction(vptr.getPointer(20));
-  int hr=func.invokeInt(new Object[]{this.getPointer(),index,pTKind});
+  int hr=this.invoke(6,new Object[]{this.getPointer(),index,pTKind});
   return new HRESULT(hr);
 }

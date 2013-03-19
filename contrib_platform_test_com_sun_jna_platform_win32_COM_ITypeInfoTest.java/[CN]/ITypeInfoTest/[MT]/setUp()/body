@@ -1,6 +1,6 @@
 {
   if (this.comObj == null) {
-    this.comObj=new COMObject("Excel.Application",false);
+    this.comObj=new COMObject("Shell.Application",false);
     this.getTypeInfoCount();
   }
 }

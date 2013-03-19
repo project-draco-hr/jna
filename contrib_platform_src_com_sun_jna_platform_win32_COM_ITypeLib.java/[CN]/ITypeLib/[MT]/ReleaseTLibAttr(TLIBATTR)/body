@@ -1,5 +1,3 @@
 {
-  Pointer vptr=this.getPointer().getPointer(0);
-  Function func=Function.getFunction(vptr.getPointer(48));
-  func.invokeInt(new Object[]{this.getPointer(),pTLibAttr});
+  this.invoke(13,new Object[]{this.getPointer(),pTLibAttr});
 }

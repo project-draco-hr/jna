@@ -1,4 +1,4 @@
 {
-  int count=this.invoke(16,new Object[]{this.getPointer()});
+  int count=this.invoke(4,new Object[]{this.getPointer()});
   return new UINT(count);
 }

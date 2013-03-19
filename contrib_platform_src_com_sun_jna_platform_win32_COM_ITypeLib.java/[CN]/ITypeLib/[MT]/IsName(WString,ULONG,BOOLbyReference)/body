@@ -1,6 +1,4 @@
 {
-  Pointer vptr=this.getPointer().getPointer(0);
-  Function func=Function.getFunction(vptr.getPointer(40));
-  int hr=func.invokeInt(new Object[]{this.getPointer(),szNameBuf,lHashVal,pfName});
+  int hr=this.invoke(11,new Object[]{this.getPointer(),szNameBuf,lHashVal,pfName});
   return new HRESULT(hr);
 }
