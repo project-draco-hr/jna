@@ -1,0 +1,3 @@
+{
+  return invoke(methodName,new VARIANT[]{arg1,arg2});
+}

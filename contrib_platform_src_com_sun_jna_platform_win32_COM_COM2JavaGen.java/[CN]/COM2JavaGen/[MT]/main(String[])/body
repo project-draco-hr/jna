@@ -1,10 +1,9 @@
 {
   try {
     WString szFile=new WString("C:\\Program Files (x86)\\Microsoft Office\\Office12\\MSWORD.OLB");
-    PointerByReference ppTInfo=new PointerByReference();
-    OleAuto.INSTANCE.LoadTypeLib(szFile,ppTInfo);
-    ITypeLib iTypeLib=new ITypeLib(ppTInfo.getValue());
-    UINT typeInfoCount=iTypeLib.GetTypeInfoCount();
+    ITypeLib.ByReference pptlib=new ITypeLib.ByReference();
+    OleAuto.INSTANCE.LoadTypeLib(szFile,pptlib);
+    UINT typeInfoCount=pptlib.GetTypeInfoCount();
     System.out.println("end.");
   }
  catch (  Exception e) {

@@ -1,0 +1,3 @@
+{
+  this.oleMethod(OleAuto.DISPATCH_PROPERTYPUT,null,iDispatch,propertyName,value);
+}

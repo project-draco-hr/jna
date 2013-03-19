@@ -1,4 +1,3 @@
 {
-  HRESULT hr=oleMethod(OleAuto.DISPATCH_METHOD,null,getDocuments().getIDispatch(),"Add");
-  return hr;
+  this.invokeNoReply("Add",getDocuments());
 }

@@ -1,4 +1,0 @@
-{
-  VARIANT.ByReference result=new VARIANT.ByReference();
-  this.oleMethod(OleAuto.DISPATCH_PROPERTYPUT,result,this.iDispatch,"Visible",new VARIANT(bVisible));
-}

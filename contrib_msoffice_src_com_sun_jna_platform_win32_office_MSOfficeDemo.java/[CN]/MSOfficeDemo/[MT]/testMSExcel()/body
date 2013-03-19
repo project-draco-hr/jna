@@ -3,11 +3,11 @@
   try {
     msExcel=new MSExcel();
     System.out.println("MSExcel version: " + msExcel.getVersion());
-    msExcel.setVisible(Variant.VARIANT_TRUE);
+    msExcel.setVisible(true);
     msExcel.openExcelBook(currentWorkingDir + "jnatest.xls",true);
     msExcel.insertValue("A1","Hello from JNA!");
     Thread.currentThread().sleep(10000);
-    msExcel.closeActiveWorkbook(Variant.VARIANT_TRUE);
+    msExcel.closeActiveWorkbook(true);
     msExcel.quit();
   }
  catch (  COMException e) {

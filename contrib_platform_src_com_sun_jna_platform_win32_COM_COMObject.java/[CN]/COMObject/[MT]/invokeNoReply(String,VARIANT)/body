@@ -1,0 +1,4 @@
+{
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  this.oleMethod(OleAuto.DISPATCH_METHOD,result,this.iDispatch,methodName,arg);
+}

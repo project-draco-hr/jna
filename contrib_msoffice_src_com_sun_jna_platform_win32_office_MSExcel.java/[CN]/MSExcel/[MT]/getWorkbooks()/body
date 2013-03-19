@@ -1,6 +1,3 @@
 {
-  VARIANT.ByReference result=new VARIANT.ByReference();
-  HRESULT hr=oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.iDispatch,"WorkBooks");
-  COMUtils.SUCCEEDED(hr);
-  return new Workbooks((IDispatch)result.getValue());
+  return new Workbooks(this.getAutomationProperty("WorkBooks"));
 }

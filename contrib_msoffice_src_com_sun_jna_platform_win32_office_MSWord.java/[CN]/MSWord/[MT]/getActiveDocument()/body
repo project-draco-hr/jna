@@ -1,6 +1,3 @@
 {
-  VARIANT.ByReference result=new VARIANT.ByReference();
-  HRESULT hr=oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.iDispatch,"ActiveDocument");
-  COMUtils.SUCCEEDED(hr);
-  return new ActiveDocument((IDispatch)result.getValue());
+  return new ActiveDocument(this.getAutomationProperty("ActiveDocument"));
 }

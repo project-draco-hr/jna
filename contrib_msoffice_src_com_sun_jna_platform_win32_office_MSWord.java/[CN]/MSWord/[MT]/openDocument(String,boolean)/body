@@ -1,6 +1,3 @@
 {
-  BSTR bstrFilename=OleAuto.INSTANCE.SysAllocString(filename);
-  VARIANT varFilename=new VARIANT(bstrFilename);
-  HRESULT hr=oleMethod(OleAuto.DISPATCH_METHOD,null,getDocuments().getIDispatch(),"Open",varFilename);
-  return hr;
+  this.invokeNoReply("Open",getDocuments(),new VARIANT(filename));
 }

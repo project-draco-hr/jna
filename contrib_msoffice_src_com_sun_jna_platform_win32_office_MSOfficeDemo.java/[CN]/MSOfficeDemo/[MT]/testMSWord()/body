@@ -3,11 +3,11 @@
   try {
     msWord=new MSWord();
     System.out.println("MSWord version: " + msWord.getVersion());
-    msWord.setVisible(Variant.VARIANT_TRUE);
+    msWord.setVisible(true);
     msWord.newDocument();
     msWord.insertText("Hello from JNA!");
     Thread.currentThread().sleep(10000);
-    msWord.closeActiveDocument(Variant.VARIANT_TRUE);
+    msWord.closeActiveDocument(true);
     msWord.quit();
   }
  catch (  COMException e) {
