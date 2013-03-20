@@ -1,5 +1,0 @@
-int index
-BSTR pBstrName
-BSTR pBstrDocString
-DWORDbyReference pdwHelpContext
-BSTR pBstrHelpFile
