@@ -1,5 +1,0 @@
-WString szNameBuf
-long lHashVal
-ITypeInfo[] ppTInfo
-MEMBERID[] rgMemId
-short pcFound

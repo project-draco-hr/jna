@@ -1,0 +1,6 @@
+{
+  MEMBERID[] pMemId=new MEMBERID[0];
+  HRESULT hr=this.typeInfo.GetIDsOfNames(rgszNames,new UINT(cNames),pMemId);
+  COMUtils.checkAutoRC(hr);
+  return pMemId;
+}

@@ -1,0 +1,6 @@
+{
+  IntByReference pImplTypeFlags=new IntByReference();
+  HRESULT hr=this.typeInfo.GetImplTypeFlags(new UINT(index),pImplTypeFlags);
+  COMUtils.checkAutoRC(hr);
+  return pImplTypeFlags.getValue();
+}

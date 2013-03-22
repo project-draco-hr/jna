@@ -1,0 +1,7 @@
+{
+  Object[] documentation=this.getDocumentation(-1);
+  this.name=(String)documentation[0];
+  this.docString=(String)documentation[1];
+  this.helpContext=(Long)documentation[2];
+  this.helpFile=(String)documentation[3];
+}

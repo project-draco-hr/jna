@@ -1,0 +1,6 @@
+{
+  TYPEATTR.ByReference pTypeAttr=new TYPEATTR.ByReference();
+  HRESULT hr=this.typeInfo.GetTypeAttr(pTypeAttr);
+  COMUtils.checkAutoRC(hr);
+  return pTypeAttr;
+}

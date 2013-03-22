@@ -1,10 +1,10 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
   MEMBERID memid=new MEMBERID(0);
-  BSTR pBstrName=new BSTR();
-  BSTR pBstrDocString=new BSTR();
+  BSTRByReference pBstrName=new BSTRByReference();
+  BSTRByReference pBstrDocString=new BSTRByReference();
   DWORDbyReference pdwHelpContext=new DWORDbyReference();
-  BSTR pBstrHelpFile=new BSTR();
+  BSTRByReference pBstrHelpFile=new BSTRByReference();
   HRESULT hr=typeInfo.GetDocumentation(memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
   COMUtils.checkAutoRC(hr);
   assertEquals(0,hr.intValue());

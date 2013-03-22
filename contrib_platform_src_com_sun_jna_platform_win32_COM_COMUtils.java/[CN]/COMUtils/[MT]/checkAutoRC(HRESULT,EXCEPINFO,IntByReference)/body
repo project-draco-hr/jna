@@ -40,6 +40,8 @@ case DISP_E_UNKNOWNINTERFACE:
 throw new COMException("The interface identifier passed in riid is not IID_NULL!");
 case CO_E_OBJNOTCONNECTED:
 throw new COMException("The method is not connected to the Dispatch pointer!");
+case DISP_E_BADINDEX:
+throw new COMException("The given parameter was not 0!");
 default :
 throw new COMException("Unexpected COM error code : " + toHexStr(hr));
 }

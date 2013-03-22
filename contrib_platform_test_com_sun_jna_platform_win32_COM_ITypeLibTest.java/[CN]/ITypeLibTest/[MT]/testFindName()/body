@@ -1,10 +1,10 @@
 {
   ITypeLib shellTypeLib=loadShellTypeLib();
-  WString szNameBuf=new WString("Application");
-  long lHashVal=0;
+  BSTRByReference szNameBuf=new BSTRByReference(new BSTR("Application"));
+  ULONG lHashVal=new ULONG(0);
   MEMBERID[] rgMemIds=new MEMBERID[1000];
   ITypeInfo[] ppTInfo=new ITypeInfo[1000];
-  short pcFound=20;
+  USHORTbyReference pcFound=new USHORTbyReference((short)20);
   HRESULT hr=shellTypeLib.FindName(szNameBuf,lHashVal,ppTInfo,rgMemIds,pcFound);
   COMUtils.checkTypeLibRC(hr);
   System.out.println("szNameBuf: " + szNameBuf);

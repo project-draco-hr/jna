@@ -1,0 +1,6 @@
+{
+  VARDESC.ByReference pVarDesc=new VARDESC.ByReference();
+  HRESULT hr=this.typeInfo.GetVarDesc(new UINT(index),pVarDesc);
+  COMUtils.checkAutoRC(hr);
+  return pVarDesc;
+}

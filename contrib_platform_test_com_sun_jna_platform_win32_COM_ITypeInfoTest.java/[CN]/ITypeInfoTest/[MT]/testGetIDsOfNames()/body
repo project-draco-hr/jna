@@ -1,6 +1,6 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
-  WString[] rgszNames={new WString("Help")};
+  LPOLESTR[] rgszNames={new LPOLESTR("Help")};
   UINT cNames=new UINT(1);
   MEMBERID[] pMemId=new MEMBERID[1];
   HRESULT hr=typeInfo.GetIDsOfNames(rgszNames,cNames,pMemId);

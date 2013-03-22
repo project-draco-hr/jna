@@ -1,0 +1,6 @@
+{
+  FUNCDESC.ByReference pFuncDesc=new FUNCDESC.ByReference();
+  HRESULT hr=this.typeInfo.GetFuncDesc(new UINT(index),pFuncDesc);
+  COMUtils.checkAutoRC(hr);
+  return pFuncDesc;
+}

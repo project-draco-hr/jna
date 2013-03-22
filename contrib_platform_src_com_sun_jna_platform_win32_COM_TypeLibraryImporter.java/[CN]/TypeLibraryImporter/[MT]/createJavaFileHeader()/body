@@ -1,0 +1,5 @@
+{
+  this.out.println("package myPackage." + this.typeLibUtil.getName() + ";"+ CR);
+  this.out.println("import com.sun.jna.platform.win32.*;");
+  this.out.println("import com.sun.jna.platform.win32.COM.*;" + CR);
+}
