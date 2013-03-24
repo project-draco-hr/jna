@@ -1,4 +1,7 @@
 {
+  if (memory == PLACEHOLDER_MEMORY) {
+    return;
+  }
   ensureAllocated();
   if (this instanceof ByValue) {
     getTypeInfo();

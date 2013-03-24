@@ -1,0 +1,3 @@
+{
+  Structure.newInstance(cls,PLACEHOLDER_MEMORY);
+}

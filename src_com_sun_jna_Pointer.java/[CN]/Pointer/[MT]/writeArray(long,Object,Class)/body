@@ -47,11 +47,23 @@
       write(offset,buf,0,buf.length);
     }
  else {
-      for (int i=0; i < sbuf.length; i++) {
+      Structure first=sbuf[0];
+      if (first == null) {
+        first=Structure.newInstance(cls,share(offset));
+        sbuf[0]=first;
+      }
+ else {
+        first.useMemory(this,(int)offset);
+      }
+      first.write();
+      Structure[] tmp=first.toArray(sbuf.length);
+      for (int i=1; i < sbuf.length; i++) {
         if (sbuf[i] == null) {
-          sbuf[i]=Structure.newInstance(cls);
+          sbuf[i]=tmp[i];
         }
-        sbuf[i].useMemory(this,(int)(offset + i * sbuf[i].size()));
+ else {
+          sbuf[i].useMemory(this,(int)(offset + i * sbuf[i].size()));
+        }
         sbuf[i].write();
       }
     }

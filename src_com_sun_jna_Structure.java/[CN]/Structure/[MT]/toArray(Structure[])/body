@@ -10,9 +10,8 @@
   array[0]=this;
   int size=size();
   for (int i=1; i < array.length; i++) {
-    array[i]=Structure.newInstance(getClass());
-    array[i].useMemory(memory.share(i * size,size));
-    array[i].read();
+    array[i]=newInstance(getClass(),memory.share(i * size,size));
+    array[i].conditionalAutoRead();
   }
   if (!(this instanceof ByValue)) {
     this.array=array;
