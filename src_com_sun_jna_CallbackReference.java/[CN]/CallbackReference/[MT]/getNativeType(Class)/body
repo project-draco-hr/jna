@@ -1,6 +1,6 @@
 {
   if (Structure.class.isAssignableFrom(cls)) {
-    Structure.newInstance(cls);
+    Structure.validate(cls);
     if (!Structure.ByValue.class.isAssignableFrom(cls))     return Pointer.class;
   }
  else   if (NativeMapped.class.isAssignableFrom(cls)) {

@@ -1,7 +1,12 @@
 {
+  final int allocated[]={0};
+  PublicTestStructure.allocations=0;
   PublicTestStructure s=new PublicTestStructure();
   PublicTestStructure[] array=(PublicTestStructure[])s.toArray(1);
   assertEquals("Array should consist of a single element",1,array.length);
   assertEquals("First element should be original",s,array[0]);
-  assertEquals("Structure memory should be expanded",2,s.toArray(2).length);
+  array=(PublicTestStructure[])s.toArray(2);
+  assertEquals("Structure memory should be expanded",2,array.length);
+  assertEquals("No memory should be allocated for new element",1,PublicTestStructure.allocations);
+  assertEquals("Structure.read called on New element",0,array[1].x);
 }

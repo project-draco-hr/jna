@@ -17,7 +17,7 @@
       alignment=Pointer.SIZE;
     }
  else {
-      if (value == null)       value=newInstance(type);
+      if (value == null)       value=newInstance(type,PLACEHOLDER_MEMORY);
       alignment=((Structure)value).getStructAlignment();
     }
   }

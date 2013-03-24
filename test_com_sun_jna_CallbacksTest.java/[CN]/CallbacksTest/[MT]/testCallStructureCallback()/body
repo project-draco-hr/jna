@@ -12,10 +12,14 @@
     }
   }
 ;
+  SmallTestStructure.allocations=0;
   SmallTestStructure value=lib.callStructureCallback(cb,s);
   assertTrue("Callback not called",called[0]);
   assertEquals("Wrong argument passed to callback",s.getPointer(),cbarg[0]);
   assertEquals("Structure argument not synched on callback return",MAGIC,s.value,0d);
   assertEquals("Wrong structure return",s.getPointer(),value.getPointer());
   assertEquals("Structure return not synched",MAGIC,value.value,0d);
+  if (getClass() == CallbacksTest.class) {
+    assertEquals("No structure memory should be allocated",0,SmallTestStructure.allocations);
+  }
 }

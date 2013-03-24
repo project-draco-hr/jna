@@ -98,7 +98,7 @@
     if (result == null) {
       throw new IllegalStateException("Need an initialized array");
     }
-    getArrayValue(offset,result,type.getComponentType());
+    readArray(offset,result,type.getComponentType());
   }
  else {
     throw new IllegalArgumentException("Reading \"" + type + "\" from memory is not supported");

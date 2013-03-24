@@ -1,0 +1,26 @@
+{
+  try {
+    Constructor ctor=type.getConstructor(new Class[]{Pointer.class});
+    return (Structure)ctor.newInstance(new Object[]{init});
+  }
+ catch (  NoSuchMethodException e) {
+  }
+catch (  SecurityException e) {
+  }
+catch (  InstantiationException e) {
+    String msg="Can't instantiate " + type + " ("+ e+ ")";
+    throw new IllegalArgumentException(msg);
+  }
+catch (  IllegalAccessException e) {
+    String msg="Instantiation of " + type + "(Pointer) not allowed, is it public? ("+ e+ ")";
+    throw new IllegalArgumentException(msg);
+  }
+catch (  InvocationTargetException e) {
+    String msg="Exception thrown while instantiating an instance of " + type + " ("+ e+ ")";
+    e.printStackTrace();
+    throw new IllegalArgumentException(msg);
+  }
+  Structure s=newInstance(type);
+  s.useMemory(init);
+  return s;
+}

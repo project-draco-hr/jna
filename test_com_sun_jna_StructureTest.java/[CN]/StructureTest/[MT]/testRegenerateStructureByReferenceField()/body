@@ -1,9 +1,11 @@
 {
   StructureWithPointers s=new StructureWithPointers();
   PublicTestStructure.ByReference inner=new PublicTestStructure.ByReference();
+  PublicTestStructure.allocations=0;
   s.s1=inner;
   s.write();
   s.s1=null;
   s.read();
   assertEquals("Inner structure not regenerated on read",inner,s.s1);
+  assertEquals("Inner structure should not allocate memory",0,PublicTestStructure.allocations);
 }

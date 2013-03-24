@@ -2,7 +2,7 @@
   Object value=null;
   if (Structure.class.isAssignableFrom(type) && !(ByReference.class.isAssignableFrom(type))) {
     try {
-      value=newInstance(type);
+      value=newInstance(type,PLACEHOLDER_MEMORY);
       setFieldValue(field,value);
     }
  catch (    IllegalArgumentException e) {
