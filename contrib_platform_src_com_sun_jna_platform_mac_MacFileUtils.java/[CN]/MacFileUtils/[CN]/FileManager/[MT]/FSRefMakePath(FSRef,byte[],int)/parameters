@@ -1,0 +1,3 @@
+FSRef fsref
+byte[] path
+int maxPathSize

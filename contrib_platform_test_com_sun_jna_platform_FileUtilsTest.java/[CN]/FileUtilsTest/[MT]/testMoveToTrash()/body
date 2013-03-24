@@ -1,8 +1,8 @@
 {
   FileUtils utils=FileUtils.getInstance();
   if (!utils.hasTrash())   return;
-  File home=new File(System.getProperty("user.home"));
-  File file=File.createTempFile(getName(),".tmp",home);
+  File tmpdir=new File(System.getProperty("java.io.tmpdir"));
+  File file=File.createTempFile(getName(),".tmp",tmpdir);
   try {
     assertTrue("File should exist",file.exists());
     try {

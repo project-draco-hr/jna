@@ -4,11 +4,18 @@
   if (!trash.exists()) {
     throw new IOException("The Trash was not found in its expected location (" + trash + ")");
   }
-  List<File> failed=new ArrayList<File>();
+  List<String> failed=new ArrayList<String>();
   for (int i=0; i < files.length; i++) {
     File src=files[i];
-    if (FileManager.INSTANCE.FSPathMoveObjectToTrashSync(src.getAbsolutePath(),null,0) != 0) {
-      failed.add(src);
+    FileManager.FSRef fsref=new FileManager.FSRef();
+    int status=FileManager.INSTANCE.FSPathMakeRefWithOptions(src.getAbsolutePath(),FileManager.kFSPathMakeRefDoNotFollowLeafSymlink,fsref,null);
+    if (status != 0) {
+      failed.add(src + " (FSRef: " + status+ ")");
+      continue;
+    }
+    status=FileManager.INSTANCE.FSMoveObjectToTrashSync(fsref,null,0);
+    if (status != 0) {
+      failed.add(src + " (" + status+ ")");
     }
   }
   if (failed.size() > 0) {
