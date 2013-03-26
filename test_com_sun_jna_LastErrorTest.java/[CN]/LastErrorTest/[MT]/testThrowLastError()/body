@@ -1,5 +1,4 @@
 {
-  Map options=new HashMap();
   TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,OPTIONS);
   final int ERROR=-1;
   lib.noThrowLastError(ERROR);
