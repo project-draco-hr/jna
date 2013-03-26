@@ -6,16 +6,15 @@
     this.createJavaDocHeader();
     for (int i=0; i < typeLibUtil.getTypeInfoCount(); ++i) {
       TYPEKIND typekind=typeLibUtil.getTypeInfoType(i);
-      ITypeInfoUtil typeInfoUtil=typeLibUtil.getTypeInfoUtil(i);
-      Object[] typeLibDoc=this.typeLibUtil.getDocumentation(i);
       if (typekind.value == TYPEKIND.TKIND_ENUM) {
-        this.createCOMEnum(typeLibDoc,typeInfoUtil);
+        this.createCOMEnum(i);
       }
  else       if (typekind.value == TYPEKIND.TKIND_RECORD) {
       }
  else       if (typekind.value == TYPEKIND.TKIND_MODULE) {
       }
  else       if (typekind.value == TYPEKIND.TKIND_INTERFACE) {
+        this.createCOMInterface(i);
       }
  else       if (typekind.value == TYPEKIND.TKIND_DISPATCH) {
       }

@@ -1,4 +1,6 @@
 {
+  ITypeInfoUtil typeInfoUtil=typeLibUtil.getTypeInfoUtil(index);
+  Object[] typeLibDoc=this.typeLibUtil.getDocumentation(index);
   String enumName=(String)typeLibDoc[0];
   System.out.println(enumName);
   MEMBERID memberID;

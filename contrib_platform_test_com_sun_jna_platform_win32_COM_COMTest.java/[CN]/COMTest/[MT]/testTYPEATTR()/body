@@ -1,0 +1,20 @@
+{
+  TYPEATTR typeAttr=new TYPEATTR();
+  typeAttr.guid=new GUID.ByReference(GUID.fromString("{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}"));
+  typeAttr.lcid=Kernel32.INSTANCE.GetSystemDefaultLCID();
+  typeAttr.dwReserved=new DWORD(1);
+  typeAttr.memidConstructor=new MEMBERID(1);
+  typeAttr.memidDestructor=new MEMBERID(1);
+  typeAttr.cbSizeInstance=new ULONG(1);
+  typeAttr.typekind=new TYPEKIND.ByReference(10);
+  typeAttr.cFuncs=new WORD(100);
+  typeAttr.cVars=new WORD(100);
+  typeAttr.cImplTypes=new WORD(12345);
+  typeAttr.cbSizeVft=new WORD(1234);
+  typeAttr.cbAlignment=new WORD(123);
+  typeAttr.wMajorVerNum=new WORD(111);
+  typeAttr.wMinorVerNum=new WORD(101);
+  typeAttr.tdescAlias=new TYPEDESC.ByReference();
+  typeAttr.idldescType=new IDLDESC.ByReference();
+  System.out.println(typeAttr.toString());
+}
