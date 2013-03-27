@@ -1,0 +1,13 @@
+{
+  this.templateBuffer=new StringBuffer();
+  BufferedReader reader=null;
+  try {
+    InputStream is=this.getClass().getClassLoader().getResourceAsStream(filename);
+    reader=new BufferedReader(new InputStreamReader(is));
+    String line=null;
+    while ((line=reader.readLine()) != null)     this.templateBuffer.append(line + "\n");
+  }
+  finally {
+    if (reader != null)     reader.close();
+  }
+}

@@ -1,8 +1,2 @@
 {
-  ITypeInfo typeInfo=getTypeInfo();
-  ITypeComp.ByReference pTComp=new ITypeComp.ByReference();
-  HRESULT hr=typeInfo.GetTypeComp(pTComp);
-  COMUtils.checkTypeLibRC(hr);
-  assertEquals(0,hr.intValue());
-  System.out.println("GetTypeComp: " + pTComp.toString());
 }

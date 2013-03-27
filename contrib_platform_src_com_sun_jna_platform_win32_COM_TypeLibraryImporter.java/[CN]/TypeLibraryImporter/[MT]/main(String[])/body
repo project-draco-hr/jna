@@ -1,3 +1,0 @@
-{
-  new TypeLibraryImporter().startCOM2Java();
-}

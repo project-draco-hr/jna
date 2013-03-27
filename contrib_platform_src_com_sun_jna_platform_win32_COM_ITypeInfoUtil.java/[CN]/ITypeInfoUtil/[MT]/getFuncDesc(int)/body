@@ -1,6 +1,6 @@
 {
-  FUNCDESC.ByReference pFuncDesc=new FUNCDESC.ByReference();
-  HRESULT hr=this.typeInfo.GetFuncDesc(new UINT(index),pFuncDesc);
+  PointerByReference ppFuncDesc=new PointerByReference();
+  HRESULT hr=this.typeInfo.GetFuncDesc(new UINT(index),ppFuncDesc);
   COMUtils.checkAutoRC(hr);
-  return pFuncDesc;
+  return new FUNCDESC(ppFuncDesc.getValue());
 }

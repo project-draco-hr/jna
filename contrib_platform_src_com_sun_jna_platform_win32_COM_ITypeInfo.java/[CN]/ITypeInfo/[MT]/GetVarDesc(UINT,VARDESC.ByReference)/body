@@ -1,4 +1,0 @@
-{
-  int hr=this.invoke(6,new Object[]{this.getPointer(),index,pVarDesc});
-  return new HRESULT(hr);
-}

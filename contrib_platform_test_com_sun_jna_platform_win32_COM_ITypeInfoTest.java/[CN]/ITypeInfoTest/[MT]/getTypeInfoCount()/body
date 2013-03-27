@@ -1,6 +1,3 @@
 {
-  IntByReference pctinfo=new IntByReference();
-  HRESULT hr=comObj.getIDispatch().GetTypeInfoCount(pctinfo);
-  if (pctinfo.getValue() == 0)   throw new RuntimeException("No type information found!");
-  return pctinfo.getValue();
+  return 0;
 }

@@ -1,0 +1,10 @@
+{
+  Pattern pattern=Pattern.compile("\\$\\{" + name + "\\}");
+  Matcher matcher=pattern.matcher(this.classBuffer);
+  String replacement=value;
+  String result="";
+  while (matcher.find()) {
+    result=matcher.replaceAll(replacement);
+  }
+  this.classBuffer=new StringBuffer(result);
+}

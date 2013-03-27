@@ -1,0 +1,25 @@
+{
+  super(index,out,typeLibUtil);
+  Object[] typeLibDoc=this.typeLibUtil.getDocumentation(index);
+  String enumName=(String)typeLibDoc[0];
+  String helpString=(String)typeLibDoc[1];
+  this.logInfo("Type of kind 'enum' found: " + enumName);
+  this.createClassName(enumName);
+  ITypeInfoUtil typeInfoUtil=typeLibUtil.getTypeInfoUtil(index);
+  TYPEATTR typeAttr=typeInfoUtil.getTypeAttr();
+  this.createJavaDocHeader(typeAttr.guid.toGuidString(),helpString);
+  int cVars=typeAttr.cVars.intValue();
+  for (int i=0; i < cVars; i++) {
+    VARDESC varDesc=typeInfoUtil.getVarDesc(i);
+    VARIANT constValue=varDesc.union.lpvarValue;
+    int varType=constValue.getVarType().intValue();
+    Object value=constValue.getValue();
+    MEMBERID memberID=varDesc.memid;
+    Object[] typeInfoDoc2=typeInfoUtil.getDocumentation(memberID);
+    variables+=TABTAB + "//" + typeInfoDoc2[1]+ CR;
+    variables+=TABTAB + "public static final int " + typeInfoDoc2[0]+ " = "+ ";";
+    if (i < cVars - 1)     variables+=CR;
+  }
+  this.replaceVariable("variables",variables);
+  this.out.print(this.classBuffer);
+}

@@ -1,0 +1,3 @@
+{
+  new TlbImp().startCOM2Java();
+}

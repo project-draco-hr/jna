@@ -1,6 +1,0 @@
-{
-  PointerByReference ppTLib=new PointerByReference();
-  int hr=this.invoke(18,new Object[]{this.getPointer(),ppTLib,pIndex});
-  pTLib.setPointer(ppTLib.getPointer());
-  return new HRESULT(hr);
-}

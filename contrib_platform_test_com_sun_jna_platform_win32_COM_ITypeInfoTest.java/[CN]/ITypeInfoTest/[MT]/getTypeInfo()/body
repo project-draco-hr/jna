@@ -1,5 +1,3 @@
 {
-  PointerByReference ppTInfo=new PointerByReference();
-  comObj.getIDispatch().GetTypeInfo(null,lcid,ppTInfo);
-  return new ITypeInfo(ppTInfo.getValue());
+  return null;
 }

@@ -1,6 +1,6 @@
 {
-  VARDESC.ByReference pVarDesc=new VARDESC.ByReference();
-  HRESULT hr=this.typeInfo.GetVarDesc(new UINT(index),pVarDesc);
+  PointerByReference ppVarDesc=new PointerByReference();
+  HRESULT hr=this.typeInfo.GetVarDesc(new UINT(index),ppVarDesc);
   COMUtils.checkAutoRC(hr);
-  return pVarDesc;
+  return new VARDESC(ppVarDesc.getValue());
 }

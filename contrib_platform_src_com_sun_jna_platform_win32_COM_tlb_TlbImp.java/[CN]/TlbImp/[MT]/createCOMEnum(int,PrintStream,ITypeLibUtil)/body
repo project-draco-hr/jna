@@ -1,0 +1,3 @@
+{
+  new TlbEnumImp(index,out,typeLibUtil);
+}
