@@ -1,3 +1,0 @@
-{
-  this.replaceVariable(variable.getName(),variable.getValue());
-}

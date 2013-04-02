@@ -1,0 +1,4 @@
+String name
+String docString
+int helpContext
+String helpFile

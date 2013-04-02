@@ -1,3 +1,4 @@
 {
-  new TlbEnumImp(index,out,typeLibUtil);
+  TlbEnum tlbEnum=new TlbEnum(index,typeLibUtil);
+  return tlbEnum.getClassBuffer();
 }

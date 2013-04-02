@@ -6,7 +6,7 @@
   typeAttr.dwReserved=new DWORD(1);
   typeAttr.memidConstructor=new MEMBERID(2);
   typeAttr.memidDestructor=new MEMBERID(3);
-  typeAttr.lpstrSchema=new LPOLESTR(new WString("Hello World"));
+  typeAttr.lpstrSchema=new LPOLESTR("Hello World");
   typeAttr.cbSizeInstance=new ULONG(4);
   typeAttr.typekind=new TYPEKIND(5);
   typeAttr.cFuncs=new WORD(6);

@@ -1,7 +1,9 @@
 {
-  BSTR[] rgBstrNames=new BSTR[0];
   UINTbyReference pcNames=new UINTbyReference();
-  HRESULT hr=this.typeInfo.GetNames(memid,rgBstrNames,new UINT(maxNames),pcNames);
+  HRESULT hr=this.typeInfo.GetNames(memid,null,new UINT(maxNames),pcNames);
   COMUtils.checkAutoRC(hr);
-  return new Object[]{rgBstrNames,pcNames};
+  BSTR[] rgBstrNames=new BSTR[pcNames.getValue().intValue()];
+  hr=this.typeInfo.GetNames(memid,rgBstrNames,new UINT(maxNames),pcNames);
+  COMUtils.checkAutoRC(hr);
+  return rgBstrNames;
 }

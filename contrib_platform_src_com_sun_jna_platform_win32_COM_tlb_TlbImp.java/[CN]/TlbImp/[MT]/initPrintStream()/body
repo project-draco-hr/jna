@@ -1,6 +1,6 @@
 {
   String tmp=System.getProperty("java.io.tmpdir");
-  File javaDir=new File(tmp + "_jnaCOM_" + System.currentTimeMillis()+ "\\"+ this.typeLibUtil.getName().toLowerCase()+ "\\");
+  File javaDir=new File(tmp + "_jnaCOM_" + System.currentTimeMillis()+ "\\myPackage\\"+ this.typeLibUtil.getName().toLowerCase()+ "\\");
   if (javaDir.exists())   javaDir.delete();
   File javaFile=new File(javaDir,this.typeLibUtil.getName() + ".java");
   if (javaDir.mkdirs()) {

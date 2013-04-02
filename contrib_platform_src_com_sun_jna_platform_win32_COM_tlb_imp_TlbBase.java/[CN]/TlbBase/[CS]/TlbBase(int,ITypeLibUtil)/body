@@ -1,0 +1,12 @@
+{
+  this.index=index;
+  this.typeLibUtil=typeLibUtil;
+  String filename=this.getClassTemplate();
+  try {
+    this.readTemplateFile(filename);
+    this.classBuffer=templateBuffer;
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

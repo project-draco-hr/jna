@@ -1,0 +1,6 @@
+{
+  this.nameBuf=nameBuf;
+  this.pTInfo=pTInfo;
+  this.rgMemId=rgMemId;
+  this.pcFound=pcFound;
+}

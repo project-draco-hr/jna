@@ -1,0 +1,5 @@
+{
+  this.pVarResult=pVarResult;
+  this.pExcepInfo=pExcepInfo;
+  this.puArgErr=puArgErr;
+}

@@ -1,8 +1,8 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
   MEMBERID memid=new MEMBERID(0);
-  BSTR pBstrDllName=new BSTR();
-  BSTR pBstrName=new BSTR();
+  BSTRByReference pBstrDllName=new BSTRByReference();
+  BSTRByReference pBstrName=new BSTRByReference();
   WORDbyReference pwOrdinal=new WORDbyReference();
   HRESULT hr=typeInfo.GetDllEntry(memid,INVOKEKIND.INVOKE_FUNC,pBstrDllName,pBstrName,pwOrdinal);
   COMUtils.checkTypeLibRC(hr);

@@ -1,0 +1,4 @@
+PVOID pvInstance
+MEMBERID memid
+WORD wFlags
+DISPPARAMS.ByReference pDispParams

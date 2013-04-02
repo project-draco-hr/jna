@@ -1,0 +1,8 @@
+{
+  LPOLESTR szNameBuf=new LPOLESTR(nameBuf);
+  ULONG lHashVal=new ULONG(hashVal);
+  BOOLbyReference pfName=new BOOLbyReference();
+  HRESULT hr=this.typelib.IsName(szNameBuf,lHashVal,pfName);
+  COMUtils.checkTypeLibRC(hr);
+  return new IsName(szNameBuf.getValue(),pfName.getValue().booleanValue());
+}
