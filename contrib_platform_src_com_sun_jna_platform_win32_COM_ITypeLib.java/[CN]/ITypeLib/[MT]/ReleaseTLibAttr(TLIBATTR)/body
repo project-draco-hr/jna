@@ -1,3 +1,3 @@
 {
-  this.invoke(12,new Object[]{this.getPointer(),pTLibAttr});
+  this._invoke(12,new Object[]{this.getPointer(),pTLibAttr});
 }

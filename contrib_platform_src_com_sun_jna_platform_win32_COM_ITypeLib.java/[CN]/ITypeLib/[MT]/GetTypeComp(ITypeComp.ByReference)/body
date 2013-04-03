@@ -1,6 +1,6 @@
 {
   PointerByReference ppTComp=new PointerByReference();
-  int hr=this.invoke(8,new Object[]{this.getPointer(),ppTComp});
+  int hr=this._invoke(8,new Object[]{this.getPointer(),ppTComp});
   pTComp.setPointer(ppTComp.getPointer());
   return new HRESULT(hr);
 }

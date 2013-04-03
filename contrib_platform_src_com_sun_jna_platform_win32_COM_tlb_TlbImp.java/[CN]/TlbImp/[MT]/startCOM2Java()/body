@@ -1,26 +1,32 @@
 {
   try {
-    this.typeLibUtil=new ITypeLibUtil("{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}",1,0);
+    this.typeLibUtil=new ITypeLibUtil(TYPELIB_ID_SHELL,1,0);
     this.initPrintStream();
-    StringBuffer contentBuffer=new StringBuffer();
     for (int i=0; i < typeLibUtil.getTypeInfoCount(); ++i) {
       TYPEKIND typekind=typeLibUtil.getTypeInfoType(i);
       if (typekind.value == TYPEKIND.TKIND_ENUM) {
-        StringBuffer enumBuffer=this.createCOMEnum(i,out,typeLibUtil);
-        contentBuffer.append(enumBuffer + CR);
+        StringBuffer buffer=this.createCOMEnum(i,typeLibUtil);
+        contentBuffer.append(buffer + CR);
       }
  else       if (typekind.value == TYPEKIND.TKIND_RECORD) {
+        System.out.println("TKIND_RECORD");
       }
  else       if (typekind.value == TYPEKIND.TKIND_MODULE) {
+        System.out.println("TKIND_MODULE");
       }
  else       if (typekind.value == TYPEKIND.TKIND_INTERFACE) {
-        this.createCOMInterface(i);
+        StringBuffer buffer=this.createCOMInterface(i,typeLibUtil);
+        contentBuffer.append(buffer + CR);
       }
  else       if (typekind.value == TYPEKIND.TKIND_DISPATCH) {
+        StringBuffer buffer=this.createCOMDispatch(i,typeLibUtil);
+        contentBuffer.append(buffer + CR);
       }
  else       if (typekind.value == TYPEKIND.TKIND_COCLASS) {
+        System.out.println("TKIND_COCLASS");
       }
  else       if (typekind.value == TYPEKIND.TKIND_ALIAS) {
+        System.out.println("TKIND_ALIAS");
       }
  else       if (typekind.value == TYPEKIND.TKIND_UNION) {
       }

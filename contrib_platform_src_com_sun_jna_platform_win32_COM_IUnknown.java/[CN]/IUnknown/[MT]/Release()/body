@@ -1,3 +1,3 @@
 {
-  return this.invoke(2,new Object[]{this.getPointer()});
+  return this._invoke(2,new Object[]{this.getPointer()});
 }

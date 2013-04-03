@@ -1,0 +1,33 @@
+{
+  super(index,typeLibUtil);
+  TypeLibDoc typeLibDoc=this.typeLibUtil.getDocumentation(index);
+  String dispName=typeLibDoc.getName();
+  String docString=typeLibDoc.getDocString();
+  this.logInfo("Type of kind 'Dispatch' found: " + dispName);
+  this.createClassName(dispName);
+  ITypeInfoUtil typeInfoUtil=typeLibUtil.getTypeInfoUtil(index);
+  TYPEATTR typeAttr=typeInfoUtil.getTypeAttr();
+  this.createJavaDocHeader(typeAttr.guid.toGuidString(),docString);
+  int cFuncs=typeAttr.cFuncs.intValue();
+  for (int i=0; i < cFuncs; i++) {
+    FUNCDESC funcDesc=typeInfoUtil.getFuncDesc(i);
+    MEMBERID memberID=funcDesc.memid;
+    TypeInfoDoc typeInfoDoc2=typeInfoUtil.getDocumentation(memberID);
+    String methodName=typeInfoDoc2.getName();
+    if (!isReservedMethod(methodName)) {
+      if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_FUNC)) {
+        TlbMethod tlbMethod=new TlbMethod(index,typeLibUtil,funcDesc,typeInfoUtil);
+        this.content+=tlbMethod.getClassBuffer();
+      }
+ else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYGET)) {
+      }
+ else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUT)) {
+      }
+ else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUTREF)) {
+      }
+      if (i < cFuncs - 1)       this.content+=CR;
+    }
+    typeInfoUtil.ReleaseFuncDesc(funcDesc);
+  }
+  this.createContent(this.content);
+}

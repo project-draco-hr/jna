@@ -18,6 +18,7 @@
     this.content+=TABTAB + "//" + typeInfoDoc2.getName()+ CR;
     this.content+=TABTAB + "public static final int " + typeInfoDoc2.getName()+ " = "+ value.toString()+ ";";
     if (i < cVars - 1)     this.content+=CR;
+    typeInfoUtil.ReleaseVarDesc(varDesc);
   }
   this.createContent(this.content);
 }

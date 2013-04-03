@@ -1,4 +1,4 @@
 {
-  int hr=this.invoke(9,new Object[]{this.getPointer(),index,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile});
+  int hr=this._invoke(9,new Object[]{this.getPointer(),index,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile});
   return new HRESULT(hr);
 }

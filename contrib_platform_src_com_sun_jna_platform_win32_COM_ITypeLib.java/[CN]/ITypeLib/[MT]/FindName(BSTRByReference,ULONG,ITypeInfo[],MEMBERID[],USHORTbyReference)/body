@@ -1,4 +1,4 @@
 {
-  int hr=this.invoke(11,new Object[]{this.getPointer(),szNameBuf,lHashVal,ppTInfo,rgMemId,pcFound});
+  int hr=this._invoke(11,new Object[]{this.getPointer(),szNameBuf,lHashVal,ppTInfo,rgMemId,pcFound});
   return new HRESULT(hr);
 }

@@ -1,4 +1,4 @@
 {
-  int hr=this.invoke(3,new Object[]{this.getPointer(),ppTypeAttr});
+  int hr=this._invoke(3,new Object[]{this.getPointer(),ppTypeAttr});
   return new HRESULT(hr);
 }

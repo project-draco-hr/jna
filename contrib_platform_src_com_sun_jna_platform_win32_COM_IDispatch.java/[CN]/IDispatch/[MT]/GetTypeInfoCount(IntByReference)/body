@@ -1,4 +1,4 @@
 {
-  int hr=this.invoke(3,new Object[]{pctinfo});
+  int hr=this._invoke(3,new Object[]{pctinfo});
   return new HRESULT(hr);
 }
