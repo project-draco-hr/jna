@@ -14,17 +14,20 @@
     MEMBERID memberID=funcDesc.memid;
     TypeInfoDoc typeInfoDoc2=typeInfoUtil.getDocumentation(memberID);
     String methodName=typeInfoDoc2.getName();
+    TlbAbstractMethod method=null;
     if (!isReservedMethod(methodName)) {
       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_FUNC)) {
-        TlbMethod tlbMethod=new TlbMethod(index,typeLibUtil,funcDesc,typeInfoUtil);
-        this.content+=tlbMethod.getClassBuffer();
+        method=new TlbFunction(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
  else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYGET)) {
+        method=new TlbPropertyGet(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
  else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUT)) {
+        method=new TlbPropertyPut(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
  else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUTREF)) {
       }
+      this.content+=method.getClassBuffer();
       if (i < cFuncs - 1)       this.content+=CR;
     }
     typeInfoUtil.ReleaseFuncDesc(funcDesc);
