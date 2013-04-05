@@ -1,0 +1,7 @@
+{
+  if (lib.delete()) {
+    return true;
+  }
+  markTemporaryFile(lib);
+  return false;
+}

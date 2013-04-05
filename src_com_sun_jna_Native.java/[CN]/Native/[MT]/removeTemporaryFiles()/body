@@ -2,7 +2,7 @@
   File dir=getTempDir();
   FilenameFilter filter=new FilenameFilter(){
     public boolean accept(    File dir,    String name){
-      return name.endsWith(".x") && name.indexOf("jna") != -1;
+      return name.endsWith(".x") && name.startsWith(JNA_TMPLIB_PREFIX);
     }
   }
 ;

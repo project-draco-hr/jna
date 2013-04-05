@@ -1,0 +1,3 @@
+{
+  Native.loadLibrary("embedded-testlib",TestLibrary.class);
+}
