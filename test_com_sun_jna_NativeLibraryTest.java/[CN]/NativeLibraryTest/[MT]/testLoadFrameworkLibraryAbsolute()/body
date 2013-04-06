@@ -1,0 +1,11 @@
+{
+  if (Platform.isMac()) {
+    try {
+      NativeLibrary lib=NativeLibrary.getInstance("/System/Library/Frameworks/CoreServices");
+      assertNotNull("CoreServices not found",lib);
+    }
+ catch (    UnsatisfiedLinkError e) {
+      fail("Should try FRAMEWORK.framework/FRAMEWORK if absolute and exists");
+    }
+  }
+}

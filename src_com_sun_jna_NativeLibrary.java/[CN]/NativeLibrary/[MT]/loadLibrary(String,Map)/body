@@ -71,6 +71,18 @@ synchronized (customPaths) {
       }
     }
     if (handle == 0) {
+      try {
+        File embedded=Native.extractFromResourcePath(libraryName);
+        handle=Native.open(embedded.getAbsolutePath());
+        if (Native.isUnpacked(embedded)) {
+          Native.deleteLibrary(embedded);
+        }
+      }
+ catch (      IOException e2) {
+        e=new UnsatisfiedLinkError(e2.getMessage());
+      }
+    }
+    if (handle == 0) {
       throw new UnsatisfiedLinkError("Unable to load library '" + libraryName + "': "+ e.getMessage());
     }
   }

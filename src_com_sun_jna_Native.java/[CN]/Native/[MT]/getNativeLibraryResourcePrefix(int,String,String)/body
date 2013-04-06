@@ -53,5 +53,5 @@ osPrefix=osPrefix.substring(0,space);
 osPrefix+="-" + arch;
 break;
 }
-return "/com/sun/jna/" + osPrefix;
+return osPrefix;
 }
