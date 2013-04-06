@@ -1,0 +1,3 @@
+{
+  return getNativeLibraryResourcePrefix(Platform.getOSType(),System.getProperty("os.arch"),System.getProperty("os.name"));
+}

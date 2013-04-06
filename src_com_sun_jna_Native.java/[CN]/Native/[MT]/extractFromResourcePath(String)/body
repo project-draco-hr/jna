@@ -1,0 +1,3 @@
+{
+  return extractFromResourcePath(name,getNativeLibraryResourcePrefix(),Thread.currentThread().getContextClassLoader());
+}
