@@ -11,10 +11,10 @@ class TestCallback implements TestLibrary.VoidCallback, com.sun.jna.win32.DLLCal
   TestCallback cb=new TestCallback();
   lib.callVoidCallback(cb);
   assertTrue("Callback not called",called[0]);
-  Map refs=new WeakHashMap(CallbackReference.callbackMap);
+  Map refs=new WeakHashMap(callbackCache());
   assertTrue("Callback not cached",refs.containsKey(cb));
   CallbackReference ref=(CallbackReference)refs.get(cb);
-  refs=CallbackReference.callbackMap;
+  refs=callbackCache();
   Pointer cbstruct=ref.cbstruct;
   Pointer first_fptr=cbstruct.getPointer(0);
   cb=null;

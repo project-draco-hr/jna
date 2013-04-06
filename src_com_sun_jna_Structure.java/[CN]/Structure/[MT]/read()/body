@@ -1,8 +1,8 @@
 {
-  readCalled=true;
   if (memory == PLACEHOLDER_MEMORY) {
     return;
   }
+  readCalled=true;
   ensureAllocated();
   if (busy().contains(this)) {
     return;

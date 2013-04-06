@@ -1,0 +1,7 @@
+{
+  Structure s=newInstance(type,init == 0 ? PLACEHOLDER_MEMORY : new Pointer(init));
+  if (init != 0) {
+    s.conditionalAutoRead();
+  }
+  return s;
+}
