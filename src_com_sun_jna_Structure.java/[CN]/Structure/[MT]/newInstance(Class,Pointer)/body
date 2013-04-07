@@ -21,6 +21,8 @@ catch (  InvocationTargetException e) {
     throw new IllegalArgumentException(msg);
   }
   Structure s=newInstance(type);
-  s.useMemory(init);
+  if (init != PLACEHOLDER_MEMORY) {
+    s.useMemory(init);
+  }
   return s;
 }
