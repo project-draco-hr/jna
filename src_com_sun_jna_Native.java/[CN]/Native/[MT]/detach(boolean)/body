@@ -1,3 +1,0 @@
-{
-  setLastError(detach ? THREAD_DETACH : THREAD_LEAVE_ATTACHED);
-}
