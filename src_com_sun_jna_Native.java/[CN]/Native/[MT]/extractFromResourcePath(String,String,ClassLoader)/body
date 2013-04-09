@@ -26,7 +26,7 @@
       throw new IOException("File URL " + url + " could not be properly decoded");
     }
   }
- else {
+ else   if (!Boolean.getBoolean("jna.nounpack")) {
     InputStream is=loader.getResourceAsStream(resourcePath);
     if (is == null) {
       throw new IOException("Can't obtain InputStream for " + resourcePath);

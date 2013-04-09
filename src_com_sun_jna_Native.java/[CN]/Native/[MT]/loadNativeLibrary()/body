@@ -1,5 +1,12 @@
 {
-  removeTemporaryFiles();
+  if (!Boolean.getBoolean("jna.nounpack")) {
+    try {
+      removeTemporaryFiles();
+    }
+ catch (    IOException e) {
+      System.err.println("JNA Warning: IOException removing temporary files: " + e.getMessage());
+    }
+  }
   String libName=System.getProperty("jna.boot.library.name","jnidispatch");
   String bootPath=System.getProperty("jna.boot.library.path");
   if (bootPath != null) {
@@ -41,9 +48,6 @@
       }
     }
   }
-  if (Platform.isAndroid()) {
-    System.setProperty("jna.nounpack","true");
-  }
   try {
     if (!Boolean.getBoolean("jna.nosys")) {
       System.loadLibrary(libName);
@@ -51,13 +55,7 @@
     }
   }
  catch (  UnsatisfiedLinkError e) {
-    if (Boolean.getBoolean("jna.nounpack")) {
-      throw e;
-    }
+    System.err.println("File found on system path, but not loadable: " + e.getMessage());
   }
-  if (!Boolean.getBoolean("jna.nounpack")) {
-    loadNativeLibraryFromJar();
-    return;
-  }
-  throw new UnsatisfiedLinkError("Native jnidispatch library not found");
+  loadNativeLibraryFromClasspath();
 }
