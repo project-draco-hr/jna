@@ -1,6 +1,0 @@
-{
-  PointerByReference ppTinfo=new PointerByReference();
-  int hr=this._invokeInt(6,new Object[]{this.getPointer(),guid,ppTinfo});
-  pTinfo.setPointer(ppTinfo.getPointer());
-  return new HRESULT(hr);
-}

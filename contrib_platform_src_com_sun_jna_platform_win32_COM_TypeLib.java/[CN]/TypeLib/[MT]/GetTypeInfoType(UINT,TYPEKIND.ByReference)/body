@@ -1,0 +1,3 @@
+{
+  return this.iTypeLib.GetTypeInfoType(index,pTKind);
+}

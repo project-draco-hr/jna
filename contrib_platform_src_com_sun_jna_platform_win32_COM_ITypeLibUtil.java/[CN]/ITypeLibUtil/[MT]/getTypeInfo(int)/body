@@ -1,6 +1,0 @@
-{
-  ITypeInfo.ByReference typeinfo=new ITypeInfo.ByReference();
-  HRESULT hr=this.typelib.GetTypeInfo(new UINT(index),typeinfo);
-  COMUtils.checkTypeLibRC(hr);
-  return typeinfo;
-}

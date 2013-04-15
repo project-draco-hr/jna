@@ -1,0 +1,3 @@
+{
+  return this.createCOMClass(new Class[]{_interface});
+}

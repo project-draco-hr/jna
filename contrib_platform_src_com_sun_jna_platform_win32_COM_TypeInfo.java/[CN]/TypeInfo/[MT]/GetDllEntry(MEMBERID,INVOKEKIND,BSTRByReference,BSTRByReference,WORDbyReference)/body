@@ -1,0 +1,3 @@
+{
+  return this.iTypeInfo.GetDllEntry(memid,invKind,pBstrDllName,pBstrName,pwOrdinal);
+}

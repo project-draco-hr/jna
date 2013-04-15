@@ -1,4 +1,0 @@
-{
-  TlbInterface tlbInterface=new TlbInterface(index,typeLibUtil);
-  return tlbInterface.getClassBuffer();
-}

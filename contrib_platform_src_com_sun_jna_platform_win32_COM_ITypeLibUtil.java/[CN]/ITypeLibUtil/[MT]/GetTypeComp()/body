@@ -1,6 +1,0 @@
-{
-  ITypeComp.ByReference pTComp=new ITypeComp.ByReference();
-  HRESULT hr=this.typelib.GetTypeComp(pTComp);
-  COMUtils.checkTypeLibRC(hr);
-  return pTComp;
-}

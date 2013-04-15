@@ -8,5 +8,5 @@
   hr=OleAuto.INSTANCE.LoadRegTypeLib(clsid,1,0,lcid,pShellTypeLib);
   COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());
-  return new ITypeLib(pShellTypeLib.getValue());
+  return new TypeLib(pShellTypeLib.getValue());
 }

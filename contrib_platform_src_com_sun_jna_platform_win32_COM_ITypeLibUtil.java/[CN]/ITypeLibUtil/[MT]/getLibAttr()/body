@@ -1,6 +1,0 @@
-{
-  TLIBATTR.ByReference ppTLibAttr=new TLIBATTR.ByReference();
-  HRESULT hr=typelib.GetLibAttr(ppTLibAttr);
-  COMUtils.checkTypeLibRC(hr);
-  return ppTLibAttr;
-}

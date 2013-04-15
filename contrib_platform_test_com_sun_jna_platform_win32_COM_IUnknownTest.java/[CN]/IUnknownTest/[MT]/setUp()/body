@@ -17,5 +17,5 @@
   if (W32Errors.FAILED(hr)) {
     throw new COMException("Internet Explorer not registered properly!");
   }
-  this.iDispatch=new IDispatch(pDispatch.getPointer());
+  this.iDispatch=new Dispatch(pDispatch.getPointer());
 }

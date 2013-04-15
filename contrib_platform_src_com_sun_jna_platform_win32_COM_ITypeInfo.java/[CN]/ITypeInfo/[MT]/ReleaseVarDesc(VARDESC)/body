@@ -1,3 +1,0 @@
-{
-  this._invokeInt(21,new Object[]{this.getPointer(),pVarDesc});
-}

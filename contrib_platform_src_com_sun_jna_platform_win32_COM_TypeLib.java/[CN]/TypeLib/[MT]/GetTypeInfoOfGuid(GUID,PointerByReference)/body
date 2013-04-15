@@ -1,0 +1,3 @@
+{
+  return this.iTypeLib.GetTypeInfoOfGuid(guid,pTinfo);
+}

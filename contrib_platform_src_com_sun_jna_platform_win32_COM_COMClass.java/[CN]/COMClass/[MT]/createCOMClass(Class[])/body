@@ -1,0 +1,4 @@
+{
+  ClassLoader classLoader=this.getClass().getClassLoader();
+  return Proxy.newProxyInstance(classLoader,_interfaces,this);
+}

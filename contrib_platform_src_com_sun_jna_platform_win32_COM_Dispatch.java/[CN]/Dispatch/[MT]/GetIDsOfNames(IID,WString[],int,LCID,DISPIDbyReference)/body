@@ -1,0 +1,3 @@
+{
+  return this.iDispatch.GetIDsOfNames(riid,rgszNames,cNames,lcid,rgDispId);
+}

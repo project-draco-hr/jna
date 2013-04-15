@@ -1,0 +1,6 @@
+{
+  File classFile=new File(this.comRootDir,filename);
+  FileWriter fileWriter=new FileWriter(classFile);
+  fileWriter.write(str);
+  fileWriter.close();
+}

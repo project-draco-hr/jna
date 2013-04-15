@@ -1,0 +1,3 @@
+{
+  return this.iTypeInfo.GetDocumentation(memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
+}

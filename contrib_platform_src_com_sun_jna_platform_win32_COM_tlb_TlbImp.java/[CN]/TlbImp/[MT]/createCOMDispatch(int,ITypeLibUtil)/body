@@ -1,4 +1,0 @@
-{
-  TlbDispatch tlbDispatch=new TlbDispatch(index,typeLibUtil);
-  return tlbDispatch.getClassBuffer();
-}

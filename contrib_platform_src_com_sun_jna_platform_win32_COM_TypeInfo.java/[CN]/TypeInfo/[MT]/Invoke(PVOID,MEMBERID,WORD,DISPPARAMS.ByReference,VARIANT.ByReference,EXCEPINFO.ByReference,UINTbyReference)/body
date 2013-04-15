@@ -1,0 +1,3 @@
+{
+  return this.iTypeInfo.Invoke(pvInstance,memid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
+}

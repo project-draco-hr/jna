@@ -1,0 +1,11 @@
+{
+  String tmp=System.getProperty("java.io.tmpdir");
+  this.comRootDir=new File(tmp + "_jnaCOM_" + System.currentTimeMillis()+ "\\myPackage\\"+ this.typeLibUtil.getName().toLowerCase()+ "\\");
+  if (this.comRootDir.exists())   this.comRootDir.delete();
+  if (this.comRootDir.mkdirs()) {
+    logInfo("Output directory sucessfully created to: " + this.comRootDir.toString());
+  }
+ else {
+    throw new FileNotFoundException("Output directory NOT sucessfully created to: " + this.comRootDir.toString());
+  }
+}

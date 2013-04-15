@@ -1,0 +1,3 @@
+{
+  return this.iUnknown.QueryInterface(riid,ppvObject);
+}

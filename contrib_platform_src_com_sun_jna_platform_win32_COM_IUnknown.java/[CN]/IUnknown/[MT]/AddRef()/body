@@ -1,3 +1,0 @@
-{
-  return this._invokeInt(1,new Object[]{this.getPointer()});
-}

@@ -1,0 +1,4 @@
+{
+  super(pvInstance);
+  this.iRecordInfo=(IRecordInfo)this.createCOMClass(IRecordInfo.class);
+}

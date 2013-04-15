@@ -1,0 +1,3 @@
+{
+  this.iDispatch=(IDispatch)this.createCOMClass(IDispatch.class);
+}

@@ -1,0 +1,4 @@
+{
+  this.setPointer(pvInstance);
+  this.iUnknown=(IUnknown)this.createCOMClass(IUnknown.class);
+}

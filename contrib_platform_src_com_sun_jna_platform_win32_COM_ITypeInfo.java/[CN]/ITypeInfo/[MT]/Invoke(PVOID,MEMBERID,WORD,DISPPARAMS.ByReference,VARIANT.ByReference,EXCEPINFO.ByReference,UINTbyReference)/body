@@ -1,4 +1,0 @@
-{
-  int hr=this._invokeInt(11,new Object[]{this.getPointer(),pvInstance,memid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr});
-  return new HRESULT(hr);
-}

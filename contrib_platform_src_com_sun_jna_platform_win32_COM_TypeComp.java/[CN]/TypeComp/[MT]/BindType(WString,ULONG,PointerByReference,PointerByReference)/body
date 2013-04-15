@@ -1,0 +1,3 @@
+{
+  return this.iTypeComp.BindType(szName,lHashVal,ppTInfo,ppTComp);
+}

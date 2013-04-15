@@ -1,3 +1,0 @@
-{
-  this._invokeInt(12,new Object[]{this.getPointer(),pTLibAttr});
-}

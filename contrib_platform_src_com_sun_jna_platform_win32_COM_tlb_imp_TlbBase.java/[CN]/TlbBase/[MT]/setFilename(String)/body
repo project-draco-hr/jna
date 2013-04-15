@@ -1,0 +1,4 @@
+{
+  if (!filename.endsWith("java"))   filename+=".java";
+  this.filename=filename;
+}

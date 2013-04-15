@@ -1,41 +1,35 @@
 {
   try {
-    this.typeLibUtil=new ITypeLibUtil(TYPELIB_ID_SHELL,1,0);
-    this.initPrintStream();
+    this.typeLibUtil=new TypeLibUtil(TYPELIB_ID_SHELL,1,0);
+    this.createDir();
+    this.createMainClass();
     for (int i=0; i < typeLibUtil.getTypeInfoCount(); ++i) {
       TYPEKIND typekind=typeLibUtil.getTypeInfoType(i);
       if (typekind.value == TYPEKIND.TKIND_ENUM) {
-        StringBuffer buffer=this.createCOMEnum(i,typeLibUtil);
-        contentBuffer.append(buffer + CR);
+        this.createCOMEnum(i,typeLibUtil);
       }
  else       if (typekind.value == TYPEKIND.TKIND_RECORD) {
-        System.out.println("TKIND_RECORD");
+        System.out.println("'TKIND_RECORD' objects are currently not supported!");
       }
  else       if (typekind.value == TYPEKIND.TKIND_MODULE) {
-        System.out.println("TKIND_MODULE");
+        System.out.println("'TKIND_MODULE' objects are currently not supported!");
       }
  else       if (typekind.value == TYPEKIND.TKIND_INTERFACE) {
-        StringBuffer buffer=this.createCOMInterface(i,typeLibUtil);
-        contentBuffer.append(buffer + CR);
+        this.createCOMInterface(i,typeLibUtil);
       }
  else       if (typekind.value == TYPEKIND.TKIND_DISPATCH) {
-        StringBuffer buffer=this.createCOMDispatch(i,typeLibUtil);
-        contentBuffer.append(buffer + CR);
+        this.createCOMDispatch(i,typeLibUtil);
       }
  else       if (typekind.value == TYPEKIND.TKIND_COCLASS) {
         System.out.println("TKIND_COCLASS");
       }
  else       if (typekind.value == TYPEKIND.TKIND_ALIAS) {
-        System.out.println("TKIND_ALIAS");
+        System.out.println("'TKIND_ALIAS' objects are currently not supported!");
       }
  else       if (typekind.value == TYPEKIND.TKIND_UNION) {
+        System.out.println("'TKIND_ALIAS' objects are currently not supported!");
       }
     }
-    String packageName="myPackage." + this.typeLibUtil.getName().toLowerCase();
-    TlbClass tlbClass=new TlbClass(-1,typeLibUtil);
-    tlbClass.createPackage(packageName);
-    tlbClass.createContent(contentBuffer.toString());
-    this.out.print(tlbClass.getClassBuffer());
   }
  catch (  Exception e) {
     e.printStackTrace();

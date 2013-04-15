@@ -1,4 +1,0 @@
-{
-  int hr=this._invokeInt(11,new Object[]{this.getPointer(),szNameBuf,lHashVal,ppTInfo,rgMemId,pcFound});
-  return new HRESULT(hr);
-}

@@ -1,0 +1,3 @@
+{
+  return this.iTypeLib.GetDocumentation(index,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
+}

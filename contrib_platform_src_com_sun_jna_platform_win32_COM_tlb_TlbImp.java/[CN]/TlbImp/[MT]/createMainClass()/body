@@ -1,0 +1,8 @@
+{
+  this.packageName="myPackage." + this.typeLibUtil.getName().toLowerCase();
+  TlbCoClass tlbClass=new TlbCoClass(-1,typeLibUtil);
+  tlbClass.createPackage(packageName);
+  tlbClass.createContent(contentBuffer.toString());
+  String mainClassStr=tlbClass.getClassBuffer().toString();
+  this.writeTextFile(this.typeLibUtil.getName() + ".java",mainClassStr);
+}

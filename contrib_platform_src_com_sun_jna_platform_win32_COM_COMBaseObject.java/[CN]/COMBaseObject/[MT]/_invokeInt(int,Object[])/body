@@ -1,3 +1,0 @@
-{
-  return this.iDispatch._invokeInt(vtableId,args);
-}

@@ -1,3 +1,4 @@
 {
-  this.iDispatch=iDispatch;
+  Native.setProtected(true);
+  this.iDispatch=dispatch;
 }

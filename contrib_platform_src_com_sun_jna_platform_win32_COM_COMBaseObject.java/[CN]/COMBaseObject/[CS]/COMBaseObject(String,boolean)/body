@@ -14,7 +14,7 @@
   if (useActiveInstance) {
     hr=OleAuto.INSTANCE.GetActiveObject(clsid,null,this.pUnknown);
     if (COMUtils.SUCCEEDED(hr)) {
-      this.iUnknown=new IUnknown(this.pUnknown.getValue());
+      this.iUnknown=new Unknown(this.pUnknown.getValue());
       hr=iUnknown.QueryInterface(IDispatch.IID_IDispatch,this.pDispatch);
     }
  else {
@@ -27,5 +27,5 @@
   if (COMUtils.FAILED(hr)) {
     throw new COMException("COM object with ProgID '" + progId + "' and CLSID "+ clsid.toGuidString()+ " not registered properly!");
   }
-  this.iDispatch=new IDispatch(this.pDispatch.getValue());
+  this.iDispatch=new Dispatch(this.pDispatch.getValue());
 }

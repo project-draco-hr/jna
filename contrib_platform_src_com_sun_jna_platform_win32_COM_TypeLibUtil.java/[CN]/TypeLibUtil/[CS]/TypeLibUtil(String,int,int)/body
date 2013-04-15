@@ -1,0 +1,10 @@
+{
+  CLSID.ByReference clsid=new CLSID.ByReference();
+  HRESULT hr=Ole32.INSTANCE.CLSIDFromString(new WString(clsidStr),clsid);
+  COMUtils.checkTypeLibRC(hr);
+  PointerByReference pTypeLib=new PointerByReference();
+  hr=OleAuto.INSTANCE.LoadRegTypeLib(clsid,wVerMajor,wVerMinor,lcid,pTypeLib);
+  COMUtils.checkTypeLibRC(hr);
+  this.typelib=new TypeLib(pTypeLib.getValue());
+  this.initTypeLibInfo();
+}

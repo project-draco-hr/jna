@@ -1,0 +1,3 @@
+{
+  this.iTypeComp=(ITypeComp)this.createCOMClass(ITypeComp.class);
+}
