@@ -1,0 +1,3 @@
+int osType
+String arch
+String name

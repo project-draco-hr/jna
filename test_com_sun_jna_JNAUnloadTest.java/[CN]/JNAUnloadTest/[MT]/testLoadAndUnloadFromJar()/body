@@ -1,8 +1,4 @@
 {
-  File jar=new File((Platform.isWindowsCE() ? "/Storage Card" : BUILDDIR) + "/jna.jar");
-  if (!jar.exists()) {
-    throw new Error("Expected JNA jar file at " + jar + " is missing");
-  }
   ClassLoader loader=new TestLoader(true);
   Class cls=Class.forName("com.sun.jna.Native",true,loader);
   assertEquals("Wrong class loader",loader,cls.getClassLoader());

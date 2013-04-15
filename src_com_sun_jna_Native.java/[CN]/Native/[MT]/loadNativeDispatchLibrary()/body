@@ -48,14 +48,18 @@
       }
     }
   }
-  try {
-    if (!Boolean.getBoolean("jna.nosys")) {
+  if (!Boolean.getBoolean("jna.nosys")) {
+    try {
       System.loadLibrary(libName);
       return;
     }
+ catch (    UnsatisfiedLinkError e) {
+    }
   }
- catch (  UnsatisfiedLinkError e) {
-    System.err.println("File found on system path, but not loadable: " + e.getMessage());
+  if (!Boolean.getBoolean("jna.noclasspath")) {
+    loadNativeDispatchLibraryFromClasspath();
   }
-  loadNativeLibraryFromClasspath();
+ else {
+    throw new UnsatisfiedLinkError("Unable to locate JNA native support library");
+  }
 }

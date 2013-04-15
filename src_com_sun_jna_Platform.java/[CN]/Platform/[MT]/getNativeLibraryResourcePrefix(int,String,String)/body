@@ -1,0 +1,48 @@
+{
+  String osPrefix;
+  arch=arch.toLowerCase();
+  if ("powerpc".equals(arch)) {
+    arch="ppc";
+  }
+ else   if ("powerpc64".equals(arch)) {
+    arch="ppc64";
+  }
+ else   if ("i386".equals(arch)) {
+    arch="x86";
+  }
+ else   if ("x86_64".equals(arch) || "amd64".equals(arch)) {
+    arch="x86-64";
+  }
+switch (osType) {
+case Platform.ANDROID:
+    if (arch.startsWith("arm")) {
+      arch="arm";
+    }
+  osPrefix="android-" + arch;
+break;
+case Platform.WINDOWS:
+osPrefix="win32-" + arch;
+break;
+case Platform.WINDOWSCE:
+osPrefix="w32ce-" + arch;
+break;
+case Platform.MAC:
+osPrefix="darwin";
+break;
+case Platform.LINUX:
+osPrefix="linux-" + arch;
+break;
+case Platform.SOLARIS:
+osPrefix="sunos-" + arch;
+break;
+default :
+osPrefix=name.toLowerCase();
+int space=osPrefix.indexOf(" ");
+if (space != -1) {
+osPrefix=osPrefix.substring(0,space);
+}
+osPrefix+="-" + arch;
+break;
+}
+return osPrefix;
+}

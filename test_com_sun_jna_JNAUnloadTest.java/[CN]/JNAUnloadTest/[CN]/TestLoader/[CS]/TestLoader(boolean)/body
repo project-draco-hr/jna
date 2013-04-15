@@ -1,3 +1,9 @@
 {
   super(new URL[]{Platform.isWindowsCE() ? new File("/Storage Card/" + (fromJar ? "jna.jar" : "test.jar")).toURI().toURL() : new File(BUILDDIR + (fromJar ? "/jna.jar" : "/classes")).toURI().toURL()},null);
+  if (fromJar) {
+    assertJarExists();
+  }
+ else {
+    assertLibraryExists();
+  }
 }
