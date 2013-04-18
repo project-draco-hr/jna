@@ -1,0 +1,3 @@
+{
+  register(cls,NativeLibrary.getInstance(libName));
+}
