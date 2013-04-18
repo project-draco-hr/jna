@@ -1,0 +1,3 @@
+{
+  NativeLibrary.getInstance(new File(BUILDDIR + "/native/testlib-truncated").getAbsolutePath());
+}

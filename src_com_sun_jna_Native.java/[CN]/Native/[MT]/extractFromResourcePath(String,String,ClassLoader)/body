@@ -1,6 +1,9 @@
 {
-  String libname=System.mapLibraryName(name);
-  String resourcePath=resourcePrefix + "/" + libname;
+  String libname=name.startsWith("/") ? name : System.mapLibraryName(name);
+  String resourcePath=name.startsWith("/") ? name : resourcePrefix + "/" + libname;
+  if (resourcePath.startsWith("/")) {
+    resourcePath=resourcePath.substring(1);
+  }
   URL url=loader.getResource(resourcePath);
   if (url == null && Platform.isMac()) {
     if (resourcePath.endsWith(".jnilib")) {
@@ -12,7 +15,7 @@
     url=loader.getResource(resourcePath);
   }
   if (url == null) {
-    throw new IOException("JNA native support (" + resourcePath + ") not found in resource path ("+ System.getProperty("java.class.path")+ ")");
+    throw new IOException("Native library (" + resourcePath + ") not found in resource path ("+ System.getProperty("java.class.path")+ ")");
   }
   File lib=null;
   if (url.getProtocol().toLowerCase().equals("file")) {

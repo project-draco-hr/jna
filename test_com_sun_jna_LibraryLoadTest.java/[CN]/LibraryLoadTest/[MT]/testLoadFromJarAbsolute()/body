@@ -1,0 +1,4 @@
+{
+  String name=System.mapLibraryName("testlib-jar").replace(".jnilib",".dylib");
+  NativeLibrary.getInstance("/" + Platform.RESOURCE_PREFIX + "/"+ name);
+}
