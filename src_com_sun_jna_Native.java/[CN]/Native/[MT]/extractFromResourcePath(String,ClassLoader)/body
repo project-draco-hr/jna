@@ -1,21 +1,22 @@
 {
-  String libname=name.startsWith("/") ? name : System.mapLibraryName(name);
-  String resourcePath=name.startsWith("/") ? name : resourcePrefix + "/" + libname;
+  if (loader == null) {
+    loader=Thread.currentThread().getContextClassLoader();
+  }
+  String libname=name.startsWith("/") ? name : NativeLibrary.mapSharedLibraryName(name);
+  String resourcePath=name.startsWith("/") ? name : Platform.RESOURCE_PREFIX + "/" + libname;
   if (resourcePath.startsWith("/")) {
     resourcePath=resourcePath.substring(1);
   }
   URL url=loader.getResource(resourcePath);
-  if (url == null && Platform.isMac()) {
-    if (resourcePath.endsWith(".jnilib")) {
-      resourcePath=resourcePath.substring(0,resourcePath.lastIndexOf(".jnilib")) + ".dylib";
-    }
- else     if (resourcePath.endsWith(".dylib")) {
-      resourcePath=resourcePath.substring(0,resourcePath.lastIndexOf(".dylib")) + ".jnilib";
-    }
-    url=loader.getResource(resourcePath);
+  if (url == null && resourcePath.startsWith(Platform.RESOURCE_PREFIX)) {
+    url=loader.getResource(libname);
   }
   if (url == null) {
-    throw new IOException("Native library (" + resourcePath + ") not found in resource path ("+ System.getProperty("java.class.path")+ ")");
+    String path=System.getProperty("java.class.path");
+    if (loader instanceof URLClassLoader) {
+      path=Arrays.asList(((URLClassLoader)loader).getURLs()).toString();
+    }
+    throw new IOException("Native library (" + resourcePath + ") not found in resource path ("+ path+ ")");
   }
   File lib=null;
   if (url.getProtocol().toLowerCase().equals("file")) {

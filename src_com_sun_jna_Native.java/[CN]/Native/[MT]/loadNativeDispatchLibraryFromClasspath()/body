@@ -1,7 +1,7 @@
 {
   try {
-    String prefix="/com/sun/jna/" + getNativeLibraryResourcePrefix();
-    File lib=extractFromResourcePath("jnidispatch",prefix,Native.class.getClassLoader());
+    String libName="/com/sun/jna/" + Platform.RESOURCE_PREFIX + "/"+ System.mapLibraryName("jnidispatch");
+    File lib=extractFromResourcePath(libName,Native.class.getClassLoader());
     if (lib == null) {
       throw new UnsatisfiedLinkError("Could not find JNA native support");
     }

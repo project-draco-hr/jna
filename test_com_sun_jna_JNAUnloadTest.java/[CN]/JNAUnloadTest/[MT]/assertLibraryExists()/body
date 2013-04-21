@@ -1,7 +1,7 @@
 {
   String osPrefix=Platform.getNativeLibraryResourcePrefix();
   String name=System.mapLibraryName("jnidispatch");
-  File lib=new File((Platform.isWindowsCE() ? "/Storage Card" : BUILDDIR + "/classes") + "/com/sun/jna/" + osPrefix+ "/"+ name);
+  File lib=new File(CLASSES + "/com/sun/jna/" + osPrefix+ "/"+ name);
   if (!lib.exists()) {
     throw new Error("Expected JNA library at " + lib + " is missing");
   }

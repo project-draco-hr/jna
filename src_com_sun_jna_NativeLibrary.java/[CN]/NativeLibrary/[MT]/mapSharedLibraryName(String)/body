@@ -14,7 +14,7 @@
       return libName;
     }
   }
- else   if (Platform.isAix()) {
+ else   if (Platform.isAIX()) {
     if (libName.startsWith("lib")) {
       return libName;
     }

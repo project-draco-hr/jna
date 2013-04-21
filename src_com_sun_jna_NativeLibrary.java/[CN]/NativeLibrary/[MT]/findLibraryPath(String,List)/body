@@ -2,7 +2,7 @@
   if (new File(libName).isAbsolute()) {
     return libName;
   }
-  String name=mapLibraryName(libName);
+  String name=mapSharedLibraryName(libName);
   for (Iterator it=searchPath.iterator(); it.hasNext(); ) {
     String path=(String)it.next();
     File file=new File(path,name);

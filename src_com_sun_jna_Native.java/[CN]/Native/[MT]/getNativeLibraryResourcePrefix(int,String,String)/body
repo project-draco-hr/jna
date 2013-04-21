@@ -1,3 +1,0 @@
-{
-  return Platform.getNativeLibraryResourcePrefix(osType,arch,name);
-}
