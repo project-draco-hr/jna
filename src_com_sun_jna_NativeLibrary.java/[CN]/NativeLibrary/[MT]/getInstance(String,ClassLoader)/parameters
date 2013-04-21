@@ -1,2 +1,2 @@
 String libraryName
-ClassLoader loader
+ClassLoader classLoader
