@@ -13,7 +13,7 @@
     StringTokenizer dirs=new StringTokenizer(bootPath,File.pathSeparator);
     while (dirs.hasMoreTokens()) {
       String dir=dirs.nextToken();
-      File file=new File(new File(dir),System.mapLibraryName(libName));
+      File file=new File(new File(dir),System.mapLibraryName(libName).replace(".dylib",".jnilib"));
       String path=file.getAbsolutePath();
       if (file.exists()) {
         try {
