@@ -4,19 +4,16 @@
     test.setName(method);
     TestResult result=new TestResult();
     test.run(result);
-    Socket s=new Socket(InetAddress.getLocalHost(),port);
-    OutputStream os=s.getOutputStream();
     if (result.failureCount() != 0) {
       Enumeration e=result.failures();
       Throwable t=((TestFailure)e.nextElement()).thrownException();
-      t.printStackTrace(new PrintStream(os));
+      sendResults(t,port);
     }
  else     if (result.errorCount() != 0) {
       Enumeration e=result.errors();
       Throwable t=((TestFailure)e.nextElement()).thrownException();
-      t.printStackTrace(new PrintStream(os));
+      sendResults(t,port);
     }
-    s.close();
     System.exit(0);
   }
  catch (  Throwable e) {
