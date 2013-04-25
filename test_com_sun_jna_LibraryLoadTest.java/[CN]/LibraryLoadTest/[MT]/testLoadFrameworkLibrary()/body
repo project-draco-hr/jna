@@ -1,5 +1,7 @@
 {
   if (Platform.isMac()) {
+    final String PATH="/System/Library/Frameworks/CoreServices.framework";
+    assertTrue("CoreServices not present on this setup, expected at " + PATH,new File(PATH).exists());
     try {
       NativeLibrary lib=NativeLibrary.getInstance("CoreServices");
       assertNotNull("CoreServices not found",lib);

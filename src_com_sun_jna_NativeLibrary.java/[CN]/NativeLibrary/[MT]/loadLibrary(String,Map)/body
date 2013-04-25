@@ -51,7 +51,7 @@ synchronized (customPaths) {
         }
       }
     }
- else     if (Platform.isMac() && !libraryName.endsWith(".dylib") && !isAbsolutePath) {
+ else     if (Platform.isMac() && !libraryName.endsWith(".dylib")) {
       libraryPath=matchFramework(libraryName);
       if (libraryPath != null) {
         try {
