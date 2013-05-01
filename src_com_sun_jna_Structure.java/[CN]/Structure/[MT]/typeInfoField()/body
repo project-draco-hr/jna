@@ -1,0 +1,10 @@
+{
+  LayoutInfo info;
+synchronized (layoutInfo) {
+    info=(LayoutInfo)layoutInfo.get(getClass());
+  }
+  if (info != null) {
+    return info.typeInfoField;
+  }
+  return null;
+}

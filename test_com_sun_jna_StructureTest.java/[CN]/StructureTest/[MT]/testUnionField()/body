@@ -1,0 +1,13 @@
+{
+class TestStructure extends Structure {
+    public long s_long;
+    public TestUnion s_union;
+    public int s_int;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"s_long","s_union","s_int"});
+    }
+  }
+  TestStructure s=new TestStructure();
+  assertEquals("Wrong structure size",24,s.size());
+  assertEquals("Wrong union size",8,s.s_union.size());
+}

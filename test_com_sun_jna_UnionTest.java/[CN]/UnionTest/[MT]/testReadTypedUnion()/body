@@ -1,5 +1,6 @@
 {
   StructUnion u=new StructUnion();
+  assertEquals("Wrong union size: " + u,Pointer.SIZE,u.size());
   final int VALUE=0x12345678;
   u.getPointer().setInt(0,VALUE);
   assertEquals("int structure not read properly",VALUE,((IntStructure)u.getTypedValue(IntStructure.class)).value);

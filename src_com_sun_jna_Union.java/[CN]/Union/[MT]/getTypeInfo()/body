@@ -1,6 +1,0 @@
-{
-  if (biggestField == null) {
-    return null;
-  }
-  return super.getTypeInfo();
-}
