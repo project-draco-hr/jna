@@ -4,7 +4,7 @@
   File tmpdir=new File(System.getProperty("java.io.tmpdir"));
   File file=File.createTempFile(getName(),".tmp",tmpdir);
   try {
-    assertTrue("File should exist",file.exists());
+    assertTrue("Original source file missing: " + file,file.exists());
     try {
       utils.moveToTrash(new File[]{file});
     }
@@ -14,8 +14,6 @@
     assertFalse("File still exists after move to trash: " + file,file.exists());
   }
   finally {
-    if (file.exists()) {
-      file.delete();
-    }
+    file.delete();
   }
 }
