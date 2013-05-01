@@ -1,0 +1,22 @@
+{
+  int sizePerStruct=new WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION().size();
+  WinDef.DWORDbyReference bufferSize=new WinDef.DWORDbyReference(new WinDef.DWORD(sizePerStruct));
+  Memory memory;
+  while (true) {
+    memory=new Memory(bufferSize.getValue().intValue());
+    if (!Kernel32.INSTANCE.GetLogicalProcessorInformation(memory,bufferSize)) {
+      int lastError=Kernel32.INSTANCE.GetLastError();
+      if (Kernel32.INSTANCE.GetLastError() == WinError.ERROR_INSUFFICIENT_BUFFER) {
+      }
+ else {
+        throw new LastErrorException(lastError);
+      }
+    }
+ else {
+      break;
+    }
+  }
+  WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION firstInformation=new WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION(memory);
+  int returnedStructCount=bufferSize.getValue().intValue() / sizePerStruct;
+  return (WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION[])firstInformation.toArray(new WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION[returnedStructCount]);
+}

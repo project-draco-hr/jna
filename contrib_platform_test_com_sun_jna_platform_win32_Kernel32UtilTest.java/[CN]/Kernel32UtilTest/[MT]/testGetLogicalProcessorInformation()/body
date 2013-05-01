@@ -1,0 +1,6 @@
+{
+  WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION informationArray=Kernel32Util.getLogicalProcessorInformation();
+  assertTrue(informationArray >= 1);
+  for (  WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION information : informationArray) {
+  }
+}
