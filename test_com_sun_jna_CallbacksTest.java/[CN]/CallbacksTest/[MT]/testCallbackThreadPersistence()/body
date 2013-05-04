@@ -4,7 +4,7 @@
   final int COUNT=5;
   CallbackThreadInitializer init=new CallbackThreadInitializer(true,false){
     public String getName(    Callback cb){
-      return CallbacksTest.this.getName() + " thread " + called[0];
+      return "Test thread for " + CallbacksTest.this.getName() + " (call count: "+ called[0]+ ")";
     }
   }
 ;

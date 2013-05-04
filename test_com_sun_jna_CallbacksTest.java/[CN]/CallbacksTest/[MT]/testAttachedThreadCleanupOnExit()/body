@@ -5,25 +5,32 @@
     public void callback(){
       threads.add(new WeakReference(Thread.currentThread()));
       if (++called[0] == 1) {
-        Thread.currentThread().setName("Thread to be cleaned up");
+        Thread.currentThread().setName(getName() + " (Thread to be cleaned up)");
       }
       Native.detach(false);
     }
   }
 ;
-  CallbackThreadInitializer asDaemon=new CallbackThreadInitializer(true);
-  callThreadedCallback(cb,asDaemon,1,0,called);
-  while (threads.size() == 0) {
+  CallbackThreadInitializer asDaemon=new CallbackThreadInitializer(true){
+    public String getName(    Callback cb){
+      return "Test thread for " + CallbacksTest.this.getName();
+    }
+  }
+;
+  callThreadedCallback(cb,asDaemon,2,100,called);
+  while (threads.size() == 0 && called[0] == 0) {
     Thread.sleep(10);
   }
   long start=System.currentTimeMillis();
   WeakReference ref=(WeakReference)threads.iterator().next();
   while (ref.get() != null) {
     System.gc();
-    Thread.sleep(10);
+    Thread.sleep(1000);
+    Thread[] remaining=new Thread[Thread.activeCount()];
+    Thread.enumerate(remaining);
     if (System.currentTimeMillis() - start > 10000) {
       Thread t=(Thread)ref.get();
-      fail("Timed out waiting for attached thread to be detached on exit and disposed: " + t + " alive: "+ t.isAlive()+ " daemon "+ t.isDaemon());
+      fail("Timed out waiting for native attached thread to be GC'd: " + t + " alive: "+ t.isAlive()+ " daemon: "+ t.isDaemon()+ "\n"+ Arrays.asList(remaining));
     }
   }
 }
