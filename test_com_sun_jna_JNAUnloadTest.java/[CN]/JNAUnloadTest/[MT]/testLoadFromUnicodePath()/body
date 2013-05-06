@@ -1,0 +1,16 @@
+{
+  final String UNICODE=getName() + "-\u0444\u043b\u0441\u0432\u0443";
+  File tmpdir=Native.getTempDir();
+  File unicodeDir=new File(tmpdir,UNICODE);
+  unicodeDir.mkdirs();
+  Properties props=System.getProperties();
+  try {
+    System.setProperty("jna.tmpdir",unicodeDir.getAbsolutePath());
+    ClassLoader loader=new TestLoader(true);
+    Class cls=Class.forName("com.sun.jna.Native",true,loader);
+    assertEquals("Wrong class loader",loader,cls.getClassLoader());
+  }
+  finally {
+    System.setProperties(props);
+  }
+}
