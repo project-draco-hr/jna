@@ -1,4 +1,5 @@
 {
   Union u=new SizedUnion();
+  assertEquals("Wrong union size: " + u,16,u.size());
   assertEquals("Union should be size of largest field",new BigTestStructure().size(),u.size());
 }

@@ -7,9 +7,10 @@
   File tmpdir=new File(System.getProperty("java.io.tmpdir"));
   File file=File.createTempFile(getName(),".tmp",tmpdir);
   File symlink=new File(tmpdir,file.getName() + ".link");
-  Runtime.getRuntime().exec(new String[]{"ln","-s",file.getAbsolutePath(),symlink.getAbsolutePath()});
   try {
-    assertTrue("File should exist",symlink.exists());
+    Runtime.getRuntime().exec(new String[]{"ln","-s",file.getAbsolutePath(),symlink.getAbsolutePath()});
+    assertTrue("Original source file missing: " + file,file.exists());
+    assertTrue("Symlink creation failed (missing): " + symlink,symlink.exists());
     try {
       utils.moveToTrash(new File[]{symlink});
     }
@@ -20,11 +21,7 @@
     assertTrue("Original file should still exist after move to trash: " + file,file.exists());
   }
   finally {
-    if (symlink.exists()) {
-      symlink.delete();
-    }
-    if (file.exists()) {
-      file.delete();
-    }
+    symlink.delete();
+    file.delete();
   }
 }

@@ -1,4 +1,5 @@
 {
+  boolean isAbsolutePath=new File(libraryName).isAbsolute();
   List searchPath=new LinkedList();
   int openFlags=openFlags(options);
   String webstartPath=Native.getWebStartLibraryPath(libraryName);
@@ -61,7 +62,7 @@ synchronized (customPaths) {
         }
       }
     }
- else     if (Platform.isWindows()) {
+ else     if (Platform.isWindows() && !isAbsolutePath) {
       libraryPath=findLibraryPath("lib" + libraryName,searchPath);
       try {
         handle=Native.open(libraryPath,openFlags);
@@ -72,7 +73,7 @@ synchronized (customPaths) {
     }
     if (handle == 0) {
       try {
-        File embedded=Native.extractFromResourcePath(libraryName);
+        File embedded=Native.extractFromResourcePath(libraryName,(ClassLoader)options.get(Library.OPTION_CLASSLOADER));
         handle=Native.open(embedded.getAbsolutePath());
         if (Native.isUnpacked(embedded)) {
           Native.deleteLibrary(embedded);

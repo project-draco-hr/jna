@@ -1,6 +1,6 @@
 {
-  String BUILDDIR=System.getProperty("jna.builddir","build" + (Platform.is64Bit() ? "-d64" : ""));
-  String codebase=new File(BUILDDIR,"jws").toURI().toURL().toString();
+  String dir=System.getProperty("jna.builddir",BUILDDIR);
+  String codebase=new File(dir,"jws").toURI().toURL().toString();
   ServerSocket s=new ServerSocket(0);
   s.setSoTimeout(120000);
   int port=s.getLocalPort();
@@ -10,14 +10,13 @@
   contents=contents.replace("{CODEBASE}",codebase);
   contents=contents.replace("{JNLP_FILE}",jnlp.toURI().toURL().toString());
   contents=contents.replace("{PORT}",String.valueOf(port));
-  boolean clover=System.getProperty("java.class.path").indexOf("clover") != -1;
-  contents=contents.replace("{CLOVER}",clover ? "<jar href='clover.jar'/>" : "");
+  contents=contents.replace("{CLOVER}",USING_CLOVER ? "<jar href='clover.jar'/>" : "");
   try {
     OutputStream os=new FileOutputStream(jnlp);
     os.write(contents.getBytes());
     os.close();
     String path=findJWS();
-    String[] cmd={path,"-Xnosplash","-wait",jnlp.toURI().toURL().toString()};
+    String[] cmd={path,Platform.isWindows() ? "-J-Ddummy" : (Platform.is64Bit() ? "-J-d64" : "-J-d32"),"-Xnosplash","-wait",jnlp.toURI().toURL().toString()};
     final Process p=Runtime.getRuntime().exec(cmd);
     final StringBuffer output=new StringBuffer();
 class SocketHandler extends Thread {
