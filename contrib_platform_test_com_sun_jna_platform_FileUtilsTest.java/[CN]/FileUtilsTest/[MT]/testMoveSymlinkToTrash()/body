@@ -9,6 +9,13 @@
   File symlink=new File(tmpdir,file.getName() + ".link");
   try {
     Runtime.getRuntime().exec(new String[]{"ln","-s",file.getAbsolutePath(),symlink.getAbsolutePath()});
+    long start=System.currentTimeMillis();
+    while (!file.exists() || !symlink.exists()) {
+      Thread.sleep(100);
+      if (System.currentTimeMillis() - start > 5000) {
+        break;
+      }
+    }
     assertTrue("Original source file missing: " + file,file.exists());
     assertTrue("Symlink creation failed (missing): " + symlink,symlink.exists());
     try {
