@@ -7,7 +7,7 @@
   }
  else {
     File tmp=new File(System.getProperty("java.io.tmpdir"));
-    jnatmp=new File(tmp,"jna-" + System.getProperty("user.name"));
+    jnatmp=new File(tmp,"jna-" + System.getProperty("user.name").hashCode());
     jnatmp.mkdirs();
     if (!jnatmp.exists() || !jnatmp.canWrite()) {
       jnatmp=tmp;
