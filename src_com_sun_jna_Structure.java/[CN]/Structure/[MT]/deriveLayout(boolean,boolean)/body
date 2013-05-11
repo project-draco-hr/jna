@@ -100,7 +100,7 @@
     }
   }
   if (calculatedSize > 0) {
-    int size=calculateAlignedSize(calculatedSize,info.alignment);
+    int size=addPadding(calculatedSize,info.alignment);
     if (this instanceof ByValue && !avoidFFIType) {
       getTypeInfo();
     }
