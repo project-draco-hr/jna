@@ -1,6 +1,6 @@
 {
   String osPrefix;
-  arch=arch.toLowerCase();
+  arch=arch.toLowerCase().trim();
   if ("powerpc".equals(arch)) {
     arch="ppc";
   }
