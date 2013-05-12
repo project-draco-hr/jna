@@ -1,6 +1,8 @@
 {
   Socket s=new Socket(InetAddress.getLocalHost(),port);
   OutputStream os=s.getOutputStream();
-  t.printStackTrace(new PrintStream(os));
+  if (t != null) {
+    t.printStackTrace(new PrintStream(os));
+  }
   s.close();
 }

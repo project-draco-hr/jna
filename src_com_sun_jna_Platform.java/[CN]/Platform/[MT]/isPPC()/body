@@ -1,6 +1,5 @@
 {
-  String arch=System.getProperty("os.arch").toLowerCase().trim();
-  if (arch.equals("ppc") || arch.equals("ppc64") || arch.equals("powerpc")|| arch.equals("powerpc64")) {
+  if (ARCH.equals("ppc") || ARCH.equals("ppc64") || ARCH.equals("powerpc")|| ARCH.equals("powerpc64")) {
     return true;
   }
   return false;

@@ -1,23 +1,15 @@
 {
-  try {
-    TestCase test=(TestCase)Class.forName(testClass).newInstance();
-    test.setName(method);
-    TestResult result=new TestResult();
-    test.run(result);
-    if (result.failureCount() != 0) {
-      Enumeration e=result.failures();
-      Throwable t=((TestFailure)e.nextElement()).thrownException();
-      sendResults(t,port);
-    }
- else     if (result.errorCount() != 0) {
-      Enumeration e=result.errors();
-      Throwable t=((TestFailure)e.nextElement()).thrownException();
-      sendResults(t,port);
-    }
-    System.exit(0);
+  TestCase test=(TestCase)Class.forName(testClass).newInstance();
+  test.setName(method);
+  TestResult result=new TestResult();
+  test.run(result);
+  if (result.failureCount() != 0) {
+    Enumeration e=result.failures();
+    return ((TestFailure)e.nextElement()).thrownException();
   }
- catch (  Throwable e) {
-    showMessage("ERROR: " + e.getMessage());
-    System.exit(0);
+ else   if (result.errorCount() != 0) {
+    Enumeration e=result.errors();
+    return ((TestFailure)e.nextElement()).thrownException();
   }
+  return null;
 }

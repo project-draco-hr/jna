@@ -1,8 +1,7 @@
 {
-  try {
-    return ((Integer)options.get(Library.OPTION_OPEN_FLAGS)).intValue();
+  Object opt=options.get(Library.OPTION_OPEN_FLAGS);
+  if (opt instanceof Number) {
+    return ((Number)opt).intValue();
   }
- catch (  Throwable t) {
-    return DEFAULT_OPEN_OPTIONS;
-  }
+  return DEFAULT_OPEN_OPTIONS;
 }

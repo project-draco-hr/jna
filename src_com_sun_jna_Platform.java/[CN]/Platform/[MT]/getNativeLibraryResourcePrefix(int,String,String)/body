@@ -1,6 +1,6 @@
 {
   String osPrefix;
-  arch=arch.toLowerCase();
+  arch=arch.toLowerCase().trim();
   if ("powerpc".equals(arch)) {
     arch="ppc";
   }
@@ -34,6 +34,12 @@ osPrefix="linux-" + arch;
 break;
 case Platform.SOLARIS:
 osPrefix="sunos-" + arch;
+break;
+case Platform.FREEBSD:
+case Platform.OPENBSD:
+case Platform.NETBSD:
+case Platform.KFREEBSD:
+osPrefix="bsd-" + arch;
 break;
 default :
 osPrefix=name.toLowerCase();

@@ -3,8 +3,7 @@
   TypeMapper mapper=Native.getTypeMapper(callback.getClass());
   Class[] nativeParamTypes;
   Class returnType;
-  String arch=System.getProperty("os.arch").toLowerCase();
-  boolean ppc="ppc".equals(arch) || "powerpc".equals(arch);
+  boolean ppc=Platform.isPPC();
   if (direct) {
     Method m=getCallbackMethod(callback);
     Class[] ptypes=m.getParameterTypes();

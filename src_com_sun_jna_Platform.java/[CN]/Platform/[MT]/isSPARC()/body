@@ -1,0 +1,3 @@
+{
+  return ARCH.startsWith("sparc");
+}
