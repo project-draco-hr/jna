@@ -5,7 +5,7 @@
     this.release();
     throw new COMException("CoInitialize() failed!");
   }
-  CLSID.ByReference clsid=new CLSID.ByReference();
+  CLSID clsid=new CLSID();
   hr=Ole32.INSTANCE.CLSIDFromProgID(progId,clsid);
   if (COMUtils.FAILED(hr)) {
     Ole32.INSTANCE.CoUninitialize();

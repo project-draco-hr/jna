@@ -3,7 +3,7 @@
   MEMBERID memid=new MEMBERID(0);
   BSTR pBstrName=new BSTR();
   BSTR pBstrDocString=new BSTR();
-  DWORDbyReference pdwHelpContext=new DWORDbyReference();
+  DWORDByReference pdwHelpContext=new DWORDByReference();
   BSTR pBstrHelpFile=new BSTR();
   HRESULT hr=typeInfo.GetDocumentation(memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
   COMUtils.checkAutoRC(hr);

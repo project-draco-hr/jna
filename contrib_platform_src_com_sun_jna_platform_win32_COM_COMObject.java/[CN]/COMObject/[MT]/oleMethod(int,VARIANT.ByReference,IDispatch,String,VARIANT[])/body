@@ -2,7 +2,7 @@
   if (pDisp == null)   throw new COMException("pDisp (IDispatch) parameter is null!");
   WString[] ptName=new WString[]{new WString(name)};
   DISPPARAMS dp=new DISPPARAMS();
-  DISPIDbyReference pdispID=new DISPIDbyReference();
+  DISPIDByReference pdispID=new DISPIDByReference();
   VariantArg.ByReference variantArg=new VariantArg.ByReference();
   variantArg.variantArg=pArgs;
   EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
@@ -11,7 +11,7 @@
   COMUtils.checkAutoRC(hr);
   if (nType == OleAuto.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=new UINT(pArgs.length);
-    dp.rgdispidNamedArgs=new DISPIDbyReference(OaIdl.DISPID_PROPERTYPUT);
+    dp.rgdispidNamedArgs=new DISPIDByReference(OaIdl.DISPID_PROPERTYPUT);
   }
   if ((pArgs != null) && (pArgs.length > 0)) {
     dp.cArgs=new UINT(pArgs.length);

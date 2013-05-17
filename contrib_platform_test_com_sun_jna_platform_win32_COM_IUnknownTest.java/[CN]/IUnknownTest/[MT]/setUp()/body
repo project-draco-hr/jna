@@ -7,7 +7,7 @@
     this.tearDown();
     throw new COMException("CoInitialize() failed");
   }
-  CLSID.ByReference clsid=new CLSID.ByReference();
+  CLSID clsid=new CLSID();
   hr=Ole32.INSTANCE.CLSIDFromProgID("InternetExplorer.Application",clsid);
   if (W32Errors.FAILED(hr)) {
     Ole32.INSTANCE.CoUninitialize();

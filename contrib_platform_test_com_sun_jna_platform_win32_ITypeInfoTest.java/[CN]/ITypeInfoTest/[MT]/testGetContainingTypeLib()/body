@@ -1,7 +1,7 @@
 {
   ITypeInfo typeInfo=getTypeInfo();
   ITypeLib.ByReference pTLib=new ITypeLib.ByReference();
-  UINTbyReference pIndex=new UINTbyReference();
+  UINTByReference pIndex=new UINTByReference();
   HRESULT hr=typeInfo.GetContainingTypeLib(pTLib,pIndex);
   COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());
