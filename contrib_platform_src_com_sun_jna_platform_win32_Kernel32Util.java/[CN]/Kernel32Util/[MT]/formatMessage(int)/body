@@ -1,0 +1,9 @@
+{
+  PointerByReference buffer=new PointerByReference();
+  if (0 == Kernel32.INSTANCE.FormatMessage(WinBase.FORMAT_MESSAGE_ALLOCATE_BUFFER | WinBase.FORMAT_MESSAGE_FROM_SYSTEM | WinBase.FORMAT_MESSAGE_IGNORE_INSERTS,null,code,0,buffer,0,null)) {
+    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+  }
+  String s=buffer.getValue().getString(0,!Boolean.getBoolean("w32.ascii"));
+  Kernel32.INSTANCE.LocalFree(buffer.getValue());
+  return s.trim();
+}
