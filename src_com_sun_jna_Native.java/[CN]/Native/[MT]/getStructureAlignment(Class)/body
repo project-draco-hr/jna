@@ -1,25 +1,4 @@
 {
-synchronized (libraries) {
-    Class interfaceClass=findEnclosingLibraryClass(cls);
-    if (interfaceClass != null)     loadLibraryInstance(interfaceClass);
- else     interfaceClass=cls;
-    if (!alignments.containsKey(interfaceClass)) {
-      try {
-        Field field=interfaceClass.getField("STRUCTURE_ALIGNMENT");
-        field.setAccessible(true);
-        alignments.put(interfaceClass,field.get(null));
-      }
- catch (      NoSuchFieldException e) {
-        Map options=getLibraryOptions(interfaceClass);
-        if (options != null && options.containsKey(Library.OPTION_STRUCTURE_ALIGNMENT)) {
-          alignments.put(interfaceClass,options.get(Library.OPTION_STRUCTURE_ALIGNMENT));
-        }
-      }
-catch (      Exception e) {
-        throw new IllegalArgumentException("STRUCTURE_ALIGNMENT must be a public field of type int (" + e + "): "+ interfaceClass);
-      }
-    }
-    Integer value=(Integer)alignments.get(interfaceClass);
-    return value != null ? value.intValue() : Structure.ALIGN_DEFAULT;
-  }
+  Integer alignment=(Integer)getLibraryOptions(cls).get(Library.OPTION_STRUCTURE_ALIGNMENT);
+  return alignment == null ? Structure.ALIGN_DEFAULT : alignment.intValue();
 }

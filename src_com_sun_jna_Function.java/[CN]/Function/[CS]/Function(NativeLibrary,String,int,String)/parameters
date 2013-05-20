@@ -1,0 +1,4 @@
+NativeLibrary library
+String functionName
+int callFlags
+String encoding

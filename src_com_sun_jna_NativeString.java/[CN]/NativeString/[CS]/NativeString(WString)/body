@@ -1,0 +1,3 @@
+{
+  this(string.toString(),WIDE_STRING);
+}

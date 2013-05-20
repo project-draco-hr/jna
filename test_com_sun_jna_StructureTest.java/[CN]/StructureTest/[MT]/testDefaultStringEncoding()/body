@@ -1,0 +1,10 @@
+{
+class TestStructure extends Structure {
+    public String field;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
+    }
+  }
+  TestStructure s=new TestStructure();
+  assertEquals("Wrong default structure encoding",Native.getDefaultStringEncoding(),s.getStringEncoding());
+}

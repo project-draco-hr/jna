@@ -1,0 +1,24 @@
+{
+class TestStructure extends Structure {
+    public String field;
+    protected List getFieldOrder(){
+      return Arrays.asList(new String[]{"field"});
+    }
+  }
+  TestStructure s=new TestStructure();
+  final String ENCODING="utf8";
+  s.setStringEncoding(ENCODING);
+  assertEquals("Manual customization of string encoding failed",ENCODING,s.getStringEncoding());
+  final String VALUE="\u0444\u043b\u0441\u0432\u0443";
+  s.field=VALUE;
+  s.write();
+  byte[] expected=VALUE.getBytes("utf8");
+  byte[] actual=s.getPointer().getPointer(0).getByteArray(0,expected.length);
+  for (int i=0; i < Math.min(expected.length,actual.length); i++) {
+    assertEquals("Improperly encoded (" + ENCODING + ") on structure write at "+ i,expected[i],actual[i]);
+  }
+  assertEquals("Encoding length mismatch",expected.length,actual.length);
+  s.field=null;
+  s.read();
+  assertEquals("String not decoded properly on read",VALUE,s.field);
+}

@@ -1,10 +1,11 @@
 {
   boolean returnWide=original instanceof WString[];
+  boolean wide=encoding == NativeString.WIDE_STRING;
   for (int si=0; si < original.length; si++) {
     Pointer p=getPointer(si * Pointer.SIZE);
     Object s=null;
     if (p != null) {
-      s=p.getString(0,wide);
+      s=wide ? p.getWideString(0) : p.getString(0,encoding);
       if (returnWide)       s=new WString((String)s);
     }
     original[si]=s;

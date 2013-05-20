@@ -1,0 +1,4 @@
+{
+  assertEquals("Wrong encoding found for interface which provides STRING_ENCODING",TestInterfaceWithEncoding.STRING_ENCODING,Native.getStringEncoding(TestInterfaceWithEncoding.class));
+  assertEquals("Wrong encoding found for structure from interface which provides STRING_ENCODING",TestInterfaceWithEncoding.STRING_ENCODING,Native.getStringEncoding(TestInterfaceWithEncoding.TestStructure.class));
+}

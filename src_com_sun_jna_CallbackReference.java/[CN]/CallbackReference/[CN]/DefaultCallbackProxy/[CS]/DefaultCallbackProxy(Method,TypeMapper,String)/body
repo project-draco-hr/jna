@@ -1,0 +1,29 @@
+{
+  this.callbackMethod=callbackMethod;
+  this.encoding=encoding;
+  Class[] argTypes=callbackMethod.getParameterTypes();
+  Class returnType=callbackMethod.getReturnType();
+  fromNative=new FromNativeConverter[argTypes.length];
+  if (NativeMapped.class.isAssignableFrom(returnType)) {
+    toNative=NativeMappedConverter.getInstance(returnType);
+  }
+ else   if (mapper != null) {
+    toNative=mapper.getToNativeConverter(returnType);
+  }
+  for (int i=0; i < fromNative.length; i++) {
+    if (NativeMapped.class.isAssignableFrom(argTypes[i])) {
+      fromNative[i]=new NativeMappedConverter(argTypes[i]);
+    }
+ else     if (mapper != null) {
+      fromNative[i]=mapper.getFromNativeConverter(argTypes[i]);
+    }
+  }
+  if (!callbackMethod.isAccessible()) {
+    try {
+      callbackMethod.setAccessible(true);
+    }
+ catch (    SecurityException e) {
+      throw new IllegalArgumentException("Callback method is inaccessible, make sure the interface is public: " + callbackMethod);
+    }
+  }
+}

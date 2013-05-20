@@ -49,7 +49,7 @@
   }
  else   if (type == WString.class) {
     Pointer p=getPointer(offset);
-    result=p != null ? new WString(p.getString(0,true)) : null;
+    result=p != null ? new WString(p.getWideString(0)) : null;
   }
  else   if (Callback.class.isAssignableFrom(type)) {
     Pointer fp=getPointer(offset);

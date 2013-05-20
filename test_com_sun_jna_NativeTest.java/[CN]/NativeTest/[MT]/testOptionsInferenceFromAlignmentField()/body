@@ -1,3 +1,4 @@
 {
   assertEquals("Wrong alignment found for interface which provides STRUCTURE_ALIGNMENT",Structure.ALIGN_NONE,Native.getStructureAlignment(TestInterfaceWithAlignment.class));
+  assertEquals("Wrong alignment found for structure from interface which provides STRUCTURE_ALIGNMENT",Structure.ALIGN_NONE,Native.getStructureAlignment(TestInterfaceWithAlignment.TestStructure.class));
 }

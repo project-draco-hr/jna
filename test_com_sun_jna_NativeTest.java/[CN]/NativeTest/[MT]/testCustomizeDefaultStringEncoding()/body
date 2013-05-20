@@ -1,0 +1,11 @@
+{
+  Properties oldprops=(Properties)System.getProperties().clone();
+  final String ENCODING=System.getProperty("file.encoding");
+  try {
+    System.setProperty("jna.encoding",ENCODING);
+    assertEquals("Default encoding should match jna.encoding setting",ENCODING,Native.getDefaultStringEncoding());
+  }
+  finally {
+    System.setProperties(oldprops);
+  }
+}

@@ -9,10 +9,14 @@
     }
   }
 ;
-  final String[] VALUE={"value",null};
-  Pointer value=lib.callStringArrayCallback(cb,VALUE);
+  final String VALUE="value" + UNICODE;
+  final String[] VALUE_ARRAY={VALUE,null};
+  Pointer value=lib.callStringArrayCallback(cb,VALUE_ARRAY);
   assertTrue("Callback not called",called[0]);
-  assertEquals("Wrong callback argument 1",VALUE[0],cbargs[0][0]);
+  assertEquals("String[] array should not be modified",VALUE,VALUE_ARRAY[0]);
+  assertEquals("Terminating null should be removed from incoming arg",VALUE_ARRAY.length - 1,cbargs[0].length);
+  assertEquals("String[] argument index 0 mismatch",VALUE_ARRAY[0],cbargs[0][0]);
   String[] result=value.getStringArray(0);
-  assertEquals("Wrong String return",VALUE[0],result[0]);
+  assertEquals("Wrong String[] return",VALUE_ARRAY[0],result[0]);
+  assertEquals("Terminating null should be removed from return value",VALUE_ARRAY.length - 1,result.length);
 }

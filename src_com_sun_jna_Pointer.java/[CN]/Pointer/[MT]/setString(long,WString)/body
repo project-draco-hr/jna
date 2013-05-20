@@ -1,0 +1,3 @@
+{
+  setWideString(offset,value.toString());
+}

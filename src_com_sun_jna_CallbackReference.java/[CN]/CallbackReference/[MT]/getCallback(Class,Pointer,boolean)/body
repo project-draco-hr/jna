@@ -16,11 +16,7 @@ synchronized (callbackMap) {
       }
     }
     int ctype=AltCallingConvention.class.isAssignableFrom(type) ? Function.ALT_CONVENTION : Function.C_CONVENTION;
-    Map foptions=new HashMap();
-    Map options=Native.getLibraryOptions(type);
-    if (options != null) {
-      foptions.putAll(options);
-    }
+    Map foptions=new HashMap(Native.getLibraryOptions(type));
     foptions.put(Function.OPTION_INVOKING_METHOD,getCallbackMethod(type));
     NativeFunctionHandler h=new NativeFunctionHandler(p,ctype,foptions);
     Callback cb=(Callback)Proxy.newProxyInstance(type.getClassLoader(),new Class[]{type},h);

@@ -1,4 +1,4 @@
 {
-  assertEquals("Expect null pointer",null,lib.returnStringArgument(null));
-  assertEquals("Expect string magic",MAGIC,lib.returnStringArgument(MAGIC).toString());
+  assertEquals("Expect null pointer",null,lib.returnWStringArgument(null));
+  assertEquals("Expect string magic",WMAGIC.toString(),lib.returnWStringArgument(WMAGIC).toString());
 }

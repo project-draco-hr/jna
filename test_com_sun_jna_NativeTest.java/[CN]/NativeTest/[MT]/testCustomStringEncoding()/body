@@ -1,21 +1,20 @@
 {
-  Properties oldprops=(Properties)System.getProperties().clone();
-  try {
-    String encoding="UTF8";
-    System.setProperty("jna.encoding",encoding);
-    String unicode="\u0444\u043b\u0441\u0432\u0443";
-    String unicodez=unicode + "\0more stuff";
-    byte[] utf8=Native.getBytes(unicode);
-    byte[] expected=unicode.getBytes(encoding);
-    for (int i=0; i < Math.min(utf8.length,expected.length); i++) {
-      assertEquals("Improperly encoded at " + i,expected[i],utf8[i]);
+  final String ENCODING=System.getProperty("file.encoding");
+  String UNICODE="Un \u00e9l\u00e9ment gr\u00e2ce \u00e0 l'index";
+  if (!UNICODE.equals(new String(UNICODE.getBytes()))) {
+    UNICODE="";
+    for (char ch=1; ch < 128; ch++) {
+      UNICODE+=ch;
     }
-    assertEquals("Wrong number of encoded characters",expected.length,utf8.length);
-    String result=Native.toString(utf8);
-    assertEquals("Improperly decoded",unicode,result);
-    assertEquals("Should truncate bytes at NUL terminator",unicode,Native.toString(unicodez.getBytes(encoding)));
   }
-  finally {
-    System.setProperties(oldprops);
+  final String UNICODEZ=UNICODE + "\0more stuff";
+  byte[] customEncoded=Native.getBytes(UNICODE,ENCODING);
+  byte[] expected=UNICODE.getBytes(ENCODING);
+  for (int i=0; i < Math.min(customEncoded.length,expected.length); i++) {
+    assertEquals("Improperly encoded (" + ENCODING + ") from Java at "+ i,expected[i],customEncoded[i]);
   }
+  assertEquals("Wrong number of encoded characters (" + ENCODING + ")",expected.length,customEncoded.length);
+  String result=Native.toString(customEncoded,ENCODING);
+  assertEquals("Improperly decoded from native bytes (" + ENCODING + ")",UNICODE,result);
+  assertEquals("Should truncate bytes at NUL terminator",UNICODE,Native.toString(UNICODEZ.getBytes(ENCODING),ENCODING));
 }
