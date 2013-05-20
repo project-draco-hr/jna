@@ -1,6 +1,5 @@
 {
-  VARIANT[] args=new VARIANT[2];
-  args[0]=new VARIANT(FileFormat);
-  args[1]=new VARIANT(FileName);
-  this.invokeNoReply("SaveAs",this.getActiveDocument().getIDispatch(),args);
+  VARIANT vtFileName=new VARIANT(FileName);
+  VARIANT vtFileFormat=new VARIANT(FileFormat);
+  this.invokeNoReply("SaveAs",this.getActiveDocument().getIDispatch(),vtFileName,vtFileFormat);
 }

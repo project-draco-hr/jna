@@ -9,8 +9,10 @@
     msWord.setVisible(true);
     msWord.openDocument(currentWorkingDir + "jnatest.doc",true);
     msWord.insertText("Hello from JNA!");
+    Thread.currentThread().sleep(10000);
     msWord.SaveAs("C:\\TEMP\\jnatestSaveAs.rtf",wdFormatRTF);
     msWord.SaveAs("C:\\TEMP\\jnatestSaveAs.html",wdFormatHTML);
+    msWord.closeActiveDocument(true);
     msWord.quit();
   }
  catch (  COMException e) {
