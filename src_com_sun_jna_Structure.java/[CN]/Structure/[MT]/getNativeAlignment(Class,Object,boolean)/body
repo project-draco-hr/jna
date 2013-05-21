@@ -34,10 +34,10 @@
     alignment=Math.min(8,alignment);
   }
  else   if (actualAlignType == ALIGN_GNUC) {
-    if (!isFirstElement || !(Platform.isMac() && isPPC)) {
+    if (!isFirstElement || !(Platform.isMac() && Platfomr.isPPC())) {
       alignment=Math.min(MAX_GNUC_ALIGNMENT,alignment);
     }
-    if (!isFirstElement && Platform.isAIX() && (type.getName().equals("double"))) {
+    if (!isFirstElement && Platform.isAIX() && (type == double.class || type == Double.class)) {
       alignment=4;
     }
   }
