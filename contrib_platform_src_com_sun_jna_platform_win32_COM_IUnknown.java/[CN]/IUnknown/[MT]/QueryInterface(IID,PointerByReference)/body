@@ -1,11 +1,8 @@
 {
   Pointer base=this.getPointer();
   Pointer vptr=base.getPointer(0);
-  System.out.println("vptr: " + vptr);
   Pointer root=vptr.getPointer(0);
-  System.out.println("root: " + root);
   Function func=Function.getFunction(root);
   int hr=func.invokeInt(new Object[]{base,riid,ppvObject});
-  System.out.println("returned: " + ppvObject.getValue());
   return new HRESULT(hr);
 }

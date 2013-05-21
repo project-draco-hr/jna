@@ -1,4 +1,3 @@
 {
-  if (hr != null)   return SUCCEEDED(hr.intValue());
- else   return false;
+  return hr == null || SUCCEEDED(hr.intValue());
 }
