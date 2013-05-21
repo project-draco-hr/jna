@@ -82,6 +82,9 @@
       String msg="Invalid Structure field in " + getClass() + ", field name '"+ structField.name+ "' ("+ structField.type+ "): "+ e.getMessage();
       throw new IllegalArgumentException(msg);
     }
+    if (fieldAlignment == 0) {
+      throw new Error("Field alignment is zero for field '" + structField.name + "' within "+ getClass());
+    }
     info.alignment=Math.max(info.alignment,fieldAlignment);
     if ((calculatedSize % fieldAlignment) != 0) {
       calculatedSize+=fieldAlignment - (calculatedSize % fieldAlignment);

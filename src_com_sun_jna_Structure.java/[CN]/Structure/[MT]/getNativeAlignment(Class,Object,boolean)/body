@@ -35,7 +35,7 @@
   }
  else   if (actualAlignType == ALIGN_GNUC) {
     if (!isFirstElement || !(Platform.isMac() && Platform.isPPC())) {
-      alignment=Math.min(MAX_GNUC_ALIGNMENT,alignment);
+      alignment=Math.min(Native.MAX_PADDING,alignment);
     }
     if (!isFirstElement && Platform.isAIX() && (type == double.class || type == Double.class)) {
       alignment=4;
