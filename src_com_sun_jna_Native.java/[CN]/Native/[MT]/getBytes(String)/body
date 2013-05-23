@@ -1,8 +1,3 @@
 {
-  try {
-    return getBytes(s,System.getProperty("jna.encoding"));
-  }
- catch (  UnsupportedEncodingException e) {
-    return s.getBytes();
-  }
+  return getBytes(s,getDefaultStringEncoding());
 }

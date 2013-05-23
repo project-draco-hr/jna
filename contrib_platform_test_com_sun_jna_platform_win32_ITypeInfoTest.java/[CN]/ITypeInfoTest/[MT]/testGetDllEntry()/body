@@ -3,7 +3,7 @@
   MEMBERID memid=new MEMBERID(0);
   BSTR pBstrDllName=new BSTR();
   BSTR pBstrName=new BSTR();
-  WORDbyReference pwOrdinal=new WORDbyReference();
+  WORDByReference pwOrdinal=new WORDByReference();
   HRESULT hr=typeInfo.GetDllEntry(memid,INVOKEKIND.INVOKE_FUNC,pBstrDllName,pBstrName,pwOrdinal);
   COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());

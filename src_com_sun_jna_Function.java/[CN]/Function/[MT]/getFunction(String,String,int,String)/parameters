@@ -1,0 +1,4 @@
+String libraryName
+String functionName
+int callFlags
+String encoding

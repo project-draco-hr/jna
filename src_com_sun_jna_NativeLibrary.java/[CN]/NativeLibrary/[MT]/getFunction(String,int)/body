@@ -1,12 +1,3 @@
 {
-  if (functionName == null)   throw new NullPointerException("Function name may not be null");
-synchronized (functions) {
-    String key=functionKey(functionName,callFlags);
-    Function function=(Function)functions.get(key);
-    if (function == null) {
-      function=new Function(this,functionName,callFlags);
-      functions.put(key,function);
-    }
-    return function;
-  }
+  return getFunction(functionName,callFlags,Native.getDefaultStringEncoding());
 }

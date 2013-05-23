@@ -1,0 +1,5 @@
+{
+  byte[] data=Native.getBytes(value,encoding);
+  write(offset,data,0,data.length);
+  setByte(offset + data.length,(byte)0);
+}

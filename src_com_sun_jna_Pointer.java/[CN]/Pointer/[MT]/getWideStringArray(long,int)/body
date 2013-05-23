@@ -1,0 +1,3 @@
+{
+  return getStringArray(offset,-1,NativeString.WIDE_STRING);
+}

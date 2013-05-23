@@ -5,5 +5,5 @@
   s.write();
   s.read();
   assertEquals("Improper string read",MAGIC,s.string);
-  assertEquals("Improper null string read",null,s.string2);
+  assertEquals("Improper null string read: " + s,null,s.string2);
 }

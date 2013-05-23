@@ -1,5 +1,6 @@
 {
   setAlignType(alignType);
+  setStringEncoding(Native.getStringEncoding(getClass()));
   initializeTypeMapper(mapper);
   validateFields();
   if (p != null) {

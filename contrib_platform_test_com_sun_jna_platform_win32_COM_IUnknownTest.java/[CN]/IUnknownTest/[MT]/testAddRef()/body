@@ -1,6 +1,4 @@
 {
-  System.out.println("start 'testAddRef'");
   int addRef=this.iDispatch.AddRef();
-  System.out.println("addRef:" + addRef);
-  System.out.println("end 'testAddRef'");
+  assertEquals("Wrong addRef result",1,addRef);
 }

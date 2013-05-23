@@ -1,8 +1,14 @@
 {
-  File source=File.createTempFile("testCopyFile","jna");
+  File source=File.createTempFile(getName(),"jna");
   source.deleteOnExit();
   File destination=new File(source.getParent(),source.getName() + "-destination");
   destination.deleteOnExit();
-  Kernel32.INSTANCE.CopyFile(source.getCanonicalPath(),destination.getCanonicalPath(),true);
-  assertTrue(destination.exists());
+  try {
+    Kernel32.INSTANCE.CopyFile(source.getCanonicalPath(),destination.getCanonicalPath(),true);
+    assertTrue(destination.exists());
+  }
+  finally {
+    source.delete();
+    destination.delete();
+  }
 }

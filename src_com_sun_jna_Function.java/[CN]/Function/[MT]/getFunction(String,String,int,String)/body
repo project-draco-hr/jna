@@ -1,0 +1,3 @@
+{
+  return NativeLibrary.getInstance(libraryName).getFunction(functionName,callFlags,encoding);
+}

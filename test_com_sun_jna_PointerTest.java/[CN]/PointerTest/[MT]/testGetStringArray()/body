@@ -1,11 +1,12 @@
 {
   Pointer p=new Memory(Pointer.SIZE * 3);
-  String VALUE1=getName();
-  String VALUE2=getName() + "2";
-  p.setPointer(0,new NativeString(VALUE1).getPointer());
-  p.setPointer(Pointer.SIZE,new NativeString(VALUE2).getPointer());
+  final String VALUE1=getName() + UNICODE;
+  final String VALUE2=getName() + "2" + UNICODE;
+  final String ENCODING="utf8";
+  p.setPointer(0,new NativeString(VALUE1,ENCODING).getPointer());
+  p.setPointer(Pointer.SIZE,new NativeString(VALUE2,ENCODING).getPointer());
   p.setPointer(Pointer.SIZE * 2,null);
-  assertEquals("Wrong null-terminated String array",Arrays.asList(new String[]{VALUE1,VALUE2}),Arrays.asList(p.getStringArray(0)));
-  assertEquals("Wrong length-specified String array (1)",Arrays.asList(new String[]{VALUE1}),Arrays.asList(p.getStringArray(0,1)));
-  assertEquals("Wrong length-specified String array (2)",Arrays.asList(new String[]{VALUE1,VALUE2}),Arrays.asList(p.getStringArray(0,2)));
+  assertEquals("Wrong null-terminated String array",Arrays.asList(new String[]{VALUE1,VALUE2}),Arrays.asList(p.getStringArray(0,ENCODING)));
+  assertEquals("Wrong length-specified String array (1)",Arrays.asList(new String[]{VALUE1}),Arrays.asList(p.getStringArray(0,1,ENCODING)));
+  assertEquals("Wrong length-specified String array (2)",Arrays.asList(new String[]{VALUE1,VALUE2}),Arrays.asList(p.getStringArray(0,2,ENCODING)));
 }

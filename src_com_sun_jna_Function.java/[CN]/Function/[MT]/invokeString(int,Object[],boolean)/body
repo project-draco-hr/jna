@@ -2,8 +2,12 @@
   Pointer ptr=invokePointer(callFlags,args);
   String s=null;
   if (ptr != null) {
-    if (wide)     s=ptr.getString(0,wide);
- else     s=ptr.getString(0);
+    if (wide) {
+      s=ptr.getWideString(0);
+    }
+ else {
+      s=ptr.getString(0,encoding);
+    }
   }
   return s;
 }

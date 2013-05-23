@@ -1,5 +1,9 @@
 {
-  assertEquals("Wrong options found for interface which provides OPTIONS",TestInterfaceWithOptions.OPTIONS,Native.getLibraryOptions(TestInterfaceWithOptions.class));
-  assertEquals("Wrong type mapper found",TestInterfaceWithOptions.TEST_MAPPER,Native.getTypeMapper(TestInterfaceWithOptions.class));
-  assertEquals("Wrong alignment found",TestInterfaceWithOptions.TEST_ALIGNMENT,Native.getStructureAlignment(TestInterfaceWithOptions.class));
+  Class[] classes={TestInterfaceWithOptions.class,TestInterfaceWithOptions.TestStructure.class};
+  for (int i=0; i < classes.length; i++) {
+    assertEquals("Wrong options found for interface which provides OPTIONS",TestInterfaceWithOptions.OPTIONS,Native.getLibraryOptions(classes[i]));
+    assertEquals("Wrong type mapper found",TestInterfaceWithOptions.TEST_MAPPER,Native.getTypeMapper(classes[i]));
+    assertEquals("Wrong alignment found",TestInterfaceWithOptions.TEST_ALIGNMENT,Native.getStructureAlignment(classes[i]));
+    assertEquals("Wrong encoding found",TestInterfaceWithOptions.TEST_ENCODING,Native.getStringEncoding(classes[i]));
+  }
 }

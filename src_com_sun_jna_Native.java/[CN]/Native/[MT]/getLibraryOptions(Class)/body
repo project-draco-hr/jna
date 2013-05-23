@@ -1,20 +1,37 @@
 {
 synchronized (libraries) {
-    Class interfaceClass=findEnclosingLibraryClass(type);
-    if (interfaceClass != null)     loadLibraryInstance(interfaceClass);
- else     interfaceClass=type;
-    if (!options.containsKey(interfaceClass)) {
+    Class mappingClass=findEnclosingLibraryClass(type);
+    if (mappingClass != null) {
+      loadLibraryInstance(mappingClass);
+    }
+ else {
+      mappingClass=type;
+    }
+    if (!options.containsKey(mappingClass)) {
+      Map libraryOptions=null;
       try {
-        Field field=interfaceClass.getField("OPTIONS");
+        Field field=mappingClass.getField("OPTIONS");
         field.setAccessible(true);
-        options.put(interfaceClass,field.get(null));
+        libraryOptions=(Map)field.get(null);
       }
  catch (      NoSuchFieldException e) {
+        libraryOptions=Collections.EMPTY_MAP;
       }
 catch (      Exception e) {
-        throw new IllegalArgumentException("OPTIONS must be a public field of type java.util.Map (" + e + "): "+ interfaceClass);
+        throw new IllegalArgumentException("OPTIONS must be a public field of type java.util.Map (" + e + "): "+ mappingClass);
       }
+      libraryOptions=new HashMap(libraryOptions);
+      if (!libraryOptions.containsKey(Library.OPTION_TYPE_MAPPER)) {
+        libraryOptions.put(Library.OPTION_TYPE_MAPPER,lookupField(mappingClass,"TYPE_MAPPER",TypeMapper.class));
+      }
+      if (!libraryOptions.containsKey(Library.OPTION_STRUCTURE_ALIGNMENT)) {
+        libraryOptions.put(Library.OPTION_STRUCTURE_ALIGNMENT,lookupField(mappingClass,"STRUCTURE_ALIGNMENT",Integer.class));
+      }
+      if (!libraryOptions.containsKey(Library.OPTION_STRING_ENCODING)) {
+        libraryOptions.put(Library.OPTION_STRING_ENCODING,lookupField(mappingClass,"STRING_ENCODING",String.class));
+      }
+      options.put(mappingClass,libraryOptions);
     }
-    return (Map)options.get(interfaceClass);
+    return (Map)options.get(mappingClass);
   }
 }

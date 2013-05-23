@@ -1,0 +1,17 @@
+{
+  if (string == null) {
+    throw new NullPointerException("String must not be null");
+  }
+  this.encoding=encoding;
+  if (this.encoding == WIDE_STRING) {
+    int len=(string.length() + 1) * Native.WCHAR_SIZE;
+    pointer=new Memory(len);
+    pointer.setWideString(0,string);
+  }
+ else {
+    byte[] data=Native.getBytes(string,encoding);
+    pointer=new Memory(data.length + 1);
+    pointer.write(0,data,0,data.length);
+    pointer.setByte(data.length,(byte)0);
+  }
+}

@@ -1,8 +1,6 @@
 {
 synchronized (libraries) {
-    if (!libOptions.isEmpty())     options.put(cls,libOptions);
-    if (libOptions.containsKey(Library.OPTION_TYPE_MAPPER))     typeMappers.put(cls,libOptions.get(Library.OPTION_TYPE_MAPPER));
-    if (libOptions.containsKey(Library.OPTION_STRUCTURE_ALIGNMENT))     alignments.put(cls,libOptions.get(Library.OPTION_STRUCTURE_ALIGNMENT));
+    options.put(cls,libOptions);
     if (proxy != null) {
       libraries.put(cls,new WeakReference(proxy));
     }

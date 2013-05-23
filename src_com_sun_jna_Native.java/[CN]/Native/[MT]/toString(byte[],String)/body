@@ -5,12 +5,16 @@
       s=new String(buf,encoding);
     }
  catch (    UnsupportedEncodingException e) {
+      System.err.println("JNA Warning: Encoding '" + encoding + "' is unsupported");
     }
   }
   if (s == null) {
+    System.err.println("JNA Warning: Decoding with fallback " + System.getProperty("file.encoding"));
     s=new String(buf);
   }
   int term=s.indexOf(0);
-  if (term != -1)   s=s.substring(0,term);
+  if (term != -1) {
+    s=s.substring(0,term);
+  }
   return s;
 }

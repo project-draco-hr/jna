@@ -1,6 +1,4 @@
 {
-  System.out.println("start 'testQueryInterface'");
   int release=this.iDispatch.Release();
-  System.out.println("release:" + release);
-  System.out.println("end 'testRelease'");
+  assertEquals("Wrong release result",0,release);
 }

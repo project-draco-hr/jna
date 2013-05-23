@@ -3,7 +3,7 @@
   File tmpdir=Native.getTempDir();
   File unicodeDir=new File(tmpdir,UNICODE);
   unicodeDir.mkdirs();
-  Properties props=System.getProperties();
+  Properties props=(Properties)System.getProperties().clone();
   try {
     System.setProperty("jna.tmpdir",unicodeDir.getAbsolutePath());
     ClassLoader loader=new TestLoader(true);

@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,(value.length() + 1L) * Native.WCHAR_SIZE);
+  super.setWideString(offset,value);
+}

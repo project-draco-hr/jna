@@ -14,7 +14,7 @@
       if (nativeStrings.containsKey(structField.name + ".ptr") && value.equals(nativeStrings.get(structField.name + ".val"))) {
         return;
       }
-      NativeString nativeString=new NativeString(value.toString(),wide);
+      NativeString nativeString=wide ? new NativeString(value.toString(),true) : new NativeString(value.toString(),encoding);
       nativeStrings.put(structField.name,nativeString);
       value=nativeString.getPointer();
     }

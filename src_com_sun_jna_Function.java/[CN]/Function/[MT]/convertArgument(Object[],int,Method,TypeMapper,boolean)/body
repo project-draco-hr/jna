@@ -65,7 +65,7 @@
     return Boolean.TRUE.equals(arg) ? INTEGER_TRUE : INTEGER_FALSE;
   }
  else   if (String[].class == argClass) {
-    return new StringArray((String[])arg);
+    return new StringArray((String[])arg,encoding);
   }
  else   if (WString[].class == argClass) {
     return new StringArray((WString[])arg);

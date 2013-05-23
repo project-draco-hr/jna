@@ -1,5 +1,5 @@
 {
-  GUID.ByReference lpiid=new GUID.ByReference();
+  GUID lpiid=new GUID();
   HRESULT hr=Ole32.INSTANCE.IIDFromString(guidString,lpiid);
   if (!hr.equals(W32Errors.S_OK)) {
     throw new RuntimeException(hr.toString());

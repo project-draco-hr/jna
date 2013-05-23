@@ -1,17 +1,22 @@
 {
   String expected="jna - testReadFile";
-  File tmp=File.createTempFile("testReadFile","jna");
+  File tmp=File.createTempFile(getName(),"jna");
   tmp.deleteOnExit();
-  FileWriter fw=new FileWriter(tmp);
-  fw.append(expected);
-  fw.close();
-  HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
-  assertFalse(hFile == WinBase.INVALID_HANDLE_VALUE);
-  Memory m=new Memory(2048);
-  IntByReference lpNumberOfBytesRead=new IntByReference(0);
-  assertTrue(Kernel32.INSTANCE.ReadFile(hFile,m,(int)m.size(),lpNumberOfBytesRead,null));
-  int read=lpNumberOfBytesRead.getValue();
-  assertEquals(expected.length(),read);
-  assertEquals(expected,new String(m.getByteArray(0,read)));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
+  try {
+    FileWriter fw=new FileWriter(tmp);
+    fw.append(expected);
+    fw.close();
+    HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+    assertFalse(hFile == WinBase.INVALID_HANDLE_VALUE);
+    Memory m=new Memory(2048);
+    IntByReference lpNumberOfBytesRead=new IntByReference(0);
+    assertTrue(Kernel32.INSTANCE.ReadFile(hFile,m,(int)m.size(),lpNumberOfBytesRead,null));
+    int read=lpNumberOfBytesRead.getValue();
+    assertEquals(expected.length(),read);
+    assertEquals(expected,new String(m.getByteArray(0,read)));
+    assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
+  }
+  finally {
+    tmp.delete();
+  }
 }

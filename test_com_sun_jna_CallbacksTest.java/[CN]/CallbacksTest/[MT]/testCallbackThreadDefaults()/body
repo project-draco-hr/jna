@@ -4,7 +4,7 @@
   final String[] name={null};
   final ThreadGroup[] group={null};
   final Thread[] t={null};
-  ThreadGroup testGroup=new ThreadGroup(getName());
+  ThreadGroup testGroup=new ThreadGroup(getName() + UNICODE);
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
     public void callback(){
       Thread thread=Thread.currentThread();

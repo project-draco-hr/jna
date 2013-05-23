@@ -7,7 +7,7 @@
 ;
   Map m=CallbackReference.allocations;
   m.clear();
-  String arg=getName() + "1";
+  String arg=getName() + "1" + UNICODE;
   String value=lib.callStringCallback(cb,arg);
   WeakReference ref=new WeakReference(value);
   arg=null;

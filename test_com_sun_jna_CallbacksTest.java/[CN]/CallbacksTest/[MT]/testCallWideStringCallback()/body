@@ -9,7 +9,7 @@
     }
   }
 ;
-  final WString VALUE=new WString("value");
+  final WString VALUE=new WString("value" + UNICODE);
   WString value=lib.callWideStringCallback(cb,VALUE);
   assertTrue("Callback not called",called[0]);
   assertEquals("Wrong callback argument 1",VALUE,cbargs[0]);

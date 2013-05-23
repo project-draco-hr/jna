@@ -1,5 +1,5 @@
 {
-  CLSID.ByReference clsid=new CLSID.ByReference();
+  CLSID clsid=new CLSID();
   HRESULT hr=Ole32.INSTANCE.CLSIDFromString(new WString("{00020905-0000-0000-C000-000000000046}"),clsid);
   COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());

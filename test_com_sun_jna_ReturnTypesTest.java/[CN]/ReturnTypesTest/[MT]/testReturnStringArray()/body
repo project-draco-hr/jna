@@ -1,7 +1,7 @@
 {
-  String value=getName();
-  String[] input={value,null};
+  final String VALUE=getName() + UNICODE;
+  String[] input={VALUE,null};
   String[] result=lib.returnPointerArgument(input);
   assertEquals("Wrong array length",input.length - 1,result.length);
-  assertEquals("Wrong array element value",value,result[0]);
+  assertEquals("Wrong array element value",VALUE,result[0]);
 }

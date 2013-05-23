@@ -6,7 +6,14 @@
     fieldType=readConverter.nativeType();
   }
   Object currentValue=(Structure.class.isAssignableFrom(fieldType) || Callback.class.isAssignableFrom(fieldType) || (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(fieldType))|| Pointer.class.isAssignableFrom(fieldType)|| NativeMapped.class.isAssignableFrom(fieldType)|| fieldType.isArray()) ? getFieldValue(structField.field) : null;
-  Object result=memory.getValue(offset,fieldType,currentValue);
+  Object result;
+  if (fieldType == String.class) {
+    Pointer p=memory.getPointer(offset);
+    result=p == null ? null : p.getString(0,encoding);
+  }
+ else {
+    result=memory.getValue(offset,fieldType,currentValue);
+  }
   if (readConverter != null) {
     result=readConverter.fromNative(result,structField.context);
     if (currentValue != null && currentValue.equals(result)) {
