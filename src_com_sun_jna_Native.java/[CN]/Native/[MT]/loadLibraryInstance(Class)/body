@@ -1,17 +1,19 @@
 {
-  if (cls != null && !libraries.containsKey(cls)) {
-    try {
-      Field[] fields=cls.getFields();
-      for (int i=0; i < fields.length; i++) {
-        Field field=fields[i];
-        if (field.getType() == cls && Modifier.isStatic(field.getModifiers())) {
-          libraries.put(cls,new WeakReference(field.get(null)));
-          break;
+synchronized (libraries) {
+    if (cls != null && !libraries.containsKey(cls)) {
+      try {
+        Field[] fields=cls.getFields();
+        for (int i=0; i < fields.length; i++) {
+          Field field=fields[i];
+          if (field.getType() == cls && Modifier.isStatic(field.getModifiers())) {
+            libraries.put(cls,new WeakReference(field.get(null)));
+            break;
+          }
         }
       }
-    }
- catch (    Exception e) {
-      throw new IllegalArgumentException("Could not access instance of " + cls + " ("+ e+ ")");
+ catch (      Exception e) {
+        throw new IllegalArgumentException("Could not access instance of " + cls + " ("+ e+ ")");
+      }
     }
   }
 }

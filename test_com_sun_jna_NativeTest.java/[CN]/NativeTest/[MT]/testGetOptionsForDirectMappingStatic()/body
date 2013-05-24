@@ -1,0 +1,8 @@
+{
+  Class[] classes={DirectMappingStatic.class,DirectMappingStatic.DirectStructure.class,DirectMappingStatic.DirectCallback.class};
+  for (int i=0; i < classes.length; i++) {
+    assertEquals("Wrong type mapper for direct mapping (static) " + classes[i],DirectMappingStatic.TEST_MAPPER,Native.getTypeMapper(classes[i]));
+    assertEquals("Wrong alignment for direct mapping (static) " + classes[i],DirectMappingStatic.TEST_ALIGNMENT,Native.getStructureAlignment(classes[i]));
+    assertEquals("Wrong encoding for direct mapping (static) " + classes[i],DirectMappingStatic.TEST_ENCODING,Native.getStringEncoding(classes[i]));
+  }
+}
