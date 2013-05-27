@@ -1,9 +1,6 @@
 {
   if (mapper == null) {
-    Class declaring=getClass().getDeclaringClass();
-    if (declaring != null) {
-      mapper=Native.getTypeMapper(declaring);
-    }
+    mapper=Native.getTypeMapper(getClass());
   }
   this.typeMapper=mapper;
   layoutChanged();

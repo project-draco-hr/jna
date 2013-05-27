@@ -1,0 +1,4 @@
+{
+  char[] buf=(getName() + NUL).toCharArray();
+  assertEquals("Wide C string improperly converted",getName(),Native.toString(buf));
+}

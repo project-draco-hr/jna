@@ -1,0 +1,4 @@
+{
+  byte[] buf=(getName() + UNICODE + NUL).getBytes("utf8");
+  assertEquals("Encoded C string improperly converted",getName() + UNICODE,Native.toString(buf,"utf8"));
+}

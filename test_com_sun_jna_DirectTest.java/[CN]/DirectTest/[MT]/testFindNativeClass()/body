@@ -1,17 +1,17 @@
 {
 class UnregisterLibrary {
 class Inner {
-      public Class getNativeClass(){
-        return getNativeClassInner();
+      public Class findDirectMappedClass(){
+        return findDirectMappedClassInner();
       }
-      public Class getNativeClassInner(){
-        return Native.getNativeClass(Native.getCallingClass());
+      public Class findDirectMappedClassInner(){
+        return Native.findDirectMappedClass(Native.getCallingClass());
       }
     }
     public native double cos(    double x);
-    public Class getNativeClass(){
-      return new Inner().getNativeClass();
+    public Class findDirectMappedClass(){
+      return new Inner().findDirectMappedClass();
     }
   }
-  assertEquals("Wrong native class found",UnregisterLibrary.class,new UnregisterLibrary().getNativeClass());
+  assertEquals("Wrong native class found",UnregisterLibrary.class,new UnregisterLibrary().findDirectMappedClass());
 }

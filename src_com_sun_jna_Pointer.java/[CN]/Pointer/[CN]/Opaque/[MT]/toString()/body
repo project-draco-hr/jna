@@ -1,3 +1,3 @@
 {
-  return "opaque@0x" + Long.toHexString(peer);
+  return "const@0x" + Long.toHexString(peer);
 }
