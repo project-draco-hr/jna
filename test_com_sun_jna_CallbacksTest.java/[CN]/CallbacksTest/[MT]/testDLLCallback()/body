@@ -19,9 +19,9 @@ class TestCallback implements TestLibrary.VoidCallback, com.sun.jna.win32.DLLCal
   int result=f.invokeInt(new Object[]{new Integer(GET_MODULE_HANDLE_FROM_ADDRESS),fp,pref});
   assertTrue("GetModuleHandleEx(fptr) failed: " + Native.getLastError(),result != 0);
   f=kernel32.getFunction("GetModuleHandleW");
-  Pointer handle=f.invokePointer(new Object[]{"jnidispatch"});
+  Pointer handle=f.invokePointer(new Object[]{"jnidispatch.dll"});
   assertTrue("GetModuleHandle(\"jnidispatch\") failed: " + Native.getLastError(),result != 0);
-  assertNotNull("Could not object module handle for jnidispatch.dll",handle);
+  assertNotNull("Could not get module handle for jnidispatch.dll",handle);
   assertEquals("Wrong module HANDLE for DLL function pointer",handle,pref.getValue());
   Map refs=new WeakHashMap(callbackCache());
   assertTrue("Callback not cached",refs.containsKey(cb));
