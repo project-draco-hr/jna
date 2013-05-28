@@ -1,3 +1,3 @@
 {
-  return getFunction(functionName,callFlags,Native.getDefaultStringEncoding());
+  return getFunction(functionName,callFlags,encoding);
 }
