@@ -6,9 +6,9 @@
   int callingConvention=option instanceof Number ? ((Number)option).intValue() : Function.C_CONVENTION;
   this.callFlags=callingConvention;
   this.options=options;
-  String encoding=(String)options.get(Library.OPTION_STRING_ENCODING);
-  if (encoding == null) {
-    encoding=Native.getDefaultStringEncoding();
+  this.encoding=(String)options.get(Library.OPTION_STRING_ENCODING);
+  if (this.encoding == null) {
+    this.encoding=Native.getDefaultStringEncoding();
   }
   if (Platform.isWindows() && "kernel32".equals(this.libraryName.toLowerCase())) {
 synchronized (functions) {
