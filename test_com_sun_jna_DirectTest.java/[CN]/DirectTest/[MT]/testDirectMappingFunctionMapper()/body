@@ -1,0 +1,23 @@
+{
+  FunctionMapper MAPPER=new FunctionMapper(){
+    public String getFunctionName(    NativeLibrary lib,    Method method){
+      String name=method.getName();
+      if (name.startsWith("_prefixed_")) {
+        return name.substring(10);
+      }
+      return name;
+    }
+  }
+;
+  Map options=new HashMap();
+  options.put(Library.OPTION_FUNCTION_MAPPER,MAPPER);
+  try {
+    Native.register(RemappedCLibrary.class,NativeLibrary.getInstance(Platform.C_LIBRARY_NAME,options));
+    final String VALUE=getName();
+    int len=RemappedCLibrary._prefixed_strlen(VALUE);
+    assertEquals(VALUE.length(),len);
+  }
+ catch (  Exception e) {
+    fail("Native method was not properly mapped: " + e);
+  }
+}
