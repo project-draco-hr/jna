@@ -89,12 +89,7 @@ throwLastError=true;
 break;
 }
 }
-String name=method.getName();
-FunctionMapper fmapper=(FunctionMapper)lib.getOptions().get(Library.OPTION_FUNCTION_MAPPER);
-if (fmapper != null) {
-name=fmapper.getFunctionName(lib,method);
-}
-Function f=lib.getFunction(name,method);
+Function f=lib.getFunction(method.getName(),method);
 try {
 handles[i]=registerMethod(cls,method.getName(),sig,cvt,closure_atypes,atypes,rcvt,closure_rtype,rtype,rclass,f.peer,f.getCallingConvention(),throwLastError,toNative,fromNative,f.encoding);
 }

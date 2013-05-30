@@ -1,6 +1,6 @@
 {
   final boolean[] lockHeld={false};
-  final NativeLibrary nlib=NativeLibrary.getInstance("testlib");
+  final NativeLibrary nlib=NativeLibrary.getInstance("testlib",TestLib.class.getClassLoader());
   final TestLib lib=(TestLib)Native.loadLibrary("testlib",TestLib.class);
   final TestLib synchlib=(TestLib)Native.synchronizedLibrary(lib);
   final TestLib.VoidCallback cb=new TestLib.VoidCallback(){
