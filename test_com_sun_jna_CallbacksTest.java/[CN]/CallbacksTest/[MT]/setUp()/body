@@ -1,4 +1,3 @@
 {
   lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class);
-  System.out.println("Run " + getName());
 }
