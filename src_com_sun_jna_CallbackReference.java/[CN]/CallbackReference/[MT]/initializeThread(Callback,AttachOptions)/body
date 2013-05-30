@@ -3,7 +3,7 @@
   if (cb instanceof DefaultCallbackProxy) {
     cb=((DefaultCallbackProxy)cb).getCallback();
   }
-synchronized (initializers) {
+synchronized (callbackMap) {
     init=(CallbackThreadInitializer)initializers.get(cb);
   }
   ThreadGroup group=null;
@@ -12,10 +12,7 @@ synchronized (initializers) {
     args.name=init.getName(cb);
     args.daemon=init.isDaemon(cb);
     args.detach=init.detach(cb);
+    args.write();
   }
-  args.termination_flag=(Pointer)terminationFlag.get();
-  args.termination_flag.setInt(0,0);
-  args.write();
-  nativeThreads.put(Thread.currentThread(),args.termination_flag);
   return group;
 }

@@ -1,0 +1,5 @@
+{
+  Pointer p=(Pointer)nativeThreadTerminationFlag.get();
+  nativeThreads.put(Thread.currentThread(),p);
+  setDetachState(detach,p.peer);
+}
