@@ -13,7 +13,7 @@
 ;
   CallbackThreadInitializer asDaemon=new CallbackThreadInitializer(true){
     public String getName(    Callback cb){
-      return "Test thread for " + CallbacksTest.this.getName();
+      return "Test thread (native) for " + CallbacksTest.this.getName();
     }
   }
 ;
@@ -28,7 +28,7 @@
     Thread.sleep(100);
     Thread[] remaining=new Thread[Thread.activeCount()];
     Thread.enumerate(remaining);
-    if (System.currentTimeMillis() - start > 10000) {
+    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
       Thread t=(Thread)ref.get();
       Pointer terminationFlag=Native.getTerminationFlag(t);
       assertNotNull("Native thread termination flag is missing",terminationFlag);
@@ -36,6 +36,7 @@
         fail("Timed out waiting for native attached thread to be GC'd: " + t + " alive: "+ t.isAlive()+ " daemon: "+ t.isDaemon()+ "\n"+ Arrays.asList(remaining));
       }
       System.err.println("Warning: JVM did not GC Thread mapping after native thread terminated");
+      break;
     }
   }
 }

@@ -35,15 +35,15 @@
   long start=System.currentTimeMillis();
   while (called[0] < 2) {
     Thread.sleep(10);
-    if (System.currentTimeMillis() - start > 5000) {
+    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
       fail("Timed out waiting for second callback invocation, which indicates detach");
     }
   }
   start=System.currentTimeMillis();
   while (t[0].isAlive()) {
     Thread.sleep(10);
-    if (System.currentTimeMillis() - start > 5000) {
-      fail("Timed out waiting for thread to detach and die");
+    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
+      fail("Timed out waiting for thread to detach and terminate");
     }
   }
 }

@@ -6,7 +6,7 @@
   long start=System.currentTimeMillis();
   while (called[0] < returnAfter) {
     Thread.sleep(10);
-    if (System.currentTimeMillis() - start > 5000) {
+    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
       fail("Timed out waiting for callback, invoked " + called[0] + " times so far");
     }
   }
