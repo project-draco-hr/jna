@@ -5,6 +5,9 @@
       loader=Native.class.getClassLoader();
     }
   }
+  if (Native.DEBUG_LOAD) {
+    System.out.println("Looking in classpath from " + loader + " for "+ name);
+  }
   String libname=name.startsWith("/") ? name : NativeLibrary.mapSharedLibraryName(name);
   String resourcePath=name.startsWith("/") ? name : Platform.RESOURCE_PREFIX + "/" + libname;
   if (resourcePath.startsWith("/")) {
@@ -29,11 +32,17 @@
  catch (    URISyntaxException e) {
       lib=new File(url.getPath());
     }
+    if (DEBUG_LOAD) {
+      System.out.println("Looking in " + lib.getAbsolutePath());
+    }
     if (!lib.exists()) {
       throw new IOException("File URL " + url + " could not be properly decoded");
     }
   }
  else   if (!Boolean.getBoolean("jna.nounpack")) {
+    if (Native.DEBUG_LOAD) {
+      System.out.println("Looking in " + resourcePath);
+    }
     InputStream is=loader.getResourceAsStream(resourcePath);
     if (is == null) {
       throw new IOException("Can't obtain InputStream for " + resourcePath);

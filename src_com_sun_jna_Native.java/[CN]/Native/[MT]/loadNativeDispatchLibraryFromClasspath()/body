@@ -7,6 +7,9 @@
         throw new UnsatisfiedLinkError("Could not find JNA native support");
       }
     }
+    if (DEBUG_JNA_LOAD) {
+      System.out.println("Trying " + lib.getAbsolutePath());
+    }
     System.load(lib.getAbsolutePath());
     nativeLibraryPath=lib.getAbsolutePath();
     if (isUnpacked(lib)) {

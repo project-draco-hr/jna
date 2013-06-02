@@ -1,9 +1,15 @@
 {
+  if (Native.DEBUG_LOAD) {
+    System.out.println("Looking for library '" + libraryName + "'");
+  }
   boolean isAbsolutePath=new File(libraryName).isAbsolute();
   List searchPath=new LinkedList();
   int openFlags=openFlags(options);
   String webstartPath=Native.getWebStartLibraryPath(libraryName);
   if (webstartPath != null) {
+    if (Native.DEBUG_LOAD) {
+      System.out.println("Adding web start path " + webstartPath);
+    }
     searchPath.add(webstartPath);
   }
   List customPaths=(List)searchPaths.get(libraryName);
@@ -12,18 +18,30 @@ synchronized (customPaths) {
       searchPath.addAll(0,customPaths);
     }
   }
+  if (Native.DEBUG_LOAD) {
+    System.out.println("Adding paths from jna.library.path: " + System.getProperty("jna.library.path"));
+  }
   searchPath.addAll(initPaths("jna.library.path"));
   String libraryPath=findLibraryPath(libraryName,searchPath);
   long handle=0;
   try {
+    if (Native.DEBUG_LOAD) {
+      System.out.println("Trying " + libraryPath);
+    }
     handle=Native.open(libraryPath,openFlags);
   }
  catch (  UnsatisfiedLinkError e) {
+    if (Native.DEBUG_LOAD) {
+      System.out.println("Adding system paths: " + librarySearchPath);
+    }
     searchPath.addAll(librarySearchPath);
   }
   try {
     if (handle == 0) {
       libraryPath=findLibraryPath(libraryName,searchPath);
+      if (Native.DEBUG_LOAD) {
+        System.out.println("Trying " + libraryPath);
+      }
       handle=Native.open(libraryPath,openFlags);
       if (handle == 0) {
         throw new UnsatisfiedLinkError("Failed to load library '" + libraryName + "'");
@@ -33,6 +51,9 @@ synchronized (customPaths) {
  catch (  UnsatisfiedLinkError e) {
     if (Platform.isAndroid()) {
       try {
+        if (Native.DEBUG_LOAD) {
+          System.out.println("Preload (via System.loadLibrary) " + libraryName);
+        }
         System.loadLibrary(libraryName);
         handle=Native.open(libraryPath,openFlags);
       }
@@ -41,8 +62,14 @@ synchronized (customPaths) {
       }
     }
  else     if (Platform.isLinux()) {
+      if (Native.DEBUG_LOAD) {
+        System.out.println("Looking for version variants");
+      }
       libraryPath=matchLibrary(libraryName,searchPath);
       if (libraryPath != null) {
+        if (Native.DEBUG_LOAD) {
+          System.out.println("Trying " + libraryPath);
+        }
         try {
           handle=Native.open(libraryPath,openFlags);
         }
@@ -52,9 +79,15 @@ synchronized (customPaths) {
       }
     }
  else     if (Platform.isMac() && !libraryName.endsWith(".dylib")) {
+      if (Native.DEBUG_LOAD) {
+        System.out.println("Looking for matching frameworks");
+      }
       libraryPath=matchFramework(libraryName);
       if (libraryPath != null) {
         try {
+          if (Native.DEBUG_LOAD) {
+            System.out.println("Trying " + libraryPath);
+          }
           handle=Native.open(libraryPath,openFlags);
         }
  catch (        UnsatisfiedLinkError e2) {
@@ -63,12 +96,20 @@ synchronized (customPaths) {
       }
     }
  else     if (Platform.isWindows() && !isAbsolutePath) {
-      libraryPath=findLibraryPath("lib" + libraryName,searchPath);
-      try {
-        handle=Native.open(libraryPath,openFlags);
+      if (Native.DEBUG_LOAD) {
+        System.out.println("Looking for lib- prefix");
       }
- catch (      UnsatisfiedLinkError e2) {
-        e=e2;
+      libraryPath=findLibraryPath("lib" + libraryName,searchPath);
+      if (libraryPath != null) {
+        if (Native.DEBUG_LOAD) {
+          System.out.println("Trying " + libraryPath);
+        }
+        try {
+          handle=Native.open(libraryPath,openFlags);
+        }
+ catch (        UnsatisfiedLinkError e2) {
+          e=e2;
+        }
       }
     }
     if (handle == 0) {
@@ -86,6 +127,9 @@ synchronized (customPaths) {
     if (handle == 0) {
       throw new UnsatisfiedLinkError("Unable to load library '" + libraryName + "': "+ e.getMessage());
     }
+  }
+  if (Native.DEBUG_LOAD) {
+    System.out.println("Found library '" + libraryName + "' at "+ libraryPath);
   }
   return new NativeLibrary(libraryName,libraryPath,handle,options);
 }
