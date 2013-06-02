@@ -24,7 +24,7 @@
     }
   }
 ;
-  callThreadedCallback(cb,init,1,5000,called);
+  callThreadedCallback(cb,init,2,2000,called,1);
   assertTrue("Callback thread not attached as daemon",daemon[0]);
   assertEquals("Callback thread name not applied",tname,name[0]);
   assertEquals("Callback thread group not applied",testGroup,group[0]);
@@ -32,4 +32,18 @@
     throw new Error("VM incorrectly reports Thread.isAlive() == false within callback");
   }
   assertTrue("Thread should still be alive",t[0].isAlive());
+  long start=System.currentTimeMillis();
+  while (called[0] < 2) {
+    Thread.sleep(10);
+    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
+      fail("Timed out waiting for second callback invocation, which indicates detach");
+    }
+  }
+  start=System.currentTimeMillis();
+  while (t[0].isAlive()) {
+    Thread.sleep(10);
+    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
+      fail("Timed out waiting for thread to detach and terminate");
+    }
+  }
 }

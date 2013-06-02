@@ -15,8 +15,14 @@
       String dir=dirs.nextToken();
       File file=new File(new File(dir),System.mapLibraryName(libName).replace(".dylib",".jnilib"));
       String path=file.getAbsolutePath();
+      if (DEBUG_JNA_LOAD) {
+        System.out.println("Looking in " + path);
+      }
       if (file.exists()) {
         try {
+          if (DEBUG_JNA_LOAD) {
+            System.out.println("Trying " + path);
+          }
           System.load(path);
           nativeLibraryPath=path;
           return;
@@ -35,8 +41,14 @@
           ext="dylib";
         }
         path=path.substring(0,path.lastIndexOf(orig)) + ext;
+        if (DEBUG_JNA_LOAD) {
+          System.out.println("Looking in " + path);
+        }
         if (new File(path).exists()) {
           try {
+            if (DEBUG_JNA_LOAD) {
+              System.out.println("Trying " + path);
+            }
             System.load(path);
             nativeLibraryPath=path;
             return;
@@ -50,6 +62,9 @@
   }
   if (!Boolean.getBoolean("jna.nosys")) {
     try {
+      if (DEBUG_JNA_LOAD) {
+        System.out.println("Trying (via loadLibrary) " + libName);
+      }
       System.loadLibrary(libName);
       return;
     }

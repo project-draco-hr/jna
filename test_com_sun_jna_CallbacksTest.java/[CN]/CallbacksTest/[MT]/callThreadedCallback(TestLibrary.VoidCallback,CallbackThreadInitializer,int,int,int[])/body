@@ -1,13 +1,3 @@
 {
-  if (cti != null) {
-    Native.setCallbackThreadInitializer(cb,cti);
-  }
-  lib.callVoidCallbackThreaded(cb,repeat,sleepms);
-  long start=System.currentTimeMillis();
-  while (called[0] < repeat) {
-    Thread.sleep(10);
-    if (System.currentTimeMillis() - start > 5000) {
-      fail("Timed out waiting for callback, invoked " + called[0] + " times so far");
-    }
-  }
+  callThreadedCallback(cb,cti,repeat,sleepms,called,repeat);
 }

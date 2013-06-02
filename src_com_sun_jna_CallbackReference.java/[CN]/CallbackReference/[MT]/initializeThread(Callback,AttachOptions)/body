@@ -3,7 +3,7 @@
   if (cb instanceof DefaultCallbackProxy) {
     cb=((DefaultCallbackProxy)cb).getCallback();
   }
-synchronized (initializers) {
+synchronized (callbackMap) {
     init=(CallbackThreadInitializer)initializers.get(cb);
   }
   ThreadGroup group=null;
