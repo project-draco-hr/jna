@@ -11,7 +11,10 @@
       System.out.println("Trying " + lib.getAbsolutePath());
     }
     System.load(lib.getAbsolutePath());
-    nativeLibraryPath=lib.getAbsolutePath();
+    jnidispatchPath=lib.getAbsolutePath();
+    if (DEBUG_JNA_LOAD) {
+      System.out.println("Found jnidispatch at " + jnidispatchPath);
+    }
     if (isUnpacked(lib)) {
       deleteLibrary(lib);
     }

@@ -1,11 +1,12 @@
 {
+  final boolean DEBUG=DEBUG_LOAD || (DEBUG_JNA_LOAD && name.indexOf("jnidispatch") != -1);
   if (loader == null) {
     loader=Thread.currentThread().getContextClassLoader();
     if (loader == null) {
       loader=Native.class.getClassLoader();
     }
   }
-  if (Native.DEBUG_LOAD) {
+  if (DEBUG) {
     System.out.println("Looking in classpath from " + loader + " for "+ name);
   }
   String libname=name.startsWith("/") ? name : NativeLibrary.mapSharedLibraryName(name);
@@ -24,7 +25,7 @@
     }
     throw new IOException("Native library (" + resourcePath + ") not found in resource path ("+ path+ ")");
   }
-  if (DEBUG_LOAD) {
+  if (DEBUG) {
     System.out.println("Found library resource at " + url);
   }
   File lib=null;
@@ -35,7 +36,7 @@
  catch (    URISyntaxException e) {
       lib=new File(url.getPath());
     }
-    if (DEBUG_LOAD) {
+    if (DEBUG) {
       System.out.println("Looking in " + lib.getAbsolutePath());
     }
     if (!lib.exists()) {

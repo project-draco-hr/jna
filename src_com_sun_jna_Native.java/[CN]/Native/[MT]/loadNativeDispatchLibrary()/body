@@ -24,7 +24,10 @@
             System.out.println("Trying " + path);
           }
           System.load(path);
-          nativeLibraryPath=path;
+          jnidispatchPath=path;
+          if (DEBUG_JNA_LOAD) {
+            System.out.println("Found jnidispatch at " + path);
+          }
           return;
         }
  catch (        UnsatisfiedLinkError ex) {
@@ -50,7 +53,10 @@
               System.out.println("Trying " + path);
             }
             System.load(path);
-            nativeLibraryPath=path;
+            jnidispatchPath=path;
+            if (DEBUG_JNA_LOAD) {
+              System.out.println("Found jnidispatch at " + path);
+            }
             return;
           }
  catch (          UnsatisfiedLinkError ex) {
@@ -66,6 +72,9 @@
         System.out.println("Trying (via loadLibrary) " + libName);
       }
       System.loadLibrary(libName);
+      if (DEBUG_JNA_LOAD) {
+        System.out.println("Found jnidispatch on system path");
+      }
       return;
     }
  catch (    UnsatisfiedLinkError e) {

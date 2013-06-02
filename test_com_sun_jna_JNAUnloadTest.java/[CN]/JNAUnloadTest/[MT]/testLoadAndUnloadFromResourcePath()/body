@@ -2,7 +2,7 @@
   ClassLoader loader=new TestLoader(false);
   Class cls=Class.forName("com.sun.jna.Native",true,loader);
   assertEquals("Wrong class loader",loader,cls.getClassLoader());
-  Field field=cls.getDeclaredField("nativeLibraryPath");
+  Field field=cls.getDeclaredField("jnidispatchPath");
   field.setAccessible(true);
   String path=(String)field.get(null);
   assertNotNull("Native library not found",path);
