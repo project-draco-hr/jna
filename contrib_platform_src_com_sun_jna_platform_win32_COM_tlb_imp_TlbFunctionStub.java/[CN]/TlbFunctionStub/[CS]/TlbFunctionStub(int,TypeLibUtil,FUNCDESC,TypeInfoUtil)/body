@@ -26,6 +26,5 @@
   this.replaceVariable("returntype",returnType);
   this.replaceVariable("methodname",methodname);
   this.replaceVariable("methodparams",methodparams);
-  this.replaceVariable("methodvariables",methodvariables);
   this.replaceVariable("vtableid",String.valueOf(vtableId));
 }

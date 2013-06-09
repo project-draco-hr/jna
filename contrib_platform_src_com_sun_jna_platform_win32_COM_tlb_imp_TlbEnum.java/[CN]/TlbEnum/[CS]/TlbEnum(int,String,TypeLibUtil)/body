@@ -3,7 +3,7 @@
   TypeLibDoc typeLibDoc=this.typeLibUtil.getDocumentation(index);
   String enumName=typeLibDoc.getName();
   String docString=typeLibDoc.getDocString();
-  this.logInfo("Type of kind 'enum' found: " + enumName);
+  this.logInfo("Type of kind 'Enum' found: " + enumName);
   this.createPackageName(packagename);
   this.createClassName(enumName);
   this.setFilename(enumName);

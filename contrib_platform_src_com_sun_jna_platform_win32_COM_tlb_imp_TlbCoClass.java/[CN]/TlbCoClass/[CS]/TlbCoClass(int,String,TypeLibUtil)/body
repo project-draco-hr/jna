@@ -3,6 +3,7 @@
   TypeLibDoc typeLibDoc=this.typeLibUtil.getDocumentation(index);
   String coClassName=typeLibDoc.getName();
   String docString=typeLibDoc.getDocString();
+  this.logInfo("Type of kind 'CoClass' found: " + coClassName);
   this.createPackageName(packagename);
   this.createClassName(coClassName);
   this.setFilename(coClassName);
@@ -14,29 +15,17 @@
   this.createCLSID(guidStr);
   TypeInfoUtil typeInfoUtil=typeLibUtil.getTypeInfoUtil(index);
   TYPEATTR typeAttr=typeInfoUtil.getTypeAttr();
-  int cFuncs=typeAttr.cFuncs.intValue();
-  for (int i=0; i < cFuncs; i++) {
-    FUNCDESC funcDesc=typeInfoUtil.getFuncDesc(i);
-    MEMBERID memberID=funcDesc.memid;
-    TypeInfoDoc typeInfoDoc2=typeInfoUtil.getDocumentation(memberID);
-    String methodName=typeInfoDoc2.getName();
-    TlbAbstractMethod method=null;
-    if (!isReservedMethod(methodName)) {
-      if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_FUNC)) {
-        method=new TlbFunction(index,typeLibUtil,funcDesc,typeInfoUtil);
-      }
- else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYGET)) {
-        method=new TlbPropertyGet(index,typeLibUtil,funcDesc,typeInfoUtil);
-      }
- else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUT)) {
-        method=new TlbPropertyPut(index,typeLibUtil,funcDesc,typeInfoUtil);
-      }
- else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUTREF)) {
-      }
-      this.content+=method.getClassBuffer();
-      if (i < cFuncs - 1)       this.content+=CR;
-    }
-    typeInfoUtil.ReleaseFuncDesc(funcDesc);
+  int cImplTypes=typeAttr.cImplTypes.intValue();
+  String interfaces="";
+  for (int i=0; i < cImplTypes; i++) {
+    HREFTYPE refTypeOfImplType=typeInfoUtil.getRefTypeOfImplType(i);
+    ITypeInfo refTypeInfo=typeInfoUtil.getRefTypeInfo(refTypeOfImplType);
+    TypeInfoUtil refTypeInfoUtil=new TypeInfoUtil(refTypeInfo);
+    this.createFunctions(refTypeInfoUtil);
+    TypeInfoDoc documentation=refTypeInfoUtil.getDocumentation(new MEMBERID(-1));
+    interfaces+=documentation.getName();
+    if (i < cImplTypes - 1)     interfaces+=", ";
   }
+  this.createInterfaces(interfaces);
   this.createContent(this.content);
 }

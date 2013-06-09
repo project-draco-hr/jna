@@ -1,6 +1,6 @@
 {
   System.out.println("start 'testAddRef'");
-  int addRef=this.iDispatch.AddRef();
+  int addRef=this.iDispatch.AddRef().intValue();
   System.out.println("addRef:" + addRef);
   System.out.println("end 'testAddRef'");
 }
