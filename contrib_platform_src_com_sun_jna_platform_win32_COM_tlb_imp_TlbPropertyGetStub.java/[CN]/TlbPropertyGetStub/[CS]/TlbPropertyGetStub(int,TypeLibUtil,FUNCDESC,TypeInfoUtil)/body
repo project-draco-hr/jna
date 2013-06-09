@@ -1,0 +1,11 @@
+{
+  super(index,typeLibUtil,funcDesc,typeInfoUtil);
+  TypeInfoDoc typeInfoDoc=typeInfoUtil.getDocumentation(funcDesc.memid);
+  String docStr=typeInfoDoc.getDocString();
+  String methodname="get" + typeInfoDoc.getName();
+  ELEMDESC elemDesdRetType=funcDesc.elemdescFunc;
+  String returnType=this.getVarType(elemDesdRetType.tdesc.vt);
+  this.replaceVariable("helpstring",docStr);
+  this.replaceVariable("returntype",returnType);
+  this.replaceVariable("methodname",methodname);
+}

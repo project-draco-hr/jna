@@ -1,0 +1,4 @@
+{
+  TlbInterface tlbInterface=new TlbInterface(index,packagename,typeLibUtil);
+  this.writeTlbClass(tlbInterface);
+}

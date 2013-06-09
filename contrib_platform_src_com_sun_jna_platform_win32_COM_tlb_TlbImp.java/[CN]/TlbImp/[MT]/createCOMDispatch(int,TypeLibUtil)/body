@@ -1,4 +1,0 @@
-{
-  TlbDispatchInterface tlbDispatch=new TlbDispatchInterface(index,typeLibUtil);
-  this.writeTlbClass(tlbDispatch);
-}
