@@ -80,6 +80,18 @@
     Structure[] ss=(Structure[])arg;
     Class type=argClass.getComponentType();
     boolean byRef=Structure.ByReference.class.isAssignableFrom(type);
+    if (expectedType != null) {
+      if (!Structure.ByReference[].class.isAssignableFrom(expectedType)) {
+        if (byRef) {
+          throw new IllegalArgumentException("Function " + getName() + " declared Structure[] at parameter "+ index+ " but array of "+ type+ " was passed");
+        }
+        for (int i=0; i < ss.length; i++) {
+          if (ss[i] instanceof Structure.ByReference) {
+            throw new IllegalArgumentException("Function " + getName() + " declared Structure[] at parameter "+ index+ " but element "+ i+ " is of Structure.ByReference type");
+          }
+        }
+      }
+    }
     if (byRef) {
       Structure.autoWrite(ss);
       Pointer[] pointers=new Pointer[ss.length + 1];
