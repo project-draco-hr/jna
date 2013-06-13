@@ -1,5 +1,5 @@
 {
-  final Object[][] MAPPINGS={{Platform.MAC,"lib",".dylib"},{Platform.LINUX,"lib",".so"},{Platform.WINDOWS,"",".dll"},{Platform.SOLARIS,"lib",".so"},{Platform.FREEBSD,"lib",".so"},{Platform.OPENBSD,"lib",".so"},{Platform.WINDOWSCE,"",".dll"},{Platform.AIX,"lib",".a"},{Platform.ANDROID,"lib",".so"},{Platform.GNU,"lib",".so"},{Platform.KFREEBSD,"lib",".so"}};
+  final Object[][] MAPPINGS={{Platform.MAC,"lib",".dylib"},{Platform.LINUX,"lib",".so"},{Platform.WINDOWS,"",".dll"},{Platform.SOLARIS,"lib",".so"},{Platform.FREEBSD,"lib",".so"},{Platform.OPENBSD,"lib",".so"},{Platform.WINDOWSCE,"",".dll"},{Platform.AIX,"lib",".a"},{Platform.ANDROID,"lib",".so"},{Platform.GNU,"lib",".so"},{Platform.KFREEBSD,"lib",".so"},{Platform.NETBSD,"lib",".so"}};
   for (int i=0; i < MAPPINGS.length; i++) {
     int osType=((Integer)MAPPINGS[i][0]).intValue();
     if (osType == Platform.getOSType()) {
