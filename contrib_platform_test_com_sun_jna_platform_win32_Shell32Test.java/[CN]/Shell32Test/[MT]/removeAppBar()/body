@@ -1,0 +1,6 @@
+{
+  APPBARDATA data=new APPBARDATA.ByReference();
+  data.cbSize.setValue(data.size());
+  UINT_PTR result=Shell32.INSTANCE.SHAppBarMessage(new DWORD(ShellAPI.ABM_REMOVE),data);
+  assertNotNull(result);
+}

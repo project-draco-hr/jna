@@ -1,0 +1,5 @@
+{
+  UINT_PTR h=Shell32.INSTANCE.SHAppBarMessage(new DWORD(ShellAPI.ABM_QUERYPOS),data);
+  assertNotNull(h);
+  assertTrue(h.intValue() > 0);
+}
