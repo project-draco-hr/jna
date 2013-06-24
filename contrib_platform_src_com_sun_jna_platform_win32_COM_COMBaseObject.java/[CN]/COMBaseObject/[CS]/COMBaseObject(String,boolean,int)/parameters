@@ -1,0 +1,3 @@
+String progId
+boolean useActiveInstance
+int dwClsContext

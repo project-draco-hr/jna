@@ -1,0 +1,5 @@
+{
+  Pointer vptr=this.getPointer().getPointer(0);
+  Function func=Function.getFunction(vptr.getPointer(vtableId * Pointer.SIZE));
+  return func.invoke(returnType,args);
+}

@@ -1,31 +1,3 @@
 {
-  Native.setProtected(true);
-  HRESULT hr=Ole32.INSTANCE.CoInitialize(null);
-  if (COMUtils.FAILED(hr)) {
-    this.release();
-    throw new COMException("CoInitialize() failed!");
-  }
-  CLSID.ByReference clsid=new CLSID.ByReference();
-  hr=Ole32.INSTANCE.CLSIDFromProgID(progId,clsid);
-  if (COMUtils.FAILED(hr)) {
-    Ole32.INSTANCE.CoUninitialize();
-    throw new COMException("CLSIDFromProgID() failed!");
-  }
-  if (useActiveInstance) {
-    hr=OleAuto.INSTANCE.GetActiveObject(clsid,null,this.pUnknown);
-    if (COMUtils.SUCCEEDED(hr)) {
-      this.iUnknown=new Unknown(this.pUnknown.getValue());
-      hr=iUnknown.QueryInterface(IDispatch.IID_IDispatch,this.pDispatch);
-    }
- else {
-      hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,WTypes.CLSCTX_SERVER,IDispatch.IID_IDispatch,this.pDispatch);
-    }
-  }
- else {
-    hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,WTypes.CLSCTX_SERVER,IDispatch.IID_IDispatch,this.pDispatch);
-  }
-  if (COMUtils.FAILED(hr)) {
-    throw new COMException("COM object with ProgID '" + progId + "' and CLSID "+ clsid.toGuidString()+ " not registered properly!");
-  }
-  this.iDispatch=new Dispatch(this.pDispatch.getValue());
+  this(progId,useActiveInstance,WTypes.CLSCTX_ALL);
 }
