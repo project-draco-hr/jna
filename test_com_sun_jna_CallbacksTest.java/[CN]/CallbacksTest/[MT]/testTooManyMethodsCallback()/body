@@ -1,6 +1,6 @@
 {
   try {
-    CallbackReference.getCallback(TestLibrary.TooManyMethodsCallback.class,new Pointer(1));
+    CallbackReference.getCallback(TestLibrary.TooManyMethodsCallback.class,new Pointer(getName().hashCode()));
     fail("Callback lookup with too many methods should fail");
   }
  catch (  IllegalArgumentException e) {
