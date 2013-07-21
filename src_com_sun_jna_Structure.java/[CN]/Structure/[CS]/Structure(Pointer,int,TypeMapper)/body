@@ -4,7 +4,7 @@
   initializeTypeMapper(mapper);
   validateFields();
   if (p != null) {
-    useMemory(p);
+    useMemory(p,0,true);
   }
  else {
     allocateMemory(CALCULATE_SIZE);

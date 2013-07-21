@@ -42,7 +42,7 @@
         sarray[0]=first;
       }
  else {
-        first.useMemory(this,(int)offset);
+        first.useMemory(this,(int)offset,true);
         first.read();
       }
       Structure[] tmp=first.toArray(sarray.length);
@@ -51,7 +51,7 @@
           sarray[i]=tmp[i];
         }
  else {
-          sarray[i].useMemory(this,(int)(offset + i * sarray[i].size()));
+          sarray[i].useMemory(this,(int)(offset + i * sarray[i].size()),true);
           sarray[i].read();
         }
       }
