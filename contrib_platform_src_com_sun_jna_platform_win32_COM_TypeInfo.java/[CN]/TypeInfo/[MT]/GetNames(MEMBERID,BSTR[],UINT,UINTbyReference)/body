@@ -1,3 +1,3 @@
 {
-  return this.iTypeInfo.GetNames(memid,rgBstrNames,cMaxNames,pcNames);
+  return (HRESULT)this._invokeNativeObject(7,new Object[]{this.getPointer(),memid,rgBstrNames,cMaxNames,pcNames},HRESULT.class);
 }

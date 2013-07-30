@@ -1,3 +1,3 @@
 {
-  return this.iTypeInfo.GetImplTypeFlags(index,pImplTypeFlags);
+  return (HRESULT)this._invokeNativeObject(9,new Object[]{this.getPointer(),index,pImplTypeFlags},HRESULT.class);
 }

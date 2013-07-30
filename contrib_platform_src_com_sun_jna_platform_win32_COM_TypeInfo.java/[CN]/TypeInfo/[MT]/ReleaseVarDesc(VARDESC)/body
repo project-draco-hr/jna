@@ -1,3 +1,3 @@
 {
-  this.iTypeInfo.ReleaseVarDesc(pVarDesc);
+  this._invokeNativeObject(21,new Object[]{this.getPointer(),pVarDesc},HRESULT.class);
 }

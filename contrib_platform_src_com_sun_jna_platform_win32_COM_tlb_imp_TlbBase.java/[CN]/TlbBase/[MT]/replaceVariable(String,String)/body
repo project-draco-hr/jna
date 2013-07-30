@@ -7,5 +7,5 @@
   while (matcher.find()) {
     result=matcher.replaceAll(replacement);
   }
-  this.classBuffer=new StringBuffer(result);
+  if (result.length() > 0)   this.classBuffer=new StringBuffer(result);
 }

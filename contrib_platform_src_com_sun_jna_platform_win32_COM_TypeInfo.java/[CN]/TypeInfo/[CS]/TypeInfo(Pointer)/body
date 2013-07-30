@@ -1,4 +1,3 @@
 {
   super(pvInstance);
-  this.iTypeInfo=(ITypeInfo)this.createCOMClass(ITypeInfo.class);
 }

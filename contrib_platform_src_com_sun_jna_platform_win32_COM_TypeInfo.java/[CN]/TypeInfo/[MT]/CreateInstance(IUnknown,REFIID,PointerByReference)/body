@@ -1,3 +1,3 @@
 {
-  return this.iTypeInfo.CreateInstance(pUnkOuter,riid,ppvObj);
+  return (HRESULT)this._invokeNativeObject(16,new Object[]{this.getPointer(),pUnkOuter,riid,ppvObj},HRESULT.class);
 }

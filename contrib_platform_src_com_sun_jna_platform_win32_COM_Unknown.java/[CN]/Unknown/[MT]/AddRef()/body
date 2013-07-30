@@ -1,3 +1,3 @@
 {
-  return this.iUnknown.AddRef();
+  return (UINT)this._invokeNativeObject(1,new Object[]{this.getPointer()},UINT.class);
 }

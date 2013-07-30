@@ -1,4 +1,3 @@
 {
   super(pvInstance);
-  this.iTypeLib=(ITypeLib)this.createCOMClass(ITypeLib.class);
 }

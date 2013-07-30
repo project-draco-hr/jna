@@ -15,8 +15,10 @@
     }
  else     if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUTREF)) {
     }
-    this.content+=method.getClassBuffer();
-    if (i < cFuncs - 1)     this.content+=CR;
+    if (!isReservedMethod(method.getMethodName())) {
+      this.content+=method.getClassBuffer();
+      if (i < cFuncs - 1)       this.content+=CR;
+    }
     typeInfoUtil.ReleaseFuncDesc(funcDesc);
   }
 }
