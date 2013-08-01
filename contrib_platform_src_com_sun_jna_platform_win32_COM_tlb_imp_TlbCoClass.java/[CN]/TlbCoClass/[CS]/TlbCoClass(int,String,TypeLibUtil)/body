@@ -1,19 +1,21 @@
 {
-  super(index,typeLibUtil);
+  super(index,typeLibUtil,null);
+  TypeInfoUtil typeInfoUtil=typeLibUtil.getTypeInfoUtil(index);
   TypeLibDoc typeLibDoc=this.typeLibUtil.getDocumentation(index);
-  String coClassName=typeLibDoc.getName();
   String docString=typeLibDoc.getDocString();
-  this.logInfo("Type of kind 'CoClass' found: " + coClassName);
+  if (typeLibDoc.getName().length() > 0)   this.name=typeLibDoc.getName();
+  this.logInfo("Type of kind 'CoClass' found: " + this.name);
   this.createPackageName(packagename);
-  this.createClassName(coClassName);
-  this.setFilename(coClassName);
+  this.createClassName(this.name);
+  this.setFilename(this.name);
   String guidStr=this.typeLibUtil.getLibAttr().guid.toGuidString();
   int majorVerNum=this.typeLibUtil.getLibAttr().wMajorVerNum.intValue();
   int minorVerNum=this.typeLibUtil.getLibAttr().wMinorVerNum.intValue();
   String version=majorVerNum + "." + minorVerNum;
+  String clsid=typeInfoUtil.getTypeAttr().guid.toGuidString();
   this.createJavaDocHeader(guidStr,version,docString);
-  this.createCLSID(guidStr);
-  TypeInfoUtil typeInfoUtil=typeLibUtil.getTypeInfoUtil(index);
+  this.createCLSID(clsid);
+  this.createCLSIDName(this.name);
   TYPEATTR typeAttr=typeInfoUtil.getTypeAttr();
   int cImplTypes=typeAttr.cImplTypes.intValue();
   String interfaces="";

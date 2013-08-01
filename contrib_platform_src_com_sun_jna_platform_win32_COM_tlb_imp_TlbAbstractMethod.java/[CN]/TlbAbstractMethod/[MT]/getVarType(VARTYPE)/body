@@ -95,7 +95,7 @@ return PVOID.class.getSimpleName();
 case VT_RESERVED:
 return "";
 case VT_ILLEGAL:
-return "";
+return "illegal";
 default :
 return null;
 }

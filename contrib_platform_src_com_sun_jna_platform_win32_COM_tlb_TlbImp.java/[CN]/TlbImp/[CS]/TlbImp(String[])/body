@@ -1,0 +1,8 @@
+{
+  this.cmdlineArgs=new TlbCmdlineArgs(args);
+  String clsid=this.cmdlineArgs.getParam(CMD_ARG_TYPELIB_ID);
+  int majorVersion=this.cmdlineArgs.getIntParam(CMD_ARG_TYPELIB_MAJOR_VERSION);
+  int minorVersion=this.cmdlineArgs.getIntParam(CMD_ARG_TYPELIB_MINOR_VERSION);
+  this.startCOM2Java(clsid,majorVersion,minorVersion);
+  Native.setProtected(true);
+}

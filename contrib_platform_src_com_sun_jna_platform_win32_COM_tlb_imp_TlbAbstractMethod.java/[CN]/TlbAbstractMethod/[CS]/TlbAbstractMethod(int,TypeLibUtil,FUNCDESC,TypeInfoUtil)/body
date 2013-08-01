@@ -1,5 +1,5 @@
 {
-  super(index,typeLibUtil);
+  super(index,typeLibUtil,typeInfoUtil);
   this.typeInfoDoc=typeInfoUtil.getDocumentation(funcDesc.memid);
   this.methodName=typeInfoDoc.getName();
   this.docStr=typeInfoDoc.getDocString();

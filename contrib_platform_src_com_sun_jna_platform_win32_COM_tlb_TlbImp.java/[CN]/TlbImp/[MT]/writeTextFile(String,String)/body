@@ -1,6 +1,7 @@
 {
-  File classFile=new File(this.comRootDir,filename);
-  FileWriter fileWriter=new FileWriter(classFile);
-  fileWriter.write(str);
-  fileWriter.close();
+  String file=this.comRootDir + File.separator + filename;
+  FileChannel rwChannel=new RandomAccessFile(file,"rw").getChannel();
+  ByteBuffer wrBuf=rwChannel.map(FileChannel.MapMode.READ_WRITE,0,str.length());
+  wrBuf.put(str.getBytes());
+  rwChannel.close();
 }

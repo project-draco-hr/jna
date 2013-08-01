@@ -1,12 +1,12 @@
 {
-  super(index,typeLibUtil);
+  super(index,typeLibUtil,null);
   TypeLibDoc typeLibDoc=this.typeLibUtil.getDocumentation(index);
-  String dispName=typeLibDoc.getName();
   String docString=typeLibDoc.getDocString();
-  this.logInfo("Type of kind 'DispInterface' found: " + dispName);
+  if (typeLibDoc.getName().length() > 0)   this.name=typeLibDoc.getName();
+  this.logInfo("Type of kind 'DispInterface' found: " + this.name);
   this.createPackageName(packagename);
-  this.createClassName(dispName);
-  this.setFilename(dispName);
+  this.createClassName(this.name);
+  this.setFilename(this.name);
   TypeInfoUtil typeInfoUtil=typeLibUtil.getTypeInfoUtil(index);
   TYPEATTR typeAttr=typeInfoUtil.getTypeAttr();
   this.createJavaDocHeader(typeAttr.guid.toGuidString(),docString);
@@ -28,6 +28,7 @@
         method=new TlbPropertyPutStub(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
  else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUTREF)) {
+        method=new TlbPropertyPutStub(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
       this.content+=method.getClassBuffer();
       if (i < cFuncs - 1)       this.content+=CR;

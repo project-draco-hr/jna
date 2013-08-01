@@ -1,0 +1,3 @@
+{
+  this(progId,useActiveInstance,WTypes.CLSCTX_SERVER);
+}
