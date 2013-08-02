@@ -1,6 +1,5 @@
 {
   try {
-    this.typeLibUtil=new TypeLibUtil(clsid,majorVersion,minorVersion);
     this.createDir();
     int typeInfoCount=typeLibUtil.getTypeInfoCount();
     for (int i=0; i < typeInfoCount; ++i) {
