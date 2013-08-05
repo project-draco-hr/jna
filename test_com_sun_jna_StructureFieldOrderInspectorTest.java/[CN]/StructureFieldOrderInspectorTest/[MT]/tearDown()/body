@@ -1,0 +1,10 @@
+{
+  if (origPropJNANoSys == null) {
+    Properties props=(Properties)System.getProperties().clone();
+    props.remove("jna.nosys");
+    System.setProperties(props);
+  }
+ else {
+    System.setProperty("jna.nosys",origPropJNANoSys);
+  }
+}

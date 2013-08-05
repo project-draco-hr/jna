@@ -1,25 +1,3 @@
 {
-  List strings=new ArrayList();
-  Pointer p;
-  int addOffset=0;
-  if (length != -1) {
-    p=getPointer(offset + addOffset);
-    int count=0;
-    while (count++ < length) {
-      String s=p == null ? null : p.getString(0,wide);
-      strings.add(s);
-      if (count < length) {
-        addOffset+=SIZE;
-        p=getPointer(offset + addOffset);
-      }
-    }
-  }
- else {
-    while ((p=getPointer(offset + addOffset)) != null) {
-      String s=p == null ? null : p.getString(0,wide);
-      strings.add(s);
-      addOffset+=SIZE;
-    }
-  }
-  return (String[])strings.toArray(new String[strings.size()]);
+  return getStringArray(offset,length,wide ? NativeString.WIDE_STRING : Native.getDefaultStringEncoding());
 }

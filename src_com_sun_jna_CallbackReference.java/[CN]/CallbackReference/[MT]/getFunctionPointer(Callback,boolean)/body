@@ -7,8 +7,8 @@
     return fp;
   }
   int callingConvention=cb instanceof AltCallingConvention ? Function.ALT_CONVENTION : Function.C_CONVENTION;
-  Map map=callbackMap;
-synchronized (map) {
+  Map map=direct ? directCallbackMap : callbackMap;
+synchronized (callbackMap) {
     CallbackReference cbref=(CallbackReference)map.get(cb);
     if (cbref == null) {
       cbref=new CallbackReference(cb,callingConvention,direct);

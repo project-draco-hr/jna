@@ -10,7 +10,9 @@ class TestStructure extends Structure {
   TestStructure s=new TestStructure();
   final String LS=System.getProperty("line.separator");
   System.setProperty("jna.dump_memory","true");
-  final String EXPECTED="(?m).*" + s.size() + " bytes.*\\{"+ LS+ "  int intField@0=0"+ LS+ "  .* inner@4=.*\\{"+ LS+ "    int x@0=0"+ LS+ "    int y@4=0"+ LS+ "  \\}"+ LS+ "\\}"+ LS+ "memory dump"+ LS+ "\\[00000000\\]"+ LS+ "\\[00000000\\]"+ LS+ "\\[00000000\\]";
+  final String EXPECTED="(?m).*" + s.size() + " bytes.*\\{"+ LS+ "  int intField@0=0"+ LS+ "  .* inner@4=.*\\{"+ LS+ "    int x@0=.*"+ LS+ "    int y@4=.*"+ LS+ "  \\}"+ LS+ "\\}"+ LS+ "memory dump"+ LS+ "\\[[0-9a-f]+\\]"+ LS+ "\\[[0-9a-f]+\\]"+ LS+ "\\[[0-9a-f]+\\]";
   String actual=s.toString();
   assertTrue("Improperly formatted toString(): expected " + EXPECTED + "\n"+ actual,actual.matches(EXPECTED));
+  System.setProperty("jna.dump_memory","false");
+  assertFalse("Doesn't dump memory when jna.dump_memory is false",s.toString().contains("memory dump"));
 }

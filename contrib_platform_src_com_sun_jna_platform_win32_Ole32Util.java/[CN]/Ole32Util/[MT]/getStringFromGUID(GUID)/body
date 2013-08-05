@@ -1,5 +1,5 @@
 {
-  GUID.ByReference pguid=new GUID.ByReference(guid.getPointer());
+  GUID pguid=new GUID(guid.getPointer());
   int max=39;
   char[] lpsz=new char[max];
   int len=Ole32.INSTANCE.StringFromGUID2(pguid,lpsz,max);

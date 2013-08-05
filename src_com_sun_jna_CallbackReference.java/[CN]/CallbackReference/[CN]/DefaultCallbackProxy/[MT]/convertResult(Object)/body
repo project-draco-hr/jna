@@ -17,7 +17,7 @@
     return getNativeString(value,cls == WString.class);
   }
  else   if (cls == String[].class || cls == WString.class) {
-    StringArray sa=cls == String[].class ? new StringArray((String[])value) : new StringArray((WString[])value);
+    StringArray sa=cls == String[].class ? new StringArray((String[])value,encoding) : new StringArray((WString[])value);
     allocations.put(value,sa);
     return sa;
   }

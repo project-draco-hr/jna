@@ -1,0 +1,8 @@
+{
+  final String ENCODING="utf8";
+  final String VALUE=getName() + UNICODE;
+  byte[] buf=Native.toByteArray(VALUE,ENCODING);
+  assertEquals("Wrong byte array length",VALUE.getBytes(ENCODING).length + 1,buf.length);
+  assertEquals("Missing NUL terminator",(byte)0,buf[buf.length - 1]);
+  assertEquals("Wrong byte array contents",VALUE,new String(buf,0,buf.length - 1,ENCODING));
+}

@@ -13,5 +13,5 @@
   if (version == null)   version=DEFAULT_BUILD;
   System.out.println("Version: " + version);
   System.out.println(" Native: " + getNativeVersion() + " ("+ getAPIChecksum()+ ")");
-  System.exit(0);
+  System.out.println(" Prefix: " + Platform.RESOURCE_PREFIX);
 }

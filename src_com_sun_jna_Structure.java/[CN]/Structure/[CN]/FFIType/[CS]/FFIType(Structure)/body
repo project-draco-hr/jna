@@ -2,7 +2,7 @@
   Pointer[] els;
   ref.ensureAllocated(true);
   if (ref instanceof Union) {
-    StructField sf=((Union)ref).biggestField;
+    StructField sf=((Union)ref).typeInfoField();
     els=new Pointer[]{get(ref.getFieldValue(sf.field),sf.type),null};
   }
  else {

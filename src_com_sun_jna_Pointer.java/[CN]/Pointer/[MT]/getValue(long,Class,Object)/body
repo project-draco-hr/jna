@@ -49,7 +49,7 @@
   }
  else   if (type == WString.class) {
     Pointer p=getPointer(offset);
-    result=p != null ? new WString(p.getString(0,true)) : null;
+    result=p != null ? new WString(p.getWideString(0)) : null;
   }
  else   if (Callback.class.isAssignableFrom(type)) {
     Pointer fp=getPointer(offset);
@@ -98,7 +98,7 @@
     if (result == null) {
       throw new IllegalStateException("Need an initialized array");
     }
-    getArrayValue(offset,result,type.getComponentType());
+    readArray(offset,result,type.getComponentType());
   }
  else {
     throw new IllegalArgumentException("Reading \"" + type + "\" from memory is not supported");

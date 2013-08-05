@@ -82,21 +82,33 @@
       String msg="Invalid Structure field in " + getClass() + ", field name '"+ structField.name+ "' ("+ structField.type+ "): "+ e.getMessage();
       throw new IllegalArgumentException(msg);
     }
+    if (fieldAlignment == 0) {
+      throw new Error("Field alignment is zero for field '" + structField.name + "' within "+ getClass());
+    }
     info.alignment=Math.max(info.alignment,fieldAlignment);
     if ((calculatedSize % fieldAlignment) != 0) {
       calculatedSize+=fieldAlignment - (calculatedSize % fieldAlignment);
     }
-    structField.offset=calculatedSize;
-    calculatedSize+=structField.size;
+    if (this instanceof Union) {
+      structField.offset=0;
+      calculatedSize=Math.max(calculatedSize,structField.size);
+    }
+ else {
+      structField.offset=calculatedSize;
+      calculatedSize+=structField.size;
+    }
     info.fields.put(structField.name,structField);
+    if (info.typeInfoField == null || info.typeInfoField.size < structField.size || (info.typeInfoField.size == structField.size && Structure.class.isAssignableFrom(structField.type))) {
+      info.typeInfoField=structField;
+    }
   }
   if (calculatedSize > 0) {
-    int size=calculateAlignedSize(calculatedSize,info.alignment);
+    int size=addPadding(calculatedSize,info.alignment);
     if (this instanceof ByValue && !avoidFFIType) {
       getTypeInfo();
     }
     info.size=size;
     return info;
   }
-  throw new IllegalArgumentException("Structure " + getClass() + " has unknown size (ensure "+ "all fields are public)");
+  throw new IllegalArgumentException("Structure " + getClass() + " has unknown or zero size (ensure "+ "all fields are public)");
 }

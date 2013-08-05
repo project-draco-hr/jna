@@ -1,0 +1,8 @@
+{
+  final String ENCODING=Native.DEFAULT_ENCODING;
+  String VALUE=getName();
+  int size=VALUE.getBytes(ENCODING).length + 1;
+  Memory m=new Memory(size);
+  m.setString(0,VALUE);
+  assertEquals("Wrong decoded value",VALUE,m.getString(0));
+}

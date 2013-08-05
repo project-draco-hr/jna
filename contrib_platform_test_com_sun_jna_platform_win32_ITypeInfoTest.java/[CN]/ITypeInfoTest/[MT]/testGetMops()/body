@@ -1,0 +1,9 @@
+{
+  ITypeInfo typeInfo=getTypeInfo();
+  MEMBERID memid=new MEMBERID(0);
+  BSTR pBstrMops=new BSTR();
+  HRESULT hr=typeInfo.GetMops(memid,pBstrMops);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("pBstrMops: " + pBstrMops.toString());
+}

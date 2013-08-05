@@ -1,0 +1,4 @@
+{
+  boundsCheck(offset,Native.getBytes(value,encoding).length + 1L);
+  super.setString(offset,value,encoding);
+}

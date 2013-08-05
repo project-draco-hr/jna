@@ -1,0 +1,42 @@
+{
+  final Set threads=new HashSet();
+  final int[] called={0};
+  TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
+    public void callback(){
+      threads.add(new WeakReference(Thread.currentThread()));
+      if (++called[0] == 1) {
+        Thread.currentThread().setName(getName() + " (Thread to be cleaned up)");
+      }
+      Native.detach(false);
+    }
+  }
+;
+  CallbackThreadInitializer asDaemon=new CallbackThreadInitializer(true){
+    public String getName(    Callback cb){
+      return "Test thread (native) for " + CallbacksTest.this.getName();
+    }
+  }
+;
+  callThreadedCallback(cb,asDaemon,2,100,called);
+  while (threads.size() == 0 && called[0] == 0) {
+    Thread.sleep(10);
+  }
+  long start=System.currentTimeMillis();
+  WeakReference ref=(WeakReference)threads.iterator().next();
+  while (ref.get() != null) {
+    System.gc();
+    Thread.sleep(100);
+    Thread[] remaining=new Thread[Thread.activeCount()];
+    Thread.enumerate(remaining);
+    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
+      Thread t=(Thread)ref.get();
+      Pointer terminationFlag=Native.getTerminationFlag(t);
+      assertNotNull("Native thread termination flag is missing",terminationFlag);
+      if (terminationFlag.getInt(0) == 0) {
+        fail("Timed out waiting for native attached thread to be GC'd: " + t + " alive: "+ t.isAlive()+ " daemon: "+ t.isDaemon()+ "\n"+ Arrays.asList(remaining));
+      }
+      System.err.println("Warning: JVM did not GC Thread mapping after native thread terminated");
+      break;
+    }
+  }
+}

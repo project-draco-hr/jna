@@ -1,0 +1,4 @@
+{
+  String name="testlib-truncated" + (Platform.isWindows() ? ".dll" : "");
+  NativeLibrary.getInstance(new File(TESTPATH,name).getAbsolutePath());
+}

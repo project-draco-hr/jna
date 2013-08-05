@@ -1,11 +1,11 @@
 {
-  CLSID.ByReference clsid=new CLSID.ByReference();
+  CLSID clsid=new CLSID();
   HRESULT hr=Ole32.INSTANCE.CLSIDFromString(new WString("{00020905-0000-0000-C000-000000000046}"),clsid);
-  COMUtils.checkRC(hr);
+  COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());
   LCID lcid=Kernel32.INSTANCE.GetUserDefaultLCID();
   PointerByReference pWordTypeLib=new PointerByReference();
   hr=OleAuto.INSTANCE.LoadRegTypeLib(clsid,8,3,lcid,pWordTypeLib);
-  COMUtils.checkRC(hr);
+  COMUtils.checkTypeLibRC(hr);
   assertEquals(0,hr.intValue());
 }

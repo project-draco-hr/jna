@@ -1,6 +1,5 @@
 {
-  String arch=System.getProperty("os.arch").toLowerCase().trim();
-  if (arch.equals("i386") || arch.startsWith("i686") || arch.equals("x86")|| arch.equals("x86_64")|| arch.equals("amd64")) {
+  if (ARCH.equals("i386") || ARCH.startsWith("i686") || ARCH.equals("x86")|| ARCH.equals("x86_64")|| ARCH.equals("amd64")) {
     return true;
   }
   return false;

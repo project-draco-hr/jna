@@ -19,7 +19,7 @@ synchronized (typeInfoMap) {
       return FFITypes.ffi_type_pointer;
     }
     if (Structure.class.isAssignableFrom(cls)) {
-      if (obj == null)       obj=newInstance(cls);
+      if (obj == null)       obj=newInstance(cls,PLACEHOLDER_MEMORY);
       if (ByReference.class.isAssignableFrom(cls)) {
         typeInfoMap.put(cls,FFITypes.ffi_type_pointer);
         return FFITypes.ffi_type_pointer;

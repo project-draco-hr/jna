@@ -1,0 +1,22 @@
+{
+  TestLibrary.TestUnion arg=new TestLibrary.TestUnion();
+  arg.setType(String.class);
+  final String VALUE=getName() + UNICODE;
+  arg.f1=VALUE;
+  final boolean[] called={false};
+  final TestLibrary.TestUnion[] cbvalue={null};
+  TestLibrary.TestUnion result=lib.testUnionByValueCallbackArgument(new TestLibrary.UnionCallback(){
+    public TestLibrary.TestUnion invoke(    TestLibrary.TestUnion v){
+      called[0]=true;
+      v.setType(String.class);
+      v.read();
+      cbvalue[0]=v;
+      return v;
+    }
+  }
+,arg);
+  assertTrue("Callback not called",called[0]);
+  assertTrue("ByValue argument should have its own allocated memory, instead was " + cbvalue[0].getPointer(),cbvalue[0].getPointer() instanceof Memory);
+  assertEquals("Wrong value for callback argument",VALUE,cbvalue[0].f1);
+  assertEquals("Wrong value for callback result",VALUE,result.getTypedValue(String.class));
+}

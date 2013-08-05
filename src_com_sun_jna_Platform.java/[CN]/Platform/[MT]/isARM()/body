@@ -1,4 +1,3 @@
 {
-  String arch=System.getProperty("os.arch").toLowerCase().trim();
-  return arch.startsWith("arm");
+  return ARCH.startsWith("arm");
 }

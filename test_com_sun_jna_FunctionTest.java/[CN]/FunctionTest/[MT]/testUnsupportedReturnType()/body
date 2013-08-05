@@ -1,0 +1,10 @@
+{
+  NativeLibrary lib=NativeLibrary.getInstance(Platform.C_LIBRARY_NAME);
+  Function f=lib.getFunction("printf");
+  try {
+    f.invoke(getClass(),new Object[]{getName()});
+    fail("Invalid return types should throw an exception");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

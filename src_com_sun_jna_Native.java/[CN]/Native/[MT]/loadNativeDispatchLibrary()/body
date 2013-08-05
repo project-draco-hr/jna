@@ -1,0 +1,89 @@
+{
+  if (!Boolean.getBoolean("jna.nounpack")) {
+    try {
+      removeTemporaryFiles();
+    }
+ catch (    IOException e) {
+      System.err.println("JNA Warning: IOException removing temporary files: " + e.getMessage());
+    }
+  }
+  String libName=System.getProperty("jna.boot.library.name","jnidispatch");
+  String bootPath=System.getProperty("jna.boot.library.path");
+  if (bootPath != null) {
+    StringTokenizer dirs=new StringTokenizer(bootPath,File.pathSeparator);
+    while (dirs.hasMoreTokens()) {
+      String dir=dirs.nextToken();
+      File file=new File(new File(dir),System.mapLibraryName(libName).replace(".dylib",".jnilib"));
+      String path=file.getAbsolutePath();
+      if (DEBUG_JNA_LOAD) {
+        System.out.println("Looking in " + path);
+      }
+      if (file.exists()) {
+        try {
+          if (DEBUG_JNA_LOAD) {
+            System.out.println("Trying " + path);
+          }
+          System.load(path);
+          jnidispatchPath=path;
+          if (DEBUG_JNA_LOAD) {
+            System.out.println("Found jnidispatch at " + path);
+          }
+          return;
+        }
+ catch (        UnsatisfiedLinkError ex) {
+        }
+      }
+      if (Platform.isMac()) {
+        String orig, ext;
+        if (path.endsWith("dylib")) {
+          orig="dylib";
+          ext="jnilib";
+        }
+ else {
+          orig="jnilib";
+          ext="dylib";
+        }
+        path=path.substring(0,path.lastIndexOf(orig)) + ext;
+        if (DEBUG_JNA_LOAD) {
+          System.out.println("Looking in " + path);
+        }
+        if (new File(path).exists()) {
+          try {
+            if (DEBUG_JNA_LOAD) {
+              System.out.println("Trying " + path);
+            }
+            System.load(path);
+            jnidispatchPath=path;
+            if (DEBUG_JNA_LOAD) {
+              System.out.println("Found jnidispatch at " + path);
+            }
+            return;
+          }
+ catch (          UnsatisfiedLinkError ex) {
+            System.err.println("File found at " + path + " but not loadable: "+ ex.getMessage());
+          }
+        }
+      }
+    }
+  }
+  if (!Boolean.getBoolean("jna.nosys")) {
+    try {
+      if (DEBUG_JNA_LOAD) {
+        System.out.println("Trying (via loadLibrary) " + libName);
+      }
+      System.loadLibrary(libName);
+      if (DEBUG_JNA_LOAD) {
+        System.out.println("Found jnidispatch on system path");
+      }
+      return;
+    }
+ catch (    UnsatisfiedLinkError e) {
+    }
+  }
+  if (!Boolean.getBoolean("jna.noclasspath")) {
+    loadNativeDispatchLibraryFromClasspath();
+  }
+ else {
+    throw new UnsatisfiedLinkError("Unable to locate JNA native support library");
+  }
+}

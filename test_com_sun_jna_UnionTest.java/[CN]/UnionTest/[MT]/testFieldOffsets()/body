@@ -1,5 +1,6 @@
 {
   StructUnion u=new StructUnion();
+  assertEquals("Wrong union size: " + u,Pointer.SIZE,u.size());
   u.setType(u.testStruct.getClass());
   u.write();
   assertEquals("Wrong struct member base address",u.getPointer(),u.testStruct.getPointer());

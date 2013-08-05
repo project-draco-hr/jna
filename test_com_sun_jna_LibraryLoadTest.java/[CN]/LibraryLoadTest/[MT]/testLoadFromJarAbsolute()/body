@@ -1,0 +1,4 @@
+{
+  String name=NativeLibrary.mapSharedLibraryName("testlib-jar");
+  NativeLibrary.getInstance("/" + name,new TestLoader(new File(TESTJAR)));
+}

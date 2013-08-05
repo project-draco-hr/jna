@@ -1,0 +1,3 @@
+{
+  COMUtils.checkAutoRC(hr,null,null);
+}

@@ -1,0 +1,3 @@
+{
+  Native.loadLibrary(CLibrary.class);
+}

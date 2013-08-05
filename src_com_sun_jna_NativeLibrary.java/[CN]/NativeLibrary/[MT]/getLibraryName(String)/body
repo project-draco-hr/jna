@@ -1,7 +1,7 @@
 {
   String simplified=libraryName;
   final String BASE="---";
-  String template=mapLibraryName(BASE);
+  String template=mapSharedLibraryName(BASE);
   int prefixEnd=template.indexOf(BASE);
   if (prefixEnd > 0 && simplified.startsWith(template.substring(0,prefixEnd))) {
     simplified=simplified.substring(prefixEnd);

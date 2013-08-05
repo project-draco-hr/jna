@@ -5,6 +5,9 @@
     }
   }
 .getClassContext();
+  if (context == null) {
+    throw new IllegalStateException("The SecurityManager implementation on this platform is broken; you must explicitly provide the class to register");
+  }
   if (context.length < 4) {
     throw new IllegalStateException("This method must be called from the static initializer of a class");
   }

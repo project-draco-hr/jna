@@ -1,6 +1,12 @@
 {
   if (encoding != null) {
-    return s.getBytes(encoding);
+    try {
+      return s.getBytes(encoding);
+    }
+ catch (    UnsupportedEncodingException e) {
+      System.err.println("JNA Warning: Encoding '" + encoding + "' is unsupported");
+    }
   }
+  System.err.println("JNA Warning: Encoding with fallback " + System.getProperty("file.encoding"));
   return s.getBytes();
 }

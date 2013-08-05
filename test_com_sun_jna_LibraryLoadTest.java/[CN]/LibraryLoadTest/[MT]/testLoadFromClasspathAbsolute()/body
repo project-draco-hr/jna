@@ -1,0 +1,4 @@
+{
+  String name=NativeLibrary.mapSharedLibraryName("testlib-path");
+  NativeLibrary.getInstance("/" + name,new TestLoader(new File(TESTPATH)));
+}

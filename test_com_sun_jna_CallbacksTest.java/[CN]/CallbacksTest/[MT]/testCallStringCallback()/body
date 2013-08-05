@@ -9,9 +9,9 @@
     }
   }
 ;
-  final String VALUE="value";
+  final String VALUE="value" + UNICODE;
   String value=lib.callStringCallback(cb,VALUE);
   assertTrue("Callback not called",called[0]);
-  assertEquals("Wrong callback argument 1",VALUE,cbargs[0]);
+  assertEquals("Wrong String callback argument",VALUE,cbargs[0]);
   assertEquals("Wrong String return",VALUE,value);
 }

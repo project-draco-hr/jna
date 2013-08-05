@@ -1,3 +1,8 @@
 {
-  Native.setString(peer + offset,value,wide);
+  if (wide) {
+    setWideString(offset,value);
+  }
+ else {
+    setString(offset,value);
+  }
 }

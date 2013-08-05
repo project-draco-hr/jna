@@ -1,8 +1,7 @@
 {
   this.alignType=alignType;
   if (alignType == ALIGN_DEFAULT) {
-    Class declaring=getClass().getDeclaringClass();
-    if (declaring != null)     alignType=Native.getStructureAlignment(declaring);
+    alignType=Native.getStructureAlignment(getClass());
     if (alignType == ALIGN_DEFAULT) {
       if (Platform.isWindows())       alignType=ALIGN_MSVC;
  else       alignType=ALIGN_GNUC;

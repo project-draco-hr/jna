@@ -3,20 +3,21 @@
   String prop=System.getProperty("jna.tmpdir");
   if (prop != null) {
     jnatmp=new File(prop);
+    jnatmp.mkdirs();
   }
  else {
     File tmp=new File(System.getProperty("java.io.tmpdir"));
-    jnatmp=new File(tmp,"jna-" + System.getProperty("user.name"));
+    jnatmp=new File(tmp,"jna-" + System.getProperty("user.name").hashCode());
     jnatmp.mkdirs();
     if (!jnatmp.exists() || !jnatmp.canWrite()) {
       jnatmp=tmp;
     }
   }
   if (!jnatmp.exists()) {
-    throw new Error("JNA temporary directory " + jnatmp + " does not exist");
+    throw new IOException("JNA temporary directory '" + jnatmp + "' does not exist");
   }
   if (!jnatmp.canWrite()) {
-    throw new Error("JNA temporary directory " + jnatmp + " is not writable");
+    throw new IOException("JNA temporary directory '" + jnatmp + "' is not writable");
   }
   return jnatmp;
 }

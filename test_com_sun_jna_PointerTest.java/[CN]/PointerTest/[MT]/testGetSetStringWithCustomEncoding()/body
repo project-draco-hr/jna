@@ -1,0 +1,8 @@
+{
+  final String ENCODING="utf8";
+  String VALUE=getName() + UNICODE;
+  int size=VALUE.getBytes(ENCODING).length + 1;
+  Memory m=new Memory(size);
+  m.setString(0,VALUE,ENCODING);
+  assertEquals("Wrong decoded value",VALUE,m.getString(0,ENCODING));
+}

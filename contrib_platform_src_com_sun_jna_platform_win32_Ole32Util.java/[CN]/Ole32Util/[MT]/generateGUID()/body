@@ -1,5 +1,5 @@
 {
-  GUID.ByReference pguid=new GUID.ByReference();
+  GUID pguid=new GUID();
   HRESULT hr=Ole32.INSTANCE.CoCreateGuid(pguid);
   if (!hr.equals(W32Errors.S_OK)) {
     throw new RuntimeException(hr.toString());

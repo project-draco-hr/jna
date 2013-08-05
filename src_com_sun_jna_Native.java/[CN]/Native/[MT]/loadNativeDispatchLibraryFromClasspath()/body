@@ -1,0 +1,25 @@
+{
+  try {
+    String libName="/com/sun/jna/" + Platform.RESOURCE_PREFIX + "/"+ System.mapLibraryName("jnidispatch").replace(".dylib",".jnilib");
+    File lib=extractFromResourcePath(libName,Native.class.getClassLoader());
+    if (lib == null) {
+      if (lib == null) {
+        throw new UnsatisfiedLinkError("Could not find JNA native support");
+      }
+    }
+    if (DEBUG_JNA_LOAD) {
+      System.out.println("Trying " + lib.getAbsolutePath());
+    }
+    System.load(lib.getAbsolutePath());
+    jnidispatchPath=lib.getAbsolutePath();
+    if (DEBUG_JNA_LOAD) {
+      System.out.println("Found jnidispatch at " + jnidispatchPath);
+    }
+    if (isUnpacked(lib)) {
+      deleteLibrary(lib);
+    }
+  }
+ catch (  IOException e) {
+    throw new UnsatisfiedLinkError(e.getMessage());
+  }
+}

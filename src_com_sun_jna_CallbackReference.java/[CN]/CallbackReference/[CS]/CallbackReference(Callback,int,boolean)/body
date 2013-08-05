@@ -3,8 +3,7 @@
   TypeMapper mapper=Native.getTypeMapper(callback.getClass());
   Class[] nativeParamTypes;
   Class returnType;
-  String arch=System.getProperty("os.arch").toLowerCase();
-  boolean ppc="ppc".equals(arch) || "powerpc".equals(arch);
+  boolean ppc=Platform.isPPC();
   if (direct) {
     Method m=getCallbackMethod(callback);
     Class[] ptypes=m.getParameterTypes();
@@ -22,6 +21,7 @@
       direct=false;
     }
   }
+  String encoding=Native.getStringEncoding(callback.getClass());
   if (direct) {
     method=getCallbackMethod(callback);
     nativeParamTypes=method.getParameterTypes();
@@ -30,7 +30,7 @@
     if (callback instanceof DLLCallback) {
       flags|=Native.CB_OPTION_IN_DLL;
     }
-    long peer=Native.createNativeCallback(callback,method,nativeParamTypes,returnType,callingConvention,flags);
+    long peer=Native.createNativeCallback(callback,method,nativeParamTypes,returnType,callingConvention,flags,encoding);
     cbstruct=peer != 0 ? new Pointer(peer) : null;
   }
  else {
@@ -38,7 +38,7 @@
       proxy=(CallbackProxy)callback;
     }
  else {
-      proxy=new DefaultCallbackProxy(getCallbackMethod(callback),mapper);
+      proxy=new DefaultCallbackProxy(getCallbackMethod(callback),mapper,encoding);
     }
     nativeParamTypes=proxy.getParameterTypes();
     returnType=proxy.getReturnType();
@@ -67,7 +67,7 @@
       throw new IllegalArgumentException(msg);
     }
     int flags=callback instanceof DLLCallback ? Native.CB_OPTION_IN_DLL : 0;
-    long peer=Native.createNativeCallback(proxy,PROXY_CALLBACK_METHOD,nativeParamTypes,returnType,callingConvention,flags);
+    long peer=Native.createNativeCallback(proxy,PROXY_CALLBACK_METHOD,nativeParamTypes,returnType,callingConvention,flags,encoding);
     cbstruct=peer != 0 ? new Pointer(peer) : null;
   }
 }

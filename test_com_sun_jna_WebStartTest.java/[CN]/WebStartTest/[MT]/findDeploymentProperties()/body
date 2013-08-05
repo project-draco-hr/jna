@@ -1,15 +1,15 @@
 {
   String path=System.getProperty("user.home");
   File deployment;
+  String vendor=System.getProperty("java.vm.vendor");
+  if (vendor.indexOf(" ") != -1) {
+    vendor=vendor.substring(0,vendor.indexOf(" "));
+  }
   if (Platform.isWindows()) {
     FolderInfo info=(FolderInfo)Native.loadLibrary("shell32",FolderInfo.class);
     char[] buf=new char[FolderInfo.MAX_PATH];
     info.SHGetFolderPathW(null,FolderInfo.CSIDL_APPDATA,null,0,buf);
     path=Native.toString(buf);
-    String vendor=System.getProperty("java.vm.vendor");
-    if (vendor.indexOf(" ") != -1) {
-      vendor=vendor.substring(0,vendor.indexOf(" "));
-    }
     if ("Oracle".equals(vendor)) {
       vendor="Sun";
     }
@@ -19,7 +19,12 @@
     }
   }
  else   if (Platform.isMac()) {
-    deployment=new File(path + "/Library/Caches/Java");
+    if ("Oracle".equals(vendor)) {
+      deployment=new File(path + "/Library/Application Support/Oracle/Java/Deployment");
+    }
+ else {
+      deployment=new File(path + "/Library/Caches/Java");
+    }
   }
  else {
     deployment=new File(path + "/.java/deployment");

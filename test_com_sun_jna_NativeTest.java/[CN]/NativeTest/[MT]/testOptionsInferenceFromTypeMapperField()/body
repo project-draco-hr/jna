@@ -1,3 +1,4 @@
 {
   assertEquals("Wrong type mapper found for interface which provides TYPE_MAPPER",TestInterfaceWithTypeMapper.TEST_MAPPER,Native.getTypeMapper(TestInterfaceWithTypeMapper.class));
+  assertEquals("Wrong type mapper found for structure from interface which provides TYPE_MAPPER",TestInterfaceWithTypeMapper.TEST_MAPPER,Native.getTypeMapper(TestInterfaceWithTypeMapper.TestStructure.class));
 }

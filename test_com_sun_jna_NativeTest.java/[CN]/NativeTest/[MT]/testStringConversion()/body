@@ -1,0 +1,4 @@
+{
+  byte[] buf=(getName() + NUL).getBytes();
+  assertEquals("C string improperly converted",getName(),Native.toString(buf));
+}

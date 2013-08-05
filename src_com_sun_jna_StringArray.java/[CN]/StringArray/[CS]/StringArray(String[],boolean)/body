@@ -1,3 +1,3 @@
 {
-  this((Object[])strings,wide);
+  this((Object[])strings,wide ? NativeString.WIDE_STRING : Native.getDefaultStringEncoding());
 }

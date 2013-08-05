@@ -1,0 +1,9 @@
+{
+  ITypeInfo typeInfo=getTypeInfo();
+  HREFTYPE hRefType=new HREFTYPE();
+  ITypeInfo.ByReference ppTInfo=new ITypeInfo.ByReference();
+  HRESULT hr=typeInfo.GetRefTypeInfo(hRefType,ppTInfo);
+  COMUtils.checkTypeLibRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("GetRefTypeInfo: " + ppTInfo.toString());
+}

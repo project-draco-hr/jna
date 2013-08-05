@@ -1,24 +1,3 @@
 {
-synchronized (libraries) {
-    Class interfaceClass=findEnclosingLibraryClass(cls);
-    if (interfaceClass != null)     loadLibraryInstance(interfaceClass);
- else     interfaceClass=cls;
-    if (!typeMappers.containsKey(interfaceClass)) {
-      try {
-        Field field=interfaceClass.getField("TYPE_MAPPER");
-        field.setAccessible(true);
-        typeMappers.put(interfaceClass,field.get(null));
-      }
- catch (      NoSuchFieldException e) {
-        Map options=getLibraryOptions(cls);
-        if (options != null && options.containsKey(Library.OPTION_TYPE_MAPPER)) {
-          typeMappers.put(interfaceClass,options.get(Library.OPTION_TYPE_MAPPER));
-        }
-      }
-catch (      Exception e) {
-        throw new IllegalArgumentException("TYPE_MAPPER must be a public field of type " + TypeMapper.class.getName() + " ("+ e+ "): "+ interfaceClass);
-      }
-    }
-    return (TypeMapper)typeMappers.get(interfaceClass);
-  }
+  return (TypeMapper)getLibraryOptions(cls).get(Library.OPTION_TYPE_MAPPER);
 }

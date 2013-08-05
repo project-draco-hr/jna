@@ -9,13 +9,19 @@ class TestStructure extends Structure {
   TestStructure s=new TestStructure();
   int innerSize=new PublicTestStructure().size();
   assertEquals("Wrong size for structure with nested array of struct",s.inner.length * innerSize + s.inner2.length * innerSize,s.size());
+  Structure s0=s.inner2[0];
+  Structure s1=s.inner2[1];
   s.write();
-  assertNotNull("Inner array elements should auto-initialize",s.inner[0]);
-  s.inner[0].x=s.inner[0].y=-1;
-  s.inner[1].x=s.inner[1].y=-1;
+  assertNotNull("Inner array elements should auto-initialize after write",s.inner[0]);
+  assertSame("Inner array (2) element 0 reference should not be changed after write",s0,s.inner2[0]);
+  assertSame("Inner array (2) element 1 reference should not be changed after write",s1,s.inner2[1]);
+  s.inner[0].x=s.inner[1].x=-1;
+  s.inner2[0].x=s.inner2[1].x=-1;
   s.read();
   assertEquals("Inner structure array element 0 not properly read",0,s.inner[0].x);
   assertEquals("Inner structure array element 1 not properly read",0,s.inner[1].x);
+  assertEquals("Inner structure array (2) element 0 not properly read",1,s.inner2[0].x);
+  assertEquals("Inner structure array (2) element 1 not properly read",0,s.inner2[1].x);
   assertEquals("Wrong memory for uninitialized nested array",s.getPointer(),s.inner[0].getPointer());
   assertEquals("Wrong memory for initialized nested array",s.getPointer().share(innerSize * s.inner.length),s.inner2[0].getPointer());
 }

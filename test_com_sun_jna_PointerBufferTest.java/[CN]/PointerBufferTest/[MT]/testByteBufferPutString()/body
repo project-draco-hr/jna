@@ -1,7 +1,8 @@
 {
-  final String MAGIC="magic";
+  final String MAGIC="magic" + UNICODE;
+  final String ENCODING="utf8";
   Memory m=new Memory(1024);
   ByteBuffer buf=m.getByteBuffer(0,m.size()).order(ByteOrder.nativeOrder());
-  buf.put(MAGIC.getBytes()).put((byte)0).flip();
-  assertEquals("String not written to memory",MAGIC,m.getString(0,false));
+  buf.put(MAGIC.getBytes(ENCODING)).put((byte)0).flip();
+  assertEquals("String not written to memory",MAGIC,m.getString(0,ENCODING));
 }

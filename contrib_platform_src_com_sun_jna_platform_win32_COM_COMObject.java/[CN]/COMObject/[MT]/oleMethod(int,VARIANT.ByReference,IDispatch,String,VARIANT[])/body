@@ -1,0 +1,24 @@
+{
+  if (pDisp == null)   throw new COMException("pDisp (IDispatch) parameter is null!");
+  WString[] ptName=new WString[]{new WString(name)};
+  DISPPARAMS dp=new DISPPARAMS();
+  DISPIDByReference pdispID=new DISPIDByReference();
+  VariantArg.ByReference variantArg=new VariantArg.ByReference();
+  variantArg.variantArg=pArgs;
+  EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
+  IntByReference puArgErr=new IntByReference();
+  HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
+  COMUtils.checkAutoRC(hr);
+  if (nType == OleAuto.DISPATCH_PROPERTYPUT) {
+    dp.cNamedArgs=new UINT(pArgs.length);
+    dp.rgdispidNamedArgs=new DISPIDByReference(OaIdl.DISPID_PROPERTYPUT);
+  }
+  if ((pArgs != null) && (pArgs.length > 0)) {
+    dp.cArgs=new UINT(pArgs.length);
+    dp.rgvarg=variantArg;
+    dp.write();
+  }
+  hr=pDisp.Invoke(pdispID.getValue(),Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,pExcepInfo,puArgErr);
+  COMUtils.checkAutoRC(hr,pExcepInfo,puArgErr);
+  return hr;
+}

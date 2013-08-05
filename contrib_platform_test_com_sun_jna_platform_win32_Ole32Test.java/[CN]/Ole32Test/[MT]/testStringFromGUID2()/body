@@ -1,5 +1,5 @@
 {
-  GUID.ByReference pguid=new GUID.ByReference();
+  GUID pguid=new GUID();
   pguid.Data1=0;
   pguid.Data2=0;
   pguid.Data3=0;

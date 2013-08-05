@@ -1,13 +1,29 @@
 {
   try {
-    if (args.length == 4 && "javawebstart".equals(args[3]) && !runningWebStart()) {
+    if (args.length >= 4 && "javawebstart".equals(args[3]) && !runningWebStart()) {
       System.setProperty("javawebstart.version","fake");
     }
     if (runningWebStart()) {
       String testClass=args.length > 0 ? args[0] : WebStartTest.class.getName();
       String testMethod=args.length > 1 ? args[1] : "testLaunchedUnderWebStart";
       int port=args.length > 2 ? Integer.parseInt(args[2]) : 8080;
-      runTestCaseTest(testClass,testMethod,port);
+      try {
+        if (args.length >= 5 && "arch64=true".equals(args[4]) && !Platform.is64Bit()) {
+          throw new Error("Cannot run 64-bit test on 32-bit javaws");
+        }
+ else {
+          Throwable t=runTestCaseTest(testClass,testMethod,port);
+          sendResults(t,port);
+        }
+      }
+ catch (      Throwable t) {
+        try {
+          sendResults(t,port);
+        }
+ catch (        Throwable e) {
+          showMessage("ERROR: " + e.getMessage());
+        }
+      }
     }
  else {
       junit.textui.TestRunner.run(WebStartTest.class);
@@ -16,4 +32,5 @@
  catch (  Throwable t) {
     showMessage("ERROR: " + t.getMessage());
   }
+  System.exit(0);
 }

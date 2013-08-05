@@ -1,4 +1,5 @@
 {
+  boolean wide=encoding == NativeString.WIDE_STRING;
   String s=wide ? "const wchar_t*[]" : "const char*[]";
   s+=Arrays.asList(original);
   return s;

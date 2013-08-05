@@ -1,26 +1,12 @@
 {
-  String tmp=System.getProperty("java.io.tmpdir");
-  String libName=System.mapLibraryName("jnidispatch");
-  File src=new File(BUILDDIR + "/native",libName);
-  if (Platform.isWindowsCE()) {
-    src=new File("/Storage Card",libName);
-  }
+  File tmpdir=Native.getTempDir();
+  String libName=NativeLibrary.mapSharedLibraryName("testlib");
+  File src=new File(TESTPATH,libName);
   assertTrue("Expected JNA native library at " + src + " is missing",src.exists());
-  String newLibName=UNICODE;
-  if (libName.startsWith("lib"))   newLibName="lib" + newLibName;
-  int dot=libName.lastIndexOf(".");
-  if (dot != -1) {
-    if (Platform.isMac()) {
-      newLibName+=".dylib";
-    }
- else {
-      newLibName+=libName.substring(dot,libName.length());
-    }
-  }
-  File dst=new File(tmp,newLibName);
+  final String UNICODE="\u0444\u043b\u0441\u0432\u0443";
+  String newLibName=libName.replace("testlib",UNICODE);
+  File dst=new File(tmpdir,newLibName);
   dst.deleteOnExit();
   copy(src,dst);
-  NativeLibrary.addSearchPath(UNICODE,tmp);
-  NativeLibrary nl=NativeLibrary.getInstance(UNICODE);
-  nl.dispose();
+  NativeLibrary.getInstance(UNICODE,new TestLoader(tmpdir));
 }

@@ -1,0 +1,4 @@
+{
+  int addRef=this.iDispatch.AddRef();
+  assertEquals("Wrong addRef result",1,addRef);
+}

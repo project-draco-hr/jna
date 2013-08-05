@@ -1,19 +1,25 @@
 {
 class ContainingStructure extends Structure {
-    public StructureFromNative inner;
+    public StructureFromPointer inner;
     protected List getFieldOrder(){
       return Arrays.asList(new String[]{"inner"});
     }
   }
-  StructureFromNative o=new StructureFromNative();
-  o.s=getName();
+  final String VALUE=getName() + UNICODE;
+  final WString WVALUE=new WString(VALUE);
+  StructureFromPointer o=new StructureFromPointer();
+  o.s=VALUE;
+  o.ws=WVALUE;
   o.write();
-  StructureFromNative t=new StructureFromNative(o.getPointer());
-  assertEquals("String field not initialized",getName(),t.s);
+  StructureFromPointer t=new StructureFromPointer(o.getPointer());
+  assertEquals("String field not initialized",VALUE,t.s);
+  assertEquals("WString field not initialized",WVALUE,t.ws);
   ContainingStructure outer=new ContainingStructure();
   outer.inner=t;
   outer.write();
-  assertEquals("Inner String field corrupted",getName(),outer.inner.s);
+  assertEquals("Inner String field corrupted",VALUE,outer.inner.s);
+  assertEquals("Inner WString field corrupted",WVALUE,outer.inner.ws);
   outer.inner.read();
-  assertEquals("Native memory behind Inner String field not updated",getName(),outer.inner.s);
+  assertEquals("Native memory behind Inner String field not updated",VALUE,outer.inner.s);
+  assertEquals("Native memory behind Inner WString field not updated",WVALUE,outer.inner.ws);
 }

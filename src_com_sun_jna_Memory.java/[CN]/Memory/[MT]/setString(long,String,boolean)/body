@@ -1,5 +1,0 @@
-{
-  if (wide)   boundsCheck(offset,(value.length() + 1L) * Native.WCHAR_SIZE);
- else   boundsCheck(offset,value.getBytes().length + 1L);
-  super.setString(offset,value,wide);
-}

@@ -1,4 +1,4 @@
 {
   NativeLibrary.disposeAll();
-  nativeLibraryPath=null;
+  jnidispatchPath=null;
 }

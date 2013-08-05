@@ -1,14 +1,22 @@
 {
   try {
     nativeStrings.clear();
-    this.memory=m.share(offset);
-    if (size == CALCULATE_SIZE) {
-      size=calculateSize(false);
+    if (this instanceof ByValue) {
+      byte[] buf=new byte[size()];
+      m.read(0,buf,0,buf.length);
+      this.memory.write(0,buf,0,buf.length);
     }
-    if (size != CALCULATE_SIZE) {
-      this.memory=m.share(offset,size);
+ else {
+      this.memory=m.share(offset);
+      if (size == CALCULATE_SIZE) {
+        size=calculateSize(false);
+      }
+      if (size != CALCULATE_SIZE) {
+        this.memory=m.share(offset,size);
+      }
     }
     this.array=null;
+    this.readCalled=false;
   }
  catch (  IndexOutOfBoundsException e) {
     throw new IllegalArgumentException("Structure exceeds provided memory bounds");

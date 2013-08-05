@@ -1,0 +1,5 @@
+{
+  if (this.comObj == null) {
+    this.comObj=new COMObject("Shell.Application",false);
+  }
+}

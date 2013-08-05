@@ -58,7 +58,7 @@
     setValue(offset,tc.toNative(value,new ToNativeContext()),nativeType);
   }
  else   if (type.isArray()) {
-    setArrayValue(offset,value,type.getComponentType());
+    writeArray(offset,value,type.getComponentType());
   }
  else {
     throw new IllegalArgumentException("Writing " + type + " to memory is not supported");

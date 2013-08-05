@@ -1,6 +1,7 @@
 {
   final int VALUE=0x12345678;
   StructUnion u=new StructUnion();
+  assertEquals("Wrong union size: " + u,Pointer.SIZE,u.size());
   IntStructure intStruct=new IntStructure();
   intStruct.value=VALUE;
   u.setTypedValue(intStruct);

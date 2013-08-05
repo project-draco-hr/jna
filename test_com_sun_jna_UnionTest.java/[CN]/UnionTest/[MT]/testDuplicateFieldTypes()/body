@@ -4,6 +4,7 @@ class TestUnion extends Union {
     public int field2;
   }
   TestUnion u=new TestUnion();
+  assertEquals("Wrong union size: " + u,4,u.size());
   u.setType("field1");
   u.field1=42;
   u.write();

@@ -1,0 +1,30 @@
+{
+  Pointer p=Pointer.createConstant(0);
+  Class cls=p.getClass();
+  Method[] methods=cls.getMethods();
+  for (int i=0; i < methods.length; i++) {
+    Method m=methods[i];
+    Class[] argTypes=m.getParameterTypes();
+    try {
+      Object[] args=new Object[argTypes.length];
+      for (int arg=0; arg < args.length; arg++) {
+        args[arg]=defaultArg(argTypes[arg]);
+      }
+      if ("hashCode".equals(m.getName()) || "equals".equals(m.getName()) || m.getDeclaringClass() == Object.class || (m.getModifiers() & Modifier.STATIC) != 0) {
+        continue;
+      }
+      Object result=m.invoke(p,args);
+      if ("toString".equals(m.getName())) {
+        assertTrue("toString() should indicate const-ness",((String)result).indexOf("const") != -1);
+        continue;
+      }
+      fail("Method '" + m.getName() + "("+ Arrays.asList(argTypes)+ ")' should throw UnsupportedOperationException");
+    }
+ catch (    InvocationTargetException e) {
+      assertEquals("Wrong exception type thrown by '" + m.getName() + "("+ Arrays.asList(argTypes)+ ")",UnsupportedOperationException.class,e.getTargetException().getClass());
+    }
+catch (    IllegalArgumentException e) {
+      fail("Need to fix test of method '" + m.getName() + "("+ Arrays.asList(argTypes)+ ")'");
+    }
+  }
+}

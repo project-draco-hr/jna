@@ -1,0 +1,34 @@
+{
+  if (Platform.isWindows()) {
+    return;
+  }
+  FileUtils utils=FileUtils.getInstance();
+  if (!utils.hasTrash())   return;
+  File tmpdir=new File(System.getProperty("java.io.tmpdir"));
+  File file=File.createTempFile(getName(),".tmp",tmpdir);
+  File symlink=new File(tmpdir,file.getName() + ".link");
+  try {
+    Runtime.getRuntime().exec(new String[]{"ln","-s",file.getAbsolutePath(),symlink.getAbsolutePath()});
+    long start=System.currentTimeMillis();
+    while (!file.exists() || !symlink.exists()) {
+      Thread.sleep(100);
+      if (System.currentTimeMillis() - start > 5000) {
+        break;
+      }
+    }
+    assertTrue("Original source file missing: " + file,file.exists());
+    assertTrue("Symlink creation failed (missing): " + symlink,symlink.exists());
+    try {
+      utils.moveToTrash(new File[]{symlink});
+    }
+ catch (    IOException e) {
+      fail(e.toString());
+    }
+    assertFalse("Symlink still exists after move to trash: " + symlink,symlink.exists());
+    assertTrue("Original file should still exist after move to trash: " + file,file.exists());
+  }
+  finally {
+    symlink.delete();
+    file.delete();
+  }
+}

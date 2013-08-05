@@ -6,9 +6,9 @@
   }
   String s1=buf.toString();
   Memory m=new Memory((MAX + 1) * Native.WCHAR_SIZE);
-  m.setString(0,s1,true);
+  m.setWideString(0,s1);
   assertEquals("Missing terminator after write",0,m.getChar(MAX * Native.WCHAR_SIZE));
-  String s2=m.getString(0,true);
+  String s2=m.getWideString(0);
   assertEquals("Wrong string read length",s1.length(),s2.length());
   assertEquals("Improper wide string read",s1,s2);
 }
