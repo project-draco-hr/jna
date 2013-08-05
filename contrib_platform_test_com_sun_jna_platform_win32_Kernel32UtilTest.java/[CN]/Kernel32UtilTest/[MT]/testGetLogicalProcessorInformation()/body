@@ -1,8 +1,0 @@
-{
-  WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION[] informationArray=Kernel32Util.getLogicalProcessorInformation();
-  assertTrue(informationArray.length >= 1);
-  for (  WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION info : informationArray) {
-    assertTrue(info.processorMask.intValue() >= 0);
-    assertTrue(info.relationship >= LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorCore && info.relationship <= LOGICAL_PROCESSOR_RELATIONSHIP.RelationAll);
-  }
-}

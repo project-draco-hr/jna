@@ -1,23 +1,11 @@
 {
-  final File tmp=File.createTempFile(getName(),"ini");
+  final File tmp=File.createTempFile("testGetPrivateProfileString","ini");
   tmp.deleteOnExit();
-  final String SECTION="Section";
-  final String VALUE="ABC";
-  final String DEFAULT="DEF";
-  try {
-    final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
-    writer.println("[" + SECTION + "]");
-    writer.println("existingKey = " + VALUE);
-    writer.close();
-    final char[] buffer=new char[8];
-    DWORD len=Kernel32.INSTANCE.GetPrivateProfileString(SECTION,"existingKey",DEFAULT,buffer,new DWORD(buffer.length),tmp.getCanonicalPath());
-    assertEquals("Wrong value length",new DWORD(VALUE.length()),len);
-    assertEquals("Wrong existing value",VALUE,Native.toString(buffer));
-    len=Kernel32.INSTANCE.GetPrivateProfileString("Section","missingKey",DEFAULT,buffer,new DWORD(buffer.length),tmp.getCanonicalPath());
-    assertEquals("Wrong value length",new DWORD(DEFAULT.length()),len);
-    assertEquals("Wrong default value",DEFAULT,Native.toString(buffer));
-  }
-  finally {
-    tmp.delete();
-  }
+  final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
+  writer.println("[Section]");
+  writer.println("existingKey = ABC");
+  writer.close();
+  final char[] buffer=new char[8];
+  assertEquals("ABC",Kernel32.INSTANCE.GetPrivateProfileString("Section","existingKey","DEF",buffer,new DWORD(buffer.length),tmp.getCanonicalPath()));
+  assertEquals("DEF",Kernel32.INSTANCE.GetPrivateProfileString("Section","missingKey","DEF",buffer,new DWORD(buffer.length),tmp.getCanonicalPath()));
 }
