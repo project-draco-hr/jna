@@ -1,6 +1,6 @@
 {
   PointerByReference ppTypeAttr=new PointerByReference();
   HRESULT hr=this.typeInfo.GetTypeComp(ppTypeAttr);
-  COMUtils.checkAutoRC(hr);
+  COMUtils.checkRC(hr);
   return new TypeComp(ppTypeAttr.getValue());
 }

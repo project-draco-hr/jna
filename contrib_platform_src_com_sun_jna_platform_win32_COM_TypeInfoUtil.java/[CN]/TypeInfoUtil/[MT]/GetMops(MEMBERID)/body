@@ -1,6 +1,6 @@
 {
   BSTRByReference pBstrMops=new BSTRByReference();
   HRESULT hr=this.typeInfo.GetMops(memid,pBstrMops);
-  COMUtils.checkAutoRC(hr);
+  COMUtils.checkRC(hr);
   return pBstrMops.getString();
 }

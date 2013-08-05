@@ -16,7 +16,7 @@
     }
   }
   HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
-  COMUtils.checkAutoRC(hr);
+  COMUtils.checkRC(hr);
   if (nType == OleAuto.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=new UINT(_argsLen);
     dp.rgdispidNamedArgs=new DISPIDbyReference(OaIdl.DISPID_PROPERTYPUT);
@@ -27,6 +27,6 @@
     dp.write();
   }
   hr=pDisp.Invoke(pdispID.getValue(),Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,pExcepInfo,puArgErr);
-  COMUtils.checkAutoRC(hr,pExcepInfo,puArgErr);
+  COMUtils.checkRC(hr,pExcepInfo,puArgErr);
   return hr;
 }

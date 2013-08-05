@@ -3,12 +3,12 @@
   ULONG lHashVal=new ULONG(hashVal);
   USHORTbyReference pcFound=new USHORTbyReference(found);
   HRESULT hr=this.typelib.FindName(szNameBuf,lHashVal,null,null,pcFound);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkRC(hr);
   found=pcFound.getValue().shortValue();
   ITypeInfo[] ppTInfo=new ITypeInfo[found];
   MEMBERID[] rgMemId=new MEMBERID[found];
   hr=this.typelib.FindName(szNameBuf,lHashVal,ppTInfo,rgMemId,pcFound);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkRC(hr);
   FindName findName=new FindName(szNameBuf.getString(),ppTInfo,rgMemId,found);
   OLEAUTO.SysFreeString(szNameBuf.getValue());
   return findName;

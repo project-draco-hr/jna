@@ -6,6 +6,6 @@
   ITypeInfo[] ppTInfo=new ITypeInfo[1000];
   USHORTbyReference pcFound=new USHORTbyReference((short)20);
   HRESULT hr=shellTypeLib.FindName(szNameBuf,lHashVal,ppTInfo,rgMemIds,pcFound);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkRC(hr);
   System.out.println("szNameBuf: " + szNameBuf);
 }

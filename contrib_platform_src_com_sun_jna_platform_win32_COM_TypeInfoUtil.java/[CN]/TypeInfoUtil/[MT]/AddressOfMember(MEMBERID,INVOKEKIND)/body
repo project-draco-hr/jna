@@ -1,6 +1,6 @@
 {
   PointerByReference ppv=new PointerByReference();
   HRESULT hr=this.typeInfo.AddressOfMember(memid,invKind,ppv);
-  COMUtils.checkAutoRC(hr);
+  COMUtils.checkRC(hr);
   return ppv;
 }

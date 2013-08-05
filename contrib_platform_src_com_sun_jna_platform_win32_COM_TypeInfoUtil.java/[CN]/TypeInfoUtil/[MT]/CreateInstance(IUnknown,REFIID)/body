@@ -1,6 +1,6 @@
 {
   PointerByReference ppvObj=new PointerByReference();
   HRESULT hr=this.typeInfo.CreateInstance(pUnkOuter,riid,ppvObj);
-  COMUtils.checkAutoRC(hr);
+  COMUtils.checkRC(hr);
   return ppvObj;
 }

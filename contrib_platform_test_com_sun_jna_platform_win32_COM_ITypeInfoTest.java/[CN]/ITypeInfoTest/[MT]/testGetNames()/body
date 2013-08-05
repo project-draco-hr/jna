@@ -5,7 +5,7 @@
   UINT cMaxNames=new UINT(1);
   UINTbyReference pcNames=new UINTbyReference();
   HRESULT hr=typeInfo.GetNames(memid,rgBstrNames,cMaxNames,pcNames);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
   System.out.println("rgBstrNames: " + rgBstrNames[0].getValue());
   System.out.println("pcNames: " + pcNames.getValue().intValue());

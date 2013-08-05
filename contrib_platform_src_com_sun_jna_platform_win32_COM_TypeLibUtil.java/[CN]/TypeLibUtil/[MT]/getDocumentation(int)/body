@@ -4,7 +4,7 @@
   DWORDbyReference pdwHelpContext=new DWORDbyReference();
   BSTRByReference pBstrHelpFile=new BSTRByReference();
   HRESULT hr=typelib.GetDocumentation(index,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkRC(hr);
   TypeLibDoc typeLibDoc=new TypeLibDoc(pBstrName.getString(),pBstrDocString.getString(),pdwHelpContext.getValue().intValue(),pBstrHelpFile.getString());
   OLEAUTO.SysFreeString(pBstrName.getValue());
   OLEAUTO.SysFreeString(pBstrDocString.getValue());

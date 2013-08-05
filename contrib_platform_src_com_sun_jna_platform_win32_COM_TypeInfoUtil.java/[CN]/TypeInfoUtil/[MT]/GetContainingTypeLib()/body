@@ -2,6 +2,6 @@
   PointerByReference ppTLib=new PointerByReference();
   UINTbyReference pIndex=new UINTbyReference();
   HRESULT hr=this.typeInfo.GetContainingTypeLib(ppTLib,pIndex);
-  COMUtils.checkAutoRC(hr);
+  COMUtils.checkRC(hr);
   return new ContainingTypeLib(new TypeLib(ppTLib.getValue()),pIndex.getValue().intValue());
 }

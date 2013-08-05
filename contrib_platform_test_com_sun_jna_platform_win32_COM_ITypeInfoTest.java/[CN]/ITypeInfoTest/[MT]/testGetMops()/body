@@ -3,7 +3,7 @@
   MEMBERID memid=new MEMBERID(0);
   BSTRByReference pBstrMops=new BSTRByReference();
   HRESULT hr=typeInfo.GetMops(memid,pBstrMops);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
   System.out.println("pBstrMops: " + pBstrMops.toString());
 }

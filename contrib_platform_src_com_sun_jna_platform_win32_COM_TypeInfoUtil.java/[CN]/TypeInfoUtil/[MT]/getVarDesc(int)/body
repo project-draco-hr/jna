@@ -1,6 +1,6 @@
 {
   PointerByReference ppVarDesc=new PointerByReference();
   HRESULT hr=this.typeInfo.GetVarDesc(new UINT(index),ppVarDesc);
-  COMUtils.checkAutoRC(hr);
+  COMUtils.checkRC(hr);
   return new VARDESC(ppVarDesc.getValue());
 }

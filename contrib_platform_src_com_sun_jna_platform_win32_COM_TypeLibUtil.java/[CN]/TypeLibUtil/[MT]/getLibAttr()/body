@@ -1,6 +1,6 @@
 {
   PointerByReference ppTLibAttr=new PointerByReference();
   HRESULT hr=typelib.GetLibAttr(ppTLibAttr);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkRC(hr);
   return new TLIBATTR(ppTLibAttr.getValue());
 }

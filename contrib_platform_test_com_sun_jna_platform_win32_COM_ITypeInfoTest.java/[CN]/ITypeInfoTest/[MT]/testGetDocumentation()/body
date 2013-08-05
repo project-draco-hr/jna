@@ -6,7 +6,7 @@
   DWORDbyReference pdwHelpContext=new DWORDbyReference();
   BSTRByReference pBstrHelpFile=new BSTRByReference();
   HRESULT hr=typeInfo.GetDocumentation(memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
-  COMUtils.checkAutoRC(hr);
+  COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
   System.out.println("memid: " + memid.intValue());
   System.out.println("pBstrName: " + pBstrName.getValue());

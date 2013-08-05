@@ -3,7 +3,7 @@
   MEMBERID memid=new MEMBERID();
   PointerByReference ppv=new PointerByReference();
   HRESULT hr=typeInfo.AddressOfMember(memid,INVOKEKIND.INVOKE_FUNC,ppv);
-  COMUtils.checkTypeLibRC(hr);
+  COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
   System.out.println("AddressOfMember: " + ppv.toString());
 }
