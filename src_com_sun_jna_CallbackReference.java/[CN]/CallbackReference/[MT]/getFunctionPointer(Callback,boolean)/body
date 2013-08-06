@@ -13,6 +13,7 @@ synchronized (callbackMap) {
     if (cbref == null) {
       cbref=new CallbackReference(cb,callingConvention,direct);
       map.put(cb,cbref);
+      pointerCallbackMap.put(cbref.getTrampoline(),new WeakReference(cb));
       if (initializers.containsKey(cb)) {
         cbref.setCallbackOptions(Native.CB_HAS_INITIALIZER);
       }

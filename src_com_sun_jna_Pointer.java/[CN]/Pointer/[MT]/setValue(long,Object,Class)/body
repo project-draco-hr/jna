@@ -41,7 +41,7 @@
       }
     }
  else {
-      s.useMemory(this,(int)offset);
+      s.useMemory(this,(int)offset,true);
       s.write();
     }
   }

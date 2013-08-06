@@ -23,6 +23,7 @@
           if (DEBUG_JNA_LOAD) {
             System.out.println("Trying " + path);
           }
+          System.setProperty("jnidispatch.path",path);
           System.load(path);
           jnidispatchPath=path;
           if (DEBUG_JNA_LOAD) {
@@ -52,6 +53,7 @@
             if (DEBUG_JNA_LOAD) {
               System.out.println("Trying " + path);
             }
+            System.setProperty("jnidispatch.path",path);
             System.load(path);
             jnidispatchPath=path;
             if (DEBUG_JNA_LOAD) {

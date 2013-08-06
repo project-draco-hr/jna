@@ -1,0 +1,10 @@
+{
+  try {
+    Pointer p=new Pointer(getName().hashCode());
+    CallbackReference.getCallback(TestLibrary.VoidCallback.class,p);
+    CallbackReference.getCallback(TestLibrary.ByteCallback.class,p);
+    fail("Multiply-mapped callback should fail");
+  }
+ catch (  IllegalStateException e) {
+  }
+}

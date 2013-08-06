@@ -1,0 +1,6 @@
+{
+  int rc=Advapi32.INSTANCE.RegCloseKey(hKey);
+  if (rc != W32Errors.ERROR_SUCCESS) {
+    throw new Win32Exception(rc);
+  }
+}

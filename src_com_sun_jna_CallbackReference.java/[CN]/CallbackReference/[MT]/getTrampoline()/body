@@ -1,3 +1,6 @@
 {
-  return cbstruct.getPointer(0);
+  if (trampoline == null) {
+    trampoline=cbstruct.getPointer(0);
+  }
+  return trampoline;
 }

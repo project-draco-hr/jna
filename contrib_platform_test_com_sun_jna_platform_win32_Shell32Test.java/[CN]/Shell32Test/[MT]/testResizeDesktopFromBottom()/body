@@ -1,0 +1,14 @@
+{
+  newAppBar();
+  APPBARDATA data=new APPBARDATA.ByReference();
+  data.uEdge.setValue(ShellAPI.ABE_BOTTOM);
+  data.rc.top=User32.INSTANCE.GetSystemMetrics(User32.SM_CYFULLSCREEN) - RESIZE_HEIGHT;
+  data.rc.left=0;
+  data.rc.bottom=User32.INSTANCE.GetSystemMetrics(User32.SM_CYFULLSCREEN);
+  data.rc.right=User32.INSTANCE.GetSystemMetrics(User32.SM_CXFULLSCREEN);
+  queryPos(data);
+  UINT_PTR h=Shell32.INSTANCE.SHAppBarMessage(new DWORD(ShellAPI.ABM_SETPOS),data);
+  assertNotNull(h);
+  assertTrue(h.intValue() >= 0);
+  removeAppBar();
+}
