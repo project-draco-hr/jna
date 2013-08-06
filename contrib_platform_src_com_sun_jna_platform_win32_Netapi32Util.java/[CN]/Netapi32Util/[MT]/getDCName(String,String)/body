@@ -5,7 +5,7 @@
     if (LMErr.NERR_Success != rc) {
       throw new Win32Exception(rc);
     }
-    return bufptr.getValue().getString(0,true);
+    return bufptr.getValue().getWideString(0);
   }
   finally {
     if (W32Errors.ERROR_SUCCESS != Netapi32.INSTANCE.NetApiBufferFree(bufptr.getValue())) {

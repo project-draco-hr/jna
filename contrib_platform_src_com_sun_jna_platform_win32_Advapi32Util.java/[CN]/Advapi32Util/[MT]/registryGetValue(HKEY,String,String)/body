@@ -20,7 +20,7 @@
     result=byteData.getByteArray(0,lpcbData.getValue());
   }
  else   if ((lpType.getValue() == WinNT.REG_SZ) || (lpType.getValue() == WinNT.REG_EXPAND_SZ)) {
-    result=byteData.getString(0,true);
+    result=byteData.getWideString(0);
   }
   return result;
 }

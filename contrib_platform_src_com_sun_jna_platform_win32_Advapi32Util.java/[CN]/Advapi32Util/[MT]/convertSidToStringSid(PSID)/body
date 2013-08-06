@@ -3,7 +3,7 @@
   if (!Advapi32.INSTANCE.ConvertSidToStringSid(sid,stringSid)) {
     throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }
-  String result=stringSid.getValue().getString(0,true);
+  String result=stringSid.getValue().getWideString(0);
   Kernel32.INSTANCE.LocalFree(stringSid.getValue());
   return result;
 }

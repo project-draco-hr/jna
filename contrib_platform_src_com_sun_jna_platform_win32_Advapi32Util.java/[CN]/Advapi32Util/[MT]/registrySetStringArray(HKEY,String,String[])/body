@@ -8,7 +8,7 @@
   int offset=0;
   Memory data=new Memory(size);
   for (  String s : arr) {
-    data.setString(offset,s,true);
+    data.setWideString(offset,s);
     offset+=s.length() * Native.WCHAR_SIZE;
     offset+=Native.WCHAR_SIZE;
   }
