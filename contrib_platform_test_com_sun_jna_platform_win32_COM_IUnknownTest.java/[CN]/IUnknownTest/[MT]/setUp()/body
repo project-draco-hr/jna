@@ -1,6 +1,5 @@
 {
   super.setUp();
-  Native.setProtected(true);
   System.out.println("JNA protected mode: " + Native.isProtected());
   HRESULT hr=Ole32.INSTANCE.CoInitialize(null);
   if (W32Errors.FAILED(hr)) {

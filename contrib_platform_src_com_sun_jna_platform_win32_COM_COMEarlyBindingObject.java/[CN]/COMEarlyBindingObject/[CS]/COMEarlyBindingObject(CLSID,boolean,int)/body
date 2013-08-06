@@ -1,5 +1,4 @@
 {
-  Native.setProtected(true);
   HRESULT hr=Ole32.INSTANCE.CoInitialize(null);
   if (COMUtils.FAILED(hr)) {
     this.Release();

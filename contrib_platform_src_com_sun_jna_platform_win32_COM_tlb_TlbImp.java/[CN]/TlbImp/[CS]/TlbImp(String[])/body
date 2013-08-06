@@ -1,5 +1,4 @@
 {
-  Native.setProtected(true);
   this.cmdlineArgs=new TlbCmdlineArgs(args);
   if (this.cmdlineArgs.isTlbId()) {
     String clsid=this.cmdlineArgs.getParam(CMD_ARG_TYPELIB_ID);
