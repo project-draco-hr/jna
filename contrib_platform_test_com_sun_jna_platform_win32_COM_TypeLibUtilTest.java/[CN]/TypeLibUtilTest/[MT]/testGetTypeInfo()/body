@@ -1,0 +1,10 @@
+{
+  TypeLibUtil shellTypeLib=loadShellTypeLib();
+  ITypeInfo typeInfo=shellTypeLib.getTypeInfo(0);
+  TypeInfoUtil typeInfoUtil=new TypeInfoUtil(typeInfo);
+  TYPEATTR typeAttr=typeInfoUtil.getTypeAttr();
+  int cFuncs=typeAttr.cFuncs.intValue();
+  for (int i=0; i < cFuncs; i++) {
+    FUNCDESC funcDesc=typeInfoUtil.getFuncDesc(i);
+  }
+}
