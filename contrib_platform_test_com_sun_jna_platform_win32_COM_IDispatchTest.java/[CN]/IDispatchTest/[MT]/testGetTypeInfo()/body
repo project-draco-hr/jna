@@ -1,0 +1,7 @@
+{
+  Dispatch dispatch=this.createIDispatch();
+  PointerByReference ppTInfo=new PointerByReference();
+  HRESULT hr=dispatch.GetTypeInfo(new UINT(0),LOCALE_SYSTEM_DEFAULT,ppTInfo);
+  COMUtils.checkRC(hr);
+  assertEquals(0,hr.intValue());
+}

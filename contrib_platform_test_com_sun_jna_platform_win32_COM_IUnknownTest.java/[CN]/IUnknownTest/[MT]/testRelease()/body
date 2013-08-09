@@ -1,6 +1,5 @@
 {
-  System.out.println("start 'testQueryInterface'");
-  int release=this.iDispatch.Release().intValue();
-  System.out.println("release:" + release);
-  System.out.println("end 'testRelease'");
+  Unknown iUnknown=this.createIUnknown();
+  int release=iUnknown.Release();
+  assertEquals(0,release);
 }

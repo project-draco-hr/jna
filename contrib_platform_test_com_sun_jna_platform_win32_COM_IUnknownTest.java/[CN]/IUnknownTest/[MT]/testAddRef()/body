@@ -1,6 +1,5 @@
 {
-  System.out.println("start 'testAddRef'");
-  int addRef=this.iDispatch.AddRef().intValue();
-  System.out.println("addRef:" + addRef);
-  System.out.println("end 'testAddRef'");
+  Unknown iUnknown=this.createIUnknown();
+  int addRef=iUnknown.AddRef();
+  assertEquals(2,addRef);
 }

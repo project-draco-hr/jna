@@ -12,14 +12,14 @@
     hr=OleAuto.INSTANCE.GetActiveObject(clsid,null,this.pUnknown);
     if (COMUtils.SUCCEEDED(hr)) {
       this.iUnknown=new Unknown(this.pUnknown.getValue());
-      hr=iUnknown.QueryInterface(IDispatch.IID_IDispatch,this.pDispatch);
+      hr=iUnknown.QueryInterface(IDispatch.IID_IDISPATCH,this.pDispatch);
     }
  else {
-      hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,dwClsContext,IDispatch.IID_IDispatch,this.pDispatch);
+      hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,dwClsContext,IDispatch.IID_IDISPATCH,this.pDispatch);
     }
   }
  else {
-    hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,dwClsContext,IDispatch.IID_IDispatch,this.pDispatch);
+    hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,dwClsContext,IDispatch.IID_IDISPATCH,this.pDispatch);
   }
   if (COMUtils.FAILED(hr)) {
     throw new COMException("COM object with CLSID " + clsid.toGuidString() + " not registered properly!");

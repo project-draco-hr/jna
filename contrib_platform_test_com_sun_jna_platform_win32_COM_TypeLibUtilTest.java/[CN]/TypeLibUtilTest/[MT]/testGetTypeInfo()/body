@@ -14,5 +14,6 @@
       assertNotNull(methodName);
       typeInfoUtil.ReleaseFuncDesc(funcDesc);
     }
+    typeInfoUtil.ReleaseTypeAttr(typeAttr);
   }
 }
