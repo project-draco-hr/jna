@@ -1,0 +1,3 @@
+{
+  this._invokeNativeVoid(19,new Object[]{this.getPointer(),pTypeAttr});
+}

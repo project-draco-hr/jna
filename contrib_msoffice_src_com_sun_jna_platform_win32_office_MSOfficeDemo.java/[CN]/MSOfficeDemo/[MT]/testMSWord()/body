@@ -1,20 +1,33 @@
 {
   MSWord msWord=null;
+  LONG wdFormatPDF=new LONG(17);
+  LONG wdFormatRTF=new LONG(6);
+  LONG wdFormatHTML=new LONG(8);
   try {
     msWord=new MSWord();
     System.out.println("MSWord version: " + msWord.getVersion());
-    msWord.setVisible(Variant.VARIANT_TRUE);
+    msWord.setVisible(true);
+    msWord.openDocument(currentWorkingDir + "jnatest.doc",true);
+    msWord.insertText("Hello from JNA!");
+    Thread.currentThread().sleep(10000);
+    msWord.SaveAs("C:\\TEMP\\jnatestSaveAs.rtf",wdFormatRTF);
+    msWord.SaveAs("C:\\TEMP\\jnatestSaveAs.html",wdFormatHTML);
+    msWord.closeActiveDocument(true);
+    msWord.setVisible(true);
     msWord.newDocument();
     msWord.insertText("Hello from JNA!");
-    msWord.closeActiveDocument(Variant.VARIANT_TRUE);
+    msWord.closeActiveDocument(true);
     msWord.quit();
   }
- catch (  COMException e) {
+ catch (  InterruptedException ie) {
+    ie.printStackTrace();
+  }
+catch (  COMException e) {
     if (e.getExcepInfo() != null) {
       System.out.println("bstrSource: " + e.getExcepInfo().bstrSource);
       System.out.println("bstrDescription: " + e.getExcepInfo().bstrDescription);
     }
- else     e.printStackTrace();
+    e.printStackTrace();
     if (msWord != null)     msWord.quit();
   }
 }

@@ -1,0 +1,5 @@
+{
+  VARIANT vtFileName=new VARIANT(FileName);
+  VARIANT vtFileFormat=new VARIANT(FileFormat);
+  this.invokeNoReply("SaveAs",this.getActiveDocument().getIDispatch(),vtFileName,vtFileFormat);
+}

@@ -1,0 +1,3 @@
+{
+  return (HRESULT)this._invokeNativeObject(12,new Object[]{this.getPointer(),memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile},HRESULT.class);
+}

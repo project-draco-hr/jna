@@ -6,7 +6,7 @@
     if (LMErr.NERR_Success != rc) {
       throw new Win32Exception(rc);
     }
-    return lpNameBuffer.getValue().getString(0,true);
+    return lpNameBuffer.getValue().getWideString(0);
   }
   finally {
     if (lpNameBuffer.getPointer() != null) {

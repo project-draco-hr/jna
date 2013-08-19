@@ -1,0 +1,4 @@
+{
+  String param=this.getParam(key);
+  return new Integer(param).intValue();
+}

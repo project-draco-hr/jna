@@ -1,0 +1,8 @@
+{
+  ITypeInfo typeInfo=getTypeInfo();
+  HREFTYPEbyReference pRefType=new HREFTYPEbyReference();
+  HRESULT hr=typeInfo.GetRefTypeOfImplType(new UINT(0),pRefType);
+  COMUtils.checkRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("GetRefTypeOfImplType: " + pRefType.toString());
+}

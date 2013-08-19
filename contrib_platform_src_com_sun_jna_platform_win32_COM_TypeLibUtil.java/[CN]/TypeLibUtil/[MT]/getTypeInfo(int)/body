@@ -1,0 +1,6 @@
+{
+  PointerByReference ppTInfo=new PointerByReference();
+  HRESULT hr=this.typelib.GetTypeInfo(new UINT(index),ppTInfo);
+  COMUtils.checkRC(hr);
+  return new TypeInfo(ppTInfo.getValue());
+}

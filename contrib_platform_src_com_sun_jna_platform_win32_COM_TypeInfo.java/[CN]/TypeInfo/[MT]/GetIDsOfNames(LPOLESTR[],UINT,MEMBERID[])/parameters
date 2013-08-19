@@ -1,0 +1,3 @@
+LPOLESTR[] rgszNames
+UINT cNames
+MEMBERID[] pMemId

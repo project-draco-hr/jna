@@ -1,0 +1,4 @@
+{
+  TlbEnum tlbEnum=new TlbEnum(index,packagename,typeLibUtil);
+  this.writeTlbClass(tlbEnum);
+}

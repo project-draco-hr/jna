@@ -1,0 +1,10 @@
+{
+  ITypeInfo typeInfo=getTypeInfo();
+  LPOLESTR[] rgszNames={new LPOLESTR("Help")};
+  UINT cNames=new UINT(1);
+  MEMBERID[] pMemId=new MEMBERID[1];
+  HRESULT hr=typeInfo.GetIDsOfNames(rgszNames,cNames,pMemId);
+  COMUtils.checkRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("pMemId: " + pMemId.toString());
+}

@@ -1,0 +1,4 @@
+{
+  this.nameBuf=nameBuf;
+  this.name=name;
+}

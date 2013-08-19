@@ -1,5 +1,0 @@
-{
-  if (this.comObj != null) {
-    this.comObj.release();
-  }
-}

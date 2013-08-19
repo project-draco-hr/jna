@@ -22,7 +22,7 @@
     ArrayList<String> result=new ArrayList<String>();
     int offset=0;
     while (offset < data.size()) {
-      String s=data.getString(offset,true);
+      String s=data.getWideString(0);
       offset+=s.length() * Native.WCHAR_SIZE;
       offset+=Native.WCHAR_SIZE;
       if (s.length() == 0 && offset == data.size()) {

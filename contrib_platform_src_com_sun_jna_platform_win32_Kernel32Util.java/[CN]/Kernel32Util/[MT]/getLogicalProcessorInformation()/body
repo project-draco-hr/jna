@@ -1,6 +1,6 @@
 {
   int sizePerStruct=new WinNT.SYSTEM_LOGICAL_PROCESSOR_INFORMATION().size();
-  WinDef.DWORDByReference bufferSize=new WinDef.DWORDByReference(new WinDef.DWORD(sizePerStruct));
+  WinDef.DWORDbyReference bufferSize=new WinDef.DWORDbyReference(new WinDef.DWORD(sizePerStruct));
   Memory memory;
   while (true) {
     memory=new Memory(bufferSize.getValue().intValue());

@@ -1,5 +1,0 @@
-MEMBERID memid
-INVOKEKIND invKind
-BSTR pBstrDllName
-BSTR pBstrName
-WORDByReference pwOrdinal

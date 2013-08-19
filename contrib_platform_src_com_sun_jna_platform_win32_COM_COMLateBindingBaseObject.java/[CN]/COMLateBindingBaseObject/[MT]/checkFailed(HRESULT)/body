@@ -1,0 +1,3 @@
+{
+  COMUtils.checkRC(hr,null,null);
+}

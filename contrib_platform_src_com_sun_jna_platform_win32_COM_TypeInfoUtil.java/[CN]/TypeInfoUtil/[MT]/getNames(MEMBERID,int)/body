@@ -1,0 +1,13 @@
+{
+  BSTR[] rgBstrNames=new BSTR[maxNames];
+  UINTbyReference pcNames=new UINTbyReference();
+  HRESULT hr=this.typeInfo.GetNames(memid,rgBstrNames,new UINT(maxNames),pcNames);
+  COMUtils.checkRC(hr);
+  int cNames=pcNames.getValue().intValue();
+  String[] result=new String[cNames];
+  for (int i=0; i < result.length; i++) {
+    result[i]=rgBstrNames[i].getValue();
+    OLEAUTO.SysFreeString(rgBstrNames[i]);
+  }
+  return result;
+}

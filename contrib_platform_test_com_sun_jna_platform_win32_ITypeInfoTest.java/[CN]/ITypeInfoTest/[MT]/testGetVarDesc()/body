@@ -1,8 +1,0 @@
-{
-  ITypeInfo typeInfo=getTypeInfo();
-  VARDESC.ByReference pVarDesc=new VARDESC.ByReference();
-  HRESULT hr=typeInfo.GetVarDesc(new UINT(0),pVarDesc);
-  COMUtils.checkTypeLibRC(hr);
-  assertEquals(0,hr.intValue());
-  System.out.println("GetVarDesc: " + pVarDesc.toString());
-}

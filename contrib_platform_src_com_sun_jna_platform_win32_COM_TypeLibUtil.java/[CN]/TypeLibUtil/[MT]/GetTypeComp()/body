@@ -1,0 +1,6 @@
+{
+  PointerByReference ppTComp=new PointerByReference();
+  HRESULT hr=this.typelib.GetTypeComp(ppTComp);
+  COMUtils.checkRC(hr);
+  return new TypeComp(ppTComp.getValue());
+}

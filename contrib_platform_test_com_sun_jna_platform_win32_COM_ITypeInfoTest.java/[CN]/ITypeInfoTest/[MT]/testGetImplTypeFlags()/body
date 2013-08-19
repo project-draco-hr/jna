@@ -1,0 +1,8 @@
+{
+  ITypeInfo typeInfo=getTypeInfo();
+  IntByReference pImplTypeFlags=new IntByReference();
+  HRESULT hr=typeInfo.GetImplTypeFlags(new UINT(0),pImplTypeFlags);
+  COMUtils.checkRC(hr);
+  assertEquals(0,hr.intValue());
+  System.out.println("GetImplTypeFlags: " + pImplTypeFlags.toString());
+}

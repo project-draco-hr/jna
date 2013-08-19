@@ -1,0 +1,7 @@
+{
+  TypeLibDoc documentation=this.getDocumentation(-1);
+  this.name=documentation.getName();
+  this.docString=documentation.getDocString();
+  this.helpContext=documentation.getHelpContext();
+  this.helpFile=documentation.getHelpFile();
+}

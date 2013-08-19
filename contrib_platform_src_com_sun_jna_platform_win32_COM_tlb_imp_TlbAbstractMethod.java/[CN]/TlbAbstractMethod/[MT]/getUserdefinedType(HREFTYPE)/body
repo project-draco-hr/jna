@@ -1,0 +1,6 @@
+{
+  ITypeInfo refTypeInfo=this.typeInfoUtil.getRefTypeInfo(hreftype);
+  TypeInfoUtil typeInfoUtil=new TypeInfoUtil(refTypeInfo);
+  TypeInfoDoc documentation=typeInfoUtil.getDocumentation(OaIdl.MEMBERID_NIL);
+  return documentation.getName();
+}

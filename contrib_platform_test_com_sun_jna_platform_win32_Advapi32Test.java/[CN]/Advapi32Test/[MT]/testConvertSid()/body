@@ -4,7 +4,7 @@
   assertTrue(Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
   PointerByReference convertedSidStringPtr=new PointerByReference();
   assertTrue(Advapi32.INSTANCE.ConvertSidToStringSid(sid.getValue(),convertedSidStringPtr));
-  String convertedSidString=convertedSidStringPtr.getValue().getString(0,true);
+  String convertedSidString=convertedSidStringPtr.getValue().getWideString(0);
   assertEquals(convertedSidString,sidString);
   assertEquals(null,Kernel32.INSTANCE.LocalFree(convertedSidStringPtr.getValue()));
   assertEquals(null,Kernel32.INSTANCE.LocalFree(sid.getValue().getPointer()));

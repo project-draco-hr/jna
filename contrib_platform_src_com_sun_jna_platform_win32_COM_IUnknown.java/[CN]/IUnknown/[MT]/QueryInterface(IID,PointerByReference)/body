@@ -1,8 +1,0 @@
-{
-  Pointer base=this.getPointer();
-  Pointer vptr=base.getPointer(0);
-  Pointer root=vptr.getPointer(0);
-  Function func=Function.getFunction(root);
-  int hr=func.invokeInt(new Object[]{base,riid,ppvObject});
-  return new HRESULT(hr);
-}

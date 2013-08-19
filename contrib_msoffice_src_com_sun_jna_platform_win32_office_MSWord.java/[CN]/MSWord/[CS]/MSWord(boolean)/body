@@ -1,4 +1,4 @@
 {
   this();
-  this.setVisible(Variant.VARIANT_TRUE);
+  this.setVisible(visible);
 }

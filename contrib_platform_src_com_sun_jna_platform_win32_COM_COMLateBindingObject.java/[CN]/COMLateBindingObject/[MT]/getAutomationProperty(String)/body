@@ -1,0 +1,5 @@
+{
+  VARIANT.ByReference result=new VARIANT.ByReference();
+  this.oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.iDispatch,propertyName);
+  return ((IDispatch)result.getValue());
+}

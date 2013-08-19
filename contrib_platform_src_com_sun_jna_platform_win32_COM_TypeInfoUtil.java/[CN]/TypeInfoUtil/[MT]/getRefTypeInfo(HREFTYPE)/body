@@ -1,0 +1,6 @@
+{
+  PointerByReference ppTInfo=new PointerByReference();
+  HRESULT hr=this.typeInfo.GetRefTypeInfo(hreftype,ppTInfo);
+  COMUtils.checkRC(hr);
+  return new TypeInfo(ppTInfo.getValue());
+}

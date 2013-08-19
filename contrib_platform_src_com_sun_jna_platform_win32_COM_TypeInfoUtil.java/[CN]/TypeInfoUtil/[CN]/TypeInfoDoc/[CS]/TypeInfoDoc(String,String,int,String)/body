@@ -1,0 +1,6 @@
+{
+  this.name=name;
+  this.docString=docString;
+  this.helpContext=helpContext;
+  this.helpFile=helpFile;
+}

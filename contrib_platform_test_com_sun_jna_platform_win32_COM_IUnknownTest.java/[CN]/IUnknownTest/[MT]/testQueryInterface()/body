@@ -1,5 +1,6 @@
 {
+  Unknown iUnknown=this.createIUnknown();
   PointerByReference ppvObject=new PointerByReference();
-  this.iDispatch.QueryInterface(IDispatch.IID_IDispatch,ppvObject);
-  assertNotNull(ppvObject.getValue());
+  iUnknown.QueryInterface(IUnknown.IID_IUNKNOWN,ppvObject);
+  assertTrue("ppvObject:" + ppvObject.toString(),ppvObject != null);
 }

@@ -1,8 +1,9 @@
 {
+  FileWriter writer=null;
   try {
     String filename="C:\\TEMP\\CLSIDs.txt";
     ArrayList<COMInfo> comInfos=COMUtils.getAllCOMInfoOnSystem();
-    FileWriter writer=new FileWriter(filename);
+    writer=new FileWriter(filename);
     for (    COMInfo comInfo : comInfos) {
       String result="CLSID: " + comInfo.clsid + "\n";
       result+="InprocHandler32: " + comInfo.inprocHandler32 + "\n";
@@ -17,5 +18,13 @@
   }
  catch (  IOException e) {
     e.printStackTrace();
+  }
+ finally {
+    try {
+      writer.close();
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
   }
 }
