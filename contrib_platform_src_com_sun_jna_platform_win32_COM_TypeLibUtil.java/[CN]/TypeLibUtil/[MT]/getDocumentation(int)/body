@@ -1,7 +1,7 @@
 {
   BSTRByReference pBstrName=new BSTRByReference();
   BSTRByReference pBstrDocString=new BSTRByReference();
-  DWORDbyReference pdwHelpContext=new DWORDbyReference();
+  DWORDByReference pdwHelpContext=new DWORDByReference();
   BSTRByReference pBstrHelpFile=new BSTRByReference();
   HRESULT hr=typelib.GetDocumentation(index,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
   COMUtils.checkRC(hr);

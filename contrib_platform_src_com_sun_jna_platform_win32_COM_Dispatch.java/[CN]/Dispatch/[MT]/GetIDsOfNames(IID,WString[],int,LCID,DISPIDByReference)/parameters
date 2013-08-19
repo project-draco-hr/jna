@@ -2,4 +2,4 @@ IID riid
 WString[] rgszNames
 int cNames
 LCID lcid
-DISPIDbyReference rgDispId
+DISPIDByReference rgDispId

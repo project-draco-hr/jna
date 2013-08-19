@@ -3,7 +3,7 @@
   MEMBERID memid=new MEMBERID(1);
   BSTR[] rgBstrNames=new BSTR[1];
   UINT cMaxNames=new UINT(1);
-  UINTbyReference pcNames=new UINTbyReference();
+  UINTByReference pcNames=new UINTByReference();
   HRESULT hr=typeInfo.GetNames(memid,rgBstrNames,cMaxNames,pcNames);
   COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());

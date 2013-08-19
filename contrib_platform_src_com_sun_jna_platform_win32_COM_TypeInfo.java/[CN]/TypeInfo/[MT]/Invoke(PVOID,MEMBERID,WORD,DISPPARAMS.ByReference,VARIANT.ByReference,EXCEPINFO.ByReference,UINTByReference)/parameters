@@ -4,4 +4,4 @@ WORD wFlags
 DISPPARAMS.ByReference pDispParams
 VARIANT.ByReference pVarResult
 EXCEPINFO.ByReference pExcepInfo
-UINTbyReference puArgErr
+UINTByReference puArgErr

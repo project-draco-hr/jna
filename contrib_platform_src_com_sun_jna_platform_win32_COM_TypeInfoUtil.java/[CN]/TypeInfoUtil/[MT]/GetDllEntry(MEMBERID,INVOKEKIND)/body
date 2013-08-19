@@ -1,7 +1,7 @@
 {
   BSTRByReference pBstrDllName=new BSTRByReference();
   BSTRByReference pBstrName=new BSTRByReference();
-  WORDbyReference pwOrdinal=new WORDbyReference();
+  WORDByReference pwOrdinal=new WORDByReference();
   HRESULT hr=this.typeInfo.GetDllEntry(memid,invKind,pBstrDllName,pBstrName,pwOrdinal);
   COMUtils.checkRC(hr);
   OLEAUTO.SysFreeString(pBstrDllName.getValue());

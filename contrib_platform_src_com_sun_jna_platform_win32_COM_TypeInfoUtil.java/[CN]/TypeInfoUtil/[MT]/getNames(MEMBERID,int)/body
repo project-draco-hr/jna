@@ -1,6 +1,6 @@
 {
   BSTR[] rgBstrNames=new BSTR[maxNames];
-  UINTbyReference pcNames=new UINTbyReference();
+  UINTByReference pcNames=new UINTByReference();
   HRESULT hr=this.typeInfo.GetNames(memid,rgBstrNames,new UINT(maxNames),pcNames);
   COMUtils.checkRC(hr);
   int cNames=pcNames.getValue().intValue();

@@ -4,7 +4,7 @@
   VARIANT[] _args=null;
   WString[] ptName=new WString[]{new WString(name)};
   DISPPARAMS dp=new DISPPARAMS();
-  DISPIDbyReference pdispID=new DISPIDbyReference();
+  DISPIDByReference pdispID=new DISPIDByReference();
   EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
   IntByReference puArgErr=new IntByReference();
   if ((pArgs != null) && (pArgs.length > 0)) {
@@ -19,7 +19,7 @@
   COMUtils.checkRC(hr);
   if (nType == OleAuto.DISPATCH_PROPERTYPUT) {
     dp.cNamedArgs=new UINT(_argsLen);
-    dp.rgdispidNamedArgs=new DISPIDbyReference(OaIdl.DISPID_PROPERTYPUT);
+    dp.rgdispidNamedArgs=new DISPIDByReference(OaIdl.DISPID_PROPERTYPUT);
   }
   if (_argsLen > 0) {
     dp.cArgs=new UINT(_args.length);

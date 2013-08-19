@@ -1,4 +1,4 @@
 MEMBERID memid
 BSTR[] rgBstrNames
 UINT cMaxNames
-UINTbyReference pcNames
+UINTByReference pcNames

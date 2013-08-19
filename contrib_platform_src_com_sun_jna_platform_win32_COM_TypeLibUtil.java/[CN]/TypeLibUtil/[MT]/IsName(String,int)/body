@@ -1,7 +1,7 @@
 {
   LPOLESTR szNameBuf=new LPOLESTR(nameBuf);
   ULONG lHashVal=new ULONG(hashVal);
-  BOOLbyReference pfName=new BOOLbyReference();
+  BOOLByReference pfName=new BOOLByReference();
   HRESULT hr=this.typelib.IsName(szNameBuf,lHashVal,pfName);
   COMUtils.checkRC(hr);
   return new IsName(szNameBuf.getValue(),pfName.getValue().booleanValue());

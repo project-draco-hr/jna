@@ -2,4 +2,4 @@ BSTRByReference szNameBuf
 ULONG lHashVal
 ITypeInfo[] ppTInfo
 MEMBERID[] rgMemId
-USHORTbyReference pcFound
+USHORTByReference pcFound

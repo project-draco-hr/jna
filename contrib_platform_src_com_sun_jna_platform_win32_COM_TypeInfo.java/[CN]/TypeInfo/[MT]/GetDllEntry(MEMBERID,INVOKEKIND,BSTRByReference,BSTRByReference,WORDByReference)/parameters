@@ -2,4 +2,4 @@ MEMBERID memid
 INVOKEKIND invKind
 BSTRByReference pBstrDllName
 BSTRByReference pBstrName
-WORDbyReference pwOrdinal
+WORDByReference pwOrdinal

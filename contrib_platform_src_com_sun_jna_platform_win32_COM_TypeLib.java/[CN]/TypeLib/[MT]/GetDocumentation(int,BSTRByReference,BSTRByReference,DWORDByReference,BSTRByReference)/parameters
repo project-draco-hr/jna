@@ -1,5 +1,5 @@
-MEMBERID memid
+int index
 BSTRByReference pBstrName
 BSTRByReference pBstrDocString
-DWORDbyReference pdwHelpContext
+DWORDByReference pdwHelpContext
 BSTRByReference pBstrHelpFile
