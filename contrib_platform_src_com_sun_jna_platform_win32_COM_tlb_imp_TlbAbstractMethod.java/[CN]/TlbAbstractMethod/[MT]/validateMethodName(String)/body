@@ -1,4 +1,0 @@
-{
-  if (methodName.equals("final"))   return "_" + methodName;
- else   return methodName;
-}

@@ -1,0 +1,8 @@
+{
+  if (name.equals("final"))   return "_" + name;
+ else   if (name.equals("default"))   return "_" + name;
+ else   if (name.equals("case"))   return "_" + name;
+ else   if (name.equals("char"))   return "_" + name;
+ else   if (name.equals("private"))   return "_" + name;
+ else   return name;
+}
