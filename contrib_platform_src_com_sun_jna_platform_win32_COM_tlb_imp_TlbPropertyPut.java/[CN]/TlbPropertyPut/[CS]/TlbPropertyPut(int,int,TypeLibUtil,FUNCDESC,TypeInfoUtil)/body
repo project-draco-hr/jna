@@ -3,8 +3,8 @@
   this.methodName="set" + getMethodName();
   String methodparams="";
   String methodvariables=", ";
-  int vtableId=funcDesc.oVft;
-  int paramCount=funcDesc.cParams;
+  short vtableId=funcDesc.oVft.shortValue();
+  short paramCount=funcDesc.cParams.shortValue();
   String varType;
   String[] names=typeInfoUtil.getNames(funcDesc.memid,paramCount + 1);
   for (int i=0; i < paramCount; i++) {
