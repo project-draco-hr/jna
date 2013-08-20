@@ -6,7 +6,7 @@
   TYPEATTR typeAttr=typeInfoUtil.getTypeAttr();
   int cFuncs=typeAttr.cFuncs.intValue();
   for (int y=13; y < cFuncs; y++) {
-    System.out.println("y:" + y);
+    System.out.println("\n\n\n y:" + y);
     FUNCDESC funcDesc=typeInfoUtil.getFuncDesc(y);
     MEMBERID memberID=funcDesc.memid;
     TypeInfoDoc typeInfoDoc2=typeInfoUtil.getDocumentation(memberID);

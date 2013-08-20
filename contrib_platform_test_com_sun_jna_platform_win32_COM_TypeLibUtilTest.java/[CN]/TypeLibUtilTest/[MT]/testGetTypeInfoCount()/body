@@ -1,5 +1,0 @@
-{
-  TypeLibUtil shellTypeLib=loadShellTypeLib();
-  int typeInfoCount=shellTypeLib.getTypeInfoCount();
-  assertTrue("MS Shell should contain at least 36 types.",typeInfoCount >= 36);
-}
