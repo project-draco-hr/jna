@@ -3,4 +3,8 @@
   this.typeInfoDoc=typeInfoUtil.getDocumentation(funcDesc.memid);
   this.methodName=typeInfoDoc.getName();
   this.docStr=typeInfoDoc.getDocString();
+  this.vtableId=funcDesc.oVft.shortValue();
+  this.memberid=funcDesc.memid;
+  this.paramCount=funcDesc.cParams.shortValue();
+  this.returnType=this.getType(funcDesc);
 }

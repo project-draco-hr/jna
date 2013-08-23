@@ -3,12 +3,6 @@
   TypeInfoDoc typeInfoDoc=typeInfoUtil.getDocumentation(funcDesc.memid);
   String methodname=typeInfoDoc.getName();
   String docStr=typeInfoDoc.getDocString();
-  String methodparams="";
-  String methodvariables="";
-  short vtableId=funcDesc.oVft.shortValue();
-  short paramCount=funcDesc.cParams.shortValue();
-  ELEMDESC elemDesdRetType=funcDesc.elemdescFunc;
-  String returnType=this.getType(elemDesdRetType.tdesc);
   String[] names=typeInfoUtil.getNames(funcDesc.memid,paramCount + 1);
   if (paramCount > 0)   methodvariables=", ";
   for (int i=0; i < paramCount; i++) {
@@ -26,4 +20,5 @@
   this.replaceVariable("methodname",methodname);
   this.replaceVariable("methodparams",methodparams);
   this.replaceVariable("vtableid",String.valueOf(vtableId));
+  this.replaceVariable("memberid",String.valueOf(memberid));
 }

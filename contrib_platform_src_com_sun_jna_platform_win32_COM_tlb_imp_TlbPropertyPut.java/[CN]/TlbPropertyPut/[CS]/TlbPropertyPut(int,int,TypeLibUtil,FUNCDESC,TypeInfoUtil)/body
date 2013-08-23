@@ -1,15 +1,11 @@
 {
   super(index,typeLibUtil,funcDesc,typeInfoUtil);
   this.methodName="set" + getMethodName();
-  String methodparams="";
-  String methodvariables=", ";
-  short vtableId=funcDesc.oVft.shortValue();
-  short paramCount=funcDesc.cParams.shortValue();
-  String varType;
   String[] names=typeInfoUtil.getNames(funcDesc.memid,paramCount + 1);
+  if (paramCount > 0)   methodvariables+=", ";
   for (int i=0; i < paramCount; i++) {
     ELEMDESC elemdesc=funcDesc.lprgelemdescParam.elemDescArg[i];
-    varType=this.getType(elemdesc);
+    String varType=this.getType(elemdesc);
     methodparams+=varType + " " + this.replaceJavaKeyword(names[i].toLowerCase());
     methodvariables+=this.replaceJavaKeyword(names[i].toLowerCase());
     if (i < (paramCount - 1)) {
@@ -22,5 +18,6 @@
   this.replaceVariable("methodparams",methodparams);
   this.replaceVariable("methodvariables",methodvariables);
   this.replaceVariable("vtableid",String.valueOf(vtableId));
+  this.replaceVariable("memberid",String.valueOf(memberid));
   this.replaceVariable("functionCount",String.valueOf(count));
 }

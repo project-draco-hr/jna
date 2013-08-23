@@ -1,5 +1,5 @@
 {
   VARIANT.ByReference result=new VARIANT.ByReference();
-  this.oleMethod(OleAuto.DISPATCH_METHOD,result,this.iDispatch,methodName,args);
+  this.oleMethod(OleAuto.DISPATCH_METHOD,result,this.getIDispatch(),methodName,args);
   return result;
 }
