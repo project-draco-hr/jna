@@ -1,6 +1,7 @@
 {
   try {
     this.createDir();
+    int bindingMode=this.cmdlineArgs.getBindingMode();
     int typeInfoCount=typeLibUtil.getTypeInfoCount();
     for (int i=0; i < typeInfoCount; ++i) {
       TYPEKIND typekind=typeLibUtil.getTypeInfoType(i);
@@ -20,7 +21,7 @@
         this.createCOMDispInterface(i,this.getPackageName(),typeLibUtil);
       }
  else       if (typekind.value == TYPEKIND.TKIND_COCLASS) {
-        this.createCOMCoClass(i,this.getPackageName(),typeLibUtil);
+        this.createCOMCoClass(i,this.getPackageName(),typeLibUtil,bindingMode);
       }
  else       if (typekind.value == TYPEKIND.TKIND_ALIAS) {
         this.logInfo("'TKIND_ALIAS' objects are currently not supported!");

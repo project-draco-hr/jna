@@ -1,0 +1,4 @@
+int index
+String packagename
+TypeLibUtil typeLibUtil
+int bindingMode
