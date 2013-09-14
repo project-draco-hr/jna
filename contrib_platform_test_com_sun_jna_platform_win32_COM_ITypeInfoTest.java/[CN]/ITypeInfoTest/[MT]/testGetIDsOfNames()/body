@@ -6,5 +6,4 @@
   HRESULT hr=typeInfo.GetIDsOfNames(rgszNames,cNames,pMemId);
   COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
-  System.out.println("pMemId: " + pMemId.toString());
 }

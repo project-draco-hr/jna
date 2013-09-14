@@ -5,5 +5,4 @@
   HRESULT hr=typeInfo.AddressOfMember(memid,INVOKEKIND.INVOKE_FUNC,ppv);
   COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
-  System.out.println("AddressOfMember: " + ppv.toString());
 }

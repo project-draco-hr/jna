@@ -4,5 +4,4 @@
   HRESULT hr=shellTypeLib.GetTypeInfo(new UINT(0),ppTInfo);
   COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
-  System.out.println("ITypeInfo: " + ppTInfo.toString());
 }

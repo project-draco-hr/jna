@@ -5,5 +5,4 @@
   HRESULT hr=typeInfo.GetMops(memid,pBstrMops);
   COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
-  System.out.println("pBstrMops: " + pBstrMops.toString());
 }
