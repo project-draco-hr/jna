@@ -1,0 +1,6 @@
+{
+synchronized (phoneBookMutex) {
+    int err=Rasapi32.INSTANCE.RasSetEntryProperties(null,entryName,rasEntry,rasEntry.size(),null,0);
+    if (err != WinError.ERROR_SUCCESS)     throw new Ras32Exception(err);
+  }
+}

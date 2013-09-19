@@ -1,0 +1,7 @@
+{
+  IntByReference lpcb=new IntByReference(0);
+  IntByReference lpcConnections=new IntByReference(0);
+  int err=Rasapi32.INSTANCE.RasEnumConnections(null,lpcb,lpcConnections);
+  if (err != WinError.ERROR_SUCCESS)   assertEquals(WinRas.ERROR_BUFFER_TOO_SMALL,err);
+  assertEquals(0,lpcConnections.getValue());
+}
