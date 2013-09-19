@@ -20,6 +20,4 @@
   typeAttr.idldescType=new IDLDESC();
   typeAttr.write();
   typeAttr.read();
-  System.out.println(typeAttr.toString());
-  System.out.println("TYPEATTR size: " + typeAttr.size());
 }

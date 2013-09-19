@@ -8,9 +8,4 @@
   HRESULT hr=typeInfo.GetDocumentation(memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
   COMUtils.checkRC(hr);
   assertEquals(0,hr.intValue());
-  System.out.println("memid: " + memid.intValue());
-  System.out.println("pBstrName: " + pBstrName.getValue());
-  System.out.println("pBstrDocString: " + pBstrDocString.getValue());
-  System.out.println("pdwHelpContext: " + pdwHelpContext.getValue());
-  System.out.println("pBstrHelpFile: " + pBstrHelpFile.getValue());
 }
