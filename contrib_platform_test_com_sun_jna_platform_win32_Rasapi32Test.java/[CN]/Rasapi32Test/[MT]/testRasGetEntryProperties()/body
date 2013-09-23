@@ -1,0 +1,6 @@
+{
+  RASENTRY.ByReference rasEntry=new RASENTRY.ByReference();
+  IntByReference lpdwEntryInfoSize=new IntByReference(rasEntry.size());
+  int err=Rasapi32.INSTANCE.RasGetEntryProperties(null,"TEST",rasEntry,lpdwEntryInfoSize,null,null);
+  assertEquals(623,err);
+}

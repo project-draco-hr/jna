@@ -1,0 +1,7 @@
+{
+  RASDIALPARAMS.ByReference rasDialParams=new RASDIALPARAMS.ByReference();
+  System.arraycopy(rasDialParams.szEntryName,0,"TEST".toCharArray(),0,"TEST".length());
+  BOOLByReference lpfPassword=new BOOLByReference();
+  int err=Rasapi32.INSTANCE.RasGetEntryDialParams(null,rasDialParams,lpfPassword);
+  assertEquals(623,err);
+}
