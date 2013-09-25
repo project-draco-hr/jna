@@ -1,0 +1,17 @@
+{
+  IntByReference lpcbData=new IntByReference();
+  IntByReference lpType=new IntByReference();
+  int rc=Advapi32.INSTANCE.RegQueryValueEx(hKey,value,0,lpType,(char[])null,lpcbData);
+  if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+    throw new Win32Exception(rc);
+  }
+  if (lpType.getValue() != WinNT.REG_DWORD) {
+    throw new RuntimeException("Unexpected registry type " + lpType.getValue() + ", expected REG_DWORD");
+  }
+  IntByReference data=new IntByReference();
+  rc=Advapi32.INSTANCE.RegQueryValueEx(hKey,value,0,lpType,data,lpcbData);
+  if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
+    throw new Win32Exception(rc);
+  }
+  return data.getValue();
+}
