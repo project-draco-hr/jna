@@ -1,0 +1,16 @@
+{
+  IntByReference lpcb=new IntByReference(0);
+  IntByReference lpcConnections=new IntByReference();
+  int err=Rasapi32.INSTANCE.RasEnumConnections(null,lpcb,lpcConnections);
+  if (err != WinError.ERROR_SUCCESS && err != WinRas.ERROR_BUFFER_TOO_SMALL)   throw new Ras32Exception(err);
+  if (lpcb.getValue() == 0)   return null;
+  RASCONN[] connections=new RASCONN[lpcConnections.getValue()];
+  for (int i=0; i < lpcConnections.getValue(); i++)   connections[i]=new RASCONN();
+  lpcb=new IntByReference(connections[0].dwSize * lpcConnections.getValue());
+  err=Rasapi32.INSTANCE.RasEnumConnections(connections,lpcb,lpcConnections);
+  if (err != WinError.ERROR_SUCCESS)   throw new Ras32Exception(err);
+  for (int i=0; i < lpcConnections.getValue(); i++) {
+    if (new String(connections[i].szEntryName).equals(connName))     return connections[i].hrasconn;
+  }
+  return null;
+}

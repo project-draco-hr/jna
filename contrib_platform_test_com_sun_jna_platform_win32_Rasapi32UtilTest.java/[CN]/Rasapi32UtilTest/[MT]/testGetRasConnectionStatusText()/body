@@ -1,0 +1,3 @@
+{
+  assertEquals("Disconnected",Rasapi32Util.getRasConnectionStatusText(8193));
+}
