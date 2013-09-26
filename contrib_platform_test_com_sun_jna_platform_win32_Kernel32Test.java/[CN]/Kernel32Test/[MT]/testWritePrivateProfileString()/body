@@ -1,5 +1,5 @@
 {
-  final File tmp=File.createTempFile("testWritePrivateProfileString","ini");
+  final File tmp=File.createTempFile("testWritePrivateProfileString",".ini");
   tmp.deleteOnExit();
   final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
   writer.println("[Section]");
