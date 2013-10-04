@@ -1,0 +1,7 @@
+{
+  Dispatch dispatch=this.createIDispatch();
+  UINTByReference pctinfo=new UINTByReference();
+  dispatch.GetTypeInfoCount(pctinfo);
+  int intValue=pctinfo.getValue().intValue();
+  assertEquals(1,intValue);
+}

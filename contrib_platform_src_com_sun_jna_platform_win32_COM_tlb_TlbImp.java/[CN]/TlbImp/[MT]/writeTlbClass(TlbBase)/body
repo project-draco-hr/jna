@@ -1,0 +1,4 @@
+{
+  StringBuffer classBuffer=tlbBase.getClassBuffer();
+  this.writeTextFile(tlbBase.getFilename(),classBuffer.toString());
+}

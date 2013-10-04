@@ -1,0 +1,4 @@
+{
+  Range pRange=new Range(this.getAutomationProperty("Range",this.getActiveSheet(),new VARIANT(range)));
+  this.setProperty("Value",pRange,new VARIANT(value));
+}

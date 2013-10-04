@@ -1,0 +1,4 @@
+{
+  this.typeLib=typeLib;
+  this.index=index;
+}

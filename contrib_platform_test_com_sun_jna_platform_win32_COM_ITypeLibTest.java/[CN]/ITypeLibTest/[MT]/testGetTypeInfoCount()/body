@@ -1,0 +1,4 @@
+{
+  ITypeLib shellTypeLib=loadShellTypeLib();
+  UINT typeInfoCount=shellTypeLib.GetTypeInfoCount();
+}

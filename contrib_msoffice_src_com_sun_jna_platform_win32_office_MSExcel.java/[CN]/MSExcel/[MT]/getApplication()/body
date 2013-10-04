@@ -1,6 +1,0 @@
-{
-  VARIANT.ByReference result=new VARIANT.ByReference();
-  HRESULT hr=oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.iDispatch,"Application");
-  COMUtils.SUCCEEDED(hr);
-  return new Application((IDispatch)result.getValue());
-}

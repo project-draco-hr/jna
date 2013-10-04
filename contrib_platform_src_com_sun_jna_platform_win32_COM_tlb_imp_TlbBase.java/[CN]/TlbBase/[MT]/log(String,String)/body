@@ -1,0 +1,4 @@
+{
+  String _msg=level + " " + this.getTime()+ " : "+ msg;
+  System.out.println(_msg);
+}

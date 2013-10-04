@@ -1,0 +1,3 @@
+{
+  this(clsid,useActiveInstance,WTypes.CLSCTX_SERVER);
+}

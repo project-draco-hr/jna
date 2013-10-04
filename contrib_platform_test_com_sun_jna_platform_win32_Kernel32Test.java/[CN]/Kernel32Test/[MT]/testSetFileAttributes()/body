@@ -1,12 +1,7 @@
 {
-  File tmp=File.createTempFile(getName(),"jna");
+  File tmp=File.createTempFile("testSetFileAttributes","jna");
   tmp.deleteOnExit();
-  try {
-    Kernel32.INSTANCE.SetFileAttributes(tmp.getCanonicalPath(),new DWORD(WinNT.FILE_ATTRIBUTE_HIDDEN));
-    int attributes=Kernel32.INSTANCE.GetFileAttributes(tmp.getCanonicalPath());
-    assertTrue((attributes & WinNT.FILE_ATTRIBUTE_HIDDEN) != 0);
-  }
-  finally {
-    tmp.delete();
-  }
+  Kernel32.INSTANCE.SetFileAttributes(tmp.getCanonicalPath(),new DWORD(WinNT.FILE_ATTRIBUTE_HIDDEN));
+  int attributes=Kernel32.INSTANCE.GetFileAttributes(tmp.getCanonicalPath());
+  assertTrue((attributes & WinNT.FILE_ATTRIBUTE_HIDDEN) != 0);
 }

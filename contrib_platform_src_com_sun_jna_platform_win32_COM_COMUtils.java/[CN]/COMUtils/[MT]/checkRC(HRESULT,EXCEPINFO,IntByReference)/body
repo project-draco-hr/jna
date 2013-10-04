@@ -1,0 +1,6 @@
+{
+  if (FAILED(hr)) {
+    String formatMessageFromHR=Kernel32Util.formatMessage(hr);
+    throw new COMException(formatMessageFromHR);
+  }
+}

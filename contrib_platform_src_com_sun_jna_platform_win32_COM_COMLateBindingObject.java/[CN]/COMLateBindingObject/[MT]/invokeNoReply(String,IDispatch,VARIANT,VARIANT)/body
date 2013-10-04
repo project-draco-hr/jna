@@ -1,0 +1,3 @@
+{
+  this.oleMethod(OleAuto.DISPATCH_METHOD,null,dispatch,methodName,new VARIANT[]{arg1,arg2});
+}

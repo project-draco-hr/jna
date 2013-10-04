@@ -1,0 +1,8 @@
+{
+  ITypeLib shellTypeLib=loadShellTypeLib();
+  BSTRByReference szNameBuf=new BSTRByReference(OleAuto.INSTANCE.SysAllocString("Application"));
+  ULONG lHashVal=new ULONG(0);
+  USHORTByReference pcFound=new USHORTByReference((short)20);
+  HRESULT hr=shellTypeLib.FindName(szNameBuf,lHashVal,null,null,pcFound);
+  COMUtils.checkRC(hr);
+}

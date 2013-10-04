@@ -1,0 +1,3 @@
+CLSID clsid
+boolean useActiveInstance
+int dwClsContext

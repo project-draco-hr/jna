@@ -1,8 +1,0 @@
-{
-  ITypeLib shellTypeLib=loadShellTypeLib();
-  TLIBATTR.ByReference ppTLibAttr=new TLIBATTR.ByReference();
-  HRESULT hr=shellTypeLib.GetLibAttr(ppTLibAttr);
-  COMUtils.checkTypeLibRC(hr);
-  assertEquals(0,hr.intValue());
-  System.out.println("ppTLibAttr: " + ppTLibAttr.toString());
-}

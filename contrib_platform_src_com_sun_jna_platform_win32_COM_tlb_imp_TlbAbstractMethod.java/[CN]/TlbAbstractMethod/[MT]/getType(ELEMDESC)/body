@@ -1,0 +1,4 @@
+{
+  TYPEDESC _typeDesc=elemDesc.tdesc;
+  return this.getType(_typeDesc);
+}

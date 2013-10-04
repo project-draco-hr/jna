@@ -1,0 +1,5 @@
+{
+  this.dllName=dllName;
+  this.name=name;
+  this.ordinal=ordinal;
+}

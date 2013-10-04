@@ -1,0 +1,3 @@
+{
+  return (HRESULT)this._invokeNativeObject(6,new Object[]{this.getPointer(),index,ppVarDesc},HRESULT.class);
+}

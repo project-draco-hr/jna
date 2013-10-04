@@ -1,13 +1,8 @@
 {
-  File tmp=File.createTempFile(getName(),"jna");
+  File tmp=File.createTempFile("testTerminateProcess","jna");
   tmp.deleteOnExit();
-  try {
-    HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
-    assertFalse(Kernel32.INSTANCE.TerminateProcess(hFile,1));
-    assertEquals(WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
-    assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
-  }
-  finally {
-    tmp.delete();
-  }
+  HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+  assertFalse(Kernel32.INSTANCE.TerminateProcess(hFile,1));
+  assertEquals(WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
+  assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
 }

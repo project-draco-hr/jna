@@ -1,0 +1,6 @@
+{
+  HREFTYPEByReference ppTInfo=new HREFTYPEByReference();
+  HRESULT hr=this.typeInfo.GetRefTypeOfImplType(new UINT(index),ppTInfo);
+  COMUtils.checkRC(hr);
+  return ppTInfo.getValue();
+}

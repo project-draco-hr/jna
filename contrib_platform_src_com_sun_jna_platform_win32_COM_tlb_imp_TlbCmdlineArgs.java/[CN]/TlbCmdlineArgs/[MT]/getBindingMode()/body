@@ -1,0 +1,4 @@
+{
+  if (this.containsKey(CMD_ARG_BINDING_MODE))   return this.getIntParam(CMD_ARG_BINDING_MODE);
+ else   return BINDING_MODE_VTABLE;
+}

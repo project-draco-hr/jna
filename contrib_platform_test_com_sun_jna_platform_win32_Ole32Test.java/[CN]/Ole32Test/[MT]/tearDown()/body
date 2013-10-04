@@ -1,5 +1,0 @@
-{
-  if (initialized) {
-    Ole32.INSTANCE.CoUninitialize();
-  }
-}

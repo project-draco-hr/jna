@@ -1,0 +1,3 @@
+{
+  this(index,typeLibUtil,typeInfoUtil,TlbConst.BINDING_MODE_DISPID);
+}

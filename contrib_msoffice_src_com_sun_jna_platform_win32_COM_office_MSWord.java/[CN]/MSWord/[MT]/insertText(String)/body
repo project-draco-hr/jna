@@ -1,0 +1,4 @@
+{
+  Selection pSelection=new Selection(this.getAutomationProperty("Selection",this.getIDispatch()));
+  this.invokeNoReply("TypeText",pSelection,new VARIANT(text));
+}

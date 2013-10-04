@@ -1,0 +1,3 @@
+LPOLESTR szNameBuf
+ULONG lHashVal
+BOOLByReference pfName

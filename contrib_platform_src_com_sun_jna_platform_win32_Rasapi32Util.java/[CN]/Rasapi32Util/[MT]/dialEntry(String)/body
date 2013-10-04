@@ -1,0 +1,20 @@
+{
+  RASCREDENTIALS.ByReference credentials=new RASCREDENTIALS.ByReference();
+synchronized (phoneBookMutex) {
+    credentials.dwMask=WinRas.RASCM_UserName | WinRas.RASCM_Password | WinRas.RASCM_Domain;
+    int err=Rasapi32.INSTANCE.RasGetCredentials(null,entryName,credentials);
+    if (err != WinError.ERROR_SUCCESS)     throw new Ras32Exception(err);
+  }
+  RASDIALPARAMS.ByReference rasDialParams=new RASDIALPARAMS.ByReference();
+  System.arraycopy(entryName.toCharArray(),0,rasDialParams.szEntryName,0,entryName.length());
+  System.arraycopy(credentials.szUserName,0,rasDialParams.szUserName,0,credentials.szUserName.length);
+  System.arraycopy(credentials.szPassword,0,rasDialParams.szPassword,0,credentials.szPassword.length);
+  System.arraycopy(credentials.szDomain,0,rasDialParams.szDomain,0,credentials.szDomain.length);
+  HANDLEByReference hrasConn=new HANDLEByReference();
+  int err=Rasapi32.INSTANCE.RasDial(null,null,rasDialParams,0,null,hrasConn);
+  if (err != WinError.ERROR_SUCCESS) {
+    if (hrasConn.getValue() != null)     Rasapi32.INSTANCE.RasHangUp(hrasConn.getValue());
+    throw new Ras32Exception(err);
+  }
+  return hrasConn.getValue();
+}

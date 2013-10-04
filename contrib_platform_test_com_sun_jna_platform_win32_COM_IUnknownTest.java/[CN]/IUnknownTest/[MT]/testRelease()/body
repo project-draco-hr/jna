@@ -1,4 +1,5 @@
 {
-  int release=this.iDispatch.Release();
-  assertEquals("Wrong release result",0,release);
+  Unknown iUnknown=this.createIUnknown();
+  int release=iUnknown.Release();
+  assertEquals(0,release);
 }

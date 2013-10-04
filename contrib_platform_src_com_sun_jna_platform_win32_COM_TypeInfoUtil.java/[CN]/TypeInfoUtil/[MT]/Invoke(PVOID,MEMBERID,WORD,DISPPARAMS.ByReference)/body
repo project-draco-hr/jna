@@ -1,0 +1,8 @@
+{
+  VARIANT.ByReference pVarResult=new VARIANT.ByReference();
+  EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
+  UINTByReference puArgErr=new UINTByReference();
+  HRESULT hr=this.typeInfo.Invoke(pvInstance,memid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
+  COMUtils.checkRC(hr);
+  return new Invoke(pVarResult,pExcepInfo,puArgErr.getValue().intValue());
+}

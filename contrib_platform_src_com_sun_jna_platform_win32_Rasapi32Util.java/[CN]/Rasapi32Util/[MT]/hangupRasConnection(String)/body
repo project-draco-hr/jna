@@ -1,0 +1,6 @@
+{
+  HANDLE hrasConn=getRasConnection(connName);
+  if (hrasConn == null)   return;
+  int err=Rasapi32.INSTANCE.RasHangUp(hrasConn);
+  if (err != WinError.ERROR_SUCCESS)   throw new Ras32Exception(err);
+}

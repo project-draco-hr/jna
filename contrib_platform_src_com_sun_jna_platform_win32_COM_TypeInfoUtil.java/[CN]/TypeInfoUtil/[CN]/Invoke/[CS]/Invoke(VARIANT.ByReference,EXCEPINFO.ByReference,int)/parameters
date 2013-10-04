@@ -1,0 +1,3 @@
+VARIANT.ByReference pVarResult
+EXCEPINFO.ByReference pExcepInfo
+int puArgErr

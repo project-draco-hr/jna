@@ -1,0 +1,4 @@
+{
+  ELEMDESC elemDesc=funcDesc.elemdescFunc;
+  return this.getType(elemDesc);
+}

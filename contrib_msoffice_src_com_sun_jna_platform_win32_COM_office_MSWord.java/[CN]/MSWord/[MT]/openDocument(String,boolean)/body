@@ -1,0 +1,3 @@
+{
+  this.invokeNoReply("Open",getDocuments(),new VARIANT(filename));
+}

@@ -1,0 +1,3 @@
+{
+  return this.containsKey(CMD_ARG_TYPELIB_FILE);
+}

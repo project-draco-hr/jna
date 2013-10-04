@@ -1,0 +1,9 @@
+{
+synchronized (phoneBookMutex) {
+    RASENTRY.ByReference rasEntry=new RASENTRY.ByReference();
+    IntByReference lpdwEntryInfoSize=new IntByReference(rasEntry.size());
+    int err=Rasapi32.INSTANCE.RasGetEntryProperties(null,entryName,rasEntry,lpdwEntryInfoSize,null,null);
+    if (err != WinError.ERROR_SUCCESS)     throw new Ras32Exception(err);
+    return rasEntry;
+  }
+}
