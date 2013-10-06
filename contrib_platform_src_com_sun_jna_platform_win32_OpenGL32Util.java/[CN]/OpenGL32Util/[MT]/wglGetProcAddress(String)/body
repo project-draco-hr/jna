@@ -1,0 +1,4 @@
+{
+  Pointer funcPointer=OpenGL32.INSTANCE.wglGetProcAddress("wglEnumGpusNV");
+  return (funcPointer == null) ? null : Function.getFunction(funcPointer);
+}
