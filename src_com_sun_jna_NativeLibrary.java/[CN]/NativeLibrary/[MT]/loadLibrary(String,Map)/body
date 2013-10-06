@@ -61,7 +61,7 @@ synchronized (customPaths) {
         e=e2;
       }
     }
- else     if (Platform.isLinux()) {
+ else     if (Platform.isLinux() || Platform.isFreeBSD()) {
       if (Native.DEBUG_LOAD) {
         System.out.println("Looking for version variants");
       }
