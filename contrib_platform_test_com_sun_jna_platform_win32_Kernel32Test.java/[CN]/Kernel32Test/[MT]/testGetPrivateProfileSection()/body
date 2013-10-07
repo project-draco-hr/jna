@@ -1,0 +1,17 @@
+{
+  final File tmp=File.createTempFile("testGetPrivateProfileSection",".ini");
+  tmp.deleteOnExit();
+  final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
+  try {
+    writer.println("[X]");
+    writer.println("A=1");
+    writer.println("B=X");
+  }
+  finally {
+    writer.close();
+  }
+  final char[] buffer=new char[9];
+  final DWORD len=Kernel32.INSTANCE.GetPrivateProfileSection("X",buffer,new DWORD(buffer.length),tmp.getCanonicalPath());
+  assertEquals(len.intValue(),7);
+  assertEquals(new String(buffer),"A=1\0B=X\0\0");
+}

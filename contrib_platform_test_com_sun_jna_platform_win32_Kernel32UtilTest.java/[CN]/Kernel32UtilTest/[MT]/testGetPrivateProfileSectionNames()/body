@@ -1,0 +1,20 @@
+{
+  final File tmp=File.createTempFile("testGetPrivateProfileSectionNames","ini");
+  tmp.deleteOnExit();
+  final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
+  try {
+    writer.println("[S1]");
+    writer.println("A=1");
+    writer.println("B=X");
+    writer.println("[S2]");
+    writer.println("C=2");
+    writer.println("D=Y");
+  }
+  finally {
+    writer.close();
+  }
+  String[] sectionNames=Kernel32Util.getPrivateProfileSectionNames(tmp.getCanonicalPath());
+  assertEquals(sectionNames.length,2);
+  assertEquals(sectionNames[0],"S1");
+  assertEquals(sectionNames[1],"S2");
+}

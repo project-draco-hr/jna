@@ -1,0 +1,8 @@
+{
+  final StringBuilder buffer=new StringBuilder();
+  for (  final String string : strings)   buffer.append(string).append('\0');
+  buffer.append('\0');
+  if (!Kernel32.INSTANCE.WritePrivateProfileSection(appName,buffer.toString(),fileName)) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+}
