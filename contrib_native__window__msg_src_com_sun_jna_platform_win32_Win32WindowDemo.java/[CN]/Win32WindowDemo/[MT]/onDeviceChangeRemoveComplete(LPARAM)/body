@@ -1,0 +1,3 @@
+{
+  return onDeviceChangeArrivalOrRemoveComplete(lParam,"Remove Complete");
+}
