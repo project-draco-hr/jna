@@ -33,8 +33,8 @@ case DBT.DBT_DEVTYP_VOLUME:
 DEV_BROADCAST_VOLUME bvl=new DEV_BROADCAST_VOLUME(bhdr.getPointer());
 int logicalDriveAffected=bvl.dbcv_unitmask;
 short flag=bvl.dbcv_flags;
-boolean isMediaNotPhysical=0 != (flag & 1);
-boolean isNet=0 != (flag & 2);
+boolean isMediaNotPhysical=0 != (flag & DBT.DBTF_MEDIA);
+boolean isNet=0 != (flag & DBT.DBTF_NET);
 System.out.println(action);
 int driveLetterIndex=0;
 while (logicalDriveAffected != 0) {
