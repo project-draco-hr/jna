@@ -1,19 +1,19 @@
 {
-  DEV_BROADCAST_DEVICEINTERFACE bdif=new DEV_BROADCAST_DEVICEINTERFACE(lParam.longValue());
-  System.out.println("dbcc_devicetype: " + bdif.dbcc_devicetype);
-  System.out.println("dbcc_name: " + bdif.getDbcc_name());
-  System.out.println("dbcc_classguid: " + bdif.dbcc_classguid.toGuidString());
 switch (wParam.intValue()) {
 case DBT.DBT_DEVICEARRIVAL:
-    System.out.println("Message DBT_DEVICEARRIVAL");
-  break;
+{
+      return onDeviceChangeArrival(lParam);
+    }
 case DBT.DBT_DEVICEREMOVECOMPLETE:
-System.out.println("Message DBT_DEVICEREMOVECOMPLETE");
-break;
+{
+    return onDeviceChangeRemoveComplete(lParam);
+  }
 case DBT.DBT_DEVNODES_CHANGED:
-System.out.println("Message DBT_DEVNODES_CHANGED");
-break;
+{
+  return onDeviceChangeNodesChanged();
+}
 default :
 System.out.println("Message WM_DEVICECHANGE message received, value unhandled.");
 }
+return null;
 }

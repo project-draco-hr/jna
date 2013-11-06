@@ -1,0 +1,55 @@
+{
+  DEV_BROADCAST_HDR bhdr=new DEV_BROADCAST_HDR(lParam.longValue());
+switch (bhdr.dbch_devicetype) {
+case DBT.DBT_DEVTYP_DEVICEINTERFACE:
+{
+      DEV_BROADCAST_DEVICEINTERFACE bdif=new DEV_BROADCAST_DEVICEINTERFACE(bhdr.getPointer());
+      System.out.println("BROADCAST_DEVICEINTERFACE: " + action);
+      System.out.println("dbcc_devicetype: " + bdif.dbcc_devicetype);
+      System.out.println("dbcc_name: " + bdif.getDbcc_name());
+      System.out.println("dbcc_classguid: " + bdif.dbcc_classguid.toGuidString());
+      break;
+    }
+case DBT.DBT_DEVTYP_HANDLE:
+{
+    DEV_BROADCAST_HANDLE bhd=new DEV_BROADCAST_HANDLE(bhdr.getPointer());
+    System.out.println("BROADCAST_HANDLE: " + action);
+    break;
+  }
+case DBT.DBT_DEVTYP_OEM:
+{
+  DEV_BROADCAST_OEM boem=new DEV_BROADCAST_OEM(bhdr.getPointer());
+  System.out.println("BROADCAST_OEM: " + action);
+  break;
+}
+case DBT.DBT_DEVTYP_PORT:
+{
+DEV_BROADCAST_PORT bpt=new DEV_BROADCAST_PORT(bhdr.getPointer());
+System.out.println("BROADCAST_PORT: " + action);
+break;
+}
+case DBT.DBT_DEVTYP_VOLUME:
+{
+DEV_BROADCAST_VOLUME bvl=new DEV_BROADCAST_VOLUME(bhdr.getPointer());
+int logicalDriveAffected=bvl.dbcv_unitmask;
+short flag=bvl.dbcv_flags;
+boolean isMediaNotPhysical=0 != (flag & DBT.DBTF_MEDIA);
+boolean isNet=0 != (flag & DBT.DBTF_NET);
+System.out.println(action);
+int driveLetterIndex=0;
+while (logicalDriveAffected != 0) {
+if (0 != (logicalDriveAffected & 1)) {
+  System.out.println("Logical Drive Letter: " + ((char)('A' + driveLetterIndex)));
+}
+logicalDriveAffected>>>=1;
+driveLetterIndex++;
+}
+System.out.println("isMediaNotPhysical:" + isMediaNotPhysical);
+System.out.println("isNet:" + isNet);
+break;
+}
+default :
+return null;
+}
+return new LRESULT(1);
+}
