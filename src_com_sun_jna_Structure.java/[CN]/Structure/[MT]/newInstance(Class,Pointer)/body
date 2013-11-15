@@ -8,17 +8,17 @@
 catch (  SecurityException e) {
   }
 catch (  InstantiationException e) {
-    String msg="Can't instantiate " + type + " ("+ e+ ")";
-    throw new IllegalArgumentException(msg);
+    String msg="Can't instantiate " + type;
+    throw new IllegalArgumentException(msg,e);
   }
 catch (  IllegalAccessException e) {
-    String msg="Instantiation of " + type + "(Pointer) not allowed, is it public? ("+ e+ ")";
-    throw new IllegalArgumentException(msg);
+    String msg="Instantiation of " + type + " (Pointer) not allowed, is it public?";
+    throw new IllegalArgumentException(msg,e);
   }
 catch (  InvocationTargetException e) {
-    String msg="Exception thrown while instantiating an instance of " + type + " ("+ e+ ")";
+    String msg="Exception thrown while instantiating an instance of " + type;
     e.printStackTrace();
-    throw new IllegalArgumentException(msg);
+    throw new IllegalArgumentException(msg,e);
   }
   Structure s=newInstance(type);
   if (init != PLACEHOLDER_MEMORY) {

@@ -6,10 +6,10 @@
     int modifiers=field.getModifiers();
     if (Modifier.isFinal(modifiers)) {
       if (overrideFinal) {
-        throw new UnsupportedOperationException("This VM does not support Structures with final fields (field '" + field.getName() + "' within "+ getClass()+ ")");
+        throw new UnsupportedOperationException("This VM does not support Structures with final fields (field '" + field.getName() + "' within "+ getClass()+ ")",e);
       }
-      throw new UnsupportedOperationException("Attempt to write to read-only field '" + field.getName() + "' within "+ getClass());
+      throw new UnsupportedOperationException("Attempt to write to read-only field '" + field.getName() + "' within "+ getClass(),e);
     }
-    throw new Error("Unexpectedly unable to write to field '" + field.getName() + "' within "+ getClass()+ ": "+ e);
+    throw new Error("Unexpectedly unable to write to field '" + field.getName() + "' within "+ getClass(),e);
   }
 }
