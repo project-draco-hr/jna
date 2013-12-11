@@ -1,0 +1,8 @@
+{
+  HANDLE handle=Kernel32.INSTANCE.CreateEvent(null,true,false,null);
+  Kernel32.INSTANCE.SetEvent(handle);
+  assertEquals(WinBase.WAIT_OBJECT_0,Kernel32.INSTANCE.WaitForSingleObject(handle,1000));
+  Kernel32.INSTANCE.ResetEvent(handle);
+  assertEquals(WinError.WAIT_TIMEOUT,Kernel32.INSTANCE.WaitForSingleObject(handle,1000));
+  Kernel32.INSTANCE.CloseHandle(handle);
+}
