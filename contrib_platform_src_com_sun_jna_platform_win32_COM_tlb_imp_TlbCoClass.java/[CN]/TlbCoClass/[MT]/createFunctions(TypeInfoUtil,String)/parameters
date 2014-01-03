@@ -1,2 +1,2 @@
 TypeInfoUtil typeInfoUtil
-int bindingMode
+String bindingMode

@@ -1,6 +1,13 @@
 {
-  String tmp=System.getProperty("java.io.tmpdir");
-  this.comRootDir=new File(tmp + "_jnaCOM_" + System.currentTimeMillis()+ "\\myPackage\\"+ this.typeLibUtil.getName().toLowerCase()+ "\\");
+  String _outputDir=this.cmdlineArgs.getParam(CMD_ARG_OUTPUT_DIR);
+  String path="_jnaCOM_" + System.currentTimeMillis() + "\\myPackage\\"+ this.typeLibUtil.getName().toLowerCase()+ "\\";
+  if (_outputDir != null) {
+    this.comRootDir=new File(_outputDir + "\\" + path);
+  }
+ else {
+    String tmp=System.getProperty("java.io.tmpdir");
+    this.comRootDir=new File(tmp + "\\" + path);
+  }
   if (this.comRootDir.exists())   this.comRootDir.delete();
   if (this.comRootDir.mkdirs()) {
     logInfo("Output directory sucessfully created.");

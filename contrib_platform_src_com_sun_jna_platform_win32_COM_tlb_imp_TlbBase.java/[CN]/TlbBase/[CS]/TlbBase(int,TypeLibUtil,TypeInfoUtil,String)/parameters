@@ -1,4 +1,4 @@
 int index
 TypeLibUtil typeLibUtil
 TypeInfoUtil typeInfoUtil
-int bindingMode
+String bindingMode

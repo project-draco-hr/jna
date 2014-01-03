@@ -1,4 +1,4 @@
 {
-  if (this.bindingMode == TlbConst.BINDING_MODE_VTABLE)   return true;
+  if (this.bindingMode.equalsIgnoreCase(TlbConst.BINDING_MODE_VTABLE))   return true;
  else   return false;
 }

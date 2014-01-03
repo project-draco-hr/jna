@@ -1,5 +1,3 @@
 {
-  String param=this.get(key);
-  if (param == null)   throw new TlbParameterNotFoundException("Commandline parameter not found: " + key);
-  return param;
+  return this.get(key);
 }

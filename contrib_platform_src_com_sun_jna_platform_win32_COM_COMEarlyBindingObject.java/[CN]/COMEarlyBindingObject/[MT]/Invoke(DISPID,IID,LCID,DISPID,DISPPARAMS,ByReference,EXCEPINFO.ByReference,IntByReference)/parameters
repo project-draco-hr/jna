@@ -4,5 +4,5 @@ LCID lcid
 DISPID wFlags
 DISPPARAMS pDispParams
 ByReference pVarResult
-com.sun.jna.platform.win32.OaIdl.EXCEPINFO.ByReference pExcepInfo
+EXCEPINFO.ByReference pExcepInfo
 IntByReference puArgErr

@@ -1,4 +1,4 @@
 int index
 String packagename
 TypeLibUtil typeLibUtil
-int bindingMode
+String bindingMode

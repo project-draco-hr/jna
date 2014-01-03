@@ -1,14 +1,14 @@
 {
   this.cmdlineArgs=new TlbCmdlineArgs(args);
   if (this.cmdlineArgs.isTlbId()) {
-    String clsid=this.cmdlineArgs.getParam(CMD_ARG_TYPELIB_ID);
+    String clsid=this.cmdlineArgs.getRequiredParam(CMD_ARG_TYPELIB_ID);
     int majorVersion=this.cmdlineArgs.getIntParam(CMD_ARG_TYPELIB_MAJOR_VERSION);
     int minorVersion=this.cmdlineArgs.getIntParam(CMD_ARG_TYPELIB_MINOR_VERSION);
     this.typeLibUtil=new TypeLibUtil(clsid,majorVersion,minorVersion);
     this.startCOM2Java();
   }
  else   if (this.cmdlineArgs.isTlbFile()) {
-    String file=this.cmdlineArgs.getParam(CMD_ARG_TYPELIB_FILE);
+    String file=this.cmdlineArgs.getRequiredParam(CMD_ARG_TYPELIB_FILE);
     this.typeLibUtil=new TypeLibUtil(file);
     this.startCOM2Java();
   }
