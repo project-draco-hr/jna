@@ -1,0 +1,14 @@
+{
+  final boolean[] called={false};
+  TestLibrary.BugCallback cb=new TestLibrary.BugCallback(){
+    public void callback(    NativeLong arg1,    int arg2,    double arg3,    String arg4,    String arg5,    double arg6,    NativeLong arg7,    NativeLong arg8,    NativeLong arg9){
+      called[0]=true;
+    }
+  }
+;
+  int value=testlib.callBugCallback(cb,new NativeLong(1),2,3,"four","five",6,new NativeLong(7),new NativeLong(8),new NativeLong(9));
+  assertTrue("stdcall callback not called",called[0]);
+  if (value == -1) {
+    fail("stdcall callback did not restore the stack pointer");
+  }
+}
