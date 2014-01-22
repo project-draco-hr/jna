@@ -1,0 +1,11 @@
+{
+  final GENERIC_MAPPING mapping=new GENERIC_MAPPING();
+  mapping.genericRead=new DWORD(FILE_GENERIC_READ);
+  mapping.genericWrite=new DWORD(FILE_GENERIC_WRITE);
+  mapping.genericExecute=new DWORD(FILE_GENERIC_EXECUTE);
+  mapping.genericAll=new DWORD(FILE_ALL_ACCESS);
+  final DWORDByReference rights=new DWORDByReference(new DWORD(GENERIC_READ));
+  Advapi32.INSTANCE.MapGenericMask(rights,mapping);
+  assertEquals(FILE_GENERIC_READ,rights.getValue().intValue());
+  assertTrue(GENERIC_READ != (rights.getValue().intValue() & GENERIC_READ));
+}
