@@ -1,5 +1,5 @@
 {
-  final WinNT.GENERIC_MAPPING mapping=new WinNT.GENERIC_MAPPING();
+  final GENERIC_MAPPING mapping=new GENERIC_MAPPING();
   mapping.genericRead=new DWORD(FILE_GENERIC_READ);
   mapping.genericWrite=new DWORD(FILE_GENERIC_WRITE);
   mapping.genericExecute=new DWORD(FILE_GENERIC_EXECUTE);
@@ -13,5 +13,5 @@
   final boolean status=Advapi32.INSTANCE.AccessCheck(securityDescriptorMemoryPointer,null,new DWORD(FILE_GENERIC_READ),mapping,privileges,privilegeLength,grantedAccess,result);
   assertFalse(status);
   assertFalse(result.getValue().booleanValue());
-  assertEquals("The handle is invalid.",Kernel32Util.formatMessage(W32Errors.HRESULT_FROM_WIN32(Kernel32.INSTANCE.GetLastError())));
+  assertEquals(WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
 }
