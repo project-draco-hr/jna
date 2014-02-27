@@ -10,6 +10,6 @@
   File lib1_1=new File(dir,"lib" + name + ".so.1.1");
   lib1_1.createNewFile();
   lib1_1.deleteOnExit();
-  List path=Arrays.asList(new String[]{dir.getAbsolutePath()});
-  assertEquals("Latest versioned library not found when unversioned requested",lib1_1.getAbsolutePath(),NativeLibrary.matchLibrary(name,path));
+  List path=Arrays.asList(new String[]{dir.getCanonicalPath()});
+  assertEquals("Latest versioned library not found when unversioned requested",lib1_1.getCanonicalPath(),NativeLibrary.matchLibrary(name,path));
 }
