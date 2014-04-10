@@ -14,8 +14,8 @@
       getNativeSize(type);
     }
  catch (    IllegalArgumentException e) {
-      String msg="Invalid Structure field in " + getClass() + ", field name '"+ name+ "' ("+ type+ "): "+ e.getMessage();
-      throw new IllegalArgumentException(msg);
+      String msg="Invalid Structure field in " + getClass() + ", field name '"+ name+ "' ("+ type+ ")";
+      throw new IllegalArgumentException(msg,e);
     }
   }
 }

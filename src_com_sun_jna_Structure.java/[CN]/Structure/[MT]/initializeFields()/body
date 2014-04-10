@@ -9,7 +9,7 @@
       }
     }
  catch (    Exception e) {
-      throw new Error("Exception reading field '" + f.getName() + "' in "+ getClass()+ ": "+ e);
+      throw new Error("Exception reading field '" + f.getName() + "' in "+ getClass(),e);
     }
   }
 }

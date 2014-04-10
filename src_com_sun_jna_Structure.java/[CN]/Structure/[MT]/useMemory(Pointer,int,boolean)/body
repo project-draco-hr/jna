@@ -19,6 +19,6 @@
     this.readCalled=false;
   }
  catch (  IndexOutOfBoundsException e) {
-    throw new IllegalArgumentException("Structure exceeds provided memory bounds");
+    throw new IllegalArgumentException("Structure exceeds provided memory bounds",e);
   }
 }

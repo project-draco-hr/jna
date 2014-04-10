@@ -6,8 +6,8 @@
       setFieldValue(field,value);
     }
  catch (    IllegalArgumentException e) {
-      String msg="Can't determine size of nested structure: " + e.getMessage();
-      throw new IllegalArgumentException(msg);
+      String msg="Can't determine size of nested structure";
+      throw new IllegalArgumentException(msg,e);
     }
   }
  else   if (NativeMapped.class.isAssignableFrom(type)) {
