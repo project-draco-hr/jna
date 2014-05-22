@@ -1,3 +1,4 @@
 {
-  return new Documents(this.getAutomationProperty("Documents"));
+  Documents pDocuments=new Documents(this.getAutomationProperty("Documents",this.getApplication().getIDispatch()));
+  return pDocuments;
 }
