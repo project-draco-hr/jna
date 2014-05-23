@@ -1,0 +1,5 @@
+{
+  int rc=Kernel32.INSTANCE.GetLastError();
+  if (rc != 0)   System.out.println("error: " + rc);
+  return rc;
+}
