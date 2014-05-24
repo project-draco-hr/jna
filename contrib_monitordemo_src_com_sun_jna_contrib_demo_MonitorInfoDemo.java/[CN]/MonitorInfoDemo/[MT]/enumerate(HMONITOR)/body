@@ -1,0 +1,22 @@
+{
+  System.out.println("Found HMONITOR: " + hMonitor.getPointer().toString());
+  MONITORINFOEX info=new MONITORINFOEX();
+  User32.INSTANCE.GetMonitorInfo(hMonitor,info);
+  System.out.println("Screen " + info.rcMonitor);
+  System.out.println("Work area " + info.rcWork);
+  boolean isPrimary=(info.dwFlags & WinUser.MONITORINFOF_PRIMARY) != 0;
+  System.out.println("Primary? " + (isPrimary ? "yes" : "no"));
+  System.out.println("Device " + new String(info.szDevice));
+  DWORDByReference pdwNumberOfPhysicalMonitors=new DWORDByReference();
+  Dxva2.INSTANCE.GetNumberOfPhysicalMonitorsFromHMONITOR(hMonitor,pdwNumberOfPhysicalMonitors);
+  int monitorCount=pdwNumberOfPhysicalMonitors.getValue().intValue();
+  System.out.println("HMONITOR is linked to " + monitorCount + " physical monitors");
+  PHYSICAL_MONITOR[] physMons=new PHYSICAL_MONITOR[monitorCount];
+  Dxva2.INSTANCE.GetPhysicalMonitorsFromHMONITOR(hMonitor,monitorCount,physMons);
+  for (int i=0; i < monitorCount; i++) {
+    HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+    System.out.println("Monitor " + i + " - "+ new String(physMons[i].szPhysicalMonitorDescription));
+    enumeratePhysicalMonitor(hPhysicalMonitor);
+  }
+  Dxva2.INSTANCE.DestroyPhysicalMonitors(monitorCount,physMons);
+}

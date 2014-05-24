@@ -1,0 +1,10 @@
+{
+  T[] vals=clazz.getEnumConstants();
+  Set<T> result=new HashSet<T>();
+  for (  T val : vals) {
+    if ((flags & val.getFlag()) != 0) {
+      result.add(val);
+    }
+  }
+  return result;
+}

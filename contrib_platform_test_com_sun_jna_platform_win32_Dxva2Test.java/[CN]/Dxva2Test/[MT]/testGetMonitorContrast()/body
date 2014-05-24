@@ -1,0 +1,7 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  DWORDByReference pdwMinimumContrast=new DWORDByReference();
+  DWORDByReference pdwCurrentContrast=new DWORDByReference();
+  DWORDByReference pdwMaximumContrast=new DWORDByReference();
+  Dxva2.INSTANCE.GetMonitorContrast(hPhysicalMonitor,pdwMinimumContrast,pdwCurrentContrast,pdwMaximumContrast);
+}

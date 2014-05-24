@@ -1,0 +1,8 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  MC_SIZE_TYPE ptSizeType=MC_SIZE_TYPE.MC_WIDTH;
+  DWORDByReference pdwMinimumSize=new DWORDByReference();
+  DWORDByReference pdwCurrentSize=new DWORDByReference();
+  DWORDByReference pdwMaximumSize=new DWORDByReference();
+  Dxva2.INSTANCE.GetMonitorDisplayAreaSize(hPhysicalMonitor,ptSizeType,pdwMinimumSize,pdwCurrentSize,pdwMaximumSize);
+}

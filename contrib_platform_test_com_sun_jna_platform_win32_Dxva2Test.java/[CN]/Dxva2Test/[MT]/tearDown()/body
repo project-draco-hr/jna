@@ -1,0 +1,3 @@
+{
+  assertTrue(Dxva2.INSTANCE.DestroyPhysicalMonitors(monitorCount,physMons).booleanValue());
+}

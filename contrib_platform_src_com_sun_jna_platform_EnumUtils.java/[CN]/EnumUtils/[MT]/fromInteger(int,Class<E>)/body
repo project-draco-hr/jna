@@ -1,0 +1,5 @@
+{
+  if (idx == UNINITIALIZED)   return null;
+  E[] vals=clazz.getEnumConstants();
+  return vals[idx];
+}

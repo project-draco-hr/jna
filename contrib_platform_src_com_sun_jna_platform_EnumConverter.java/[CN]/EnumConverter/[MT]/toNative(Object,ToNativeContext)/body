@@ -1,0 +1,4 @@
+{
+  T t=clazz.cast(input);
+  return Integer.valueOf(t.ordinal());
+}

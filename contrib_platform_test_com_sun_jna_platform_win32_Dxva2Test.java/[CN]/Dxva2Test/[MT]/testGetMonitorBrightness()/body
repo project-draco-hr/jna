@@ -1,0 +1,7 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  DWORDByReference pdwMinimumBrightness=new DWORDByReference();
+  DWORDByReference pdwCurrentBrightness=new DWORDByReference();
+  DWORDByReference pdwMaximumBrightness=new DWORDByReference();
+  Dxva2.INSTANCE.GetMonitorBrightness(hPhysicalMonitor,pdwMinimumBrightness,pdwCurrentBrightness,pdwMaximumBrightness);
+}
