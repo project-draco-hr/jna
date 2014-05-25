@@ -1,0 +1,10 @@
+{
+  System.out.println("Installed Physical Monitors: " + User32.INSTANCE.GetSystemMetrics(WinUser.SM_CMONITORS));
+  User32.INSTANCE.EnumDisplayMonitors(null,null,new MONITORENUMPROC(){
+    @Override public int apply(    HMONITOR hMonitor,    HDC hdc,    RECT rect,    LPARAM lparam){
+      enumerate(hMonitor);
+      return 1;
+    }
+  }
+,new LPARAM(0));
+}

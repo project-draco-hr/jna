@@ -1,0 +1,5 @@
+{
+  int dwFlags=WinUser.MONITOR_DEFAULTTOPRIMARY;
+  RECT lprc=new RECT();
+  assertNotNull(User32.INSTANCE.MonitorFromRect(lprc,dwFlags));
+}

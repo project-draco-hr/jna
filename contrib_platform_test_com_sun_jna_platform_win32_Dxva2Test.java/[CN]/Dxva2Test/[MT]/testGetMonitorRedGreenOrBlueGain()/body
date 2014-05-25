@@ -1,0 +1,8 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  MC_GAIN_TYPE ptGainType=MC_GAIN_TYPE.MC_RED_GAIN;
+  DWORDByReference pdwMinimumGain=new DWORDByReference();
+  DWORDByReference pdwCurrentGain=new DWORDByReference();
+  DWORDByReference pdwMaximumGain=new DWORDByReference();
+  Dxva2.INSTANCE.GetMonitorRedGreenOrBlueGain(hPhysicalMonitor,ptGainType,pdwMinimumGain,pdwCurrentGain,pdwMaximumGain);
+}

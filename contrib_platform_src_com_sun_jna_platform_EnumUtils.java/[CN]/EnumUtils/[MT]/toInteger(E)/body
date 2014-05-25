@@ -1,0 +1,7 @@
+{
+  @SuppressWarnings("unchecked") E[] vals=(E[])val.getClass().getEnumConstants();
+  for (int idx=0; idx < vals.length; idx++) {
+    if (vals[idx] == val)     return idx;
+  }
+  throw new IllegalArgumentException();
+}

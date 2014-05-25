@@ -1,0 +1,8 @@
+{
+  assertTrue(User32.INSTANCE.EnumDisplayMonitors(null,null,new MONITORENUMPROC(){
+    @Override public int apply(    HMONITOR hMonitor,    HDC hdc,    RECT rect,    LPARAM lparam){
+      return 1;
+    }
+  }
+,new LPARAM(0)).booleanValue());
+}

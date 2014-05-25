@@ -1,0 +1,8 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  MC_DRIVE_TYPE ptDriveType=MC_DRIVE_TYPE.MC_RED_DRIVE;
+  DWORDByReference pdwMinimumDrive=new DWORDByReference();
+  DWORDByReference pdwCurrentDrive=new DWORDByReference();
+  DWORDByReference pdwMaximumDrive=new DWORDByReference();
+  Dxva2.INSTANCE.GetMonitorRedGreenOrBlueDrive(hPhysicalMonitor,ptDriveType,pdwMinimumDrive,pdwCurrentDrive,pdwMaximumDrive);
+}

@@ -1,0 +1,5 @@
+{
+  Integer i=(Integer)input;
+  T[] vals=clazz.getEnumConstants();
+  return vals[i];
+}
