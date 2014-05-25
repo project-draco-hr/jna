@@ -1,5 +1,5 @@
 {
-  LPVOID ptr=Ole32.INSTANCE.CoTaskMemAlloc(new SIZE_T(256));
-  assertTrue(ptr.longValue() != 0);
+  Pointer ptr=Ole32.INSTANCE.CoTaskMemAlloc(256);
+  assertTrue(!ptr.equals(Pointer.NULL));
   Ole32.INSTANCE.CoTaskMemFree(ptr);
 }
