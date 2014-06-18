@@ -1,0 +1,14 @@
+{
+  List<String> names=new ArrayList<String>();
+  bb.mark();
+  while (bb.hasRemaining()) {
+    if (bb.get() == 0) {
+      ByteBuffer nameBuffer=(ByteBuffer)bb.duplicate().limit(bb.position() - 1).reset();
+      if (nameBuffer.hasRemaining()) {
+        names.add(decodeString(nameBuffer));
+      }
+      bb.mark();
+    }
+  }
+  return names;
+}

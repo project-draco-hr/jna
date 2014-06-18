@@ -1,0 +1,3 @@
+{
+  return XAttr.INSTANCE.removexattr(path,name,0);
+}

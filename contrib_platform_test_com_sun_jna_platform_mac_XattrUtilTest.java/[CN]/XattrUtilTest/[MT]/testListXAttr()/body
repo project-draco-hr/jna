@@ -1,0 +1,11 @@
+{
+  List<String> keys=XattrUtil.listXAttr(testPath);
+  assertEquals(0,keys.size());
+  String[] names=new String[]{"Java","Native","Access"};
+  for (int i=0; i < names.length; i++) {
+    XattrUtil.setXAttr(testPath,names[i],names[i]);
+    keys=XattrUtil.listXAttr(testPath);
+    assertEquals(i + 1,keys.size());
+    assertTrue(keys.contains(names[i]));
+  }
+}

@@ -1,0 +1,11 @@
+{
+  String[] names=new String[]{"??????","????????????","??sterreichisch","Fran??aise","Portugu??s"};
+  for (int i=0; i < names.length; i++) {
+    XattrUtil.setXAttr(testPath,names[i],names[i]);
+    List<String> keys=XattrUtil.listXAttr(testPath);
+    assertEquals(i + 1,keys.size());
+    assertTrue(keys.contains(names[i]));
+    String value=XattrUtil.getXAttr(testPath,names[i]);
+    assertEquals(names[i],value);
+  }
+}
