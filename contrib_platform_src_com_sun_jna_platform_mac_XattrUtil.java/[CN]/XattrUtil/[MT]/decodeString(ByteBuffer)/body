@@ -1,3 +1,0 @@
-{
-  return Charset.forName("UTF-8").decode(bb).toString();
-}

@@ -1,4 +1,0 @@
-{
-  Memory valueBuffer=encodeString(value);
-  return XAttr.INSTANCE.setxattr(path,name,valueBuffer,valueBuffer.size(),0,0);
-}

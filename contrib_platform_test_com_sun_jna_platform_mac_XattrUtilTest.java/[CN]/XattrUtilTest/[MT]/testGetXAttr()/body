@@ -1,7 +1,0 @@
-{
-  String value=XattrUtil.getXAttr(testPath,"JNA");
-  assertNull(value);
-  XattrUtil.setXAttr(testPath,"JNA","Java Native Access");
-  value=XattrUtil.getXAttr(testPath,"JNA");
-  assertEquals(Arrays.toString("Java Native Access".getBytes()),Arrays.toString(value.getBytes()));
-}

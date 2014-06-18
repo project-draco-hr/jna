@@ -1,4 +1,0 @@
-{
-  testPath=File.createTempFile("xattr-test",".txt").getAbsolutePath();
-  assertTrue(new File(testPath).exists());
-}
