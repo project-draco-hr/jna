@@ -1,0 +1,13 @@
+{
+  StringBuilder name=new StringBuilder();
+  while (name.length() < XAttr.XATTR_MAXNAMELEN) {
+    name.append('X');
+  }
+  StringBuilder data=new StringBuilder();
+  while (data.length() < 4 * 1024 * 1024) {
+    data.append('X');
+  }
+  XAttrUtil.setXAttr(testPath,name.toString(),data.toString());
+  String value=XAttrUtil.getXAttr(testPath,name.toString());
+  assertEquals(data.toString(),value.toString());
+}

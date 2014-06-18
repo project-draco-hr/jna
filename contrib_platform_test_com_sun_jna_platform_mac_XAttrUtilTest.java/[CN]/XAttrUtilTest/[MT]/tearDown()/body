@@ -1,0 +1,4 @@
+{
+  new File(testPath).delete();
+  assertFalse(new File(testPath).exists());
+}
