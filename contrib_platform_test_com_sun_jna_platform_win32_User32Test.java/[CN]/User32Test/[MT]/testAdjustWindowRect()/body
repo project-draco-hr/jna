@@ -1,0 +1,12 @@
+{
+  RECT lpRect=new RECT();
+  lpRect.left=100;
+  lpRect.top=200;
+  lpRect.bottom=300;
+  lpRect.right=500;
+  assertTrue(User32.INSTANCE.AdjustWindowRect(lpRect,new DWORD(WinUser.WS_THICKFRAME),new BOOL(1)).booleanValue());
+  assertTrue(lpRect.left < 100);
+  assertTrue(lpRect.top < 200);
+  assertTrue(lpRect.bottom > 300);
+  assertTrue(lpRect.right > 500);
+}

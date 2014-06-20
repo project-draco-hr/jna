@@ -1,0 +1,3 @@
+{
+  assertTrue(User32.INSTANCE.ExitWindowsEx(new UINT(WinUser.EWX_LOGOFF),new DWORD(0x00030000)).booleanValue());
+}
