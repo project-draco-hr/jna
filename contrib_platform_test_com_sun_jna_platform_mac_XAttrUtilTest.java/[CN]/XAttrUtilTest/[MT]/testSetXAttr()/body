@@ -1,0 +1,10 @@
+{
+  String value=XAttrUtil.getXAttr(testPath,"JNA");
+  assertNull(value);
+  XAttrUtil.setXAttr(testPath,"JNA","Java Native Access");
+  value=XAttrUtil.getXAttr(testPath,"JNA");
+  assertEquals("Java Native Access",value);
+  XAttrUtil.setXAttr(testPath,"JNA","is nice");
+  value=XAttrUtil.getXAttr(testPath,"JNA");
+  assertEquals("is nice",value);
+}
