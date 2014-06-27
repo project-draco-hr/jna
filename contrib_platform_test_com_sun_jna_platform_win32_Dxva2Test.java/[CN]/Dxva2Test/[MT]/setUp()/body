@@ -4,5 +4,5 @@
   assertTrue(Dxva2.INSTANCE.GetNumberOfPhysicalMonitorsFromHMONITOR(hMonitor,pdwNumberOfPhysicalMonitors).booleanValue());
   monitorCount=pdwNumberOfPhysicalMonitors.getValue().intValue();
   physMons=new PHYSICAL_MONITOR[monitorCount];
-  assertTrue(Dxva2.INSTANCE.GetPhysicalMonitorsFromHMONITOR(hMonitor,monitorCount,physMons).booleanValue());
+  assumeTrue(Dxva2.INSTANCE.GetPhysicalMonitorsFromHMONITOR(hMonitor,monitorCount,physMons).booleanValue());
 }
