@@ -1,0 +1,5 @@
+{
+  HANDLE hThrd=Kernel32.INSTANCE.CreateRemoteThread(null,null,0,null,null,null,null);
+  assertNull(hThrd);
+  assertEquals(Kernel32.INSTANCE.GetLastError(),WinError.ERROR_INVALID_HANDLE);
+}
