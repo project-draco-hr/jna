@@ -2,9 +2,15 @@
   String JAVA_HOME=System.getProperty("java.home");
   String BIN=new File(JAVA_HOME,"/bin").getAbsolutePath();
   File javaws=new File(BIN,"javaws" + (Platform.isWindows() ? ".exe" : ""));
+  List tried=new ArrayList();
+  tried.add(javaws);
   if (!javaws.exists()) {
     if (Platform.isMac()) {
       javaws=new File(JAVA_HOME,"../Commands/javaws");
+      tried.add(javaws);
+      if (!javaws.exists()) {
+        javaws=new File("/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/javaws");
+      }
     }
     if (Platform.isWindows()) {
       FolderInfo info=(FolderInfo)Native.loadLibrary("shell32",FolderInfo.class);
@@ -18,8 +24,9 @@
         javaws=new File(path,"system32/javaws.exe");
       }
     }
+    tried.add(javaws);
     if (!javaws.exists()) {
-      throw new IOException("javaws executable not found");
+      throw new IOException("javaws executable not found, tried " + tried);
     }
   }
   return javaws.getAbsolutePath();
