@@ -1,6 +1,9 @@
 {
   byte[] bytesOrig=getProperty(xa_prop_type,xa_prop_name);
   byte[] bytesDest;
+  if (bytesOrig == null) {
+    return null;
+  }
   int i;
   for (i=0; i < bytesOrig.length; i++) {
     if (bytesOrig[i] == '\0')     break;

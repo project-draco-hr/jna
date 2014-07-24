@@ -1,3 +1,7 @@
 {
-  return new String(getProperty(xa_prop_type,xa_prop_name)).split("\0");
+  byte[] property=getProperty(xa_prop_type,xa_prop_name);
+  if (property == null) {
+    return null;
+  }
+  return new String(property).split("\0");
 }

@@ -1,3 +1,7 @@
 {
-  return bytesToInt(getProperty(xa_prop_type,xa_prop_name));
+  byte[] property=getProperty(xa_prop_type,xa_prop_name);
+  if (property == null) {
+    return null;
+  }
+  return bytesToInt(property);
 }
