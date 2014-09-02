@@ -1,14 +1,3 @@
 {
-  if (isVarArgsMethod != null) {
-    try {
-      return Boolean.TRUE.equals(isVarArgsMethod.invoke(m,new Object[0]));
-    }
- catch (    IllegalArgumentException e) {
-    }
-catch (    IllegalAccessException e) {
-    }
-catch (    InvocationTargetException e) {
-    }
-  }
-  return false;
+  return IS_VARARGS.isVarArgs(m);
 }
