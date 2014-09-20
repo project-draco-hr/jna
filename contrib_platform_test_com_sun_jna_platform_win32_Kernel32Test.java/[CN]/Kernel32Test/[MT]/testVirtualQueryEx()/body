@@ -1,0 +1,6 @@
+{
+  HANDLE selfHandle=Kernel32.INSTANCE.GetCurrentProcess();
+  MEMORY_BASIC_INFORMATION mbi=new MEMORY_BASIC_INFORMATION();
+  SIZE_T bytesRead=Kernel32.INSTANCE.VirtualQueryEx(selfHandle,Pointer.NULL,mbi,new SIZE_T(mbi.size()));
+  assertTrue(bytesRead.intValue() > 0);
+}
