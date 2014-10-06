@@ -10,10 +10,19 @@
     return null;
   }
   Window[] retVal=new Window[childCount.getValue()];
-  int[] windows=children.getValue().getIntArray(0,childCount.getValue());
-  for (int x=0; x < retVal.length; x++) {
-    X11.Window win=new X11.Window(windows[x]);
-    retVal[x]=new Window(display,win);
+  if (X11.XID.SIZE == 4) {
+    int[] windows=children.getValue().getIntArray(0,childCount.getValue());
+    for (int x=0; x < retVal.length; x++) {
+      X11.Window win=new X11.Window(windows[x]);
+      retVal[x]=new Window(display,win);
+    }
+  }
+ else {
+    long[] windows=children.getValue().getLongArray(0,childCount.getValue());
+    for (int x=0; x < retVal.length; x++) {
+      X11.Window win=new X11.Window(windows[x]);
+      retVal[x]=new Window(display,win);
+    }
   }
   x11.XFree(children.getValue());
   return retVal;
