@@ -1,5 +1,5 @@
 {
-  if (!Platform.HAS_AWT)   return;
+  if (!Platform.HAS_AWT || !Platform.HAS_JAWT)   return;
   if (GraphicsEnvironment.isHeadless())   return;
   AWT.loadJAWT(getName());
 }
