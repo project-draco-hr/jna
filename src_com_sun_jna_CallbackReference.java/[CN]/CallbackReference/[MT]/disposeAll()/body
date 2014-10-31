@@ -1,0 +1,6 @@
+{
+  for (Iterator i=allocatedMemory.keySet().iterator(); i.hasNext(); ) {
+    ((Memory)i.next()).dispose();
+  }
+  allocatedMemory.clear();
+}
