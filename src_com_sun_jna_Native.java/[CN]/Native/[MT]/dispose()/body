@@ -1,4 +1,7 @@
 {
+  CallbackReference.disposeAll();
+  Memory.disposeAll();
   NativeLibrary.disposeAll();
+  unregisterAll();
   jnidispatchPath=null;
 }
