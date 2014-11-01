@@ -3,5 +3,6 @@
     Native.freeNativeCallback(cbstruct.peer);
     cbstruct.peer=0;
     cbstruct=null;
+    allocatedMemory.remove(this);
   }
 }
