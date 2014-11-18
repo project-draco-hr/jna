@@ -1,0 +1,8 @@
+{
+  WTypes.LPOLESTR fromString=new WTypes.LPOLESTR(TEST_STRING);
+  assertEquals(fromString.getValue(),TEST_STRING);
+  WTypes.LPOLESTR empty=new WTypes.LPOLESTR();
+  assertNull(empty.getValue());
+  WTypes.LPOLESTR fromPointer=new WTypes.LPOLESTR(TEST_POINTER);
+  assertEquals(fromPointer.getValue(),TEST_STRING);
+}
