@@ -1,0 +1,6 @@
+{
+  WString lpFileName=new WString(file.getAbsolutePath());
+  if (!Advapi32.INSTANCE.DecryptFile(lpFileName,new DWORD(0))) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+}

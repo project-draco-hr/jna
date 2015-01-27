@@ -1,0 +1,11 @@
+{
+  String filePath=System.getProperty("java.io.tmpdir") + System.nanoTime() + ".text";
+  File file=new File(filePath);
+  file.createNewFile();
+  FileWriter fileWriter=new FileWriter(file);
+  for (int i=0; i < 1000; i++) {
+    fileWriter.write("Sample text " + i + System.getProperty("line.separator"));
+  }
+  fileWriter.close();
+  return file;
+}

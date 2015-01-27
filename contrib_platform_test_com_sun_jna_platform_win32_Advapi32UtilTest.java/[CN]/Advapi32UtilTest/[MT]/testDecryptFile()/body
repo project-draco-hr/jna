@@ -1,0 +1,8 @@
+{
+  File file=createTempFile();
+  Advapi32Util.encryptFile(file);
+  assertEquals(FILE_IS_ENCRYPTED,Advapi32Util.fileEncryptionStatus(file));
+  Advapi32Util.decryptFile(file);
+  assertEquals(FILE_ENCRYPTABLE,Advapi32Util.fileEncryptionStatus(file));
+  file.delete();
+}
