@@ -1,0 +1,19 @@
+{
+  DWORDByReference lpStatus=new DWORDByReference();
+  String filePath=System.getProperty("java.io.tmpdir") + File.separator + System.nanoTime();
+  WString DirPath=new WString(filePath);
+  File dir=new File(filePath);
+  dir.mkdir();
+  assertTrue(Advapi32.INSTANCE.FileEncryptionStatus(DirPath,lpStatus));
+  assertEquals(FILE_ENCRYPTABLE,lpStatus.getValue().intValue());
+  assertTrue(Advapi32.INSTANCE.EncryptionDisable(DirPath,true));
+  assertTrue(Advapi32.INSTANCE.FileEncryptionStatus(DirPath,lpStatus));
+  assertEquals(FILE_DIR_DISALOWED,lpStatus.getValue().intValue());
+  assertTrue(Advapi32.INSTANCE.EncryptionDisable(DirPath,false));
+  assertTrue(Advapi32.INSTANCE.FileEncryptionStatus(DirPath,lpStatus));
+  assertEquals(FILE_ENCRYPTABLE,lpStatus.getValue().intValue());
+  for (  File file : dir.listFiles()) {
+    file.delete();
+  }
+  dir.delete();
+}

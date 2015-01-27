@@ -1,0 +1,26 @@
+{
+  File file=createTempFile();
+  WString lpFileName=new WString(file.getAbsolutePath());
+  assertTrue(Advapi32.INSTANCE.EncryptFile(lpFileName));
+  ULONG ulFlags=new ULONG(0);
+  PointerByReference pvContext=new PointerByReference();
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.OpenEncryptedFileRaw(lpFileName,ulFlags,pvContext));
+  final ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+  FE_EXPORT_FUNC pfExportCallback=new FE_EXPORT_FUNC(){
+    @Override public DWORD callback(    ByteByReference pbData,    Pointer pvCallbackContext,    ULONG ulLength){
+      byte[] arr=pbData.getPointer().getByteArray(0,ulLength.intValue());
+      try {
+        outputStream.write(arr);
+      }
+ catch (      IOException e) {
+        throw new RuntimeException(e);
+      }
+      return new DWORD(W32Errors.ERROR_SUCCESS);
+    }
+  }
+;
+  assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.ReadEncryptedFileRaw(pfExportCallback,null,pvContext.getValue()));
+  outputStream.close();
+  Advapi32.INSTANCE.CloseEncryptedFileRaw(pvContext.getValue());
+  file.delete();
+}

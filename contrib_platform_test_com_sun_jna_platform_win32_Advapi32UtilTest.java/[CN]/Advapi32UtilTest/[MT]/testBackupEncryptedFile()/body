@@ -1,0 +1,25 @@
+{
+  File srcFile=createTempFile();
+  Advapi32Util.encryptFile(srcFile);
+  File dest=new File(System.getProperty("java.io.tmpdir") + File.separator + "backup"+ System.nanoTime());
+  dest.mkdir();
+  Advapi32Util.backupEncryptedFile(srcFile,dest);
+  File backupFile=new File(dest.getAbsolutePath() + File.separator + srcFile.getName());
+  assertTrue(backupFile.exists());
+  assertEquals(srcFile.length(),backupFile.length());
+  File srcDir=new File(System.getProperty("java.io.tmpdir") + File.separator + System.nanoTime());
+  srcDir.mkdir();
+  Advapi32Util.encryptFile(srcDir);
+  Advapi32Util.backupEncryptedFile(srcDir,dest);
+  File backupDir=new File(dest.getAbsolutePath() + File.separator + srcDir.getName());
+  assertTrue(backupDir.exists());
+  srcFile.delete();
+  for (  File file : srcDir.listFiles()) {
+    file.delete();
+  }
+  srcDir.delete();
+  for (  File file : dest.listFiles()) {
+    file.delete();
+  }
+  dest.delete();
+}
