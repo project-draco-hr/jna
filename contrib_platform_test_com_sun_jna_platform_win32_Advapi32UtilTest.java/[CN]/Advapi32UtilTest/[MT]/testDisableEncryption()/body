@@ -1,0 +1,13 @@
+{
+  File dir=new File(System.getProperty("java.io.tmpdir") + File.separator + System.nanoTime());
+  dir.mkdir();
+  assertEquals(FILE_ENCRYPTABLE,Advapi32Util.fileEncryptionStatus(dir));
+  Advapi32Util.disableEncryption(dir,true);
+  assertEquals(FILE_DIR_DISALOWED,Advapi32Util.fileEncryptionStatus(dir));
+  Advapi32Util.disableEncryption(dir,false);
+  assertEquals(FILE_ENCRYPTABLE,Advapi32Util.fileEncryptionStatus(dir));
+  for (  File file : dir.listFiles()) {
+    file.delete();
+  }
+  dir.delete();
+}

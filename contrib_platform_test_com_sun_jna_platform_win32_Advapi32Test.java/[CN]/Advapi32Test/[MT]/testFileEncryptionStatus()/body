@@ -1,0 +1,15 @@
+{
+  DWORDByReference lpStatus=new DWORDByReference();
+  File file=createTempFile();
+  WString lpFileName=new WString(file.getAbsolutePath());
+  assertTrue(Advapi32.INSTANCE.FileEncryptionStatus(lpFileName,lpStatus));
+  assertEquals(FILE_ENCRYPTABLE,lpStatus.getValue().intValue());
+  file.setWritable(false);
+  assertTrue(Advapi32.INSTANCE.FileEncryptionStatus(lpFileName,lpStatus));
+  assertEquals(FILE_READ_ONLY,lpStatus.getValue().intValue());
+  file.setWritable(true);
+  assertTrue(Advapi32.INSTANCE.EncryptFile(lpFileName));
+  assertTrue(Advapi32.INSTANCE.FileEncryptionStatus(lpFileName,lpStatus));
+  assertEquals(FILE_IS_ENCRYPTED,lpStatus.getValue().intValue());
+  file.delete();
+}
