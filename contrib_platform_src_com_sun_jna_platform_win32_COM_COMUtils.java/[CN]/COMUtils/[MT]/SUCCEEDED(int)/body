@@ -1,4 +1,3 @@
 {
-  if (hr == S_OK)   return true;
- else   return false;
+  return hr >= 0;
 }
