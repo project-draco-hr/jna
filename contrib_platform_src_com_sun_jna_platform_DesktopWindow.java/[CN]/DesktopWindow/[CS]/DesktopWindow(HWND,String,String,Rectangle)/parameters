@@ -1,0 +1,4 @@
+HWND hwnd
+String title
+String filePath
+Rectangle locAndSize

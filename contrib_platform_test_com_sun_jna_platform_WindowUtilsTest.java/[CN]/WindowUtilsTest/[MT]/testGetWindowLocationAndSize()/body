@@ -1,0 +1,19 @@
+{
+  final JFrame w=new JFrame();
+  try {
+    w.setLocation(23,23);
+    w.setPreferredSize(new Dimension(100,100));
+    w.pack();
+    w.setVisible(true);
+    HWND hwnd=new HWND();
+    hwnd.setPointer(Native.getComponentPointer(w));
+    final Rectangle locAndSize=WindowUtils.getWindowLocationAndSize(hwnd);
+    assertEquals(w.getLocation().x,locAndSize.x);
+    assertEquals(w.getLocation().y,locAndSize.y);
+    assertEquals(w.getSize().width,locAndSize.width);
+    assertEquals(w.getSize().height,locAndSize.height);
+  }
+  finally {
+    w.dispose();
+  }
+}

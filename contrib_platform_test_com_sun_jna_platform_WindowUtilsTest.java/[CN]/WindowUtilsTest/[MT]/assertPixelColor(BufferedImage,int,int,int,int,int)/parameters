@@ -1,0 +1,6 @@
+BufferedImage img
+int x
+int y
+int expectedRed
+int expectedGreen
+int expectedBlue

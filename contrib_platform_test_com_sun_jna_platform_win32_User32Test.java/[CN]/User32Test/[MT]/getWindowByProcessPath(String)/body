@@ -1,0 +1,9 @@
+{
+  final List<DesktopWindow> allWindows=WindowUtils.getAllWindows(false);
+  for (  final DesktopWindow wnd : allWindows) {
+    if (wnd.getFilePath().toLowerCase().endsWith(filePathEnd.toLowerCase())) {
+      return wnd;
+    }
+  }
+  return null;
+}
