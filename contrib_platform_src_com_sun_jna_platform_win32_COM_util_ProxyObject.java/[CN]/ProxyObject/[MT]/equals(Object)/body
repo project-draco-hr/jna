@@ -1,0 +1,27 @@
+{
+  if (null == arg) {
+    return false;
+  }
+ else   if (arg instanceof ProxyObject) {
+    ProxyObject other=(ProxyObject)arg;
+    return this.getUnknownId() == other.getUnknownId();
+  }
+ else   if (Proxy.isProxyClass(arg.getClass())) {
+    InvocationHandler handler=Proxy.getInvocationHandler(arg);
+    if (handler instanceof ProxyObject) {
+      try {
+        ProxyObject other=(ProxyObject)handler;
+        return this.getUnknownId() == other.getUnknownId();
+      }
+ catch (      Exception e) {
+        return false;
+      }
+    }
+ else {
+      return false;
+    }
+  }
+ else {
+    return false;
+  }
+}

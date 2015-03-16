@@ -1,0 +1,25 @@
+{
+  this.rawRot=rawRot;
+  this.raw=raw;
+  this.factory=factory;
+  this.comThread=factory.getComThread();
+  try {
+    WinNT.HRESULT hr=this.comThread.execute(new Callable<WinNT.HRESULT>(){
+      @Override public WinNT.HRESULT call() throws Exception {
+        return EnumMoniker.this.raw.Reset();
+      }
+    }
+);
+    COMUtils.checkRC(hr);
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+catch (  ExecutionException e) {
+    throw new RuntimeException(e);
+  }
+catch (  TimeoutException e) {
+    throw new RuntimeException(e);
+  }
+  this.cacheNext();
+}

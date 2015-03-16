@@ -1,0 +1,3 @@
+{
+  return new HRESULT(WinError.E_NOTIMPL);
+}

@@ -1,0 +1,23 @@
+{
+  try {
+    final PointerByReference ppenumMoniker=new PointerByReference();
+    WinNT.HRESULT hr=this.comThread.execute(new Callable<WinNT.HRESULT>(){
+      @Override public WinNT.HRESULT call() throws Exception {
+        return RunningObjectTable.this.raw.EnumRunning(ppenumMoniker);
+      }
+    }
+);
+    COMUtils.checkRC(hr);
+    com.sun.jna.platform.win32.COM.EnumMoniker raw=new com.sun.jna.platform.win32.COM.EnumMoniker(ppenumMoniker.getValue());
+    return new EnumMoniker(raw,this.raw,this.factory);
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+catch (  ExecutionException e) {
+    throw new RuntimeException(e);
+  }
+catch (  TimeoutException e) {
+    throw new RuntimeException(e);
+  }
+}

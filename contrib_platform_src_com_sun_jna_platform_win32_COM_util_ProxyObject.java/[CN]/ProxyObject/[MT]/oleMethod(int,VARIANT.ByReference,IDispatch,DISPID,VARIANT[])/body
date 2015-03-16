@@ -1,0 +1,44 @@
+{
+  if (pDisp == null)   throw new COMException("pDisp (IDispatch) parameter is null!");
+  int _argsLen=0;
+  VARIANT[] _args=null;
+  final DISPPARAMS.ByReference dp=new DISPPARAMS.ByReference();
+  final EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
+  final IntByReference puArgErr=new IntByReference();
+  if ((pArgs != null) && (pArgs.length > 0)) {
+    _argsLen=pArgs.length;
+    _args=new VARIANT[_argsLen];
+    int revCount=_argsLen;
+    for (int i=0; i < _argsLen; i++) {
+      _args[i]=pArgs[--revCount];
+    }
+  }
+  if (nType == OleAuto.DISPATCH_PROPERTYPUT) {
+    dp.cNamedArgs=new UINT(_argsLen);
+    dp.rgdispidNamedArgs=new DISPIDByReference(OaIdl.DISPID_PROPERTYPUT);
+  }
+  if (_argsLen > 0) {
+    dp.cArgs=new UINT(_args.length);
+    dp.rgvarg=new VariantArg.ByReference(_args);
+    dp.write();
+  }
+  try {
+    HRESULT hr=this.comThread.execute(new Callable<HRESULT>(){
+      @Override public HRESULT call() throws Exception {
+        return pDisp.Invoke(dispId,new REFIID.ByValue(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,new WinDef.WORD(nType),dp,pvResult,pExcepInfo,puArgErr);
+      }
+    }
+);
+    COMUtils.checkRC(hr,pExcepInfo,puArgErr);
+    return hr;
+  }
+ catch (  InterruptedException e) {
+    throw new COMException(e);
+  }
+catch (  ExecutionException e) {
+    throw new COMException(e);
+  }
+catch (  TimeoutException e) {
+    throw new COMException(e);
+  }
+}

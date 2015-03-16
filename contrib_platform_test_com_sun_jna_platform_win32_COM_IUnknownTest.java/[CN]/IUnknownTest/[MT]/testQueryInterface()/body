@@ -1,6 +1,6 @@
 {
   Unknown iUnknown=this.createIUnknown();
   PointerByReference ppvObject=new PointerByReference();
-  iUnknown.QueryInterface(IUnknown.IID_IUNKNOWN,ppvObject);
+  iUnknown.QueryInterface(new REFIID.ByValue(IUnknown.IID_IUNKNOWN),ppvObject);
   assertTrue("ppvObject:" + ppvObject.toString(),ppvObject != null);
 }

@@ -1,0 +1,11 @@
+{
+  IRunningObjectTable rot=this.factory.getRunningObjectTable();
+  for (  IUnknown obj : rot.enumRunning()) {
+    try {
+      Application msw=obj.queryInterface(Application.class);
+    }
+ catch (    COMException ex) {
+      int i=0;
+    }
+  }
+}

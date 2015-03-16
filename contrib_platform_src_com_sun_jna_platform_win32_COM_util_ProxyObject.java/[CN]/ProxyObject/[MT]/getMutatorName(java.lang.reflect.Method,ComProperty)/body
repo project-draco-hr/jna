@@ -1,0 +1,14 @@
+{
+  if (prop.name().isEmpty()) {
+    String methName=method.getName();
+    if (methName.startsWith("set")) {
+      return methName.replaceFirst("set","");
+    }
+ else {
+      throw new RuntimeException("Property Mutator name must start with 'set', or set the anotation 'name' value");
+    }
+  }
+ else {
+    return prop.name();
+  }
+}

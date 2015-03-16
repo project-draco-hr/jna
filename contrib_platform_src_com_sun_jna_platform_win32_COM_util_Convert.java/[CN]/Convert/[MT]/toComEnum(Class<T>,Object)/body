@@ -1,0 +1,20 @@
+{
+  try {
+    Method m=enumType.getMethod("values");
+    T[] values=(T[])m.invoke(null);
+    for (    T t : values) {
+      if (value.equals(t.getValue())) {
+        return t;
+      }
+    }
+  }
+ catch (  NoSuchMethodException e) {
+  }
+catch (  IllegalAccessException e) {
+  }
+catch (  IllegalArgumentException e) {
+  }
+catch (  InvocationTargetException e) {
+  }
+  return null;
+}

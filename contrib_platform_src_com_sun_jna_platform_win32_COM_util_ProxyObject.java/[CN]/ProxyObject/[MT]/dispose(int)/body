@@ -1,0 +1,12 @@
+{
+  if (((Dispatch)this.rawDispatch).getPointer().equals(Pointer.NULL)) {
+  }
+ else {
+    for (int i=0; i < r; ++i) {
+      int n=this.rawDispatch.Release();
+      int n2=n;
+    }
+    this.factory.unregister(this,r);
+    ((Dispatch)this.rawDispatch).setPointer(Pointer.NULL);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  ComInterface comInterfaceAnnotation=comEventCallbackInterface.getAnnotation(ComInterface.class);
+  if (null == comInterfaceAnnotation) {
+    throw new COMException("advise: Interface must define a value for either iid via the ComInterface annotation");
+  }
+  String iidStr=comInterfaceAnnotation.iid();
+  if (null == iidStr || iidStr.isEmpty()) {
+    throw new COMException("ComInterface must define a value for iid");
+  }
+  return new REFIID.ByValue(new IID(iidStr).getPointer());
+}

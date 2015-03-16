@@ -1,0 +1,4 @@
+{
+  HRESULT hr=Ole32.INSTANCE.CoInitialize(null);
+  COMUtils.checkRC(hr);
+}

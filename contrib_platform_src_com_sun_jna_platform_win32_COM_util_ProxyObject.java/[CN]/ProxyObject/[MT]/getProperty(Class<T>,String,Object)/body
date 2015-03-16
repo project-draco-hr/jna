@@ -1,0 +1,26 @@
+{
+  VARIANT[] vargs;
+  if (null == args) {
+    vargs=new VARIANT[0];
+  }
+ else {
+    vargs=new VARIANT[args.length];
+  }
+  for (int i=0; i < vargs.length; ++i) {
+    vargs[i]=Convert.toVariant(args[i]);
+  }
+  Variant.VARIANT.ByReference result=new Variant.VARIANT.ByReference();
+  WinNT.HRESULT hr=this.oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.getRawDispatch(),name,vargs);
+  COMUtils.checkRC(hr);
+  Object jobj=Convert.toJavaObject(result);
+  if (IComEnum.class.isAssignableFrom(returnType)) {
+    return (T)Convert.toComEnum((Class<? extends IComEnum>)returnType,jobj);
+  }
+  if (jobj instanceof IDispatch) {
+    IDispatch d=(IDispatch)jobj;
+    T t=this.factory.createProxy(returnType,d);
+    int n=d.Release();
+    return t;
+  }
+  return (T)jobj;
+}

@@ -1,8 +1,0 @@
-DISPID dispIdMember
-IID riid
-LCID lcid
-DISPID wFlags
-DISPPARAMS pDispParams
-ByReference pVarResult
-EXCEPINFO.ByReference pExcepInfo
-IntByReference puArgErr

@@ -1,0 +1,29 @@
+{
+  try {
+    ComInterface comInterfaceAnnotation=comInterface.getAnnotation(ComInterface.class);
+    if (null == comInterfaceAnnotation) {
+      throw new COMException("queryInterface: Interface must define a value for iid via the ComInterface annotation");
+    }
+    final IID iid=this.getIID(comInterfaceAnnotation);
+    final PointerByReference ppvObject=new PointerByReference();
+    HRESULT hr=this.comThread.execute(new Callable<HRESULT>(){
+      @Override public HRESULT call() throws Exception {
+        return ProxyObject.this.getRawDispatch().QueryInterface(new REFIID.ByValue(iid),ppvObject);
+      }
+    }
+);
+    if (WinNT.S_OK.equals(hr)) {
+      Dispatch dispatch=new Dispatch(ppvObject.getValue());
+      T t=this.factory.createProxy(comInterface,dispatch);
+      int n=dispatch.Release();
+      return t;
+    }
+ else {
+      String formatMessageFromHR=Kernel32Util.formatMessage(hr);
+      throw new COMException("queryInterface: " + formatMessageFromHR);
+    }
+  }
+ catch (  Exception e) {
+    throw new COMException("Error occured when trying to query for interface " + comInterface.getName(),e);
+  }
+}

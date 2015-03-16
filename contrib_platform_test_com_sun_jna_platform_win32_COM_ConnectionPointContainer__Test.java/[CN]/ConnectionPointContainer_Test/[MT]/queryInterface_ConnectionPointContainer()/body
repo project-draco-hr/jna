@@ -1,0 +1,8 @@
+{
+  Unknown unk=new Unknown(this.ppWordApp.getValue());
+  PointerByReference ppCpc=new PointerByReference();
+  IID cpcIID=new IID("{B196B284-BAB4-101A-B69C-00AA00341D07}");
+  HRESULT hr=unk.QueryInterface(new REFIID.ByValue(cpcIID),ppCpc);
+  COMUtils.checkRC(hr);
+  ConnectionPointContainer cpc=new ConnectionPointContainer(ppCpc.getValue());
+}

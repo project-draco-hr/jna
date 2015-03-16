@@ -2,7 +2,7 @@
   if (pDisp == null)   throw new COMException("pDisp (IDispatch) parameter is null!");
   WString[] ptName=new WString[]{new WString(name)};
   DISPIDByReference pdispID=new DISPIDByReference();
-  HRESULT hr=pDisp.GetIDsOfNames(Guid.IID_NULL,ptName,1,LOCALE_USER_DEFAULT,pdispID);
+  HRESULT hr=pDisp.GetIDsOfNames(new REFIID.ByValue(Guid.IID_NULL),ptName,1,LOCALE_USER_DEFAULT,pdispID);
   COMUtils.checkRC(hr);
   return this.oleMethod(nType,pvResult,pDisp,pdispID.getValue(),pArgs);
 }

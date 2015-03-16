@@ -1,0 +1,3 @@
+UINT iTInfo
+LCID lcid
+PointerByReference ppTInfo

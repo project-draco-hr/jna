@@ -1,0 +1,5 @@
+{
+  final int vTableId=9;
+  WinNT.HRESULT hr=(WinNT.HRESULT)this._invokeNativeObject(vTableId,new Object[]{this.getPointer(),ppenumMoniker},WinNT.HRESULT.class);
+  return hr;
+}

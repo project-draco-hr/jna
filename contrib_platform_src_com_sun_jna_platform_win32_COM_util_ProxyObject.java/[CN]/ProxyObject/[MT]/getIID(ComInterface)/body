@@ -1,0 +1,9 @@
+{
+  String iidStr=annotation.iid();
+  if (null != iidStr && !iidStr.isEmpty()) {
+    return new IID(iidStr);
+  }
+ else {
+    throw new COMException("ComInterface must define a value for iid");
+  }
+}

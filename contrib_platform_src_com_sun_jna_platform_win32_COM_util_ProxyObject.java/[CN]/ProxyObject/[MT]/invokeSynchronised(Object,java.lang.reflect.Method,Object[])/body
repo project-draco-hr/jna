@@ -1,0 +1,45 @@
+{
+  if (method.equals(Object.class.getMethod("toString"))) {
+    return this.toString();
+  }
+ else   if (method.equals(Object.class.getMethod("equals",Object.class))) {
+    return this.equals(args[0]);
+  }
+ else   if (method.equals(Object.class.getMethod("hashCode"))) {
+    return this.hashCode();
+  }
+ else   if (method.equals(IRawDispatchHandle.class.getMethod("getRawDispatch"))) {
+    return this.getRawDispatch();
+  }
+ else   if (method.equals(IUnknown.class.getMethod("queryInterface",Class.class))) {
+    return this.queryInterface((Class<?>)args[0]);
+  }
+ else   if (method.equals(IConnectionPoint.class.getMethod("advise",Class.class,IComEventCallbackListener.class))) {
+    return this.advise((Class<?>)args[0],(IComEventCallbackListener)args[1]);
+  }
+ else   if (method.equals(IConnectionPoint.class.getMethod("unadvise",Class.class,IComEventCallbackCookie.class))) {
+    this.unadvise((Class<?>)args[0],(IComEventCallbackCookie)args[1]);
+    return null;
+  }
+  Class<?> returnType=method.getReturnType();
+  boolean isVoid=Void.TYPE.equals(returnType);
+  ComProperty prop=method.getAnnotation(ComProperty.class);
+  if (null != prop) {
+    if (isVoid) {
+      String propName=this.getMutatorName(method,prop);
+      this.setProperty(propName,args[0]);
+      return null;
+    }
+ else {
+      String propName=this.getAccessorName(method,prop);
+      return this.getProperty(returnType,propName,args);
+    }
+  }
+  ComMethod meth=method.getAnnotation(ComMethod.class);
+  if (null != meth) {
+    String methName=this.getMethodName(method,meth);
+    Object res=this.invokeMethod(returnType,methName,args);
+    return res;
+  }
+  return null;
+}

@@ -1,0 +1,7 @@
+{
+  MsWordApp comObj1=this.factory.createObject(MsWordApp.class);
+  MsWordApp comObj2=this.factory.fetchObject(MsWordApp.class);
+  boolean res=comObj1.equals(comObj2);
+  assertTrue(res);
+  comObj1.Quit(false,null,null);
+}

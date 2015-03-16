@@ -1,0 +1,6 @@
+{
+  if (this.requiresInitialisation) {
+    executor.execute(firstTask);
+  }
+  return executor.submit(task).get(this.timeoutMilliseconds,TimeUnit.MILLISECONDS);
+}

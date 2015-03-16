@@ -1,0 +1,6 @@
+{
+  PointerByReference pprot=new PointerByReference();
+  HRESULT hr=Ole32.INSTANCE.GetRunningObjectTable(new DWORD(0),pprot);
+  COMUtils.checkRC(hr);
+  assertNotNull(pprot.getValue());
+}

@@ -1,0 +1,32 @@
+{
+  try {
+    String clsIdStr=annotation.clsId();
+    final String progIdStr=annotation.progId();
+    if (null != clsIdStr && !clsIdStr.isEmpty()) {
+      return new CLSID(clsIdStr);
+    }
+ else     if (null != progIdStr && !progIdStr.isEmpty()) {
+      final CLSID.ByReference rclsid=new CLSID.ByReference();
+      WinNT.HRESULT hr=this.comThread.execute(new Callable<WinNT.HRESULT>(){
+        @Override public WinNT.HRESULT call() throws Exception {
+          return Ole32.INSTANCE.CLSIDFromProgID(progIdStr,rclsid);
+        }
+      }
+);
+      COMUtils.checkRC(hr);
+      return rclsid;
+    }
+ else {
+      throw new COMException("ComObject must define a value for either clsId or progId");
+    }
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+catch (  ExecutionException e) {
+    throw new RuntimeException(e);
+  }
+catch (  TimeoutException e) {
+    throw new RuntimeException(e);
+  }
+}

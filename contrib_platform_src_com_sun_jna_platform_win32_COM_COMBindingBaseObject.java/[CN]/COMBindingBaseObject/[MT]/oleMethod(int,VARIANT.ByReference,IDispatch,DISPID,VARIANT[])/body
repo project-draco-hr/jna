@@ -2,7 +2,7 @@
   if (pDisp == null)   throw new COMException("pDisp (IDispatch) parameter is null!");
   int _argsLen=0;
   VARIANT[] _args=null;
-  DISPPARAMS dp=new DISPPARAMS();
+  DISPPARAMS.ByReference dp=new DISPPARAMS.ByReference();
   EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
   IntByReference puArgErr=new IntByReference();
   if ((pArgs != null) && (pArgs.length > 0)) {
@@ -22,7 +22,7 @@
     dp.rgvarg=new VariantArg.ByReference(_args);
     dp.write();
   }
-  HRESULT hr=pDisp.Invoke(dispId,Guid.IID_NULL,LOCALE_SYSTEM_DEFAULT,new DISPID(nType),dp,pvResult,pExcepInfo,puArgErr);
+  HRESULT hr=pDisp.Invoke(dispId,new REFIID.ByValue(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,new WinDef.WORD(nType),dp,pvResult,pExcepInfo,puArgErr);
   COMUtils.checkRC(hr,pExcepInfo,puArgErr);
   return hr;
 }

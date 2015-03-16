@@ -1,0 +1,8 @@
+DISPID dispIdMember
+REFIID.ByValue riid
+LCID lcid
+WORD wFlags
+DISPPARAMS.ByReference pDispParams
+VARIANT.ByReference pVarResult
+EXCEPINFO.ByReference pExcepInfo
+IntByReference puArgErr

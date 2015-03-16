@@ -1,0 +1,4 @@
+Pointer thisPointer
+UINT iTInfo
+LCID lcid
+PointerByReference ppTInfo
