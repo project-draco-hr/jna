@@ -1,10 +1,14 @@
 {
-  ITypeInfo typeInfo=getTypeInfo();
+  ITypeInfo[] typeInfos=getTypeInfos();
   MEMBERID memid=new MEMBERID(0);
   BSTRByReference pBstrDllName=new BSTRByReference();
   BSTRByReference pBstrName=new BSTRByReference();
   WORDByReference pwOrdinal=new WORDByReference();
-  HRESULT hr=typeInfo.GetDllEntry(memid,INVOKEKIND.INVOKE_FUNC,pBstrDllName,pBstrName,pwOrdinal);
-  COMUtils.checkRC(hr);
-  assertEquals(0,hr.intValue());
+  for (  ITypeInfo typeInfo : typeInfos) {
+    HRESULT hr=typeInfo.GetDllEntry(memid,INVOKEKIND.INVOKE_FUNC,pBstrDllName,pBstrName,pwOrdinal);
+    if (COMUtils.SUCCEEDED(hr)) {
+      return;
+    }
+  }
+  throw new RuntimeException("Didn't find Dll entry for member in any of the type infos");
 }
