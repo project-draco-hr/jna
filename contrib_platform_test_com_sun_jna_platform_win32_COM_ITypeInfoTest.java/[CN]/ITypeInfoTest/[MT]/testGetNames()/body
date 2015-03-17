@@ -1,10 +1,14 @@
 {
-  ITypeInfo typeInfo=getTypeInfo();
+  ITypeInfo[] typeInfos=getTypeInfos();
   MEMBERID memid=new MEMBERID(1);
   BSTR[] rgBstrNames=new BSTR[1];
   UINT cMaxNames=new UINT(1);
   UINTByReference pcNames=new UINTByReference();
-  HRESULT hr=typeInfo.GetNames(memid,rgBstrNames,cMaxNames,pcNames);
-  COMUtils.checkRC(hr);
-  assertEquals(0,hr.intValue());
+  for (  ITypeInfo typeInfo : typeInfos) {
+    HRESULT hr=typeInfo.GetNames(memid,rgBstrNames,cMaxNames,pcNames);
+    if (COMUtils.SUCCEEDED(hr)) {
+      return;
+    }
+  }
+  throw new RuntimeException("Didn't find name for member in any of the type infos");
 }

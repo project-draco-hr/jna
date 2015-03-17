@@ -2,6 +2,9 @@
   TypeLibUtil shellTypeLib=new TypeLibUtil("{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}",1,0);
   int typeInfoCount=shellTypeLib.getTypeInfoCount();
   if (typeInfoCount == 0)   throw new RuntimeException("Shell lib contains zero type infos");
-  ITypeInfo typeInfo=shellTypeLib.getTypeInfo(18);
-  return typeInfo;
+  ITypeInfo[] typeInfos=new ITypeInfo[typeInfoCount];
+  for (int i=0; i < typeInfoCount; i++) {
+    typeInfos[i]=shellTypeLib.getTypeInfo(i);
+  }
+  return typeInfos;
 }

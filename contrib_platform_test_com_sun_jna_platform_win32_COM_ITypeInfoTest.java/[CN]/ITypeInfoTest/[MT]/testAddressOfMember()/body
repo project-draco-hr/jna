@@ -1,8 +1,12 @@
 {
-  ITypeInfo typeInfo=getTypeInfo();
+  ITypeInfo[] typeInfos=getTypeInfos();
   MEMBERID memid=new MEMBERID();
   PointerByReference ppv=new PointerByReference();
-  HRESULT hr=typeInfo.AddressOfMember(memid,INVOKEKIND.INVOKE_FUNC,ppv);
-  COMUtils.checkRC(hr);
-  assertEquals(0,hr.intValue());
+  for (  ITypeInfo typeInfo : typeInfos) {
+    HRESULT hr=typeInfo.AddressOfMember(memid,INVOKEKIND.INVOKE_FUNC,ppv);
+    if (COMUtils.SUCCEEDED(hr)) {
+      return;
+    }
+  }
+  throw new RuntimeException("Didn't find address for function in any of the type infos");
 }
