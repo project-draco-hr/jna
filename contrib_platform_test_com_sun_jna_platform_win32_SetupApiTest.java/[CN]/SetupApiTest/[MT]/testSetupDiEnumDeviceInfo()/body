@@ -1,0 +1,7 @@
+{
+  HANDLE hDevInfoSet=SetupApi.INSTANCE.SetupDiGetClassDevs(GUID_DEVINTERFACE_COMPORT,null,null,DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
+  SP_DEVINFO_DATA devInfo=new SP_DEVINFO_DATA();
+  boolean succeed=SetupApi.INSTANCE.SetupDiEnumDeviceInfo(hDevInfoSet,FIRST_MEMBER,devInfo);
+  boolean hasNoMoreItems=(getLastError() == ERROR_NO_MORE_ITEMS);
+  assertTrue(succeed || hasNoMoreItems);
+}
