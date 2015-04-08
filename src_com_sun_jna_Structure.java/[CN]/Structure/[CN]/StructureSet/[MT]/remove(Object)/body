@@ -1,0 +1,11 @@
+{
+  int idx=indexOf(o);
+  if (idx != -1) {
+    if (--count >= 0) {
+      elements[idx]=elements[count];
+      elements[count]=null;
+    }
+    return true;
+  }
+  return false;
+}
