@@ -1,0 +1,10 @@
+{
+  if (elements == null) {
+    elements=new Structure[size * 3 / 2];
+  }
+ else   if (elements.length < size) {
+    Structure[] e=new Structure[size * 3 / 2];
+    System.arraycopy(elements,0,e,0,elements.length);
+    elements=e;
+  }
+}
