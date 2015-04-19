@@ -1,0 +1,4 @@
+def copy_src_platform_files(platform):
+    src_dir = os.path.join('src', platform.src_dir)
+    dst_dir = os.path.join(platform.directory, 'src', platform.src_dir)
+    copy_files(src_dir, dst_dir, filelist=platform.src_files, file_suffix=platform.arch, prefix=platform.prefix, suffix=platform.suffix)
