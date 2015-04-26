@@ -3,7 +3,6 @@
     HANDLE hndl=INSTANCE.GetStdHandle(nHandle);
     Pointer ptr=hndl.getPointer();
     if (ptr == Pointer.NULL) {
-      System.out.println("NULL standard handle for type=" + nHandle);
       continue;
     }
     IntByReference lpMode=new IntByReference(0);

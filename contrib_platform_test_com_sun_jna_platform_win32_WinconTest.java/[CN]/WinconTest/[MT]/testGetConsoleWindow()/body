@@ -1,4 +1,4 @@
 {
   HWND hwnd=INSTANCE.GetConsoleWindow();
-  System.out.println("Console window=" + hwnd);
+  assertNotNull("No console window handle",hwnd);
 }

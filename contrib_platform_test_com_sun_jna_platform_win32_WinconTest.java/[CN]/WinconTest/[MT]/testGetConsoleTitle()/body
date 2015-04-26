@@ -3,6 +3,5 @@
   int len=INSTANCE.GetConsoleTitle(lpConsoleTitle,lpConsoleTitle.length);
   assertCallSucceeded("GetConsoleTitle",(len > 0));
   String title=Native.toString(lpConsoleTitle);
-  System.out.println("Console title(len=" + len + "): "+ title);
   assertCallSucceeded("SetConsoleTitle",INSTANCE.SetConsoleTitle(title));
 }

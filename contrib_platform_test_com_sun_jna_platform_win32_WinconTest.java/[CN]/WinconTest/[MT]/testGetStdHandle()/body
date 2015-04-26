@@ -2,10 +2,9 @@
   for (  int nHandle : new int[]{Wincon.STD_INPUT_HANDLE,Wincon.STD_OUTPUT_HANDLE,Wincon.STD_ERROR_HANDLE}) {
     HANDLE hndl=INSTANCE.GetStdHandle(nHandle);
     assertNotEquals("Bad handle value for std handle=" + nHandle,WinBase.INVALID_HANDLE_VALUE,hndl);
-    System.out.println("GetStdHandle(" + nHandle + "): "+ hndl);
     Pointer ptr=hndl.getPointer();
     if (ptr == Pointer.NULL) {
-      System.out.println("NULL standard handle for type=" + nHandle);
+      continue;
     }
  else {
       assertCallSucceeded("SetStdHandle(" + nHandle + ")",INSTANCE.SetStdHandle(nHandle,hndl));
