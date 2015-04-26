@@ -1,0 +1,4 @@
+{
+  int curCP=INSTANCE.GetConsoleOutputCP();
+  assertCallSucceeded("Restore CP=" + curCP,INSTANCE.SetConsoleOutputCP(curCP));
+}

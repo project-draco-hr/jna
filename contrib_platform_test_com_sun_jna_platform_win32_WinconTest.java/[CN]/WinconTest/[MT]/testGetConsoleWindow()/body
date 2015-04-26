@@ -1,0 +1,4 @@
+{
+  HWND hwnd=INSTANCE.GetConsoleWindow();
+  assertNotNull("No console window handle",hwnd);
+}

@@ -1,0 +1,13 @@
+{
+  for (  int nHandle : new int[]{Wincon.STD_INPUT_HANDLE,Wincon.STD_OUTPUT_HANDLE,Wincon.STD_ERROR_HANDLE}) {
+    HANDLE hndl=INSTANCE.GetStdHandle(nHandle);
+    Pointer ptr=hndl.getPointer();
+    if (ptr == Pointer.NULL) {
+      continue;
+    }
+    IntByReference lpMode=new IntByReference(0);
+    assertCallSucceeded("GetConsoleMode(" + nHandle + ")",INSTANCE.GetConsoleMode(hndl,lpMode));
+    int dwMode=lpMode.getValue();
+    assertCallSucceeded("SetConsoleMode(" + nHandle + ","+ dwMode+ ")",INSTANCE.SetConsoleMode(hndl,dwMode));
+  }
+}
