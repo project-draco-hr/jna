@@ -1,0 +1,4 @@
+{
+  HWND hwnd=INSTANCE.GetConsoleWindow();
+  System.out.println("Console window=" + hwnd);
+}

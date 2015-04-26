@@ -1,0 +1,5 @@
+{
+  IntByReference numButtons=new IntByReference(0);
+  assertCallSucceeded("Initial display mode value retrieval",INSTANCE.GetNumberOfConsoleMouseButtons(numButtons));
+  System.out.println("GetNumberOfConsoleMouseButtons: " + numButtons.getValue());
+}

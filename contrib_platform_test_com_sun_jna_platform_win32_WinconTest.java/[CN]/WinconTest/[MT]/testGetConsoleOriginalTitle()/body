@@ -1,0 +1,16 @@
+{
+  char[] lpConsoleTitle=new char[WinNT.MAX_PATH];
+  int len=INSTANCE.GetConsoleOriginalTitle(lpConsoleTitle,lpConsoleTitle.length);
+  if (len <= 0) {
+    int hr=Kernel32.INSTANCE.GetLastError();
+    if (hr == 0) {
+      System.err.println("Buffer not large enough to hold the title");
+    }
+ else {
+      fail("Call failed: hr=0x" + Integer.toHexString(hr));
+    }
+  }
+ else {
+    System.out.println("Console original title (len=" + len + "): "+ Native.toString(lpConsoleTitle));
+  }
+}

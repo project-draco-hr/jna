@@ -1,0 +1,5 @@
+{
+  int curCP=INSTANCE.GetConsoleOutputCP();
+  System.out.println("Console output CP=" + curCP);
+  assertCallSucceeded("Restore CP=" + curCP,INSTANCE.SetConsoleOutputCP(curCP));
+}
