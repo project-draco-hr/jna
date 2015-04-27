@@ -3,7 +3,7 @@
     return;
   }
   int hr=Kernel32.INSTANCE.GetLastError();
-  if (hr == 0) {
+  if (hr == WinError.ERROR_SUCCESS) {
     fail(message + " failed with unknown reason code");
   }
  else {

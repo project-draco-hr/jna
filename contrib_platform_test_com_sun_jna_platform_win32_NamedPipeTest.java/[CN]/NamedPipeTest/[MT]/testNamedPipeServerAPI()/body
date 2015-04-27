@@ -1,0 +1,20 @@
+{
+  String pipeName="\\\\.\\pipe\\" + getCurrentTestName();
+  HANDLE hNamedPipe=Kernel32.INSTANCE.CreateNamedPipe(pipeName,WinBase.PIPE_ACCESS_DUPLEX,WinBase.PIPE_TYPE_BYTE | WinBase.PIPE_READMODE_BYTE | WinBase.PIPE_WAIT,1,Byte.MAX_VALUE,Byte.MAX_VALUE,1000,null);
+  assertCallSucceeded("CreateNamedPipe",!WinBase.INVALID_HANDLE_VALUE.equals(hNamedPipe));
+  try {
+    IntByReference lpFlags=new IntByReference(0);
+    IntByReference lpOutBuffferSize=new IntByReference(0);
+    IntByReference lpInBufferSize=new IntByReference(0);
+    IntByReference lpMaxInstances=new IntByReference(0);
+    assertCallSucceeded("GetNamedPipeInfo",Kernel32.INSTANCE.GetNamedPipeInfo(hNamedPipe,lpFlags,lpOutBuffferSize,lpInBufferSize,lpMaxInstances));
+    ULONGByReference ServerProcessId=new ULONGByReference();
+    assertCallSucceeded("GetNamedPipeServerProcessId",Kernel32.INSTANCE.GetNamedPipeServerProcessId(hNamedPipe,ServerProcessId));
+    ULONGByReference ServerSessionId=new ULONGByReference();
+    assertCallSucceeded("GetNamedPipeServerSessionId",Kernel32.INSTANCE.GetNamedPipeServerSessionId(hNamedPipe,ServerSessionId));
+    assertCallSucceeded("DisconnectNamedPipe",Kernel32.INSTANCE.DisconnectNamedPipe(hNamedPipe));
+  }
+  finally {
+    assertCallSucceeded("Named pipe handle close",Kernel32.INSTANCE.CloseHandle(hNamedPipe));
+  }
+}
