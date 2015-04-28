@@ -1,0 +1,15 @@
+{
+  String name=getCurrentTestName(), expected="42";
+  assertCallSucceeded("SetEnvironmentVariable",Kernel32.INSTANCE.SetEnvironmentVariable(name,expected));
+  try {
+    int size=Kernel32.INSTANCE.GetEnvironmentVariable(name,null,0);
+    assertEquals("Mismatched required buffer size",expected.length() + 1,size);
+    char[] data=new char[size];
+    assertEquals("Mismatched retrieved variable data length",size - 1,Kernel32.INSTANCE.GetEnvironmentVariable(name,data,size));
+    String actual=Native.toString(data);
+    assertEquals("Mismatched retrieved variable value",expected,actual);
+  }
+  finally {
+    assertCallSucceeded("Clean up variable",Kernel32.INSTANCE.SetEnvironmentVariable(name,null));
+  }
+}

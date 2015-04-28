@@ -1,5 +1,0 @@
-{
-  int value=new Random().nextInt();
-  Kernel32.INSTANCE.SetEnvironmentVariable("jna-setenvironment-test",Integer.toString(value));
-  assertEquals(Integer.toString(value),Kernel32Util.getEnvironmentVariable("jna-setenvironment-test"));
-}

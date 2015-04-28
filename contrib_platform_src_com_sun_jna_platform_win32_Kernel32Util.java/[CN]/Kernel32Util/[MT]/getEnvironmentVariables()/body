@@ -1,0 +1,14 @@
+{
+  Pointer lpszEnvironmentBlock=Kernel32.INSTANCE.GetEnvironmentStrings();
+  if (lpszEnvironmentBlock == null) {
+    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+  }
+  try {
+    return getEnvironmentVariables(lpszEnvironmentBlock,0L);
+  }
+  finally {
+    if (!Kernel32.INSTANCE.FreeEnvironmentStrings(lpszEnvironmentBlock)) {
+      throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+    }
+  }
+}
