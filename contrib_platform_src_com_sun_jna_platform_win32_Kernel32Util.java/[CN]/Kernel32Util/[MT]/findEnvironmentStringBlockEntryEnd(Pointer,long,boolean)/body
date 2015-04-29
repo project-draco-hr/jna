@@ -1,0 +1,8 @@
+{
+  for (long curOffset=offset, stepSize=asWideChars ? 2L : 1L; ; curOffset+=stepSize) {
+    byte b=lpszEnvironmentBlock.getByte(curOffset);
+    if (b == 0) {
+      return curOffset;
+    }
+  }
+}

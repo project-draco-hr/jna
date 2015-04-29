@@ -1,0 +1,23 @@
+{
+  if (lpszEnvironmentBlock == null) {
+    return null;
+  }
+  Map<String,String> vars=new TreeMap<String,String>();
+  boolean asWideChars=isWideCharEnvironmentStringBlock(lpszEnvironmentBlock,offset);
+  long stepFactor=asWideChars ? 2L : 1L;
+  for (long curOffset=offset; ; ) {
+    String nvp=readEnvironmentStringBlockEntry(lpszEnvironmentBlock,curOffset,asWideChars);
+    int len=nvp.length();
+    if (len == 0) {
+      break;
+    }
+    int pos=nvp.indexOf('=');
+    if (pos < 0) {
+      throw new IllegalArgumentException("Missing variable value separator in " + nvp);
+    }
+    String name=nvp.substring(0,pos), value=nvp.substring(pos + 1);
+    vars.put(name,value);
+    curOffset+=(len + 1) * stepFactor;
+  }
+  return vars;
+}

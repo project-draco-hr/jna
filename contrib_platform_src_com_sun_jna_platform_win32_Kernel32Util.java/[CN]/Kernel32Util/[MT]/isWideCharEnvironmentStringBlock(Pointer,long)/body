@@ -1,0 +1,11 @@
+{
+  byte b0=lpszEnvironmentBlock.getByte(offset);
+  byte b1=lpszEnvironmentBlock.getByte(offset + 1L);
+  ByteOrder byteOrder=ByteOrder.nativeOrder();
+  if (ByteOrder.LITTLE_ENDIAN.equals(byteOrder)) {
+    return isWideCharEnvironmentStringBlock(b1);
+  }
+ else {
+    return isWideCharEnvironmentStringBlock(b0);
+  }
+}

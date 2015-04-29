@@ -1,0 +1,27 @@
+{
+  long endOffset=findEnvironmentStringBlockEntryEnd(lpszEnvironmentBlock,offset,asWideChars);
+  int dataLen=(int)(endOffset - offset);
+  if (dataLen == 0) {
+    return "";
+  }
+  int charsLen=asWideChars ? (dataLen / 2) : dataLen;
+  char[] chars=new char[charsLen];
+  long curOffset=offset, stepSize=asWideChars ? 2L : 1L;
+  ByteOrder byteOrder=ByteOrder.nativeOrder();
+  for (int index=0; index < chars.length; index++, curOffset+=stepSize) {
+    byte b=lpszEnvironmentBlock.getByte(curOffset);
+    if (asWideChars) {
+      byte x=lpszEnvironmentBlock.getByte(curOffset + 1L);
+      if (ByteOrder.LITTLE_ENDIAN.equals(byteOrder)) {
+        chars[index]=(char)(((x << Byte.SIZE) & 0xFF00) | (b & 0x00FF));
+      }
+ else {
+        chars[index]=(char)(((b << Byte.SIZE) & 0xFF00) | (x & 0x00FF));
+      }
+    }
+ else {
+      chars[index]=(char)(b & 0x00FF);
+    }
+  }
+  return new String(chars);
+}
