@@ -1,0 +1,6 @@
+{
+  File file=createTempFile();
+  SECURITY_DESCRIPTOR_RELATIVE sdr=Advapi32Util.getFileSecurityDescriptor(file,false);
+  assertTrue(Advapi32.INSTANCE.IsValidSecurityDescriptor(sdr.getPointer()));
+  file.delete();
+}

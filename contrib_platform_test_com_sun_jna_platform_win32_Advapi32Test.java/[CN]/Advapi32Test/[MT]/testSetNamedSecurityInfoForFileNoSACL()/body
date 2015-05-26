@@ -1,0 +1,12 @@
+{
+  File file=createTempFile();
+  int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION;
+  PointerByReference ppsidOwner=new PointerByReference();
+  PointerByReference ppsidGroup=new PointerByReference();
+  PointerByReference ppDacl=new PointerByReference();
+  PointerByReference ppSecurityDescriptor=new PointerByReference();
+  assertEquals(Advapi32.INSTANCE.GetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,null,ppSecurityDescriptor),0);
+  assertEquals(Advapi32.INSTANCE.SetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner.getValue(),ppsidGroup.getValue(),ppDacl.getValue(),null),0);
+  Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
+  file.delete();
+}

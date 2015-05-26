@@ -1,0 +1,3 @@
+{
+  setSecurityDescriptorForObject(file.getAbsolutePath().replaceAll("/","\\"),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,securityDescriptor,setOwner,setGroup,setDACL,setSACL,setDACLProtectedStatus,setSACLProtectedStatus);
+}

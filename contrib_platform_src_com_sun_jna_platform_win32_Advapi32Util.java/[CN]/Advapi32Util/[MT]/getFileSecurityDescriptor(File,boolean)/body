@@ -1,0 +1,6 @@
+{
+  SECURITY_DESCRIPTOR_RELATIVE sdr=null;
+  Memory securityDesc=getSecurityDescriptorForObject(file.getAbsolutePath().replaceAll("/","\\"),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,getSACL);
+  sdr=new SECURITY_DESCRIPTOR_RELATIVE(securityDesc);
+  return sdr;
+}
