@@ -1,0 +1,47 @@
+{
+  final PSID psidOwner=securityDescriptor.getOwner();
+  final PSID psidGroup=securityDescriptor.getGroup();
+  final ACL dacl=securityDescriptor.getDiscretionaryACL();
+  final ACL sacl=securityDescriptor.getSystemACL();
+  int infoType=0;
+  if (setOwner) {
+    if (psidOwner == null)     throw new IllegalArgumentException("SECURITY_DESCRIPTOR_RELATIVE does not contain owner");
+    if (!Advapi32.INSTANCE.IsValidSid(psidOwner))     throw new IllegalArgumentException("Owner PSID is invalid");
+    infoType|=OWNER_SECURITY_INFORMATION;
+  }
+  if (setGroup) {
+    if (psidGroup == null)     throw new IllegalArgumentException("SECURITY_DESCRIPTOR_RELATIVE does not contain group");
+    if (!Advapi32.INSTANCE.IsValidSid(psidGroup))     throw new IllegalArgumentException("Group PSID is invalid");
+    infoType|=GROUP_SECURITY_INFORMATION;
+  }
+  if (setDACL) {
+    if (dacl == null)     throw new IllegalArgumentException("SECURITY_DESCRIPTOR_RELATIVE does not contain DACL");
+    if (!Advapi32.INSTANCE.IsValidAcl(dacl.getPointer()))     throw new IllegalArgumentException("DACL is invalid");
+    infoType|=DACL_SECURITY_INFORMATION;
+  }
+  if (setSACL) {
+    if (sacl == null)     throw new IllegalArgumentException("SECURITY_DESCRIPTOR_RELATIVE does not contain SACL");
+    if (!Advapi32.INSTANCE.IsValidAcl(sacl.getPointer()))     throw new IllegalArgumentException("SACL is invalid");
+    infoType|=SACL_SECURITY_INFORMATION;
+  }
+  if (setDACLProtectedStatus) {
+    if ((securityDescriptor.Control & SE_DACL_PROTECTED) != 0) {
+      infoType|=PROTECTED_DACL_SECURITY_INFORMATION;
+    }
+ else     if ((securityDescriptor.Control & SE_DACL_PROTECTED) == 0) {
+      infoType|=UNPROTECTED_DACL_SECURITY_INFORMATION;
+    }
+  }
+  if (setSACLProtectedStatus) {
+    if ((securityDescriptor.Control & SE_SACL_PROTECTED) != 0) {
+      infoType|=PROTECTED_SACL_SECURITY_INFORMATION;
+    }
+ else     if ((securityDescriptor.Control & SE_SACL_PROTECTED) == 0) {
+      infoType|=UNPROTECTED_SACL_SECURITY_INFORMATION;
+    }
+  }
+  int lastError=Advapi32.INSTANCE.SetNamedSecurityInfo(absoluteObjectPath,objectType,infoType,setOwner ? psidOwner.getPointer() : null,setGroup ? psidGroup.getPointer() : null,setDACL ? dacl.getPointer() : null,setSACL ? sacl.getPointer() : null);
+  if (lastError != 0) {
+    throw new Win32Exception(lastError);
+  }
+}

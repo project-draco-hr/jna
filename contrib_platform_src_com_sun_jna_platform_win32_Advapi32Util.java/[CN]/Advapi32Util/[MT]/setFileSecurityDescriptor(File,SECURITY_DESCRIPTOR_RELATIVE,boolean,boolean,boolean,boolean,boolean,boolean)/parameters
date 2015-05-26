@@ -1,0 +1,8 @@
+File file
+SECURITY_DESCRIPTOR_RELATIVE securityDescriptor
+boolean setOwner
+boolean setGroup
+boolean setDACL
+boolean setSACL
+boolean setDACLProtectedStatus
+boolean setSACLProtectedStatus

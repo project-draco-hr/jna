@@ -1,0 +1,13 @@
+{
+  int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION| (getSACL ? SACL_SECURITY_INFORMATION : 0);
+  PointerByReference ppSecurityDescriptor=new PointerByReference();
+  int lastError=Advapi32.INSTANCE.GetNamedSecurityInfo(absoluteObjectPath,objectType,infoType,null,null,null,null,ppSecurityDescriptor);
+  if (lastError != 0) {
+    throw new Win32Exception(lastError);
+  }
+  int nLength=Advapi32.INSTANCE.GetSecurityDescriptorLength(ppSecurityDescriptor.getValue());
+  final Memory memory=new Memory(nLength);
+  memory.write(0,ppSecurityDescriptor.getValue().getByteArray(0,nLength),0,nLength);
+  Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
+  return memory;
+}
