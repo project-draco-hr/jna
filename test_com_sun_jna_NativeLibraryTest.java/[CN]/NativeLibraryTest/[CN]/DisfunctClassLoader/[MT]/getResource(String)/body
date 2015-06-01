@@ -1,0 +1,9 @@
+{
+  try {
+    return new URL("jar","",name);
+  }
+ catch (  MalformedURLException e) {
+    fail("Could not even create disfunct library URL: " + e.getMessage());
+    return null;
+  }
+}
