@@ -1,0 +1,9 @@
+{
+  int machPort=SystemB.INSTANCE.mach_host_self();
+  assertTrue(machPort > 0);
+  LongByReference pPageSize=new LongByReference();
+  int ret=SystemB.INSTANCE.host_page_size(machPort,pPageSize);
+  assertEquals(ret,0);
+  assertTrue(pPageSize.getValue() > 0);
+  assertEquals(pPageSize.getValue() & (pPageSize.getValue() - 1),0);
+}
