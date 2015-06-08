@@ -1,0 +1,8 @@
+{
+  int machPort=SystemB.INSTANCE.mach_host_self();
+  assertTrue(machPort > 0);
+  HostCpuLoadInfo cpuLoadInfo=new HostCpuLoadInfo();
+  int ret=SystemB.INSTANCE.host_statistics(machPort,SystemB.HOST_CPU_LOAD_INFO,cpuLoadInfo,new IntByReference(cpuLoadInfo.size()));
+  assertEquals(ret,0);
+  assertEquals(cpuLoadInfo.cpu_ticks.length,SystemB.CPU_STATE_MAX);
+}
