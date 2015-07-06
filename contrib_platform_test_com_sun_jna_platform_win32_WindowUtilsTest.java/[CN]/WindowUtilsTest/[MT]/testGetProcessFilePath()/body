@@ -1,4 +1,7 @@
 {
+  if (!Platform.isWindows()) {
+    return;
+  }
   final JFrame w=new JFrame();
   try {
     w.setVisible(true);
