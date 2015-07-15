@@ -1,0 +1,10 @@
+{
+switch (code) {
+case 0:
+    return STATUS_0;
+case 1:
+  return STATUS_1;
+default :
+return STATUS_ERROR;
+}
+}
