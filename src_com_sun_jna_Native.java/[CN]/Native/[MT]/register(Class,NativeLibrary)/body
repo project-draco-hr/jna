@@ -2,6 +2,7 @@
   Method[] methods=cls.getDeclaredMethods();
   List mlist=new ArrayList();
   TypeMapper mapper=(TypeMapper)lib.getOptions().get(Library.OPTION_TYPE_MAPPER);
+  cacheOptions(cls,lib.getOptions(),null);
   for (int i=0; i < methods.length; i++) {
     if ((methods[i].getModifiers() & Modifier.NATIVE) != 0) {
       mlist.add(methods[i]);
@@ -26,7 +27,7 @@ case CVT_UNSUPPORTED:
       throw new IllegalArgumentException(rclass + " is not a supported return type (in method " + method.getName()+ " in "+ cls+ ")");
 case CVT_TYPE_MAPPER:
     fromNative=mapper.getFromNativeConverter(rclass);
-  closure_rtype=FFIType.get(rclass).peer;
+  closure_rtype=FFIType.get(rclass.isPrimitive() ? rclass : Pointer.class).peer;
 rtype=FFIType.get(fromNative.nativeType()).peer;
 break;
 case CVT_NATIVE_MAPPED:
@@ -101,5 +102,4 @@ synchronized (registeredClasses) {
 registeredClasses.put(cls,handles);
 registeredLibraries.put(cls,lib);
 }
-cacheOptions(cls,lib.getOptions(),null);
 }
