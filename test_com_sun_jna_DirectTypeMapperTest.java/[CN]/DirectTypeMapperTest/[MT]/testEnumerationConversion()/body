@@ -1,0 +1,5 @@
+{
+  DirectTypeMappedEnumerationTestLibrary lib=new DirectTypeMappedEnumerationTestLibrary();
+  DirectTypeMappedEnumerationTestLibrary.Enumeration e=lib.returnInt32Argument(DirectTypeMappedEnumerationTestLibrary.Enumeration.STATUS_1);
+  assertEquals("Failed to convert enumeration",DirectTypeMappedEnumerationTestLibrary.Enumeration.STATUS_1,e);
+}
