@@ -1,0 +1,12 @@
+{
+  DWORDByReference pcchBufferSize=new DWORDByReference();
+  int status=pdh.PdhMakeCounterPath(pathElements,null,pcchBufferSize,0);
+  assertEquals("Unexpected status code: 0x" + Integer.toHexString(status),PdhMsg.PDH_MORE_DATA,status);
+  DWORD bufSize=pcchBufferSize.getValue();
+  int numChars=bufSize.intValue();
+  assertTrue("Bad required buffer size: " + numChars,numChars > 0);
+  char[] szFullPathBuffer=new char[numChars + 1];
+  pcchBufferSize.setValue(new DWORD(szFullPathBuffer.length));
+  assertErrorSuccess("PdhMakeCounterPath",pdh.PdhMakeCounterPath(pathElements,szFullPathBuffer,pcchBufferSize,0),true);
+  return Native.toString(szFullPathBuffer);
+}

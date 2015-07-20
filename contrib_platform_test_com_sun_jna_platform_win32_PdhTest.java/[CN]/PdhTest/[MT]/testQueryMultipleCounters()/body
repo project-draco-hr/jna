@@ -1,0 +1,52 @@
+{
+  Collection<String> names=new LinkedList<String>();
+  PDH_COUNTER_PATH_ELEMENTS elems=new PDH_COUNTER_PATH_ELEMENTS();
+  elems.szObjectName="Processor";
+  elems.szInstanceName="_Total";
+  for (  String n : new String[]{"% Processor Time","% Idle Time","% User Time"}) {
+    elems.szCounterName=n;
+    String counterName=makeCounterPath(pdh,elems);
+    names.add(counterName);
+  }
+  HANDLEByReference ref=new HANDLEByReference();
+  assertErrorSuccess("PdhOpenQuery",pdh.PdhOpenQuery(null,null,ref),true);
+  HANDLE hQuery=ref.getValue();
+  try {
+    Map<String,HANDLE> handlesMap=new HashMap<String,HANDLE>(names.size());
+    try {
+      for (      String counterName : names) {
+        ref.setValue(null);
+        assertErrorSuccess("PdhAddCounter[" + counterName + "]",pdh.PdhAddCounter(hQuery,counterName,null,ref),true);
+        HANDLE hCounter=ref.getValue();
+        handlesMap.put(counterName,hCounter);
+      }
+      assertErrorSuccess("PdhCollectQueryData",pdh.PdhCollectQueryData(hQuery),true);
+      for (      Map.Entry<String,HANDLE> ch : handlesMap.entrySet()) {
+        String counterName=ch.getKey();
+        HANDLE hCounter=ch.getValue();
+        PDH_RAW_COUNTER rawCounter=new PDH_RAW_COUNTER();
+        DWORDByReference lpdwType=new DWORDByReference();
+        assertErrorSuccess("PdhGetRawCounterValue[" + counterName + "]",pdh.PdhGetRawCounterValue(hCounter,lpdwType,rawCounter),true);
+        assertEquals("Bad counter data status for " + counterName,PdhMsg.PDH_CSTATUS_VALID_DATA,rawCounter.CStatus);
+        showRawCounterData(System.out,counterName,rawCounter);
+      }
+    }
+  finally {
+      names.clear();
+      for (      Map.Entry<String,HANDLE> ch : handlesMap.entrySet()) {
+        String name=ch.getKey();
+        HANDLE hCounter=ch.getValue();
+        int status=pdh.PdhRemoveCounter(hCounter);
+        if (status != WinError.ERROR_SUCCESS) {
+          names.add(name);
+        }
+      }
+      if (names.size() > 0) {
+        fail("Failed to remove counters: " + names);
+      }
+    }
+  }
+  finally {
+    assertErrorSuccess("PdhCloseQuery",pdh.PdhCloseQuery(hQuery),true);
+  }
+}

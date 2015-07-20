@@ -1,0 +1,3 @@
+{
+  out.append('\t').append(counterName).append(" ").append(String.valueOf(rawCounter.TimeStamp.toDate())).append(" 1st=").append(String.valueOf(rawCounter.FirstValue)).append(" 2nd=").append(String.valueOf(rawCounter.SecondValue)).append(" multi=").append(String.valueOf(rawCounter.MultiCount)).println();
+}

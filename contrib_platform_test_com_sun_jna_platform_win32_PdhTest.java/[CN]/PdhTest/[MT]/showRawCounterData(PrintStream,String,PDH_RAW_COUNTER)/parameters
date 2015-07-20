@@ -1,0 +1,3 @@
+PrintStream out
+String counterName
+PDH_RAW_COUNTER rawCounter
