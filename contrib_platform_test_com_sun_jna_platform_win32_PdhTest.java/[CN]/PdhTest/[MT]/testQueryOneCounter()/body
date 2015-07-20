@@ -1,0 +1,32 @@
+{
+  PDH_COUNTER_PATH_ELEMENTS elems=new PDH_COUNTER_PATH_ELEMENTS();
+  elems.szObjectName="Processor";
+  elems.szInstanceName="_Total";
+  elems.szCounterName="% Processor Time";
+  String counterName=makeCounterPath(pdh,elems);
+  HANDLEByReference ref=new HANDLEByReference();
+  assertErrorSuccess("PdhOpenQuery",pdh.PdhOpenQuery(null,null,ref),true);
+  HANDLE hQuery=ref.getValue();
+  try {
+    ref.setValue(null);
+    assertErrorSuccess("PdhAddCounter",pdh.PdhAddCounter(hQuery,counterName,null,ref),true);
+    HANDLE hCounter=ref.getValue();
+    try {
+      assertErrorSuccess("PdhCollectQueryData",pdh.PdhCollectQueryData(hQuery),true);
+      DWORDByReference lpdwType=new DWORDByReference();
+      PDH_RAW_COUNTER rawCounter=new PDH_RAW_COUNTER();
+      assertErrorSuccess("PdhGetRawCounterValue",pdh.PdhGetRawCounterValue(hCounter,lpdwType,rawCounter),true);
+      assertEquals("Bad counter data status",PdhMsg.PDH_CSTATUS_VALID_DATA,rawCounter.CStatus);
+      DWORD dwType=lpdwType.getValue();
+      int typeValue=dwType.intValue();
+      assertEquals("Mismatched counter type",WinPerf.PERF_100NSEC_TIMER_INV,typeValue);
+      showRawCounterData(System.out,counterName,rawCounter);
+    }
+  finally {
+      assertErrorSuccess("PdhRemoveCounter",pdh.PdhRemoveCounter(hCounter),true);
+    }
+  }
+  finally {
+    assertErrorSuccess("PdhCloseQuery",pdh.PdhCloseQuery(hQuery),true);
+  }
+}
