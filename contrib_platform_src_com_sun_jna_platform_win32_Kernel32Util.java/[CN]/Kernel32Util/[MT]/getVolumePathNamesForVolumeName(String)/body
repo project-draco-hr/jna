@@ -1,0 +1,17 @@
+{
+  char[] lpszVolumePathNames=new char[WinDef.MAX_PATH + 1];
+  IntByReference lpcchReturnLength=new IntByReference();
+  if (!Kernel32.INSTANCE.GetVolumePathNamesForVolumeName(lpszVolumeName,lpszVolumePathNames,lpszVolumePathNames.length,lpcchReturnLength)) {
+    int hr=Kernel32.INSTANCE.GetLastError();
+    if (hr != WinError.ERROR_MORE_DATA) {
+      throw new Win32Exception(hr);
+    }
+    int required=lpcchReturnLength.getValue();
+    lpszVolumePathNames=new char[required];
+    if (!Kernel32.INSTANCE.GetVolumePathNamesForVolumeName(lpszVolumeName,lpszVolumePathNames,lpszVolumePathNames.length,lpcchReturnLength)) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+  }
+  int bufSize=lpcchReturnLength.getValue();
+  return Native.toStringList(lpszVolumePathNames,0,bufSize);
+}

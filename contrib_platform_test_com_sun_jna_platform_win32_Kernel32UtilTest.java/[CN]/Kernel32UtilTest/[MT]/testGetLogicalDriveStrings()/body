@@ -1,7 +1,7 @@
 {
-  String[] logicalDrives=Kernel32Util.getLogicalDriveStrings();
-  assertTrue(logicalDrives.length > 0);
+  Collection<String> logicalDrives=Kernel32Util.getLogicalDriveStrings();
+  assertTrue("No logical drives found",logicalDrives.size() > 0);
   for (  String logicalDrive : logicalDrives) {
-    assertTrue(logicalDrive.length() > 0);
+    assertTrue("Empty logical drive name in list",logicalDrive.length() > 0);
   }
 }

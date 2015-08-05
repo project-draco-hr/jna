@@ -1,0 +1,12 @@
+{
+  if ((handle == null) || WinBase.INVALID_HANDLE_VALUE.equals(handle)) {
+    int hr=Kernel32.INSTANCE.GetLastError();
+    if (hr == WinError.ERROR_SUCCESS) {
+      fail(message + " failed with unknown reason code");
+    }
+ else {
+      fail(message + " failed: hr=" + hr+ " - 0x"+ Integer.toHexString(hr));
+    }
+  }
+  return handle;
+}

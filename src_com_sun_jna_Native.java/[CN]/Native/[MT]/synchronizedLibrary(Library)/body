@@ -9,7 +9,7 @@
   }
   final Library.Handler handler=(Library.Handler)ih;
   InvocationHandler newHandler=new InvocationHandler(){
-    public Object invoke(    Object proxy,    Method method,    Object[] args) throws Throwable {
+    @Override public Object invoke(    Object proxy,    Method method,    Object[] args) throws Throwable {
 synchronized (handler.getNativeLibrary()) {
         return handler.invoke(library,method,args);
       }

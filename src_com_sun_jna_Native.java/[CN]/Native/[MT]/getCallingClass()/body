@@ -1,6 +1,6 @@
 {
   Class[] context=new SecurityManager(){
-    public Class[] getClassContext(){
+    @Override public Class[] getClassContext(){
       return super.getClassContext();
     }
   }
