@@ -1,0 +1,24 @@
+{
+  Collection<String> logicalDrives=Kernel32Util.getLogicalDriveStrings();
+  char[] lpVolumeNameBuffer=new char[WinDef.MAX_PATH + 1];
+  for (  String lpszVolumeMountPoint : logicalDrives) {
+    if (lpszVolumeMountPoint.charAt(lpszVolumeMountPoint.length() - 1) != File.separatorChar) {
+      lpszVolumeMountPoint+=File.separator;
+    }
+    int driveType=Kernel32.INSTANCE.GetDriveType(lpszVolumeMountPoint);
+    if (driveType != WinBase.DRIVE_FIXED) {
+      continue;
+    }
+    if (Kernel32.INSTANCE.GetVolumeNameForVolumeMountPoint(lpszVolumeMountPoint,lpVolumeNameBuffer,lpVolumeNameBuffer.length)) {
+      String volumeGUID=Native.toString(lpVolumeNameBuffer);
+      assertTrue("Empty GUID for " + lpszVolumeMountPoint,volumeGUID.length() > 0);
+    }
+ else {
+      int hr=Kernel32.INSTANCE.GetLastError();
+      if ((hr == WinError.ERROR_ACCESS_DENIED) || (hr == WinError.ERROR_NOT_READY)) {
+        continue;
+      }
+      fail("Cannot (error=" + hr + ") get volume information mount point "+ lpszVolumeMountPoint);
+    }
+  }
+}

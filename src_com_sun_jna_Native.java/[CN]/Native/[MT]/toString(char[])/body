@@ -1,8 +1,15 @@
 {
-  String s=new String(buf);
-  int term=s.indexOf(0);
-  if (term != -1) {
-    s=s.substring(0,term);
+  int len=buf.length;
+  for (int index=0; index < len; index++) {
+    if (buf[index] == '\0') {
+      len=index;
+      break;
+    }
   }
-  return s;
+  if (len == 0) {
+    return "";
+  }
+ else {
+    return new String(buf,0,len);
+  }
 }

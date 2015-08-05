@@ -1,0 +1,23 @@
+{
+  char[] lpszVolumeMountPoint=new char[WinDef.MAX_PATH + 1];
+  HANDLE hFindVolumeMountPoint=Kernel32.INSTANCE.FindFirstVolumeMountPoint(volumeGUID,lpszVolumeMountPoint,lpszVolumeMountPoint.length);
+  if (WinNT.INVALID_HANDLE_VALUE.equals(hFindVolumeMountPoint)) {
+    int hr=Kernel32.INSTANCE.GetLastError();
+    if ((hr == WinError.ERROR_ACCESS_DENIED) || (hr == WinError.ERROR_NOT_READY)) {
+      return;
+    }
+    fail("Cannot (error=" + hr + ") open mount point search handle for "+ volumeGUID);
+  }
+  try {
+    do {
+      String name=Native.toString(lpszVolumeMountPoint);
+      assertTrue("Empty mount point for " + volumeGUID,name.length() > 0);
+    }
+ while (Kernel32.INSTANCE.FindNextVolumeMountPoint(hFindVolumeMountPoint,lpszVolumeMountPoint,lpszVolumeMountPoint.length));
+    int hr=Kernel32.INSTANCE.GetLastError();
+    assertEquals("Mount points enum termination reason for " + volumeGUID,WinError.ERROR_NO_MORE_FILES,hr);
+  }
+  finally {
+    assertCallSucceeded("FindVolumeMountPointClose(" + volumeGUID + ")",Kernel32.INSTANCE.FindVolumeMountPointClose(hFindVolumeMountPoint));
+  }
+}

@@ -1,6 +1,0 @@
-{
-  DWORD dwSize=Kernel32.INSTANCE.GetLogicalDriveStrings(new DWORD(0),null);
-  assertTrue(dwSize.intValue() > 0);
-  char buf[]=new char[dwSize.intValue()];
-  assertTrue(Kernel32.INSTANCE.GetLogicalDriveStrings(dwSize,buf).intValue() > 0);
-}

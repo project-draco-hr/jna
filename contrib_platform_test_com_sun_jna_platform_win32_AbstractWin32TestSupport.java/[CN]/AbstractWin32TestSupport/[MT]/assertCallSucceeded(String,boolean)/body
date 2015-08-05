@@ -7,6 +7,6 @@
     fail(message + " failed with unknown reason code");
   }
  else {
-    fail(message + " failed: hr=0x" + Integer.toHexString(hr));
+    fail(message + " failed: hr=" + hr+ " - 0x"+ Integer.toHexString(hr));
   }
 }
