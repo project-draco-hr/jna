@@ -1,0 +1,4 @@
+{
+  Collection<String> dupSet=detectDuplicateMethods(ifc);
+  assertTrue("Duplicate names found in " + ifc.getSimpleName() + ": "+ dupSet,dupSet.isEmpty());
+}

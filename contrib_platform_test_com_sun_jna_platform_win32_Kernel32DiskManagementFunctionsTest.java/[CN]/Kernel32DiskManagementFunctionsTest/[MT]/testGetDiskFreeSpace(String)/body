@@ -1,0 +1,11 @@
+{
+  DWORDByReference lpSectorsPerCluster=new DWORDByReference();
+  DWORDByReference lpBytesPerSector=new DWORDByReference();
+  DWORDByReference lpNumberOfFreeClusters=new DWORDByReference();
+  DWORDByReference lpTotalNumberOfClusters=new DWORDByReference();
+  assertCallSucceeded("GetDiskFreeSpace(" + lpRootPathName + ")",Kernel32.INSTANCE.GetDiskFreeSpace(lpRootPathName,lpSectorsPerCluster,lpBytesPerSector,lpNumberOfFreeClusters,lpTotalNumberOfClusters));
+  DWORD freeSize=lpNumberOfFreeClusters.getValue();
+  assertTrue("No free clusters for " + lpRootPathName,freeSize.longValue() > 0L);
+  DWORD totalSize=lpTotalNumberOfClusters.getValue();
+  assertTrue("Free clusters (" + freeSize + ") not below total ("+ totalSize+ ") for "+ lpRootPathName,freeSize.longValue() < totalSize.longValue());
+}

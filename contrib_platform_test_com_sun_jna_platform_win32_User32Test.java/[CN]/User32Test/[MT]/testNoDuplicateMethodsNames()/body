@@ -1,0 +1,9 @@
+{
+  Collection<String> dupSet=AbstractWin32TestSupport.detectDuplicateMethods(User32.class);
+  if (dupSet.size() > 0) {
+    for (    String name : new String[]{"GetMonitorInfo"}) {
+      dupSet.remove(name);
+    }
+  }
+  assertTrue("Duplicate methods found: " + dupSet,dupSet.isEmpty());
+}

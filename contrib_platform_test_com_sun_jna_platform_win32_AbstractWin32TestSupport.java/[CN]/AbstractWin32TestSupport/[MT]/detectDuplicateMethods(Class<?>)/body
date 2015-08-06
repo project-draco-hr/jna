@@ -1,0 +1,12 @@
+{
+  Method[] methods=ifc.getMethods();
+  Set<String> nameSet=new HashSet<String>(methods.length);
+  Set<String> dupSet=new HashSet<String>();
+  for (  Method m : methods) {
+    String name=m.getName();
+    if (!nameSet.add(name)) {
+      dupSet.add(name);
+    }
+  }
+  return dupSet;
+}

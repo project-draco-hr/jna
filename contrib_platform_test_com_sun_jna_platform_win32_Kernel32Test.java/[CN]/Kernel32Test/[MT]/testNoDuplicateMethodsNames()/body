@@ -1,0 +1,9 @@
+{
+  Collection<String> dupSet=AbstractWin32TestSupport.detectDuplicateMethods(Kernel32.class);
+  if (dupSet.size() > 0) {
+    for (    String name : new String[]{"GetVersionEx"}) {
+      dupSet.remove(name);
+    }
+  }
+  assertTrue("Duplicate methods found: " + dupSet,dupSet.isEmpty());
+}

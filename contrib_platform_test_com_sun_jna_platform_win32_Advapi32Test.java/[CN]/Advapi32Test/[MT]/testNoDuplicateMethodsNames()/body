@@ -1,0 +1,9 @@
+{
+  Collection<String> dupSet=AbstractWin32TestSupport.detectDuplicateMethods(Advapi32.class);
+  if (dupSet.size() > 0) {
+    for (    String name : new String[]{"RegQueryValueEx","RegSetValueEx"}) {
+      dupSet.remove(name);
+    }
+  }
+  assertTrue("Duplicate methods found: " + dupSet,dupSet.isEmpty());
+}
