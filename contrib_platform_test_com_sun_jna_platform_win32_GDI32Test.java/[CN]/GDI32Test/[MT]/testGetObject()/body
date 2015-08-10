@@ -1,8 +1,8 @@
 {
   final ICONINFO iconInfo=new ICONINFO();
-  final HANDLE hIcon=User32.INSTANCE.LoadImage(null,new File(getClass().getResource("/res/test_icon.ico").toURI()).getAbsolutePath(),WinUser.IMAGE_ICON,0,0,WinUser.LR_LOADFROMFILE);
+  final HANDLE hImage=User32.INSTANCE.LoadImage(null,new File(getClass().getResource("/res/test_icon.ico").toURI()).getAbsolutePath(),WinUser.IMAGE_ICON,0,0,WinUser.LR_LOADFROMFILE);
   try {
-    if (!User32.INSTANCE.GetIconInfo(hIcon,iconInfo))     throw new Exception("Invocation of User32.GetIconInfo() failed: " + Kernel32Util.getLastErrorMessage());
+    if (!User32.INSTANCE.GetIconInfo(new HICON(hImage),iconInfo))     throw new Exception("Invocation of User32.GetIconInfo() failed: " + Kernel32Util.getLastErrorMessage());
     iconInfo.read();
     BITMAP bmp=new BITMAP();
     int nWrittenBytes=GDI32.INSTANCE.GetObject(iconInfo.hbmColor,bmp.size(),bmp.getPointer());

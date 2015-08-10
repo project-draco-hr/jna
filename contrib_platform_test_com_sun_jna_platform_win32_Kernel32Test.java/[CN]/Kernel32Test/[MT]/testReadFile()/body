@@ -3,15 +3,23 @@
   File tmp=File.createTempFile("testReadFile","jna");
   tmp.deleteOnExit();
   FileWriter fw=new FileWriter(tmp);
-  fw.append(expected);
-  fw.close();
+  try {
+    fw.append(expected);
+  }
+  finally {
+    fw.close();
+  }
   HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
-  assertFalse(hFile == WinBase.INVALID_HANDLE_VALUE);
-  Memory m=new Memory(2048);
-  IntByReference lpNumberOfBytesRead=new IntByReference(0);
-  assertTrue(Kernel32.INSTANCE.ReadFile(hFile,m,(int)m.size(),lpNumberOfBytesRead,null));
-  int read=lpNumberOfBytesRead.getValue();
-  assertEquals(expected.length(),read);
-  assertEquals(expected,new String(m.getByteArray(0,read)));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
+  assertFalse("Failed to create file handle: " + tmp,WinBase.INVALID_HANDLE_VALUE.equals(hFile));
+  try {
+    byte[] readBuffer=new byte[expected.length() + Byte.MAX_VALUE];
+    IntByReference lpNumberOfBytesRead=new IntByReference(0);
+    assertTrue("Failed to read from file",Kernel32.INSTANCE.ReadFile(hFile,readBuffer,readBuffer.length,lpNumberOfBytesRead,null));
+    int read=lpNumberOfBytesRead.getValue();
+    assertEquals("Mismatched read size",expected.length(),read);
+    assertEquals("Mismatched read content",expected,new String(readBuffer,0,read));
+  }
+  finally {
+    assertTrue("Failed to close file",Kernel32.INSTANCE.CloseHandle(hFile));
+  }
 }

@@ -6,22 +6,19 @@
   try {
     Future<?> server=executors.submit(new Runnable(){
       @Override public void run(){
-        HANDLE hNamedPipe=Kernel32.INSTANCE.CreateNamedPipe(pipeName,WinBase.PIPE_ACCESS_DUPLEX,WinBase.PIPE_TYPE_MESSAGE | WinBase.PIPE_READMODE_MESSAGE | WinBase.PIPE_WAIT,1,MAX_BUFFER_SIZE,MAX_BUFFER_SIZE,(int)TimeUnit.SECONDS.toMillis(30L),null);
-        assertCallSucceeded("CreateNamedPipe",!WinBase.INVALID_HANDLE_VALUE.equals(hNamedPipe));
+        HANDLE hNamedPipe=assertValidHandle("CreateNamedPipe",Kernel32.INSTANCE.CreateNamedPipe(pipeName,WinBase.PIPE_ACCESS_DUPLEX,WinBase.PIPE_TYPE_MESSAGE | WinBase.PIPE_READMODE_MESSAGE | WinBase.PIPE_WAIT,1,MAX_BUFFER_SIZE,MAX_BUFFER_SIZE,(int)TimeUnit.SECONDS.toMillis(30L),null));
         try {
           logger.info("Await client connection");
           assertCallSucceeded("ConnectNamedPipe",Kernel32.INSTANCE.ConnectNamedPipe(hNamedPipe,null));
           logger.info("Client connected");
-          ByteBuffer readBuffer=ByteBuffer.allocate(MAX_BUFFER_SIZE);
+          byte[] readBuffer=new byte[MAX_BUFFER_SIZE];
           IntByReference lpNumberOfBytesRead=new IntByReference(0);
-          assertCallSucceeded("ReadFile",Kernel32.INSTANCE.ReadFile(hNamedPipe,readBuffer,MAX_BUFFER_SIZE,lpNumberOfBytesRead,null));
+          assertCallSucceeded("ReadFile",Kernel32.INSTANCE.ReadFile(hNamedPipe,readBuffer,readBuffer.length,lpNumberOfBytesRead,null));
           int readSize=lpNumberOfBytesRead.getValue();
           logger.info("Received client data - length=" + readSize);
           assertTrue("No data receieved from client",readSize > 0);
-          byte[] writeBuffer=new byte[readSize];
-          readBuffer.get(writeBuffer);
           IntByReference lpNumberOfBytesWritten=new IntByReference(0);
-          assertCallSucceeded("WriteFile",Kernel32.INSTANCE.WriteFile(hNamedPipe,writeBuffer,readSize,lpNumberOfBytesWritten,null));
+          assertCallSucceeded("WriteFile",Kernel32.INSTANCE.WriteFile(hNamedPipe,readBuffer,readSize,lpNumberOfBytesWritten,null));
           logger.info("Echoed client data - length=" + lpNumberOfBytesWritten.getValue());
           assertEquals("Mismatched write buffer size",readSize,lpNumberOfBytesWritten.getValue());
           assertCallSucceeded("FlushFileBuffers",Kernel32.INSTANCE.FlushFileBuffers(hNamedPipe));
@@ -40,8 +37,7 @@
       @Override public void run(){
         assertCallSucceeded("WaitNamedPipe",Kernel32.INSTANCE.WaitNamedPipe(pipeName,(int)TimeUnit.SECONDS.toMillis(15L)));
         logger.info("Connected to server");
-        HANDLE hPipe=Kernel32.INSTANCE.CreateFile(pipeName,WinNT.GENERIC_READ | WinNT.GENERIC_WRITE,0,null,WinNT.OPEN_EXISTING,0,null);
-        assertCallSucceeded("CreateNamedPipe",!WinBase.INVALID_HANDLE_VALUE.equals(hPipe));
+        HANDLE hPipe=assertValidHandle("CreateNamedPipe",Kernel32.INSTANCE.CreateFile(pipeName,WinNT.GENERIC_READ | WinNT.GENERIC_WRITE,0,null,WinNT.OPEN_EXISTING,0,null));
         try {
           IntByReference lpMode=new IntByReference(WinBase.PIPE_READMODE_MESSAGE);
           assertCallSucceeded("SetNamedPipeHandleState",Kernel32.INSTANCE.SetNamedPipeHandleState(hPipe,lpMode,null,null));
@@ -51,15 +47,14 @@
           assertCallSucceeded("WriteFile",Kernel32.INSTANCE.WriteFile(hPipe,expData,expData.length,lpNumberOfBytesWritten,null));
           logger.info("Sent hello message");
           assertEquals("Mismatched write buffer size",expData.length,lpNumberOfBytesWritten.getValue());
-          ByteBuffer readBuffer=ByteBuffer.allocate(MAX_BUFFER_SIZE);
+          byte[] readBuffer=new byte[MAX_BUFFER_SIZE];
           IntByReference lpNumberOfBytesRead=new IntByReference(0);
-          assertCallSucceeded("ReadFile",Kernel32.INSTANCE.ReadFile(hPipe,readBuffer,MAX_BUFFER_SIZE,lpNumberOfBytesRead,null));
+          assertCallSucceeded("ReadFile",Kernel32.INSTANCE.ReadFile(hPipe,readBuffer,readBuffer.length,lpNumberOfBytesRead,null));
           int readSize=lpNumberOfBytesRead.getValue();
           logger.info("Received server data - length=" + readSize);
           assertTrue("No data receieved from server",readSize > 0);
-          byte[] actData=new byte[readSize];
-          readBuffer.get(actData);
-          assertArrayEquals("Mismatched server data",expData,actData);
+          String actMessage=new String(readBuffer,0,readSize);
+          assertEquals("Mismatched server data",expMessage,actMessage);
         }
   finally {
           assertCallSucceeded("Named pipe handle close",Kernel32.INSTANCE.CloseHandle(hPipe));
