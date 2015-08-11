@@ -1,0 +1,3 @@
+{
+  testComparableIntegerType(SHORT.class,5637L,7365L);
+}

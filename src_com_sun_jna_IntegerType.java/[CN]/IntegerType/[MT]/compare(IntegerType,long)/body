@@ -1,0 +1,8 @@
+{
+  if (v1 == null) {
+    return 1;
+  }
+ else {
+    return compare(v1.longValue(),v2);
+  }
+}

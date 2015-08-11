@@ -1,0 +1,7 @@
+{
+  final long v1=7365L;
+  final long v2=3777347L;
+  assertEquals("Mismatched same value comparison",0,IntegerType.compare(v1,v1));
+  assertEquals("Mismatched natural order comparison",(-1),IntegerType.compare(v1,v2));
+  assertEquals("Mismatched reversed order comparison",1,IntegerType.compare(v2,v1));
+}

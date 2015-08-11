@@ -1,0 +1,13 @@
+{
+  assertTrue(clazz.getSimpleName() + " test values not in natural order: v1=" + v1+ ", v2="+ v2,v1.longValue() < v2.longValue());
+  assertEquals("Mismatched null/null comparison",0,IntegerType.compare(null,null));
+  assertEquals("Mismatched null/value comparison",1,IntegerType.compare(null,v1));
+  assertEquals("Mismatched null/long comparison",1,IntegerType.compare(null,v2.longValue()));
+  assertEquals("Mismatched natural order value/long comparison",-1,IntegerType.compare(v1,v2.longValue()));
+  assertEquals("Mismatched reversed order value/long comparison",1,IntegerType.compare(v2,v1.longValue()));
+  assertEquals("Mismatched self value/long comparison",0,IntegerType.compare(v1,v1.longValue()));
+  assertEquals("Mismatched value/null comparison",(-1),v1.compareTo(null));
+  assertEquals("Mismatched self value comparison",0,v1.compareTo(v1));
+  assertEquals("Mismatched natural order comparison",(-1),v1.compareTo(v2));
+  assertEquals("Mismatched reversed order comparison",1,v2.compareTo(v1));
+}

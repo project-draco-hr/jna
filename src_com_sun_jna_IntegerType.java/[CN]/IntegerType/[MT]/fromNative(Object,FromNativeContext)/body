@@ -1,7 +1,7 @@
 {
   long value=nativeValue == null ? 0 : ((Number)nativeValue).longValue();
   try {
-    IntegerType number=(IntegerType)getClass().newInstance();
+    IntegerType number=getClass().newInstance();
     number.setValue(value);
     return number;
   }
