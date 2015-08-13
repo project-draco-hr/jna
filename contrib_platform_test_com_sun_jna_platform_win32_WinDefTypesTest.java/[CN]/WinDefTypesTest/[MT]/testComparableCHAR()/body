@@ -1,0 +1,3 @@
+{
+  testComparableIntegerType(CHAR.class,'a','z');
+}
