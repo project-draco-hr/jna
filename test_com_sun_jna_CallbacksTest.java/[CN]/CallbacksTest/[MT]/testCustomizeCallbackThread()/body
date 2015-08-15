@@ -18,9 +18,7 @@
       if (thread.isAlive()) {
         alive[0]=true;
       }
-      if (++called[0] == 2) {
-        Native.detach(true);
-      }
+      ++called[0];
     }
   }
 ;
@@ -39,11 +37,5 @@
       fail("Timed out waiting for second callback invocation, which indicates detach");
     }
   }
-  start=System.currentTimeMillis();
-  while (t[0].isAlive()) {
-    Thread.sleep(10);
-    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
-      fail("Timed out waiting for thread to detach and terminate");
-    }
-  }
+  waitFor(t[0]);
 }

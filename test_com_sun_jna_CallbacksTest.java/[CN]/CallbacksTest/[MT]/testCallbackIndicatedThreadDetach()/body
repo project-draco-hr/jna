@@ -19,13 +19,5 @@
 ;
   callThreadedCallback(cb,null,COUNT,100,called);
   assertEquals("Multiple callbacks in the same native thread should use the same Thread mapping: " + threads,1,threads.size());
-  Thread thread=(Thread)threads.iterator().next();
-  long start=System.currentTimeMillis();
-  while (thread.isAlive()) {
-    System.gc();
-    Thread.sleep(10);
-    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
-      fail("Timed out waiting for native thread " + thread + " to finish");
-    }
-  }
+  waitFor((Thread)threads.iterator().next());
 }

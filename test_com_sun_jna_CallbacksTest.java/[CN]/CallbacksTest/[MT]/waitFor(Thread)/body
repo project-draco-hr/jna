@@ -1,0 +1,9 @@
+{
+  long start=System.currentTimeMillis();
+  while (t.isAlive()) {
+    Thread.sleep(10);
+    if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
+      fail("Timed out waiting for native thread " + thread + " to detach and terminate");
+    }
+  }
+}
