@@ -1,0 +1,4 @@
+{
+  final int vTableId=4;
+  return (HRESULT)this._invokeNativeObject(vTableId,new Object[]{this.getPointer(),riid,ppCP},HRESULT.class);
+}

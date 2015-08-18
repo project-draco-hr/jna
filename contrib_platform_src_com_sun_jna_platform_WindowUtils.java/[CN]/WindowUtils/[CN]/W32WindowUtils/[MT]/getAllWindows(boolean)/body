@@ -1,0 +1,23 @@
+{
+  final List<DesktopWindow> result=new LinkedList<DesktopWindow>();
+  final WNDENUMPROC lpEnumFunc=new WNDENUMPROC(){
+    @Override public boolean callback(    final HWND hwnd,    final Pointer arg1){
+      try {
+        final boolean visible=!onlyVisibleWindows || User32.INSTANCE.IsWindowVisible(hwnd);
+        if (visible) {
+          final String title=getWindowTitle(hwnd);
+          final String filePath=getProcessFilePath(hwnd);
+          final Rectangle locAndSize=getWindowLocationAndSize(hwnd);
+          result.add(new DesktopWindow(hwnd,title,filePath,locAndSize));
+        }
+      }
+ catch (      final Exception e) {
+        e.printStackTrace();
+      }
+      return true;
+    }
+  }
+;
+  if (!User32.INSTANCE.EnumWindows(lpEnumFunc,null))   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  return result;
+}

@@ -1,0 +1,17 @@
+{
+  char[] lpszVolumeName=new char[WinDef.MAX_PATH + 1];
+  HANDLE hFindVolume=assertValidHandle("FindFirstVolume",Kernel32.INSTANCE.FindFirstVolume(lpszVolumeName,lpszVolumeName.length));
+  try {
+    do {
+      String volumeGUID=Native.toString(lpszVolumeName);
+      testEnumVolumeMountMoints(volumeGUID);
+      testGetVolumePathNamesForVolumeName(volumeGUID);
+    }
+ while (Kernel32.INSTANCE.FindNextVolume(hFindVolume,lpszVolumeName,lpszVolumeName.length));
+    int hr=Kernel32.INSTANCE.GetLastError();
+    assertEquals("Bad volumes enum termination reason",WinError.ERROR_NO_MORE_FILES,hr);
+  }
+  finally {
+    assertCallSucceeded("FindVolumeClose",Kernel32.INSTANCE.FindVolumeClose(hFindVolume));
+  }
+}

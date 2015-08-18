@@ -1,0 +1,3 @@
+{
+  testComparableIntegerType(UINT.class,7365L,3777347L);
+}

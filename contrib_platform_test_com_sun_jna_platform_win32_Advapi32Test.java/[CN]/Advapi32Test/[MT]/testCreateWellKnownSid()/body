@@ -6,6 +6,6 @@
   assertTrue(cbSid.getValue() <= WinNT.SECURITY_MAX_SID_SIZE);
   PointerByReference convertedSidStringPtr=new PointerByReference();
   assertTrue(Advapi32.INSTANCE.ConvertSidToStringSid(pSid,convertedSidStringPtr));
-  String convertedSidString=convertedSidStringPtr.getValue().getString(0,true);
+  String convertedSidString=convertedSidStringPtr.getValue().getWideString(0);
   assertEquals(EVERYONE,convertedSidString);
 }

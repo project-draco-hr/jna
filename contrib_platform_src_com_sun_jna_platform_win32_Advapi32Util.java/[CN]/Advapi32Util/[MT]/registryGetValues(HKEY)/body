@@ -62,7 +62,7 @@ break;
 case WinNT.REG_SZ:
 case WinNT.REG_EXPAND_SZ:
 {
-keyValues.put(nameString,byteData.getString(0,true));
+keyValues.put(nameString,byteData.getWideString(0));
 break;
 }
 case WinNT.REG_BINARY:
@@ -77,7 +77,7 @@ stringData.write(0,data,0,lpcbData.getValue());
 ArrayList<String> result=new ArrayList<String>();
 int offset=0;
 while (offset < stringData.size()) {
-String s=stringData.getString(offset,true);
+String s=stringData.getWideString(offset);
 offset+=s.length() * Native.WCHAR_SIZE;
 offset+=Native.WCHAR_SIZE;
 if (s.length() == 0 && offset == stringData.size()) {

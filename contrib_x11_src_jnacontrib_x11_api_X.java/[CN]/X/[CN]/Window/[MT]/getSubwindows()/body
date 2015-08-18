@@ -1,0 +1,29 @@
+{
+  WindowByReference root=new WindowByReference();
+  WindowByReference parent=new WindowByReference();
+  PointerByReference children=new PointerByReference();
+  IntByReference childCount=new IntByReference();
+  if (x11.XQueryTree(display.x11Display,x11Window,root,parent,children,childCount) == 0) {
+    throw new X11Exception("Can't query subwindows");
+  }
+  if (childCount.getValue() == 0) {
+    return null;
+  }
+  Window[] retVal=new Window[childCount.getValue()];
+  if (X11.XID.SIZE == 4) {
+    int[] windows=children.getValue().getIntArray(0,childCount.getValue());
+    for (int x=0; x < retVal.length; x++) {
+      X11.Window win=new X11.Window(windows[x]);
+      retVal[x]=new Window(display,win);
+    }
+  }
+ else {
+    long[] windows=children.getValue().getLongArray(0,childCount.getValue());
+    for (int x=0; x < retVal.length; x++) {
+      X11.Window win=new X11.Window(windows[x]);
+      retVal[x]=new Window(display,win);
+    }
+  }
+  x11.XFree(children.getValue());
+  return retVal;
+}

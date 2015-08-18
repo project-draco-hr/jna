@@ -1,0 +1,9 @@
+{
+  RASPPPIP pppIpProjection=new RASPPPIP();
+  IntByReference lpcb=new IntByReference(pppIpProjection.size());
+  pppIpProjection.write();
+  int err=Rasapi32.INSTANCE.RasGetProjectionInfo(hrasConn,RASP_PppIp,pppIpProjection.getPointer(),lpcb);
+  if (err != WinError.ERROR_SUCCESS)   throw new Ras32Exception(err);
+  pppIpProjection.read();
+  return pppIpProjection;
+}

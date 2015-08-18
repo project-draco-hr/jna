@@ -1,0 +1,3 @@
+{
+  return (HRESULT)this._invokeNativeObject(7,new Object[]{this.getPointer(),ppTLibAttr},HRESULT.class);
+}

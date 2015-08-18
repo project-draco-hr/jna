@@ -1,0 +1,6 @@
+{
+  final int requiredLength=User32.INSTANCE.GetWindowTextLength(hwnd) + 1;
+  final char[] title=new char[requiredLength];
+  final int length=User32.INSTANCE.GetWindowText(hwnd,title,title.length);
+  return Native.toString(Arrays.copyOfRange(title,0,length));
+}

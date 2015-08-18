@@ -1,0 +1,7 @@
+{
+  if (!contains(o)) {
+    ensureCapacity(count + 1);
+    elements[count++]=(Structure)o;
+  }
+  return true;
+}

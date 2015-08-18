@@ -1,0 +1,6 @@
+{
+  this.hwnd=hwnd;
+  this.title=title;
+  this.filePath=filePath;
+  this.locAndSize=locAndSize;
+}

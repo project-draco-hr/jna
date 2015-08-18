@@ -1,0 +1,29 @@
+{
+  final File tmp=File.createTempFile("testWritePrivateProfileSecion","ini");
+  tmp.deleteOnExit();
+  final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
+  try {
+    writer.println("[S1]");
+    writer.println("A=1");
+    writer.println("B=X");
+    writer.println("[S2]");
+    writer.println("C=2");
+    writer.println("foo=bar");
+  }
+  finally {
+    writer.close();
+  }
+  Kernel32Util.writePrivateProfileSection("S1",new String[]{"A=3","E=Z"},tmp.getCanonicalPath());
+  final BufferedReader reader=new BufferedReader(new FileReader(tmp));
+  try {
+    assertEquals(reader.readLine(),"[S1]");
+    assertEquals(reader.readLine(),"A=3");
+    assertEquals(reader.readLine(),"E=Z");
+    assertEquals(reader.readLine(),"[S2]");
+    assertEquals(reader.readLine(),"C=2");
+    assertEquals(reader.readLine(),"foo=bar");
+  }
+  finally {
+    reader.close();
+  }
+}

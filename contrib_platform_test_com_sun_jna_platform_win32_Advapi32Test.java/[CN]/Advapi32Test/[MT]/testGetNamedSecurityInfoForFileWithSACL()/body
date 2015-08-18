@@ -1,0 +1,37 @@
+{
+  boolean impersontating=false;
+  WinNT.LUID pLuid=new WinNT.LUID();
+  assertTrue(Advapi32.INSTANCE.LookupPrivilegeValue(null,SE_SECURITY_NAME,pLuid));
+  final HANDLEByReference phToken=new HANDLEByReference();
+  final HANDLEByReference phTokenDuplicate=new HANDLEByReference();
+  if (!Advapi32.INSTANCE.OpenThreadToken(Kernel32.INSTANCE.GetCurrentThread(),TOKEN_ADJUST_PRIVILEGES,false,phToken)) {
+    assertEquals(W32Errors.ERROR_NO_TOKEN,Kernel32.INSTANCE.GetLastError());
+    assertTrue(Advapi32.INSTANCE.OpenProcessToken(Kernel32.INSTANCE.GetCurrentProcess(),TOKEN_DUPLICATE,phToken));
+    assertTrue(Advapi32.INSTANCE.DuplicateTokenEx(phToken.getValue(),TOKEN_ADJUST_PRIVILEGES | TOKEN_IMPERSONATE,null,SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation,TOKEN_TYPE.TokenImpersonation,phTokenDuplicate));
+    assertTrue(Advapi32.INSTANCE.SetThreadToken(null,phTokenDuplicate.getValue()));
+    impersontating=true;
+  }
+  HANDLE tokenAdjust=impersontating ? phTokenDuplicate.getValue() : phToken.getValue();
+  WinNT.TOKEN_PRIVILEGES tp=new WinNT.TOKEN_PRIVILEGES(1);
+  tp.Privileges[0]=new WinNT.LUID_AND_ATTRIBUTES(pLuid,new DWORD(WinNT.SE_PRIVILEGE_ENABLED));
+  assertTrue(Advapi32.INSTANCE.AdjustTokenPrivileges(tokenAdjust,false,tp,0,null,null));
+  File file=createTempFile();
+  int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION| SACL_SECURITY_INFORMATION;
+  PointerByReference ppsidOwner=new PointerByReference();
+  PointerByReference ppsidGroup=new PointerByReference();
+  PointerByReference ppDacl=new PointerByReference();
+  PointerByReference ppSacl=new PointerByReference();
+  PointerByReference ppSecurityDescriptor=new PointerByReference();
+  assertEquals(Advapi32.INSTANCE.GetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,ppSacl,ppSecurityDescriptor),0);
+  Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
+  file.delete();
+  if (impersontating) {
+    Advapi32.INSTANCE.SetThreadToken(null,null);
+  }
+ else {
+    tp.Privileges[0]=new WinNT.LUID_AND_ATTRIBUTES(pLuid,new DWORD(0));
+    Advapi32.INSTANCE.AdjustTokenPrivileges(tokenAdjust,false,tp,0,null,null);
+  }
+  if (phToken.getValue() != null)   Kernel32.INSTANCE.CloseHandle(phToken.getValue());
+  if (phTokenDuplicate.getValue() != null)   Kernel32.INSTANCE.CloseHandle(phTokenDuplicate.getValue());
+}

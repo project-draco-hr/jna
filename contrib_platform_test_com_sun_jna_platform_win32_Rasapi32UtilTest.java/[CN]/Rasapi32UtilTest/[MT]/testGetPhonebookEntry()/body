@@ -1,0 +1,9 @@
+{
+  try {
+    Rasapi32Util.getPhoneBookEntry("TEST");
+    fail("Test expected to fail");
+  }
+ catch (  Ras32Exception e) {
+    assertEquals(623,e.getCode());
+  }
+}

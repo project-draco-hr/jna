@@ -1,0 +1,3 @@
+{
+  return Float.parseFloat(v.substring(0,v.lastIndexOf(".")));
+}

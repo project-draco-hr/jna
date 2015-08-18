@@ -61,7 +61,7 @@ synchronized (customPaths) {
         e=e2;
       }
     }
- else     if (Platform.isLinux()) {
+ else     if (Platform.isLinux() || Platform.isFreeBSD()) {
       if (Native.DEBUG_LOAD) {
         System.out.println("Looking for version variants");
       }
@@ -115,10 +115,14 @@ synchronized (customPaths) {
     if (handle == 0) {
       try {
         File embedded=Native.extractFromResourcePath(libraryName,(ClassLoader)options.get(Library.OPTION_CLASSLOADER));
-        handle=Native.open(embedded.getAbsolutePath());
-        libraryPath=embedded.getAbsolutePath();
-        if (Native.isUnpacked(embedded)) {
-          Native.deleteLibrary(embedded);
+        try {
+          handle=Native.open(embedded.getAbsolutePath(),openFlags);
+          libraryPath=embedded.getAbsolutePath();
+        }
+  finally {
+          if (Native.isUnpacked(embedded)) {
+            Native.deleteLibrary(embedded);
+          }
         }
       }
  catch (      IOException e2) {

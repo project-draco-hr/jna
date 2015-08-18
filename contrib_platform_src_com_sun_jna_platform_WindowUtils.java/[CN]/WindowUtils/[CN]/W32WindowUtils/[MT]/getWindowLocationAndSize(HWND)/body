@@ -1,0 +1,5 @@
+{
+  final RECT lpRect=new RECT();
+  if (!User32.INSTANCE.GetWindowRect(hwnd,lpRect))   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  return new Rectangle(lpRect.left,lpRect.top,Math.abs(lpRect.right - lpRect.left),Math.abs(lpRect.bottom - lpRect.top));
+}

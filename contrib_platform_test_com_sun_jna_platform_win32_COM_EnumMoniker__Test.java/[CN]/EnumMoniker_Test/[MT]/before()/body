@@ -1,0 +1,7 @@
+{
+  this.factory=new Factory();
+  this.ob1=this.factory.createObject(MsWordApp.class);
+  this.ob2=this.factory.createObject(MsWordApp.class);
+  WinNT.HRESULT hr=Ole32.INSTANCE.CoInitialize(null);
+  COMUtils.checkRC(hr);
+}

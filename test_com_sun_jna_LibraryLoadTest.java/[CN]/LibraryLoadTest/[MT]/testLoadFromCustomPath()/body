@@ -1,0 +1,4 @@
+{
+  NativeLibrary.addSearchPath("testlib-path",TESTPATH);
+  NativeLibrary.getInstance("testlib-path",new TestLoader(new File(".")));
+}

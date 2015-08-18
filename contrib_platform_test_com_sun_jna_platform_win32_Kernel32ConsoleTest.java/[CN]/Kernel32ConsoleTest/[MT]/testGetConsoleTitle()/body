@@ -1,0 +1,7 @@
+{
+  char[] lpConsoleTitle=new char[WinNT.MAX_PATH];
+  int len=INSTANCE.GetConsoleTitle(lpConsoleTitle,lpConsoleTitle.length);
+  assertCallSucceeded("GetConsoleTitle",(len > 0));
+  String title=Native.toString(lpConsoleTitle);
+  assertCallSucceeded("SetConsoleTitle",INSTANCE.SetConsoleTitle(title));
+}

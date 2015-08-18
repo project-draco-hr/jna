@@ -17,8 +17,8 @@ case WinUser.WM_SESSION_CHANGE:
 }
 case WinUser.WM_DEVICECHANGE:
 {
-this.onDeviceChange(wParam,lParam);
-return new LRESULT(0);
+LRESULT lResult=this.onDeviceChange(wParam,lParam);
+return lResult != null ? lResult : User32.INSTANCE.DefWindowProc(hwnd,uMsg,wParam,lParam);
 }
 default :
 return User32.INSTANCE.DefWindowProc(hwnd,uMsg,wParam,lParam);

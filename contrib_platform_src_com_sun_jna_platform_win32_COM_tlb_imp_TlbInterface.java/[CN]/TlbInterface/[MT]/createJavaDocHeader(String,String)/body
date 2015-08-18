@@ -1,0 +1,4 @@
+{
+  this.replaceVariable("uuid",guid);
+  this.replaceVariable("helpstring",helpstring);
+}

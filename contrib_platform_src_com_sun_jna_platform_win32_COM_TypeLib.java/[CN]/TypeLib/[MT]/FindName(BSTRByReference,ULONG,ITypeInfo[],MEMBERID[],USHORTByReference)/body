@@ -1,0 +1,3 @@
+{
+  return (HRESULT)this._invokeNativeObject(11,new Object[]{this.getPointer(),szNameBuf,lHashVal,ppTInfo,rgMemId,pcFound},HRESULT.class);
+}

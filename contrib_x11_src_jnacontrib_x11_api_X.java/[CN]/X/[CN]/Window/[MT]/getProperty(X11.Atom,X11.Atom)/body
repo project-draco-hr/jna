@@ -12,6 +12,15 @@
   }
   X11.Atom xa_ret_type=xa_ret_type_ref.getValue();
   Pointer ret_prop=ret_prop_ref.getValue();
+  if (xa_ret_type == null) {
+    return null;
+  }
+  if (xa_ret_type == null) {
+    return null;
+  }
+  if (xa_ret_type == null) {
+    return null;
+  }
   if (xa_ret_type == null || xa_prop_type == null || !xa_ret_type.toNative().equals(xa_prop_type.toNative())) {
     x11.XFree(ret_prop);
     String prop_name=x11.XGetAtomName(display.x11Display,xa_prop_name);

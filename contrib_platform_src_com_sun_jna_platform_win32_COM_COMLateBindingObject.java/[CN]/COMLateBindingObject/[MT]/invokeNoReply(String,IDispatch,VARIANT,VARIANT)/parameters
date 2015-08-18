@@ -1,0 +1,4 @@
+String methodName
+IDispatch dispatch
+VARIANT arg1
+VARIANT arg2

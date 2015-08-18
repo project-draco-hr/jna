@@ -1,0 +1,6 @@
+{
+  FILETIME lpFileTime=new FILETIME();
+  Kernel32.INSTANCE.SystemTimeToFileTime(jobInfo1.Submitted,lpFileTime);
+  String info="JobId: " + jobInfo1.JobId + "\n"+ "pDatatype: "+ jobInfo1.pDatatype+ "\n"+ "PagesPrinted: "+ jobInfo1.PagesPrinted+ "\n"+ "pDocument: "+ jobInfo1.pDocument+ "\n"+ "pMachineName: "+ jobInfo1.pMachineName+ "\n"+ "Position: "+ jobInfo1.Position+ "\n"+ "pPrinterName: "+ jobInfo1.pPrinterName+ "\n"+ "Priority: "+ jobInfo1.Priority+ "\n"+ "pStatus: "+ jobInfo1.pStatus+ "\n"+ "pUserName: "+ jobInfo1.pUserName+ "\n"+ "Status: "+ jobInfo1.Status+ "\n"+ "TotalPages: "+ jobInfo1.TotalPages+ "\n"+ "Submitted: "+ DateFormat.getDateTimeInstance().format(lpFileTime.toDate());
+  System.out.println(info);
+}

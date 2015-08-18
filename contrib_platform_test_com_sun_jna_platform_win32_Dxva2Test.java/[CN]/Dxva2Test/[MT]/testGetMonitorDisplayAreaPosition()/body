@@ -1,0 +1,8 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  MC_POSITION_TYPE ptPositionType=MC_POSITION_TYPE.MC_HORIZONTAL_POSITION;
+  DWORDByReference pdwMinimumPosition=new DWORDByReference();
+  DWORDByReference pdwCurrentPosition=new DWORDByReference();
+  DWORDByReference pdwMaximumPosition=new DWORDByReference();
+  Dxva2.INSTANCE.GetMonitorDisplayAreaPosition(hPhysicalMonitor,ptPositionType,pdwMinimumPosition,pdwCurrentPosition,pdwMaximumPosition);
+}

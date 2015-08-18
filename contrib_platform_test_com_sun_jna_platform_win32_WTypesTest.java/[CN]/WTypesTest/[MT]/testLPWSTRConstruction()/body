@@ -1,0 +1,8 @@
+{
+  WTypes.LPWSTR instance=new WTypes.LPWSTR(TEST_STRING);
+  assertEquals(instance.getValue(),TEST_STRING);
+  WTypes.LPWSTR empty=new WTypes.LPWSTR();
+  assertNull(empty.getValue());
+  WTypes.LPWSTR fromPointer=new WTypes.LPWSTR(TEST_POINTER);
+  assertEquals(fromPointer.getValue(),TEST_STRING);
+}

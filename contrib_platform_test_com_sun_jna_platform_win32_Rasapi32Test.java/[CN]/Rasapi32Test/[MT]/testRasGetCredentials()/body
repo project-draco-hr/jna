@@ -1,0 +1,6 @@
+{
+  RASCREDENTIALS.ByReference credentials=new RASCREDENTIALS.ByReference();
+  credentials.dwMask=WinRas.RASCM_UserName | WinRas.RASCM_Password | WinRas.RASCM_Domain;
+  int err=Rasapi32.INSTANCE.RasGetCredentials(null,"TEST",credentials);
+  assertEquals(623,err);
+}

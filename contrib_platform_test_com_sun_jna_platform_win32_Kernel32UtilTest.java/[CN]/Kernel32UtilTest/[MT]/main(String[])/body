@@ -2,7 +2,7 @@
   System.out.println("Computer name: " + Kernel32Util.getComputerName());
   System.out.println("Temp path: " + Kernel32Util.getTempPath());
   System.out.println("Logical drives: ");
-  String[] logicalDrives=Kernel32Util.getLogicalDriveStrings();
+  Collection<String> logicalDrives=Kernel32Util.getLogicalDriveStrings();
   for (  String logicalDrive : logicalDrives) {
     System.out.println(" " + logicalDrive + " ("+ Kernel32.INSTANCE.GetDriveType(logicalDrive)+ ")");
     LARGE_INTEGER.ByReference lpFreeBytesAvailable=new LARGE_INTEGER.ByReference();

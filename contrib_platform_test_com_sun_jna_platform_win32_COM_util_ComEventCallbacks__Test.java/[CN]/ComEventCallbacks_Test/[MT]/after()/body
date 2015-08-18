@@ -1,0 +1,4 @@
+{
+  this.factory.disposeAll();
+  this.factory.getComThread().terminate(100);
+}

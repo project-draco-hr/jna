@@ -1,0 +1,9 @@
+{
+  for (int i=0; i < IUNKNOWN_METHODS.length; i++) {
+    if (IUNKNOWN_METHODS[i].equalsIgnoreCase(method))     return true;
+  }
+  for (int i=0; i < IDISPATCH_METHODS.length; i++) {
+    if (IDISPATCH_METHODS[i].equalsIgnoreCase(method))     return true;
+  }
+  return false;
+}

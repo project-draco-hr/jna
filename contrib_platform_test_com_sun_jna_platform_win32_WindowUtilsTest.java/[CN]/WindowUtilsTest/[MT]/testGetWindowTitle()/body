@@ -1,0 +1,12 @@
+{
+  final JFrame w=new JFrame("A super unique title by PAX! " + System.currentTimeMillis());
+  try {
+    w.setVisible(true);
+    HWND hwnd=new HWND();
+    hwnd.setPointer(Native.getComponentPointer(w));
+    assertEquals(w.getTitle(),WindowUtils.getWindowTitle(hwnd));
+  }
+  finally {
+    w.dispose();
+  }
+}

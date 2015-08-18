@@ -1,0 +1,3 @@
+{
+  return Kernel32Util.formatMessageFromLastErrorCode(Kernel32.INSTANCE.GetLastError());
+}

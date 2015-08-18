@@ -1,0 +1,4 @@
+DWORD grfFlags
+Pointer punkObject
+Pointer pmkObjectName
+DWORDByReference pdwRegister

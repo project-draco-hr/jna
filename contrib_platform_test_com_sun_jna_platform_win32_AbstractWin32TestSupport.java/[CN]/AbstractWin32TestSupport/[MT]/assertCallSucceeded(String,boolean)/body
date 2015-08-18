@@ -1,0 +1,12 @@
+{
+  if (result) {
+    return;
+  }
+  int hr=Kernel32.INSTANCE.GetLastError();
+  if (hr == WinError.ERROR_SUCCESS) {
+    fail(message + " failed with unknown reason code");
+  }
+ else {
+    fail(message + " failed: hr=" + hr+ " - 0x"+ Integer.toHexString(hr));
+  }
+}

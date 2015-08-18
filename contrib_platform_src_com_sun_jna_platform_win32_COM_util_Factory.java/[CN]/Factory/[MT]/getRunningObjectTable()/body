@@ -1,0 +1,24 @@
+{
+  try {
+    final PointerByReference rotPtr=new PointerByReference();
+    WinNT.HRESULT hr=this.comThread.execute(new Callable<WinNT.HRESULT>(){
+      @Override public WinNT.HRESULT call() throws Exception {
+        return Ole32.INSTANCE.GetRunningObjectTable(new WinDef.DWORD(0),rotPtr);
+      }
+    }
+);
+    COMUtils.checkRC(hr);
+    com.sun.jna.platform.win32.COM.RunningObjectTable raw=new com.sun.jna.platform.win32.COM.RunningObjectTable(rotPtr.getValue());
+    IRunningObjectTable rot=new RunningObjectTable(raw,this);
+    return rot;
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+catch (  ExecutionException e) {
+    throw new RuntimeException(e);
+  }
+catch (  TimeoutException e) {
+    throw new RuntimeException(e);
+  }
+}

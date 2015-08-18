@@ -1,0 +1,3 @@
+{
+  this.oleMethod(OleAuto.DISPATCH_METHOD,null,comObject.getIDispatch(),methodName,new VARIANT[]{arg1,arg2});
+}

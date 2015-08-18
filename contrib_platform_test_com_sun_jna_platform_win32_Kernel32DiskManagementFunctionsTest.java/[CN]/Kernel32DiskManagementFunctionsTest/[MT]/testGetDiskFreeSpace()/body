@@ -1,0 +1,16 @@
+{
+  List<String> driveList=Kernel32Util.getLogicalDriveStrings();
+  for (int index=(-1); index < driveList.size(); index++) {
+    String driveName=(index < 0) ? null : driveList.get(index);
+    if (driveName != null) {
+      if (driveName.charAt(driveName.length() - 1) != File.separatorChar) {
+        driveName+=File.separator;
+      }
+      int driveType=Kernel32.INSTANCE.GetDriveType(driveName);
+      if (driveType != WinNT.DRIVE_FIXED) {
+        continue;
+      }
+    }
+    testGetDiskFreeSpace(driveName);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  GUID newGuid=GUID.newGuid();
+  String guidString=newGuid.toGuidString();
+  GUID.ByValue bv=new GUID.ByValue(newGuid);
+  String guidBV=bv.toGuidString();
+  assertEquals(guidBV,guidString);
+}

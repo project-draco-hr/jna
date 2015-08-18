@@ -1,0 +1,8 @@
+{
+  char[] msg=new char[1024];
+  int err=Rasapi32.INSTANCE.RasGetErrorString(code,msg,msg.length);
+  if (err != WinError.ERROR_SUCCESS)   return "Unknown error " + code;
+  int len=0;
+  for (; len < msg.length; len++)   if (msg[len] == 0)   break;
+  return new String(msg,0,len);
+}

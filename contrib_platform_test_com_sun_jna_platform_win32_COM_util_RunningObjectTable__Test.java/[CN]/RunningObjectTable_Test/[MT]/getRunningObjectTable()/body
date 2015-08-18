@@ -1,0 +1,4 @@
+{
+  IRunningObjectTable rot=this.factory.getRunningObjectTable();
+  assertNotNull(rot);
+}

@@ -1,0 +1,7 @@
+{
+  Structure[] e=new Structure[count];
+  if (count > 0) {
+    System.arraycopy(elements,0,e,0,count);
+  }
+  return Arrays.asList(e).iterator();
+}

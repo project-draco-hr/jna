@@ -1,0 +1,7 @@
+{
+  byte[] bb=s.getBytes(Charset.forName("UTF-8"));
+  Memory valueBuffer=new Memory(bb.length + 1);
+  valueBuffer.write(0,bb,0,bb.length);
+  valueBuffer.setByte(valueBuffer.size() - 1,(byte)0);
+  return valueBuffer;
+}

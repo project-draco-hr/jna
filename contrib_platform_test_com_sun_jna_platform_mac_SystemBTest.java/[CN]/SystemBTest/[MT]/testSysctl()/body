@@ -1,0 +1,24 @@
+{
+  final String mibName="hw.logicalcpu";
+  final int nCpu=Runtime.getRuntime().availableProcessors();
+  IntByReference size=new IntByReference(SystemB.INT_SIZE);
+  Pointer p=new Memory(size.getValue());
+  int ret=SystemB.INSTANCE.sysctlbyname(mibName,p,size,null,0);
+  assertEquals(ret,0);
+  assertTrue(p.getInt(0) >= nCpu);
+  size=new IntByReference();
+  ret=SystemB.INSTANCE.sysctlnametomib(mibName,null,size);
+  assertEquals(ret,0);
+  assertEquals(size.getValue(),2);
+  Pointer mibp=new Memory(size.getValue() * SystemB.INT_SIZE);
+  ret=SystemB.INSTANCE.sysctlnametomib(mibName,mibp,size);
+  assertEquals(ret,0);
+  assertEquals(size.getValue(),2);
+  int[] mib=mibp.getIntArray(0,size.getValue());
+  assertEquals(mib.length,2);
+  assertEquals(mib[0],6);
+  size=new IntByReference(SystemB.INT_SIZE);
+  p=new Memory(size.getValue());
+  ret=SystemB.INSTANCE.sysctl(mib,mib.length,p,size,null,0);
+  assertTrue(p.getInt(0) >= nCpu);
+}

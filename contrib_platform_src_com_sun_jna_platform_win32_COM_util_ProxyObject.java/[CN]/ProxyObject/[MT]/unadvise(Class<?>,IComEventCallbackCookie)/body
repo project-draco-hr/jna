@@ -1,0 +1,21 @@
+{
+  try {
+    ComInterface comInterfaceAnnotation=comEventCallbackInterface.getAnnotation(ComInterface.class);
+    if (null == comInterfaceAnnotation) {
+      throw new COMException("unadvise: Interface must define a value for iid via the ComInterface annotation");
+    }
+    IID iid=this.getIID(comInterfaceAnnotation);
+    final ConnectionPoint rawCp=this.fetchRawConnectionPoint(iid);
+    HRESULT hr=factory.getComThread().execute(new Callable<HRESULT>(){
+      @Override public HRESULT call() throws Exception {
+        return rawCp.Unadvise(((ComEventCallbackCookie)cookie).getValue());
+      }
+    }
+);
+    rawCp.Release();
+    COMUtils.checkRC(hr);
+  }
+ catch (  Exception e) {
+    throw new COMException("Error occured in unadvise when trying to disconnect the listener from " + this,e);
+  }
+}

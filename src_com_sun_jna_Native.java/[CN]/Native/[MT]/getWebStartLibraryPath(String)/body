@@ -3,7 +3,7 @@
   try {
     final ClassLoader cl=Native.class.getClassLoader();
     Method m=(Method)AccessController.doPrivileged(new PrivilegedAction(){
-      public Object run(){
+      @Override public Object run(){
         try {
           Method m=ClassLoader.class.getDeclaredMethod("findLibrary",new Class[]{String.class});
           m.setAccessible(true);

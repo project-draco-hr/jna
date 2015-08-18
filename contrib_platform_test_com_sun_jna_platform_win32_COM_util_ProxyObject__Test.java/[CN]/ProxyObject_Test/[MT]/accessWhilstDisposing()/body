@@ -1,0 +1,4 @@
+{
+  MsWordApp comObj1=this.factory.createObject(MsWordApp.class);
+  this.factory.disposeAll();
+}

@@ -1,0 +1,27 @@
+{
+  this.factory=new Factory();
+  while (true) {
+    try {
+      MsWordApp ao=this.factory.fetchObject(MsWordApp.class);
+      Application a=ao.queryInterface(Application.class);
+      try {
+        a.Quit(true,null,null);
+        try {
+          Thread.sleep(100);
+        }
+ catch (        InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+        e.getCause().printStackTrace();
+      }
+    }
+ catch (    Exception e) {
+      break;
+    }
+  }
+  this.msWord=this.factory.createObject(MsWordApp.class);
+  msWord.setVisible(true);
+}

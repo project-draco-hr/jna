@@ -1,0 +1,3 @@
+String message
+int statusCode
+boolean showHex

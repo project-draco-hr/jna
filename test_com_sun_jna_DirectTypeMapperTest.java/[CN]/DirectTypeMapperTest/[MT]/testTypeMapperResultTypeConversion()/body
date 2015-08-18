@@ -1,0 +1,6 @@
+{
+  DirectTypeMappedResultTypeTestLibrary lib=new DirectTypeMappedResultTypeTestLibrary();
+  PointTestClass p=lib.returnPoint(1234,5678);
+  assertEquals("Failed to convert int* return to java.awt.Point",1234,p.x);
+  assertEquals("Failed to convert int* return to java.awt.Point",5678,p.y);
+}

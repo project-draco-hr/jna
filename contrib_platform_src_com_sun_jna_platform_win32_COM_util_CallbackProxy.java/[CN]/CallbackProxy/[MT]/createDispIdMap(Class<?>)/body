@@ -1,0 +1,14 @@
+{
+  Map<DISPID,Method> map=new HashMap<DISPID,Method>();
+  for (  Method meth : comEventCallbackInterface.getMethods()) {
+    ComEventCallback annotation=meth.getAnnotation(ComEventCallback.class);
+    if (null != annotation) {
+      int dispId=annotation.dispid();
+      if (-1 == dispId) {
+        dispId=this.fetchDispIdFromName(annotation);
+      }
+      map.put(new DISPID(dispId),meth);
+    }
+  }
+  return map;
+}

@@ -1,0 +1,23 @@
+{
+  final List<DesktopWindow> allWindows=WindowUtils.getAllWindows(false);
+  final List<DesktopWindow> allVisibleWindows=WindowUtils.getAllWindows(true);
+  assertTrue(allWindows.size() > 0);
+  assertTrue(allVisibleWindows.size() > 0);
+  assertTrue(allWindows.size() > allVisibleWindows.size());
+  DesktopWindow explorerProc=null;
+  for (  final DesktopWindow dw : allWindows) {
+    if (dw.getFilePath().toLowerCase().endsWith("explorer.exe")) {
+      explorerProc=dw;
+      break;
+    }
+  }
+  assertNotNull(explorerProc);
+  explorerProc=null;
+  for (  final DesktopWindow dw : allVisibleWindows) {
+    if (dw.getFilePath().toLowerCase().endsWith("explorer.exe")) {
+      explorerProc=dw;
+      break;
+    }
+  }
+  assertNotNull(explorerProc);
+}

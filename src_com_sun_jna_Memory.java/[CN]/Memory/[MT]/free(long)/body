@@ -1,3 +1,5 @@
 {
-  Native.free(p);
+  if (p != 0) {
+    Native.free(p);
+  }
 }

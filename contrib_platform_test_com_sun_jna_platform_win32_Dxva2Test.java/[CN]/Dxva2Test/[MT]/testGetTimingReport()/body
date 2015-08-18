@@ -1,0 +1,5 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  MC_TIMING_REPORT pmtrMonitorTimingReport=new MC_TIMING_REPORT();
+  Dxva2.INSTANCE.GetTimingReport(hPhysicalMonitor,pmtrMonitorTimingReport);
+}

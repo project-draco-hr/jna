@@ -1,0 +1,9 @@
+{
+  char[] lpszVolumePathName=new char[WinDef.MAX_PATH + 1];
+  for (  String propName : new String[]{"java.home","java.io.tmpdir","user.dir","user.home"}) {
+    String lpszFileName=System.getProperty(propName);
+    assertCallSucceeded("GetVolumePathName(" + lpszFileName + ")",Kernel32.INSTANCE.GetVolumePathName(lpszFileName,lpszVolumePathName,lpszVolumePathName.length));
+    String path=Native.toString(lpszVolumePathName);
+    assertTrue("No volume path for " + lpszFileName,path.length() > 0);
+  }
+}

@@ -1,0 +1,20 @@
+{
+  VARTYPE vt=typeDesc.vt;
+  String type="not_defined";
+  if (vt.intValue() == Variant.VT_PTR) {
+    TYPEDESC lptdesc=typeDesc._typedesc.getLptdesc();
+    type=this.getType(lptdesc);
+  }
+ else   if (vt.intValue() == Variant.VT_SAFEARRAY || vt.intValue() == Variant.VT_CARRAY) {
+    TYPEDESC tdescElem=typeDesc._typedesc.getLpadesc().tdescElem;
+    type=this.getType(tdescElem);
+  }
+ else   if (vt.intValue() == Variant.VT_USERDEFINED) {
+    HREFTYPE hreftype=typeDesc._typedesc.hreftype;
+    type=this.getUserdefinedType(hreftype);
+  }
+ else {
+    type=this.getVarType(vt);
+  }
+  return type;
+}

@@ -1,0 +1,3 @@
+{
+  assertEquals("An incorrect structure size was detected.",Rasapi32Util.getRasErrorString(632));
+}

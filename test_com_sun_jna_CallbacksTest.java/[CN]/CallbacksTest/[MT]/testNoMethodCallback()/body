@@ -1,6 +1,6 @@
 {
   try {
-    CallbackReference.getCallback(TestLibrary.NoMethodCallback.class,new Pointer(1));
+    CallbackReference.getCallback(TestLibrary.NoMethodCallback.class,new Pointer(getName().hashCode()));
     fail("Callback with no callback method should fail");
   }
  catch (  IllegalArgumentException e) {

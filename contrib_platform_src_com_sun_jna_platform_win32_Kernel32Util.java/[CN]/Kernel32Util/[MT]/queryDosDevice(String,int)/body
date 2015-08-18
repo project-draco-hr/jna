@@ -1,0 +1,8 @@
+{
+  char[] lpTargetPath=new char[maxTargetSize];
+  int dwSize=Kernel32.INSTANCE.QueryDosDevice(lpszDeviceName,lpTargetPath,lpTargetPath.length);
+  if (dwSize == 0) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  return Native.toStringList(lpTargetPath,0,dwSize);
+}

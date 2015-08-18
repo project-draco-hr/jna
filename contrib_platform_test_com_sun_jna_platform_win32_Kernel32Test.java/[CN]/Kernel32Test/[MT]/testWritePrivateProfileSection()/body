@@ -1,0 +1,20 @@
+{
+  final File tmp=File.createTempFile("testWritePrivateProfileSection",".ini");
+  tmp.deleteOnExit();
+  final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
+  try {
+    writer.println("[S1]");
+    writer.println("A=1");
+    writer.println("B=X");
+  }
+  finally {
+    writer.close();
+  }
+  final boolean result=Kernel32.INSTANCE.WritePrivateProfileSection("S1","A=3\0E=Z\0\0",tmp.getCanonicalPath());
+  assertTrue(result);
+  final BufferedReader reader=new BufferedReader(new FileReader(tmp));
+  assertEquals(reader.readLine(),"[S1]");
+  assertTrue(reader.readLine().matches("A\\s*=\\s*3"));
+  assertTrue(reader.readLine().matches("E\\s*=\\s*Z"));
+  reader.close();
+}

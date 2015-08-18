@@ -1,0 +1,5 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  MC_COLOR_TEMPERATURE.ByReference pctCurrentColorTemperature=new MC_COLOR_TEMPERATURE.ByReference();
+  Dxva2.INSTANCE.GetMonitorColorTemperature(hPhysicalMonitor,pctCurrentColorTemperature);
+}

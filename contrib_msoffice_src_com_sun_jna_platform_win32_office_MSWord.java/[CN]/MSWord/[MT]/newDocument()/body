@@ -1,4 +1,0 @@
-{
-  HRESULT hr=oleMethod(OleAuto.DISPATCH_METHOD,null,getDocuments().getIDispatch(),"Add");
-  return hr;
-}

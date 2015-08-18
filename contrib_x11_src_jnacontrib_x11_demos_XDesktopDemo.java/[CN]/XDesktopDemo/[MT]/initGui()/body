@@ -102,7 +102,12 @@
   gbc.gridy=0;
   gbc.fill=GridBagConstraints.HORIZONTAL;
   panel3.add(showDesktop,gbc);
-  desktopList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-  windowTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  showSubwindows=new JButton();
+  showSubwindows.setText("show subwindows");
+  gbc=new GridBagConstraints();
+  gbc.gridx=1;
+  gbc.gridy=3;
+  gbc.fill=GridBagConstraints.HORIZONTAL;
+  panel3.add(showSubwindows,gbc);
   setContentPane(mainPanel);
 }

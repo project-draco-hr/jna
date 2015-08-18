@@ -1,0 +1,20 @@
+{
+  HWND hWnd=User32Util.createWindow("Message",null,0,0,0,0,0,null,null,null,null);
+  HDC hdc=User32.INSTANCE.GetDC(hWnd);
+  PIXELFORMATDESCRIPTOR.ByReference pfd=new PIXELFORMATDESCRIPTOR.ByReference();
+  pfd.nVersion=1;
+  pfd.dwFlags=WinGDI.PFD_DRAW_TO_WINDOW | WinGDI.PFD_SUPPORT_OPENGL | WinGDI.PFD_DOUBLEBUFFER;
+  pfd.iPixelType=WinGDI.PFD_TYPE_RGBA;
+  pfd.cColorBits=24;
+  pfd.cDepthBits=16;
+  pfd.iLayerType=WinGDI.PFD_MAIN_PLANE;
+  GDI32.INSTANCE.SetPixelFormat(hdc,GDI32.INSTANCE.ChoosePixelFormat(hdc,pfd),pfd);
+  WinDef.HGLRC hGLRC=OpenGL32.INSTANCE.wglCreateContext(hdc);
+  OpenGL32.INSTANCE.wglMakeCurrent(hdc,hGLRC);
+  String glString=OpenGL32.INSTANCE.glGetString(GL.GL_VERSION);
+  System.out.println("GL_VERSION=" + glString);
+  OpenGL32.INSTANCE.wglDeleteContext(hGLRC);
+  User32.INSTANCE.ReleaseDC(hWnd,hdc);
+  User32Util.destroyWindow(hWnd);
+  assertNotNull("Could not get GL_VERSION",glString);
+}

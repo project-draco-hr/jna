@@ -1,0 +1,6 @@
+{
+  if (null != doc && null != win) {
+    String docName=doc.getFullName();
+    WindowActivate_called=true;
+  }
+}

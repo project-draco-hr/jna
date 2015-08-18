@@ -1,0 +1,3 @@
+{
+  this.invokeNoReply("Close",getActiveDocument(),new VARIANT(bSave));
+}

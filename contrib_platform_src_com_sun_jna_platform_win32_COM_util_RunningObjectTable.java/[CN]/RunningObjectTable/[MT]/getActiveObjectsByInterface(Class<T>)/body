@@ -1,0 +1,12 @@
+{
+  List<T> result=new ArrayList<T>();
+  for (  IDispatch obj : this.enumRunning()) {
+    try {
+      T dobj=obj.queryInterface(comInterface);
+      result.add(dobj);
+    }
+ catch (    COMException ex) {
+    }
+  }
+  return result;
+}

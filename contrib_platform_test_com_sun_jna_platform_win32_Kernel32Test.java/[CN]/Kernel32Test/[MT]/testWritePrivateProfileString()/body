@@ -1,23 +1,18 @@
 {
-  final File tmp=File.createTempFile(getName(),"ini");
+  final File tmp=File.createTempFile("testWritePrivateProfileString",".ini");
   tmp.deleteOnExit();
-  try {
-    final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
-    writer.println("[Section]");
-    writer.println("existingKey = ABC");
-    writer.println("removedKey = JKL");
-    writer.close();
-    assertTrue(Kernel32.INSTANCE.WritePrivateProfileString("Section","existingKey","DEF",tmp.getCanonicalPath()));
-    assertTrue(Kernel32.INSTANCE.WritePrivateProfileString("Section","addedKey","GHI",tmp.getCanonicalPath()));
-    assertTrue(Kernel32.INSTANCE.WritePrivateProfileString("Section","removedKey",null,tmp.getCanonicalPath()));
-    final BufferedReader reader=new BufferedReader(new FileReader(tmp));
-    assertEquals(reader.readLine(),"[Section]");
-    assertTrue(reader.readLine().matches("existingKey\\s*=\\s*DEF"));
-    assertTrue(reader.readLine().matches("addedKey\\s*=\\s*GHI"));
-    assertEquals(reader.readLine(),null);
-    reader.close();
-  }
-  finally {
-    tmp.delete();
-  }
+  final PrintWriter writer=new PrintWriter(new BufferedWriter(new FileWriter(tmp)));
+  writer.println("[Section]");
+  writer.println("existingKey = ABC");
+  writer.println("removedKey = JKL");
+  writer.close();
+  assertTrue(Kernel32.INSTANCE.WritePrivateProfileString("Section","existingKey","DEF",tmp.getCanonicalPath()));
+  assertTrue(Kernel32.INSTANCE.WritePrivateProfileString("Section","addedKey","GHI",tmp.getCanonicalPath()));
+  assertTrue(Kernel32.INSTANCE.WritePrivateProfileString("Section","removedKey",null,tmp.getCanonicalPath()));
+  final BufferedReader reader=new BufferedReader(new FileReader(tmp));
+  assertEquals(reader.readLine(),"[Section]");
+  assertTrue(reader.readLine().matches("existingKey\\s*=\\s*DEF"));
+  assertTrue(reader.readLine().matches("addedKey\\s*=\\s*GHI"));
+  assertEquals(reader.readLine(),null);
+  reader.close();
 }

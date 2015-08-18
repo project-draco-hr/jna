@@ -1,0 +1,29 @@
+{
+  Kernel32 kernel=Kernel32.INSTANCE;
+  WinBase.SYSTEMTIME time=new WinBase.SYSTEMTIME();
+  kernel.GetLocalTime(time);
+  try {
+    WinBase.SYSTEMTIME expected=new WinBase.SYSTEMTIME();
+    expected.wYear=time.wYear;
+    expected.wMonth=time.wMonth;
+    expected.wDay=time.wDay;
+    expected.wHour=time.wHour;
+    expected.wMinute=time.wMinute;
+    expected.wSecond=time.wSecond;
+    expected.wMilliseconds=time.wMilliseconds;
+    if (expected.wHour > 0) {
+      expected.wHour--;
+    }
+ else {
+      expected.wHour++;
+    }
+    if (assertTimeSettingOperationSucceeded("SetLocalTime",kernel.SetLocalTime(expected))) {
+      WinBase.SYSTEMTIME actual=new WinBase.SYSTEMTIME();
+      kernel.GetLocalTime(actual);
+      assertEquals("Mismatched hour value",expected.wHour,actual.wHour);
+    }
+  }
+  finally {
+    assertTimeSettingOperationSucceeded("Restore local time",kernel.SetLocalTime(time));
+  }
+}

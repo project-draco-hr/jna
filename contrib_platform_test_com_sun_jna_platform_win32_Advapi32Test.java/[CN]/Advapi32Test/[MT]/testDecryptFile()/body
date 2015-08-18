@@ -1,0 +1,11 @@
+{
+  File file=createTempFile();
+  WString lpFileName=new WString(file.getAbsolutePath());
+  assertTrue(Advapi32.INSTANCE.EncryptFile(lpFileName));
+  file.setWritable(false);
+  assertFalse(Advapi32.INSTANCE.DecryptFile(lpFileName,new DWORD(0)));
+  assertEquals(WinError.ERROR_FILE_READ_ONLY,Kernel32.INSTANCE.GetLastError());
+  file.setWritable(true);
+  assertTrue(Advapi32.INSTANCE.DecryptFile(lpFileName,new DWORD(0)));
+  file.delete();
+}

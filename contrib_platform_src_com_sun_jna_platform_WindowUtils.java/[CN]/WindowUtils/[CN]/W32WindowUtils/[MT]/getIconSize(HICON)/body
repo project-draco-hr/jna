@@ -1,0 +1,23 @@
+{
+  final ICONINFO iconInfo=new ICONINFO();
+  try {
+    if (!User32.INSTANCE.GetIconInfo(hIcon,iconInfo))     return new Dimension();
+    iconInfo.read();
+    final BITMAP bmp=new BITMAP();
+    if (iconInfo.hbmColor != null && iconInfo.hbmColor.getPointer() != Pointer.NULL) {
+      final int nWrittenBytes=GDI32.INSTANCE.GetObject(iconInfo.hbmColor,bmp.size(),bmp.getPointer());
+      bmp.read();
+      if (nWrittenBytes > 0)       return new Dimension(bmp.bmWidth.intValue(),bmp.bmHeight.intValue());
+    }
+ else     if (iconInfo.hbmMask != null && iconInfo.hbmMask.getPointer() != Pointer.NULL) {
+      final int nWrittenBytes=GDI32.INSTANCE.GetObject(iconInfo.hbmMask,bmp.size(),bmp.getPointer());
+      bmp.read();
+      if (nWrittenBytes > 0)       return new Dimension(bmp.bmWidth.intValue(),bmp.bmHeight.intValue() / 2);
+    }
+  }
+  finally {
+    if (iconInfo.hbmColor != null && iconInfo.hbmColor.getPointer() != Pointer.NULL)     GDI32.INSTANCE.DeleteObject(iconInfo.hbmColor);
+    if (iconInfo.hbmMask != null && iconInfo.hbmMask.getPointer() != Pointer.NULL)     GDI32.INSTANCE.DeleteObject(iconInfo.hbmMask);
+  }
+  return new Dimension();
+}

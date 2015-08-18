@@ -1,8 +1,9 @@
 {
   NativeLibrary.disposeAll();
+  Thread.sleep(2);
   TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class);
-  assertEquals("Library should be newly loaded after all others disposed",1,lib.callCount());
+  assertEquals("Library should be newly loaded after explicit dispose of all native libraries",1,lib.callCount());
   if (lib.callCount() <= 1) {
-    fail("Library should not be reloaded");
+    fail("Library should not be reloaded without dispose");
   }
 }

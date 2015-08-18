@@ -1,0 +1,40 @@
+{
+  ComExcel_Application excelObject=null;
+  ComIApplication msExcel=null;
+  Factory factory=null;
+  try {
+    factory=new Factory();
+    excelObject=factory.createObject(ComExcel_Application.class);
+    msExcel=excelObject.queryInterface(ComIApplication.class);
+    System.out.println("MSExcel version: " + msExcel.getVersion());
+    msExcel.setVisible(true);
+    msExcel.getWorkbooks().Open(currentWorkingDir + "jnatest.xls");
+    msExcel.getActiveSheet().getRange("A1").setValue("Hello from JNA!");
+    Thread.currentThread().sleep(1000);
+class Listener extends AbstractComEventCallbackListener implements ComIAppEvents {
+      boolean SheetSelectionChange_called;
+      @Override public void errorReceivingCallbackEvent(      String message,      Exception exception){
+      }
+      @Override public void SheetSelectionChange(      ComIWorksheet sheet,      ComIRange target){
+        SheetSelectionChange_called=true;
+      }
+    }
+    ;
+    Listener listener=new Listener();
+    msExcel.advise(ComIAppEvents.class,listener);
+    msExcel.getActiveWorkbook().Close(true);
+    msExcel.Quit();
+    msExcel=null;
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    if (null != msExcel) {
+      msExcel.Quit();
+    }
+    if (null != factory) {
+      factory.disposeAll();
+    }
+  }
+}

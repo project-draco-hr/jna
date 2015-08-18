@@ -1,0 +1,4 @@
+{
+  TlbCoClass tlbCoClass=new TlbCoClass(index,this.getPackageName(),typeLibUtil,bindingMode);
+  this.writeTlbClass(tlbCoClass);
+}

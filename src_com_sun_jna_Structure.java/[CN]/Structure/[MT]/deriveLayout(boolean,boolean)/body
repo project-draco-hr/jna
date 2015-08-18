@@ -80,7 +80,7 @@
         return null;
       }
       String msg="Invalid Structure field in " + getClass() + ", field name '"+ structField.name+ "' ("+ structField.type+ "): "+ e.getMessage();
-      throw new IllegalArgumentException(msg);
+      throw new IllegalArgumentException(msg,e);
     }
     if (fieldAlignment == 0) {
       throw new Error("Field alignment is zero for field '" + structField.name + "' within "+ getClass());

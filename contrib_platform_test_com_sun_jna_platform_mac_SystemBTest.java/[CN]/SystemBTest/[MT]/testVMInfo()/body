@@ -1,0 +1,14 @@
+{
+  int machPort=SystemB.INSTANCE.mach_host_self();
+  assertTrue(machPort > 0);
+  VMStatistics vmStats=new VMStatistics();
+  int ret=SystemB.INSTANCE.host_statistics(machPort,SystemB.HOST_VM_INFO,vmStats,new IntByReference(vmStats.size() / SystemB.INT_SIZE));
+  assertEquals(ret,0);
+  assertTrue(vmStats.free_count >= 0);
+  if (Platform.is64Bit()) {
+    VMStatistics64 vmStats64=new VMStatistics64();
+    ret=SystemB.INSTANCE.host_statistics64(machPort,SystemB.HOST_VM_INFO,vmStats64,new IntByReference(vmStats64.size() / SystemB.INT_SIZE));
+    assertEquals(ret,0);
+    assertTrue(vmStats64.free_count >= 0);
+  }
+}

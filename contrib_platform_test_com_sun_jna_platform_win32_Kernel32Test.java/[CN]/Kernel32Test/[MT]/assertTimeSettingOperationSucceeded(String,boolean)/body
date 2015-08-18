@@ -1,0 +1,16 @@
+{
+  if (result) {
+    return result;
+  }
+  int hr=Kernel32.INSTANCE.GetLastError();
+  if (hr == WinError.ERROR_PRIVILEGE_NOT_HELD) {
+    return false;
+  }
+  if (hr != WinError.ERROR_SUCCESS) {
+    fail(message + " failed: hr=" + hr);
+  }
+ else {
+    fail(message + " unknown failure reason code");
+  }
+  return false;
+}

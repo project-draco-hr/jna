@@ -2,12 +2,12 @@
   HANDLEByReference phToken=new HANDLEByReference();
   try {
     HANDLE threadHandle=Kernel32.INSTANCE.GetCurrentThread();
-    if (!Advapi32.INSTANCE.OpenThreadToken(threadHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,true,phToken)) {
+    if (!Advapi32.INSTANCE.OpenThreadToken(threadHandle,TOKEN_DUPLICATE | TOKEN_QUERY,true,phToken)) {
       if (W32Errors.ERROR_NO_TOKEN != Kernel32.INSTANCE.GetLastError()) {
         throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
       }
       HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
-      if (!Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,phToken)) {
+      if (!Advapi32.INSTANCE.OpenProcessToken(processHandle,TOKEN_DUPLICATE | TOKEN_QUERY,phToken)) {
         throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
       }
     }

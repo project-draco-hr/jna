@@ -1,0 +1,13 @@
+{
+  ITypeInfo[] typeInfos=getTypeInfos();
+  LPOLESTR[] rgszNames={new LPOLESTR("Help")};
+  UINT cNames=new UINT(1);
+  MEMBERID[] pMemId=new MEMBERID[1];
+  for (  ITypeInfo typeInfo : typeInfos) {
+    HRESULT hr=typeInfo.GetIDsOfNames(rgszNames,cNames,pMemId);
+    if (COMUtils.SUCCEEDED(hr)) {
+      return;
+    }
+  }
+  throw new RuntimeException("Didn't find Help in any of the type infos");
+}

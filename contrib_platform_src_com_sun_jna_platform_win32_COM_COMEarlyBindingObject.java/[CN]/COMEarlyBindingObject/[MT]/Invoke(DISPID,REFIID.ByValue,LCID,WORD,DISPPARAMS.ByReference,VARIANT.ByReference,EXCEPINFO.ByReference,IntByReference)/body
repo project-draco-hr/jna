@@ -1,0 +1,3 @@
+{
+  return this.getIDispatch().Invoke(dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
+}

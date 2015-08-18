@@ -6,7 +6,12 @@
   final String UNICODE="\u0444\u043b\u0441\u0432\u0443";
   String newLibName=libName.replace("testlib",UNICODE);
   File dst=new File(tmpdir,newLibName);
-  dst.deleteOnExit();
   copy(src,dst);
-  NativeLibrary.getInstance(UNICODE,new TestLoader(tmpdir));
+  try {
+    NativeLibrary.getInstance(UNICODE,new TestLoader(tmpdir));
+    dst.deleteOnExit();
+  }
+ catch (  UnsatisfiedLinkError e) {
+    fail("Library '" + newLibName + "' at "+ dst+ " could not be loaded: "+ e);
+  }
 }

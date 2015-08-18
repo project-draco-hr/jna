@@ -1,0 +1,21 @@
+{
+  List<String> logicalDrives=Kernel32Util.getLogicalDriveStrings();
+  char[] lpVolumeNameBuffer=new char[WinDef.MAX_PATH + 1];
+  char[] lpFileSystemNameBuffer=new char[WinDef.MAX_PATH + 1];
+  IntByReference lpVolumeSerialNumber=new IntByReference();
+  IntByReference lpMaximumComponentLength=new IntByReference();
+  IntByReference lpFileSystemFlags=new IntByReference();
+  for (int index=(-1); index < logicalDrives.size(); index++) {
+    String lpRootPathName=(index < 0) ? null : logicalDrives.get(index);
+    if ((lpRootPathName != null) && (lpRootPathName.charAt(lpRootPathName.length() - 1) != File.separatorChar)) {
+      lpRootPathName+=File.separator;
+    }
+    if (!Kernel32.INSTANCE.GetVolumeInformation(lpRootPathName,lpVolumeNameBuffer,lpVolumeNameBuffer.length,lpVolumeSerialNumber,lpMaximumComponentLength,lpFileSystemFlags,lpFileSystemNameBuffer,lpFileSystemNameBuffer.length)) {
+      int hr=Kernel32.INSTANCE.GetLastError();
+      if ((hr == WinError.ERROR_ACCESS_DENIED) || (hr == WinError.ERROR_NOT_READY)) {
+        continue;
+      }
+      fail("Cannot (error=" + hr + ") get volume information for "+ lpRootPathName);
+    }
+  }
+}

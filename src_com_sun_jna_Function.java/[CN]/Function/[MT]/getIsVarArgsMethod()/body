@@ -1,0 +1,11 @@
+{
+  try {
+    return Method.class.getMethod("isVarArgs",new Class[0]);
+  }
+ catch (  SecurityException e) {
+    return null;
+  }
+catch (  NoSuchMethodException e) {
+    return null;
+  }
+}

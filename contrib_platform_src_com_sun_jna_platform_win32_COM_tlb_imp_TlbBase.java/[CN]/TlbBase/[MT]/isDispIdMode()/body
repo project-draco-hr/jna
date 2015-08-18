@@ -1,0 +1,4 @@
+{
+  if (this.bindingMode.equalsIgnoreCase(TlbConst.BINDING_MODE_DISPID))   return true;
+ else   return false;
+}

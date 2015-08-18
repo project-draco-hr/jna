@@ -1,0 +1,6 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  DWORDByReference temps=new DWORDByReference();
+  DWORDByReference caps=new DWORDByReference();
+  Dxva2.INSTANCE.GetMonitorCapabilities(hPhysicalMonitor,caps,temps);
+}

@@ -1,0 +1,21 @@
+{
+  ComIMsWordApp wordObj=factory.createObject(ComIMsWordApp.class);
+  ComIApplication wordApp=wordObj.queryInterface(ComIApplication.class);
+  wordApp.setVisible(true);
+  ApplicationEvents4_EventListener listener=new ApplicationEvents4_EventListener();
+  wordApp.advise(ApplicationEvents4_Event.class,listener);
+  wordApp.getDocuments().Add();
+  HWND h=User32.INSTANCE.FindWindow("OpusApp",null);
+  if (h == null)   h=User32.INSTANCE.FindWindow("NetUIHWND",null);
+  User32.INSTANCE.ShowWindow(h,User32.SW_RESTORE);
+  User32.INSTANCE.SetForegroundWindow(h);
+  try {
+    Thread.sleep(500);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  Assert.assertNotNull(listener.WindowActivate_called);
+  Assert.assertTrue(listener.WindowActivate_called);
+  wordApp.Quit(false,null,null);
+}

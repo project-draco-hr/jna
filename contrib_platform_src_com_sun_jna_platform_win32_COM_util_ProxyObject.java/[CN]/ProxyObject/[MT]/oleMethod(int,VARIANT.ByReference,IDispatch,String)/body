@@ -1,0 +1,3 @@
+{
+  return this.oleMethod(nType,pvResult,pDisp,name,(VARIANT[])null);
+}

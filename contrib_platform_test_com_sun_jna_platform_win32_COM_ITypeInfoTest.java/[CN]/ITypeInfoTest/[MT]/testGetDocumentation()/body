@@ -1,0 +1,15 @@
+{
+  ITypeInfo[] typeInfos=getTypeInfos();
+  MEMBERID memid=new MEMBERID(0);
+  BSTRByReference pBstrName=new BSTRByReference();
+  BSTRByReference pBstrDocString=new BSTRByReference();
+  DWORDByReference pdwHelpContext=new DWORDByReference();
+  BSTRByReference pBstrHelpFile=new BSTRByReference();
+  for (  ITypeInfo typeInfo : typeInfos) {
+    HRESULT hr=typeInfo.GetDocumentation(memid,pBstrName,pBstrDocString,pdwHelpContext,pBstrHelpFile);
+    if (COMUtils.SUCCEEDED(hr)) {
+      return;
+    }
+  }
+  throw new RuntimeException("Didn't find documentation in any of the type infos");
+}

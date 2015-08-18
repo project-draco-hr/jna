@@ -1,0 +1,4 @@
+{
+  if (!CONNECTION_STATE_TEXT.containsKey(connStatus))   return Integer.toString(connStatus);
+  return (String)CONNECTION_STATE_TEXT.get(connStatus);
+}

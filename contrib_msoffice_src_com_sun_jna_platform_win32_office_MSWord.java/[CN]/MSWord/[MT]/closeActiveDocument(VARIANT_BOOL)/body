@@ -1,4 +1,0 @@
-{
-  HRESULT hr=oleMethod(OleAuto.DISPATCH_METHOD,null,getActiveDocument().getIDispatch(),"Close",new VARIANT(bSave));
-  return hr;
-}

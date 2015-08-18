@@ -1,0 +1,10 @@
+{
+  String name=getCurrentTestName(), expected=Integer.toString(new Random().nextInt());
+  assertCallSucceeded("SetEnvironmentVariable",Kernel32.INSTANCE.SetEnvironmentVariable(name,expected));
+  try {
+    assertEquals("Mismatched retrieved value",expected,Kernel32Util.getEnvironmentVariable(name));
+  }
+  finally {
+    assertCallSucceeded("Clean up variable",Kernel32.INSTANCE.SetEnvironmentVariable(name,null));
+  }
+}

@@ -1,5 +1,5 @@
 {
-  super(message);
+  super(message + " (puArgErr=" + (null == puArgErr ? "" : puArgErr.getValue())+ ")");
   this.pExcepInfo=pExcepInfo;
   this.puArgErr=puArgErr;
 }

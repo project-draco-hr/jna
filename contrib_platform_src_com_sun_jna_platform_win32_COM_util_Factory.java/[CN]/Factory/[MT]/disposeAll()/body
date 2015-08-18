@@ -1,0 +1,10 @@
+{
+synchronized (this.registeredObjects) {
+    Set<ProxyObject> s=new HashSet<ProxyObject>(this.registeredObjects.keySet());
+    for (    ProxyObject proxyObject : s) {
+      int r=this.registeredObjects.get(proxyObject);
+      proxyObject.dispose(r);
+    }
+    this.registeredObjects.clear();
+  }
+}

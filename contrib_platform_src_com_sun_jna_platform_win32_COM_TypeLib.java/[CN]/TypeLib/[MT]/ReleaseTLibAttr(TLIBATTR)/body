@@ -1,0 +1,3 @@
+{
+  this._invokeNativeObject(12,new Object[]{this.getPointer()},HRESULT.class);
+}

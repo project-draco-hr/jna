@@ -52,7 +52,9 @@
     try {
       File dir=getTempDir();
       lib=File.createTempFile(JNA_TMPLIB_PREFIX,Platform.isWindows() ? ".dll" : null,dir);
-      lib.deleteOnExit();
+      if (!Boolean.getBoolean("jnidispatch.preserve")) {
+        lib.deleteOnExit();
+      }
       fos=new FileOutputStream(lib);
       int count;
       byte[] buf=new byte[1024];

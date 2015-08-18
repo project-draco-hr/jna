@@ -1,0 +1,21 @@
+{
+  List<String> list=new ArrayList<String>();
+  int lastPos=offset;
+  int maxPos=offset + len;
+  for (int curPos=offset; curPos < maxPos; curPos++) {
+    if (buf[curPos] != '\0') {
+      continue;
+    }
+    if (lastPos == curPos) {
+      return list;
+    }
+    String value=new String(buf,lastPos,curPos - lastPos);
+    list.add(value);
+    lastPos=curPos + 1;
+  }
+  if (lastPos < maxPos) {
+    String value=new String(buf,lastPos,maxPos - lastPos);
+    list.add(value);
+  }
+  return list;
+}

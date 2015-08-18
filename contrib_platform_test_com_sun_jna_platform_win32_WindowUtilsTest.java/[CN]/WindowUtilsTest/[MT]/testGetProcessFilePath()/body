@@ -1,0 +1,15 @@
+{
+  if (!Platform.isWindows()) {
+    return;
+  }
+  final JFrame w=new JFrame();
+  try {
+    w.setVisible(true);
+    final String searchSubStr="\\bin\\java";
+    final HWND hwnd=new HWND(Native.getComponentPointer(w));
+    assertTrue("Path didn't contain '" + searchSubStr + "': "+ WindowUtils.getProcessFilePath(hwnd),WindowUtils.getProcessFilePath(hwnd).toLowerCase().contains(searchSubStr));
+  }
+  finally {
+    w.dispose();
+  }
+}

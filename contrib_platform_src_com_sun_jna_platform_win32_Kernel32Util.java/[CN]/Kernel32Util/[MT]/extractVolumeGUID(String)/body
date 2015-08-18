@@ -1,0 +1,6 @@
+{
+  if ((volumeGUIDPath == null) || (volumeGUIDPath.length() <= (VOLUME_GUID_PATH_PREFIX.length() + VOLUME_GUID_PATH_SUFFIX.length())) || (!volumeGUIDPath.startsWith(VOLUME_GUID_PATH_PREFIX))|| (!volumeGUIDPath.endsWith(VOLUME_GUID_PATH_SUFFIX))) {
+    throw new IllegalArgumentException("Bad volume GUID path format: " + volumeGUIDPath);
+  }
+  return volumeGUIDPath.substring(VOLUME_GUID_PATH_PREFIX.length(),volumeGUIDPath.length() - VOLUME_GUID_PATH_SUFFIX.length());
+}

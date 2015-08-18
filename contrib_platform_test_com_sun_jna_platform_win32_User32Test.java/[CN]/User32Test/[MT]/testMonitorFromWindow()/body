@@ -1,0 +1,5 @@
+{
+  int dwFlags=WinUser.MONITOR_DEFAULTTOPRIMARY;
+  HWND hwnd=new HWND();
+  assertNotNull(User32.INSTANCE.MonitorFromWindow(hwnd,dwFlags));
+}

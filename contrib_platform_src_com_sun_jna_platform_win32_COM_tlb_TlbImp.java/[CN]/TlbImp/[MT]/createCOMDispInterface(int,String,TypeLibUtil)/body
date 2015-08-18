@@ -1,0 +1,4 @@
+{
+  TlbDispInterface tlbDispatch=new TlbDispInterface(index,packagename,typeLibUtil);
+  this.writeTlbClass(tlbDispatch);
+}

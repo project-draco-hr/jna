@@ -1,0 +1,22 @@
+{
+  this.factory=factory;
+  this.comEventCallbackInterface=comEventCallbackInterface;
+  this.comEventCallbackListener=comEventCallbackListener;
+  this.listenedToRiid=this.createRIID(comEventCallbackInterface);
+  this.dsipIdMap=this.createDispIdMap(comEventCallbackInterface);
+  this.dispatchListener=new DispatchListener(this);
+  this.executorService=Executors.newSingleThreadExecutor(new ThreadFactory(){
+    @Override public Thread newThread(    Runnable r){
+      Thread thread=new Thread(r,"COM Event Callback executor");
+      thread.setDaemon(true);
+      thread.setUncaughtExceptionHandler(new UncaughtExceptionHandler(){
+        @Override public void uncaughtException(        Thread t,        Throwable e){
+          CallbackProxy.this.factory.comThread.uncaughtExceptionHandler.uncaughtException(t,e);
+        }
+      }
+);
+      return thread;
+    }
+  }
+);
+}

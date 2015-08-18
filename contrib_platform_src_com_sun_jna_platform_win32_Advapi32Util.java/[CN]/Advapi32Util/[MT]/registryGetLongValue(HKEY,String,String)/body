@@ -5,21 +5,7 @@
     throw new Win32Exception(rc);
   }
   try {
-    IntByReference lpcbData=new IntByReference();
-    IntByReference lpType=new IntByReference();
-    rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,(char[])null,lpcbData);
-    if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
-      throw new Win32Exception(rc);
-    }
-    if (lpType.getValue() != WinNT.REG_QWORD) {
-      throw new RuntimeException("Unexpected registry type " + lpType.getValue() + ", expected REG_QWORD");
-    }
-    LongByReference data=new LongByReference();
-    rc=Advapi32.INSTANCE.RegQueryValueEx(phkKey.getValue(),value,0,lpType,data,lpcbData);
-    if (rc != W32Errors.ERROR_SUCCESS && rc != W32Errors.ERROR_INSUFFICIENT_BUFFER) {
-      throw new Win32Exception(rc);
-    }
-    return data.getValue();
+    return registryGetLongValue(phkKey.getValue(),value);
   }
   finally {
     rc=Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());

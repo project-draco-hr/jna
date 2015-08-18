@@ -1,0 +1,4 @@
+{
+  super(getRasErrorString(code));
+  this.code=code;
+}

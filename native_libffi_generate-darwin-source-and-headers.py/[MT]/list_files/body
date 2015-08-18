@@ -1,0 +1,5 @@
+def list_files(src_dir, pattern=None, filelist=None):
+    if pattern:
+        filelist = glob.iglob(os.path.join(src_dir, pattern))
+    for file in filelist:
+        yield os.path.basename(file)

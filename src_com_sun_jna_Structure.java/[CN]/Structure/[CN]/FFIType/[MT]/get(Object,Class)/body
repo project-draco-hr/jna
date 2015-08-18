@@ -37,6 +37,6 @@ synchronized (typeInfoMap) {
       typeInfoMap.put(obj,type);
       return type.getPointer();
     }
-    throw new IllegalArgumentException("Unsupported Structure field type " + cls);
+    throw new IllegalArgumentException("Unsupported type " + cls);
   }
 }

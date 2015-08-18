@@ -1,0 +1,14 @@
+{
+  if (prop.name().isEmpty()) {
+    String methName=method.getName();
+    if (methName.startsWith("get")) {
+      return methName.replaceFirst("get","");
+    }
+ else {
+      throw new RuntimeException("Property Accessor name must start with 'get', or set the anotation 'name' value");
+    }
+  }
+ else {
+    return prop.name();
+  }
+}

@@ -1,0 +1,5 @@
+{
+  assertTrue(COMUtils.SUCCEEDED(COMUtils.S_OK));
+  assertTrue(COMUtils.SUCCEEDED(COMUtils.S_FALSE));
+  assertFalse(COMUtils.SUCCEEDED(COMUtils.E_UNEXPECTED));
+}

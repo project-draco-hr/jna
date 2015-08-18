@@ -1,0 +1,5 @@
+{
+  assertTrue(clazz.getSimpleName() + " test values not in natural order: v1=" + v1+ ", v2="+ v2,v1 < v2);
+  Constructor<T> ctor=clazz.getDeclaredConstructor(Long.TYPE);
+  testComparableIntegerType(clazz,ctor.newInstance(v1),ctor.newInstance(v2));
+}

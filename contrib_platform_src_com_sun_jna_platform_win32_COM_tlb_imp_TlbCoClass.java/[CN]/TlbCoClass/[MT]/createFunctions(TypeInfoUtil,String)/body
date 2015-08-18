@@ -1,0 +1,26 @@
+{
+  TYPEATTR typeAttr=typeInfoUtil.getTypeAttr();
+  int cFuncs=typeAttr.cFuncs.intValue();
+  for (int i=0; i < cFuncs; i++) {
+    FUNCDESC funcDesc=typeInfoUtil.getFuncDesc(i);
+    TlbAbstractMethod method=null;
+    if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_FUNC)) {
+      if (this.isVTableMode())       method=new TlbFunctionVTable(i,index,typeLibUtil,funcDesc,typeInfoUtil);
+ else       method=new TlbFunctionDispId(i,index,typeLibUtil,funcDesc,typeInfoUtil);
+    }
+ else     if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYGET)) {
+      method=new TlbPropertyGet(i,index,typeLibUtil,funcDesc,typeInfoUtil);
+    }
+ else     if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUT)) {
+      method=new TlbPropertyPut(i,index,typeLibUtil,funcDesc,typeInfoUtil);
+    }
+ else     if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUTREF)) {
+      method=new TlbPropertyPut(i,index,typeLibUtil,funcDesc,typeInfoUtil);
+    }
+    if (!isReservedMethod(method.getMethodName())) {
+      this.content+=method.getClassBuffer();
+      if (i < cFuncs - 1)       this.content+=CR;
+    }
+    typeInfoUtil.ReleaseFuncDesc(funcDesc);
+  }
+}

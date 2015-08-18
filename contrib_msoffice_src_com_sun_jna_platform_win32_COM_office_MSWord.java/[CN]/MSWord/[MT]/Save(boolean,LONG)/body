@@ -1,0 +1,5 @@
+{
+  VARIANT vtNoPrompt=new VARIANT(bNoPrompt);
+  VARIANT vtOriginalFormat=new VARIANT(originalFormat);
+  this.invokeNoReply("Save",this.getDocuments(),vtNoPrompt,vtOriginalFormat);
+}

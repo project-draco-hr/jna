@@ -1,5 +1,0 @@
-{
-  HRESULT hr=this.oleMethod(OleAuto.DISPATCH_METHOD,null,this.iDispatch,"Quit");
-  COMUtils.SUCCEEDED(hr);
-  return hr;
-}

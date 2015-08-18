@@ -1,0 +1,12 @@
+import subprocess
+import os
+import errno
+import collections
+import glob
+import argparse
+if (__name__ == '__main__'):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--only-ios', action='store_true', default=False)
+    parser.add_argument('--only-osx', action='store_true', default=False)
+    args = parser.parse_args()
+    generate_source_and_headers(generate_osx=(not args.only_ios), generate_ios=(not args.only_osx))

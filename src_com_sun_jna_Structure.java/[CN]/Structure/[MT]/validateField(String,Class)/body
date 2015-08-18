@@ -15,7 +15,7 @@
     }
  catch (    IllegalArgumentException e) {
       String msg="Invalid Structure field in " + getClass() + ", field name '"+ name+ "' ("+ type+ "): "+ e.getMessage();
-      throw new IllegalArgumentException(msg);
+      throw new IllegalArgumentException(msg,e);
     }
   }
 }

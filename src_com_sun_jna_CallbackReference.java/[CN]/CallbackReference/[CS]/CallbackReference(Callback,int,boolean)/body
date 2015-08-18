@@ -32,6 +32,7 @@
     }
     long peer=Native.createNativeCallback(callback,method,nativeParamTypes,returnType,callingConvention,flags,encoding);
     cbstruct=peer != 0 ? new Pointer(peer) : null;
+    allocatedMemory.put(this,new WeakReference(this));
   }
  else {
     if (callback instanceof CallbackProxy) {

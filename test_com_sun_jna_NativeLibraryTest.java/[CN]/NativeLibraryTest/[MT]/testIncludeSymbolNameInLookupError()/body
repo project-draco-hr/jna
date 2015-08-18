@@ -1,0 +1,10 @@
+{
+  NativeLibrary lib=NativeLibrary.getInstance("testlib");
+  try {
+    lib.getGlobalVariableAddress(getName());
+    fail("Non-existent global variable lookup should fail");
+  }
+ catch (  UnsatisfiedLinkError e) {
+    assertTrue("Expect symbol name in error message: " + e.getMessage(),e.getMessage().indexOf(getName()) != -1);
+  }
+}

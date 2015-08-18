@@ -1,0 +1,18 @@
+def build_target(platform, platform_headers):
+
+    def xcrun_cmd(cmd):
+        return ('xcrun -sdk %s %s -arch %s' % (platform.sdk, cmd, platform.arch))
+    tag = ('%s-%s' % (platform.sdk, platform.arch))
+    build_dir = ('build_%s' % tag)
+    mkdir_p(build_dir)
+    env = dict(CC=xcrun_cmd('clang'), LD=xcrun_cmd('ld'), CFLAGS=('%s' % platform.version_min))
+    working_dir = os.getcwd()
+    try:
+        os.chdir(build_dir)
+        subprocess.check_call(['../configure', '-host', platform.triple], env=env)
+    finally:
+        os.chdir(working_dir)
+    for src_dir in [build_dir, os.path.join(build_dir, 'include')]:
+        copy_files(src_dir, os.path.join(platform.directory, 'include'), pattern='*.h', file_suffix=platform.arch, prefix=platform.prefix, suffix=platform.suffix)
+        for filename in list_files(src_dir, pattern='*.h'):
+            platform_headers[filename].add((platform.prefix, platform.arch, platform.suffix))

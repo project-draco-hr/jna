@@ -1,0 +1,12 @@
+{
+  final ICONINFO iconInfo=new ICONINFO();
+  final HANDLE hImage=User32.INSTANCE.LoadImage(null,new File(getClass().getResource("/res/test_icon.ico").toURI()).getAbsolutePath(),WinUser.IMAGE_ICON,0,0,WinUser.LR_LOADFROMFILE);
+  try {
+    if (!User32.INSTANCE.GetIconInfo(new HICON(hImage),iconInfo))     throw new Exception("Invocation of User32.GetIconInfo() failed: " + Kernel32Util.getLastErrorMessage());
+    iconInfo.read();
+  }
+  finally {
+    if (iconInfo.hbmColor != null && iconInfo.hbmColor.getPointer() != Pointer.NULL)     GDI32.INSTANCE.DeleteObject(iconInfo.hbmColor);
+    if (iconInfo.hbmMask != null && iconInfo.hbmMask.getPointer() != Pointer.NULL)     GDI32.INSTANCE.DeleteObject(iconInfo.hbmMask);
+  }
+}

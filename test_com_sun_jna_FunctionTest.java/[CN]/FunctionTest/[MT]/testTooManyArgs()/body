@@ -1,0 +1,13 @@
+{
+  NativeLibrary lib=NativeLibrary.getInstance(Platform.C_LIBRARY_NAME);
+  Function f=lib.getFunction("printf");
+  Object[] args=new Object[Function.MAX_NARGS + 1];
+  args[0]=getName();
+  try {
+    f.invokeInt(args);
+    fail("Arguments should be limited to " + Function.MAX_NARGS);
+  }
+ catch (  UnsupportedOperationException e) {
+  }
+  assertEquals("Wrong result from 'printf'",getName().length(),f.invokeInt(new Object[]{getName()}));
+}

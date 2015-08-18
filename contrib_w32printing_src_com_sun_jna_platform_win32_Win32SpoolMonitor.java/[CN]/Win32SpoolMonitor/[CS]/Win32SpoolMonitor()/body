@@ -1,0 +1,24 @@
+{
+  String pPrinterName="HP Color LaserJet CM4730 MFP PCL 6";
+  HANDLEByReference phPrinter=new HANDLEByReference();
+  Winspool.INSTANCE.OpenPrinter(pPrinterName,phPrinter,null);
+  HANDLE chgObject=Winspool.INSTANCE.FindFirstPrinterChangeNotification(phPrinter.getValue(),Winspool.PRINTER_CHANGE_JOB,0,null);
+  if (chgObject != null) {
+    while (true) {
+      Kernel32.INSTANCE.WaitForSingleObject(chgObject,WinBase.INFINITE);
+      DWORDByReference pdwChange=new DWORDByReference();
+      boolean fcnreturn=Winspool.INSTANCE.FindNextPrinterChangeNotification(chgObject,pdwChange,null,null);
+      if (fcnreturn) {
+        JOB_INFO_1[] jobInfo1=WinspoolUtil.getJobInfo1(phPrinter);
+        for (int i=0; i < jobInfo1.length; i++) {
+          this.printJobInfo(jobInfo1[i]);
+        }
+        break;
+      }
+    }
+    Winspool.INSTANCE.FindClosePrinterChangeNotification(chgObject);
+  }
+ else {
+    getLastError();
+  }
+}

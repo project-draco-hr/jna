@@ -1,0 +1,34 @@
+{
+  PointerByReference pprot=new PointerByReference();
+  HRESULT hr=Ole32.INSTANCE.GetRunningObjectTable(new DWORD(0),pprot);
+  COMUtils.checkRC(hr);
+  IRunningObjectTable rot=new RunningObjectTable(pprot.getValue());
+  PointerByReference ppenumMoniker=new PointerByReference();
+  hr=rot.EnumRunning(ppenumMoniker);
+  COMUtils.checkRC(hr);
+  IEnumMoniker iterator=new EnumMoniker(ppenumMoniker.getValue());
+  iterator.Reset();
+  PointerByReference rgelt=new PointerByReference();
+  ULONGByReference pceltFetched=new ULONGByReference();
+  hr=iterator.Next(new ULONG(1),rgelt,pceltFetched);
+  while (WinNT.S_OK.equals(hr) && pceltFetched.getValue().intValue() > 0) {
+    Moniker moniker=new Moniker(rgelt.getValue());
+    PointerByReference ppbc=new PointerByReference();
+    Ole32.INSTANCE.CreateBindCtx(new DWORD(),ppbc);
+    BSTRByReference ppszDisplayName=new BSTRByReference();
+    hr=moniker.GetDisplayName(ppbc.getValue(),moniker.getPointer(),ppszDisplayName);
+    COMUtils.checkRC(hr);
+    String name=ppszDisplayName.getString();
+    Ole32.INSTANCE.CoTaskMemFree(ppszDisplayName.getPointer().getPointer(0));
+    PointerByReference ppunkObject=new PointerByReference();
+    hr=rot.GetObject(moniker.getPointer(),ppunkObject);
+    COMUtils.checkRC(hr);
+    IUnknown unk=new Unknown(ppunkObject.getValue());
+    PointerByReference ppvObject=new PointerByReference();
+    hr=unk.QueryInterface(new REFIID.ByValue(IUnknown.IID_IUNKNOWN),ppvObject);
+    assertEquals(0,hr.intValue());
+    assertNotNull(ppvObject.getValue());
+    moniker.Release();
+    hr=iterator.Next(new ULONG(1),rgelt,pceltFetched);
+  }
+}

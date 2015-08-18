@@ -1,0 +1,21 @@
+{
+  PointerByReference pprot=new PointerByReference();
+  HRESULT hr=Ole32.INSTANCE.GetRunningObjectTable(new DWORD(0),pprot);
+  COMUtils.checkRC(hr);
+  IRunningObjectTable rot=new RunningObjectTable(pprot.getValue());
+  PointerByReference ppenumMoniker=new PointerByReference();
+  hr=rot.EnumRunning(ppenumMoniker);
+  COMUtils.checkRC(hr);
+  IEnumMoniker iterator=new EnumMoniker(ppenumMoniker.getValue());
+  hr=iterator.Reset();
+  COMUtils.checkRC(hr);
+  PointerByReference rgelt1=new PointerByReference();
+  ULONGByReference pceltFetched1=new ULONGByReference();
+  hr=iterator.Next(new ULONG(1),rgelt1,pceltFetched1);
+  COMUtils.checkRC(hr);
+  PointerByReference rgelt2=new PointerByReference();
+  ULONGByReference pceltFetched2=new ULONGByReference();
+  hr=iterator.Next(new ULONG(1),rgelt2,pceltFetched2);
+  COMUtils.checkRC(hr);
+  assertNotEquals(rgelt1.getValue(),rgelt2.getValue());
+}

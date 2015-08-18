@@ -1,0 +1,3 @@
+{
+  assertNull(Rasapi32Util.getRasConnection("TEST"));
+}

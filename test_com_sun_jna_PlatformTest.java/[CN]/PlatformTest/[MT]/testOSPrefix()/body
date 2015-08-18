@@ -12,10 +12,10 @@
   assertEquals("Wrong resource path Linux/x86","linux-x86-64",Platform.getNativeLibraryResourcePrefix(Platform.LINUX,"x86_64","Linux"));
   assertEquals("Wrong resource path Linux/x86","linux-x86-64",Platform.getNativeLibraryResourcePrefix(Platform.LINUX,"amd64","Linux"));
   assertEquals("Wrong resource path Linux/ppc","linux-ppc",Platform.getNativeLibraryResourcePrefix(Platform.LINUX,"powerpc","Linux"));
-  assertEquals("Wrong resource path OpenBSD/x86","bsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.OPENBSD,"x86","OpenBSD"));
-  assertEquals("Wrong resource path FreeBSD/x86","bsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.FREEBSD,"x86","FreeBSD"));
-  assertEquals("Wrong resource path GNU/kFreeBSD/x86","bsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.KFREEBSD,"x86","GNU/kFreeBSD"));
-  assertEquals("Wrong resource path NetBSD/x86","bsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.NETBSD,"x86","NetBSD"));
+  assertEquals("Wrong resource path OpenBSD/x86","openbsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.OPENBSD,"x86","OpenBSD"));
+  assertEquals("Wrong resource path FreeBSD/x86","freebsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.FREEBSD,"x86","FreeBSD"));
+  assertEquals("Wrong resource path GNU/kFreeBSD/x86","kfreebsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.KFREEBSD,"x86","GNU/kFreeBSD"));
+  assertEquals("Wrong resource path NetBSD/x86","netbsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.NETBSD,"x86","NetBSD"));
   assertEquals("Wrong resource path Linux/armv7l (android)","android-arm",Platform.getNativeLibraryResourcePrefix(Platform.ANDROID,"armv7l","Linux"));
   assertEquals("Wrong resource path other/other","name-ppc",Platform.getNativeLibraryResourcePrefix(Platform.UNSPECIFIED,"PowerPC","Name Of System"));
 }

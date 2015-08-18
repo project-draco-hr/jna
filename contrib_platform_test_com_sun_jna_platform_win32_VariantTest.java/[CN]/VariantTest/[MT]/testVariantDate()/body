@@ -1,12 +1,7 @@
 {
-  System.out.println("------------------------------------------");
   SYSTEMTIME lpSystemTime=new SYSTEMTIME();
   Kernel32.INSTANCE.GetLocalTime(lpSystemTime);
   DoubleByReference pvtime=new DoubleByReference();
   OleAuto.INSTANCE.SystemTimeToVariantTime(lpSystemTime,pvtime);
   VARIANT variantDate=new VARIANT(new DATE(pvtime.getValue()));
-  System.out.println(variantDate.toString(true));
-  System.out.println("variant type  :" + variantDate.getVarType());
-  System.out.println("variant value :" + variantDate.getValue());
-  System.out.println("------------------------------------------");
 }

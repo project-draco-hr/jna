@@ -1,0 +1,8 @@
+{
+  LARGE_INTEGER.ByReference lpFreeBytesAvailable=new LARGE_INTEGER.ByReference();
+  LARGE_INTEGER.ByReference lpTotalNumberOfBytes=new LARGE_INTEGER.ByReference();
+  LARGE_INTEGER.ByReference lpTotalNumberOfFreeBytes=new LARGE_INTEGER.ByReference();
+  assertCallSucceeded("GetDiskFreeSpaceEx(" + lpDirectoryName + ")",Kernel32.INSTANCE.GetDiskFreeSpaceEx(lpDirectoryName,lpFreeBytesAvailable,lpTotalNumberOfBytes,lpTotalNumberOfFreeBytes));
+  assertTrue("No free size for " + lpDirectoryName,LARGE_INTEGER.compare(lpTotalNumberOfFreeBytes,0L) > 0);
+  assertTrue("Free size (" + lpTotalNumberOfFreeBytes + ")"+ " not below total size ("+ lpTotalNumberOfBytes+ ")"+ " for "+ lpDirectoryName,LARGE_INTEGER.compare(lpTotalNumberOfFreeBytes,lpTotalNumberOfBytes) < 0);
+}

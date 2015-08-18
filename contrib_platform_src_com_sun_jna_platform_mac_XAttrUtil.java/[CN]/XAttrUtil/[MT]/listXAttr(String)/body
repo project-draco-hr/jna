@@ -1,0 +1,9 @@
+{
+  long bufferLength=XAttr.INSTANCE.listxattr(path,null,0,0);
+  if (bufferLength < 0)   return null;
+  if (bufferLength == 0)   return new ArrayList<String>(0);
+  Memory valueBuffer=new Memory(bufferLength);
+  long valueLength=XAttr.INSTANCE.listxattr(path,valueBuffer,bufferLength,0);
+  if (valueLength < 0)   return null;
+  return decodeStringSequence(valueBuffer.getByteBuffer(0,valueLength));
+}

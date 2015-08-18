@@ -1,0 +1,4 @@
+{
+  IntByReference curMode=new IntByReference();
+  assertCallSucceeded("Initial display mode value retrieval",INSTANCE.GetConsoleDisplayMode(curMode));
+}

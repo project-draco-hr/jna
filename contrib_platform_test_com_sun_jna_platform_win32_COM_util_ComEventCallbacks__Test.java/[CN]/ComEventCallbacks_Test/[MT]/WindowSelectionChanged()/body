@@ -1,0 +1,18 @@
+{
+  ComIMsWordApp wordObj=factory.createObject(ComIMsWordApp.class);
+  ComIApplication wordApp=wordObj.queryInterface(ComIApplication.class);
+  wordApp.setVisible(true);
+  ApplicationEvents4_EventListener listener=new ApplicationEvents4_EventListener();
+  wordApp.advise(ApplicationEvents4_Event.class,listener);
+  ComIDocument doc=wordApp.getDocuments().Add();
+  doc.Select();
+  try {
+    Thread.sleep(200);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  Assert.assertNotNull(listener.WindowSelectionChange_called);
+  Assert.assertTrue(listener.WindowSelectionChange_called);
+  wordApp.Quit(false,null,null);
+}

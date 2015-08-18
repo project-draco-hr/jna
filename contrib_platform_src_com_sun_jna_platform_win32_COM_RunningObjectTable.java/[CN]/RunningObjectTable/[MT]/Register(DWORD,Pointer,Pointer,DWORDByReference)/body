@@ -1,0 +1,5 @@
+{
+  final int vTableId=3;
+  WinNT.HRESULT hr=(WinNT.HRESULT)this._invokeNativeObject(vTableId,new Object[]{this.getPointer(),grfFlags,punkObject,pmkObjectName,pdwRegister},WinNT.HRESULT.class);
+  return hr;
+}

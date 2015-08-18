@@ -1,0 +1,4 @@
+Class<?> theInterface
+long unknownId
+IDispatch rawDispatch
+Factory factory

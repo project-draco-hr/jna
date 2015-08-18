@@ -1,0 +1,9 @@
+{
+  HANDLE hDevInfoSet=SetupApi.INSTANCE.SetupDiGetClassDevs(null,null,null,DIGCF_ALLCLASSES);
+  assertTrue(hDevInfoSet != INVALID_HANDLE_VALUE);
+  SP_DEVINFO_DATA devInfo=new SP_DEVINFO_DATA();
+  assertTrue(SetupApi.INSTANCE.SetupDiEnumDeviceInfo(hDevInfoSet,FIRST_MEMBER,devInfo));
+  HKEY hDeviceKey=SetupApi.INSTANCE.SetupDiOpenDevRegKey(hDevInfoSet,devInfo,DICS_FLAG_GLOBAL,0,DIREG_DEV,KEY_QUERY_VALUE);
+  assertTrue(hDeviceKey != INVALID_HANDLE_VALUE);
+  Advapi32.INSTANCE.RegCloseKey(hDeviceKey);
+}

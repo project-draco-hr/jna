@@ -1,0 +1,6 @@
+{
+  DesktopWindow explorerProc=getWindowByProcessPath("explorer.exe");
+  assertNotNull(explorerProc);
+  long result=User32.INSTANCE.GetClassLongPtr(explorerProc.getHWND(),WinUser.GCLP_HMODULE);
+  assertNotEquals(0,result);
+}

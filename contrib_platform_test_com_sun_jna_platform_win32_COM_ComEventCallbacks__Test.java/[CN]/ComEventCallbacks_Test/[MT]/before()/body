@@ -1,0 +1,4 @@
+{
+  HRESULT hr=Ole32.INSTANCE.CoInitializeEx(null,Ole32.COINIT_MULTITHREADED);
+  COMUtils.checkRC(hr);
+}

@@ -1,0 +1,5 @@
+{
+  HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
+  MC_DISPLAY_TECHNOLOGY_TYPE.ByReference techType=new MC_DISPLAY_TECHNOLOGY_TYPE.ByReference();
+  Dxva2.INSTANCE.GetMonitorTechnologyType(hPhysicalMonitor,techType);
+}

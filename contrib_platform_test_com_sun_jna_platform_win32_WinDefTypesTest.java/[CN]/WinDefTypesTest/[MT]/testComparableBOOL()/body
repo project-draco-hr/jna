@@ -1,0 +1,14 @@
+{
+  assertEquals("Mismatched null/null comparison",0,BOOL.compare(null,null));
+  BOOL FALSE=new BOOL(false);
+  BOOL TRUE=new BOOL(true);
+  for (  BOOL v : new BOOL[]{FALSE,TRUE}) {
+    assertEquals("Mismatched null/" + v + " object comparison",1,BOOL.compare(null,v));
+    assertEquals("Mismatched null/" + v + " value comparison",1,BOOL.compare(null,v.booleanValue()));
+    assertEquals("Mismatched self/" + v + " comparison",0,BOOL.compare(v,v.booleanValue()));
+    assertEquals("Mismatched self " + v + "#compareTo() result",0,v.compareTo(v));
+    assertEquals("Mismatched null " + v + "#compareTo() result",(-1),v.compareTo(null));
+  }
+  assertEquals("Mismatched natural order comparison",(-1),FALSE.compareTo(TRUE));
+  assertEquals("Mismatched reversed order comparison",1,TRUE.compareTo(FALSE));
+}

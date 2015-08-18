@@ -9,7 +9,7 @@
     }
     return name;
   }
- else   if (Platform.isLinux()) {
+ else   if (Platform.isLinux() || Platform.isFreeBSD()) {
     if (isVersionedName(libName) || libName.endsWith(".so")) {
       return libName;
     }

@@ -1,0 +1,10 @@
+{
+  if (showHex) {
+    if (statusCode != WinError.ERROR_SUCCESS) {
+      fail(message + " - failed - hr=0x" + Integer.toHexString(statusCode));
+    }
+  }
+ else {
+    assertEquals(message,WinError.ERROR_SUCCESS,statusCode);
+  }
+}

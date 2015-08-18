@@ -1,0 +1,20 @@
+{
+  MSExcel msExcel=null;
+  try {
+    msExcel=new MSExcel();
+    System.out.println("MSExcel version: " + msExcel.getVersion());
+    msExcel.setVisible(true);
+    msExcel.openExcelBook(currentWorkingDir + "jnatest.xls",true);
+    msExcel.insertValue("A1","Hello from JNA!");
+    Thread.currentThread().sleep(10000);
+    msExcel.closeActiveWorkbook(true);
+    msExcel.setVisible(true);
+    msExcel.openExcelBook(currentWorkingDir + "jnatest.xls",true);
+    msExcel.insertValue("A1","Hello from JNA!");
+    msExcel.closeActiveWorkbook(true);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    if (msExcel != null)     msExcel.quit();
+  }
+}

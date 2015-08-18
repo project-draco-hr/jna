@@ -1,0 +1,79 @@
+{
+  final String pipeName="\\\\.\\pipe\\" + getCurrentTestName();
+  final Logger logger=Logger.getLogger(getClass().getName());
+  final int MAX_BUFFER_SIZE=1024;
+  ExecutorService executors=Executors.newFixedThreadPool(2);
+  try {
+    Future<?> server=executors.submit(new Runnable(){
+      @Override public void run(){
+        HANDLE hNamedPipe=assertValidHandle("CreateNamedPipe",Kernel32.INSTANCE.CreateNamedPipe(pipeName,WinBase.PIPE_ACCESS_DUPLEX,WinBase.PIPE_TYPE_MESSAGE | WinBase.PIPE_READMODE_MESSAGE | WinBase.PIPE_WAIT,1,MAX_BUFFER_SIZE,MAX_BUFFER_SIZE,(int)TimeUnit.SECONDS.toMillis(30L),null));
+        try {
+          logger.info("Await client connection");
+          assertCallSucceeded("ConnectNamedPipe",Kernel32.INSTANCE.ConnectNamedPipe(hNamedPipe,null));
+          logger.info("Client connected");
+          byte[] readBuffer=new byte[MAX_BUFFER_SIZE];
+          IntByReference lpNumberOfBytesRead=new IntByReference(0);
+          assertCallSucceeded("ReadFile",Kernel32.INSTANCE.ReadFile(hNamedPipe,readBuffer,readBuffer.length,lpNumberOfBytesRead,null));
+          int readSize=lpNumberOfBytesRead.getValue();
+          logger.info("Received client data - length=" + readSize);
+          assertTrue("No data receieved from client",readSize > 0);
+          IntByReference lpNumberOfBytesWritten=new IntByReference(0);
+          assertCallSucceeded("WriteFile",Kernel32.INSTANCE.WriteFile(hNamedPipe,readBuffer,readSize,lpNumberOfBytesWritten,null));
+          logger.info("Echoed client data - length=" + lpNumberOfBytesWritten.getValue());
+          assertEquals("Mismatched write buffer size",readSize,lpNumberOfBytesWritten.getValue());
+          assertCallSucceeded("FlushFileBuffers",Kernel32.INSTANCE.FlushFileBuffers(hNamedPipe));
+          logger.info("Disconnecting");
+          assertCallSucceeded("DisconnectNamedPipe",Kernel32.INSTANCE.DisconnectNamedPipe(hNamedPipe));
+          logger.info("Disconnected");
+        }
+  finally {
+          assertCallSucceeded("Named pipe handle close",Kernel32.INSTANCE.CloseHandle(hNamedPipe));
+        }
+      }
+    }
+);
+    logger.info("Started server - handle=" + server);
+    Future<?> client=executors.submit(new Runnable(){
+      @Override public void run(){
+        assertCallSucceeded("WaitNamedPipe",Kernel32.INSTANCE.WaitNamedPipe(pipeName,(int)TimeUnit.SECONDS.toMillis(15L)));
+        logger.info("Connected to server");
+        HANDLE hPipe=assertValidHandle("CreateNamedPipe",Kernel32.INSTANCE.CreateFile(pipeName,WinNT.GENERIC_READ | WinNT.GENERIC_WRITE,0,null,WinNT.OPEN_EXISTING,0,null));
+        try {
+          IntByReference lpMode=new IntByReference(WinBase.PIPE_READMODE_MESSAGE);
+          assertCallSucceeded("SetNamedPipeHandleState",Kernel32.INSTANCE.SetNamedPipeHandleState(hPipe,lpMode,null,null));
+          String expMessage=Thread.currentThread().getName() + " says hello";
+          byte[] expData=expMessage.getBytes();
+          IntByReference lpNumberOfBytesWritten=new IntByReference(0);
+          assertCallSucceeded("WriteFile",Kernel32.INSTANCE.WriteFile(hPipe,expData,expData.length,lpNumberOfBytesWritten,null));
+          logger.info("Sent hello message");
+          assertEquals("Mismatched write buffer size",expData.length,lpNumberOfBytesWritten.getValue());
+          byte[] readBuffer=new byte[MAX_BUFFER_SIZE];
+          IntByReference lpNumberOfBytesRead=new IntByReference(0);
+          assertCallSucceeded("ReadFile",Kernel32.INSTANCE.ReadFile(hPipe,readBuffer,readBuffer.length,lpNumberOfBytesRead,null));
+          int readSize=lpNumberOfBytesRead.getValue();
+          logger.info("Received server data - length=" + readSize);
+          assertTrue("No data receieved from server",readSize > 0);
+          String actMessage=new String(readBuffer,0,readSize);
+          assertEquals("Mismatched server data",expMessage,actMessage);
+        }
+  finally {
+          assertCallSucceeded("Named pipe handle close",Kernel32.INSTANCE.CloseHandle(hPipe));
+        }
+      }
+    }
+);
+    logger.info("Started client - handle=" + client);
+    for (    Future<?> f : Arrays.asList(client,server)) {
+      try {
+        f.get(30L,TimeUnit.SECONDS);
+        logger.info("Finished " + f);
+      }
+ catch (      Exception e) {
+        logger.warning(e.getClass().getSimpleName() + " while await completion of " + f+ ": "+ e.getMessage());
+      }
+    }
+  }
+  finally {
+    executors.shutdownNow();
+  }
+}

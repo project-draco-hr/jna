@@ -1,0 +1,3 @@
+{
+  Rasapi32Util.hangupRasConnection("TEST");
+}

@@ -1,0 +1,24 @@
+{
+  final JFrame w=new JFrame();
+  try {
+    final BufferedImage expectedIcon=ImageIO.read(new FileInputStream(new File(getClass().getResource("/res/test_icon.png").getPath())));
+    w.setIconImage(expectedIcon);
+    w.setVisible(true);
+    HWND hwnd=new HWND();
+    hwnd.setPointer(Native.getComponentPointer(w));
+    final BufferedImage obtainedIcon=WindowUtils.getWindowIcon(hwnd);
+    assertTrue(obtainedIcon.getWidth() > 0);
+    assertTrue(obtainedIcon.getHeight() > 0);
+    int[] expectedColors=getPixelColor(expectedIcon,10,10);
+    assertPixelColor(obtainedIcon,10,10,expectedColors[0],expectedColors[1],expectedColors[2]);
+    expectedColors=getPixelColor(expectedIcon,expectedIcon.getWidth() - 10,10);
+    assertPixelColor(obtainedIcon,obtainedIcon.getWidth() - 10,10,expectedColors[0],expectedColors[1],expectedColors[2]);
+    expectedColors=getPixelColor(expectedIcon,expectedIcon.getWidth() - 10,expectedIcon.getHeight() - 10);
+    assertPixelColor(obtainedIcon,obtainedIcon.getWidth() - 10,obtainedIcon.getHeight() - 10,expectedColors[0],expectedColors[1],expectedColors[2]);
+    expectedColors=getPixelColor(expectedIcon,10,expectedIcon.getHeight() - 10);
+    assertPixelColor(obtainedIcon,10,obtainedIcon.getHeight() - 10,expectedColors[0],expectedColors[1],expectedColors[2]);
+  }
+  finally {
+    w.dispose();
+  }
+}

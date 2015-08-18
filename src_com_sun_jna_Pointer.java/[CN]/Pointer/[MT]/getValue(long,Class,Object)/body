@@ -6,7 +6,7 @@
       s=Structure.updateStructureByReference(type,s,getPointer(offset));
     }
  else {
-      s.useMemory(this,(int)offset);
+      s.useMemory(this,(int)offset,true);
       s.read();
     }
     result=s;

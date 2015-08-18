@@ -1,0 +1,5 @@
+{
+  this.vtbl=this.constructVTable();
+  this.initVTable(callback);
+  super.write();
+}

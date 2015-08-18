@@ -1,0 +1,4 @@
+{
+  final boolean access=Advapi32Util.accessCheck(new File(System.getProperty("java.io.tmpdir")),Advapi32Util.AccessCheckPermission.EXECUTE);
+  assertTrue(access);
+}

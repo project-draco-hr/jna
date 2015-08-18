@@ -1,15 +1,10 @@
 {
-  HRESULT hr=Ole32.INSTANCE.CoInitializeEx(null,Ole32.COINIT_MULTITHREADED);
-  assertTrue("CoInitializeEx failed: " + Kernel32Util.formatMessage(hr),W32Errors.SUCCEEDED(hr));
-  initialized=true;
-  final String NAME="Shell.Application";
-  CLSID clsid=new CLSID();
-  hr=Ole32.INSTANCE.CLSIDFromProgID(NAME,clsid);
-  assertTrue("CLSIDFromProgID(" + NAME + ") failed: "+ Kernel32Util.formatMessage(hr),W32Errors.SUCCEEDED(hr));
-  final String IID_IShellDispatch="{D8F015C0-C278-11CE-A49E-444553540000}";
-  GUID iid=Ole32Util.getGUIDFromString(IID_IShellDispatch);
+  HRESULT hrCI=Ole32.INSTANCE.CoInitializeEx(null,0);
+  GUID guid=Ole32Util.getGUIDFromString("{00021401-0000-0000-C000-000000000046}");
+  GUID riid=Ole32Util.getGUIDFromString("{000214EE-0000-0000-C000-000000000046}");
   PointerByReference pDispatch=new PointerByReference();
-  hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,WTypes.CLSCTX_LOCAL_SERVER,iid,pDispatch);
-  assertTrue("Error looking up Shell/IShellDispatch: " + Kernel32Util.formatMessage(hr),W32Errors.SUCCEEDED(hr));
-  assertNotNull("Returned dispatch pointer should be non-null",pDispatch.getValue());
+  HRESULT hr=Ole32.INSTANCE.CoCreateInstance(guid,null,WTypes.CLSCTX_LOCAL_SERVER,riid,pDispatch);
+  assertTrue(W32Errors.SUCCEEDED(hr.intValue()));
+  assertTrue(!pDispatch.equals(Pointer.NULL));
+  if (W32Errors.SUCCEEDED(hrCI.intValue()))   Ole32.INSTANCE.CoUninitialize();
 }

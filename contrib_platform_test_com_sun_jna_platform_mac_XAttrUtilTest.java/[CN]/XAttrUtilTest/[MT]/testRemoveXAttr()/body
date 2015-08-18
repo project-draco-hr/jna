@@ -1,0 +1,6 @@
+{
+  XAttrUtil.setXAttr(testPath,"JNA","Java Native Access");
+  assertEquals("[JNA]",XAttrUtil.listXAttr(testPath).toString());
+  XAttrUtil.removeXAttr(testPath,"JNA");
+  assertEquals("[]",XAttrUtil.listXAttr(testPath).toString());
+}

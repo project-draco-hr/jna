@@ -1,0 +1,20 @@
+{
+  try {
+    PointerByReference pDispatch=new PointerByReference();
+    CLSID.ByReference clsid=new CLSID.ByReference();
+    HRESULT hr=Ole32.INSTANCE.CLSIDFromProgID("Shell.Application",clsid);
+    if (W32Errors.FAILED(hr)) {
+      Ole32.INSTANCE.CoUninitialize();
+      COMUtils.checkRC(hr);
+    }
+    hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,WTypes.CLSCTX_SERVER,IDispatch.IID_IDISPATCH,pDispatch);
+    if (W32Errors.FAILED(hr)) {
+      COMUtils.checkRC(hr);
+    }
+    return new Dispatch(pDispatch.getValue());
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return null;
+}

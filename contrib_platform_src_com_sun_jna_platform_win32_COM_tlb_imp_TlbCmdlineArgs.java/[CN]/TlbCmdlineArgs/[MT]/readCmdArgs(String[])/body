@@ -1,0 +1,15 @@
+{
+  if (args.length < 2)   this.showCmdHelp();
+  for (int i=0; i < args.length; ) {
+    String cmdName=args[i];
+    String cmdValue=args[i + 1];
+    if (cmdName.startsWith("-") && !cmdValue.startsWith("-")) {
+      this.put(cmdName.substring(1),cmdValue);
+      i+=2;
+    }
+ else {
+      this.showCmdHelp();
+      break;
+    }
+  }
+}

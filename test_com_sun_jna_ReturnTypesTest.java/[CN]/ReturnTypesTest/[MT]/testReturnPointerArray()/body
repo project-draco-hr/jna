@@ -4,4 +4,5 @@
   Pointer[] result=lib.returnPointerArgument(input);
   assertEquals("Wrong array length",input.length - 1,result.length);
   assertEquals("Wrong array element value",value,result[0]);
+  assertNull("NULL should result in null return value",lib.returnPointerArgument((Pointer[])null));
 }
