@@ -19,6 +19,9 @@
         alive[0]=true;
       }
       ++called[0];
+      if (THREAD_DETACH_BUG && called[0] == 2) {
+        Native.detach(true);
+      }
     }
   }
 ;
