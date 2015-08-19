@@ -1,0 +1,7 @@
+{
+  SERVICE_FAILURE_ACTIONS_FLAG flag=new SERVICE_FAILURE_ACTIONS_FLAG();
+  flag.fFailureActionsOnNonCrashFailures=flagValue ? 1 : 0;
+  if (!Advapi32.INSTANCE.ChangeServiceConfig2W(_handle,Winsvc.SERVICE_CONFIG_FAILURE_ACTIONS_FLAG,flag)) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+}
