@@ -1,0 +1,4 @@
+{
+  Collection<RAWINPUTDEVICELIST> deviceList=User32Util.GetRawInputDeviceList();
+  assertNotNull("No device list",deviceList);
+}
