@@ -1,0 +1,19 @@
+{
+  IntByReference puiNumDevices=new IntByReference(0);
+  RAWINPUTDEVICELIST placeholder=new RAWINPUTDEVICELIST();
+  int cbSize=placeholder.sizeof();
+  int returnValue=User32.INSTANCE.GetRawInputDeviceList(null,puiNumDevices,cbSize);
+  if (returnValue != 0) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  int deviceCount=puiNumDevices.getValue();
+  RAWINPUTDEVICELIST[] records=(RAWINPUTDEVICELIST[])placeholder.toArray(deviceCount);
+  returnValue=User32.INSTANCE.GetRawInputDeviceList(records,puiNumDevices,cbSize);
+  if (returnValue == (-1)) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  if (returnValue != records.length) {
+    throw new IllegalStateException("Mismatched allocated (" + records.length + ") vs. received devices count ("+ returnValue+ ")");
+  }
+  return Arrays.asList(records);
+}
