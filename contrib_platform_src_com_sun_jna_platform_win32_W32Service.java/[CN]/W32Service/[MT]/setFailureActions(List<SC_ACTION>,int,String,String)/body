@@ -18,8 +18,13 @@
   actionStruct.cActions=actions.size();
   actionStruct.lpsaActions=new SC_ACTION.ByReference();
   SC_ACTION[] actionArray=(SC_ACTION[])actionStruct.lpsaActions.toArray(actions.size());
+  boolean hasShutdownPrivilege=false;
   int i=0;
   for (  SC_ACTION action : actions) {
+    if (!hasShutdownPrivilege && action.type == Winsvc.SC_ACTION_REBOOT) {
+      addShutdownPrivilegeToProcess();
+      hasShutdownPrivilege=true;
+    }
     actionArray[i].type=action.type;
     actionArray[i].delay=action.delay;
     i++;
