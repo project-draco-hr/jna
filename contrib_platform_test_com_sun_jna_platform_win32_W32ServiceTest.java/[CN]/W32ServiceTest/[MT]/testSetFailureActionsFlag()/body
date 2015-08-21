@@ -1,2 +1,8 @@
 {
+  W32Service service=_serviceManager.openService("eventlog",Winsvc.SC_MANAGER_ALL_ACCESS);
+  boolean prevFlag=service.getFailureActionsFlag();
+  service.setFailureActionsFlag(!prevFlag);
+  assertTrue(prevFlag != service.getFailureActionsFlag());
+  service.setFailureActionsFlag(prevFlag);
+  service.close();
 }
