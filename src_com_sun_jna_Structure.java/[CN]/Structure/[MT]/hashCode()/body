@@ -1,7 +1,7 @@
 {
-  clear();
-  write();
-  Adler32 code=new Adler32();
-  code.update(getPointer().getByteArray(0,size()));
-  return (int)code.getValue();
+  Pointer p=getPointer();
+  if (p != null) {
+    return getPointer().hashCode();
+  }
+  return getClass().hashCode();
 }
