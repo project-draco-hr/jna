@@ -14,4 +14,8 @@ class VolatileStructure extends Structure {
   assertEquals("Non-volatile field should be written",1,s.getPointer().getInt(4));
   s.writeField("counter");
   assertEquals("Explicit volatile field write failed",1,s.getPointer().getInt(0));
+  s.equals(s);
+  assertEquals("Structure equals should leave volatile field unchanged",1,s.getPointer().getInt(0));
+  s.hashCode();
+  assertEquals("Structure equals should leave volatile field unchanged",1,s.getPointer().getInt(0));
 }

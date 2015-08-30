@@ -1,25 +1,3 @@
 {
-  if (o == this) {
-    return true;
-  }
-  if (!(o instanceof Structure)) {
-    return false;
-  }
-  if (o.getClass() != getClass() && ((Structure)o).baseClass() != baseClass()) {
-    return false;
-  }
-  Structure s=(Structure)o;
-  if (s.getPointer().equals(getPointer())) {
-    return true;
-  }
-  if (s.size() == size()) {
-    clear();
-    write();
-    byte[] buf=getPointer().getByteArray(0,size());
-    s.clear();
-    s.write();
-    byte[] sbuf=s.getPointer().getByteArray(0,s.size());
-    return Arrays.equals(buf,sbuf);
-  }
-  return false;
+  return o instanceof Structure && o.getClass() == getClass() && ((Structure)o).getPointer().equals(getPointer());
 }
