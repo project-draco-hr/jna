@@ -18,6 +18,6 @@
   assertTrue("Callback not called",called[0]);
   assertTrue("ByValue argument should own its own memory, instead was " + arg[0].getPointer(),arg[0].getPointer() instanceof Memory);
   assertTrue("ByValue result should own its own memory, instead was " + result.getPointer(),result.getPointer() instanceof Memory);
-  assertEquals("Wrong value for callback argument",s,arg[0]);
-  assertEquals("Wrong value for callback result",s,result);
+  assertTrue("Wrong value for callback argument",s.dataEquals(arg[0]));
+  assertTrue("Wrong value for callback result",s.dataEquals(result));
 }
