@@ -10,6 +10,7 @@
     ClassLoader loader=new TestLoader(true);
     Class cls=Class.forName("com.sun.jna.Native",true,loader);
     assertEquals("Wrong class loader",loader,cls.getClassLoader());
+    assertTrue("System property jna.loaded not set",Boolean.getBoolean("jna.loaded"));
     String path=System.getProperty("jnidispatch.path");
     if (path != null) {
       File lib=new File(path);

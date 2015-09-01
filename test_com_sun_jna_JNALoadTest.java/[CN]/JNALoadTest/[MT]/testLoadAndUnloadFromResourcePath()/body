@@ -2,6 +2,7 @@
   ClassLoader loader=new TestLoader(false);
   Class cls=Class.forName("com.sun.jna.Native",true,loader);
   assertEquals("Wrong class loader",loader,cls.getClassLoader());
+  assertTrue("System property jna.loaded not set",Boolean.getBoolean("jna.loaded"));
   Field field=cls.getDeclaredField("jnidispatchPath");
   field.setAccessible(true);
   String path=(String)field.get(null);
@@ -18,6 +19,7 @@
   }
   assertNull("Class not GC'd: " + ref.get(),ref.get());
   assertNull("ClassLoader not GC'd: " + clref.get(),clref.get());
+  assertFalse("System property jna.loaded not cleared",Boolean.getBoolean("jna.loaded"));
   Throwable throwable=null;
   for (int i=0; i < 100; i++) {
     System.gc();
