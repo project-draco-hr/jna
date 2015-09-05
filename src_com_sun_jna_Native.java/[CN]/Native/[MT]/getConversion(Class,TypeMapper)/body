@@ -8,8 +8,29 @@
  else   if (type == Float.class)   type=float.class;
  else   if (type == Double.class)   type=double.class;
  else   if (type == Void.class)   type=void.class;
-  if (mapper != null && (mapper.getFromNativeConverter(type) != null || mapper.getToNativeConverter(type) != null)) {
-    return CVT_TYPE_MAPPER;
+  if (mapper != null) {
+    FromNativeConverter fromNative=mapper.getFromNativeConverter(type);
+    ToNativeConverter toNative=mapper.getToNativeConverter(type);
+    if (fromNative != null) {
+      Class nativeType=fromNative.nativeType();
+      if (nativeType == String.class) {
+        return CVT_TYPE_MAPPER_STRING;
+      }
+      if (nativeType == WString.class) {
+        return CVT_TYPE_MAPPER_WSTRING;
+      }
+      return CVT_TYPE_MAPPER;
+    }
+    if (toNative != null) {
+      Class nativeType=toNative.nativeType();
+      if (nativeType == String.class) {
+        return CVT_TYPE_MAPPER_STRING;
+      }
+      if (nativeType == WString.class) {
+        return CVT_TYPE_MAPPER_WSTRING;
+      }
+      return CVT_TYPE_MAPPER;
+    }
   }
   if (Pointer.class.isAssignableFrom(type)) {
     return CVT_POINTER;
@@ -64,6 +85,13 @@ if (PointerType.class.isAssignableFrom(type)) {
 return CVT_POINTER_TYPE;
 }
 if (NativeMapped.class.isAssignableFrom(type)) {
+Class nativeType=NativeMappedConverter.getInstance(type).nativeType();
+if (nativeType == String.class) {
+return CVT_NATIVE_MAPPED_STRING;
+}
+if (nativeType == WString.class) {
+return CVT_NATIVE_MAPPED_WSTRING;
+}
 return CVT_NATIVE_MAPPED;
 }
 return CVT_UNSUPPORTED;

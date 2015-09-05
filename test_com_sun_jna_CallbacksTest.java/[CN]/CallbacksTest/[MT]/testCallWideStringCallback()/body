@@ -1,17 +1,20 @@
 {
   final boolean[] called={false};
-  final WString[] cbargs={null};
+  final WString[] cbargs={null,null};
   TestLibrary.WideStringCallback cb=new TestLibrary.WideStringCallback(){
-    public WString callback(    WString arg){
+    public WString callback(    WString arg,    WString arg2){
       called[0]=true;
       cbargs[0]=arg;
-      return arg;
+      cbargs[1]=arg2;
+      return new WString(arg.toString() + arg2.toString());
     }
   }
 ;
-  final WString VALUE=new WString("value" + UNICODE);
-  WString value=lib.callWideStringCallback(cb,VALUE);
+  final WString VALUE=new WString("magic" + UNICODE);
+  final WString VALUE2=new WString(getName() + UNICODE);
+  WString value=lib.callWideStringCallback(cb,VALUE,VALUE2);
   assertTrue("Callback not called",called[0]);
-  assertEquals("Wrong callback argument 1",VALUE,cbargs[0]);
-  assertEquals("Wrong wide string return",VALUE,value);
+  assertEquals("Wrong first callback argument",VALUE,cbargs[0]);
+  assertEquals("Wrong second callback argument",VALUE2,cbargs[1]);
+  assertEquals("Wrong wide string return",new WString(VALUE.toString() + VALUE2.toString()),value);
 }

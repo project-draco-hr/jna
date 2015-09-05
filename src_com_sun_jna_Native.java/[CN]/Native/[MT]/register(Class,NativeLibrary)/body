@@ -26,11 +26,15 @@ switch (rcvt) {
 case CVT_UNSUPPORTED:
       throw new IllegalArgumentException(rclass + " is not a supported return type (in method " + method.getName()+ " in "+ cls+ ")");
 case CVT_TYPE_MAPPER:
+case CVT_TYPE_MAPPER_STRING:
+case CVT_TYPE_MAPPER_WSTRING:
     fromNative=mapper.getFromNativeConverter(rclass);
   closure_rtype=FFIType.get(rclass.isPrimitive() ? rclass : Pointer.class).peer;
 rtype=FFIType.get(fromNative.nativeType()).peer;
 break;
 case CVT_NATIVE_MAPPED:
+case CVT_NATIVE_MAPPED_STRING:
+case CVT_NATIVE_MAPPED_WSTRING:
 case CVT_INTEGER_TYPE:
 case CVT_POINTER_TYPE:
 closure_rtype=FFIType.get(Pointer.class).peer;
@@ -54,10 +58,10 @@ cvt[t]=getConversion(type,mapper);
 if (cvt[t] == CVT_UNSUPPORTED) {
 throw new IllegalArgumentException(type + " is not a supported argument type (in method " + method.getName()+ " in "+ cls+ ")");
 }
-if (cvt[t] == CVT_NATIVE_MAPPED || cvt[t] == CVT_INTEGER_TYPE) {
+if (cvt[t] == CVT_NATIVE_MAPPED || cvt[t] == CVT_NATIVE_MAPPED_STRING || cvt[t] == CVT_NATIVE_MAPPED_WSTRING || cvt[t] == CVT_INTEGER_TYPE) {
 type=NativeMappedConverter.getInstance(type).nativeType();
 }
- else if (cvt[t] == CVT_TYPE_MAPPER) {
+ else if (cvt[t] == CVT_TYPE_MAPPER || cvt[t] == CVT_TYPE_MAPPER_STRING || cvt[t] == CVT_TYPE_MAPPER_WSTRING) {
 toNative[t]=mapper.getToNativeConverter(type);
 }
 switch (cvt[t]) {
@@ -65,10 +69,14 @@ case CVT_STRUCTURE_BYVAL:
 case CVT_INTEGER_TYPE:
 case CVT_POINTER_TYPE:
 case CVT_NATIVE_MAPPED:
+case CVT_NATIVE_MAPPED_STRING:
+case CVT_NATIVE_MAPPED_WSTRING:
 atypes[t]=FFIType.get(type).peer;
 closure_atypes[t]=FFIType.get(Pointer.class).peer;
 break;
 case CVT_TYPE_MAPPER:
+case CVT_TYPE_MAPPER_STRING:
+case CVT_TYPE_MAPPER_WSTRING:
 closure_atypes[t]=FFIType.get(type.isPrimitive() ? type : Pointer.class).peer;
 atypes[t]=FFIType.get(toNative[t].nativeType()).peer;
 break;

@@ -1,0 +1,20 @@
+{
+  final String MAGIC="magic" + UNICODE;
+  DefaultTypeMapper mapper=new DefaultTypeMapper();
+  mapper.addFromNativeConverter(String.class,new FromNativeConverter(){
+    public Object fromNative(    Object value,    FromNativeContext ctx){
+      if (value == null) {
+        return null;
+      }
+      return value.toString();
+    }
+    public Class nativeType(){
+      return WString.class;
+    }
+  }
+);
+  Map options=new HashMap();
+  options.put(Library.OPTION_TYPE_MAPPER,mapper);
+  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,options);
+  assertEquals("Failed to convert WString result to String",MAGIC,lib.returnWStringArgument(new WString(MAGIC)));
+}

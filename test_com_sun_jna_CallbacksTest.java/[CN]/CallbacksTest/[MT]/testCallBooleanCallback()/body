@@ -12,7 +12,7 @@
 ;
   boolean value=lib.callBooleanCallback(cb,true,false);
   assertTrue("Callback not called",called[0]);
-  assertEquals("Wrong callback argument 1",true,cbargs[0]);
-  assertEquals("Wrong callback argument 2",false,cbargs[1]);
+  assertEquals("Wrong first callback argument",true,cbargs[0]);
+  assertEquals("Wrong second callback argument",false,cbargs[1]);
   assertFalse("Wrong boolean return",value);
 }
