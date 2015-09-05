@@ -1,0 +1,17 @@
+{
+  DefaultTypeMapper mapper=new DefaultTypeMapper();
+  mapper.addToNativeConverter(String.class,new ToNativeConverter(){
+    public Object toNative(    Object arg,    ToNativeContext ctx){
+      return new WString(arg.toString());
+    }
+    public Class nativeType(){
+      return WString.class;
+    }
+  }
+);
+  Map options=new HashMap();
+  options.put(Library.OPTION_TYPE_MAPPER,mapper);
+  final String MAGIC="magic" + UNICODE;
+  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,options);
+  assertEquals("Failed to convert String argument to WString",new WString(MAGIC),lib.returnWStringArgument(MAGIC));
+}

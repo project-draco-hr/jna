@@ -12,7 +12,7 @@
 ;
   int value=lib.callInt32Callback(cb,1,2);
   assertTrue("Callback not called",called[0]);
-  assertEquals("Wrong callback argument 1",new Custom(1),cbargs[0]);
-  assertEquals("Wrong callback argument 2",new Custom(2),cbargs[1]);
+  assertEquals("Wrong first callback argument",new Custom(1),cbargs[0]);
+  assertEquals("Wrong second callback argument",new Custom(2),cbargs[1]);
   assertEquals("Wrong NativeMapped return",3,value);
 }

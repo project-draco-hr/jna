@@ -1,0 +1,5 @@
+{
+  final String MAGIC="magic" + UNICODE;
+  DirectTestLibraryWString lib=new DirectTestLibraryWString();
+  assertEquals("Failed to convert String argument to WString",MAGIC,lib.returnWStringArgument(MAGIC));
+}

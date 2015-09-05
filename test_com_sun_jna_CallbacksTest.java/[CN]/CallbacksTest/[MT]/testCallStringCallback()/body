@@ -1,17 +1,20 @@
 {
   final boolean[] called={false};
-  final String[] cbargs={null};
+  final String[] cbargs={null,null};
   TestLibrary.StringCallback cb=new TestLibrary.StringCallback(){
-    public String callback(    String arg){
+    public String callback(    String arg,    String arg2){
       called[0]=true;
       cbargs[0]=arg;
-      return arg;
+      cbargs[1]=arg2;
+      return arg + arg2;
     }
   }
 ;
   final String VALUE="value" + UNICODE;
-  String value=lib.callStringCallback(cb,VALUE);
+  final String VALUE2=getName() + UNICODE;
+  String value=lib.callStringCallback(cb,VALUE,VALUE2);
   assertTrue("Callback not called",called[0]);
-  assertEquals("Wrong String callback argument",VALUE,cbargs[0]);
-  assertEquals("Wrong String return",VALUE,value);
+  assertEquals("Wrong String callback argument 0",VALUE,cbargs[0]);
+  assertEquals("Wrong String callback argument 1",VALUE2,cbargs[1]);
+  assertEquals("Wrong String return",VALUE + VALUE2,value);
 }
