@@ -13,7 +13,7 @@
   cls=null;
   field=null;
   System.gc();
-  for (int i=0; i < 100 && (ref.get() != null || clref.get() != null); i++) {
+  for (int i=0; i < 100 && (ref.get() != null || clref.get() != null || Boolean.getBoolean("jna.loaded")); i++) {
     Thread.sleep(10);
     System.gc();
   }
