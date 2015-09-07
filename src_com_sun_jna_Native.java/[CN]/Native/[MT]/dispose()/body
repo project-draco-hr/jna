@@ -4,4 +4,5 @@
   NativeLibrary.disposeAll();
   unregisterAll();
   jnidispatchPath=null;
+  System.setProperty("jna.loaded","false");
 }
