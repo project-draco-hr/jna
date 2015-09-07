@@ -1,9 +1,5 @@
 {
-switch (convention) {
-case C_CONVENTION:
-case ALT_CONVENTION:
-    break;
-default :
-  throw new IllegalArgumentException("Unrecognized calling convention: " + convention);
-}
+  if ((convention & MASK_CC) != convention) {
+    throw new IllegalArgumentException("Unrecognized calling convention: " + convention);
+  }
 }
