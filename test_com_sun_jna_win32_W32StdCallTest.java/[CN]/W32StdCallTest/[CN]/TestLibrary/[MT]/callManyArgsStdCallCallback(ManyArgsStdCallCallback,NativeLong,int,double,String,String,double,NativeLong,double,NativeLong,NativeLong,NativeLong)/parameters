@@ -1,4 +1,4 @@
-BugCallback c
+ManyArgsStdCallCallback c
 NativeLong arg1
 int arg2
 double arg3
