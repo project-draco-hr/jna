@@ -1,0 +1,17 @@
+{
+  try {
+    final Method isVarArgsMethod=Method.class.getMethod("isVarArgs",new Class[0]);
+    if (isVarArgsMethod != null) {
+      return new RealVarArgsChecker();
+    }
+ else {
+      return new NoVarArgsChecker();
+    }
+  }
+ catch (  NoSuchMethodException e) {
+    return new NoVarArgsChecker();
+  }
+catch (  SecurityException e) {
+    return new NoVarArgsChecker();
+  }
+}

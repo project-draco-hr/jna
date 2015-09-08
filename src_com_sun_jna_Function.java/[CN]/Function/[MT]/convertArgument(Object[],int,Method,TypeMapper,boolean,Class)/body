@@ -31,7 +31,7 @@
       Class ptype=struct.getClass();
       if (invokingMethod != null) {
         Class[] ptypes=invokingMethod.getParameterTypes();
-        if (isVarArgs(invokingMethod)) {
+        if (IS_VARARGS.isVarArgs(invokingMethod)) {
           if (index < ptypes.length - 1) {
             ptype=ptypes[index];
           }

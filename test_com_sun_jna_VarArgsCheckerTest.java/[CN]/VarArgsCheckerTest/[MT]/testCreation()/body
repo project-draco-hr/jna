@@ -1,0 +1,4 @@
+{
+  final VarArgsChecker sut=VarArgsChecker.create();
+  assertNotNull(sut);
+}

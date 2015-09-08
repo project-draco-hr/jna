@@ -1,0 +1,6 @@
+{
+  final VarArgsChecker sut=VarArgsChecker.create();
+  final Method toCheckForVarArgs=VarArgsCheckerTest.class.getMethod("testNoVarArgs",new Class[0]);
+  final boolean res=sut.isVarArgs(toCheckForVarArgs);
+  assertFalse(res);
+}
