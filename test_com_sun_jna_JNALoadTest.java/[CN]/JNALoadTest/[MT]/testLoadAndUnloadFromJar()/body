@@ -14,15 +14,15 @@
   cls=null;
   field=null;
   System.gc();
-  for (int i=0; i < 100 && (ref.get() != null || clref.get() != null); i++) {
-    Thread.sleep(10);
+  for (int i=0; i < GC_WAITS && (ref.get() != null || clref.get() != null); i++) {
+    Thread.sleep(GC_WAIT_INTERVAL);
     System.gc();
   }
   assertNull("Class not GC'd: " + ref.get(),ref.get());
   assertNull("ClassLoader not GC'd: " + clref.get(),clref.get());
   File f=new File(path);
-  for (int i=0; i < 100 && (f.exists() || Boolean.getBoolean("jna.loaded")); i++) {
-    Thread.sleep(10);
+  for (int i=0; i < GC_WAITS && (f.exists() || Boolean.getBoolean("jna.loaded")); i++) {
+    Thread.sleep(GC_WAIT_INTERVAL);
     System.gc();
   }
   if (f.exists()) {

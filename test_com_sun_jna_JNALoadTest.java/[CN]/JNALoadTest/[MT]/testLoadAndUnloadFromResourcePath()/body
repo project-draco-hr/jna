@@ -13,17 +13,17 @@
   cls=null;
   field=null;
   System.gc();
-  for (int i=0; i < 100 && (ref.get() != null || clref.get() != null || Boolean.getBoolean("jna.loaded")); i++) {
-    Thread.sleep(10);
+  for (int i=0; i < GC_WAITS && (ref.get() != null || clref.get() != null || Boolean.getBoolean("jna.loaded")); i++) {
+    Thread.sleep(GC_WAIT_INTERVAL);
     System.gc();
   }
   assertNull("Class not GC'd: " + ref.get(),ref.get());
   assertNull("ClassLoader not GC'd: " + clref.get(),clref.get());
   assertFalse("System property jna.loaded not cleared",Boolean.getBoolean("jna.loaded"));
   Throwable throwable=null;
-  for (int i=0; i < 100; i++) {
+  for (int i=0; i < GC_WAITS; i++) {
     System.gc();
-    Thread.sleep(10);
+    Thread.sleep(GC_WAIT_INTERVAL);
     try {
       loader=new TestLoader(false);
       cls=Class.forName("com.sun.jna.Native",true,loader);
