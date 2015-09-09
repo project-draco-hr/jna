@@ -11,8 +11,8 @@
   m=null;
   System.gc();
   Memory.purge();
-  for (int i=0; i < 100 && ref.get() != null; i++) {
-    Thread.sleep(10);
+  for (int i=0; i < GC_WAITS && ref.get() != null; i++) {
+    Thread.sleep(GC_WAIT_INTERVAL);
     System.gc();
     Memory.purge();
   }
@@ -21,8 +21,8 @@
   b=null;
   System.gc();
   Memory.purge();
-  for (int i=0; i < 100 && (bref.get() != null || ref.get() != null); i++) {
-    Thread.sleep(10);
+  for (int i=0; i < GC_WAITS && (bref.get() != null || ref.get() != null); i++) {
+    Thread.sleep(GC_WAIT_INTERVAL);
     System.gc();
     Memory.purge();
   }

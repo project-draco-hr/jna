@@ -1,0 +1,5 @@
+{
+synchronized (registeredClasses) {
+    return registeredClasses.containsKey(cls);
+  }
+}

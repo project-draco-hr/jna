@@ -66,7 +66,7 @@
   System.out.println("cos (JNI ffi): " + delta + "ms");
   start=System.currentTimeMillis();
   for (int i=0; i < COUNT; i++) {
-    dresult=JNI.cos(0d);
+    dresult=JNIMathLibrary.cos(0d);
   }
   delta=System.currentTimeMillis() - start;
   System.out.println("cos (JNI): " + delta + "ms");
