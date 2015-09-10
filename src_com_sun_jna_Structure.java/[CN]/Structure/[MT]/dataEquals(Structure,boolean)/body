@@ -1,0 +1,19 @@
+{
+  if (clear) {
+    s.getPointer().clear(s.size());
+    s.write();
+    getPointer().clear(size());
+    write();
+  }
+  byte[] data=s.getPointer().getByteArray(0,s.size());
+  byte[] ref=getPointer().getByteArray(0,size());
+  if (data.length == ref.length) {
+    for (int i=0; i < data.length; i++) {
+      if (data[i] != ref[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
+}
