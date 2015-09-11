@@ -1,5 +1,5 @@
 {
-  if (ARCH.equals("i386") || ARCH.startsWith("i686") || ARCH.equals("x86")|| ARCH.equals("x86_64")|| ARCH.equals("amd64")) {
+  if (ARCH.equals("x86") || ARCH.equals("x86-64")) {
     return true;
   }
   return false;
