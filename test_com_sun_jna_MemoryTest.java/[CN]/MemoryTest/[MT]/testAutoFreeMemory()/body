@@ -1,2 +1,27 @@
 {
+  final boolean[] flag={false};
+  Memory core=new Memory(10){
+    protected void finalize(){
+      super.finalize();
+      flag[0]=true;
+    }
+  }
+;
+  Pointer shared=core.share(0,5);
+  WeakReference ref=new WeakReference(core);
+  core=null;
+  System.gc();
+  long start=System.currentTimeMillis();
+  assertFalse("Memory prematurely GC'd",flag[0]);
+  assertNotNull("Base memory GC'd while shared memory extant",ref.get());
+  shared.setInt(0,0);
+  shared=null;
+  System.gc();
+  Memory.purge();
+  for (int i=0; i < GC_WAITS && ref.get() != null; i++) {
+    Thread.sleep(GC_WAIT_INTERVAL);
+    System.gc();
+    Memory.purge();
+  }
+  assertNull("Memory not GC'd",ref.get());
 }
