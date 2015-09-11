@@ -1,5 +1,5 @@
 {
-  if (ARCH.equals("ppc") || ARCH.equals("ppc64") || ARCH.equals("powerpc")|| ARCH.equals("powerpc64")) {
+  if (ARCH.startsWith("ppc")) {
     return true;
   }
   return false;

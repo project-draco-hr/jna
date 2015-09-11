@@ -1,0 +1,19 @@
+{
+  arch=arch.toLowerCase().trim();
+  if ("powerpc".equals(arch)) {
+    arch="ppc";
+  }
+ else   if ("powerpc64".equals(arch)) {
+    arch="ppc64";
+  }
+ else   if ("i386".equals(arch) || "i686".equals(arch)) {
+    arch="x86";
+  }
+ else   if ("x86_64".equals(arch) || "amd64".equals(arch)) {
+    arch="x86-64";
+  }
+  if ("ppc64".equals(arch) && "little".equals(System.getProperty("sun.cpu.endian"))) {
+    arch="ppc64le";
+  }
+  return arch;
+}

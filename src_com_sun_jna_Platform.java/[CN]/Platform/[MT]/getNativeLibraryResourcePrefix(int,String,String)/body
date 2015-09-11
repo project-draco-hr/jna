@@ -1,18 +1,6 @@
 {
   String osPrefix;
-  arch=arch.toLowerCase().trim();
-  if ("powerpc".equals(arch)) {
-    arch="ppc";
-  }
- else   if ("powerpc64".equals(arch)) {
-    arch="ppc64";
-  }
- else   if ("i386".equals(arch)) {
-    arch="x86";
-  }
- else   if ("x86_64".equals(arch) || "amd64".equals(arch)) {
-    arch="x86-64";
-  }
+  arch=getCanonicalArchitecture(arch);
 switch (osType) {
 case Platform.ANDROID:
     if (arch.startsWith("arm")) {
