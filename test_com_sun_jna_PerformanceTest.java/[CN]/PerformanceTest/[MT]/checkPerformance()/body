@@ -78,7 +78,20 @@
   System.out.println("cos (pure java): " + delta + "ms");
   Pointer presult;
   String cname=Platform.C_LIBRARY_NAME;
-  CInterface clib=(CInterface)Native.loadLibrary(cname,CInterface.class);
+  Map options=new HashMap();
+  if (Platform.isWindows()) {
+    options.put(Library.OPTION_FUNCTION_MAPPER,new FunctionMapper(){
+      public String getFunctionName(      NativeLibrary library,      Method method){
+        String name=method.getName();
+        if ("getpid".equals(name)) {
+          name="_getpid";
+        }
+        return name;
+      }
+    }
+);
+  }
+  CInterface clib=(CInterface)Native.loadLibrary(cname,CInterface.class,options);
   int pid;
   start=System.currentTimeMillis();
   for (int i=0; i < COUNT; i++) {
@@ -87,8 +100,15 @@
   delta=System.currentTimeMillis() - start;
   System.out.println("getpid (JNA interface): " + delta + "ms");
   start=System.currentTimeMillis();
-  for (int i=0; i < COUNT; i++) {
-    pid=CLibrary.getpid();
+  if (Platform.isWindows()) {
+    for (int i=0; i < COUNT; i++) {
+      pid=W32PIDLibrary._getpid();
+    }
+  }
+ else {
+    for (int i=0; i < COUNT; i++) {
+      pid=PIDLibrary.getpid();
+    }
   }
   delta=System.currentTimeMillis() - start;
   System.out.println("getpid (JNA direct): " + delta + "ms");
