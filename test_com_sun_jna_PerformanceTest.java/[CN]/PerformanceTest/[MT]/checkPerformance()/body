@@ -66,7 +66,7 @@
   System.out.println("cos (JNI ffi): " + delta + "ms");
   start=System.currentTimeMillis();
   for (int i=0; i < COUNT; i++) {
-    dresult=JNIMathLibrary.cos(0d);
+    dresult=JNILibrary.cos(0d);
   }
   delta=System.currentTimeMillis() - start;
   System.out.println("cos (JNI): " + delta + "ms");
@@ -79,6 +79,25 @@
   Pointer presult;
   String cname=Platform.C_LIBRARY_NAME;
   CInterface clib=(CInterface)Native.loadLibrary(cname,CInterface.class);
+  int pid;
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    pid=clib.getpid();
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("getpid (JNA interface): " + delta + "ms");
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    pid=CLibrary.getpid();
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("getpid (JNA direct): " + delta + "ms");
+  start=System.currentTimeMillis();
+  for (int i=0; i < COUNT; i++) {
+    pid=JNILibrary.getpid();
+  }
+  delta=System.currentTimeMillis() - start;
+  System.out.println("getpid (JNI): " + delta + "ms");
   start=System.currentTimeMillis();
   for (int i=0; i < COUNT; i++) {
     presult=clib.memset(null,0,0);
