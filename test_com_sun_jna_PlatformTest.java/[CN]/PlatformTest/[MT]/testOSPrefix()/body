@@ -12,6 +12,7 @@
   assertEquals("Wrong resource path Linux/x86","linux-x86-64",Platform.getNativeLibraryResourcePrefix(Platform.LINUX,"x86_64","Linux"));
   assertEquals("Wrong resource path Linux/x86","linux-x86-64",Platform.getNativeLibraryResourcePrefix(Platform.LINUX,"amd64","Linux"));
   assertEquals("Wrong resource path Linux/ppc","linux-ppc",Platform.getNativeLibraryResourcePrefix(Platform.LINUX,"powerpc","Linux"));
+  assertEquals("Wrong resource path Linux/sparcv9","linux-sparcv9",Platform.getNativeLibraryResourcePrefix(Platform.LINUX,"sparcv9","Linux"));
   assertEquals("Wrong resource path OpenBSD/x86","openbsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.OPENBSD,"x86","OpenBSD"));
   assertEquals("Wrong resource path FreeBSD/x86","freebsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.FREEBSD,"x86","FreeBSD"));
   assertEquals("Wrong resource path GNU/kFreeBSD/x86","kfreebsd-x86",Platform.getNativeLibraryResourcePrefix(Platform.KFREEBSD,"x86","GNU/kFreeBSD"));
