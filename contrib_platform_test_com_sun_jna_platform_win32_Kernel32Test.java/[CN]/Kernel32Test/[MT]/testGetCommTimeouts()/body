@@ -1,0 +1,19 @@
+{
+  WinBase.COMMTIMEOUTS lpCommTimeouts=new WinBase.COMMTIMEOUTS();
+  HANDLE handleSerialPort=Kernel32.INSTANCE.CreateFile("\\\\.\\comDummy",WinNT.GENERIC_READ | WinNT.GENERIC_WRITE,0,null,WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+  int lastError=Kernel32.INSTANCE.GetLastError();
+  assertEquals(lastError,WinNT.ERROR_FILE_NOT_FOUND);
+  assertFalse(Kernel32.INSTANCE.GetCommTimeouts(handleSerialPort,lpCommTimeouts));
+  handleSerialPort=Kernel32.INSTANCE.CreateFile("\\\\.\\com1",WinNT.GENERIC_READ | WinNT.GENERIC_WRITE,0,null,WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+  lastError=Kernel32.INSTANCE.GetLastError();
+  if (WinNT.NO_ERROR == lastError) {
+    assertFalse(WinNT.INVALID_HANDLE_VALUE.equals(handleSerialPort));
+    try {
+      lpCommTimeouts=new WinBase.COMMTIMEOUTS();
+      assertTrue(Kernel32.INSTANCE.GetCommTimeouts(handleSerialPort,lpCommTimeouts));
+    }
+  finally {
+      Kernel32.INSTANCE.CloseHandle(handleSerialPort);
+    }
+  }
+}
