@@ -1,0 +1,4 @@
+{
+  super(Native.SIZE_T_SIZE,true);
+  setValue(value);
+}

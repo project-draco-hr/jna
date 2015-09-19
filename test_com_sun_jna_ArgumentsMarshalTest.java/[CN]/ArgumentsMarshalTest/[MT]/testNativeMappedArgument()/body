@@ -3,4 +3,13 @@
   final int MAGIC=0x12345678;
   Custom arg=new Custom(MAGIC);
   assertEquals("Argument not mapped",MAGIC,lib.returnInt32Argument(arg));
+  if (Native.SIZE_T_SIZE == 4) {
+    size_t size=new size_t(MAGIC);
+    assertEquals("Argument not mapped",MAGIC,lib.returnInt32Argument(size));
+  }
+ else {
+    final long MAGIC64=0x123456789ABCDEFL;
+    size_t size=new size_t(MAGIC64);
+    assertEquals("Argument not mapped",MAGIC64,lib.returnInt64Argument(size));
+  }
 }
