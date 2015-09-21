@@ -1,0 +1,27 @@
+{
+  WinBase.DCB lpDCB=new WinBase.DCB();
+  HANDLE handleSerialPort=Kernel32.INSTANCE.CreateFile("\\\\.\\comDummy",WinNT.GENERIC_READ | WinNT.GENERIC_WRITE,0,null,WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+  int lastError=Kernel32.INSTANCE.GetLastError();
+  assertEquals(lastError,WinNT.ERROR_FILE_NOT_FOUND);
+  assertFalse(Kernel32.INSTANCE.SetCommState(handleSerialPort,lpDCB));
+  handleSerialPort=Kernel32.INSTANCE.CreateFile("\\\\.\\com1",WinNT.GENERIC_READ | WinNT.GENERIC_WRITE,0,null,WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+  lastError=Kernel32.INSTANCE.GetLastError();
+  if (WinNT.NO_ERROR == lastError) {
+    assertFalse(WinNT.INVALID_HANDLE_VALUE.equals(handleSerialPort));
+    try {
+      lpDCB=new WinBase.DCB();
+      assertTrue(Kernel32.INSTANCE.GetCommState(handleSerialPort,lpDCB));
+      DWORD oldBaudRate=new DWORD(lpDCB.BaudRate.longValue());
+      lpDCB.BaudRate=new DWORD(WinBase.CBR_110);
+      assertTrue(Kernel32.INSTANCE.SetCommState(handleSerialPort,lpDCB));
+      WinBase.DCB lpNewDCB=new WinBase.DCB();
+      assertTrue(Kernel32.INSTANCE.GetCommState(handleSerialPort,lpNewDCB));
+      assertEquals(WinBase.CBR_110,lpNewDCB.BaudRate.intValue());
+      lpDCB.BaudRate=oldBaudRate;
+      assertTrue(Kernel32.INSTANCE.SetCommState(handleSerialPort,lpDCB));
+    }
+  finally {
+      Kernel32.INSTANCE.CloseHandle(handleSerialPort);
+    }
+  }
+}
