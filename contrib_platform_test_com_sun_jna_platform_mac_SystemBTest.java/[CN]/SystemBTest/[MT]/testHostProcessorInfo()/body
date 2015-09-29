@@ -1,0 +1,11 @@
+{
+  int machPort=SystemB.INSTANCE.mach_host_self();
+  assertTrue(machPort > 0);
+  IntByReference procCount=new IntByReference();
+  PointerByReference procCpuLoadInfo=new PointerByReference();
+  IntByReference procInfoCount=new IntByReference();
+  int ret=SystemB.INSTANCE.host_processor_info(machPort,SystemB.PROCESSOR_CPU_LOAD_INFO,procCount,procCpuLoadInfo,procInfoCount);
+  assertEquals(ret,0);
+  assertTrue(procCount.getValue() > 0);
+  assertEquals(procCpuLoadInfo.getValue().getIntArray(0,procInfoCount.getValue()).length,procInfoCount.getValue());
+}
