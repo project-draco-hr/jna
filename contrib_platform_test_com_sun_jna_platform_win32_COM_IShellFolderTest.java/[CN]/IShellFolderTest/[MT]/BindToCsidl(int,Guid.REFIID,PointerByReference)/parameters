@@ -1,0 +1,3 @@
+int csidl
+Guid.REFIID riid
+PointerByReference ppv
