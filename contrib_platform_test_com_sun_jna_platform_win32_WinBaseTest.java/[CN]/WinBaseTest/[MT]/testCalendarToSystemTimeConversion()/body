@@ -1,0 +1,27 @@
+{
+  Calendar expected=Calendar.getInstance();
+  SYSTEMTIME sysTime=new SYSTEMTIME();
+  sysTime.fromCalendar(expected);
+  assertEquals("Mismatched systime year",expected.get(Calendar.YEAR),sysTime.wYear);
+  assertEquals("Mismatched systime month",(1 + expected.get(Calendar.MONTH) - Calendar.JANUARY),sysTime.wMonth);
+  assertEquals("Mismatched systime day",expected.get(Calendar.DAY_OF_MONTH),sysTime.wDay);
+  assertEquals("Mismatched systime weekday",expected.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY,sysTime.wDayOfWeek);
+  assertEquals("Mismatched systime hour",expected.get(Calendar.HOUR_OF_DAY),sysTime.wHour);
+  assertEquals("Mismatched systime minute",expected.get(Calendar.MINUTE),sysTime.wMinute);
+  assertEquals("Mismatched systime second",expected.get(Calendar.SECOND),sysTime.wSecond);
+  Calendar actual=sysTime.toCalendar();
+  assertEquals("Mismatched calendar year",sysTime.wYear,actual.get(Calendar.YEAR));
+  assertEquals("Mismatched calendar month",Calendar.JANUARY + (sysTime.wMonth - 1),actual.get(Calendar.MONTH));
+  assertEquals("Mismatched calendar day",sysTime.wDay,actual.get(Calendar.DAY_OF_MONTH));
+  assertEquals("Mismatched calendar weekday",sysTime.wDayOfWeek,actual.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY);
+  assertEquals("Mismatched calendar hour",sysTime.wHour,actual.get(Calendar.HOUR_OF_DAY));
+  assertEquals("Mismatched calendar minute",sysTime.wMinute,actual.get(Calendar.MINUTE));
+  assertEquals("Mismatched calendar second",sysTime.wSecond,actual.get(Calendar.SECOND));
+  assertEquals("Mismatched reconstructed year",expected.get(Calendar.YEAR),actual.get(Calendar.YEAR));
+  assertEquals("Mismatched reconstructed month",expected.get(Calendar.MONTH),actual.get(Calendar.MONTH));
+  assertEquals("Mismatched reconstructed day",expected.get(Calendar.DAY_OF_MONTH),actual.get(Calendar.DAY_OF_MONTH));
+  assertEquals("Mismatched reconstructed weekday",expected.get(Calendar.DAY_OF_WEEK),actual.get(Calendar.DAY_OF_WEEK));
+  assertEquals("Mismatched reconstructed hour",expected.get(Calendar.HOUR_OF_DAY),actual.get(Calendar.HOUR_OF_DAY));
+  assertEquals("Mismatched reconstructed minute",expected.get(Calendar.MINUTE),actual.get(Calendar.MINUTE));
+  assertEquals("Mismatched reconstructed second",expected.get(Calendar.SECOND),actual.get(Calendar.SECOND));
+}
