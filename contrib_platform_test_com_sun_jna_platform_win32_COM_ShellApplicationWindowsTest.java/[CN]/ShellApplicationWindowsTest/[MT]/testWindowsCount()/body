@@ -1,0 +1,25 @@
+{
+  System.out.println("java.vendor: " + System.getProperty("java.vendor"));
+  System.out.println("java.version: " + System.getProperty("java.version"));
+  System.out.println("os.version: " + System.getProperty("os.version"));
+  System.out.println("os.arch: " + System.getProperty("os.arch"));
+  System.out.println("os.name: " + System.getProperty("os.name"));
+  ShellApplication sa=new ShellApplication();
+  System.out.println("Shell.Application.Windows found: " + sa.Windows().Count());
+  assertTrue(sa.Windows().Count() > 0);
+  for (  InternetExplorer ie : sa.Windows()) {
+    System.out.println();
+    System.out.println("============================================");
+    if (ie != null) {
+      System.out.println("Title: " + ie.getTitle());
+      System.out.println("URL: " + ie.getURL());
+      System.out.println("App Name: " + ie.getName());
+      System.out.println("Window Handle: " + ie.getWindowHandle());
+    }
+ else {
+      System.out.println("Null encountered.");
+    }
+    System.out.println("============================================");
+    System.out.println();
+  }
+}
