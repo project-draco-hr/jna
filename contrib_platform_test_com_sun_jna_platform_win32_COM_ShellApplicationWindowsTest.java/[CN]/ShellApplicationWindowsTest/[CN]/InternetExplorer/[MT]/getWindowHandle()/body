@@ -1,8 +1,0 @@
-{
-  VARIANT.ByReference result=new VARIANT.ByReference();
-  this.oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.getIDispatch(),"HWND");
-  if (result.getVarType().intValue() == Variant.VT_I8) {
-    return ((LONGLONG)result.getValue()).longValue();
-  }
-  return ((LONG)result.getValue()).longValue();
-}

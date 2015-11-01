@@ -1,5 +1,4 @@
 {
-  String[] commands={"cmd","/c","start","iexplore.exe","-nohome","\"http://www.srh.noaa.gov/jax\""};
-  Runtime.getRuntime().exec(commands);
-  Thread.sleep(30000);
+  Runtime.getRuntime().exec("cmd /c start iexplore.exe -nohome \"about:blank\"");
+  Thread.sleep(3000);
 }
