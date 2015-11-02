@@ -1,0 +1,11 @@
+{
+  ShellApplication sa=new ShellApplication();
+  assertTrue(sa.Windows().Count() > 0);
+  boolean pageFound=false;
+  for (  InternetExplorer ie : sa.Windows()) {
+    if (ie != null && "about:blank".equals(ie.getURL())) {
+      pageFound=true;
+    }
+  }
+  assertTrue(pageFound);
+}

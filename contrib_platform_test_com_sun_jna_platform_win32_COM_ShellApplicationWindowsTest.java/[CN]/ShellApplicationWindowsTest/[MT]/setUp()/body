@@ -1,0 +1,4 @@
+{
+  Runtime.getRuntime().exec("cmd /c start iexplore.exe -nohome \"about:blank\"");
+  Thread.sleep(3000);
+}
