@@ -1,0 +1,3 @@
+{
+  return Arrays.asList("dwScope","dwType","dwDisplayType","dwUsage","lpLocalName","lpRemoteName","lpComment","lpProvider");
+}

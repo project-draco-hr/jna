@@ -1,0 +1,3 @@
+{
+  Netapi32.INSTANCE.NetShareDel(null,share,0);
+}

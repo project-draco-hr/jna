@@ -1,0 +1,11 @@
+{
+  IntByReference lpnSize=new IntByReference(0);
+  Kernel32.INSTANCE.GetComputerName(null,lpnSize);
+  assertEquals(WinError.ERROR_BUFFER_OVERFLOW,Kernel32.INSTANCE.GetLastError());
+  char buffer[]=new char[WinBase.MAX_COMPUTERNAME_LENGTH + 1];
+  lpnSize.setValue(buffer.length);
+  assertTrue(Kernel32.INSTANCE.GetComputerName(buffer,lpnSize));
+  String computerName=new String(buffer);
+  computerName=computerName.trim();
+  return computerName;
+}
