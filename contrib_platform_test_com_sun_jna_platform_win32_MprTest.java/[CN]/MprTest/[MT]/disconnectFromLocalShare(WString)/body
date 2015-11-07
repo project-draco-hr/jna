@@ -1,0 +1,3 @@
+{
+  Mpr.INSTANCE.WNetCancelConnection2(lpName,ConnectFlag.CONNECT_UPDATE_PROFILE,true);
+}
