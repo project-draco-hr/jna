@@ -1,0 +1,16 @@
+{
+  TaggedCallingConventionTestLibrary lib=(TaggedCallingConventionTestLibrary)Native.loadLibrary("testlib",TaggedCallingConventionTestLibrary.class);
+  TaggedCallingConventionTestLibrary.TestCallbackTagged cb=new TaggedCallingConventionTestLibrary.TestCallbackTagged(){
+    public void invoke(){
+    }
+  }
+;
+  try {
+    Pointer p=CallbackReference.getFunctionPointer(cb);
+    CallbackReference ref=(CallbackReference)CallbackReference.callbackMap.get(cb);
+    assertNotNull("CallbackReference not found",ref);
+    assertEquals("Tag-based calling convention not applied",Function.ALT_CONVENTION,ref.callingConvention);
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

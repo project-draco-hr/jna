@@ -6,7 +6,8 @@
   if ((fp=getNativeFunctionPointer(cb)) != null) {
     return fp;
   }
-  int callingConvention=cb instanceof AltCallingConvention ? Function.ALT_CONVENTION : Function.C_CONVENTION;
+  Map options=Native.getLibraryOptions(cb.getClass());
+  int callingConvention=cb instanceof AltCallingConvention ? Function.ALT_CONVENTION : (options != null && options.containsKey(Library.OPTION_CALLING_CONVENTION) ? ((Integer)options.get(Library.OPTION_CALLING_CONVENTION)).intValue() : Function.C_CONVENTION);
   Map map=direct ? directCallbackMap : callbackMap;
 synchronized (callbackMap) {
     CallbackReference cbref=(CallbackReference)map.get(cb);
