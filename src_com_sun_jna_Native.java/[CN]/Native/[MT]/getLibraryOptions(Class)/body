@@ -39,7 +39,7 @@ catch (    Exception e) {
     if (!libraryOptions.containsKey(Library.OPTION_STRING_ENCODING)) {
       libraryOptions.put(Library.OPTION_STRING_ENCODING,lookupField(mappingClass,"STRING_ENCODING",String.class));
     }
-    options.put(mappingClass,libraryOptions);
+    libraryOptions=cacheOptions(mappingClass,libraryOptions,null);
     if (type != mappingClass) {
       options.put(type,libraryOptions);
     }

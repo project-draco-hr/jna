@@ -1,0 +1,5 @@
+{
+  Structure s=new OptionsBase.TypeMappedStructure();
+  assertEquals("Wrong structure alignment for base structure",Structure.ALIGN_NONE,Native.getStructureAlignment(s.getClass()));
+  assertEquals("Wrong type mapper for base structure",OptionsBase.TYPE_MAPPER,s.getTypeMapper());
+}
