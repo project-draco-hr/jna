@@ -1,0 +1,4 @@
+{
+  JUnitCore jUnitCore=new JUnitCore();
+  jUnitCore.run(GDI32UtilTest.class);
+}

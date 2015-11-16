@@ -1,0 +1,11 @@
+{
+  String winDir=Kernel32Util.getEnvironmentVariable("WINDIR");
+  assertNotNull("No WINDIR value returned",winDir);
+  assertTrue("Specified WINDIR does not exist: " + winDir,new File(winDir).exists());
+  STARTUPINFO si=new STARTUPINFO();
+  si.lpDesktop=null;
+  PROCESS_INFORMATION results=new PROCESS_INFORMATION();
+  boolean result=Advapi32.INSTANCE.CreateProcessWithLogonW("A" + System.currentTimeMillis(),"localhost","12345",Advapi32.LOGON_WITH_PROFILE,new File(winDir,"notepad.exe").getAbsolutePath(),"",0,null,"",si,results);
+  assertFalse("CreateProcessWithLogonW should have returned false because the username was bogus.",result);
+  assertEquals("GetLastError() should have returned ERROR_LOGON_FAILURE because the username was bogus.",W32Errors.ERROR_LOGON_FAILURE,Native.getLastError());
+}

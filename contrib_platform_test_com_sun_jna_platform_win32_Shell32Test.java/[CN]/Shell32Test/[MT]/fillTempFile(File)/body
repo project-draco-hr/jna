@@ -1,0 +1,13 @@
+{
+  file.createNewFile();
+  FileWriter fileWriter=new FileWriter(file);
+  try {
+    for (int i=0; i < 10; i++) {
+      fileWriter.write("Sample line of text");
+      fileWriter.write(System.getProperty("line.separator"));
+    }
+  }
+  finally {
+    fileWriter.close();
+  }
+}
