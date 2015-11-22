@@ -4,11 +4,12 @@
     final BufferedImage expectedIcon=ImageIO.read(new FileInputStream(new File(getClass().getResource("/res/test_icon.png").getPath())));
     w.setIconImage(expectedIcon);
     w.setVisible(true);
-    HWND hwnd=new HWND();
-    hwnd.setPointer(Native.getComponentPointer(w));
+    Pointer p=Native.getComponentPointer(w);
+    assertNotNull("Could not obtain native HANDLE for JFrame",p);
+    HWND hwnd=new HWND(p);
     final DWORDByReference hIconNumber=new DWORDByReference();
-    long result=User32.INSTANCE.SendMessageTimeout(hwnd,WinUser.WM_GETICON,WinUser.ICON_BIG,0,WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
-    assertNotEquals(0,result);
+    LRESULT result=User32.INSTANCE.SendMessageTimeout(hwnd,WinUser.WM_GETICON,new WPARAM(WinUser.ICON_BIG),new LPARAM(0),WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
+    assertNotEquals(0,result.intValue());
     final HICON hIcon=new HICON(new Pointer(hIconNumber.getValue().longValue()));
     assertTrue(WindowUtils.getIconSize(hIcon).width >= 32);
     assertTrue(WindowUtils.getIconSize(hIcon).height >= 32);

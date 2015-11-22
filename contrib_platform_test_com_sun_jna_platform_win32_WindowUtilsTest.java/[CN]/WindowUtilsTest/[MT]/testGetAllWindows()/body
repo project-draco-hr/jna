@@ -1,9 +1,9 @@
 {
   final List<DesktopWindow> allWindows=WindowUtils.getAllWindows(false);
   final List<DesktopWindow> allVisibleWindows=WindowUtils.getAllWindows(true);
-  assertTrue(allWindows.size() > 0);
-  assertTrue(allVisibleWindows.size() > 0);
-  assertTrue(allWindows.size() > allVisibleWindows.size());
+  assertTrue("Found no windows",allWindows.size() > 0);
+  assertTrue("Found no visible windows",allVisibleWindows.size() > 0);
+  assertTrue("Expected more non-visible windows than visible windows",allWindows.size() > allVisibleWindows.size());
   DesktopWindow explorerProc=null;
   for (  final DesktopWindow dw : allWindows) {
     if (dw.getFilePath().toLowerCase().endsWith("explorer.exe")) {
@@ -11,7 +11,7 @@
       break;
     }
   }
-  assertNotNull(explorerProc);
+  assertNotNull("explorer.exe was not found among all windows",explorerProc);
   explorerProc=null;
   for (  final DesktopWindow dw : allVisibleWindows) {
     if (dw.getFilePath().toLowerCase().endsWith("explorer.exe")) {
@@ -19,5 +19,5 @@
       break;
     }
   }
-  assertNotNull(explorerProc);
+  assertNotNull("explorer.exe was not found among visible windows",explorerProc);
 }

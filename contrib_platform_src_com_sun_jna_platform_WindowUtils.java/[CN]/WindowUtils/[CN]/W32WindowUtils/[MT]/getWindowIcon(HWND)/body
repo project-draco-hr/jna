@@ -1,17 +1,17 @@
 {
   final DWORDByReference hIconNumber=new DWORDByReference();
-  long result=User32.INSTANCE.SendMessageTimeout(hwnd,WinUser.WM_GETICON,WinUser.ICON_BIG,0,WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
-  if (result == 0)   result=User32.INSTANCE.SendMessageTimeout(hwnd,WinUser.WM_GETICON,WinUser.ICON_SMALL,0,WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
-  if (result == 0)   result=User32.INSTANCE.SendMessageTimeout(hwnd,WinUser.WM_GETICON,WinUser.ICON_SMALL2,0,WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
-  if (result == 0) {
-    result=User32.INSTANCE.GetClassLongPtr(hwnd,WinUser.GCLP_HICON);
-    hIconNumber.getValue().setValue(result);
+  LRESULT result=User32.INSTANCE.SendMessageTimeout(hwnd,WinUser.WM_GETICON,new WPARAM(WinUser.ICON_BIG),new LPARAM(0),WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
+  if (result.intValue() == 0)   result=User32.INSTANCE.SendMessageTimeout(hwnd,WinUser.WM_GETICON,new WPARAM(WinUser.ICON_SMALL),new LPARAM(0),WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
+  if (result.intValue() == 0)   result=User32.INSTANCE.SendMessageTimeout(hwnd,WinUser.WM_GETICON,new WPARAM(WinUser.ICON_SMALL2),new LPARAM(0),WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
+  if (result.intValue() == 0) {
+    result=new LRESULT(User32.INSTANCE.GetClassLongPtr(hwnd,WinUser.GCLP_HICON).intValue());
+    hIconNumber.getValue().setValue(result.intValue());
   }
-  if (result == 0) {
-    result=User32.INSTANCE.GetClassLongPtr(hwnd,WinUser.GCLP_HICONSM);
-    hIconNumber.getValue().setValue(result);
+  if (result.intValue() == 0) {
+    result=new LRESULT(User32.INSTANCE.GetClassLongPtr(hwnd,WinUser.GCLP_HICONSM).intValue());
+    hIconNumber.getValue().setValue(result.intValue());
   }
-  if (result == 0)   return null;
+  if (result.intValue() == 0)   return null;
   final HICON hIcon=new HICON(new Pointer(hIconNumber.getValue().longValue()));
   final Dimension iconSize=getIconSize(hIcon);
   if (iconSize.width == 0 || iconSize.height == 0)   return null;
