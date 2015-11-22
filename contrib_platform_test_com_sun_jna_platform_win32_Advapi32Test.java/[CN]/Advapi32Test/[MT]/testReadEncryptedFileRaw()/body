@@ -1,14 +1,17 @@
 {
   File file=createTempFile();
-  WString lpFileName=new WString(file.getAbsolutePath());
+  String lpFileName=file.getAbsolutePath();
   assertTrue(Advapi32.INSTANCE.EncryptFile(lpFileName));
   ULONG ulFlags=new ULONG(0);
   PointerByReference pvContext=new PointerByReference();
   assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.OpenEncryptedFileRaw(lpFileName,ulFlags,pvContext));
   final ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
   FE_EXPORT_FUNC pfExportCallback=new FE_EXPORT_FUNC(){
-    @Override public DWORD callback(    ByteByReference pbData,    Pointer pvCallbackContext,    ULONG ulLength){
-      byte[] arr=pbData.getPointer().getByteArray(0,ulLength.intValue());
+    @Override public DWORD callback(    Pointer pbData,    Pointer pvCallbackContext,    ULONG ulLength){
+      if (pbData == null) {
+        throw new NullPointerException("Callback data unexpectedly missing");
+      }
+      byte[] arr=pbData.getByteArray(0,ulLength.intValue());
       try {
         outputStream.write(arr);
       }

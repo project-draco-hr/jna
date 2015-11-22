@@ -1,7 +1,7 @@
 {
   USER_INFO_1 userInfo=new USER_INFO_1();
-  userInfo.usri1_name=new WString("JNAAdvapi32TestImp");
-  userInfo.usri1_password=new WString("!JNAP$$Wrd0");
+  userInfo.usri1_name="JNAAdvapi32TestImp";
+  userInfo.usri1_password="!JNAP$$Wrd0";
   userInfo.usri1_priv=LMAccess.USER_PRIV_USER;
   if (LMErr.NERR_Success != Netapi32.INSTANCE.NetUserAdd(null,1,userInfo,null)) {
     return;

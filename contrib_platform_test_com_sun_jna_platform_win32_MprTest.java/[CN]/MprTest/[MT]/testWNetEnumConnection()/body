@@ -2,7 +2,7 @@
   int bufferSize=16 * 1024;
   HANDLEByReference lphEnum=new HANDLEByReference();
   File fileShareFolder=createTempFolder();
-  WString share=createLocalShare(fileShareFolder);
+  String share=createLocalShare(fileShareFolder);
   connectToLocalShare(share,null);
   try {
     assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetOpenEnum(RESOURCESCOPE.RESOURCE_CONNECTED,RESOURCETYPE.RESOURCETYPE_DISK,RESOURCEUSAGE.RESOURCEUSAGE_ALL,null,lphEnum));
@@ -26,7 +26,7 @@
   }
   finally {
     Mpr.INSTANCE.WNetCloseEnum(lphEnum.getValue());
-    disconnectFromLocalShare(new WString("\\\\" + getLocalComputerName() + "\\"+ share));
+    disconnectFromLocalShare("\\\\" + getLocalComputerName() + "\\"+ share);
     deleteLocalShare(share);
     fileShareFolder.delete();
   }

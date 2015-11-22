@@ -1,11 +1,11 @@
 {
   File fileShareFolder=createTempFolder();
-  WString share=createLocalShare(fileShareFolder);
+  String share=createLocalShare(fileShareFolder);
   NETRESOURCE resource=new NETRESOURCE();
   resource.dwDisplayType=0;
   resource.dwScope=0;
   resource.dwType=RESOURCETYPE.RESOURCETYPE_DISK;
-  resource.lpRemoteName=new WString("\\\\" + getLocalComputerName() + "\\"+ share);
+  resource.lpRemoteName="\\\\" + getLocalComputerName() + "\\"+ share;
   try {
     Mpr.INSTANCE.WNetCancelConnection2(resource.lpRemoteName,0,true);
     assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetAddConnection3(null,resource,null,null,0));
