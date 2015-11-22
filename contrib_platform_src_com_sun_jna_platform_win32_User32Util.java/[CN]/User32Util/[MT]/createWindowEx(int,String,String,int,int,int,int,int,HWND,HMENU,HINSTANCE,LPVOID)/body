@@ -1,5 +1,5 @@
 {
-  final HWND hWnd=User32.INSTANCE.CreateWindowEx(exStyle,new WString(className),windowName,style,x,y,width,height,parent,menu,instance,param);
+  final HWND hWnd=User32.INSTANCE.CreateWindowEx(exStyle,className,windowName,style,x,y,width,height,parent,menu,instance,param);
   if (hWnd == null)   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   return hWnd;
 }

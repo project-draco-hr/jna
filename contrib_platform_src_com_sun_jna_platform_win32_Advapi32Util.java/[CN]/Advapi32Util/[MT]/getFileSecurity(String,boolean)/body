@@ -7,7 +7,7 @@
     repeat=false;
     memory=new Memory(nLength);
     IntByReference lpnSize=new IntByReference();
-    boolean succeded=Advapi32.INSTANCE.GetFileSecurity(new WString(fileName),infoType,memory,nLength,lpnSize);
+    boolean succeded=Advapi32.INSTANCE.GetFileSecurity(fileName,infoType,memory,nLength,lpnSize);
     if (!succeded) {
       int lastError=Kernel32.INSTANCE.GetLastError();
       memory.clear();

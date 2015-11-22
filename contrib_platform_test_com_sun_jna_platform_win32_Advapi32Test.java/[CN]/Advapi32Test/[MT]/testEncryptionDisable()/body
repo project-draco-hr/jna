@@ -1,7 +1,7 @@
 {
   DWORDByReference lpStatus=new DWORDByReference();
   String filePath=System.getProperty("java.io.tmpdir") + File.separator + System.nanoTime();
-  WString DirPath=new WString(filePath);
+  String DirPath=filePath;
   File dir=new File(filePath);
   dir.mkdir();
   assertTrue(Advapi32.INSTANCE.FileEncryptionStatus(DirPath,lpStatus));

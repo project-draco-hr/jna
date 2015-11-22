@@ -1,7 +1,7 @@
 {
   DWORDByReference lpStatus=new DWORDByReference();
   File file=createTempFile();
-  WString lpFileName=new WString(file.getAbsolutePath());
+  String lpFileName=file.getAbsolutePath();
   assertTrue(Advapi32.INSTANCE.FileEncryptionStatus(lpFileName,lpStatus));
   assertEquals(FILE_ENCRYPTABLE,lpStatus.getValue().intValue());
   file.setWritable(false);
