@@ -1,5 +1,5 @@
 {
-  String[] names=new String[]{"??????","????????????","??sterreichisch","Fran??aise","Portugu??s"};
+  String[] names=new String[]{"\u4E2D\u6587","\u306B\u307B\u3093\u3054","\u00D6sterreichisch","Fran\u00E7aise","Portugu\u00EAs"};
   for (int i=0; i < names.length; i++) {
     XAttrUtil.setXAttr(testPath,names[i],names[i]);
     List<String> keys=XAttrUtil.listXAttr(testPath);
