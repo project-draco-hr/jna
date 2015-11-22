@@ -2,6 +2,6 @@
   DesktopWindow explorerProc=getWindowByProcessPath("explorer.exe");
   assertNotNull(explorerProc);
   final DWORDByReference hIconNumber=new DWORDByReference();
-  long result=User32.INSTANCE.SendMessageTimeout(explorerProc.getHWND(),WinUser.WM_GETICON,WinUser.ICON_BIG,0,WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
+  LRESULT result=User32.INSTANCE.SendMessageTimeout(explorerProc.getHWND(),WinUser.WM_GETICON,new WPARAM(WinUser.ICON_BIG),new LPARAM(0),WinUser.SMTO_ABORTIFHUNG,500,hIconNumber);
   assertNotEquals(0,result);
 }
