@@ -2,7 +2,7 @@
   newAppBar();
   APPBARDATA data=new APPBARDATA.ByReference();
   data.uEdge.setValue(ShellAPI.ABE_BOTTOM);
-  data.rc.top=User32.INSTANCE.GetSystemMetrics(User32.SM_CYFULLSCREEN) - RESIZE_HEIGHT;
+  data.rc.top=User32.INSTANCE.GetSystemMetrics(User32.SM_CYFULLSCREEN) - RESIZE_DELTA;
   data.rc.left=0;
   data.rc.bottom=User32.INSTANCE.GetSystemMetrics(User32.SM_CYFULLSCREEN);
   data.rc.right=User32.INSTANCE.GetSystemMetrics(User32.SM_CXFULLSCREEN);
