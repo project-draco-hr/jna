@@ -1,0 +1,20 @@
+{
+  String winDir=Kernel32Util.getEnvironmentVariable("WINDIR");
+  assertNotNull("No WINDIR value returned",winDir);
+  assertTrue("Specified WINDIR does not exist: " + winDir,new File(winDir).exists());
+  HMODULE hModule=null;
+  try {
+    hModule=Kernel32.INSTANCE.LoadLibraryEx(new File(winDir,"explorer.exe").getAbsolutePath(),null,Kernel32.LOAD_LIBRARY_AS_DATAFILE);
+    if (hModule == null) {
+      throw new Win32Exception(Native.getLastError());
+    }
+    assertNotNull("hModule should not be null.",hModule);
+  }
+  finally {
+    if (hModule != null) {
+      if (!Kernel32.INSTANCE.FreeLibrary(hModule)) {
+        throw new Win32Exception(Native.getLastError());
+      }
+    }
+  }
+}
