@@ -6,6 +6,7 @@
   Win32Exception err=null;
   Pointer start=null;
   int length=0;
+  byte[] results=null;
   try {
     Pointer t=null;
     try {
@@ -39,6 +40,7 @@
     if (start == null) {
       throw new IllegalStateException("LockResource returned null.");
     }
+    results=start.getByteArray(0,length);
   }
  catch (  Win32Exception we) {
     err=we;
@@ -57,5 +59,5 @@
   if (err != null) {
     throw err;
   }
-  return start.getByteArray(0,length);
+  return results;
 }
