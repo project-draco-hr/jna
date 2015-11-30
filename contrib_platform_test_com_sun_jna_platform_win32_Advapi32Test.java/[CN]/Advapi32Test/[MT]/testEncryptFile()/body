@@ -1,6 +1,6 @@
 {
   File file=createTempFile();
-  WString lpFileName=new WString(file.getAbsolutePath());
+  String lpFileName=file.getAbsolutePath();
   file.setWritable(false);
   assertFalse(Advapi32.INSTANCE.EncryptFile(lpFileName));
   assertEquals(WinError.ERROR_FILE_READ_ONLY,Kernel32.INSTANCE.GetLastError());

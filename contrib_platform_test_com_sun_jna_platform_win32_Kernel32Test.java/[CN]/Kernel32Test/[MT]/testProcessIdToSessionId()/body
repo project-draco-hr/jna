@@ -1,0 +1,7 @@
+{
+  int myProcessID=Kernel32.INSTANCE.GetCurrentProcessId();
+  IntByReference pSessionId=new IntByReference();
+  boolean result=Kernel32.INSTANCE.ProcessIdToSessionId(myProcessID,pSessionId);
+  assertTrue("ProcessIdToSessionId should return true.",result);
+  assertTrue("Session should be 1 or higher because of service isolation",pSessionId.getValue() > 0);
+}

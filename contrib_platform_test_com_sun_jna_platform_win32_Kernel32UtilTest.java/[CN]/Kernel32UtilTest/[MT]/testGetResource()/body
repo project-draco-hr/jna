@@ -1,0 +1,8 @@
+{
+  String winDir=Kernel32Util.getEnvironmentVariable("WINDIR");
+  assertNotNull("No WINDIR value returned",winDir);
+  assertTrue("Specified WINDIR does not exist: " + winDir,new File(winDir).exists());
+  byte[] results=Kernel32Util.getResource(new File(winDir,"explorer.exe").getAbsolutePath(),"14","ICO_MYCOMPUTER");
+  assertNotNull("The 'ICO_MYCOMPUTER' resource in explorer.exe should have some content.",results);
+  assertTrue("The 'ICO_MYCOMPUTER' resource in explorer.exe should have some content.",results.length > 0);
+}

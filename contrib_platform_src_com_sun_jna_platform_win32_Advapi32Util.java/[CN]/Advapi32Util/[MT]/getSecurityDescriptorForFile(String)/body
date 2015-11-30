@@ -1,7 +1,7 @@
 {
   final int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION;
   final IntByReference lpnSize=new IntByReference();
-  boolean succeeded=Advapi32.INSTANCE.GetFileSecurity(new WString(absoluteFilePath),infoType,null,0,lpnSize);
+  boolean succeeded=Advapi32.INSTANCE.GetFileSecurity(absoluteFilePath,infoType,null,0,lpnSize);
   if (!succeeded) {
     final int lastError=Kernel32.INSTANCE.GetLastError();
     if (W32Errors.ERROR_INSUFFICIENT_BUFFER != lastError) {
@@ -10,7 +10,7 @@
   }
   final int nLength=lpnSize.getValue();
   final Memory securityDescriptorMemoryPointer=new Memory(nLength);
-  succeeded=Advapi32.INSTANCE.GetFileSecurity(new WString(absoluteFilePath),infoType,securityDescriptorMemoryPointer,nLength,lpnSize);
+  succeeded=Advapi32.INSTANCE.GetFileSecurity(absoluteFilePath,infoType,securityDescriptorMemoryPointer,nLength,lpnSize);
   if (!succeeded) {
     securityDescriptorMemoryPointer.clear();
     throw new Win32Exception(Kernel32.INSTANCE.GetLastError());

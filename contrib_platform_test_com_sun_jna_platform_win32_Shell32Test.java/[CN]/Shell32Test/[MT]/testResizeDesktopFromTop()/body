@@ -4,7 +4,7 @@
   data.uEdge.setValue(ShellAPI.ABE_TOP);
   data.rc.top=0;
   data.rc.left=0;
-  data.rc.bottom=RESIZE_HEIGHT;
+  data.rc.bottom=User32.INSTANCE.GetSystemMetrics(User32.SM_CXFULLSCREEN) - RESIZE_DELTA;
   data.rc.right=User32.INSTANCE.GetSystemMetrics(User32.SM_CXFULLSCREEN);
   queryPos(data);
   UINT_PTR h=Shell32.INSTANCE.SHAppBarMessage(new DWORD(ShellAPI.ABM_SETPOS),data);
