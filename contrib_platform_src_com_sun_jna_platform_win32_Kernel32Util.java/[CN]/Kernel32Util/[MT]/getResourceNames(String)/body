@@ -1,0 +1,78 @@
+{
+  HMODULE target=Kernel32.INSTANCE.LoadLibraryEx(path,null,Kernel32.LOAD_LIBRARY_AS_DATAFILE);
+  if (target == null) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  final List<String> types=new ArrayList<String>();
+  final Map<String,List<String>> result=new LinkedHashMap<String,List<String>>();
+  WinBase.EnumResTypeProc ertp=new WinBase.EnumResTypeProc(){
+    @Override public boolean invoke(    HMODULE module,    Pointer type,    Pointer lParam){
+      if (Pointer.nativeValue(type) <= 65535) {
+        types.add(Pointer.nativeValue(type) + "");
+      }
+ else {
+        types.add(type.getWideString(0));
+      }
+      return true;
+    }
+  }
+;
+  WinBase.EnumResNameProc ernp=new WinBase.EnumResNameProc(){
+    @Override public boolean invoke(    HMODULE module,    Pointer type,    Pointer name,    Pointer lParam){
+      String typeName="";
+      if (Pointer.nativeValue(type) <= 65535) {
+        typeName=Pointer.nativeValue(type) + "";
+      }
+ else {
+        typeName=type.getWideString(0);
+      }
+      if (Pointer.nativeValue(name) < 65535) {
+        result.get(typeName).add(Pointer.nativeValue(name) + "");
+      }
+ else {
+        result.get(typeName).add(name.getWideString(0));
+      }
+      return true;
+    }
+  }
+;
+  Win32Exception err=null;
+  try {
+    if (!Kernel32.INSTANCE.EnumResourceTypes(target,ertp,null)) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+    for (    final String typeName : types) {
+      result.put(typeName,new ArrayList<String>());
+      Pointer pointer=null;
+      try {
+        pointer=new Pointer(Long.parseLong(typeName));
+      }
+ catch (      NumberFormatException e) {
+        pointer=new Memory(Native.WCHAR_SIZE * (typeName.length() + 1));
+        pointer.setWideString(0,typeName);
+      }
+      boolean callResult=Kernel32.INSTANCE.EnumResourceNames(target,pointer,ernp,null);
+      if (!callResult) {
+        throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+      }
+    }
+  }
+ catch (  Win32Exception e) {
+    err=e;
+  }
+ finally {
+    if (target != null) {
+      if (!Kernel32.INSTANCE.FreeLibrary(target)) {
+        Win32Exception we=new Win32Exception(Kernel32.INSTANCE.GetLastError());
+        if (err != null) {
+          we.addSuppressed(err);
+        }
+        throw we;
+      }
+    }
+  }
+  if (err != null) {
+    throw err;
+  }
+  return result;
+}

@@ -1,0 +1,13 @@
+{
+  Pointer pointer=new Memory(Native.WCHAR_SIZE * 3);
+  pointer.setWideString(0,"14");
+  WinBase.EnumResNameProc ernp=new WinBase.EnumResNameProc(){
+    @Override public boolean invoke(    HMODULE module,    Pointer type,    Pointer name,    Pointer lParam){
+      return true;
+    }
+  }
+;
+  boolean result=Kernel32.INSTANCE.EnumResourceNames(null,pointer,ernp,null);
+  assertFalse("EnumResourceNames should have failed.",result);
+  assertEquals("GetLastError should be set to 1813",WinError.ERROR_RESOURCE_TYPE_NOT_FOUND,Kernel32.INSTANCE.GetLastError());
+}
