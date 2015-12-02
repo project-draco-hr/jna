@@ -1,0 +1,7 @@
+{
+  long epochDiff=11644473600000L;
+  assertEquals("Mismatched filetime for 2ms",(new FILETIME(new Date(2L - epochDiff))).toDWordLong().longValue(),2L * 10000);
+  assertEquals("Mismatched filetime for 2^16ms",(new FILETIME(new Date((1L << 16) - epochDiff))).toDWordLong().longValue(),(1L << 16) * 10000);
+  assertEquals("Mismatched filetime for 2^32ms",(new FILETIME(new Date((1L << 32) - epochDiff))).toDWordLong().longValue(),(1L << 32) * 10000);
+  assertEquals("Mismatched filetime for 2^49ms",(new FILETIME(new Date((1L << 49) - epochDiff))).toDWordLong().longValue(),(1L << 49) * 10000);
+}
