@@ -1,0 +1,5 @@
+{
+  X11.Xrender.XRenderPictFormat s=new X11.Xrender.XRenderPictFormat();
+  s.getPointer().setInt(0,25);
+  s.read();
+}
