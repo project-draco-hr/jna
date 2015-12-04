@@ -4,6 +4,11 @@
   }
 synchronized (libraries) {
     if (options.containsKey(cls)) {
+      Map libOptions=(Map)options.get(cls);
+      Class enclosingClass=(Class)libOptions.get(_OPTION_ENCLOSING_LIBRARY);
+      if (enclosingClass != null) {
+        return enclosingClass;
+      }
       return cls;
     }
   }

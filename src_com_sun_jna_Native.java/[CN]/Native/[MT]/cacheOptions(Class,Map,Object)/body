@@ -1,5 +1,6 @@
 {
   libOptions=new HashMap(libOptions);
+  libOptions.put(_OPTION_ENCLOSING_LIBRARY,cls);
 synchronized (libraries) {
     options.put(cls,libOptions);
     if (proxy != null) {
@@ -15,4 +16,5 @@ synchronized (libraries) {
       }
     }
   }
+  return libOptions;
 }
