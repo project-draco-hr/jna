@@ -1,0 +1,10 @@
+{
+  Ole32.INSTANCE.CoInitialize(null);
+  int CSIDL_DRIVES=0x0011;
+  WinNT.HRESULT hr=Ole32.INSTANCE.CoInitialize(null);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  PointerByReference psfMyComputerPTR=new PointerByReference(Pointer.NULL);
+  hr=BindToCsidl(CSIDL_DRIVES,new Guid.REFIID(IShellFolder.IID_ISHELLFOLDER),psfMyComputerPTR);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  psfMyComputer=IShellFolder.Converter.PointerToIShellFolder(psfMyComputerPTR);
+}
