@@ -1,0 +1,6 @@
+{
+  List<MODULEENTRY32W> results=Kernel32Util.getModules(Kernel32.INSTANCE.GetCurrentProcessId());
+  assertNotNull("There should be some modules returned from this helper",results);
+  assertTrue("The first module in this process should be java.exe or javaw.exe",results.get(0).szModule().startsWith("java"));
+  assertTrue("This is supposed to return all the modules in a process, so there should be an EXE and at least 1 Windows API DLL.",results.size() > 2);
+}
