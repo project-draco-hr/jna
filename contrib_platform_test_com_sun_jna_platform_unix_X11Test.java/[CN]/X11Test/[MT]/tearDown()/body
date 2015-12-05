@@ -1,0 +1,5 @@
+{
+  if (display != null) {
+    X11.INSTANCE.XCloseDisplay(display);
+  }
+}

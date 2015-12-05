@@ -1,0 +1,12 @@
+{
+  PointerByReference pref=new PointerByReference();
+  int status=X11.INSTANCE.XFetchName(display,root,pref);
+  try {
+    assertEquals("Bad status for XFetchName",0,status);
+  }
+  finally {
+    if (pref.getValue() != null) {
+      X11.INSTANCE.XFree(pref.getValue());
+    }
+  }
+}
