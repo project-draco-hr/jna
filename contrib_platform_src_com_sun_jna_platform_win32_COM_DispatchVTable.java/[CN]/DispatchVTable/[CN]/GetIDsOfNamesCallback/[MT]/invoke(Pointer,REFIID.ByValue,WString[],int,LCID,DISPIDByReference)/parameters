@@ -1,6 +1,0 @@
-Pointer thisPointer
-REFIID.ByValue riid
-WString[] rgszNames
-int cNames
-LCID lcid
-DISPIDByReference rgDispId

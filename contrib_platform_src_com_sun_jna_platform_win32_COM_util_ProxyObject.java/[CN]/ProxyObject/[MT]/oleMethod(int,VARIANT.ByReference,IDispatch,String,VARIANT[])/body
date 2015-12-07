@@ -5,7 +5,7 @@
     final DISPIDByReference pdispID=new DISPIDByReference();
     HRESULT hr=this.comThread.execute(new Callable<HRESULT>(){
       @Override public HRESULT call() throws Exception {
-        HRESULT hr=pDisp.GetIDsOfNames(new REFIID.ByValue(Guid.IID_NULL),ptName,1,LOCALE_USER_DEFAULT,pdispID);
+        HRESULT hr=pDisp.GetIDsOfNames(new REFIID(Guid.IID_NULL),ptName,1,LOCALE_USER_DEFAULT,pdispID);
         return hr;
       }
     }

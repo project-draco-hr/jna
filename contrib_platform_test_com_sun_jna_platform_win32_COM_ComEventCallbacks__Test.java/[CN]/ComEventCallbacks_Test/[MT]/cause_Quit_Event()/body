@@ -6,7 +6,7 @@
   Unknown unk=new Unknown(ppWordApp.getValue());
   PointerByReference ppCpc=new PointerByReference();
   IID cpcIID=new IID("{B196B284-BAB4-101A-B69C-00AA00341D07}");
-  hr=unk.QueryInterface(new REFIID.ByValue(cpcIID),ppCpc);
+  hr=unk.QueryInterface(new REFIID(cpcIID),ppCpc);
   COMUtils.checkRC(hr);
   ConnectionPointContainer cpc=new ConnectionPointContainer(ppCpc.getValue());
   IID appEvnts4=new IID(APPLICATION_EVENTS_4);
@@ -24,7 +24,7 @@
   COMUtils.checkRC(hr1);
   Dispatch d=new Dispatch(ppWordApp.getValue());
   DISPID dispIdMember=new DISPID(1105);
-  REFIID.ByValue niid=new REFIID.ByValue(Guid.IID_NULL);
+  REFIID niid=new REFIID(Guid.IID_NULL);
   LCID lcid=Kernel32.INSTANCE.GetSystemDefaultLCID();
   WinDef.WORD wFlags=new WinDef.WORD(1);
   DISPPARAMS.ByReference pDispParams=new DISPPARAMS.ByReference();

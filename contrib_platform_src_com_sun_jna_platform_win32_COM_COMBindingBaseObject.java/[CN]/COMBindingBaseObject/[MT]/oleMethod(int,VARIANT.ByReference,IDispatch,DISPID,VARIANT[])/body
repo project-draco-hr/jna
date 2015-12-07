@@ -22,7 +22,7 @@
     dp.rgvarg=new VariantArg.ByReference(_args);
     dp.write();
   }
-  HRESULT hr=pDisp.Invoke(dispId,new REFIID.ByValue(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,new WinDef.WORD(nType),dp,pvResult,pExcepInfo,puArgErr);
+  HRESULT hr=pDisp.Invoke(dispId,new REFIID(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,new WinDef.WORD(nType),dp,pvResult,pExcepInfo,puArgErr);
   COMUtils.checkRC(hr,pExcepInfo,puArgErr);
   return hr;
 }

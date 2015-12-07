@@ -8,7 +8,7 @@
     final PointerByReference ppvObject=new PointerByReference();
     HRESULT hr=this.comThread.execute(new Callable<HRESULT>(){
       @Override public HRESULT call() throws Exception {
-        return ProxyObject.this.getRawDispatch().QueryInterface(new REFIID.ByValue(iid),ppvObject);
+        return ProxyObject.this.getRawDispatch().QueryInterface(new REFIID(iid),ppvObject);
       }
     }
 );
