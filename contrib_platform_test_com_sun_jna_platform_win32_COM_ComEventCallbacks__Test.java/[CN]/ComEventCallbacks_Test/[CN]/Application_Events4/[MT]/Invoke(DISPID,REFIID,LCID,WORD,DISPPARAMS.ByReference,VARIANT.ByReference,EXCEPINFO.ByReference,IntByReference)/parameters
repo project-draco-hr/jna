@@ -1,5 +1,5 @@
 DISPID dispIdMember
-REFIID.ByValue riid
+REFIID riid
 LCID lcid
 WORD wFlags
 DISPPARAMS.ByReference pDispParams

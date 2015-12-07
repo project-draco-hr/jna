@@ -4,9 +4,10 @@
     return new HRESULT(WinError.E_POINTER);
   }
   String s=refid.toGuidString();
-  IID appEvnts4=new IID("{00020A01-0000-0000-C000-000000000046}");
-  REFIID.ByValue riid=new REFIID.ByValue(appEvnts4.getPointer());
+  IID appEvnts4=new IID(APPLICATION_EVENTS_4);
+  REFIID riid=new REFIID(appEvnts4.getPointer());
   if (refid.equals(riid)) {
+    ppvObject.setValue(this.getPointer());
     return WinError.S_OK;
   }
   if (new Guid.IID(refid.getPointer()).equals(Unknown.IID_IUNKNOWN)) {
