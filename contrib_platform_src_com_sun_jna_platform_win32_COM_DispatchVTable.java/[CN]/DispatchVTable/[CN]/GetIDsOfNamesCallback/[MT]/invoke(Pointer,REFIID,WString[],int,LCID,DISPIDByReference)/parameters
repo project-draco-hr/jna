@@ -1,0 +1,6 @@
+Pointer thisPointer
+REFIID riid
+WString[] rgszNames
+int cNames
+LCID lcid
+DISPIDByReference rgDispId

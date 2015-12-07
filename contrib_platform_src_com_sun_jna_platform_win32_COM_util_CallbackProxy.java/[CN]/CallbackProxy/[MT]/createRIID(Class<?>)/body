@@ -7,5 +7,5 @@
   if (null == iidStr || iidStr.isEmpty()) {
     throw new COMException("ComInterface must define a value for iid");
   }
-  return new REFIID.ByValue(new IID(iidStr).getPointer());
+  return new REFIID(new IID(iidStr).getPointer());
 }

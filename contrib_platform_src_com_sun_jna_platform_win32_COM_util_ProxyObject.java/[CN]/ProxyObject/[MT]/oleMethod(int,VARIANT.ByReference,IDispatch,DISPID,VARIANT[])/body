@@ -25,7 +25,7 @@
   try {
     HRESULT hr=this.comThread.execute(new Callable<HRESULT>(){
       @Override public HRESULT call() throws Exception {
-        return pDisp.Invoke(dispId,new REFIID.ByValue(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,new WinDef.WORD(nType),dp,pvResult,pExcepInfo,puArgErr);
+        return pDisp.Invoke(dispId,new REFIID(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,new WinDef.WORD(nType),dp,pvResult,pExcepInfo,puArgErr);
       }
     }
 );
