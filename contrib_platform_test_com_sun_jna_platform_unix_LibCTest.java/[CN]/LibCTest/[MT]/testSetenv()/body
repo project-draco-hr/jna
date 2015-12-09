@@ -1,0 +1,12 @@
+{
+  String name=getCurrentTestName();
+  try {
+    String expected=new Date(System.currentTimeMillis()).toString();
+    assertSuccessResult("setenv",LibC.INSTANCE.setenv(name,expected,1));
+    assertEquals("Mismatched values",expected,LibC.INSTANCE.getenv(name));
+    assertSuccessResult("unsetenv",LibC.INSTANCE.unsetenv(name));
+  }
+  finally {
+    LibC.INSTANCE.unsetenv(name);
+  }
+}
