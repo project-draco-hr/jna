@@ -1,0 +1,32 @@
+{
+  HANDLE snapshot=Kernel32.INSTANCE.CreateToolhelp32Snapshot(Tlhelp32.TH32CS_SNAPMODULE,new DWORD(Kernel32.INSTANCE.GetCurrentProcessId()));
+  if (snapshot == null) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  Win32Exception we=null;
+  Tlhelp32.MODULEENTRY32W first=new Tlhelp32.MODULEENTRY32W();
+  try {
+    if (!Kernel32.INSTANCE.Module32FirstW(snapshot,first)) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+  }
+ catch (  Win32Exception e) {
+    we=e;
+  }
+ finally {
+    if (snapshot != null) {
+      if (!Kernel32.INSTANCE.CloseHandle(snapshot)) {
+        Win32Exception e=new Win32Exception(Kernel32.INSTANCE.GetLastError());
+        if (we != null) {
+          e.addSuppressed(we);
+        }
+        we=e;
+      }
+    }
+  }
+  if (we != null) {
+    throw we;
+  }
+  assertTrue("The first module in the current process should be java.exe or javaw.exe",first.szModule().startsWith("java"));
+  assertEquals("The process ID of the module ID should be our process ID",Kernel32.INSTANCE.GetCurrentProcessId(),first.th32ProcessID.intValue());
+}
