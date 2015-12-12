@@ -1,0 +1,16 @@
+{
+  Map<String,String> ieCache=WininetUtil.getCache();
+  assertNotNull("WinInet cache should have some items in it.",ieCache.size() > 1);
+  boolean historyEntryFound=false;
+  boolean googleLogoOrOtherImageFound=false;
+  for (  String URL : ieCache.keySet()) {
+    if (URL.startsWith("Visited:") && URL.contains("www.google.com")) {
+      historyEntryFound=true;
+    }
+ else     if (URL.contains("google.com") && (URL.endsWith("png") || URL.endsWith("jpg"))) {
+      googleLogoOrOtherImageFound=true;
+    }
+  }
+  assertTrue("Google logo (or other image) should have been found in the browser cache.",googleLogoOrOtherImageFound);
+  assertTrue("History entry for google.com should have been found in the browser cache.",historyEntryFound);
+}

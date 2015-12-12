@@ -1,0 +1,4 @@
+{
+  Runtime.getRuntime().exec("cmd /c start iexplore.exe -nomerge -nohome \"http://www.google.com\"");
+  Thread.sleep(10000);
+}

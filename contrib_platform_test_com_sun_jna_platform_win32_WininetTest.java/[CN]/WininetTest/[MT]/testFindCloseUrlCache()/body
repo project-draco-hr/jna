@@ -1,0 +1,6 @@
+{
+  boolean result=Wininet.INSTANCE.FindCloseUrlCache(null);
+  int lastError=Native.getLastError();
+  assertFalse("FindCloseUrlCache should return false with an invalid handle.",result);
+  assertEquals("GetLastError should return ERROR_INVALID_HANDLE",WinError.ERROR_INVALID_HANDLE,lastError);
+}
