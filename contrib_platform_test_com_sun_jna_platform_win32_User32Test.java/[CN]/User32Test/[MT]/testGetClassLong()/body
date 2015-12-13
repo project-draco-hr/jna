@@ -1,0 +1,5 @@
+{
+  int result=User32.INSTANCE.GetClassLong(null,0);
+  assertEquals("GetClassLong result should be 0",0,result);
+  assertEquals("GetLastError should be ERROR_INVALID_WINDOW_HANDLE.",WinError.ERROR_INVALID_WINDOW_HANDLE,Native.getLastError());
+}

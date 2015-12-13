@@ -1,0 +1,5 @@
+{
+  HANDLE result=User32.INSTANCE.SetWinEventHook(0,0,null,null,0,0,0);
+  assertNull("SetWinEventHook result should be null",result);
+  assertEquals("GetLastError should be ERROR_INVALID_FILTER_PROC.",WinError.ERROR_INVALID_FILTER_PROC,Native.getLastError());
+}

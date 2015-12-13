@@ -1,0 +1,5 @@
+{
+  boolean pwResult=User32.INSTANCE.PrintWindow(null,null,0);
+  assertFalse("PrintWindow result should be false",pwResult);
+  assertEquals("GetLastError should be ERROR_INVALID_WINDOW_HANDLE.",WinError.ERROR_INVALID_WINDOW_HANDLE,Native.getLastError());
+}

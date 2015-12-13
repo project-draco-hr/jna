@@ -1,0 +1,5 @@
+{
+  HWND result=User32.INSTANCE.FindWindowEx(null,null,null,null);
+  assertNotNull("FindWindowEx result should not be null",result);
+  assertEquals("GetLastError should be ERROR_SUCCESS.",WinError.ERROR_SUCCESS,Native.getLastError());
+}

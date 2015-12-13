@@ -1,0 +1,5 @@
+{
+  boolean iwResult=User32.INSTANCE.IsWindow(null);
+  assertFalse("IsWindow result should be false",iwResult);
+  assertEquals("GetLastError should be ERROR_SUCCESS.",WinError.ERROR_SUCCESS,Native.getLastError());
+}

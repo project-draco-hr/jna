@@ -1,0 +1,5 @@
+{
+  boolean iwResult=User32.INSTANCE.UnhookWinEvent(null);
+  assertFalse("UnhookWinEvent result should be false",iwResult);
+  assertEquals("GetLastError should be ERROR_INVALID_HANDLE.",WinError.ERROR_INVALID_HANDLE,Native.getLastError());
+}

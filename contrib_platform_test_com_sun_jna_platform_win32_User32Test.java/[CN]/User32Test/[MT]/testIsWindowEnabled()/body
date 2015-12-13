@@ -1,0 +1,5 @@
+{
+  boolean iweResult=User32.INSTANCE.IsWindowEnabled(null);
+  assertFalse("IsWindowEnabled result should be false",iweResult);
+  assertEquals("GetLastError should be ERROR_INVALID_WINDOW_HANDLE.",WinError.ERROR_INVALID_WINDOW_HANDLE,Native.getLastError());
+}
