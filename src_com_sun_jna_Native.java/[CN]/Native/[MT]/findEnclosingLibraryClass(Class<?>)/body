@@ -1,0 +1,27 @@
+{
+  if (cls == null) {
+    return null;
+  }
+synchronized (libraries) {
+    if (options.containsKey(cls)) {
+      Map libOptions=(Map)options.get(cls);
+      Class<?> enclosingClass=(Class<?>)libOptions.get(_OPTION_ENCLOSING_LIBRARY);
+      if (enclosingClass != null) {
+        return enclosingClass;
+      }
+      return cls;
+    }
+  }
+  if (Library.class.isAssignableFrom(cls)) {
+    return cls;
+  }
+  if (Callback.class.isAssignableFrom(cls)) {
+    cls=CallbackReference.findCallbackClass(cls);
+  }
+  Class<?> declaring=cls.getDeclaringClass();
+  Class<?> fromDeclaring=findEnclosingLibraryClass(declaring);
+  if (fromDeclaring != null) {
+    return fromDeclaring;
+  }
+  return findEnclosingLibraryClass(cls.getSuperclass());
+}

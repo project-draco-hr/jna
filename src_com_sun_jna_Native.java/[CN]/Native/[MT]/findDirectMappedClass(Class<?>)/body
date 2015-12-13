@@ -1,0 +1,18 @@
+{
+  Method[] methods=cls.getDeclaredMethods();
+  for (  Method m : methods) {
+    if ((m.getModifiers() & Modifier.NATIVE) != 0) {
+      return cls;
+    }
+  }
+  int idx=cls.getName().lastIndexOf("$");
+  if (idx != -1) {
+    String name=cls.getName().substring(0,idx);
+    try {
+      return findDirectMappedClass(Class.forName(name,true,cls.getClassLoader()));
+    }
+ catch (    ClassNotFoundException e) {
+    }
+  }
+  throw new IllegalArgumentException("Can't determine class with native methods from the current context (" + cls + ")");
+}

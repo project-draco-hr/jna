@@ -1,0 +1,3 @@
+String name
+Class<T> interfaceClass
+Map options

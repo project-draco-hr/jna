@@ -1,0 +1,112 @@
+{
+  Method[] methods=cls.getDeclaredMethods();
+  List<Method> mlist=new ArrayList<Method>();
+  TypeMapper mapper=(TypeMapper)lib.getOptions().get(Library.OPTION_TYPE_MAPPER);
+  cacheOptions(cls,lib.getOptions(),null);
+  for (  Method m : methods) {
+    if ((m.getModifiers() & Modifier.NATIVE) != 0) {
+      mlist.add(m);
+    }
+  }
+  long[] handles=new long[mlist.size()];
+  for (int i=0; i < handles.length; i++) {
+    Method method=mlist.get(i);
+    String sig="(";
+    Class<?> rclass=method.getReturnType();
+    long rtype, closure_rtype;
+    Class<?>[] ptypes=method.getParameterTypes();
+    long[] atypes=new long[ptypes.length];
+    long[] closure_atypes=new long[ptypes.length];
+    int[] cvt=new int[ptypes.length];
+    ToNativeConverter[] toNative=new ToNativeConverter[ptypes.length];
+    FromNativeConverter fromNative=null;
+    int rcvt=getConversion(rclass,mapper);
+    boolean throwLastError=false;
+switch (rcvt) {
+case CVT_UNSUPPORTED:
+      throw new IllegalArgumentException(rclass + " is not a supported return type (in method " + method.getName()+ " in "+ cls+ ")");
+case CVT_TYPE_MAPPER:
+case CVT_TYPE_MAPPER_STRING:
+case CVT_TYPE_MAPPER_WSTRING:
+    fromNative=mapper.getFromNativeConverter(rclass);
+  closure_rtype=FFIType.get(rclass.isPrimitive() ? rclass : Pointer.class).peer;
+rtype=FFIType.get(fromNative.nativeType()).peer;
+break;
+case CVT_NATIVE_MAPPED:
+case CVT_NATIVE_MAPPED_STRING:
+case CVT_NATIVE_MAPPED_WSTRING:
+case CVT_INTEGER_TYPE:
+case CVT_POINTER_TYPE:
+closure_rtype=FFIType.get(Pointer.class).peer;
+rtype=FFIType.get(NativeMappedConverter.getInstance(rclass).nativeType()).peer;
+break;
+case CVT_STRUCTURE:
+closure_rtype=rtype=FFIType.get(Pointer.class).peer;
+break;
+case CVT_STRUCTURE_BYVAL:
+closure_rtype=FFIType.get(Pointer.class).peer;
+rtype=FFIType.get(rclass).peer;
+break;
+default :
+closure_rtype=rtype=FFIType.get(rclass).peer;
+break;
+}
+for (int t=0; t < ptypes.length; t++) {
+Class<?> type=ptypes[t];
+sig+=getSignature(type);
+cvt[t]=getConversion(type,mapper);
+if (cvt[t] == CVT_UNSUPPORTED) {
+throw new IllegalArgumentException(type + " is not a supported argument type (in method " + method.getName()+ " in "+ cls+ ")");
+}
+if (cvt[t] == CVT_NATIVE_MAPPED || cvt[t] == CVT_NATIVE_MAPPED_STRING || cvt[t] == CVT_NATIVE_MAPPED_WSTRING || cvt[t] == CVT_INTEGER_TYPE) {
+type=NativeMappedConverter.getInstance(type).nativeType();
+}
+ else if (cvt[t] == CVT_TYPE_MAPPER || cvt[t] == CVT_TYPE_MAPPER_STRING || cvt[t] == CVT_TYPE_MAPPER_WSTRING) {
+toNative[t]=mapper.getToNativeConverter(type);
+}
+switch (cvt[t]) {
+case CVT_STRUCTURE_BYVAL:
+case CVT_INTEGER_TYPE:
+case CVT_POINTER_TYPE:
+case CVT_NATIVE_MAPPED:
+case CVT_NATIVE_MAPPED_STRING:
+case CVT_NATIVE_MAPPED_WSTRING:
+atypes[t]=FFIType.get(type).peer;
+closure_atypes[t]=FFIType.get(Pointer.class).peer;
+break;
+case CVT_TYPE_MAPPER:
+case CVT_TYPE_MAPPER_STRING:
+case CVT_TYPE_MAPPER_WSTRING:
+closure_atypes[t]=FFIType.get(type.isPrimitive() ? type : Pointer.class).peer;
+atypes[t]=FFIType.get(toNative[t].nativeType()).peer;
+break;
+case CVT_DEFAULT:
+closure_atypes[t]=atypes[t]=FFIType.get(type).peer;
+break;
+default :
+closure_atypes[t]=atypes[t]=FFIType.get(Pointer.class).peer;
+break;
+}
+}
+sig+=")";
+sig+=getSignature(rclass);
+Class<?>[] etypes=method.getExceptionTypes();
+for (int e=0; e < etypes.length; e++) {
+if (LastErrorException.class.isAssignableFrom(etypes[e])) {
+throwLastError=true;
+break;
+}
+}
+Function f=lib.getFunction(method.getName(),method);
+try {
+handles[i]=registerMethod(cls,method.getName(),sig,cvt,closure_atypes,atypes,rcvt,closure_rtype,rtype,rclass,f.peer,f.getCallingConvention(),throwLastError,toNative,fromNative,f.encoding);
+}
+ catch (NoSuchMethodError e) {
+throw new UnsatisfiedLinkError("No method " + method.getName() + " with signature "+ sig+ " in "+ cls);
+}
+}
+synchronized (registeredClasses) {
+registeredClasses.put(cls,handles);
+registeredLibraries.put(cls,lib);
+}
+}
