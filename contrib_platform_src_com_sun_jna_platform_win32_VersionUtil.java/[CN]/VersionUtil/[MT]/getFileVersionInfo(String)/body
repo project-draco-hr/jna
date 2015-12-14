@@ -1,0 +1,19 @@
+{
+  IntByReference dwDummy=new IntByReference();
+  int versionLength=Version.INSTANCE.GetFileVersionInfoSize(filePath,dwDummy);
+  if (versionLength == 0) {
+    throw new Win32Exception(Native.getLastError());
+  }
+  Pointer lpData=new Memory(versionLength);
+  PointerByReference lplpBuffer=new PointerByReference();
+  if (!Version.INSTANCE.GetFileVersionInfo(filePath,0,versionLength,lpData)) {
+    throw new Win32Exception(Native.getLastError());
+  }
+  IntByReference puLen=new IntByReference();
+  if (!Version.INSTANCE.VerQueryValue(lpData,"\\",lplpBuffer,puLen)) {
+    throw new UnsupportedOperationException("Unable to extract version info from the file: \"" + filePath + "\"");
+  }
+  VS_FIXEDFILEINFO fileInfo=new VS_FIXEDFILEINFO(lplpBuffer.getValue());
+  fileInfo.read();
+  return fileInfo;
+}
