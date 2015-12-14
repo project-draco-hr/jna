@@ -2,12 +2,12 @@
   Thread thread=Thread.currentThread();
   if (detach) {
     nativeThreads.remove(thread);
-    Pointer p=(Pointer)nativeThreadTerminationFlag.get();
+    Pointer p=nativeThreadTerminationFlag.get();
     setDetachState(true,0);
   }
  else {
     if (!nativeThreads.containsKey(thread)) {
-      Pointer p=(Pointer)nativeThreadTerminationFlag.get();
+      Pointer p=nativeThreadTerminationFlag.get();
       nativeThreads.put(thread,p);
       setDetachState(false,p.peer);
     }

@@ -1,0 +1,16 @@
+Class<?> cls
+String name
+String signature
+int[] conversions
+long[] closure_arg_types
+long[] arg_types
+int rconversion
+long closure_rtype
+long rtype
+Class<?> rclass
+long fptr
+int callingConvention
+boolean throwLastError
+ToNativeConverter[] toNative
+FromNativeConverter fromNative
+String encoding

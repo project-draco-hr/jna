@@ -2,7 +2,7 @@
 synchronized (registeredClasses) {
     for (Iterator i=registeredClasses.entrySet().iterator(); i.hasNext(); ) {
       Map.Entry e=(Map.Entry)i.next();
-      unregister((Class)e.getKey(),(long[])e.getValue());
+      unregister((Class<?>)e.getKey(),(long[])e.getValue());
       i.remove();
     }
   }
