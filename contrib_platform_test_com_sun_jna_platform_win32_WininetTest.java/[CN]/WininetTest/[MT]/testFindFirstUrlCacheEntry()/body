@@ -1,0 +1,7 @@
+{
+  IntByReference size=new IntByReference();
+  HANDLE cacheHandle=Wininet.INSTANCE.FindFirstUrlCacheEntry(null,null,size);
+  int lastError=Native.getLastError();
+  assertTrue("GetLastError should have returned ERROR_INSUFFICIENT_BUFFER or ERROR_NO_MORE_ITEMS.",lastError == WinError.ERROR_INSUFFICIENT_BUFFER || lastError == WinError.ERROR_NO_MORE_ITEMS);
+  assertNull("FindFirstUrlCacheEntry should have returned null.",cacheHandle);
+}
