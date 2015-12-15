@@ -3,7 +3,7 @@
   PublicTestStructure.ByReference[] array=(PublicTestStructure.ByReference[])s.toArray(2);
 class TestStructure extends Structure {
     public PublicTestStructure.ByReference ref;
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"ref"});
     }
   }

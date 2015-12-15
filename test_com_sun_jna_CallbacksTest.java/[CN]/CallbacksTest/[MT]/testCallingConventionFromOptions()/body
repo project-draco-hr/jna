@@ -1,9 +1,9 @@
 {
   Map options=new HashMap();
   options.put(Library.OPTION_CALLING_CONVENTION,Function.ALT_CONVENTION);
-  OptionCallingConventionTestLibrary lib=(OptionCallingConventionTestLibrary)Native.loadLibrary("testlib",OptionCallingConventionTestLibrary.class,options);
+  OptionCallingConventionTestLibrary lib=Native.loadLibrary("testlib",OptionCallingConventionTestLibrary.class,options);
   OptionCallingConventionTestLibrary.TestCallback cb=new OptionCallingConventionTestLibrary.TestCallback(){
-    public void invoke(){
+    @Override public void invoke(){
     }
   }
 ;

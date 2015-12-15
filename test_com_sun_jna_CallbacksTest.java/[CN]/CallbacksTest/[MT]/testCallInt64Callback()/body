@@ -2,7 +2,7 @@
   final long MAGIC=0x1111111111111111L;
   final boolean[] called={false};
   TestLibrary.Int64Callback cb=new TestLibrary.Int64Callback(){
-    public long callback(    long arg,    long arg2){
+    @Override public long callback(    long arg,    long arg2){
       called[0]=true;
       return arg + arg2;
     }

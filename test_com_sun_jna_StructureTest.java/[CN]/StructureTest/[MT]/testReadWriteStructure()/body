@@ -19,7 +19,7 @@ class TestStructure extends Structure {
     public float[] fa=new float[3];
     public double[] da=new double[3];
     public PublicTestStructure nested;
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"z","b","c","s","i","l","f","d","ba","ca","sa","ia","la","fa","da","nested"});
     }
   }

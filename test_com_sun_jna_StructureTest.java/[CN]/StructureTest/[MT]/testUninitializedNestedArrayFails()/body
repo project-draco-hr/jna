@@ -1,7 +1,7 @@
 {
 class TestStructure extends Structure {
     public Pointer[] buffer;
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"buffer"});
     }
   }

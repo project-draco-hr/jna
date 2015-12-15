@@ -1,6 +1,6 @@
 {
   TestLibrary.StringCallback cb=new TestLibrary.StringCallback(){
-    public String callback(    String arg,    String arg2){
+    @Override public String callback(    String arg,    String arg2){
       return arg + arg2;
     }
   }

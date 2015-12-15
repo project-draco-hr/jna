@@ -15,6 +15,6 @@
 );
   Map options=new HashMap();
   options.put(Library.OPTION_TYPE_MAPPER,mapper);
-  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,options);
+  TestLibrary lib=Native.loadLibrary("testlib",TestLibrary.class,options);
   assertEquals("Failed to convert WString result to String",MAGIC,lib.returnWStringArgument(new WString(MAGIC)));
 }

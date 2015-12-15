@@ -4,13 +4,13 @@ class TestField {
   final DefaultTypeMapper mapper=new DefaultTypeMapper(){
 {
       addTypeConverter(TestField.class,new TypeConverter(){
-        public Object fromNative(        Object value,        FromNativeContext context){
+        @Override public Object fromNative(        Object value,        FromNativeContext context){
           return new TestField();
         }
-        public Class nativeType(){
+        @Override public Class nativeType(){
           return String.class;
         }
-        public Object toNative(        Object value,        ToNativeContext ctx){
+        @Override public Object toNative(        Object value,        ToNativeContext ctx){
           return value == null ? null : value.toString();
         }
       }
@@ -23,7 +23,7 @@ class TestStructure extends Structure {
     public TestStructure(){
       super(mapper);
     }
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"field"});
     }
   }

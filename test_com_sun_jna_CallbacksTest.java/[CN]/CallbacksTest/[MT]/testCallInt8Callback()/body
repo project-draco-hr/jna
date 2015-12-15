@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final byte[] cbargs={0,0};
   TestLibrary.ByteCallback cb=new TestLibrary.ByteCallback(){
-    public byte callback(    byte arg,    byte arg2){
+    @Override public byte callback(    byte arg,    byte arg2){
       called[0]=true;
       cbargs[0]=arg;
       cbargs[1]=arg2;

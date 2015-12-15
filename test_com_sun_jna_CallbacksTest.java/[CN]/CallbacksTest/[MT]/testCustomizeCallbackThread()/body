@@ -9,7 +9,7 @@
   ThreadGroup testGroup=new ThreadGroup("Thread group for " + getName());
   CallbackThreadInitializer init=new CallbackThreadInitializer(true,false,tname,testGroup);
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
-    public void callback(){
+    @Override public void callback(){
       Thread thread=Thread.currentThread();
       daemon[0]=thread.isDaemon();
       name[0]=thread.getName();

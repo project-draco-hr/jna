@@ -2,7 +2,7 @@
 class TestStructure extends Structure {
     public PublicTestStructure.ByValue s1, s2;
     public int after;
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"s1","s2","after"});
     }
   }

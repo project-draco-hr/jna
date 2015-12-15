@@ -2,7 +2,7 @@
   CallbackTestLibrary lib=loadCallbackTestLibrary();
   final float[] ARGS=new float[2];
   CallbackTestLibrary.FloatCallback cb=new CallbackTestLibrary.FloatCallback(){
-    public float callback(    float arg,    float arg2){
+    @Override public float callback(    float arg,    float arg2){
       ARGS[0]=arg;
       ARGS[1]=arg2;
       return arg + arg2;

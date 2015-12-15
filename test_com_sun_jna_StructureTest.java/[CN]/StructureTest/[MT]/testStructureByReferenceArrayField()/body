@@ -1,7 +1,7 @@
 {
 class TestStructure extends Structure {
     public PublicTestStructure.ByReference[] array=new PublicTestStructure.ByReference[2];
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"array"});
     }
   }

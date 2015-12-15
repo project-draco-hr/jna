@@ -7,7 +7,7 @@
   b.order(ByteOrder.nativeOrder());
   Pointer pb=Native.getDirectBufferPointer(b);
   String mname=Platform.MATH_LIBRARY_NAME;
-  MathInterface mlib=(MathInterface)Native.loadLibrary(mname,MathInterface.class);
+  MathInterface mlib=Native.loadLibrary(mname,MathInterface.class);
   Function f=NativeLibrary.getInstance(mname).getFunction("cos");
   Object[] args={new Double(0)};
   double dresult;
@@ -81,7 +81,7 @@
   Map options=new HashMap();
   if (Platform.isWindows()) {
     options.put(Library.OPTION_FUNCTION_MAPPER,new FunctionMapper(){
-      public String getFunctionName(      NativeLibrary library,      Method method){
+      @Override public String getFunctionName(      NativeLibrary library,      Method method){
         String name=method.getName();
         if ("getpid".equals(name)) {
           name="_getpid";
@@ -91,7 +91,7 @@
     }
 );
   }
-  CInterface clib=(CInterface)Native.loadLibrary(cname,CInterface.class,options);
+  CInterface clib=Native.loadLibrary(cname,CInterface.class,options);
   int pid;
   start=System.currentTimeMillis();
   for (int i=0; i < COUNT; i++) {
@@ -318,10 +318,10 @@
   }
   delta=System.currentTimeMillis() - start;
   System.out.println("Memory write (bulk): " + delta + "ms");
-  TestInterface tlib=(TestInterface)Native.loadLibrary("testlib",TestInterface.class);
+  TestInterface tlib=Native.loadLibrary("testlib",TestInterface.class);
   start=System.currentTimeMillis();
   TestInterface.Int32Callback cb=new TestInterface.Int32Callback(){
-    public int invoke(    int arg1,    int arg2){
+    @Override public int invoke(    int arg1,    int arg2){
       return arg1 + arg2;
     }
   }
@@ -336,7 +336,7 @@
   System.out.println("callback (JNA direct): " + delta + "ms");
   start=System.currentTimeMillis();
   TestInterface.NativeLongCallback nlcb=new TestInterface.NativeLongCallback(){
-    public NativeLong invoke(    NativeLong arg1,    NativeLong arg2){
+    @Override public NativeLong invoke(    NativeLong arg1,    NativeLong arg2){
       return new NativeLong(arg1.longValue() + arg2.longValue());
     }
   }

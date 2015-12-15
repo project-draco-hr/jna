@@ -2,7 +2,7 @@
   final Set threads=new HashSet();
   final int[] called={0};
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
-    public void callback(){
+    @Override public void callback(){
       threads.add(new WeakReference(Thread.currentThread()));
       if (++called[0] == 1) {
         Thread.currentThread().setName(getName() + " (Thread to be cleaned up)");
@@ -12,7 +12,7 @@
   }
 ;
   CallbackThreadInitializer asDaemon=new CallbackThreadInitializer(true){
-    public String getName(    Callback cb){
+    @Override public String getName(    Callback cb){
       return "Test thread (native) for " + CallbacksTest.this.getName();
     }
   }

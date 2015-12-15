@@ -4,7 +4,7 @@
   final Callback CALLBACK[]={null};
   UncaughtExceptionHandler old=Native.getCallbackExceptionHandler();
   UncaughtExceptionHandler handler=new UncaughtExceptionHandler(){
-    public void uncaughtException(    Callback cb,    Throwable e){
+    @Override public void uncaughtException(    Callback cb,    Throwable e){
       CALLBACK[0]=cb;
       CAUGHT[0]=e;
     }
@@ -13,16 +13,16 @@
   Native.setCallbackExceptionHandler(handler);
   try {
 class TestProxy implements CallbackProxy, TestLibrary.CbCallback {
-      public CbCallback callback(      CbCallback arg){
+      @Override public CbCallback callback(      CbCallback arg){
         throw new Error("Should never be called");
       }
-      public Object callback(      Object[] args){
+      @Override public Object callback(      Object[] args){
         throw ERROR;
       }
-      public Class[] getParameterTypes(){
+      @Override public Class[] getParameterTypes(){
         return new Class[]{CbCallback.class};
       }
-      public Class getReturnType(){
+      @Override public Class getReturnType(){
         return CbCallback.class;
       }
     }

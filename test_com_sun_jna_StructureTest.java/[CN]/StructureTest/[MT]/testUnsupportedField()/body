@@ -1,7 +1,7 @@
 {
 class BadNestedStructure extends Structure {
     public BadFieldStructure badStruct=new BadFieldStructure();
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"badStruct"});
     }
   }

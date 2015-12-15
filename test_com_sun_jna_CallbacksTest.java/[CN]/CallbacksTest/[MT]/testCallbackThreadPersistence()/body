@@ -3,13 +3,13 @@
   final Set threads=new HashSet();
   final int COUNT=5;
   CallbackThreadInitializer init=new CallbackThreadInitializer(true,false){
-    public String getName(    Callback cb){
+    @Override public String getName(    Callback cb){
       return "Test thread (native) for " + CallbacksTest.this.getName() + " (call count: "+ called[0]+ ")";
     }
   }
 ;
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
-    public void callback(){
+    @Override public void callback(){
       threads.add(Thread.currentThread());
       ++called[0];
       if (THREAD_DETACH_BUG && called[0] == COUNT) {

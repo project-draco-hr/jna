@@ -1,6 +1,6 @@
 {
   try {
-    TestLib2 lib=(TestLib2)Native.loadLibrary("testlib2",TestLib2.class);
+    TestLib2 lib=Native.loadLibrary("testlib2",TestLib2.class);
     lib.dependentReturnFalse();
   }
  catch (  UnsatisfiedLinkError e) {

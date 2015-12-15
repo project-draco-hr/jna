@@ -1,13 +1,13 @@
 {
 class TestStructure extends Structure {
     public int field;
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"field"});
     }
     public TestStructure(    Pointer p){
       super(p);
     }
-    protected Memory autoAllocate(    int size){
+    @Override protected Memory autoAllocate(    int size){
       fail("Memory should not be auto-allocated");
       return null;
     }

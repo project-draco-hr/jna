@@ -15,7 +15,7 @@
   mapper.addTypeConverter(Boolean.class,converter);
   Map options=new HashMap();
   options.put(Library.OPTION_TYPE_MAPPER,mapper);
-  StructureTestLibrary lib=(StructureTestLibrary)Native.loadLibrary("testlib",StructureTestLibrary.class,options);
+  StructureTestLibrary lib=Native.loadLibrary("testlib",StructureTestLibrary.class,options);
   StructureTestLibrary.TestStructure s=new StructureTestLibrary.TestStructure(mapper);
   assertEquals("Wrong native size",4,s.size());
   s.data=true;

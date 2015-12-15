@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final WString[] cbargs={null,null};
   TestLibrary.WideStringCallback cb=new TestLibrary.WideStringCallback(){
-    public WString callback(    WString arg,    WString arg2){
+    @Override public WString callback(    WString arg,    WString arg2){
       called[0]=true;
       cbargs[0]=arg;
       cbargs[1]=arg2;

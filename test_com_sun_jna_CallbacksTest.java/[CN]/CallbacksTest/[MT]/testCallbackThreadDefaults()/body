@@ -6,7 +6,7 @@
   final Thread[] t={null};
   ThreadGroup testGroup=new ThreadGroup(getName() + UNICODE);
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
-    public void callback(){
+    @Override public void callback(){
       Thread thread=Thread.currentThread();
       daemon[0]=thread.isDaemon();
       name[0]=thread.getName();

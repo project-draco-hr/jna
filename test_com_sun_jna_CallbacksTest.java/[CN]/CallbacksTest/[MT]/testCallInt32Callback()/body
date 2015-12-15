@@ -2,7 +2,7 @@
   final int MAGIC=0x11111111;
   final boolean[] called={false};
   TestLibrary.Int32Callback cb=new TestLibrary.Int32Callback(){
-    public int callback(    int arg,    int arg2){
+    @Override public int callback(    int arg,    int arg2){
       called[0]=true;
       return arg + arg2;
     }

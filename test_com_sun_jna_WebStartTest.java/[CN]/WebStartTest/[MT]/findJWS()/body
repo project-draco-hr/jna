@@ -13,7 +13,7 @@
       }
     }
     if (Platform.isWindows()) {
-      FolderInfo info=(FolderInfo)Native.loadLibrary("shell32",FolderInfo.class);
+      FolderInfo info=Native.loadLibrary("shell32",FolderInfo.class);
       char[] buf=new char[FolderInfo.MAX_PATH];
       info.SHGetFolderPathW(null,FolderInfo.CSIDL_WINDOWS,null,0,buf);
       String path=Native.toString(buf);

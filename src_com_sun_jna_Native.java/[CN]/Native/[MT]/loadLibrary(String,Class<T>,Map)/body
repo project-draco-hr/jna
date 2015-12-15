@@ -1,4 +1,7 @@
 {
+  if (!Library.class.isAssignableFrom(interfaceClass)) {
+    throw new IllegalArgumentException("Interface (" + interfaceClass.getSimpleName() + ")"+ " of library="+ name+ " does not extend "+ Library.class.getSimpleName());
+  }
   Library.Handler handler=new Library.Handler(name,interfaceClass,options);
   ClassLoader loader=interfaceClass.getClassLoader();
   Object proxy=Proxy.newProxyInstance(loader,new Class[]{interfaceClass},handler);

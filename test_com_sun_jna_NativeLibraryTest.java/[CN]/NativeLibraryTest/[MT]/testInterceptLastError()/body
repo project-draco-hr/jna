@@ -2,7 +2,7 @@
   if (!Platform.isWindows()) {
     return;
   }
-  NativeLibrary kernel32=(NativeLibrary)NativeLibrary.getInstance("kernel32",W32APIOptions.DEFAULT_OPTIONS);
+  NativeLibrary kernel32=NativeLibrary.getInstance("kernel32",W32APIOptions.DEFAULT_OPTIONS);
   Function get=kernel32.getFunction("GetLastError");
   Function set=kernel32.getFunction("SetLastError");
   assertEquals("SetLastError should not be customized",Function.class,set.getClass());

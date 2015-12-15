@@ -1,3 +1,3 @@
 {
-  lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class);
+  lib=Native.loadLibrary("testlib",TestLibrary.class);
 }
