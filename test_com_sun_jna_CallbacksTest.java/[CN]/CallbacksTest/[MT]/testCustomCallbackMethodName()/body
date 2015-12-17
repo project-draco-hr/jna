@@ -1,10 +1,10 @@
 {
   final boolean[] called={false};
   TestLibrary.VoidCallbackCustom cb=new TestLibrary.VoidCallbackCustom(){
-    public void customMethodName(){
+    @Override public void customMethodName(){
       called[0]=true;
     }
-    public String toString(){
+    @Override public String toString(){
       return "Some debug output";
     }
   }

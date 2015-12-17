@@ -1,7 +1,7 @@
 {
-  TaggedCallingConventionTestLibrary lib=(TaggedCallingConventionTestLibrary)Native.loadLibrary("testlib",TaggedCallingConventionTestLibrary.class);
+  TaggedCallingConventionTestLibrary lib=Native.loadLibrary("testlib",TaggedCallingConventionTestLibrary.class);
   TaggedCallingConventionTestLibrary.TestCallbackTagged cb=new TaggedCallingConventionTestLibrary.TestCallbackTagged(){
-    public void invoke(){
+    @Override public void invoke(){
     }
   }
 ;

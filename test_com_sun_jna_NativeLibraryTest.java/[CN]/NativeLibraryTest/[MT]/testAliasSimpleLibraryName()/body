@@ -9,9 +9,9 @@
     Thread.sleep(10);
     if (System.currentTimeMillis() - start > 5000)     fail("Timed out waiting for library to be GC'd");
   }
-  TestLibrary lib=(TestLibrary)Native.loadLibrary(file.getAbsolutePath(),TestLibrary.class);
+  TestLibrary lib=Native.loadLibrary(file.getAbsolutePath(),TestLibrary.class);
   int count=lib.callCount();
-  TestLibrary lib2=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class);
+  TestLibrary lib2=Native.loadLibrary("testlib",TestLibrary.class);
   int count2=lib2.callCount();
   assertEquals("Simple library name not aliased",count + 1,count2);
 }

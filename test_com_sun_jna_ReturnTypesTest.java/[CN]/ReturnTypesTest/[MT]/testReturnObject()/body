@@ -5,10 +5,10 @@
     }
   }
 ;
-  lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,options);
+  lib=Native.loadLibrary("testlib",TestLibrary.class,options);
   assertNull("null value not returned",lib.returnObjectArgument(null));
   final Object VALUE=new Object(){
-    public String toString(){
+    @Override public String toString(){
       return getName();
     }
   }

@@ -1,5 +1,5 @@
 {
-  AlignmentTest lib=(AlignmentTest)Native.loadLibrary("testlib",AlignmentTest.class);
+  AlignmentTest lib=Native.loadLibrary("testlib",AlignmentTest.class);
   try {
     IntByReference offset=new IntByReference();
     LongByReference value=new LongByReference();

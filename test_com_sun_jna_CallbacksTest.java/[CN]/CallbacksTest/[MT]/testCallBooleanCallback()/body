@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final boolean[] cbargs={false,false};
   TestLibrary.BooleanCallback cb=new TestLibrary.BooleanCallback(){
-    public boolean callback(    boolean arg,    boolean arg2){
+    @Override public boolean callback(    boolean arg,    boolean arg2){
       called[0]=true;
       cbargs[0]=arg;
       cbargs[1]=arg2;

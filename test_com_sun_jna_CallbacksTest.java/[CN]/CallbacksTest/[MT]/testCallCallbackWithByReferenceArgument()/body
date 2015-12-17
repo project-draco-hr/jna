@@ -1,7 +1,7 @@
 {
   final boolean[] called={false};
   TestLibrary.CopyArgToByReference cb=new TestLibrary.CopyArgToByReference(){
-    public int callback(    int arg,    IntByReference result){
+    @Override public int callback(    int arg,    IntByReference result){
       called[0]=true;
       result.setValue(arg);
       return result.getValue();

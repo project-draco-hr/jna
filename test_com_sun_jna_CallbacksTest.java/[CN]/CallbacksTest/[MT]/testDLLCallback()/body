@@ -4,7 +4,7 @@
   }
   final boolean[] called={false};
 class TestCallback implements TestLibrary.VoidCallback, com.sun.jna.win32.DLLCallback {
-    public void callback(){
+    @Override public void callback(){
       called[0]=true;
     }
   }

@@ -3,7 +3,7 @@
   lib._MAPPER.clear();
   final double[] ARGS=new double[2];
   CallbackTestLibrary.DoubleCallback cb=new CallbackTestLibrary.DoubleCallback(){
-    public double callback(    double arg,    double arg2){
+    @Override public double callback(    double arg,    double arg2){
       ARGS[0]=arg;
       ARGS[1]=arg2;
       return arg + arg2;

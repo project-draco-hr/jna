@@ -1,7 +1,7 @@
 {
   final boolean[] called={false};
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
-    public void callback(){
+    @Override public void callback(){
       called[0]=true;
     }
   }

@@ -3,7 +3,7 @@
   lib._MAPPER.clear();
   final String[] ARGS=new String[2];
   CallbackTestLibrary.WStringCallback cb=new CallbackTestLibrary.WStringCallback(){
-    public String callback(    String arg,    String arg2){
+    @Override public String callback(    String arg,    String arg2){
       ARGS[0]=arg;
       ARGS[1]=arg2;
       return arg + arg2;

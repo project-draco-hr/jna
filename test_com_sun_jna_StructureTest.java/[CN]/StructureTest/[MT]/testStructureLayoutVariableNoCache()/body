@@ -1,7 +1,7 @@
 {
 class TestStructure extends Structure {
     public byte[] variable;
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"variable"});
     }
     public TestStructure(    int size){

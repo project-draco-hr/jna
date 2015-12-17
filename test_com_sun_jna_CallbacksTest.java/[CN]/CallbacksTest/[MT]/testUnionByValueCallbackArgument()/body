@@ -6,7 +6,7 @@
   final boolean[] called={false};
   final TestLibrary.TestUnion[] cbvalue={null};
   TestLibrary.TestUnion result=lib.testUnionByValueCallbackArgument(new TestLibrary.UnionCallback(){
-    public TestLibrary.TestUnion invoke(    TestLibrary.TestUnion v){
+    @Override public TestLibrary.TestUnion invoke(    TestLibrary.TestUnion v){
       called[0]=true;
       v.setType(String.class);
       v.read();

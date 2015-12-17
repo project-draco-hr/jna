@@ -4,7 +4,7 @@
   final SmallTestStructure s=new SmallTestStructure();
   final double MAGIC=118.625;
   TestLibrary.StructureCallback cb=new TestLibrary.StructureCallback(){
-    public SmallTestStructure callback(    SmallTestStructure arg){
+    @Override public SmallTestStructure callback(    SmallTestStructure arg){
       called[0]=true;
       cbarg[0]=arg.getPointer();
       arg.value=MAGIC;

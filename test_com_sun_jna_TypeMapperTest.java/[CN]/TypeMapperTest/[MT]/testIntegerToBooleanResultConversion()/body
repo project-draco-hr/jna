@@ -21,7 +21,7 @@
   }
 );
   options.put(Library.OPTION_TYPE_MAPPER,mapper);
-  BooleanTestLibrary lib=(BooleanTestLibrary)Native.loadLibrary("testlib",BooleanTestLibrary.class,options);
+  BooleanTestLibrary lib=Native.loadLibrary("testlib",BooleanTestLibrary.class,options);
   assertEquals("Failed to convert integer return to boolean TRUE",true,lib.returnInt32Argument(true));
   assertEquals("Failed to convert integer return to boolean FALSE",false,lib.returnInt32Argument(false));
 }

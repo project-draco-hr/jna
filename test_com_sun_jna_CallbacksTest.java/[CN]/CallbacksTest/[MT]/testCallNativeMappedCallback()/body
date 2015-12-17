@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final Custom[] cbargs={null,null};
   TestLibrary.CustomCallback cb=new TestLibrary.CustomCallback(){
-    public Custom callback(    Custom arg,    Custom arg2){
+    @Override public Custom callback(    Custom arg,    Custom arg2){
       called[0]=true;
       cbargs[0]=arg;
       cbargs[1]=arg2;

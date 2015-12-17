@@ -3,7 +3,7 @@
   final Set threads=new HashSet();
   final int COUNT=5;
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
-    public void callback(){
+    @Override public void callback(){
       threads.add(Thread.currentThread());
       int count=called[0] + 1;
       if (count == 1) {

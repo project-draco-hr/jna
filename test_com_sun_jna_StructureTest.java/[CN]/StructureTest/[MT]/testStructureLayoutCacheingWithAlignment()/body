@@ -2,7 +2,7 @@
 class TestStructure extends Structure {
     public byte first;
     public int second;
-    protected List getFieldOrder(){
+    @Override protected List getFieldOrder(){
       return Arrays.asList(new String[]{"first","second"});
     }
     public TestStructure(){

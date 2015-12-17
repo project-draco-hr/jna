@@ -1,6 +1,6 @@
 {
   ClassLoader loader=new TestLoader(true);
-  Class cls=Class.forName("com.sun.jna.Native",true,loader);
+  Class<?> cls=Class.forName("com.sun.jna.Native",true,loader);
   assertEquals("Wrong class loader",loader,cls.getClassLoader());
   assertTrue("System property jna.loaded not set",Boolean.getBoolean("jna.loaded"));
   Field field=cls.getDeclaredField("jnidispatchPath");

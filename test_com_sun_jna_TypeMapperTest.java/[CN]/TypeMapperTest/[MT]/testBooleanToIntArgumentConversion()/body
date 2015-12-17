@@ -12,6 +12,6 @@
   }
 );
   options.put(Library.OPTION_TYPE_MAPPER,mapper);
-  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,options);
+  TestLibrary lib=Native.loadLibrary("testlib",TestLibrary.class,options);
   assertEquals("Failed to convert Boolean argument to Int",MAGIC,lib.returnInt32Argument(true));
 }

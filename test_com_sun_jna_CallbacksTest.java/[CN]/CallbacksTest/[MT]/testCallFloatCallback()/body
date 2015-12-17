@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final float[] args={0,0};
   TestLibrary.FloatCallback cb=new TestLibrary.FloatCallback(){
-    public float callback(    float arg,    float arg2){
+    @Override public float callback(    float arg,    float arg2){
       called[0]=true;
       args[0]=arg;
       args[1]=arg2;

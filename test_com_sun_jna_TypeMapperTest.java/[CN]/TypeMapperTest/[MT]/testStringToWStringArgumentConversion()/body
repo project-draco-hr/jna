@@ -12,6 +12,6 @@
   Map options=new HashMap();
   options.put(Library.OPTION_TYPE_MAPPER,mapper);
   final String MAGIC="magic" + UNICODE;
-  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,options);
+  TestLibrary lib=Native.loadLibrary("testlib",TestLibrary.class,options);
   assertEquals("Failed to convert String argument to WString",new WString(MAGIC),lib.returnWStringArgument(MAGIC));
 }

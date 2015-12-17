@@ -1,6 +1,6 @@
 {
   TestLibrary.CbCallback cb=new TestLibrary.CbCallback(){
-    public CbCallback callback(    CbCallback arg){
+    @Override public CbCallback callback(    CbCallback arg){
       return arg;
     }
   }

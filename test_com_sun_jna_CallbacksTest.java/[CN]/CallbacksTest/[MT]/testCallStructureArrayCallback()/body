@@ -3,7 +3,7 @@
   final SmallTestStructure[] array=(SmallTestStructure[])s.toArray(2);
   final double MAGIC=118.625;
   TestLibrary.StructureCallback cb=new TestLibrary.StructureCallback(){
-    public SmallTestStructure callback(    SmallTestStructure arg){
+    @Override public SmallTestStructure callback(    SmallTestStructure arg){
       SmallTestStructure[] array=(SmallTestStructure[])arg.toArray(2);
       array[0].value=MAGIC;
       array[1].value=MAGIC * 2;

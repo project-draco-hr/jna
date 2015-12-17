@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final short[] cbargs={0,0};
   TestLibrary.ShortCallback cb=new TestLibrary.ShortCallback(){
-    public short callback(    short arg,    short arg2){
+    @Override public short callback(    short arg,    short arg2){
       called[0]=true;
       cbargs[0]=arg;
       cbargs[1]=arg2;

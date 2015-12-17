@@ -1,5 +1,5 @@
 {
-  TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class,OPTIONS);
+  TestLibrary lib=Native.loadLibrary("testlib",TestLibrary.class,OPTIONS);
   lib.noThrowLastError(ERROR);
   assertEquals("Last error not preserved",ERROR,Native.getLastError());
   try {
