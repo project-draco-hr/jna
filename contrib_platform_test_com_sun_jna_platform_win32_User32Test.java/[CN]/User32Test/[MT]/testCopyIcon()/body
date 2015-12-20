@@ -1,0 +1,5 @@
+{
+  HICON result=User32.INSTANCE.CopyIcon(null);
+  assertNull("CopyIcon result should be false",result);
+  assertEquals("GetLastError should be ERROR_INVALID_CURSOR_HANDLE.",WinError.ERROR_INVALID_CURSOR_HANDLE,Native.getLastError());
+}
