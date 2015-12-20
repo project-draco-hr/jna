@@ -1,0 +1,12 @@
+{
+  IntByReference pcbNeeded=new IntByReference();
+  IntByReference pcReturned=new IntByReference();
+  HANDLEByReference pHandle=new HANDLEByReference();
+  if (!Winspool.INSTANCE.OpenPrinter(printerName,pHandle,null))   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  Winspool.INSTANCE.GetPrinter(pHandle.getValue(),2,null,0,pcbNeeded);
+  if (pcbNeeded.getValue() <= 0)   return new PRINTER_INFO_2();
+  PRINTER_INFO_2 pinfo2=new PRINTER_INFO_2(pcbNeeded.getValue());
+  if (!Winspool.INSTANCE.GetPrinter(pHandle.getValue(),2,pinfo2.getPointer(),pcbNeeded.getValue(),pcReturned))   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  pinfo2.read();
+  return pinfo2;
+}
