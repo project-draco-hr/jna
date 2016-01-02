@@ -1,0 +1,35 @@
+{
+  HANDLE me=null;
+  Win32Exception we=null;
+  try {
+    me=Kernel32.INSTANCE.OpenProcess(WinNT.PROCESS_ALL_ACCESS,false,Kernel32.INSTANCE.GetCurrentProcessId());
+    assertTrue("Handle to my process should not be null",me != null);
+    List<HMODULE> list=new LinkedList<HMODULE>();
+    HMODULE[] lphModule=new HMODULE[100 * 4];
+    IntByReference lpcbNeeded=new IntByReference();
+    if (!Psapi.INSTANCE.EnumProcessModules(me,lphModule,lphModule.length,lpcbNeeded)) {
+      throw new Win32Exception(Native.getLastError());
+    }
+    for (int i=0; i < lpcbNeeded.getValue() / 4; i++) {
+      list.add(lphModule[i]);
+    }
+    assertTrue("List should have at least 1 item in it.",list.size() > 0);
+  }
+ catch (  Win32Exception e) {
+    we=e;
+  }
+ finally {
+    if (me != null) {
+      if (!Kernel32.INSTANCE.CloseHandle(me)) {
+        Win32Exception e=new Win32Exception(Native.getLastError());
+        if (we != null) {
+          e.addSuppressed(we);
+        }
+        we=e;
+      }
+    }
+  }
+  if (we != null) {
+    throw we;
+  }
+}
