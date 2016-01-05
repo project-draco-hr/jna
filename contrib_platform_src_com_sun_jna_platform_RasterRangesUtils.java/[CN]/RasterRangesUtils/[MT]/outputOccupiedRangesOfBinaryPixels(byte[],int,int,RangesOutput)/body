@@ -1,6 +1,6 @@
 {
   Set<Rectangle> rects=new HashSet<Rectangle>();
-  Set<Rectangle> prevLine=Collections.EMPTY_SET;
+  Set<Rectangle> prevLine=Collections.<Rectangle>emptySet();
   int scanlineBytes=binaryBits.length / h;
   for (int row=0; row < h; row++) {
     Set<Rectangle> curLine=new TreeSet<Rectangle>(COMPARATOR);

@@ -1,0 +1,3 @@
+{
+  return createFieldsOrder(baseFields,Arrays.asList(extraFields));
+}

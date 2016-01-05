@@ -2,7 +2,7 @@
   if (structField.isReadOnly)   return;
   int offset=structField.offset;
   Object value=getFieldValue(structField.field);
-  Class fieldType=structField.type;
+  Class<?> fieldType=structField.type;
   ToNativeConverter converter=structField.writeConverter;
   if (converter != null) {
     value=converter.toNative(value,new StructureWriteContext(this,structField.field));

@@ -1,0 +1,2 @@
+List<String> baseFields
+List<String> extraFields

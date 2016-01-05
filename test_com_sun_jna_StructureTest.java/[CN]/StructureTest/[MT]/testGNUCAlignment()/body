@@ -6,8 +6,8 @@ class TestStructure extends Structure {
     public long l;
     public float f;
     public double d;
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"b","s","i","l","f","d"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("b","s","i","l","f","d");
     }
   }
   Structure s=new TestStructure();

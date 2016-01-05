@@ -1,8 +1,8 @@
 {
 class TestStructure extends Structure {
     public int field;
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"field"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("field");
     }
     public TestStructure(    TypeMapper m){
       super(ALIGN_DEFAULT,m);

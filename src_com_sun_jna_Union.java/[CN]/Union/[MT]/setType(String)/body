@@ -1,6 +1,6 @@
 {
   ensureAllocated();
-  StructField f=(StructField)fields().get(fieldName);
+  StructField f=fields().get(fieldName);
   if (f != null) {
     activeField=f;
   }

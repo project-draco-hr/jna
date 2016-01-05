@@ -1,0 +1,22 @@
+{
+  if (address == null) {
+    s=null;
+  }
+ else {
+    if (s == null || !address.equals(s.getPointer())) {
+      Structure s1=reading().get(address);
+      if (s1 != null && type.equals(s1.getClass())) {
+        s=s1;
+        s.autoRead();
+      }
+ else {
+        s=newInstance(type,address);
+        s.conditionalAutoRead();
+      }
+    }
+ else {
+      s.autoRead();
+    }
+  }
+  return s;
+}

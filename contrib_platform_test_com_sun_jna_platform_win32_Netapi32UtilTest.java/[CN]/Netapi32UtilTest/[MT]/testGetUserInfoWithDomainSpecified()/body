@@ -1,5 +1,5 @@
 {
   UserInfo userInfo=Netapi32Util.getUserInfo(Advapi32Util.getUserName(),System.getenv("USERDOMAIN"));
-  assertNotNull(userInfo);
-  assertTrue(Advapi32.INSTANCE.IsValidSid(userInfo.sid));
+  assertNotNull("No user info retrieved",userInfo);
+  assertTrue("Invalid user SID",Advapi32.INSTANCE.IsValidSid(userInfo.sid));
 }

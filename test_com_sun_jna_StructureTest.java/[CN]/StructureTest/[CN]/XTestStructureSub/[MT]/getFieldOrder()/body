@@ -1,5 +1,3 @@
 {
-  List list=new ArrayList(super.getFieldOrder());
-  list.addAll(Arrays.asList(new String[]{"second"}));
-  return list;
+  return resolveEffectiveFields(super.getFieldOrder());
 }

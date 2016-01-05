@@ -1,8 +1,9 @@
 {
   int size=CALCULATE_SIZE;
+  Class<?> clazz=getClass();
   LayoutInfo info;
 synchronized (layoutInfo) {
-    info=(LayoutInfo)layoutInfo.get(getClass());
+    info=layoutInfo.get(clazz);
   }
   if (info == null || this.alignType != info.alignType || this.typeMapper != info.typeMapper) {
     info=deriveLayout(force,avoidFFIType);
@@ -12,8 +13,8 @@ synchronized (layoutInfo) {
     this.structFields=info.fields;
     if (!info.variable) {
 synchronized (layoutInfo) {
-        if (!layoutInfo.containsKey(getClass()) || this.alignType != ALIGN_DEFAULT || this.typeMapper != null) {
-          layoutInfo.put(getClass(),info);
+        if (!layoutInfo.containsKey(clazz) || this.alignType != ALIGN_DEFAULT || this.typeMapper != null) {
+          layoutInfo.put(clazz,info);
         }
       }
     }

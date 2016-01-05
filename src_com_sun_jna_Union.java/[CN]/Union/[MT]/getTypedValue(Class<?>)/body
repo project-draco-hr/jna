@@ -1,0 +1,11 @@
+{
+  ensureAllocated();
+  for (  StructField f : fields().values()) {
+    if (f.type == type) {
+      activeField=f;
+      read();
+      return getFieldValue(activeField.field);
+    }
+  }
+  throw new IllegalArgumentException("No field of type " + type + " in "+ this);
+}

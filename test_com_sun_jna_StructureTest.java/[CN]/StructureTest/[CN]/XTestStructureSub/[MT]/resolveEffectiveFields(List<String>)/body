@@ -1,0 +1,11 @@
+{
+  List<String> fields;
+synchronized (fieldsHolder) {
+    fields=fieldsHolder.get();
+    if (fields == null) {
+      fields=createFieldsOrder(baseFields,EXTRA_FIELDS);
+      fieldsHolder.set(fields);
+    }
+  }
+  return fields;
+}

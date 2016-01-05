@@ -15,16 +15,21 @@
   WinNT.TOKEN_PRIVILEGES tp=new WinNT.TOKEN_PRIVILEGES(1);
   tp.Privileges[0]=new WinNT.LUID_AND_ATTRIBUTES(pLuid,new DWORD(WinNT.SE_PRIVILEGE_ENABLED));
   assertTrue(Advapi32.INSTANCE.AdjustTokenPrivileges(tokenAdjust,false,tp,0,null,null));
-  File file=createTempFile();
   int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION| SACL_SECURITY_INFORMATION;
   PointerByReference ppsidOwner=new PointerByReference();
   PointerByReference ppsidGroup=new PointerByReference();
   PointerByReference ppDacl=new PointerByReference();
   PointerByReference ppSacl=new PointerByReference();
   PointerByReference ppSecurityDescriptor=new PointerByReference();
-  assertEquals(Advapi32.INSTANCE.GetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,ppSacl,ppSecurityDescriptor),0);
-  Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
-  file.delete();
+  File file=createTempFile();
+  String filePath=file.getAbsolutePath();
+  try {
+    assertEquals("GetNamedSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.GetNamedSecurityInfo(filePath,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,ppSacl,ppSecurityDescriptor));
+    Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
+  }
+  finally {
+    file.delete();
+  }
   if (impersontating) {
     Advapi32.INSTANCE.SetThreadToken(null,null);
   }

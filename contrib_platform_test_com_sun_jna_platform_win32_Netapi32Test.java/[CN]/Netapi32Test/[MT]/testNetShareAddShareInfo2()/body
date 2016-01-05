@@ -15,6 +15,6 @@
   if (winError == W32Errors.ERROR_INVALID_PARAMETER) {
     throw new Exception("testNetShareAddShareInfo2 failed with invalid parameter on structure offset: " + parm_err.getValue());
   }
-  assertEquals(LMErr.NERR_Success,winError);
+  assertEquals("Failed to add share",LMErr.NERR_Success,winError);
   Netapi32.INSTANCE.NetShareDel(null,shi.shi2_netname,0);
 }

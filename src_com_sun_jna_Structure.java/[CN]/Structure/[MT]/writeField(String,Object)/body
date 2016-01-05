@@ -1,6 +1,6 @@
 {
   ensureAllocated();
-  StructField structField=(StructField)fields().get(name);
+  StructField structField=fields().get(name);
   if (structField == null)   throw new IllegalArgumentException("No such field: " + name);
   setFieldValue(structField.field,value);
   writeField(structField);
