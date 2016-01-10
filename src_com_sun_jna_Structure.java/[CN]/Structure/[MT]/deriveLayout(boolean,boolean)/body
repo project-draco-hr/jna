@@ -1,6 +1,6 @@
 {
   int calculatedSize=0;
-  List fields=getFields(force);
+  List<Field> fields=getFields(force);
   if (fields == null) {
     return null;
   }
@@ -8,10 +8,10 @@
   info.alignType=this.alignType;
   info.typeMapper=this.typeMapper;
   boolean firstField=true;
-  for (Iterator i=fields.iterator(); i.hasNext(); firstField=false) {
-    Field field=(Field)i.next();
+  for (Iterator<Field> i=fields.iterator(); i.hasNext(); firstField=false) {
+    Field field=i.next();
     int modifiers=field.getModifiers();
-    Class type=field.getType();
+    Class<?> type=field.getType();
     if (type.isArray()) {
       info.variable=true;
     }
@@ -45,7 +45,7 @@
       }
       return null;
     }
-    Class nativeType=type;
+    Class<?> nativeType=type;
     if (NativeMapped.class.isAssignableFrom(type)) {
       NativeMappedConverter tc=NativeMappedConverter.getInstance(type);
       nativeType=tc.nativeType();

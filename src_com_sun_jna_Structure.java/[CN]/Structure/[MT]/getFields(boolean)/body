@@ -1,17 +1,17 @@
 {
-  List flist=getFieldList();
-  Set names=new HashSet();
-  for (Iterator i=flist.iterator(); i.hasNext(); ) {
-    names.add(((Field)i.next()).getName());
+  List<Field> flist=getFieldList();
+  Set<String> names=new HashSet<String>();
+  for (  Field f : flist) {
+    names.add(f.getName());
   }
-  List fieldOrder=fieldOrder();
+  List<String> fieldOrder=fieldOrder();
   if (fieldOrder.size() != flist.size() && flist.size() > 1) {
     if (force) {
       throw new Error("Structure.getFieldOrder() on " + getClass() + " does not provide enough names ["+ fieldOrder.size()+ "] ("+ sort(fieldOrder)+ ") to match declared fields ["+ flist.size()+ "] ("+ sort(names)+ ")");
     }
     return null;
   }
-  Set orderedNames=new HashSet(fieldOrder);
+  Set<String> orderedNames=new HashSet<String>(fieldOrder);
   if (!orderedNames.equals(names)) {
     throw new Error("Structure.getFieldOrder() on " + getClass() + " returns names ("+ sort(fieldOrder)+ ") which do not match declared field names ("+ sort(names)+ ")");
   }

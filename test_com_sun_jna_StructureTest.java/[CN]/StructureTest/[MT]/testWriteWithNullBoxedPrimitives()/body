@@ -2,8 +2,8 @@
 class TestStructure extends Structure {
     public Boolean zfield;
     public Integer field;
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"zfield","field"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("zfield","field");
     }
   }
   TestStructure s=new TestStructure();

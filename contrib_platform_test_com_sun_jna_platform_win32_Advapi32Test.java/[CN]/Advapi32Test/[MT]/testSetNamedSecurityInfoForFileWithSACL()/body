@@ -25,16 +25,25 @@
   PointerByReference ppDacl=new PointerByReference();
   PointerByReference ppSacl=new PointerByReference();
   PointerByReference ppSecurityDescriptor=new PointerByReference();
-  assertEquals(Advapi32.INSTANCE.GetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,ppSacl,ppSecurityDescriptor),0);
-  assertEquals(Advapi32.INSTANCE.SetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner.getValue(),ppsidGroup.getValue(),ppDacl.getValue(),ppDacl.getValue()),0);
-  Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
-  file.delete();
+  String filePath=file.getAbsolutePath();
+  try {
+    assertEquals("GetNamedSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.GetNamedSecurityInfo(filePath,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,ppSacl,ppSecurityDescriptor));
+    try {
+      assertEquals("SetNamedSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.SetNamedSecurityInfo(filePath,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner.getValue(),ppsidGroup.getValue(),ppDacl.getValue(),ppDacl.getValue()));
+    }
+  finally {
+      Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
+    }
+  }
+  finally {
+    file.delete();
+  }
   if (impersontating) {
-    Advapi32.INSTANCE.SetThreadToken(null,null);
+    assertTrue("SetThreadToken",Advapi32.INSTANCE.SetThreadToken(null,null));
   }
  else {
     tp.Privileges[0]=new WinNT.LUID_AND_ATTRIBUTES(pLuid,new DWORD(0));
-    Advapi32.INSTANCE.AdjustTokenPrivileges(tokenAdjust,false,tp,0,null,null);
+    assertTrue("AdjustTokenPrivileges",Advapi32.INSTANCE.AdjustTokenPrivileges(tokenAdjust,false,tp,0,null,null));
   }
   if (phToken.getValue() != null)   Kernel32.INSTANCE.CloseHandle(phToken.getValue());
   if (phTokenDuplicate.getValue() != null)   Kernel32.INSTANCE.CloseHandle(phTokenDuplicate.getValue());

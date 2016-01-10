@@ -1,7 +1,6 @@
 {
-  List fields=getFieldList();
-  for (Iterator i=fields.iterator(); i.hasNext(); ) {
-    Field f=(Field)i.next();
+  List<Field> fields=getFieldList();
+  for (  Field f : fields) {
     validateField(f.getName(),f.getType());
   }
 }

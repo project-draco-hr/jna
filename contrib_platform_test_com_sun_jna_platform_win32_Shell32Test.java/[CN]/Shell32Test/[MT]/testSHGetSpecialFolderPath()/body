@@ -1,5 +1,5 @@
 {
   final char[] pszPath=new char[WinDef.MAX_PATH];
-  assertTrue(Shell32.INSTANCE.SHGetSpecialFolderPath(null,pszPath,ShlObj.CSIDL_APPDATA,false));
-  assertFalse(Native.toString(pszPath).isEmpty());
+  assertTrue("SHGetSpecialFolderPath",Shell32.INSTANCE.SHGetSpecialFolderPath(null,pszPath,ShlObj.CSIDL_APPDATA,false));
+  assertFalse("No path",Native.toString(pszPath).isEmpty());
 }

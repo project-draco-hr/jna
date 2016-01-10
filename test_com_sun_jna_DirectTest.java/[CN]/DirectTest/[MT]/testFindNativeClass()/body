@@ -1,15 +1,15 @@
 {
 class UnregisterLibrary {
 class Inner {
-      public Class findDirectMappedClass(){
+      public Class<?> findDirectMappedClass(){
         return findDirectMappedClassInner();
       }
-      public Class findDirectMappedClassInner(){
+      public Class<?> findDirectMappedClassInner(){
         return Native.findDirectMappedClass(Native.getCallingClass());
       }
     }
     public native double cos(    double x);
-    public Class findDirectMappedClass(){
+    public Class<?> findDirectMappedClass(){
       return new Inner().findDirectMappedClass();
     }
   }

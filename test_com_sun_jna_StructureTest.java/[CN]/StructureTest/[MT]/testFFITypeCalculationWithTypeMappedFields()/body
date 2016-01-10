@@ -3,7 +3,7 @@
     @Override public FromNativeConverter getFromNativeConverter(    Class cls){
       if (Boolean.class.equals(cls) || boolean.class.equals(cls)) {
         return new FromNativeConverter(){
-          @Override public Class nativeType(){
+          @Override public Class<?> nativeType(){
             return byte.class;
           }
           @Override public Object fromNative(          Object nativeValue,          FromNativeContext context){
@@ -20,7 +20,7 @@
           @Override public Object toNative(          Object value,          ToNativeContext context){
             return new Byte(Boolean.TRUE.equals(value) ? (byte)1 : (byte)0);
           }
-          @Override public Class nativeType(){
+          @Override public Class<?> nativeType(){
             return byte.class;
           }
         }
@@ -37,8 +37,8 @@ class TestStructure extends Structure {
     public TestStructure(){
       super(mapper);
     }
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"b","s","p0","p1","p2","p3","p4","p5","p6","p7"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("b","s","p0","p1","p2","p3","p4","p5","p6","p7");
     }
   }
   Structure s=new TestStructure();

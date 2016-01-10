@@ -15,7 +15,7 @@
   assertEquals("Wrong value written",VALUE,u.getPointer().getInt(0));
   u=new StructUnion();
   Func1 func1=new Func1(){
-    public void callback(){
+    @Override public void callback(){
       System.out.println("hi");
     }
   }

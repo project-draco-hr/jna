@@ -1,6 +1,6 @@
 {
   FunctionMapper MAPPER=new FunctionMapper(){
-    public String getFunctionName(    NativeLibrary lib,    Method method){
+    @Override public String getFunctionName(    NativeLibrary lib,    Method method){
       String name=method.getName();
       if (name.startsWith("_prefixed_")) {
         return name.substring(10);

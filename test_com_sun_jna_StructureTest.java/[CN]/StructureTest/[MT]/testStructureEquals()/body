@@ -3,16 +3,16 @@ class OtherStructure extends Structure {
     public int first;
     public int[] second=new int[4];
     public Pointer[] third=new Pointer[4];
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"first","second","third"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("first","second","third");
     }
   }
 class TestStructure extends Structure {
     public int first;
     public int[] second=new int[4];
     public Pointer[] third=new Pointer[4];
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"first","second","third"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("first","second","third");
     }
     public TestStructure(){
     }

@@ -3,8 +3,8 @@
 class TestStructure extends Structure {
     public int intField;
     public PublicTestStructure inner;
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"intField","inner"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("intField","inner");
     }
   }
   TestStructure s=new TestStructure();

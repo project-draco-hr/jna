@@ -7,7 +7,7 @@ class TestField {
         @Override public Object fromNative(        Object value,        FromNativeContext context){
           return new TestField();
         }
-        @Override public Class nativeType(){
+        @Override public Class<?> nativeType(){
           return String.class;
         }
         @Override public Object toNative(        Object value,        ToNativeContext ctx){
@@ -23,8 +23,8 @@ class TestStructure extends Structure {
     public TestStructure(){
       super(mapper);
     }
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"field"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("field");
     }
   }
   Structure s=new TestStructure();

@@ -1,8 +1,8 @@
 {
 class MemoryFieldStructure extends Structure {
     public Memory m;
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"m"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("m");
     }
   }
   new MemoryFieldStructure().size();
