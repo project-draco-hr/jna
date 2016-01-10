@@ -1,0 +1,67 @@
+{
+  VARIANT.ByReference pVarResult=new VARIANT.ByReference();
+  IntByReference puArgErr=new IntByReference();
+  EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
+  HRESULT hr;
+  DISPPARAMS.ByReference pDispParams;
+  pDispParams=new DISPPARAMS.ByReference();
+  pDispParams.cArgs=new UINT(1);
+  pDispParams.cNamedArgs=new UINT(1);
+  pDispParams.rgvarg=new Variant.VariantArg.ByReference(new VARIANT[1]);
+  pDispParams.rgvarg.variantArg[0]=new VARIANT(true);
+  pDispParams.rgdispidNamedArgs=new DISPIDByReference(new DISPID(OaIdl.DISPID_PROPERTYPUT.intValue()));
+  hr=ieDispatch.Invoke(dispIdVisible.getValue(),niid,lcid,propertyPutFlags,pDispParams,null,null,null);
+  COMUtils.checkRC(hr);
+  Unknown unk=new Unknown(ieApp.getValue());
+  PointerByReference ppCpc=new PointerByReference();
+  hr=unk.QueryInterface(new REFIID(IID_IConnectionPointContainer),ppCpc);
+  COMUtils.checkRC(hr);
+  ConnectionPointContainer cpc=new ConnectionPointContainer(ppCpc.getValue());
+  REFIID riid=new REFIID(IID_DWebBrowserEvents2);
+  PointerByReference ppCp=new PointerByReference();
+  hr=cpc.FindConnectionPoint(riid,ppCp);
+  COMUtils.checkRC(hr);
+  final ConnectionPoint cp=new ConnectionPoint(ppCp.getValue());
+  IID cp_iid=new IID();
+  hr=cp.GetConnectionInterface(cp_iid);
+  COMUtils.checkRC(hr);
+  final DWebBrowserEvents2_Listener listener=new DWebBrowserEvents2_Listener();
+  final DWORDByReference pdwCookie=new DWORDByReference();
+  HRESULT hr1=cp.Advise(listener,pdwCookie);
+  COMUtils.checkRC(hr1);
+  Assert.assertTrue(listener.QueryInterface_called);
+  String navigateURL="https://github.com/java-native-access/jna";
+  String blockedURL="http://www.google.de";
+  pDispParams=new DISPPARAMS.ByReference();
+  pDispParams.cArgs=new UINT(1);
+  pDispParams.cNamedArgs=new UINT(0);
+  pDispParams.rgvarg=new Variant.VariantArg.ByReference(new VARIANT[1]);
+  pDispParams.rgvarg.variantArg[0]=new VARIANT(navigateURL);
+  hr=ieDispatch.Invoke(dispIdNavigate.getValue(),niid,lcid,methodFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
+  COMUtils.checkRC(hr,pExcepInfo,puArgErr);
+  for (int i=0; i < 10; i++) {
+    if (listener.navigateComplete2Called) {
+      break;
+    }
+    Thread.sleep(1000);
+  }
+  Assert.assertTrue(listener.navigateComplete2Called);
+  Assert.assertEquals(navigateURL,listener.navigateComplete2String);
+  listener.navigateComplete2Called=false;
+  listener.navigateComplete2String=null;
+  listener.blockNavigation=true;
+  pDispParams=new DISPPARAMS.ByReference();
+  pDispParams.cArgs=new UINT(1);
+  pDispParams.cNamedArgs=new UINT(0);
+  pDispParams.rgvarg=new Variant.VariantArg.ByReference(new VARIANT[1]);
+  pDispParams.rgvarg.variantArg[0]=new VARIANT(blockedURL);
+  hr=ieDispatch.Invoke(dispIdNavigate.getValue(),niid,lcid,methodFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
+  COMUtils.checkRC(hr,pExcepInfo,puArgErr);
+  for (int i=0; i < 10; i++) {
+    if (listener.navigateComplete2Called) {
+      break;
+    }
+    Thread.sleep(1000);
+  }
+  Assert.assertFalse("NavigateComplete Handler was called although it should be blocked",listener.navigateComplete2Called);
+}

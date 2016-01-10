@@ -1,3 +1,13 @@
 {
+  DISPPARAMS.ByReference pDispParams=new DISPPARAMS.ByReference();
+  pDispParams.cArgs=new UINT(0);
+  pDispParams.cNamedArgs=new UINT(0);
+  pDispParams.rgvarg=null;
+  VARIANT.ByReference pVarResult=new VARIANT.ByReference();
+  IntByReference puArgErr=new IntByReference();
+  EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();
+  HRESULT hr=ieDispatch.Invoke(dispIdQuit.getValue(),niid,lcid,methodFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
+  COMUtils.checkRC(hr,pExcepInfo,puArgErr);
+  ieDispatch.Release();
   Ole32.INSTANCE.CoUninitialize();
 }

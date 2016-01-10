@@ -1,0 +1,12 @@
+{
+  Unknown unk=new Unknown(ieApp.getValue());
+  PointerByReference ppCpc=new PointerByReference();
+  HRESULT hr=unk.QueryInterface(new REFIID(IID_IConnectionPointContainer),ppCpc);
+  COMUtils.checkRC(hr);
+  ConnectionPointContainer cpc=new ConnectionPointContainer(ppCpc.getValue());
+  REFIID riid=new REFIID(IID_DWebBrowserEvents2);
+  PointerByReference ppCp=new PointerByReference();
+  hr=cpc.FindConnectionPoint(riid,ppCp);
+  COMUtils.checkRC(hr);
+  Assert.assertNotNull(ppCpc.getPointer());
+}
