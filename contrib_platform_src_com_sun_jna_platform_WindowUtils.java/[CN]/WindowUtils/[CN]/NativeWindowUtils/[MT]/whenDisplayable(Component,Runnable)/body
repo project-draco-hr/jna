@@ -4,11 +4,11 @@
   }
  else   if (Holder.requiresVisible) {
     getWindow(w).addWindowListener(new WindowAdapter(){
-      public void windowOpened(      WindowEvent e){
+      @Override public void windowOpened(      WindowEvent e){
         e.getWindow().removeWindowListener(this);
         action.run();
       }
-      public void windowClosed(      WindowEvent e){
+      @Override public void windowClosed(      WindowEvent e){
         e.getWindow().removeWindowListener(this);
       }
     }
@@ -16,7 +16,7 @@
   }
  else {
     w.addHierarchyListener(new HierarchyListener(){
-      public void hierarchyChanged(      HierarchyEvent e){
+      @Override public void hierarchyChanged(      HierarchyEvent e){
         if ((e.getChangeFlags() & HierarchyEvent.DISPLAYABILITY_CHANGED) != 0 && e.getComponent().isDisplayable()) {
           e.getComponent().removeHierarchyListener(this);
           action.run();

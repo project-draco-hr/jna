@@ -1,13 +1,15 @@
 {
   NativeLibrary nl=NativeLibrary.getInstance("testlib");
   File file=nl.getFile();
-  WeakReference ref=new WeakReference(nl);
+  Reference<NativeLibrary> ref=new WeakReference<NativeLibrary>(nl);
   nl=null;
   System.gc();
   long start=System.currentTimeMillis();
   while (ref.get() != null) {
     Thread.sleep(10);
-    if (System.currentTimeMillis() - start > 5000)     fail("Timed out waiting for library to be GC'd");
+    if ((System.currentTimeMillis() - start) > 5000L) {
+      fail("Timed out waiting for library to be GC'd");
+    }
   }
   TestLibrary lib=Native.loadLibrary(file.getAbsolutePath(),TestLibrary.class);
   int count=lib.callCount();

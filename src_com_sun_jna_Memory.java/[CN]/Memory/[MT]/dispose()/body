@@ -1,5 +1,9 @@
 {
-  free(peer);
-  peer=0;
-  allocatedMemory.remove(this);
+  try {
+    free(peer);
+  }
+  finally {
+    peer=0;
+    allocatedMemory.remove(this);
+  }
 }

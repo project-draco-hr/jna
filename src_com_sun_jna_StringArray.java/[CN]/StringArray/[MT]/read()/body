@@ -1,6 +1,6 @@
 {
   boolean returnWide=original instanceof WString[];
-  boolean wide=encoding == NativeString.WIDE_STRING;
+  boolean wide=NativeString.WIDE_STRING.equals(encoding);
   for (int si=0; si < original.length; si++) {
     Pointer p=getPointer(si * Pointer.SIZE);
     Object s=null;

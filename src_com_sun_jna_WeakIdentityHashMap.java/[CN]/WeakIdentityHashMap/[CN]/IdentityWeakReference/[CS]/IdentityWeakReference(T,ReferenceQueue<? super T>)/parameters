@@ -1,0 +1,2 @@
+T obj
+ReferenceQueue<? super T> q

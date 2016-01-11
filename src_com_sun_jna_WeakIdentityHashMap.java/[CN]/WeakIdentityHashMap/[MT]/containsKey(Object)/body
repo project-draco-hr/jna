@@ -1,4 +1,4 @@
 {
   reap();
-  return backingStore.containsKey(new IdentityWeakReference(key));
+  return backingStore.containsKey(new IdentityWeakReference(key,queue));
 }

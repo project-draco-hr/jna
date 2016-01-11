@@ -1,5 +1,5 @@
 {
   Callback cb=CallbackReference.getCallback(TestLibrary.VoidCallback.class,new Pointer(getName().hashCode()));
-  Class cls=CallbackReference.findCallbackClass(cb.getClass());
+  Class<?> cls=CallbackReference.findCallbackClass(cb.getClass());
   assertTrue("toString should include Java Callback type: " + cb + " ("+ cls+ ")",cb.toString().indexOf(cls.getName()) != -1);
 }

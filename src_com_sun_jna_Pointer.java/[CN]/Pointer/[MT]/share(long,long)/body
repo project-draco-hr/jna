@@ -1,4 +1,6 @@
 {
-  if (offset == 0)   return this;
+  if (offset == 0L) {
+    return this;
+  }
   return new Pointer(peer + offset);
 }

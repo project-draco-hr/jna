@@ -1,7 +1,7 @@
 {
   final Area area=new Area(new Rectangle(0,0,0,0));
   RasterRangesUtils.outputOccupiedRanges(raster,new RasterRangesUtils.RangesOutput(){
-    public boolean outputRange(    int x,    int y,    int w,    int h){
+    @Override public boolean outputRange(    int x,    int y,    int w,    int h){
       area.add(new Area(new Rectangle(x,y,w,h)));
       return true;
     }

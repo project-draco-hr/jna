@@ -7,6 +7,6 @@
   Pointer els=ffi_type.elements;
   Pointer inner=s.inner.getTypeInfo();
   assertEquals("Wrong type information for 'inner' field",inner,els.getPointer(0));
-  assertEquals("Wrong type information for integer field",Structure.getTypeInfo(new Integer(0)),els.getPointer(Pointer.SIZE));
+  assertEquals("Wrong type information for integer field",Structure.getTypeInfo(Integer.valueOf(0)),els.getPointer(Pointer.SIZE));
   assertNull("Type element list should be null-terminated",els.getPointer(Pointer.SIZE * 2));
 }

@@ -1,3 +1,4 @@
 {
-  return Long.valueOf(this.getUnknownId()).intValue();
+  long id=this.getUnknownId();
+  return (int)((id >>> 32) & 0xFFFFFFFF) + (int)(id & 0xFFFFFFFF);
 }

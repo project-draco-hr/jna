@@ -1,0 +1,20 @@
+{
+  Map<String,Object> libOptions=new HashMap<String,Object>(options);
+  libOptions.put(_OPTION_ENCLOSING_LIBRARY,cls);
+synchronized (libraries) {
+    typeOptions.put(cls,libOptions);
+    if (proxy != null) {
+      libraries.put(cls,new WeakReference<Object>(proxy));
+    }
+    if (!cls.isInterface() && Library.class.isAssignableFrom(cls)) {
+      Class<?> ifaces[]=cls.getInterfaces();
+      for (      Class<?> ifc : ifaces) {
+        if (Library.class.isAssignableFrom(ifc)) {
+          cacheOptions(ifc,libOptions,proxy);
+          break;
+        }
+      }
+    }
+  }
+  return libOptions;
+}

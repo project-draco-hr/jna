@@ -1,26 +1,24 @@
 {
   final int MAGIC=0xABEDCF23;
-  Map options=new HashMap();
   final boolean[] hasAnnotation={false,false};
   DefaultTypeMapper mapper=new DefaultTypeMapper();
   mapper.addTypeConverter(Boolean.class,new TypeConverter(){
-    public Object toNative(    Object value,    ToNativeContext ctx){
+    @Override public Object toNative(    Object value,    ToNativeContext ctx){
       MethodParameterContext mcontext=(MethodParameterContext)ctx;
       hasAnnotation[0]=mcontext.getMethod().getAnnotation(FooBoolean.class) != null;
-      return new Integer(Boolean.TRUE.equals(value) ? MAGIC : 0);
+      return Integer.valueOf(Boolean.TRUE.equals(value) ? MAGIC : 0);
     }
-    public Object fromNative(    Object value,    FromNativeContext context){
+    @Override public Object fromNative(    Object value,    FromNativeContext context){
       MethodResultContext mcontext=(MethodResultContext)context;
       hasAnnotation[1]=mcontext.getMethod().getAnnotation(FooBoolean.class) != null;
       return Boolean.valueOf(((Integer)value).intValue() == MAGIC);
     }
-    public Class nativeType(){
+    @Override public Class<?> nativeType(){
       return Integer.class;
     }
   }
 );
-  options.put(Library.OPTION_TYPE_MAPPER,mapper);
-  AnnotationTestLibrary lib=Native.loadLibrary("testlib",AnnotationTestLibrary.class,options);
+  AnnotationTestLibrary lib=Native.loadLibrary("testlib",AnnotationTestLibrary.class,Collections.singletonMap(Library.OPTION_TYPE_MAPPER,mapper));
   assertEquals("Failed to convert integer return to boolean TRUE",true,lib.returnInt32Argument(true));
   assertTrue("Failed to get annotation from ParameterContext",hasAnnotation[0]);
   assertTrue("Failed to get annotation from ResultContext",hasAnnotation[1]);

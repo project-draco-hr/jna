@@ -1,6 +1,6 @@
 {
   setWindowShape(getWindow(w),new PixmapSource(){
-    public Pixmap getPixmap(    Display dpy,    X11.Window win){
+    @Override public Pixmap getPixmap(    Display dpy,    X11.Window win){
       return raster != null ? createBitmap(dpy,win,raster) : null;
     }
   }

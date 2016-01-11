@@ -1,12 +1,12 @@
 {
-  List strings=new ArrayList();
+  List<String> strings=new ArrayList<String>();
   Pointer p;
   int addOffset=0;
   if (length != -1) {
     p=getPointer(offset + addOffset);
     int count=0;
     while (count++ < length) {
-      String s=p == null ? null : (encoding == NativeString.WIDE_STRING ? p.getWideString(0) : p.getString(0,encoding));
+      String s=p == null ? null : (NativeString.WIDE_STRING.equals(encoding) ? p.getWideString(0) : p.getString(0,encoding));
       strings.add(s);
       if (count < length) {
         addOffset+=SIZE;
@@ -16,10 +16,10 @@
   }
  else {
     while ((p=getPointer(offset + addOffset)) != null) {
-      String s=p == null ? null : (encoding == NativeString.WIDE_STRING ? p.getWideString(0) : p.getString(0,encoding));
+      String s=p == null ? null : (NativeString.WIDE_STRING.equals(encoding) ? p.getWideString(0) : p.getString(0,encoding));
       strings.add(s);
       addOffset+=SIZE;
     }
   }
-  return (String[])strings.toArray(new String[strings.size()]);
+  return strings.toArray(new String[strings.size()]);
 }

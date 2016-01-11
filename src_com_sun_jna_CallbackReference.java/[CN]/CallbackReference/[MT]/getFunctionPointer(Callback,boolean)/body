@@ -6,15 +6,15 @@
   if ((fp=getNativeFunctionPointer(cb)) != null) {
     return fp;
   }
-  Map options=Native.getLibraryOptions(cb.getClass());
+  Map<String,?> options=Native.getLibraryOptions(cb.getClass());
   int callingConvention=cb instanceof AltCallingConvention ? Function.ALT_CONVENTION : (options != null && options.containsKey(Library.OPTION_CALLING_CONVENTION) ? ((Integer)options.get(Library.OPTION_CALLING_CONVENTION)).intValue() : Function.C_CONVENTION);
-  Map map=direct ? directCallbackMap : callbackMap;
-synchronized (callbackMap) {
-    CallbackReference cbref=(CallbackReference)map.get(cb);
+  Map<Callback,CallbackReference> map=direct ? directCallbackMap : callbackMap;
+synchronized (pointerCallbackMap) {
+    CallbackReference cbref=map.get(cb);
     if (cbref == null) {
       cbref=new CallbackReference(cb,callingConvention,direct);
       map.put(cb,cbref);
-      pointerCallbackMap.put(cbref.getTrampoline(),new WeakReference(cb));
+      pointerCallbackMap.put(cbref.getTrampoline(),new WeakReference<Callback>(cb));
       if (initializers.containsKey(cb)) {
         cbref.setCallbackOptions(Native.CB_HAS_INITIALIZER);
       }

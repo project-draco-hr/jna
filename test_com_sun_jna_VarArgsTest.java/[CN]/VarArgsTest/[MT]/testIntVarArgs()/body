@@ -1,5 +1,5 @@
 {
   int arg1=1;
   int arg2=2;
-  assertEquals("VarArgs not added correctly",arg1 + arg2,lib.addInt32VarArgs("dd",new Integer(arg1),new Integer(arg2)));
+  assertEquals("VarArgs not added correctly",arg1 + arg2,lib.addInt32VarArgs("dd",Integer.valueOf(arg1),Integer.valueOf(arg2)));
 }

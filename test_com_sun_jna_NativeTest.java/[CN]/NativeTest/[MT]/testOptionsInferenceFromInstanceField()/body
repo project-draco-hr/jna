@@ -1,5 +1,5 @@
 {
-  Class[] classes={TestInterfaceWithInstance.class,TestInterfaceWithInstance.TestStructure.class};
+  Class<?>[] classes={TestInterfaceWithInstance.class,TestInterfaceWithInstance.TestStructure.class};
   String[] desc={"interface","structure from interface"};
   for (int i=0; i < classes.length; i++) {
     assertEquals("Wrong type mapper found for " + desc[i],TestInterfaceWithInstance.TEST_MAPPER,Native.getTypeMapper(classes[i]));

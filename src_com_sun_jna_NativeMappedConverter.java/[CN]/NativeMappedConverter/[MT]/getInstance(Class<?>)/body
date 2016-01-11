@@ -1,0 +1,11 @@
+{
+synchronized (converters) {
+    Reference<NativeMappedConverter> r=converters.get(cls);
+    NativeMappedConverter nmc=r != null ? r.get() : null;
+    if (nmc == null) {
+      nmc=new NativeMappedConverter(cls);
+      converters.put(cls,new SoftReference<NativeMappedConverter>(nmc));
+    }
+    return nmc;
+  }
+}

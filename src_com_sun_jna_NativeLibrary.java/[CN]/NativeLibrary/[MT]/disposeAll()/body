@@ -1,11 +1,10 @@
 {
-  Set values;
+  Set<Reference<NativeLibrary>> values;
 synchronized (libraries) {
-    values=new HashSet(libraries.values());
+    values=new LinkedHashSet<Reference<NativeLibrary>>(libraries.values());
   }
-  for (Iterator i=values.iterator(); i.hasNext(); ) {
-    Reference ref=(WeakReference)i.next();
-    NativeLibrary lib=(NativeLibrary)ref.get();
+  for (  Reference<NativeLibrary> ref : values) {
+    NativeLibrary lib=ref.get();
     if (lib != null) {
       lib.dispose();
     }

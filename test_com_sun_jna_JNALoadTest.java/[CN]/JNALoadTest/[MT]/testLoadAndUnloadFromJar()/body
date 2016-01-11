@@ -8,8 +8,8 @@
   String path=(String)field.get(null);
   assertNotNull("Native library path unavailable",path);
   assertTrue("Native library not unpacked from jar: " + path,path.startsWith(System.getProperty("java.io.tmpdir")));
-  WeakReference ref=new WeakReference(cls);
-  WeakReference clref=new WeakReference(loader);
+  Reference<Class<?>> ref=new WeakReference<Class<?>>(cls);
+  Reference<ClassLoader> clref=new WeakReference<ClassLoader>(loader);
   loader=null;
   cls=null;
   field=null;

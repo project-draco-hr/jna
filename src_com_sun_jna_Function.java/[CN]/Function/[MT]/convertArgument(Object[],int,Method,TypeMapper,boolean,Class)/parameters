@@ -1,6 +1,0 @@
-Object[] args
-int index
-Method invokingMethod
-TypeMapper mapper
-boolean allowObjects
-Class expectedType

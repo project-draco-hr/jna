@@ -1,0 +1,24 @@
+{
+  if (!Callback.class.isAssignableFrom(type)) {
+    throw new IllegalArgumentException(type.getName() + " is not derived from com.sun.jna.Callback");
+  }
+  if (type.isInterface()) {
+    return type;
+  }
+  Class<?>[] ifaces=type.getInterfaces();
+  for (int i=0; i < ifaces.length; i++) {
+    if (Callback.class.isAssignableFrom(ifaces[i])) {
+      try {
+        getCallbackMethod(ifaces[i]);
+        return ifaces[i];
+      }
+ catch (      IllegalArgumentException e) {
+        break;
+      }
+    }
+  }
+  if (Callback.class.isAssignableFrom(type.getSuperclass())) {
+    return findCallbackClass(type.getSuperclass());
+  }
+  return type;
+}

@@ -3,8 +3,8 @@
     return null;
   }
 synchronized (libraries) {
-    if (options.containsKey(cls)) {
-      Map libOptions=(Map)options.get(cls);
+    if (typeOptions.containsKey(cls)) {
+      Map<String,?> libOptions=typeOptions.get(cls);
       Class<?> enclosingClass=(Class<?>)libOptions.get(_OPTION_ENCLOSING_LIBRARY);
       if (enclosingClass != null) {
         return enclosingClass;
