@@ -1,5 +1,8 @@
 {
-  if (value instanceof Boolean) {
+  if (value instanceof VARIANT) {
+    return (VARIANT)value;
+  }
+ else   if (value instanceof Boolean) {
     return new VARIANT((Boolean)value);
   }
  else   if (value instanceof Long) {
@@ -28,7 +31,7 @@
     ProxyObject pobj=(ProxyObject)ih;
     return new VARIANT(pobj.getRawDispatch());
   }
-  if (value instanceof IComEnum) {
+ else   if (value instanceof IComEnum) {
     IComEnum enm=(IComEnum)value;
     return new VARIANT(new WinDef.LONG(enm.getValue()));
   }

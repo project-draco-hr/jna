@@ -4,10 +4,14 @@
   iWebBrowser2.setVisible(true);
   DWebBrowserEvents2_Listener listener=new DWebBrowserEvents2_Listener();
   IComEventCallbackCookie cookie=iWebBrowser2.advise(DWebBrowserEvents2.class,listener);
-  iWebBrowser2.unadvise(DWebBrowserEvents2.class,cookie);
-  listener.Quit_called=false;
+  listener.blockNavigate=true;
+  iWebBrowser2.Navigate("https://github.com/java-native-access/jna",0,null,null,null);
+  for (int i=0; i < 10; i++) {
+    if (listener.navigateComplete2Called) {
+      break;
+    }
+    Thread.sleep(1000);
+  }
   iWebBrowser2.Quit();
-  Thread.sleep(200);
-  Assert.assertNotNull(listener.Quit_called);
-  Assert.assertFalse(listener.Quit_called);
+  Assert.assertFalse("Navigation to https://github.com/java-native-access/jna should be blocked",listener.navigateComplete2Called);
 }

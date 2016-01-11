@@ -1,16 +1,11 @@
 {
-  ComIMsWordApp wordObj=factory.createObject(ComIMsWordApp.class);
-  ComIApplication wordApp=wordObj.queryInterface(ComIApplication.class);
-  wordApp.setVisible(true);
-  ApplicationEvents4_EventListener listener=new ApplicationEvents4_EventListener();
-  wordApp.advise(ApplicationEvents4_Event.class,listener);
-  wordApp.Quit(false,null,null);
-  try {
-    Thread.sleep(200);
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
+  ComInternetExplorer ieApp=factory.createObject(ComInternetExplorer.class);
+  ComIWebBrowser2 iWebBrowser2=ieApp.queryInterface(ComIWebBrowser2.class);
+  iWebBrowser2.setVisible(true);
+  DWebBrowserEvents2_Listener listener=new DWebBrowserEvents2_Listener();
+  iWebBrowser2.advise(DWebBrowserEvents2.class,listener);
+  iWebBrowser2.Quit();
+  Thread.sleep(200);
   Assert.assertNotNull(listener.Quit_called);
   Assert.assertTrue(listener.Quit_called);
 }

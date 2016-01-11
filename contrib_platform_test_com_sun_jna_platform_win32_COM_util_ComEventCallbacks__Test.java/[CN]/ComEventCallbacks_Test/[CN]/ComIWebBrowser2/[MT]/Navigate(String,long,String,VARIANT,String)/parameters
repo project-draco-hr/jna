@@ -1,0 +1,5 @@
+String url
+long flags
+String targetFrameName
+VARIANT postData
+String headers

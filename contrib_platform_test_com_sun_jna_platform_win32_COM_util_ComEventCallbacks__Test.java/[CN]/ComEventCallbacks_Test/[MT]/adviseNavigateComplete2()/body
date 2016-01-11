@@ -1,0 +1,18 @@
+{
+  ComInternetExplorer ieApp=factory.createObject(ComInternetExplorer.class);
+  ComIWebBrowser2 iWebBrowser2=ieApp.queryInterface(ComIWebBrowser2.class);
+  iWebBrowser2.setVisible(true);
+  DWebBrowserEvents2_Listener listener=new DWebBrowserEvents2_Listener();
+  IComEventCallbackCookie cookie=iWebBrowser2.advise(DWebBrowserEvents2.class,listener);
+  iWebBrowser2.Navigate("https://github.com/java-native-access/jna",0,null,null,null);
+  for (int i=0; i < 10; i++) {
+    if (listener.navigateComplete2Called) {
+      break;
+    }
+    Thread.sleep(1000);
+  }
+  iWebBrowser2.Quit();
+  Assert.assertTrue("NavigateComplete was not called",listener.navigateComplete2Called);
+  Assert.assertNotNull("URL passed to NavigateComplete2 was NULL",listener.navigateComplete2URL);
+  Assert.assertThat(listener.navigateComplete2URL,CoreMatchers.startsWith("https://github.com/java-native-access/jna"));
+}

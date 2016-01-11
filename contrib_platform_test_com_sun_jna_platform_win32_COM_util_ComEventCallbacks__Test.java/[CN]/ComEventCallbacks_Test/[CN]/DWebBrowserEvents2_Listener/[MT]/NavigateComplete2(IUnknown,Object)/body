@@ -1,0 +1,6 @@
+{
+  navigateComplete2Called=true;
+  if (url != null) {
+    navigateComplete2URL=url.toString();
+  }
+}
