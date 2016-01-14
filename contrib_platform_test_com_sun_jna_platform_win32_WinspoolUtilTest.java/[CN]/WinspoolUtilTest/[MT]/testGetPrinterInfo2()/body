@@ -1,0 +1,3 @@
+{
+  assertTrue(WinspoolUtil.getPrinterInfo2().length >= 0);
+}

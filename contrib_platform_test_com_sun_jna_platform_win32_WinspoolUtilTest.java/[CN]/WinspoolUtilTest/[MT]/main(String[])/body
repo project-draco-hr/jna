@@ -1,5 +1,5 @@
 {
-  junit.textui.TestRunner.run(Shell32UtilTest.class);
+  junit.textui.TestRunner.run(WinspoolUtilTest.class);
   for (  PRINTER_INFO_1 printerInfo : WinspoolUtil.getPrinterInfo1()) {
     System.out.println(printerInfo.pName + ": " + printerInfo.pDescription);
   }

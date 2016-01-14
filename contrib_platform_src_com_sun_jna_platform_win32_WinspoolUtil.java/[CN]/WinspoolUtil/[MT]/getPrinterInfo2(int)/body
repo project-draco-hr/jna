@@ -1,0 +1,10 @@
+{
+  IntByReference pcbNeeded=new IntByReference();
+  IntByReference pcReturned=new IntByReference();
+  Winspool.INSTANCE.EnumPrinters(flags,null,2,null,0,pcbNeeded,pcReturned);
+  if (pcbNeeded.getValue() <= 0)   return new PRINTER_INFO_2[0];
+  PRINTER_INFO_2 pPrinterEnum=new PRINTER_INFO_2(pcbNeeded.getValue());
+  if (!Winspool.INSTANCE.EnumPrinters(flags,null,2,pPrinterEnum.getPointer(),pcbNeeded.getValue(),pcbNeeded,pcReturned))   throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  pPrinterEnum.read();
+  return (PRINTER_INFO_2[])pPrinterEnum.toArray(pcReturned.getValue());
+}

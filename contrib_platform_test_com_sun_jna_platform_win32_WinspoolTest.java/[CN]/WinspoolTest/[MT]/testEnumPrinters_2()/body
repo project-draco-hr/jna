@@ -1,0 +1,15 @@
+{
+  IntByReference pcbNeeded=new IntByReference();
+  IntByReference pcReturned=new IntByReference();
+  Winspool.INSTANCE.EnumPrinters(Winspool.PRINTER_ENUM_LOCAL,null,2,null,0,pcbNeeded,pcReturned);
+  assertTrue(pcReturned.getValue() == 0);
+  if (pcbNeeded.getValue() > 0) {
+    PRINTER_INFO_2 pPrinterEnum=new PRINTER_INFO_2(pcbNeeded.getValue());
+    assertTrue(Winspool.INSTANCE.EnumPrinters(Winspool.PRINTER_ENUM_LOCAL,null,2,pPrinterEnum.getPointer(),pcbNeeded.getValue(),pcbNeeded,pcReturned));
+    assertTrue(pcReturned.getValue() >= 0);
+    PRINTER_INFO_2[] printerInfo=(PRINTER_INFO_2[])pPrinterEnum.toArray(pcReturned.getValue());
+    for (    PRINTER_INFO_2 pi : printerInfo) {
+      assertTrue(pi.pPrinterName == null || pi.pPrinterName.length() >= 0);
+    }
+  }
+}
