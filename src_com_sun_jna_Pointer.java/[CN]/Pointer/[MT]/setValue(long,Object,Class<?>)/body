@@ -1,0 +1,66 @@
+{
+  if (type == boolean.class || type == Boolean.class) {
+    setInt(offset,Boolean.TRUE.equals(value) ? -1 : 0);
+  }
+ else   if (type == byte.class || type == Byte.class) {
+    setByte(offset,value == null ? 0 : ((Byte)value).byteValue());
+  }
+ else   if (type == short.class || type == Short.class) {
+    setShort(offset,value == null ? 0 : ((Short)value).shortValue());
+  }
+ else   if (type == char.class || type == Character.class) {
+    setChar(offset,value == null ? 0 : ((Character)value).charValue());
+  }
+ else   if (type == int.class || type == Integer.class) {
+    setInt(offset,value == null ? 0 : ((Integer)value).intValue());
+  }
+ else   if (type == long.class || type == Long.class) {
+    setLong(offset,value == null ? 0 : ((Long)value).longValue());
+  }
+ else   if (type == float.class || type == Float.class) {
+    setFloat(offset,value == null ? 0f : ((Float)value).floatValue());
+  }
+ else   if (type == double.class || type == Double.class) {
+    setDouble(offset,value == null ? 0.0 : ((Double)value).doubleValue());
+  }
+ else   if (type == Pointer.class) {
+    setPointer(offset,(Pointer)value);
+  }
+ else   if (type == String.class) {
+    setPointer(offset,(Pointer)value);
+  }
+ else   if (type == WString.class) {
+    setPointer(offset,(Pointer)value);
+  }
+ else   if (Structure.class.isAssignableFrom(type)) {
+    Structure s=(Structure)value;
+    if (Structure.ByReference.class.isAssignableFrom(type)) {
+      setPointer(offset,s == null ? null : s.getPointer());
+      if (s != null) {
+        s.autoWrite();
+      }
+    }
+ else {
+      s.useMemory(this,(int)offset,true);
+      s.write();
+    }
+  }
+ else   if (Callback.class.isAssignableFrom(type)) {
+    setPointer(offset,CallbackReference.getFunctionPointer((Callback)value));
+  }
+ else   if (Platform.HAS_BUFFERS && Buffer.class.isAssignableFrom(type)) {
+    Pointer p=value == null ? null : Native.getDirectBufferPointer((Buffer)value);
+    setPointer(offset,p);
+  }
+ else   if (NativeMapped.class.isAssignableFrom(type)) {
+    NativeMappedConverter tc=NativeMappedConverter.getInstance(type);
+    Class<?> nativeType=tc.nativeType();
+    setValue(offset,tc.toNative(value,new ToNativeContext()),nativeType);
+  }
+ else   if (type.isArray()) {
+    writeArray(offset,value,type.getComponentType());
+  }
+ else {
+    throw new IllegalArgumentException("Writing " + type + " to memory is not supported");
+  }
+}

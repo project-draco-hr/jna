@@ -1,0 +1,21 @@
+{
+  if (new File(libName).isAbsolute()) {
+    return libName;
+  }
+  String name=mapSharedLibraryName(libName);
+  for (  String path : searchPath) {
+    File file=new File(path,name);
+    if (file.exists()) {
+      return file.getAbsolutePath();
+    }
+    if (Platform.isMac()) {
+      if (name.endsWith(".dylib")) {
+        file=new File(path,name.substring(0,name.lastIndexOf(".dylib")) + ".jnilib");
+        if (file.exists()) {
+          return file.getAbsolutePath();
+        }
+      }
+    }
+  }
+  return name;
+}

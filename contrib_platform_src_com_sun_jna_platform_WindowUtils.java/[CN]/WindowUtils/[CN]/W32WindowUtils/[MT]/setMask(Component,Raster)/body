@@ -5,7 +5,7 @@
     final HRGN tempRgn=gdi.CreateRectRgn(0,0,0,0);
     try {
       RasterRangesUtils.outputOccupiedRanges(raster,new RasterRangesUtils.RangesOutput(){
-        public boolean outputRange(        int x,        int y,        int w,        int h){
+        @Override public boolean outputRange(        int x,        int y,        int w,        int h){
           GDI32 gdi=GDI32.INSTANCE;
           gdi.SetRectRgn(tempRgn,x,y,x + w,y + h);
           return gdi.CombineRgn(region,region,tempRgn,WinGDI.RGN_OR) != WinGDI.ERROR;

@@ -1,10 +1,10 @@
 {
-synchronized (callbackMap) {
+synchronized (initializers) {
     if (initializer != null) {
-      initializers.put(cb,initializer);
+      return initializers.put(cb,initializer);
     }
  else {
-      initializers.remove(cb);
+      return initializers.remove(cb);
     }
   }
 }

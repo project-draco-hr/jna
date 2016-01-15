@@ -1,7 +1,7 @@
 {
   if (inArgs != null && inArgs.length > 0) {
     Object lastArg=inArgs[inArgs.length - 1];
-    Class argType=lastArg != null ? lastArg.getClass() : null;
+    Class<?> argType=lastArg != null ? lastArg.getClass() : null;
     if (argType != null && argType.isArray()) {
       Object[] varArgs=(Object[])lastArg;
       Object[] fullArgs=new Object[inArgs.length + varArgs.length];

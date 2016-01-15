@@ -1,6 +1,8 @@
 {
   checkCallingConvention(callFlags & MASK_CC);
-  if (functionName == null)   throw new NullPointerException("Function name must not be null");
+  if (functionName == null) {
+    throw new NullPointerException("Function name must not be null");
+  }
   this.library=library;
   this.functionName=functionName;
   this.callFlags=callFlags;

@@ -1,10 +1,10 @@
 {
   String value=System.getProperty(key,"");
   if ("".equals(value)) {
-    return Collections.EMPTY_LIST;
+    return Collections.emptyList();
   }
   StringTokenizer st=new StringTokenizer(value,File.pathSeparator);
-  List list=new ArrayList();
+  List<String> list=new ArrayList<String>();
   while (st.hasMoreTokens()) {
     String path=st.nextToken();
     if (!"".equals(path)) {

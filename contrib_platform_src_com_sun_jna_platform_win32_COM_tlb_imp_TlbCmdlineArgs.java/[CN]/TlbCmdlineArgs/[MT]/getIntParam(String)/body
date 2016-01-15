@@ -1,4 +1,4 @@
 {
   String param=this.getRequiredParam(key);
-  return new Integer(param).intValue();
+  return Integer.parseInt(param);
 }

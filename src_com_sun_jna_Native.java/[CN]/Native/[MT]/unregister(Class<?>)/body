@@ -1,7 +1,8 @@
 {
 synchronized (registeredClasses) {
-    if (registeredClasses.containsKey(cls)) {
-      unregister(cls,(long[])registeredClasses.get(cls));
+    long[] handles=registeredClasses.get(cls);
+    if (handles != null) {
+      unregister(cls,handles);
       registeredClasses.remove(cls);
       registeredLibraries.remove(cls);
     }

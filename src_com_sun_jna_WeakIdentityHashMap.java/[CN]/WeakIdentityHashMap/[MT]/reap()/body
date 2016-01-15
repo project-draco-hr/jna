@@ -1,8 +1,5 @@
 {
-  Object zombie=queue.poll();
-  while (zombie != null) {
-    IdentityWeakReference victim=(IdentityWeakReference)zombie;
-    backingStore.remove(victim);
-    zombie=queue.poll();
+  for (Reference<? extends K> zombie=queue.poll(); zombie != null; zombie=queue.poll()) {
+    backingStore.remove(zombie);
   }
 }

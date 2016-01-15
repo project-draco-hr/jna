@@ -1,3 +1,4 @@
 {
-  return (TypeMapper)getLibraryOptions(cls).get(Library.OPTION_TYPE_MAPPER);
+  Map<String,?> options=getLibraryOptions(cls);
+  return (TypeMapper)options.get(Library.OPTION_TYPE_MAPPER);
 }

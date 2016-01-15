@@ -1,8 +1,8 @@
 {
-  Class interfaceClass=TestInterface.class;
-  Class cls=TestInterface.InnerTestClass.class;
-  Class subClass=TestInterface.InnerTestClass.InnerSubclass.class;
-  Class callbackClass=TestInterface.InnerTestClass.TestCallback.class;
+  Class<?> interfaceClass=TestInterface.class;
+  Class<?> cls=TestInterface.InnerTestClass.class;
+  Class<?> subClass=TestInterface.InnerTestClass.InnerSubclass.class;
+  Class<?> callbackClass=TestInterface.InnerTestClass.TestCallback.class;
   assertEquals("Enclosing interface not found for class",interfaceClass,Native.findEnclosingLibraryClass(cls));
   assertEquals("Enclosing interface not found for derived class",interfaceClass,Native.findEnclosingLibraryClass(subClass));
   assertEquals("Enclosing interface not found for callback",interfaceClass,Native.findEnclosingLibraryClass(callbackClass));

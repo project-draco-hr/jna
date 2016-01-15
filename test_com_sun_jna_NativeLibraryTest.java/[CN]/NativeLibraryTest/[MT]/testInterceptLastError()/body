@@ -9,6 +9,6 @@
   assertTrue("GetLastError should be a Function",Function.class.isAssignableFrom(get.getClass()));
   assertTrue("GetLastError should be a customized Function",get.getClass() != Function.class);
   final int EXPECTED=42;
-  set.invokeVoid(new Object[]{new Integer(EXPECTED)});
+  set.invokeVoid(new Object[]{Integer.valueOf(EXPECTED)});
   assertEquals("Wrong error",EXPECTED,get.invokeInt(null));
 }

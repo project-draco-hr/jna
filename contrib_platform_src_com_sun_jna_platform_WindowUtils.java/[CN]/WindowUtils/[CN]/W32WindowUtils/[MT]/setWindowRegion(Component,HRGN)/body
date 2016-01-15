@@ -1,6 +1,6 @@
 {
   whenDisplayable(w,new Runnable(){
-    public void run(){
+    @Override public void run(){
       GDI32 gdi=GDI32.INSTANCE;
       User32 user=User32.INSTANCE;
       HWND hWnd=getHWnd(w);

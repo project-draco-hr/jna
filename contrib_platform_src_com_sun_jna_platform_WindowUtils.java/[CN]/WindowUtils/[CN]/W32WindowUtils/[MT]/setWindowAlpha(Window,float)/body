@@ -3,7 +3,7 @@
     throw new UnsupportedOperationException("Set sun.java2d.noddraw=true to enable transparent windows");
   }
   whenDisplayable(w,new Runnable(){
-    public void run(){
+    @Override public void run(){
       HWND hWnd=getHWnd(w);
       User32 user=User32.INSTANCE;
       int flags=user.GetWindowLong(hWnd,WinUser.GWL_EXSTYLE);

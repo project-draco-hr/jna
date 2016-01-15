@@ -3,8 +3,8 @@
   Memory m=new Memory(1024);
   m.clear();
   ByteBuffer b=m.getByteBuffer(0,m.size());
-  WeakReference ref=new WeakReference(m);
-  WeakReference bref=new WeakReference(b);
+  Reference<Memory> ref=new WeakReference<Memory>(m);
+  Reference<ByteBuffer> bref=new WeakReference<ByteBuffer>(b);
   m=new Memory(1024);
   m.clear();
   m.getByteBuffer(0,m.size());
@@ -16,7 +16,7 @@
     System.gc();
     Memory.purge();
   }
-  assertNotNull("Memory GC'd while NIO Buffer still extant",ref.get());
+  assertNotNull("Memory GC'd while NIO Buffer still exists",ref.get());
   b.put((byte)0);
   b=null;
   System.gc();

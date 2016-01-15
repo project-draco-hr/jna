@@ -1,0 +1,8 @@
+{
+  for (  Entry entry : converters) {
+    if (entry.type.isAssignableFrom(javaClass)) {
+      return entry.converter;
+    }
+  }
+  return null;
+}

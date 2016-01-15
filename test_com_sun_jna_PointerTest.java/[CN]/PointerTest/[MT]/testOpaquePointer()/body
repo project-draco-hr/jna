@@ -1,10 +1,10 @@
 {
   Pointer p=Pointer.createConstant(0);
-  Class cls=p.getClass();
+  Class<?> cls=p.getClass();
   Method[] methods=cls.getMethods();
   for (int i=0; i < methods.length; i++) {
     Method m=methods[i];
-    Class[] argTypes=m.getParameterTypes();
+    Class<?>[] argTypes=m.getParameterTypes();
     try {
       Object[] args=new Object[argTypes.length];
       for (int arg=0; arg < args.length; arg++) {

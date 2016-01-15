@@ -3,7 +3,7 @@
     return null;
   }
   try {
-    PointerType pt=(PointerType)getClass().newInstance();
+    PointerType pt=getClass().newInstance();
     pt.pointer=(Pointer)nativeValue;
     return pt;
   }

@@ -1,4 +1,6 @@
 {
-  if (s == null)   throw new NullPointerException("String initializer must be non-null");
+  if (s == null) {
+    throw new NullPointerException("String initializer must be non-null");
+  }
   this.string=s;
 }

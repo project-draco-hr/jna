@@ -1,5 +1,6 @@
 {
 class TestType extends IntegerType {
+    private static final long serialVersionUID=1L;
     public TestType(    int size,    long value){
       super(size,value);
     }
@@ -11,6 +12,7 @@ class TestType extends IntegerType {
   VALUE=0xFFFFFFFF;
   assertEquals("Wrong unsigned int value",VALUE,new TestType(4,VALUE).longValue());
 class UnsignedTestType extends IntegerType {
+    private static final long serialVersionUID=1L;
     public UnsignedTestType(    int size,    long value){
       super(size,value,true);
     }

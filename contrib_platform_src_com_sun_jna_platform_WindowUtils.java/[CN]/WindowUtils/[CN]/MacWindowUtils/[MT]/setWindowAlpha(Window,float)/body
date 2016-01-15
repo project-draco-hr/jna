@@ -1,14 +1,16 @@
 {
   if (w instanceof RootPaneContainer) {
     JRootPane p=((RootPaneContainer)w).getRootPane();
-    p.putClientProperty("Window.alpha",new Float(alpha));
+    p.putClientProperty("Window.alpha",Float.valueOf(alpha));
     fixWindowDragging(w,"setWindowAlpha");
   }
   whenDisplayable(w,new Runnable(){
-    public void run(){
+    @Override public void run(){
       Object peer=w.getPeer();
       try {
-        peer.getClass().getMethod("setAlpha",new Class[]{float.class}).invoke(peer,new Object[]{new Float(alpha)});
+        Class<?> cls=peer.getClass();
+        Method m=cls.getMethod("setAlpha",new Class[]{float.class});
+        m.invoke(peer,Float.valueOf(alpha));
       }
  catch (      Exception e) {
       }

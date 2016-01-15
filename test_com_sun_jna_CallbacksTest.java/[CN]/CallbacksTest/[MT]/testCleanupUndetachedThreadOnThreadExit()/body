@@ -1,9 +1,9 @@
 {
-  final Set threads=new HashSet();
+  final Set<Reference<Thread>> threads=new HashSet<Reference<Thread>>();
   final int[] called={0};
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
     @Override public void callback(){
-      threads.add(new WeakReference(Thread.currentThread()));
+      threads.add(new WeakReference<Thread>(Thread.currentThread()));
       if (++called[0] == 1) {
         Thread.currentThread().setName(getName() + " (Thread to be cleaned up)");
       }
@@ -20,20 +20,20 @@
   callThreadedCallback(cb,asDaemon,2,100,called);
   long start=System.currentTimeMillis();
   while (threads.size() == 0 && called[0] == 0) {
-    Thread.sleep(10);
+    Thread.sleep(10L);
     if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
       fail("Timed out waiting for thread to detach and terminate");
     }
   }
   start=System.currentTimeMillis();
-  WeakReference ref=(WeakReference)threads.iterator().next();
+  Reference<Thread> ref=threads.iterator().next();
   while (ref.get() != null) {
     System.gc();
     Thread.sleep(100);
     Thread[] remaining=new Thread[Thread.activeCount()];
     Thread.enumerate(remaining);
     if (System.currentTimeMillis() - start > THREAD_TIMEOUT) {
-      Thread t=(Thread)ref.get();
+      Thread t=ref.get();
       Pointer terminationFlag=Native.getTerminationFlag(t);
       assertNotNull("Native thread termination flag is missing",terminationFlag);
       if (terminationFlag.getInt(0) == 0) {

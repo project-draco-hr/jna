@@ -1,19 +1,18 @@
 {
-  Class[] classes={DirectMapping.class,DirectMapping.DirectStructure.class,DirectMapping.DirectCallback.class};
+  Class<?>[] classes={DirectMapping.class,DirectMapping.DirectStructure.class,DirectMapping.DirectCallback.class};
   final TypeMapper mapper=new DefaultTypeMapper();
   final int alignment=Structure.ALIGN_NONE;
   final String encoding=System.getProperty("file.encoding");
-  Map options=new HashMap();
+  Map<String,Object> options=new HashMap<String,Object>();
   options.put(Library.OPTION_TYPE_MAPPER,mapper);
   options.put(Library.OPTION_STRUCTURE_ALIGNMENT,alignment);
   options.put(Library.OPTION_STRING_ENCODING,encoding);
   DirectMapping lib=new DirectMapping(options);
-  for (int i=0; i < classes.length; i++) {
-    assertEquals("Wrong type mapper for direct mapping " + classes[i],mapper,Native.getTypeMapper(classes[i]));
-    assertEquals("Wrong alignment for direct mapping " + classes[i],alignment,Native.getStructureAlignment(classes[i]));
-    assertEquals("Wrong encoding for direct mapping " + classes[i],encoding,Native.getStringEncoding(classes[i]));
-    Object last=Native.getLibraryOptions(classes[i]);
-    ;
-    assertSame("Options not cached",last,Native.getLibraryOptions(classes[i]));
+  for (  Class<?> cls : classes) {
+    assertEquals("Wrong type mapper for direct mapping " + cls,mapper,Native.getTypeMapper(cls));
+    assertEquals("Wrong alignment for direct mapping " + cls,alignment,Native.getStructureAlignment(cls));
+    assertEquals("Wrong encoding for direct mapping " + cls,encoding,Native.getStringEncoding(cls));
+    Object last=Native.getLibraryOptions(cls);
+    assertSame("Options not cached",last,Native.getLibraryOptions(cls));
   }
 }

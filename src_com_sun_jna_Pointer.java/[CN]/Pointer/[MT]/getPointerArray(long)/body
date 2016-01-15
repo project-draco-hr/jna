@@ -1,5 +1,5 @@
 {
-  List array=new ArrayList();
+  List<Pointer> array=new ArrayList<Pointer>();
   int addOffset=0;
   Pointer p=getPointer(offset);
   while (p != null) {
@@ -7,5 +7,5 @@
     addOffset+=Pointer.SIZE;
     p=getPointer(offset + addOffset);
   }
-  return (Pointer[])array.toArray(new Pointer[array.size()]);
+  return array.toArray(new Pointer[array.size()]);
 }

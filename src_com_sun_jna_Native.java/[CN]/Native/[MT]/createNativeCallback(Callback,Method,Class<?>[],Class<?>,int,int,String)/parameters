@@ -1,0 +1,7 @@
+Callback callback
+Method method
+Class<?>[] parameterTypes
+Class<?> returnType
+int callingConvention
+int flags
+String encoding

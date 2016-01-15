@@ -4,12 +4,12 @@
   TestResult result=new TestResult();
   test.run(result);
   if (result.failureCount() != 0) {
-    Enumeration e=result.failures();
-    return ((TestFailure)e.nextElement()).thrownException();
+    Enumeration<TestFailure> e=result.failures();
+    return e.nextElement().thrownException();
   }
  else   if (result.errorCount() != 0) {
-    Enumeration e=result.errors();
-    return ((TestFailure)e.nextElement()).thrownException();
+    Enumeration<TestFailure> e=result.errors();
+    return e.nextElement().thrownException();
   }
   return null;
 }

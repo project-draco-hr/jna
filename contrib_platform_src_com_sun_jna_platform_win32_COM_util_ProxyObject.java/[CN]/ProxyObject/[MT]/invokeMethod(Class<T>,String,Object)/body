@@ -14,7 +14,7 @@
   COMUtils.checkRC(hr);
   Object jobj=Convert.toJavaObject(result);
   if (IComEnum.class.isAssignableFrom(returnType)) {
-    return (T)Convert.toComEnum((Class<? extends IComEnum>)returnType,jobj);
+    return returnType.cast(Convert.toComEnum((Class<? extends IComEnum>)returnType,jobj));
   }
   if (jobj instanceof IDispatch) {
     IDispatch d=(IDispatch)jobj;
@@ -22,5 +22,5 @@
     int n=d.Release();
     return t;
   }
-  return (T)jobj;
+  return returnType.cast(jobj);
 }

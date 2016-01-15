@@ -1,8 +1,9 @@
 {
   Method[] methods=cls.getDeclaredMethods();
   List<Method> mlist=new ArrayList<Method>();
-  TypeMapper mapper=(TypeMapper)lib.getOptions().get(Library.OPTION_TYPE_MAPPER);
-  cacheOptions(cls,lib.getOptions(),null);
+  Map<String,?> options=lib.getOptions();
+  TypeMapper mapper=(TypeMapper)options.get(Library.OPTION_TYPE_MAPPER);
+  options=cacheOptions(cls,options,null);
   for (  Method m : methods) {
     if ((m.getModifiers() & Modifier.NATIVE) != 0) {
       mlist.add(m);
@@ -49,22 +50,22 @@ rtype=FFIType.get(rclass).peer;
 break;
 default :
 closure_rtype=rtype=FFIType.get(rclass).peer;
-break;
 }
 for (int t=0; t < ptypes.length; t++) {
 Class<?> type=ptypes[t];
 sig+=getSignature(type);
-cvt[t]=getConversion(type,mapper);
-if (cvt[t] == CVT_UNSUPPORTED) {
+int conversionType=getConversion(type,mapper);
+cvt[t]=conversionType;
+if (conversionType == CVT_UNSUPPORTED) {
 throw new IllegalArgumentException(type + " is not a supported argument type (in method " + method.getName()+ " in "+ cls+ ")");
 }
-if (cvt[t] == CVT_NATIVE_MAPPED || cvt[t] == CVT_NATIVE_MAPPED_STRING || cvt[t] == CVT_NATIVE_MAPPED_WSTRING || cvt[t] == CVT_INTEGER_TYPE) {
+if ((conversionType == CVT_NATIVE_MAPPED) || (conversionType == CVT_NATIVE_MAPPED_STRING) || (conversionType == CVT_NATIVE_MAPPED_WSTRING)|| (conversionType == CVT_INTEGER_TYPE)) {
 type=NativeMappedConverter.getInstance(type).nativeType();
 }
- else if (cvt[t] == CVT_TYPE_MAPPER || cvt[t] == CVT_TYPE_MAPPER_STRING || cvt[t] == CVT_TYPE_MAPPER_WSTRING) {
+ else if ((conversionType == CVT_TYPE_MAPPER) || (conversionType == CVT_TYPE_MAPPER_STRING) || (conversionType == CVT_TYPE_MAPPER_WSTRING)) {
 toNative[t]=mapper.getToNativeConverter(type);
 }
-switch (cvt[t]) {
+switch (conversionType) {
 case CVT_STRUCTURE_BYVAL:
 case CVT_INTEGER_TYPE:
 case CVT_POINTER_TYPE:
@@ -85,7 +86,6 @@ closure_atypes[t]=atypes[t]=FFIType.get(type).peer;
 break;
 default :
 closure_atypes[t]=atypes[t]=FFIType.get(Pointer.class).peer;
-break;
 }
 }
 sig+=")";

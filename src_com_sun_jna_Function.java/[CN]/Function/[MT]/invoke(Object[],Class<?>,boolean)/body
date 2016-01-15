@@ -1,0 +1,97 @@
+{
+  Object result=null;
+  if (returnType == null || returnType == void.class || returnType == Void.class) {
+    Native.invokeVoid(peer,callFlags,args);
+    result=null;
+  }
+ else   if (returnType == boolean.class || returnType == Boolean.class) {
+    result=valueOf(Native.invokeInt(peer,callFlags,args) != 0);
+  }
+ else   if (returnType == byte.class || returnType == Byte.class) {
+    result=Byte.valueOf((byte)Native.invokeInt(peer,callFlags,args));
+  }
+ else   if (returnType == short.class || returnType == Short.class) {
+    result=Short.valueOf((short)Native.invokeInt(peer,callFlags,args));
+  }
+ else   if (returnType == char.class || returnType == Character.class) {
+    result=Character.valueOf((char)Native.invokeInt(peer,callFlags,args));
+  }
+ else   if (returnType == int.class || returnType == Integer.class) {
+    result=Integer.valueOf(Native.invokeInt(peer,callFlags,args));
+  }
+ else   if (returnType == long.class || returnType == Long.class) {
+    result=Long.valueOf(Native.invokeLong(peer,callFlags,args));
+  }
+ else   if (returnType == float.class || returnType == Float.class) {
+    result=Float.valueOf(Native.invokeFloat(peer,callFlags,args));
+  }
+ else   if (returnType == double.class || returnType == Double.class) {
+    result=Double.valueOf(Native.invokeDouble(peer,callFlags,args));
+  }
+ else   if (returnType == String.class) {
+    result=invokeString(callFlags,args,false);
+  }
+ else   if (returnType == WString.class) {
+    String s=invokeString(callFlags,args,true);
+    if (s != null) {
+      result=new WString(s);
+    }
+  }
+ else   if (Pointer.class.isAssignableFrom(returnType)) {
+    return invokePointer(callFlags,args);
+  }
+ else   if (Structure.class.isAssignableFrom(returnType)) {
+    if (Structure.ByValue.class.isAssignableFrom(returnType)) {
+      Structure s=Native.invokeStructure(peer,callFlags,args,Structure.newInstance(returnType));
+      s.autoRead();
+      result=s;
+    }
+ else {
+      result=invokePointer(callFlags,args);
+      if (result != null) {
+        Structure s=Structure.newInstance(returnType,(Pointer)result);
+        s.conditionalAutoRead();
+        result=s;
+      }
+    }
+  }
+ else   if (Callback.class.isAssignableFrom(returnType)) {
+    result=invokePointer(callFlags,args);
+    if (result != null) {
+      result=CallbackReference.getCallback(returnType,(Pointer)result);
+    }
+  }
+ else   if (returnType == String[].class) {
+    Pointer p=invokePointer(callFlags,args);
+    if (p != null) {
+      result=p.getStringArray(0,encoding);
+    }
+  }
+ else   if (returnType == WString[].class) {
+    Pointer p=invokePointer(callFlags,args);
+    if (p != null) {
+      String[] arr=p.getWideStringArray(0);
+      WString[] warr=new WString[arr.length];
+      for (int i=0; i < arr.length; i++) {
+        warr[i]=new WString(arr[i]);
+      }
+      result=warr;
+    }
+  }
+ else   if (returnType == Pointer[].class) {
+    Pointer p=invokePointer(callFlags,args);
+    if (p != null) {
+      result=p.getPointerArray(0);
+    }
+  }
+ else   if (allowObjects) {
+    result=Native.invokeObject(peer,callFlags,args);
+    if (result != null && !returnType.isAssignableFrom(result.getClass())) {
+      throw new ClassCastException("Return type " + returnType + " does not match result "+ result.getClass());
+    }
+  }
+ else {
+    throw new IllegalArgumentException("Unsupported return type " + returnType + " in function "+ getName());
+  }
+  return result;
+}

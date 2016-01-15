@@ -8,7 +8,7 @@
     name=name.substring(prefix.length());
   }
   int flags=this.callFlags;
-  Class[] etypes=method.getExceptionTypes();
+  Class<?>[] etypes=method.getExceptionTypes();
   for (int i=0; i < etypes.length; i++) {
     if (LastErrorException.class.isAssignableFrom(etypes[i])) {
       flags|=Function.THROW_LAST_ERROR;

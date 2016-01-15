@@ -16,7 +16,7 @@ class TestCallback implements TestLibrary.VoidCallback, com.sun.jna.win32.DLLCal
   Function f=kernel32.getFunction("GetModuleHandleExW");
   final int GET_MODULE_HANDLE_FROM_ADDRESS=0x4;
   PointerByReference pref=new PointerByReference();
-  int result=f.invokeInt(new Object[]{new Integer(GET_MODULE_HANDLE_FROM_ADDRESS),fp,pref});
+  int result=f.invokeInt(new Object[]{Integer.valueOf(GET_MODULE_HANDLE_FROM_ADDRESS),fp,pref});
   assertTrue("GetModuleHandleEx(fptr) failed: " + Native.getLastError(),result != 0);
   f=kernel32.getFunction("GetModuleFileNameW");
   char[] buf=new char[1024];
@@ -26,9 +26,9 @@ class TestCallback implements TestLibrary.VoidCallback, com.sun.jna.win32.DLLCal
   Pointer handle=f.invokePointer(new Object[]{Native.jnidispatchPath != null ? Native.jnidispatchPath : "jnidispatch"});
   assertNotNull("GetModuleHandle(\"jnidispatch\") failed: " + Native.getLastError(),handle);
   assertEquals("Wrong module HANDLE for DLL function pointer",handle,pref.getValue());
-  Map refs=new WeakHashMap(callbackCache());
+  Map<Callback,CallbackReference> refs=new WeakHashMap<Callback,CallbackReference>(callbackCache());
   assertTrue("Callback not cached",refs.containsKey(cb));
-  CallbackReference ref=(CallbackReference)refs.get(cb);
+  CallbackReference ref=refs.get(cb);
   refs=callbackCache();
   Pointer cbstruct=ref.cbstruct;
   Pointer first_fptr=cbstruct.getPointer(0);
@@ -51,7 +51,7 @@ class TestCallback implements TestLibrary.VoidCallback, com.sun.jna.win32.DLLCal
   called[0]=false;
   cb=new TestCallback();
   lib.callVoidCallback(cb);
-  ref=(CallbackReference)refs.get(cb);
+  ref=refs.get(cb);
   cbstruct=ref.cbstruct;
   assertTrue("Callback not called",called[0]);
   assertEquals("Same (in-DLL) address should be re-used for DLL callbacks after callback is GCd",first_fptr,cbstruct.getPointer(0));
