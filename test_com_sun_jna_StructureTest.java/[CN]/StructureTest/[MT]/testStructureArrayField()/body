@@ -2,8 +2,8 @@
 class TestStructure extends Structure {
     public PublicTestStructure[] inner=new PublicTestStructure[2];
     public PublicTestStructure[] inner2=(PublicTestStructure[])new PublicTestStructure().toArray(2);
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"inner","inner2"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("inner","inner2");
     }
   }
   TestStructure s=new TestStructure();

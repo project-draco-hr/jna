@@ -1,6 +1,6 @@
 {
   int offset=structField.offset;
-  Class fieldType=structField.type;
+  Class<?> fieldType=structField.type;
   FromNativeConverter readConverter=structField.readConverter;
   if (readConverter != null) {
     fieldType=readConverter.nativeType();

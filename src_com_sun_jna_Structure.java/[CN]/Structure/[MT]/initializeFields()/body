@@ -1,7 +1,6 @@
 {
-  List flist=getFieldList();
-  for (Iterator i=flist.iterator(); i.hasNext(); ) {
-    Field f=(Field)i.next();
+  List<Field> flist=getFieldList();
+  for (  Field f : flist) {
     try {
       Object o=f.get(this);
       if (o == null) {

@@ -1,8 +1,8 @@
 {
 class ContainingStructure extends Structure {
     public StructureFromPointer inner;
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"inner"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("inner");
     }
   }
   final String VALUE=getName() + UNICODE;

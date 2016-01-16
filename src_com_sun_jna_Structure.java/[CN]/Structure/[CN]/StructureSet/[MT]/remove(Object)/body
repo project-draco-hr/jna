@@ -1,5 +1,5 @@
 {
-  int idx=indexOf(o);
+  int idx=indexOf((Structure)o);
   if (idx != -1) {
     if (--count >= 0) {
       elements[idx]=elements[count];

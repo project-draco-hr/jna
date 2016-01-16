@@ -2,8 +2,8 @@
 class TestStructure extends Structure {
     public int i;
     public NativeLong l;
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"i","l"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("i","l");
     }
   }
   TestStructure s=new TestStructure();

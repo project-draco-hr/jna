@@ -2,7 +2,7 @@
 class TestTypeMapper extends DefaultTypeMapper {
 {
       TypeConverter tc=new TypeConverter(){
-        @Override public Class nativeType(){
+        @Override public Class<?> nativeType(){
           return int.class;
         }
         @Override public Object fromNative(        Object nativeValue,        FromNativeContext c){
@@ -20,8 +20,8 @@ class TestTypeMapper extends DefaultTypeMapper {
   final TestTypeMapper m=new TestTypeMapper();
 class TestStructure extends Structure {
     public boolean field;
-    @Override protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"field"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("field");
     }
     public TestStructure(){
       super(m);
