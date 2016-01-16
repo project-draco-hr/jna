@@ -1,5 +1,6 @@
 {
-  for (Iterator i=allocatedMemory.keySet().iterator(); i.hasNext(); ) {
-    ((Memory)i.next()).dispose();
+  Collection<Memory> refs=new LinkedList<Memory>(allocatedMemory.keySet());
+  for (  Memory r : refs) {
+    r.dispose();
   }
 }

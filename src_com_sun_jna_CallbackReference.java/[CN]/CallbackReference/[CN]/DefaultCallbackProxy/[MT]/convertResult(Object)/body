@@ -2,8 +2,10 @@
   if (toNative != null) {
     value=toNative.toNative(value,new CallbackResultContext(callbackMethod));
   }
-  if (value == null)   return null;
-  Class cls=value.getClass();
+  if (value == null) {
+    return null;
+  }
+  Class<?> cls=value.getClass();
   if (Structure.class.isAssignableFrom(cls)) {
     if (Structure.ByValue.class.isAssignableFrom(cls)) {
       return value;

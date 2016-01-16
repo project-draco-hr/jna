@@ -1,6 +1,6 @@
 {
   CallbackTestLibrary lib=loadCallbackTestLibrary();
-  lib._MAPPER.clear();
+  CallbackTestLibrary._MAPPER.clear();
   final String[] ARGS=new String[2];
   CallbackTestLibrary.WStringCallback cb=new CallbackTestLibrary.WStringCallback(){
     @Override public String callback(    String arg,    String arg2){
@@ -10,13 +10,13 @@
     }
   }
 ;
-  assertEquals("Wrong type mapper for callback class",lib._MAPPER,Native.getTypeMapper(CallbackTestLibrary.WStringCallback.class));
-  assertEquals("Wrong type mapper for callback object",lib._MAPPER,Native.getTypeMapper(cb.getClass()));
+  assertEquals("Wrong type mapper for callback class",CallbackTestLibrary._MAPPER,Native.getTypeMapper(CallbackTestLibrary.WStringCallback.class));
+  assertEquals("Wrong type mapper for callback object",CallbackTestLibrary._MAPPER,Native.getTypeMapper(cb.getClass()));
   final String[] EXPECTED={"magic" + UNICODE,getName() + UNICODE};
   String result=lib.callWideStringCallback(cb,EXPECTED[0],EXPECTED[1]);
   assertEquals("Wrong first callback argument",EXPECTED[0],ARGS[0]);
   assertEquals("Wrong second callback argument",EXPECTED[1],ARGS[1]);
   assertEquals("Incorrect result of callback invocation",EXPECTED[0] + EXPECTED[1],result);
-  assertEquals("Type mapper not called for arguments",3,lib._MAPPER.fromNativeConversions);
-  assertEquals("Type mapper not called for result",3,lib._MAPPER.toNativeConversions);
+  assertEquals("Type mapper not called for arguments",3,CallbackTestLibrary._MAPPER.fromNativeConversions);
+  assertEquals("Type mapper not called for result",3,CallbackTestLibrary._MAPPER.toNativeConversions);
 }

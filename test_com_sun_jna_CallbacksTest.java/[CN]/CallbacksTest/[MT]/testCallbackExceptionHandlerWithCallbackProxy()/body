@@ -19,10 +19,10 @@ class TestProxy implements CallbackProxy, TestLibrary.CbCallback {
       @Override public Object callback(      Object[] args){
         throw ERROR;
       }
-      @Override public Class[] getParameterTypes(){
+      @Override public Class<?>[] getParameterTypes(){
         return new Class[]{CbCallback.class};
       }
-      @Override public Class getReturnType(){
+      @Override public Class<?> getReturnType(){
         return CbCallback.class;
       }
     }

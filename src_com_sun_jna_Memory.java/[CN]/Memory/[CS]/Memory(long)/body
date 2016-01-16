@@ -5,5 +5,5 @@
   }
   peer=malloc(size);
   if (peer == 0)   throw new OutOfMemoryError("Cannot allocate " + size + " bytes");
-  allocatedMemory.put(this,new WeakReference(this));
+  allocatedMemory.put(this,new WeakReference<Memory>(this));
 }

@@ -1,5 +1,6 @@
 {
-  for (Iterator i=allocatedMemory.keySet().iterator(); i.hasNext(); ) {
-    ((Memory)i.next()).dispose();
+  Collection<CallbackReference> refs=new LinkedList<CallbackReference>(allocatedMemory.keySet());
+  for (  CallbackReference r : refs) {
+    r.dispose();
   }
 }

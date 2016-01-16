@@ -1,5 +1,9 @@
 {
-  if (o == this)   return true;
-  if (o == null)   return false;
-  return o instanceof Pointer && ((Pointer)o).peer == peer;
+  if (o == this) {
+    return true;
+  }
+  if (o == null) {
+    return false;
+  }
+  return (o instanceof Pointer) && (((Pointer)o).peer == peer);
 }

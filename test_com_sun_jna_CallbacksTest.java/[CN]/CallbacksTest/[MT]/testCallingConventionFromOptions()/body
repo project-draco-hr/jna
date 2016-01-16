@@ -1,7 +1,6 @@
 {
-  Map options=new HashMap();
-  options.put(Library.OPTION_CALLING_CONVENTION,Function.ALT_CONVENTION);
-  OptionCallingConventionTestLibrary lib=Native.loadLibrary("testlib",OptionCallingConventionTestLibrary.class,options);
+  OptionCallingConventionTestLibrary lib=Native.loadLibrary("testlib",OptionCallingConventionTestLibrary.class,Collections.singletonMap(Library.OPTION_CALLING_CONVENTION,Function.ALT_CONVENTION));
+  assertNotNull("Library not loaded",lib);
   OptionCallingConventionTestLibrary.TestCallback cb=new OptionCallingConventionTestLibrary.TestCallback(){
     @Override public void invoke(){
     }
@@ -9,7 +8,8 @@
 ;
   try {
     Pointer p=CallbackReference.getFunctionPointer(cb);
-    CallbackReference ref=(CallbackReference)CallbackReference.callbackMap.get(cb);
+    assertNotNull("No function pointer",p);
+    CallbackReference ref=CallbackReference.callbackMap.get(cb);
     assertNotNull("CallbackReference not found",ref);
     assertEquals("Option-based calling convention not applied",Function.ALT_CONVENTION,ref.callingConvention);
   }

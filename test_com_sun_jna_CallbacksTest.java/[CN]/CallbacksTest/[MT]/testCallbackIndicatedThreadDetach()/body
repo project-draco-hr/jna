@@ -1,6 +1,6 @@
 {
   final int[] called={0};
-  final Set threads=new HashSet();
+  final Set<Thread> threads=new HashSet<Thread>();
   final int COUNT=5;
   TestLibrary.VoidCallback cb=new TestLibrary.VoidCallback(){
     @Override public void callback(){
@@ -19,5 +19,5 @@
 ;
   callThreadedCallback(cb,null,COUNT,100,called);
   assertEquals("Multiple callbacks in the same native thread should use the same Thread mapping: " + threads,1,threads.size());
-  waitFor((Thread)threads.iterator().next());
+  waitFor(threads.iterator().next());
 }

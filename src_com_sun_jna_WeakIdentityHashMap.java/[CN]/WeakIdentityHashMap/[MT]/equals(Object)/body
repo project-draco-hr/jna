@@ -1,3 +1,12 @@
 {
+  if (o == null) {
+    return false;
+  }
+  if (o == this) {
+    return true;
+  }
+  if (!(o instanceof WeakIdentityHashMap)) {
+    return false;
+  }
   return backingStore.equals(((WeakIdentityHashMap)o).backingStore);
 }

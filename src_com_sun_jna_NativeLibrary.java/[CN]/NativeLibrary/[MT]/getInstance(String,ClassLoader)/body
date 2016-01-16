@@ -1,5 +1,3 @@
 {
-  Map map=new HashMap();
-  map.put(Library.OPTION_CLASSLOADER,classLoader);
-  return getInstance(libraryName,map);
+  return getInstance(libraryName,Collections.singletonMap(Library.OPTION_CLASSLOADER,classLoader));
 }

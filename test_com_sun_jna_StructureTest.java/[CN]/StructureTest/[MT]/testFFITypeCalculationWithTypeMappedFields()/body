@@ -1,24 +1,24 @@
 {
   final TypeMapper mapper=new TypeMapper(){
-    @Override public FromNativeConverter getFromNativeConverter(    Class cls){
+    @Override public FromNativeConverter getFromNativeConverter(    Class<?> cls){
       if (Boolean.class.equals(cls) || boolean.class.equals(cls)) {
         return new FromNativeConverter(){
           @Override public Class<?> nativeType(){
             return byte.class;
           }
           @Override public Object fromNative(          Object nativeValue,          FromNativeContext context){
-            return nativeValue.equals(new Byte((byte)0)) ? Boolean.FALSE : Boolean.TRUE;
+            return nativeValue.equals(Byte.valueOf((byte)0)) ? Boolean.FALSE : Boolean.TRUE;
           }
         }
 ;
       }
       return null;
     }
-    @Override public ToNativeConverter getToNativeConverter(    Class javaType){
+    @Override public ToNativeConverter getToNativeConverter(    Class<?> javaType){
       if (Boolean.class.equals(javaType) || boolean.class.equals(javaType)) {
         return new ToNativeConverter(){
           @Override public Object toNative(          Object value,          ToNativeContext context){
-            return new Byte(Boolean.TRUE.equals(value) ? (byte)1 : (byte)0);
+            return Byte.valueOf(Boolean.TRUE.equals(value) ? (byte)1 : (byte)0);
           }
           @Override public Class<?> nativeType(){
             return byte.class;

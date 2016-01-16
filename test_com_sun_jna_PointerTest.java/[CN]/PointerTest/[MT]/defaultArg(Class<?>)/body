@@ -1,0 +1,12 @@
+{
+  if (type == boolean.class || type == Boolean.class)   return Boolean.FALSE;
+  if (type == byte.class || type == Byte.class)   return Byte.valueOf((byte)0);
+  if (type == char.class || type == Character.class)   return Character.valueOf((char)0);
+  if (type == short.class || type == Short.class)   return Short.valueOf((short)0);
+  if (type == int.class || type == Integer.class)   return Integer.valueOf(0);
+  if (type == long.class || type == Long.class)   return Long.valueOf(0L);
+  if (type == float.class || type == Float.class)   return Float.valueOf(0);
+  if (type == double.class || type == Double.class)   return Double.valueOf(0);
+  if (type == NativeLong.class)   return new NativeLong(0);
+  return null;
+}

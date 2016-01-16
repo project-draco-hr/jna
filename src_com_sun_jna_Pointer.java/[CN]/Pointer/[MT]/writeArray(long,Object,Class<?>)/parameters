@@ -1,0 +1,3 @@
+long offset
+Object value
+Class<?> cls

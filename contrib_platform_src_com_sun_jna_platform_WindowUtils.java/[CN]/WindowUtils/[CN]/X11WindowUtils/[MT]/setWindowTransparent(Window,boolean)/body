@@ -11,7 +11,7 @@
   boolean isTransparent=w.getBackground() != null && w.getBackground().getAlpha() == 0;
   if (transparent == isTransparent)   return;
   whenDisplayable(w,new Runnable(){
-    public void run(){
+    @Override public void run(){
       JRootPane root=((RootPaneContainer)w).getRootPane();
       JLayeredPane lp=root.getLayeredPane();
       Container content=root.getContentPane();

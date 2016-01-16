@@ -1,5 +1,6 @@
 {
 class TestType extends IntegerType {
+    private static final long serialVersionUID=1L;
     public TestType(    int size,    long value){
       super(size,value);
     }

@@ -1,17 +1,15 @@
 {
   final int MAGIC=0xABEDCF23;
-  Map options=new HashMap();
   DefaultTypeMapper mapper=new DefaultTypeMapper();
   mapper.addToNativeConverter(Boolean.class,new ToNativeConverter(){
-    public Object toNative(    Object arg,    ToNativeContext ctx){
-      return new Integer(Boolean.TRUE.equals(arg) ? MAGIC : 0);
+    @Override public Object toNative(    Object arg,    ToNativeContext ctx){
+      return Integer.valueOf(Boolean.TRUE.equals(arg) ? MAGIC : 0);
     }
-    public Class nativeType(){
+    @Override public Class<?> nativeType(){
       return Integer.class;
     }
   }
 );
-  options.put(Library.OPTION_TYPE_MAPPER,mapper);
-  TestLibrary lib=Native.loadLibrary("testlib",TestLibrary.class,options);
+  TestLibrary lib=Native.loadLibrary("testlib",TestLibrary.class,Collections.singletonMap(Library.OPTION_TYPE_MAPPER,mapper));
   assertEquals("Failed to convert Boolean argument to Int",MAGIC,lib.returnInt32Argument(true));
 }

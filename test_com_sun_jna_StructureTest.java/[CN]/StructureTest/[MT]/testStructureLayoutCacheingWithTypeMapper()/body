@@ -6,10 +6,10 @@ class TestTypeMapper extends DefaultTypeMapper {
           return int.class;
         }
         @Override public Object fromNative(        Object nativeValue,        FromNativeContext c){
-          return new Boolean(nativeValue.equals(new Integer(0)));
+          return Boolean.valueOf(nativeValue.equals(Integer.valueOf(0)));
         }
         @Override public Object toNative(        Object value,        ToNativeContext c){
-          return new Integer(Boolean.TRUE.equals(value) ? -1 : 0);
+          return Integer.valueOf(Boolean.TRUE.equals(value) ? -1 : 0);
         }
       }
 ;

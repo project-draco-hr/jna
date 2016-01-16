@@ -2,7 +2,7 @@
   if (this == o) {
     return true;
   }
-  IdentityWeakReference ref=(IdentityWeakReference)o;
+  IdentityWeakReference<?> ref=(IdentityWeakReference<?>)o;
   if (this.get() == ref.get()) {
     return true;
   }

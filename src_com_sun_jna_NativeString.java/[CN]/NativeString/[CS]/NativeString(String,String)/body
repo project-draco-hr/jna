@@ -3,7 +3,7 @@
     throw new NullPointerException("String must not be null");
   }
   this.encoding=encoding;
-  if (this.encoding == WIDE_STRING) {
+  if (WIDE_STRING.equals(this.encoding)) {
     int len=(string.length() + 1) * Native.WCHAR_SIZE;
     pointer=new StringMemory(len);
     pointer.setWideString(0,string);

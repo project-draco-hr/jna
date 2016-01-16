@@ -1,0 +1,4 @@
+{
+  super(obj,q);
+  hash=System.identityHashCode(obj);
+}

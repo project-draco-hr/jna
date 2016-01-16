@@ -2,12 +2,12 @@
   if (Library.Handler.OBJECT_TOSTRING.equals(method)) {
     String str="Proxy interface to " + function;
     Method m=(Method)options.get(Function.OPTION_INVOKING_METHOD);
-    Class cls=findCallbackClass(m.getDeclaringClass());
+    Class<?> cls=findCallbackClass(m.getDeclaringClass());
     str+=" (" + cls.getName() + ")";
     return str;
   }
  else   if (Library.Handler.OBJECT_HASHCODE.equals(method)) {
-    return new Integer(hashCode());
+    return Integer.valueOf(hashCode());
   }
  else   if (Library.Handler.OBJECT_EQUALS.equals(method)) {
     Object o=args[0];

@@ -1,0 +1,4 @@
+{
+  this.options=options;
+  this.function=new Function(address,callingConvention,(String)options.get(Library.OPTION_STRING_ENCODING));
+}

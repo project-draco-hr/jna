@@ -1,4 +1,0 @@
-{
-  super(obj,queue);
-  hash=System.identityHashCode(obj);
-}

@@ -9,8 +9,8 @@
     }
   }
 ;
-  assertEquals("Wrong type mapper for callback class",lib._MAPPER,Native.getTypeMapper(CallbackTestLibrary.FloatCallback.class));
-  assertEquals("Wrong type mapper for callback object",lib._MAPPER,Native.getTypeMapper(cb.getClass()));
+  assertEquals("Wrong type mapper for callback class",CallbackTestLibrary._MAPPER,Native.getTypeMapper(CallbackTestLibrary.FloatCallback.class));
+  assertEquals("Wrong type mapper for callback object",CallbackTestLibrary._MAPPER,Native.getTypeMapper(cb.getClass()));
   float result=lib.callInt64Callback(cb,-1,-2);
   assertEquals("Wrong first callback argument",-1,ARGS[0],0);
   assertEquals("Wrong second callback argument",-2,ARGS[1],0);
