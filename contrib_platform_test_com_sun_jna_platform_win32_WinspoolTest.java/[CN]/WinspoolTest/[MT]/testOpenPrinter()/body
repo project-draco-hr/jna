@@ -1,0 +1,7 @@
+{
+  HANDLEByReference hbr=new HANDLEByReference();
+  boolean result=Winspool.INSTANCE.OpenPrinter("1234567890A123",hbr,null);
+  assertFalse("OpenPrinter should return false on failure.",result);
+  assertNull("The pointer-to-a-printer-handle should be null on failure.",hbr.getValue());
+  assertEquals("GetLastError() should return ERROR_INVALID_PRINTER_NAME",WinError.ERROR_INVALID_PRINTER_NAME,Native.getLastError());
+}

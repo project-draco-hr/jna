@@ -1,0 +1,5 @@
+{
+  boolean result=Winspool.INSTANCE.ClosePrinter(null);
+  assertFalse("ClosePrinter should return false on failure.",result);
+  assertEquals("GetLastError() should return ERROR_INVALID_HANDLE",WinError.ERROR_INVALID_HANDLE,Native.getLastError());
+}
