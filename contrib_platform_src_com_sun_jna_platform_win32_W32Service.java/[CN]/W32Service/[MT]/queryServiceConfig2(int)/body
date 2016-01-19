@@ -1,0 +1,9 @@
+{
+  IntByReference bufferSize=new IntByReference();
+  Advapi32.INSTANCE.QueryServiceConfig2(_handle,type,Pointer.NULL,0,bufferSize);
+  Pointer buffer=new Memory(bufferSize.getValue());
+  if (!Advapi32.INSTANCE.QueryServiceConfig2(_handle,type,buffer,bufferSize.getValue(),new IntByReference())) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  return buffer;
+}
