@@ -1,0 +1,47 @@
+{
+  Factory fact=new Factory();
+  Connection conn=fact.createObject(Connection.class);
+  conn.Open("Provider=Search.CollatorDSO;Extended Properties='Application=Windows';","","",-1);
+  Recordset recordset=fact.createObject(Recordset.class);
+  recordset.Open("SELECT TOP 500 System.ItemPathDisplay, System.ItemName, System.ItemUrl, System.DateCreated FROM SYSTEMINDEX ORDER BY System.ItemUrl",conn,CursorTypeEnum.adOpenUnspecified,LockTypeEnum.adLockUnspecified,-1);
+  SAFEARRAY wrap=recordset.GetRows();
+  assertThat(wrap.getDimensionCount(),is(2));
+  long timeDirect=0;
+  long timeGetElement=0;
+  long timePointer=0;
+  long timeHelper=0;
+  long start, end;
+  for (int i=0; i < 4 * 10; i++) {
+    if (i % 4 == 0) {
+      start=System.currentTimeMillis();
+      toArrayPtrToElement(wrap);
+      end=System.currentTimeMillis();
+      timePointer+=(end - start);
+    }
+ else     if (i % 4 == 1) {
+      start=System.currentTimeMillis();
+      toArrayGetElement(wrap);
+      end=System.currentTimeMillis();
+      timeGetElement+=(end - start);
+    }
+ else     if (i % 4 == 2) {
+      start=System.currentTimeMillis();
+      toArrayDirect(wrap);
+      end=System.currentTimeMillis();
+      timeDirect+=(end - start);
+    }
+ else     if (i % 4 == 3) {
+      start=System.currentTimeMillis();
+      OaIdlUtil.toPrimitiveArray(wrap,false);
+      end=System.currentTimeMillis();
+      timeHelper+=(end - start);
+    }
+  }
+  System.out.println("Direct: " + timeDirect + " ms");
+  System.out.println("GetElement: " + timeGetElement + " ms");
+  System.out.println("Pointer: " + timePointer + " ms");
+  System.out.println("Helper: " + timeHelper + " ms");
+  recordset.Close();
+  conn.Close();
+  fact.disposeAll();
+}
