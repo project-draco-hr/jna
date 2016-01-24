@@ -1,9 +1,11 @@
 {
 synchronized (this.registeredObjects) {
-    Set<ProxyObject> s=new HashSet<ProxyObject>(this.registeredObjects.keySet());
-    for (    ProxyObject proxyObject : s) {
-      int r=this.registeredObjects.get(proxyObject);
-      proxyObject.dispose(r);
+    List<WeakReference<ProxyObject>> s=new ArrayList<WeakReference<ProxyObject>>(this.registeredObjects);
+    for (    WeakReference<ProxyObject> weakRef : s) {
+      ProxyObject po=weakRef.get();
+      if (po != null) {
+        po.dispose();
+      }
     }
     this.registeredObjects.clear();
   }

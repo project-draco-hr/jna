@@ -1,4 +1,3 @@
 {
   this.comThread=comThread;
-  this.registeredObjects=new WeakHashMap<ProxyObject,Integer>();
 }

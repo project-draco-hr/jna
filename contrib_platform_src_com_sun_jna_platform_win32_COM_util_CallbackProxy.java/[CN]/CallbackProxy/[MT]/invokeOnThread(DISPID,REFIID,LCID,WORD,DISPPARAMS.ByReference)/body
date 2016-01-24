@@ -17,8 +17,9 @@
     VariantArg vargs=pDispParams.rgvarg;
     vargs.setArraySize(pDispParams.cArgs.intValue());
     for (int i=0; i < vargs.variantArg.length; i++) {
+      Class targetClass=params[vargs.variantArg.length - 1 - i];
       Variant.VARIANT varg=vargs.variantArg[i];
-      Object jarg=Convert.toJavaObject(varg,params[vargs.variantArg.length - 1 - i]);
+      Object jarg=Convert.toJavaObject(varg,targetClass);
       if (jarg instanceof IDispatch) {
         IDispatch dispatch=(IDispatch)jarg;
         PointerByReference ppvObject=new PointerByReference();
@@ -26,54 +27,37 @@
         dispatch.QueryInterface(new REFIID(iid),ppvObject);
         Unknown rawUnk=new Unknown(ppvObject.getValue());
         long unknownId=Pointer.nativeValue(rawUnk.getPointer());
-        int n=rawUnk.Release();
         IUnknown unk=CallbackProxy.this.factory.createProxy(IUnknown.class,unknownId,dispatch);
-        rjargs.add(unk);
+        if (targetClass.getAnnotation(ComInterface.class) != null) {
+          rjargs.add(unk.queryInterface(targetClass));
+        }
+ else {
+          rjargs.add(unk);
+        }
       }
  else {
         rjargs.add(jarg);
       }
     }
   }
-  final List<Object> jargs=new ArrayList<Object>(rjargs);
-  Runnable invokation=new Runnable(){
-    @Override public void run(){
-      List<Object> margs=new ArrayList<Object>();
-      try {
-        int lastParamIdx=eventMethod.getParameterTypes().length - 1;
-        for (int i=lastParamIdx; i >= 0; i--) {
-          Class<?> paramType=params[lastParamIdx - i];
-          Object jobj=jargs.get(i);
-          if (jobj != null && paramType.getAnnotation(ComInterface.class) != null) {
-            if (jobj instanceof IUnknown) {
-              IUnknown unk=(IUnknown)jobj;
-              Object mobj=unk.queryInterface(paramType);
-              margs.add(mobj);
-            }
- else {
-              throw new RuntimeException("Cannot convert argument " + jobj.getClass() + " to ComInterface "+ paramType);
-            }
-          }
- else {
-            margs.add(jobj);
-          }
-        }
-        eventMethod.invoke(comEventCallbackListener,margs.toArray());
+  List<Object> margs=new ArrayList<Object>();
+  try {
+    int lastParamIdx=eventMethod.getParameterTypes().length - 1;
+    for (int i=lastParamIdx; i >= 0; i--) {
+      margs.add(rjargs.get(i));
+    }
+    eventMethod.invoke(comEventCallbackListener,margs.toArray());
+  }
+ catch (  Exception e) {
+    List<String> decodedClassNames=new ArrayList<String>(margs.size());
+    for (    Object o : margs) {
+      if (o == null) {
+        decodedClassNames.add("NULL");
       }
- catch (      Exception e) {
-        List<String> decodedClassNames=new ArrayList<String>(margs.size());
-        for (        Object o : margs) {
-          if (o == null) {
-            decodedClassNames.add("NULL");
-          }
  else {
-            decodedClassNames.add(o.getClass().getName());
-          }
-        }
-        CallbackProxy.this.comEventCallbackListener.errorReceivingCallbackEvent("Exception invoking method " + eventMethod + " supplied: "+ decodedClassNames.toString(),e);
+        decodedClassNames.add(o.getClass().getName());
       }
     }
+    CallbackProxy.this.comEventCallbackListener.errorReceivingCallbackEvent("Exception invoking method " + eventMethod + " supplied: "+ decodedClassNames.toString(),e);
   }
-;
-  this.executorService.execute(invokation);
 }
