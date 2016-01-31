@@ -1,4 +1,4 @@
 {
   Number[] args=new Number[]{Integer.valueOf(1)};
-  assertEquals("No trailing NULL was appended to varargs list",1,lib.addInt32VarArgs("dd",args));
+  assertEquals("No trailing NULL was appended to varargs list",1,lib.addVarArgs("dd",args));
 }
