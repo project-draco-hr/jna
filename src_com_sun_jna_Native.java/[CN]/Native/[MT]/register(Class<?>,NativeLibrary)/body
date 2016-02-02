@@ -99,7 +99,7 @@ break;
 }
 Function f=lib.getFunction(method.getName(),method);
 try {
-handles[i]=registerMethod(cls,method.getName(),sig,cvt,closure_atypes,atypes,rcvt,closure_rtype,rtype,rclass,f.peer,f.getCallingConvention(),throwLastError,toNative,fromNative,f.encoding);
+handles[i]=registerMethod(cls,method.getName(),sig,cvt,closure_atypes,atypes,rcvt,closure_rtype,rtype,method,f.peer,f.getCallingConvention(),throwLastError,toNative,fromNative,f.encoding);
 }
  catch (NoSuchMethodError e) {
 throw new UnsatisfiedLinkError("No method " + method.getName() + " with signature "+ sig+ " in "+ cls);

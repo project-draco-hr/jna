@@ -1,3 +1,0 @@
-{
-  return cvt.fromNative(o,new FromNativeContext(cls));
-}

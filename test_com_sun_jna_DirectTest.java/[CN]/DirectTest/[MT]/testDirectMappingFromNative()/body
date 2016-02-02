@@ -1,0 +1,21 @@
+{
+  DefaultTypeMapper mapper=new DefaultTypeMapper();
+  mapper.addTypeConverter(PointerTypeMapped.class,new TypeConverter(){
+    @Override public PointerTypeMapped fromNative(    Object nativeValue,    FromNativeContext context){
+      PointerTypeMapped ret=new PointerTypeMapped();
+      ret.nativeMethodName=((MethodResultContext)context).getMethod().getName();
+      return ret;
+    }
+    @Override public Object toNative(    Object value,    ToNativeContext context){
+      return null;
+    }
+    @Override public Class<?> nativeType(){
+      return Pointer.class;
+    }
+  }
+);
+  NativeLibrary lib=NativeLibrary.getInstance("testlib",Collections.singletonMap(Library.OPTION_TYPE_MAPPER,mapper));
+  Native.register(FromNativeTests.class,lib);
+  assertEquals("Failed to access MethodResultContext","returnPointerArgument",FromNativeTests.returnPointerArgument(new PointerNativeMapped()).nativeMethodName);
+  assertEquals("Failed to access MethodResultContext","returnPointerArgument",FromNativeTests.returnPointerArgument(new PointerTypeMapped()).nativeMethodName);
+}
