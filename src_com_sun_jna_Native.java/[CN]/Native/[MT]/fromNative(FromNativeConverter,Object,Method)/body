@@ -1,0 +1,3 @@
+{
+  return cvt.fromNative(o,new MethodResultContext(m.getReturnType(),null,null,m));
+}

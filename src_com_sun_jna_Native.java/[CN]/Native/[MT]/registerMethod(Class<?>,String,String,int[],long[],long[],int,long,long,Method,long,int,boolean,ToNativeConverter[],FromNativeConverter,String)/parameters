@@ -7,7 +7,7 @@ long[] arg_types
 int rconversion
 long closure_rtype
 long rtype
-Class<?> rclass
+Method method
 long fptr
 int callingConvention
 boolean throwLastError

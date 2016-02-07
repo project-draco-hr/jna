@@ -1,0 +1,4 @@
+{
+  Class<?> cls=m.getReturnType();
+  return (NativeMapped)NativeMappedConverter.getInstance(cls).fromNative(value,new MethodResultContext(cls,null,null,m));
+}
