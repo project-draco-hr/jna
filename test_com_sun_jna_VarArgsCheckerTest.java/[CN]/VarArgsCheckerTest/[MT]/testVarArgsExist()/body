@@ -1,6 +1,6 @@
 {
-  final VarArgsChecker sut=VarArgsChecker.create();
-  final Method toCheckForVarArgs=VarArgsCheckerTest.class.getMethod("methodWithVarArgs",new Class[]{String[].class});
-  final boolean res=sut.isVarArgs(toCheckForVarArgs);
+  final VarArgsChecker checker=VarArgsChecker.create();
+  final Method method=VarArgsCheckerTest.class.getMethod("methodWithVarArgs",new Class[]{String[].class});
+  final boolean res=checker.isVarArgs(method);
   assertTrue("Method should be detected as varargs",res);
 }
