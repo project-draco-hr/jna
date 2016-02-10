@@ -2,6 +2,5 @@
   ITypeLib shellTypeLib=loadShellTypeLib();
   PointerByReference ppTInfo=new PointerByReference();
   HRESULT hr=shellTypeLib.GetTypeInfo(new UINT(0),ppTInfo);
-  COMUtils.checkRC(hr);
-  assertEquals(0,hr.intValue());
+  assertTrue(COMUtils.SUCCEEDED(hr));
 }

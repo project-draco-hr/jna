@@ -1,2 +1,6 @@
 {
+  ITypeLib shellTypeLib=loadShellTypeLib();
+  PointerByReference pbr=new PointerByReference();
+  HRESULT hr=shellTypeLib.GetTypeComp(pbr);
+  assertTrue(COMUtils.SUCCEEDED(hr));
 }

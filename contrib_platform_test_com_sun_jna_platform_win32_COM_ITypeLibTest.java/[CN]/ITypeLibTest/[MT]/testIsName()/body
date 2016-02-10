@@ -1,0 +1,12 @@
+{
+  ITypeLib shellTypeLib=loadShellTypeLib();
+  String memberValue="Folder";
+  Pointer p=Ole32.INSTANCE.CoTaskMemAlloc((memberValue.length() + 1L) * Native.WCHAR_SIZE);
+  WTypes.LPOLESTR olestr=new WTypes.LPOLESTR(p);
+  olestr.setValue(memberValue);
+  WinDef.BOOLByReference boolByRef=new WinDef.BOOLByReference();
+  HRESULT hr=shellTypeLib.IsName(olestr,new ULONG(0),boolByRef);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  assertTrue(boolByRef.getValue().booleanValue());
+  Ole32.INSTANCE.CoTaskMemFree(p);
+}
