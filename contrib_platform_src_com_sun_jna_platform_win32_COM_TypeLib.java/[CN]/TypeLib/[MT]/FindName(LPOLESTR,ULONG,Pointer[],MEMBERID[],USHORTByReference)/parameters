@@ -1,5 +1,5 @@
-BSTRByReference szNameBuf
+LPOLESTR szNameBuf
 ULONG lHashVal
-PointerByReference ppTInfo
+Pointer[] ppTInfo
 MEMBERID[] rgMemId
 USHORTByReference pcFound

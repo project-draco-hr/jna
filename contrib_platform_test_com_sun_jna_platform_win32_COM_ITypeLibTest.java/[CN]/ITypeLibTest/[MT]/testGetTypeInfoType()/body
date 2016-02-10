@@ -2,6 +2,5 @@
   ITypeLib shellTypeLib=loadShellTypeLib();
   TYPEKIND.ByReference pTKind=new TYPEKIND.ByReference();
   HRESULT hr=shellTypeLib.GetTypeInfoType(new UINT(0),pTKind);
-  COMUtils.checkRC(hr);
-  assertEquals(0,hr.intValue());
+  assertTrue(COMUtils.SUCCEEDED(hr));
 }

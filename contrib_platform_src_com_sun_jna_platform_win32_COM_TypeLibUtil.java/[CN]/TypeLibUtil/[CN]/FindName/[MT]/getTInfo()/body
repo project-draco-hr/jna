@@ -1,8 +1,7 @@
 {
-  Pointer pVals=pTInfo.getValue();
   ITypeInfo[] values=new ITypeInfo[pcFound];
   for (int i=0; i < pcFound; i++) {
-    values[i]=new TypeInfo(pVals.getPointer(i * Pointer.SIZE));
+    values[i]=new TypeInfo(pTInfo[i]);
   }
   return values;
 }

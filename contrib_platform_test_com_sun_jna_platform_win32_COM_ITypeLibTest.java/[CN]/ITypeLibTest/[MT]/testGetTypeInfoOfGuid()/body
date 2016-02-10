@@ -1,2 +1,7 @@
 {
+  ITypeLib shellTypeLib=loadShellTypeLib();
+  GUID iFolderViewOC=new GUID("{9BA05970-F6A8-11CF-A442-00A0C90A8F39}");
+  PointerByReference pbr=new PointerByReference();
+  HRESULT hr=shellTypeLib.GetTypeInfoOfGuid(iFolderViewOC,pbr);
+  assertTrue(COMUtils.SUCCEEDED(hr));
 }
