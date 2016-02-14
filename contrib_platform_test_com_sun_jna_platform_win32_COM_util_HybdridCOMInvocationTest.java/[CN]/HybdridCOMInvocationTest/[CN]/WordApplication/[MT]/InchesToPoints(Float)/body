@@ -1,0 +1,5 @@
+{
+  VARIANT.ByReference pvResult=new VARIANT.ByReference();
+  this.oleMethod(OleAuto.DISPATCH_METHOD,pvResult,this.getIDispatch(),"InchesToPoints",new VARIANT[]{new VARIANT(value)});
+  return pvResult.floatValue();
+}

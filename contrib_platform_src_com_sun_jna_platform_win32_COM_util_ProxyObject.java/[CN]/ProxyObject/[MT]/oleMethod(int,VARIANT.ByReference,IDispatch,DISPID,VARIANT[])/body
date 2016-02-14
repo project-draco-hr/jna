@@ -17,6 +17,13 @@
     dp.cNamedArgs=new UINT(_argsLen);
     dp.rgdispidNamedArgs=new DISPIDByReference(OaIdl.DISPID_PROPERTYPUT);
   }
+  final int finalNType;
+  if (nType == OleAuto.DISPATCH_METHOD || nType == OleAuto.DISPATCH_PROPERTYGET) {
+    finalNType=OleAuto.DISPATCH_METHOD | OleAuto.DISPATCH_PROPERTYGET;
+  }
+ else {
+    finalNType=nType;
+  }
   if (_argsLen > 0) {
     dp.cArgs=new UINT(_args.length);
     dp.rgvarg=new VariantArg.ByReference(_args);
@@ -25,7 +32,7 @@
   try {
     HRESULT hr=this.comThread.execute(new Callable<HRESULT>(){
       @Override public HRESULT call() throws Exception {
-        return pDisp.Invoke(dispId,new REFIID(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,new WinDef.WORD(nType),dp,pvResult,pExcepInfo,puArgErr);
+        return pDisp.Invoke(dispId,new REFIID(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,new WinDef.WORD(finalNType),dp,pvResult,pExcepInfo,puArgErr);
       }
     }
 );
