@@ -1,0 +1,3 @@
+{
+  super(new CLSID(CLSID_WORD),useActiveInstance);
+}

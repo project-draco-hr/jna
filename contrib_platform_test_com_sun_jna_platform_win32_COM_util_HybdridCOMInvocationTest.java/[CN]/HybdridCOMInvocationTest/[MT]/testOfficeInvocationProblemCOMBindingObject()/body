@@ -1,0 +1,11 @@
+{
+  WordApplication app;
+  try {
+    app=new WordApplication(false);
+  }
+ catch (  COMException ex) {
+    LOG.log(Level.INFO,"HybdridCOMInvocationTest test was not run, MS Word object could not be instantiated.",ex);
+    return;
+  }
+  assertEquals(72.0f,app.InchesToPoints(1F));
+}
