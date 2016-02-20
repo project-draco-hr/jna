@@ -11,16 +11,9 @@
   }
   Variant.VARIANT.ByReference result=new Variant.VARIANT.ByReference();
   WinNT.HRESULT hr=this.oleMethod(OleAuto.DISPATCH_METHOD,result,this.getRawDispatch(),name,vargs);
+  for (int i=0; i < vargs.length; i++) {
+    Convert.free(vargs[i],args[i]);
+  }
   COMUtils.checkRC(hr);
-  Object jobj=Convert.toJavaObject(result,returnType);
-  if (IComEnum.class.isAssignableFrom(returnType)) {
-    return returnType.cast(Convert.toComEnum((Class<? extends IComEnum>)returnType,jobj));
-  }
-  if (jobj instanceof IDispatch) {
-    IDispatch d=(IDispatch)jobj;
-    T t=this.factory.createProxy(returnType,d);
-    int n=d.Release();
-    return t;
-  }
-  return returnType.cast(jobj);
+  return convertAndFreeReturn(result,returnType);
 }
