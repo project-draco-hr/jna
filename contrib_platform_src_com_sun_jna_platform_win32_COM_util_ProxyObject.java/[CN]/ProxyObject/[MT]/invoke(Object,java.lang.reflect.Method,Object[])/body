@@ -1,3 +1,32 @@
 {
-  return this.invokeSynchronised(proxy,method,args);
+  boolean declaredAsInterface=(method.getAnnotation(ComMethod.class) != null) || (method.getAnnotation(ComProperty.class) != null);
+  if ((!declaredAsInterface) && (method.getDeclaringClass().equals(Object.class) || method.getDeclaringClass().equals(IRawDispatchHandle.class) || method.getDeclaringClass().equals(com.sun.jna.platform.win32.COM.util.IUnknown.class)|| method.getDeclaringClass().equals(com.sun.jna.platform.win32.COM.util.IDispatch.class)|| method.getDeclaringClass().equals(IConnectionPoint.class))) {
+    try {
+      return method.invoke(this,args);
+    }
+ catch (    InvocationTargetException ex) {
+      throw ex.getCause();
+    }
+  }
+  Class<?> returnType=method.getReturnType();
+  boolean isVoid=Void.TYPE.equals(returnType);
+  ComProperty prop=method.getAnnotation(ComProperty.class);
+  if (null != prop) {
+    if (isVoid) {
+      String propName=this.getMutatorName(method,prop);
+      this.setProperty(propName,args[0]);
+      return null;
+    }
+ else {
+      String propName=this.getAccessorName(method,prop);
+      return this.getProperty(returnType,propName,args);
+    }
+  }
+  ComMethod meth=method.getAnnotation(ComMethod.class);
+  if (null != meth) {
+    String methName=this.getMethodName(method,meth);
+    Object res=this.invokeMethod(returnType,methName,args);
+    return res;
+  }
+  return null;
 }
