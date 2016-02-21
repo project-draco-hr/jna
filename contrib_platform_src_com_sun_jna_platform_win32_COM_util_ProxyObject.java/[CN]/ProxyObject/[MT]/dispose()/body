@@ -1,0 +1,7 @@
+{
+  if (!((Dispatch)this.rawDispatch).getPointer().equals(Pointer.NULL)) {
+    this.rawDispatch.Release();
+    ((Dispatch)this.rawDispatch).setPointer(Pointer.NULL);
+    factory.unregister(this);
+  }
+}

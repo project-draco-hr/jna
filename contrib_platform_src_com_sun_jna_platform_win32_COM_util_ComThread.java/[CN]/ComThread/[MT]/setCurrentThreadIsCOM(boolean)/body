@@ -1,0 +1,3 @@
+{
+  currentThreadIsCOM.set(isCOM);
+}

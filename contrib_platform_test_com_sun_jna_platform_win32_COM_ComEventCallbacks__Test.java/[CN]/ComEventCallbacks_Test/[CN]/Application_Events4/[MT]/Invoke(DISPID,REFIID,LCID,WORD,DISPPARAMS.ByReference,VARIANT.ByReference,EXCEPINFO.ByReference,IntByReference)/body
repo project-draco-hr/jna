@@ -1,4 +1,0 @@
-{
-  this.Invoke_called=true;
-  return new HRESULT(WinError.E_NOTIMPL);
-}

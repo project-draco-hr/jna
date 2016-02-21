@@ -1,6 +1,16 @@
 {
-  if (this.requiresInitialisation) {
-    executor.execute(firstTask);
+  if (getCurrentThreadIsCOM()) {
+    try {
+      return task.call();
+    }
+ catch (    Exception ex) {
+      throw new ExecutionException(ex);
+    }
   }
-  return executor.submit(task).get(this.timeoutMilliseconds,TimeUnit.MILLISECONDS);
+ else {
+    if (this.requiresInitialisation) {
+      executor.execute(firstTask);
+    }
+    return executor.submit(task).get(this.timeoutMilliseconds,TimeUnit.MILLISECONDS);
+  }
 }

@@ -1,17 +1,13 @@
 {
-  ComIMsWordApp wordObj=factory.createObject(ComIMsWordApp.class);
-  ComIApplication wordApp=wordObj.queryInterface(ComIApplication.class);
-  ApplicationEvents4_EventListener listener=new ApplicationEvents4_EventListener();
-  IComEventCallbackCookie cookie=wordApp.advise(ApplicationEvents4_Event.class,listener);
-  wordApp.unadvise(ApplicationEvents4_Event.class,cookie);
+  ComInternetExplorer ieApp=factory.createObject(ComInternetExplorer.class);
+  ComIWebBrowser2 iWebBrowser2=ieApp.queryInterface(ComIWebBrowser2.class);
+  iWebBrowser2.setVisible(true);
+  DWebBrowserEvents2_Listener listener=new DWebBrowserEvents2_Listener();
+  IComEventCallbackCookie cookie=iWebBrowser2.advise(DWebBrowserEvents2.class,listener);
+  iWebBrowser2.unadvise(DWebBrowserEvents2.class,cookie);
   listener.Quit_called=false;
-  wordApp.Quit(false,null,null);
-  try {
-    Thread.sleep(200);
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
+  iWebBrowser2.Quit();
+  Thread.sleep(200);
   Assert.assertNotNull(listener.Quit_called);
   Assert.assertFalse(listener.Quit_called);
 }
