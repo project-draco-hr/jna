@@ -1,9 +1,0 @@
-{
-  Boolean res=currentThreadIsCOM.get();
-  if (res == null) {
-    return false;
-  }
- else {
-    return currentThreadIsCOM.get();
-  }
-}

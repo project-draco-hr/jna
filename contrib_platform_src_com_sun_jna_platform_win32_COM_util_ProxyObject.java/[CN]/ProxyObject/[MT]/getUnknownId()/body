@@ -1,29 +1,2 @@
 {
-  if (-1 == this.unknownId) {
-    try {
-      final PointerByReference ppvObject=new PointerByReference();
-      Thread current=Thread.currentThread();
-      String tn=current.getName();
-      HRESULT hr=this.comThread.execute(new Callable<HRESULT>(){
-        @Override public HRESULT call() throws Exception {
-          IID iid=com.sun.jna.platform.win32.COM.IUnknown.IID_IUNKNOWN;
-          return ProxyObject.this.getRawDispatch().QueryInterface(new REFIID(iid),ppvObject);
-        }
-      }
-);
-      if (WinNT.S_OK.equals(hr)) {
-        Dispatch dispatch=new Dispatch(ppvObject.getValue());
-        this.unknownId=Pointer.nativeValue(dispatch.getPointer());
-        int n=dispatch.Release();
-      }
- else {
-        String formatMessageFromHR=Kernel32Util.formatMessage(hr);
-        throw new COMException("getUnknownId: " + formatMessageFromHR);
-      }
-    }
- catch (    Exception e) {
-      throw new COMException("Error occured when trying get Unknown Id ",e);
-    }
-  }
-  return this.unknownId;
 }

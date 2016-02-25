@@ -1,5 +1,0 @@
-{
-  if (!executor.isShutdown()) {
-    this.terminate(100);
-  }
-}

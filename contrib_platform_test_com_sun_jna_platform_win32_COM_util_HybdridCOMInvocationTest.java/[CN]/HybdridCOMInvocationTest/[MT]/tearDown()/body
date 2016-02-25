@@ -1,4 +1,3 @@
 {
-  super.tearDown();
   Ole32.INSTANCE.CoUninitialize();
 }

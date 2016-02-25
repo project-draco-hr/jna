@@ -1,6 +1,2 @@
 {
-  ProxyObject jop=new ProxyObject(comInterface,dispatch,this);
-  Object proxy=Proxy.newProxyInstance(comInterface.getClassLoader(),new Class<?>[]{comInterface},jop);
-  T result=comInterface.cast(proxy);
-  return result;
 }

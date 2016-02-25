@@ -1,25 +1,2 @@
 {
-  try {
-    ComInterface comInterfaceAnnotation=comEventCallbackInterface.getAnnotation(ComInterface.class);
-    if (null == comInterfaceAnnotation) {
-      throw new COMException("advise: Interface must define a value for either iid via the ComInterface annotation");
-    }
-    final IID iid=this.getIID(comInterfaceAnnotation);
-    final ConnectionPoint rawCp=this.fetchRawConnectionPoint(iid);
-    final IDispatchCallback rawListener=new CallbackProxy(this.factory,comEventCallbackInterface,comEventCallbackListener);
-    comEventCallbackListener.setDispatchCallbackListener(rawListener);
-    final DWORDByReference pdwCookie=new DWORDByReference();
-    HRESULT hr=factory.getComThread().execute(new Callable<HRESULT>(){
-      @Override public HRESULT call() throws Exception {
-        return rawCp.Advise(rawListener,pdwCookie);
-      }
-    }
-);
-    int n=rawCp.Release();
-    COMUtils.checkRC(hr);
-    return new ComEventCallbackCookie(pdwCookie.getValue());
-  }
- catch (  Exception e) {
-    throw new COMException("Error occured in advise when trying to connect the listener " + comEventCallbackListener,e);
-  }
 }

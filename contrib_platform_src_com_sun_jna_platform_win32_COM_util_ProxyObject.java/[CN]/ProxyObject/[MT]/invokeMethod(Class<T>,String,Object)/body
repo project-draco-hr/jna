@@ -1,19 +1,2 @@
 {
-  VARIANT[] vargs;
-  if (null == args) {
-    vargs=new VARIANT[0];
-  }
- else {
-    vargs=new VARIANT[args.length];
-  }
-  for (int i=0; i < vargs.length; ++i) {
-    vargs[i]=Convert.toVariant(args[i]);
-  }
-  Variant.VARIANT.ByReference result=new Variant.VARIANT.ByReference();
-  WinNT.HRESULT hr=this.oleMethod(OleAuto.DISPATCH_METHOD,result,this.getRawDispatch(),name,vargs);
-  for (int i=0; i < vargs.length; i++) {
-    Convert.free(vargs[i],args[i]);
-  }
-  COMUtils.checkRC(hr);
-  return convertAndFreeReturn(result,returnType);
 }

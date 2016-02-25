@@ -8,4 +8,5 @@
     }
   }
   assertTrue("No IE page was found",pageFound);
+  Ole32.INSTANCE.CoUninitialize();
 }

@@ -1,6 +1,2 @@
 {
-  VARIANT v=Convert.toVariant(value);
-  WinNT.HRESULT hr=this.oleMethod(OleAuto.DISPATCH_PROPERTYPUT,null,this.getRawDispatch(),name,v);
-  Convert.free(v,value);
-  COMUtils.checkRC(hr);
 }
