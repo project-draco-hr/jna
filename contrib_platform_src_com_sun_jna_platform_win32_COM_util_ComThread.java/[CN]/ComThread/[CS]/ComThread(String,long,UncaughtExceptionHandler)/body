@@ -1,3 +1,0 @@
-{
-  this(threadName,timeoutMilliseconds,uncaughtExceptionHandler,Ole32.COINIT_MULTITHREADED);
-}

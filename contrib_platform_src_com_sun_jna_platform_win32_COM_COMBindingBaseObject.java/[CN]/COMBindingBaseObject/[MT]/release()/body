@@ -1,4 +1,5 @@
 {
-  if (this.iDispatch != null)   this.iDispatch.Release();
-  Ole32.INSTANCE.CoUninitialize();
+  if (this.iDispatch != null) {
+    this.iDispatch.Release();
+  }
 }

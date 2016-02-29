@@ -8,5 +8,6 @@
     LOG.log(Level.INFO,"HybdridCOMInvocationTest test was not run, MS Word object could not be instantiated.",ex);
     return;
   }
-  assertEquals(72.0f,app.InchesToPoints(1F));
+  assertThat(app.InchesToPoints(1F),is(72.0f));
+  fact.disposeAll();
 }

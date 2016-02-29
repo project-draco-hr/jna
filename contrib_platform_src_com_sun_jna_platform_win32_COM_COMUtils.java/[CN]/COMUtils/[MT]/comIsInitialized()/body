@@ -1,0 +1,16 @@
+{
+  WinNT.HRESULT hr=Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
+  if (hr.equals(W32Errors.S_OK)) {
+    Ole32.INSTANCE.CoUninitialize();
+    return false;
+  }
+ else   if (hr.equals(W32Errors.S_FALSE)) {
+    Ole32.INSTANCE.CoUninitialize();
+    return true;
+  }
+ else   if (hr.intValue() == W32Errors.RPC_E_CHANGED_MODE) {
+    return true;
+  }
+  COMUtils.checkRC(hr);
+  return false;
+}

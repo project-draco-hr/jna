@@ -1,4 +1,5 @@
 {
+  Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
   this.factory=new Factory();
   while (true) {
     try {
