@@ -2,5 +2,11 @@
   String sidString=EVERYONE;
   PSIDByReference sid=new PSIDByReference();
   assertTrue("SID conversion failed",Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
-  assertEquals("Wrong SID lenght",12,Advapi32.INSTANCE.GetLengthSid(sid.getValue()));
+  PSID value=sid.getValue();
+  try {
+    assertEquals("Wrong SID length",12,Advapi32.INSTANCE.GetLengthSid(value));
+  }
+  finally {
+    assertNull("Failed to free SID",Kernel32.INSTANCE.LocalFree(value.getPointer()));
+  }
 }
