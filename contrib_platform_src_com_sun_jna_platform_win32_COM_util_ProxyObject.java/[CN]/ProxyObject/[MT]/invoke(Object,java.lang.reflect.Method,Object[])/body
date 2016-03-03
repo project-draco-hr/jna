@@ -12,21 +12,38 @@
   boolean isVoid=Void.TYPE.equals(returnType);
   ComProperty prop=method.getAnnotation(ComProperty.class);
   if (null != prop) {
+    int dispId=prop.dispId();
     if (isVoid) {
-      String propName=this.getMutatorName(method,prop);
-      this.setProperty(propName,args[0]);
-      return null;
+      if (dispId != -1) {
+        this.setProperty(new DISPID(dispId),args[0]);
+        return null;
+      }
+ else {
+        String propName=this.getMutatorName(method,prop);
+        this.setProperty(propName,args[0]);
+        return null;
+      }
     }
  else {
-      String propName=this.getAccessorName(method,prop);
-      return this.getProperty(returnType,propName,args);
+      if (dispId != -1) {
+        return this.getProperty(returnType,new DISPID(dispId),args);
+      }
+ else {
+        String propName=this.getAccessorName(method,prop);
+        return this.getProperty(returnType,propName,args);
+      }
     }
   }
   ComMethod meth=method.getAnnotation(ComMethod.class);
   if (null != meth) {
-    String methName=this.getMethodName(method,meth);
-    Object res=this.invokeMethod(returnType,methName,args);
-    return res;
+    int dispId=meth.dispId();
+    if (dispId != -1) {
+      return this.invokeMethod(returnType,new DISPID(dispId),args);
+    }
+ else {
+      String methName=this.getMethodName(method,meth);
+      return this.invokeMethod(returnType,methName,args);
+    }
   }
   return null;
 }
