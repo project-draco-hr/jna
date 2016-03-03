@@ -1,11 +1,21 @@
 {
   String sidString=EVERYONE;
   PSIDByReference sid=new PSIDByReference();
-  assertTrue(Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
-  PointerByReference convertedSidStringPtr=new PointerByReference();
-  assertTrue(Advapi32.INSTANCE.ConvertSidToStringSid(sid.getValue(),convertedSidStringPtr));
-  String convertedSidString=convertedSidStringPtr.getValue().getWideString(0);
-  assertEquals(convertedSidString,sidString);
-  assertEquals(null,Kernel32.INSTANCE.LocalFree(convertedSidStringPtr.getValue()));
-  assertEquals(null,Kernel32.INSTANCE.LocalFree(sid.getValue().getPointer()));
+  assertTrue("Failed to convert SID string",Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
+  PSID value=sid.getValue();
+  try {
+    PointerByReference convertedSidStringPtr=new PointerByReference();
+    assertTrue("Failed to convert SID string",Advapi32.INSTANCE.ConvertSidToStringSid(value,convertedSidStringPtr));
+    Pointer conv=convertedSidStringPtr.getValue();
+    try {
+      String convertedSidString=conv.getWideString(0);
+      assertEquals("Mismatched SID string",convertedSidString,sidString);
+    }
+  finally {
+      assertNull("Failed to release string value",Kernel32.INSTANCE.LocalFree(conv));
+    }
+  }
+  finally {
+    assertNull("Failed to release sid",Kernel32.INSTANCE.LocalFree(value.getPointer()));
+  }
 }

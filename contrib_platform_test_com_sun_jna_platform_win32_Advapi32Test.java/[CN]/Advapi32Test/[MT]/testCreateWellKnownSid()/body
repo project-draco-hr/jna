@@ -1,11 +1,17 @@
 {
   PSID pSid=new PSID(WinNT.SECURITY_MAX_SID_SIZE);
   IntByReference cbSid=new IntByReference(WinNT.SECURITY_MAX_SID_SIZE);
-  assertTrue(Advapi32.INSTANCE.CreateWellKnownSid(WELL_KNOWN_SID_TYPE.WinWorldSid,null,pSid,cbSid));
-  assertTrue(Advapi32.INSTANCE.IsWellKnownSid(pSid,WELL_KNOWN_SID_TYPE.WinWorldSid));
-  assertTrue(cbSid.getValue() <= WinNT.SECURITY_MAX_SID_SIZE);
+  assertTrue("Failed to create well-known SID",Advapi32.INSTANCE.CreateWellKnownSid(WELL_KNOWN_SID_TYPE.WinWorldSid,null,pSid,cbSid));
+  assertTrue("Not recognized as well-known SID",Advapi32.INSTANCE.IsWellKnownSid(pSid,WELL_KNOWN_SID_TYPE.WinWorldSid));
+  assertTrue("Invalid SID size",cbSid.getValue() <= WinNT.SECURITY_MAX_SID_SIZE);
   PointerByReference convertedSidStringPtr=new PointerByReference();
-  assertTrue(Advapi32.INSTANCE.ConvertSidToStringSid(pSid,convertedSidStringPtr));
-  String convertedSidString=convertedSidStringPtr.getValue().getWideString(0);
-  assertEquals(EVERYONE,convertedSidString);
+  assertTrue("Failed to convert SID",Advapi32.INSTANCE.ConvertSidToStringSid(pSid,convertedSidStringPtr));
+  Pointer conv=convertedSidStringPtr.getValue();
+  try {
+    String convertedSidString=conv.getWideString(0);
+    assertEquals("Mismatched SID string",EVERYONE,convertedSidString);
+  }
+  finally {
+    assertNull("Failed to release string",Kernel32.INSTANCE.LocalFree(conv));
+  }
 }
