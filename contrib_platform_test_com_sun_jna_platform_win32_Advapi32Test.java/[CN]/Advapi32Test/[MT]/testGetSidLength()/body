@@ -7,6 +7,6 @@
     assertEquals("Wrong SID length",12,Advapi32.INSTANCE.GetLengthSid(value));
   }
   finally {
-    assertNull("Failed to free SID",Kernel32.INSTANCE.LocalFree(value.getPointer()));
+    assertEquals("Failed to free SID",WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(value.getPointer()));
   }
 }

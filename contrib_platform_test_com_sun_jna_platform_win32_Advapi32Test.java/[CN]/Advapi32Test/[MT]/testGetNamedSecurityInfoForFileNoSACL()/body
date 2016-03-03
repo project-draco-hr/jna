@@ -1,11 +1,19 @@
 {
-  File file=createTempFile();
   int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION;
   PointerByReference ppsidOwner=new PointerByReference();
   PointerByReference ppsidGroup=new PointerByReference();
   PointerByReference ppDacl=new PointerByReference();
   PointerByReference ppSecurityDescriptor=new PointerByReference();
-  assertEquals(Advapi32.INSTANCE.GetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,null,ppSecurityDescriptor),0);
-  Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
-  file.delete();
+  File file=createTempFile();
+  try {
+    try {
+      assertEquals("GetNamedSecurityInfo(" + file + ")",0,Advapi32.INSTANCE.GetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,null,ppSecurityDescriptor));
+    }
+  finally {
+      file.delete();
+    }
+  }
+  finally {
+    assertEquals("Failed to free security descriptor of " + file,WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue()));
+  }
 }
