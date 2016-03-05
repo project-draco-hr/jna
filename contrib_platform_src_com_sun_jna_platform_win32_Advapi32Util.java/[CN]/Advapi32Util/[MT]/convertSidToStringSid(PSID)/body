@@ -8,6 +8,6 @@
     return ptr.getWideString(0);
   }
   finally {
-    Kernel32.INSTANCE.LocalFree(ptr);
+    Kernel32Util.validateFreeLocalMemory(ptr);
   }
 }

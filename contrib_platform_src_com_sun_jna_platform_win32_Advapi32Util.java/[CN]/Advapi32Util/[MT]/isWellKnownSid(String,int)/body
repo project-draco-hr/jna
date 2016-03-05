@@ -8,6 +8,6 @@
     return Advapi32.INSTANCE.IsWellKnownSid(value,wellKnownSidType);
   }
   finally {
-    Kernel32.INSTANCE.LocalFree(value.getPointer());
+    Kernel32Util.validateFreeLocalMemory(value.getPointer());
   }
 }

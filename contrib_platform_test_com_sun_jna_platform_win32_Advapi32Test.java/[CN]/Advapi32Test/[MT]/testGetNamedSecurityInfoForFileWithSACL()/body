@@ -24,11 +24,15 @@
   File file=createTempFile();
   String filePath=file.getAbsolutePath();
   try {
-    assertEquals("GetNamedSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.GetNamedSecurityInfo(filePath,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,ppSacl,ppSecurityDescriptor));
-    Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
+    try {
+      assertEquals("GetNamedSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.GetNamedSecurityInfo(filePath,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,ppSacl,ppSecurityDescriptor));
+    }
+  finally {
+      file.delete();
+    }
   }
   finally {
-    file.delete();
+    assertEquals("Failed to free security descriptor of " + filePath,WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue()));
   }
   if (impersontating) {
     Advapi32.INSTANCE.SetThreadToken(null,null);

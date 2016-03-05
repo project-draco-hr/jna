@@ -7,15 +7,15 @@
   File file=createTempFile();
   String filePath=file.getAbsolutePath();
   try {
-    assertEquals("GetNamedSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.GetNamedSecurityInfo(filePath,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,null,ppSecurityDescriptor));
     try {
+      assertEquals("GetNamedSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.GetNamedSecurityInfo(filePath,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,null,ppSecurityDescriptor));
       assertEquals("SetNamedSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.SetNamedSecurityInfo(filePath,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner.getValue(),ppsidGroup.getValue(),ppDacl.getValue(),null));
     }
   finally {
-      Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
+      file.delete();
     }
   }
   finally {
-    file.delete();
+    assertEquals("Failed to release security descriptor of " + file,WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue()));
   }
 }

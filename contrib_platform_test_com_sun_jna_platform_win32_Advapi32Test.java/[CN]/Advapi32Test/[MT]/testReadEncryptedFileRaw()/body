@@ -1,7 +1,7 @@
 {
   File file=createTempFile();
   String lpFileName=file.getAbsolutePath();
-  assertTrue(Advapi32.INSTANCE.EncryptFile(lpFileName));
+  assertTrue("EncryptFile(" + lpFileName + ")",Advapi32.INSTANCE.EncryptFile(lpFileName));
   ULONG ulFlags=new ULONG(0);
   PointerByReference pvContext=new PointerByReference();
   assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.OpenEncryptedFileRaw(lpFileName,ulFlags,pvContext));

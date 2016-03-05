@@ -1,0 +1,9 @@
+{
+  Pointer res=Kernel32.INSTANCE.LocalFree(ptr);
+  if (res != null) {
+    return Native.getLastError();
+  }
+ else {
+    return WinError.ERROR_SUCCESS;
+  }
+}

@@ -12,6 +12,6 @@
     assertEquals("Mismatched SID string",EVERYONE,convertedSidString);
   }
   finally {
-    assertNull("Failed to release string",Kernel32.INSTANCE.LocalFree(conv));
+    assertEquals("Failed to release string",WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(conv));
   }
 }

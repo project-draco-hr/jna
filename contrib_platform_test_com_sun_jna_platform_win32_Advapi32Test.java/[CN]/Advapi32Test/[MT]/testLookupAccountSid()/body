@@ -24,6 +24,6 @@
     assertTrue(referencedDomainNameString.length() == 0);
   }
   finally {
-    assertNull("Failed to release sid",Kernel32.INSTANCE.LocalFree(value.getPointer()));
+    assertEquals("Failed to release sid",WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(value.getPointer()));
   }
 }
