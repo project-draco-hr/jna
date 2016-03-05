@@ -1,6 +1,7 @@
 {
-  HANDLE h=Kernel32.INSTANCE.OpenProcess(0,false,Kernel32.INSTANCE.GetCurrentProcessId());
-  assertNotNull("Failed (" + Kernel32.INSTANCE.GetLastError() + ") to get process handle",h);
+  int pid=Kernel32.INSTANCE.GetCurrentProcessId();
+  HANDLE h=Kernel32.INSTANCE.OpenProcess(0,false,pid);
+  assertNotNull("Failed (" + Kernel32.INSTANCE.GetLastError() + ") to get process ID="+ pid+ " handle",h);
   try {
     char[] path=new char[WinDef.MAX_PATH];
     IntByReference lpdwSize=new IntByReference(path.length);

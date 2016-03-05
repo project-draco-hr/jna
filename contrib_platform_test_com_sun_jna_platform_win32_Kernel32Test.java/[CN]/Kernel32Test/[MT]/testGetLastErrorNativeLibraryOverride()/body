@@ -1,0 +1,4 @@
+{
+  assertFalse("Unexpected success",Kernel32.INSTANCE.CloseHandle(null));
+  assertEquals("Mismatched error code",WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
+}
