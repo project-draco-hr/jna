@@ -1,7 +1,6 @@
 {
   HANDLE h=Kernel32.INSTANCE.GetCurrentProcess();
-  assertNotNull(h);
-  assertFalse(h.equals(0));
-  assertFalse(Kernel32.INSTANCE.CloseHandle(h));
-  assertEquals(WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
+  assertNotNull("No current process handle",h);
+  assertFalse("Null current process handle",h.equals(0));
+  assertTrue(Kernel32.INSTANCE.CloseHandle(h));
 }
