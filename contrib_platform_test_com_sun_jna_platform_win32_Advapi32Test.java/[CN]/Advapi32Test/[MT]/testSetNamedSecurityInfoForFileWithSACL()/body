@@ -36,7 +36,7 @@
     }
   }
   finally {
-    assertEquals("Failed to release security descriptor of " + file,WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue()));
+    Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue());
   }
   if (impersontating) {
     assertTrue("SetThreadToken",Advapi32.INSTANCE.SetThreadToken(null,null));

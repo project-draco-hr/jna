@@ -32,7 +32,7 @@
     }
   }
   finally {
-    assertEquals("Failed to free security descriptor of " + filePath,WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue()));
+    Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue());
   }
   if (impersontating) {
     Advapi32.INSTANCE.SetThreadToken(null,null);
