@@ -8,6 +8,6 @@
     assertFalse("Unexpected admin sid",Advapi32.INSTANCE.IsWellKnownSid(value,WELL_KNOWN_SID_TYPE.WinAccountAdministratorSid));
   }
   finally {
-    assertEquals("Failed to release sid",WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(value.getPointer()));
+    Kernel32Util.freeLocalMemory(value.getPointer());
   }
 }

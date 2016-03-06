@@ -10,6 +10,6 @@
     assertTrue("Invalid sid",Advapi32.INSTANCE.IsValidSid(value));
   }
   finally {
-    assertEquals("Failed to release SID",WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(value.getPointer()));
+    Kernel32Util.freeLocalMemory(value.getPointer());
   }
 }

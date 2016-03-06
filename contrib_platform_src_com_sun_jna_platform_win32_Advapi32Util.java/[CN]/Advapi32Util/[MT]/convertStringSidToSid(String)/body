@@ -8,6 +8,6 @@
     return value.getBytes();
   }
   finally {
-    Kernel32Util.validateFreeLocalMemory(value.getPointer());
+    Kernel32Util.freeLocalMemory(value.getPointer());
   }
 }

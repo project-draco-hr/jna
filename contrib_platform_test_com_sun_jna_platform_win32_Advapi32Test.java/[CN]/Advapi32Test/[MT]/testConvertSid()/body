@@ -12,10 +12,10 @@
       assertEquals("Mismatched SID string",convertedSidString,sidString);
     }
   finally {
-      assertEquals("Failed to release string value",WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(conv));
+      Kernel32Util.freeLocalMemory(conv);
     }
   }
   finally {
-    assertEquals("Failed to release sid",WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(value.getPointer()));
+    Kernel32Util.freeLocalMemory(value.getPointer());
   }
 }

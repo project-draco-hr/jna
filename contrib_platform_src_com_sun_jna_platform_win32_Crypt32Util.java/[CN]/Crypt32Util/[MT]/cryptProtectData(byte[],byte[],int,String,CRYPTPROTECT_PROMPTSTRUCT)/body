@@ -10,7 +10,7 @@
   }
   finally {
     if (pDataProtected.pbData != null) {
-      Kernel32Util.validateFreeLocalMemory(pDataProtected.pbData);
+      Kernel32Util.freeLocalMemory(pDataProtected.pbData);
     }
   }
 }

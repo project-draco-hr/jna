@@ -14,6 +14,6 @@
     }
   }
   finally {
-    assertEquals("Failed to free security descriptor of " + file,WinError.ERROR_SUCCESS,Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue()));
+    Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue());
   }
 }

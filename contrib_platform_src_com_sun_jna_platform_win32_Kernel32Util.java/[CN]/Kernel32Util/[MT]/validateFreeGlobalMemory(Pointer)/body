@@ -1,6 +1,0 @@
-{
-  int rc=freeGlobalMemory(ptr);
-  if (rc != WinError.ERROR_SUCCESS) {
-    throw new Win32Exception(rc);
-  }
-}
