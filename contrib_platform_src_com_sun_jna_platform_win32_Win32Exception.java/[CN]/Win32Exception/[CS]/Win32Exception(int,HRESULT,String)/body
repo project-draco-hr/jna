@@ -1,0 +1,4 @@
+{
+  super(code,msg);
+  _hr=hr;
+}

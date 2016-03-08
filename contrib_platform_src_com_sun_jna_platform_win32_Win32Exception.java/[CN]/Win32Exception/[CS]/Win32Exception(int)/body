@@ -1,3 +1,3 @@
 {
-  this(W32Errors.HRESULT_FROM_WIN32(code));
+  this(code,W32Errors.HRESULT_FROM_WIN32(code));
 }
