@@ -1,16 +1,20 @@
 {
   HANDLEByReference phToken=new HANDLEByReference();
-  HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
-  assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,phToken));
-  IntByReference tokenInformationLength=new IntByReference();
-  assertFalse(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,null,0,tokenInformationLength));
-  assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
-  WinNT.TOKEN_GROUPS groups=new WinNT.TOKEN_GROUPS(tokenInformationLength.getValue());
-  assertTrue(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,groups,tokenInformationLength.getValue(),tokenInformationLength));
-  assertTrue(tokenInformationLength.getValue() > 0);
-  assertTrue(groups.GroupCount > 0);
-  for (  SID_AND_ATTRIBUTES sidAndAttribute : groups.getGroups()) {
-    assertTrue(Advapi32.INSTANCE.IsValidSid(sidAndAttribute.Sid));
+  try {
+    HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
+    assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,phToken));
+    IntByReference tokenInformationLength=new IntByReference();
+    assertFalse(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,null,0,tokenInformationLength));
+    assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
+    WinNT.TOKEN_GROUPS groups=new WinNT.TOKEN_GROUPS(tokenInformationLength.getValue());
+    assertTrue(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenGroups,groups,tokenInformationLength.getValue(),tokenInformationLength));
+    assertTrue(tokenInformationLength.getValue() > 0);
+    assertTrue(groups.GroupCount > 0);
+    for (    SID_AND_ATTRIBUTES sidAndAttribute : groups.getGroups()) {
+      assertTrue(Advapi32.INSTANCE.IsValidSid(sidAndAttribute.Sid));
+    }
   }
-  assertTrue(Kernel32.INSTANCE.CloseHandle(phToken.getValue()));
+  finally {
+    Kernel32Util.closeHandleRef(phToken);
+  }
 }

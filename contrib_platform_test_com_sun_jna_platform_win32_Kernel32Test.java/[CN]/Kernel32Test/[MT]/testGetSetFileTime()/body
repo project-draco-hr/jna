@@ -2,15 +2,19 @@
   File tmp=File.createTempFile("testGetSetFileTime","jna");
   tmp.deleteOnExit();
   HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_WRITE,WinNT.FILE_SHARE_WRITE,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
-  assertFalse(hFile == WinBase.INVALID_HANDLE_VALUE);
-  WinBase.FILETIME.ByReference creationTime=new WinBase.FILETIME.ByReference();
-  WinBase.FILETIME.ByReference accessTime=new WinBase.FILETIME.ByReference();
-  WinBase.FILETIME.ByReference modifiedTime=new WinBase.FILETIME.ByReference();
-  Kernel32.INSTANCE.GetFileTime(hFile,creationTime,accessTime,modifiedTime);
-  assertEquals(creationTime.toDate().getYear(),new Date().getYear());
-  assertEquals(accessTime.toDate().getYear(),new Date().getYear());
-  assertEquals(modifiedTime.toDate().getYear(),new Date().getYear());
-  Kernel32.INSTANCE.SetFileTime(hFile,null,null,new WinBase.FILETIME(new Date(2010,1,1)));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
-  assertEquals(2010,new Date(tmp.lastModified()).getYear());
+  assertFalse(WinBase.INVALID_HANDLE_VALUE.equals(hFile));
+  try {
+    WinBase.FILETIME.ByReference creationTime=new WinBase.FILETIME.ByReference();
+    WinBase.FILETIME.ByReference accessTime=new WinBase.FILETIME.ByReference();
+    WinBase.FILETIME.ByReference modifiedTime=new WinBase.FILETIME.ByReference();
+    Kernel32.INSTANCE.GetFileTime(hFile,creationTime,accessTime,modifiedTime);
+    assertEquals(creationTime.toDate().getYear(),new Date().getYear());
+    assertEquals(accessTime.toDate().getYear(),new Date().getYear());
+    assertEquals(modifiedTime.toDate().getYear(),new Date().getYear());
+    Kernel32.INSTANCE.SetFileTime(hFile,null,null,new WinBase.FILETIME(new Date(2010,1,1)));
+    assertEquals(2010,new Date(tmp.lastModified()).getYear());
+  }
+  finally {
+    Kernel32Util.closeHandle(hFile);
+  }
 }

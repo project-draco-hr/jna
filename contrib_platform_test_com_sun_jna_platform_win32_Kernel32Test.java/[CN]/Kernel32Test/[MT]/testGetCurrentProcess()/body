@@ -2,5 +2,5 @@
   HANDLE h=Kernel32.INSTANCE.GetCurrentProcess();
   assertNotNull("No current process handle",h);
   assertFalse("Null current process handle",h.equals(0));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(h));
+  Kernel32Util.closeHandle(h);
 }

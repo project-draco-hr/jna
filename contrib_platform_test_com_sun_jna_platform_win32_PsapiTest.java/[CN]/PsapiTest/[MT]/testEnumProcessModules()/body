@@ -17,19 +17,22 @@
   }
  catch (  Win32Exception e) {
     we=e;
+    throw we;
   }
  finally {
-    if (me != null) {
-      if (!Kernel32.INSTANCE.CloseHandle(me)) {
-        Win32Exception e=new Win32Exception(Native.getLastError());
-        if (we != null) {
-          e.addSuppressed(we);
-        }
+    try {
+      Kernel32Util.closeHandle(me);
+    }
+ catch (    Win32Exception e) {
+      if (we == null) {
         we=e;
       }
+ else {
+        we.addSuppressed(e);
+      }
     }
-  }
-  if (we != null) {
-    throw we;
+    if (we != null) {
+      throw we;
+    }
   }
 }

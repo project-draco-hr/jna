@@ -2,7 +2,12 @@
   File tmp=File.createTempFile("testTerminateProcess","jna");
   tmp.deleteOnExit();
   HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
-  assertFalse(Kernel32.INSTANCE.TerminateProcess(hFile,1));
-  assertEquals(WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
-  assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
+  assertFalse(WinBase.INVALID_HANDLE_VALUE.equals(hFile));
+  try {
+    assertFalse(Kernel32.INSTANCE.TerminateProcess(hFile,1));
+    assertEquals(WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
+  }
+  finally {
+    Kernel32Util.closeHandle(hFile);
+  }
 }

@@ -2,5 +2,5 @@
   HANDLE h=Kernel32.INSTANCE.OpenThread(WinNT.THREAD_ALL_ACCESS,false,Kernel32.INSTANCE.GetCurrentThreadId());
   assertNotNull(h);
   assertFalse(h.equals(0));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(h));
+  Kernel32Util.closeHandle(h);
 }

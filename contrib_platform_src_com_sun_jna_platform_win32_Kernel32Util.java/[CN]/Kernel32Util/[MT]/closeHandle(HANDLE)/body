@@ -1,0 +1,8 @@
+{
+  if (h == null) {
+    return;
+  }
+  if (!Kernel32.INSTANCE.CloseHandle(h)) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+}

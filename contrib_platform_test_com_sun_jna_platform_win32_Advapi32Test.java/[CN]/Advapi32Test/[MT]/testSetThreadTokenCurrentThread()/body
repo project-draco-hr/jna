@@ -1,18 +1,21 @@
 {
   HANDLEByReference phToken=new HANDLEByReference();
   HANDLEByReference phTokenDup=new HANDLEByReference();
-  HANDLE threadHandle=Kernel32.INSTANCE.GetCurrentThread();
-  if (!Advapi32.INSTANCE.OpenThreadToken(threadHandle,WinNT.TOKEN_IMPERSONATE | WinNT.TOKEN_QUERY,false,phToken)) {
-    assertEquals(W32Errors.ERROR_NO_TOKEN,Kernel32.INSTANCE.GetLastError());
-    HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
-    assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE,phToken));
-    assertTrue(Advapi32.INSTANCE.DuplicateTokenEx(phToken.getValue(),WinNT.TOKEN_IMPERSONATE,null,WinNT.SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation,WinNT.TOKEN_TYPE.TokenImpersonation,phTokenDup));
-    assertTrue(Advapi32.INSTANCE.SetThreadToken(null,phTokenDup.getValue()));
-  }
+  try {
+    HANDLE threadHandle=Kernel32.INSTANCE.GetCurrentThread();
+    if (!Advapi32.INSTANCE.OpenThreadToken(threadHandle,WinNT.TOKEN_IMPERSONATE | WinNT.TOKEN_QUERY,false,phToken)) {
+      assertEquals(W32Errors.ERROR_NO_TOKEN,Kernel32.INSTANCE.GetLastError());
+      HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
+      assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE,phToken));
+      assertTrue(Advapi32.INSTANCE.DuplicateTokenEx(phToken.getValue(),WinNT.TOKEN_IMPERSONATE,null,WinNT.SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation,WinNT.TOKEN_TYPE.TokenImpersonation,phTokenDup));
+      assertTrue(Advapi32.INSTANCE.SetThreadToken(null,phTokenDup.getValue()));
+    }
  else {
-    assertTrue(Advapi32.INSTANCE.SetThreadToken(null,phToken.getValue()));
+      assertTrue(Advapi32.INSTANCE.SetThreadToken(null,phToken.getValue()));
+    }
+    assertTrue(Advapi32.INSTANCE.SetThreadToken(null,null));
   }
-  assertTrue(Advapi32.INSTANCE.SetThreadToken(null,null));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(phToken.getValue()));
-  if (phTokenDup.getValue() != null)   assertTrue(Kernel32.INSTANCE.CloseHandle(phTokenDup.getValue()));
+  finally {
+    Kernel32Util.closeHandleRefs(phToken,phTokenDup);
+  }
 }

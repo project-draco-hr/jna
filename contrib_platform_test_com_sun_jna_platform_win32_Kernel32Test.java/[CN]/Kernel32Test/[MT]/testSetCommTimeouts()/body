@@ -21,7 +21,7 @@
       assertTrue(Kernel32.INSTANCE.SetCommTimeouts(handleSerialPort,lpCommTimeouts));
     }
   finally {
-      Kernel32.INSTANCE.CloseHandle(handleSerialPort);
+      Kernel32Util.closeHandle(handleSerialPort);
     }
   }
 }

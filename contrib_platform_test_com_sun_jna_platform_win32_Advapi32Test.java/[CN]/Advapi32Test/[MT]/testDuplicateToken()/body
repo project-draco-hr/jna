@@ -2,8 +2,11 @@
   HANDLEByReference phToken=new HANDLEByReference();
   HANDLEByReference phTokenDup=new HANDLEByReference();
   HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
-  assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,phToken));
-  assertTrue(Advapi32.INSTANCE.DuplicateToken(phToken.getValue(),WinNT.SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation,phTokenDup));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(phTokenDup.getValue()));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(phToken.getValue()));
+  try {
+    assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,phToken));
+    assertTrue(Advapi32.INSTANCE.DuplicateToken(phToken.getValue(),WinNT.SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation,phTokenDup));
+  }
+  finally {
+    Kernel32Util.closeHandleRefs(phTokenDup,phToken);
+  }
 }

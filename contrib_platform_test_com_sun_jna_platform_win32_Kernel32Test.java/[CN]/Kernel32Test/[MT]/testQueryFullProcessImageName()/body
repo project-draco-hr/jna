@@ -10,6 +10,6 @@
     assertTrue("Failed to query process image name, empty path returned",lpdwSize.getValue() > 0);
   }
   finally {
-    assertTrue("CloseHandle",Kernel32.INSTANCE.CloseHandle(h));
+    Kernel32Util.closeHandle(h);
   }
 }

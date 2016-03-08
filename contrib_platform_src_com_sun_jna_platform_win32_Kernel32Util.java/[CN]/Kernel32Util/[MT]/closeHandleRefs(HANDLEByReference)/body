@@ -1,0 +1,19 @@
+{
+  Win32Exception err=null;
+  for (  HANDLEByReference r : refs) {
+    try {
+      closeHandleRef(r);
+    }
+ catch (    Win32Exception e) {
+      if (err == null) {
+        err=e;
+      }
+ else {
+        err.addSuppressed(e);
+      }
+    }
+  }
+  if (err != null) {
+    throw err;
+  }
+}
