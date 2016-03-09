@@ -26,7 +26,7 @@
  while (serverRc != W32Errors.SEC_E_OK || clientRc != W32Errors.SEC_E_OK);
   HANDLEByReference phContextToken=new HANDLEByReference();
   assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.QuerySecurityContextToken(phServerContext,phContextToken));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(phContextToken.getValue()));
+  Kernel32Util.closeHandleRef(phContextToken);
   assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.DeleteSecurityContext(phServerContext));
   assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.FreeCredentialsHandle(phServerCredential));
   assertEquals(W32Errors.SEC_E_OK,Secur32.INSTANCE.DeleteSecurityContext(phClientContext));

@@ -20,6 +20,6 @@
     assertEquals("Mismatched read content",expected,new String(readBuffer,0,read));
   }
   finally {
-    assertTrue("Failed to close file",Kernel32.INSTANCE.CloseHandle(hFile));
+    Kernel32Util.closeHandle(hFile);
   }
 }

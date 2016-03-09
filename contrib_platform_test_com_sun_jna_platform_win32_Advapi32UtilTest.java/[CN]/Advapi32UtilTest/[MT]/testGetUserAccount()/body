@@ -15,8 +15,9 @@
       assertEquals(userInfo.usri1_name.toString(),account.name);
     }
   finally {
-      if (phUser.getValue() != WinBase.INVALID_HANDLE_VALUE) {
-        Kernel32.INSTANCE.CloseHandle(phUser.getValue());
+      HANDLE hUser=phUser.getValue();
+      if (!WinBase.INVALID_HANDLE_VALUE.equals(hUser)) {
+        Kernel32Util.closeHandle(hUser);
       }
     }
   }

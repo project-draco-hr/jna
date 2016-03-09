@@ -4,6 +4,7 @@
     throw new FileNotFoundException(fileName);
   }
   HANDLE hFile=null;
+  Win32Exception err=null;
   try {
     hFile=Kernel32.INSTANCE.CreateFile(fileName,WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,new HANDLEByReference().getValue());
     if (WinBase.INVALID_HANDLE_VALUE.equals(hFile)) {
@@ -12,22 +13,35 @@
     int type=Kernel32.INSTANCE.GetFileType(hFile);
 switch (type) {
 case WinNT.FILE_TYPE_UNKNOWN:
-      int err=Kernel32.INSTANCE.GetLastError();
-switch (err) {
+      int rc=Kernel32.INSTANCE.GetLastError();
+switch (rc) {
 case WinError.NO_ERROR:
       break;
 default :
-    throw new Win32Exception(err);
+    throw new Win32Exception(rc);
 }
 default :
 return type;
 }
 }
-  finally {
-if (hFile != null) {
-if (!Kernel32.INSTANCE.CloseHandle(hFile)) {
-throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+ catch (Win32Exception e) {
+err=e;
+throw err;
 }
+ finally {
+try {
+closeHandle(hFile);
+}
+ catch (Win32Exception e) {
+if (err == null) {
+err=e;
+}
+ else {
+err.addSuppressed(e);
+}
+}
+if (err != null) {
+throw err;
 }
 }
 }

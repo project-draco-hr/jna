@@ -9,24 +9,27 @@
     if (!Kernel32.INSTANCE.Module32NextW(snapshot,first)) {
       throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
     }
+    assertTrue("The first module in the current process should be java.exe or javaw.exe",first.szModule().startsWith("java"));
+    assertEquals("The process ID of the module ID should be our process ID",Kernel32.INSTANCE.GetCurrentProcessId(),first.th32ProcessID.intValue());
   }
  catch (  Win32Exception e) {
     we=e;
-  }
- finally {
-    if (snapshot != null) {
-      if (!Kernel32.INSTANCE.CloseHandle(snapshot)) {
-        Win32Exception e=new Win32Exception(Kernel32.INSTANCE.GetLastError());
-        if (we != null) {
-          e.addSuppressed(we);
-        }
-        we=e;
-      }
-    }
-  }
-  if (we != null) {
     throw we;
   }
-  assertTrue("The first module in the current process should be java.exe or javaw.exe",first.szModule().startsWith("java"));
-  assertEquals("The process ID of the module ID should be our process ID",Kernel32.INSTANCE.GetCurrentProcessId(),first.th32ProcessID.intValue());
+ finally {
+    try {
+      Kernel32Util.closeHandle(snapshot);
+    }
+ catch (    Win32Exception e) {
+      if (we == null) {
+        we=e;
+      }
+ else {
+        we.addSuppressed(e);
+      }
+    }
+    if (we != null) {
+      throw we;
+    }
+  }
 }

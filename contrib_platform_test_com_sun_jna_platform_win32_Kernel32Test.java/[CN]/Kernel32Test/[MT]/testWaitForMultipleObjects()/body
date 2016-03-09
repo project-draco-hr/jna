@@ -1,12 +1,23 @@
 {
   HANDLE[] handles=new HANDLE[2];
-  handles[0]=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
-  handles[1]=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
-  assertEquals(WinError.WAIT_TIMEOUT,Kernel32.INSTANCE.WaitForMultipleObjects(handles.length,handles,false,1000));
-  Kernel32.INSTANCE.CloseHandle(handles[0]);
-  Kernel32.INSTANCE.CloseHandle(handles[1]);
+  try {
+    for (int index=0; index < handles.length; index++) {
+      HANDLE h=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
+      assertNotNull("Failed to create event #" + index + ": "+ Kernel32.INSTANCE.GetLastError(),h);
+      handles[index]=h;
+    }
+    assertEquals(WinError.WAIT_TIMEOUT,Kernel32.INSTANCE.WaitForMultipleObjects(handles.length,handles,false,1000));
+  }
+  finally {
+    Kernel32Util.closeHandles(handles);
+  }
   handles[0]=WinBase.INVALID_HANDLE_VALUE;
   handles[1]=Kernel32.INSTANCE.CreateEvent(null,false,false,null);
-  assertEquals(WinBase.WAIT_FAILED,Kernel32.INSTANCE.WaitForMultipleObjects(handles.length,handles,false,5000));
-  Kernel32.INSTANCE.CloseHandle(handles[1]);
+  assertNotNull("Failed to create valid event: " + Kernel32.INSTANCE.GetLastError(),handles[1]);
+  try {
+    assertEquals(WinBase.WAIT_FAILED,Kernel32.INSTANCE.WaitForMultipleObjects(handles.length,handles,false,5000));
+  }
+  finally {
+    Kernel32Util.closeHandle(handles[1]);
+  }
 }

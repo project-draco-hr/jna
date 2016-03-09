@@ -31,7 +31,7 @@ default :
   }
 }
   finally {
-  Kernel32.INSTANCE.CloseHandle(handleSerialPort);
+  Kernel32Util.closeHandle(handleSerialPort);
 }
 }
 }

@@ -1,0 +1,3 @@
+{
+  closeHandle((ref == null) ? null : ref.getValue());
+}
