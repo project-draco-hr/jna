@@ -18,20 +18,22 @@
     String methodName=typeInfoDoc2.getName();
     TlbAbstractMethod method=null;
     if (!isReservedMethod(methodName)) {
-      if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_FUNC)) {
+      if (funcDesc.invkind.value == INVOKEKIND.INVOKE_FUNC.value) {
         method=new TlbFunctionStub(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
- else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYGET)) {
+ else       if (funcDesc.invkind.value == INVOKEKIND.INVOKE_PROPERTYGET.value) {
         method=new TlbPropertyGetStub(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
- else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUT)) {
+ else       if (funcDesc.invkind.value == INVOKEKIND.INVOKE_PROPERTYPUT.value) {
         method=new TlbPropertyPutStub(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
- else       if (funcDesc.invkind.equals(INVOKEKIND.INVOKE_PROPERTYPUTREF)) {
+ else       if (funcDesc.invkind.value == INVOKEKIND.INVOKE_PROPERTYPUTREF.value) {
         method=new TlbPropertyPutStub(index,typeLibUtil,funcDesc,typeInfoUtil);
       }
       this.content+=method.getClassBuffer();
-      if (i < cFuncs - 1)       this.content+=CR;
+      if (i < cFuncs - 1) {
+        this.content+=CR;
+      }
     }
     typeInfoUtil.ReleaseFuncDesc(funcDesc);
   }
