@@ -2,6 +2,7 @@
   ComWord_Application msWordObject=null;
   ComIApplication msWord=null;
   Factory factory=null;
+  Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
   try {
     String tempDir=System.getProperty("java.io.tmpdir");
     System.out.println("Files in temp dir: " + tempDir);
@@ -48,8 +49,6 @@ catch (  COMException e) {
     if (msWord != null) {
       msWord.Quit();
     }
-    if (null != factory) {
-      factory.getComThread().terminate(500);
-    }
   }
+  Ole32.INSTANCE.CoUninitialize();
 }

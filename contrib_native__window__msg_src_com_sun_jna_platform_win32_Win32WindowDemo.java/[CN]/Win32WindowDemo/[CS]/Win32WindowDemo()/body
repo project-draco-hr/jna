@@ -1,5 +1,5 @@
 {
-  WString windowClass=new WString("MyWindowClass");
+  String windowClass=new String("MyWindowClass");
   HMODULE hInst=Kernel32.INSTANCE.GetModuleHandle("");
   WNDCLASSEX wClass=new WNDCLASSEX();
   wClass.hInstance=hInst;
