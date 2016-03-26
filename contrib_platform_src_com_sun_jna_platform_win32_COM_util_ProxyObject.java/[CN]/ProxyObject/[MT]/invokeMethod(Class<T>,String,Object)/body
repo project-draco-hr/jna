@@ -1,2 +1,4 @@
 {
+  DISPID dispID=resolveDispId(this.getRawDispatch(),name);
+  return invokeMethod(returnType,dispID,args);
 }
