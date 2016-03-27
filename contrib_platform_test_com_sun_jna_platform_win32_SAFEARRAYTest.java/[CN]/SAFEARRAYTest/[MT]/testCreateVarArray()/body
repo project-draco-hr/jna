@@ -1,0 +1,4 @@
+{
+  SAFEARRAY varArray=SAFEARRAY.createSafeArray(1);
+  Assert.assertTrue(varArray != null);
+}

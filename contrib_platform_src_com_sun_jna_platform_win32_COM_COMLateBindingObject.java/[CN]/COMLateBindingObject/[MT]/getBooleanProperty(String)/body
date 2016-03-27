@@ -1,5 +1,5 @@
 {
   VARIANT.ByReference result=new VARIANT.ByReference();
   this.oleMethod(OleAuto.DISPATCH_PROPERTYGET,result,this.getIDispatch(),propertyName);
-  return (((VARIANT_BOOL)result.getValue()).intValue() != 0);
+  return result.booleanValue();
 }

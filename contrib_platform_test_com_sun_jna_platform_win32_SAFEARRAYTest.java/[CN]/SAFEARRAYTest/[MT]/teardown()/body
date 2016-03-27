@@ -1,0 +1,3 @@
+{
+  Ole32.INSTANCE.CoUninitialize();
+}
