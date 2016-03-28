@@ -16,6 +16,6 @@
       Thread.sleep(200);
     }
   }
-  TestCase.assertTrue(navigationHappend);
   ieApp.Quit();
+  TestCase.assertTrue(navigationHappend);
 }

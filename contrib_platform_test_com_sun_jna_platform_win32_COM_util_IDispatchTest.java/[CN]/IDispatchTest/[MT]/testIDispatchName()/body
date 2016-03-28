@@ -6,7 +6,7 @@
   assertTrue(ieApp.getProperty(String.class,"LocationURL").isEmpty());
   ieApp.invokeMethod(Void.class,"Navigate2","https://github.com/java-native-access/");
   boolean navigationHappend=false;
-  for (int i=0; i < 10; i++) {
+  for (int i=0; i < 50; i++) {
     String url=ieApp.getProperty(String.class,"LocationURL");
     if (!url.isEmpty()) {
       navigationHappend=true;
@@ -16,6 +16,6 @@
       Thread.sleep(200);
     }
   }
-  TestCase.assertTrue(navigationHappend);
   ieApp.invokeMethod(Void.class,"Quit");
+  TestCase.assertTrue(navigationHappend);
 }

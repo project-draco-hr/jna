@@ -1,0 +1,30 @@
+{
+  Float testFloatObj=42.23f;
+  VARIANT resultFloatObj=Convert.toVariant(testFloatObj);
+  float testFloat=42.23f;
+  VARIANT resultFloat=Convert.toVariant(testFloat);
+  assertEquals(42.23f,resultFloatObj.floatValue(),0.01);
+  assertEquals(42.23f,resultFloat.floatValue(),0.01);
+  assertEquals(42.23d,resultFloat.doubleValue(),0.01);
+  assertEquals(42.23f,(Float)Convert.toJavaObject(resultFloatObj,Object.class,fact,true),0.01);
+  assertEquals(42.23f,(Float)Convert.toJavaObject(resultFloat,Object.class,fact,true),0.01);
+  assertEquals(42.23f,(Float)Convert.toJavaObject(resultFloatObj,float.class,fact,true),0.01);
+  assertEquals(42.23f,(Float)Convert.toJavaObject(resultFloat,float.class,fact,true),0.01);
+  assertEquals(42.23f,(Float)Convert.toJavaObject(resultFloatObj,Float.class,fact,true),0.01);
+  assertEquals(42.23f,(Float)Convert.toJavaObject(resultFloat,Float.class,fact,true),0.01);
+  assertEquals(42.23d,(Double)Convert.toJavaObject(resultFloat,double.class,fact,true),0.01);
+  Double testDoubleObj=42.23;
+  VARIANT resultDoubleObj=Convert.toVariant(testDoubleObj);
+  double testDouble=42.23;
+  VARIANT resultDouble=Convert.toVariant(testDouble);
+  assertEquals(42.23,resultDoubleObj.doubleValue(),0.01);
+  assertEquals(42.23,resultDouble.doubleValue(),0.01);
+  assertEquals(42.23f,resultDouble.floatValue(),0.01);
+  assertEquals(42.23,(Double)Convert.toJavaObject(resultDoubleObj,Object.class,fact,true),0.01);
+  assertEquals(42.23,(Double)Convert.toJavaObject(resultDouble,Object.class,fact,true),0.01);
+  assertEquals(42.23,(Double)Convert.toJavaObject(resultDoubleObj,double.class,fact,true),0.01);
+  assertEquals(42.23,(Double)Convert.toJavaObject(resultDouble,double.class,fact,true),0.01);
+  assertEquals(42.23,(Double)Convert.toJavaObject(resultDoubleObj,Double.class,fact,true),0.01);
+  assertEquals(42.23,(Double)Convert.toJavaObject(resultDouble,Double.class,fact,true),0.01);
+  assertEquals(42.23f,(Float)Convert.toJavaObject(resultDouble,float.class,fact,true),0.01);
+}
