@@ -1,0 +1,5 @@
+{
+  if (url instanceof String && ((String)url).startsWith("https://github.com/")) {
+    UtilIUnknown=true;
+  }
+}
