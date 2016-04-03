@@ -1,8 +1,8 @@
 {
   ComInternetExplorerDISPID ieApp=factory.createObject(ComInternetExplorerDISPID.class);
-  TestCase.assertFalse(ieApp.getVisible_MOD());
+  assertFalse(ieApp.getVisible_MOD());
   ieApp.setVisible_MOD(Boolean.TRUE);
-  TestCase.assertTrue(ieApp.getVisible_MOD());
+  assertTrue(ieApp.getVisible_MOD());
   assertTrue(ieApp.getLocationURL_MOD().isEmpty());
   ieApp.Navigate2_MOD("https://github.com/java-native-access/");
   boolean navigationHappend=false;
@@ -17,5 +17,5 @@
     }
   }
   ieApp.Quit_MOD();
-  TestCase.assertTrue(navigationHappend);
+  assertTrue(navigationHappend);
 }

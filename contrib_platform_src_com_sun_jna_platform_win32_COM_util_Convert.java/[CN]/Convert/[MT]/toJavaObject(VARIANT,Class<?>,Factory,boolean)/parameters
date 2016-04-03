@@ -1,4 +1,4 @@
 VARIANT value
-Class targetClass
+Class<?> targetClass
 Factory factory
 boolean addReference

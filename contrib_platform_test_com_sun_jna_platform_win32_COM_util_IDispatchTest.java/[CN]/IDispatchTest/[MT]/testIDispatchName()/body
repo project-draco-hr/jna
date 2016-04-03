@@ -1,8 +1,8 @@
 {
   ComInternetExplorerIDispatch ieApp=factory.createObject(ComInternetExplorerIDispatch.class);
-  TestCase.assertFalse(ieApp.getProperty(Boolean.class,"Visible"));
+  assertFalse(ieApp.getProperty(Boolean.class,"Visible"));
   ieApp.setProperty("Visible",Boolean.TRUE);
-  TestCase.assertTrue(ieApp.getProperty(Boolean.class,"Visible"));
+  assertTrue(ieApp.getProperty(Boolean.class,"Visible"));
   assertTrue(ieApp.getProperty(String.class,"LocationURL").isEmpty());
   ieApp.invokeMethod(Void.class,"Navigate2","https://github.com/java-native-access/");
   boolean navigationHappend=false;
@@ -17,5 +17,5 @@
     }
   }
   ieApp.invokeMethod(Void.class,"Quit");
-  TestCase.assertTrue(navigationHappend);
+  assertTrue(navigationHappend);
 }

@@ -3,11 +3,11 @@
     return null;
   }
   if (targetClass != null && (!targetClass.isAssignableFrom(Object.class))) {
-    if (targetClass != null && targetClass.isAssignableFrom(value.getClass())) {
+    if (targetClass.isAssignableFrom(value.getClass())) {
       return value;
     }
     Object vobj=value.getValue();
-    if (vobj != null && (targetClass == null || targetClass.isAssignableFrom(vobj.getClass()))) {
+    if (vobj != null && (targetClass.isAssignableFrom(vobj.getClass()))) {
       return vobj;
     }
   }
