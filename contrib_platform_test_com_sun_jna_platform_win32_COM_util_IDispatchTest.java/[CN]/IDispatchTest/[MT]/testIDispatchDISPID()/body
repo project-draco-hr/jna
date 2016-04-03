@@ -4,9 +4,9 @@
   DISPID quit=new DISPID(0x0000012c);
   DISPID navigate2=new DISPID(0x000001f4);
   ComInternetExplorerIDispatch ieApp=factory.createObject(ComInternetExplorerIDispatch.class);
-  TestCase.assertFalse(ieApp.getProperty(Boolean.class,visible));
+  assertFalse(ieApp.getProperty(Boolean.class,visible));
   ieApp.setProperty(visible,Boolean.TRUE);
-  TestCase.assertTrue(ieApp.getProperty(Boolean.class,visible));
+  assertTrue(ieApp.getProperty(Boolean.class,visible));
   assertTrue(ieApp.getProperty(String.class,locationURL).isEmpty());
   ieApp.invokeMethod(Void.class,navigate2,"https://github.com/java-native-access/");
   boolean navigationHappend=false;
@@ -21,5 +21,5 @@
     }
   }
   ieApp.invokeMethod(Void.class,quit);
-  TestCase.assertTrue(navigationHappend);
+  assertTrue(navigationHappend);
 }
