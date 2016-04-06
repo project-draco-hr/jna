@@ -1,0 +1,3 @@
+{
+  COMUtils.checkRC(new WinNT.HRESULT(0x80040200));
+}
