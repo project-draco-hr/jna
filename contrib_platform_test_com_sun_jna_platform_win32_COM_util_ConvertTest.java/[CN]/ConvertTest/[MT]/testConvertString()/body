@@ -3,10 +3,10 @@
   BSTR testValue=new BSTR(testString);
   VARIANT resultVariant=Convert.toVariant(testValue);
   assertEquals(testString,resultVariant.stringValue());
-  assertEquals(testString,Convert.toJavaObject(resultVariant,Object.class,fact,true));
-  assertEquals(testString,Convert.toJavaObject(resultVariant,String.class,fact,true));
+  assertEquals(testString,Convert.toJavaObject(resultVariant,Object.class,fact,false,false));
+  assertEquals(testString,Convert.toJavaObject(resultVariant,String.class,fact,false,false));
   resultVariant=Convert.toVariant(testString);
   assertEquals(testString,resultVariant.stringValue());
-  assertEquals(testString,Convert.toJavaObject(resultVariant,Object.class,fact,true));
-  assertEquals(testString,Convert.toJavaObject(resultVariant,String.class,fact,true));
+  assertEquals(testString,Convert.toJavaObject(resultVariant,Object.class,fact,false,false));
+  assertEquals(testString,Convert.toJavaObject(resultVariant,String.class,fact,false,false));
 }

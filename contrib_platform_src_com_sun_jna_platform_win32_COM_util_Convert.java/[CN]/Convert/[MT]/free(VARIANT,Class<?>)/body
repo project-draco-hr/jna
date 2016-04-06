@@ -1,8 +1,5 @@
 {
-  if (javaType == null) {
-    return;
-  }
-  if (javaType.isAssignableFrom(String.class) && variant.getVarType().intValue() == Variant.VT_BSTR) {
+  if ((javaType == null || (!BSTR.class.isAssignableFrom(javaType))) && variant != null && variant.getVarType().intValue() == Variant.VT_BSTR) {
     Object value=variant.getValue();
     if (value instanceof BSTR) {
       OleAuto.INSTANCE.SysFreeString((BSTR)value);

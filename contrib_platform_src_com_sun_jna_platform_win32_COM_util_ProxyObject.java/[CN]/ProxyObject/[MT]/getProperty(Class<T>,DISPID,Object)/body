@@ -15,5 +15,5 @@
     Convert.free(vargs[i],args[i]);
   }
   COMUtils.checkRC(hr);
-  return convertAndFreeReturn(result,returnType);
+  return (T)Convert.toJavaObject(result,returnType,factory,false,true);
 }

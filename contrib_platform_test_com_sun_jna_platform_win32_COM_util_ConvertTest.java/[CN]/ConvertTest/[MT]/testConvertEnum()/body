@@ -2,6 +2,6 @@
   TestEnum testEnum=TestEnum.Val2;
   VARIANT resultEnum=Convert.toVariant(testEnum);
   assertEquals((int)testEnum.getValue(),resultEnum.intValue());
-  assertEquals((int)testEnum.getValue(),Convert.toJavaObject(resultEnum,Object.class,fact,true));
-  assertEquals(testEnum,Convert.toJavaObject(resultEnum,TestEnum.class,fact,true));
+  assertEquals((int)testEnum.getValue(),Convert.toJavaObject(resultEnum,Object.class,fact,false,false));
+  assertEquals(testEnum,Convert.toJavaObject(resultEnum,TestEnum.class,fact,false,false));
 }

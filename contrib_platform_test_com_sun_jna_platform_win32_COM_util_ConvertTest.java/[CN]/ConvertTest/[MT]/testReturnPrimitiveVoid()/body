@@ -1,0 +1,6 @@
+{
+  FileSystemObject app=fact.createObject(FileSystemObject.class);
+  assertTrue(app.DriveExistsPrimitive("C:"));
+  assertTrue(app.DriveExistsObject("C:"));
+  app.DriveExistsVoid("C:");
+}

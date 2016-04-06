@@ -5,8 +5,8 @@
   VARIANT resultDATE=Convert.toVariant(testDATE);
   assertEquals(testDate,resultDate.dateValue());
   assertEquals(testDate,resultDATE.dateValue());
-  assertEquals(testDate,Convert.toJavaObject(resultDate,Object.class,fact,true));
-  assertEquals(testDate,Convert.toJavaObject(resultDATE,Object.class,fact,true));
-  assertEquals(testDate,Convert.toJavaObject(resultDate,Date.class,fact,true));
-  assertEquals(testDate,Convert.toJavaObject(resultDATE,Date.class,fact,true));
+  assertEquals(testDate,Convert.toJavaObject(resultDate,Object.class,fact,false,false));
+  assertEquals(testDate,Convert.toJavaObject(resultDATE,Object.class,fact,false,false));
+  assertEquals(testDate,Convert.toJavaObject(resultDate,Date.class,fact,false,false));
+  assertEquals(testDate,Convert.toJavaObject(resultDATE,Date.class,fact,false,false));
 }
