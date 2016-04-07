@@ -11,6 +11,7 @@
       return vobj;
     }
   }
+  VARIANT inputValue=value;
   if (value.getVarType().intValue() == (VT_BYREF | VT_VARIANT)) {
     value=(VARIANT)value.getValue();
   }
@@ -143,9 +144,10 @@ result=proxy;
 result=value.getValue();
 }
 if (IComEnum.class.isAssignableFrom(targetClass)) {
-return targetClass.cast(Convert.toComEnum((Class<? extends IComEnum>)targetClass,result));
+result=targetClass.cast(Convert.toComEnum((Class<? extends IComEnum>)targetClass,result));
 }
- else {
+if (freeValue) {
+free(inputValue,result);
+}
 return result;
-}
 }

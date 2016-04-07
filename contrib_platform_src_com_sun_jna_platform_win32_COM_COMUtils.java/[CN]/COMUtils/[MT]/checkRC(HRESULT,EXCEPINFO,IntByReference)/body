@@ -1,6 +1,12 @@
 {
   if (FAILED(hr)) {
-    String formatMessageFromHR=Kernel32Util.formatMessage(hr);
-    throw new COMException(formatMessageFromHR,pExcepInfo,puArgErr);
+    String formatMessage;
+    try {
+      formatMessage=Kernel32Util.formatMessage(hr) + "(HRESULT: " + Integer.toHexString(hr.intValue())+ ")";
+    }
+ catch (    LastErrorException ex) {
+      formatMessage="(HRESULT: " + Integer.toHexString(hr.intValue()) + ")";
+    }
+    throw new COMException(formatMessage,pExcepInfo,puArgErr);
   }
 }

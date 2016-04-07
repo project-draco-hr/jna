@@ -1,5 +1,0 @@
-{
-  Object jobj=Convert.toJavaObject(result,returnType,factory,false);
-  Convert.free(result,returnType);
-  return returnType.cast(jobj);
-}
