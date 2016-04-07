@@ -1,4 +1,0 @@
-{
-  factory.disposeAll();
-  Ole32.INSTANCE.CoUninitialize();
-}
