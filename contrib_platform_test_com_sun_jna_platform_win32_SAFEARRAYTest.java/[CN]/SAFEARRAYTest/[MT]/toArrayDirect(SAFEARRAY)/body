@@ -1,0 +1,16 @@
+{
+  Pointer dataPointer=wrap.accessData();
+  long rowMax=wrap.getUBound(2);
+  long columnMax=wrap.getUBound(1);
+  VARIANT[] variantData=(VARIANT[])new VARIANT(dataPointer).toArray((int)((rowMax + 1) * (columnMax + 1)));
+  Object[][] result=new Object[(int)(rowMax + 1)][(int)(columnMax + 1)];
+  for (long i=0; i <= rowMax; i++) {
+    long rowOffset=i * columnMax;
+    for (long j=0; j <= columnMax; j++) {
+      VARIANT cell=variantData[(int)(rowOffset + j)];
+      result[(int)i][(int)j]=cell.getValue();
+    }
+  }
+  wrap.unaccessData();
+  return result;
+}

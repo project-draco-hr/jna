@@ -1,15 +1,27 @@
 {
   DATA_BLOB pDataIn=new DATA_BLOB("hello world");
-  DATA_BLOB pDataEncrypted=new DATA_BLOB();
   DATA_BLOB pEntropy=new DATA_BLOB("entropy");
-  assertTrue(Crypt32.INSTANCE.CryptProtectData(pDataIn,"description",pEntropy,null,null,0,pDataEncrypted));
-  PointerByReference pDescription=new PointerByReference();
-  DATA_BLOB pDataDecrypted=new DATA_BLOB();
-  assertFalse(Crypt32.INSTANCE.CryptUnprotectData(pDataEncrypted,pDescription,null,null,null,0,pDataDecrypted));
-  assertTrue(Crypt32.INSTANCE.CryptUnprotectData(pDataEncrypted,pDescription,pEntropy,null,null,0,pDataDecrypted));
-  assertEquals("description",pDescription.getValue().getWideString(0));
-  assertEquals("hello world",pDataDecrypted.pbData.getString(0));
-  Kernel32.INSTANCE.LocalFree(pDataEncrypted.pbData);
-  Kernel32.INSTANCE.LocalFree(pDataDecrypted.pbData);
-  Kernel32.INSTANCE.LocalFree(pDescription.getValue());
+  DATA_BLOB pDataEncrypted=new DATA_BLOB();
+  try {
+    assertTrue("CryptProtectData(Initial)",Crypt32.INSTANCE.CryptProtectData(pDataIn,"description",pEntropy,null,null,0,pDataEncrypted));
+    PointerByReference pDescription=new PointerByReference();
+    try {
+      DATA_BLOB pDataDecrypted=new DATA_BLOB();
+      try {
+        assertFalse("CryptUnprotectData(NoEntropy)",Crypt32.INSTANCE.CryptUnprotectData(pDataEncrypted,pDescription,null,null,null,0,pDataDecrypted));
+        assertTrue("CryptUnprotectData(WithEntropy)",Crypt32.INSTANCE.CryptUnprotectData(pDataEncrypted,pDescription,pEntropy,null,null,0,pDataDecrypted));
+        assertEquals("description",pDescription.getValue().getWideString(0));
+        assertEquals("hello world",pDataDecrypted.pbData.getString(0));
+      }
+  finally {
+        Kernel32Util.freeLocalMemory(pDataDecrypted.pbData);
+      }
+    }
+  finally {
+      Kernel32Util.freeLocalMemory(pDescription.getValue());
+    }
+  }
+  finally {
+    Kernel32Util.freeLocalMemory(pDataEncrypted.pbData);
+  }
 }

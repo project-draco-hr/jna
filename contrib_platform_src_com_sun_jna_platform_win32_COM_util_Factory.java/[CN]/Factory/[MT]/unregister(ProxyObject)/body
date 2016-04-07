@@ -1,0 +1,12 @@
+{
+synchronized (this.registeredObjects) {
+    Iterator<WeakReference<ProxyObject>> iterator=this.registeredObjects.iterator();
+    while (iterator.hasNext()) {
+      WeakReference<ProxyObject> weakRef=iterator.next();
+      ProxyObject po=weakRef.get();
+      if (po == null || po == proxyObject) {
+        iterator.remove();
+      }
+    }
+  }
+}

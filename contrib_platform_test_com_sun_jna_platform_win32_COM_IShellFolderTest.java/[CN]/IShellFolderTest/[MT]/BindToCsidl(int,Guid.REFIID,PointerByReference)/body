@@ -1,0 +1,20 @@
+{
+  WinNT.HRESULT hr;
+  PointerByReference pidl=new PointerByReference();
+  hr=Shell32.INSTANCE.SHGetSpecialFolderLocation(null,csidl,pidl);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  PointerByReference psfDesktopPTR=new PointerByReference();
+  hr=Shell32.INSTANCE.SHGetDesktopFolder(psfDesktopPTR);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  IShellFolder psfDesktop=IShellFolder.Converter.PointerToIShellFolder(psfDesktopPTR);
+  short cb=pidl.getValue().getShort(0);
+  if (cb != 0) {
+    hr=psfDesktop.BindToObject(pidl.getValue(),null,riid,ppv);
+  }
+ else {
+    hr=psfDesktop.QueryInterface(riid,ppv);
+  }
+  psfDesktop.Release();
+  Ole32.INSTANCE.CoTaskMemFree(pidl.getValue());
+  return hr;
+}

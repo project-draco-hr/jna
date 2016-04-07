@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final double[] args={0,0};
   TestLibrary.DoubleCallback cb=new TestLibrary.DoubleCallback(){
-    public double callback(    double arg,    double arg2){
+    @Override public double callback(    double arg,    double arg2){
       called[0]=true;
       args[0]=arg;
       args[1]=arg2;

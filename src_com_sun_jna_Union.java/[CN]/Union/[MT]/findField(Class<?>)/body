@@ -1,0 +1,9 @@
+{
+  ensureAllocated();
+  for (  StructField f : fields().values()) {
+    if (f.type.isAssignableFrom(type)) {
+      return f;
+    }
+  }
+  return null;
+}

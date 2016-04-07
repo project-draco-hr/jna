@@ -1,9 +1,10 @@
 {
+  Class<?> clazz=getClass();
 synchronized (fieldOrder) {
-    List list=(List)fieldOrder.get(getClass());
+    List<String> list=fieldOrder.get(clazz);
     if (list == null) {
       list=getFieldOrder();
-      fieldOrder.put(getClass(),list);
+      fieldOrder.put(clazz,list);
     }
     return list;
   }

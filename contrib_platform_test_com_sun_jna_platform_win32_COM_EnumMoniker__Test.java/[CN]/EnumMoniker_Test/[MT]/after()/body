@@ -1,5 +1,9 @@
 {
-  ob1.Quit();
-  ob2.Quit();
+  if (ob1 != null) {
+    ob1.Quit();
+  }
+  if (ob2 != null) {
+    ob2.Quit();
+  }
   Ole32.INSTANCE.CoUninitialize();
 }

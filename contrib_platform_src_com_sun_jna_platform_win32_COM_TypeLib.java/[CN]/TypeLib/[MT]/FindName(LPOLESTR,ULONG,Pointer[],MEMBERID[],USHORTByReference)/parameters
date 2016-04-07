@@ -1,0 +1,5 @@
+LPOLESTR szNameBuf
+ULONG lHashVal
+Pointer[] ppTInfo
+MEMBERID[] rgMemId
+USHORTByReference pcFound

@@ -1,8 +1,8 @@
 {
 class TestStructure extends Structure {
     public int f1, f2;
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"F1","F2"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("F1","F2");
     }
   }
   try {

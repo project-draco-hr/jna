@@ -1,0 +1,4 @@
+String nameBuf
+Pointer[] pTInfo
+MEMBERID[] rgMemId
+short pcFound

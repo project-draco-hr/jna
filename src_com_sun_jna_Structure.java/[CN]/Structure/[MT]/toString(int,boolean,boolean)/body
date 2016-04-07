@@ -13,8 +13,8 @@
   if (!showContents) {
     contents="...}";
   }
- else   for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
-    StructField sf=(StructField)i.next();
+ else   for (Iterator<StructField> i=fields().values().iterator(); i.hasNext(); ) {
+    StructField sf=i.next();
     Object value=getFieldValue(sf.field);
     String type=format(sf.type);
     String index="";

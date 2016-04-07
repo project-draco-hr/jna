@@ -1,5 +1,5 @@
 {
-  Class cls=library.getClass();
+  Class<?> cls=library.getClass();
   if (!Proxy.isProxyClass(cls)) {
     throw new IllegalArgumentException("Library must be a proxy class");
   }

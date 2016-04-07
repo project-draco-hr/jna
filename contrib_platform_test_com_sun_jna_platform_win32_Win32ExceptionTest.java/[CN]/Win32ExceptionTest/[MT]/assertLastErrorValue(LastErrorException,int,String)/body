@@ -1,0 +1,4 @@
+{
+  assertEquals("Mismatched error code",code,e.getErrorCode());
+  assertEquals("Mismatched error message",msg,e.getMessage());
+}

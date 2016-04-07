@@ -1,0 +1,4 @@
+{
+  source=collection;
+  max=source.Count();
+}

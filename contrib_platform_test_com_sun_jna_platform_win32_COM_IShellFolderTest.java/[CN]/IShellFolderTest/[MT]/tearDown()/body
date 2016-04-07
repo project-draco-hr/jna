@@ -1,0 +1,4 @@
+{
+  psfMyComputer.Release();
+  Ole32.INSTANCE.CoUninitialize();
+}

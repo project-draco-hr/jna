@@ -1,0 +1,32 @@
+{
+  int bufferSize=1024;
+  Memory memory=new Memory(bufferSize);
+  IntByReference lpBufferSize=new IntByReference(bufferSize);
+  File file=null;
+  String share=null;
+  String driveLetter=new String("x:");
+  File fileShareFolder=createTempFolder();
+  try {
+    share=createLocalShare(fileShareFolder);
+    connectToLocalShare(share,driveLetter);
+    String filePath=new String(driveLetter + "\\testfile.txt");
+    file=new File(filePath);
+    file.createNewFile();
+    assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetGetUniversalName(filePath,Winnetwk.UNIVERSAL_NAME_INFO_LEVEL,memory,lpBufferSize));
+    UNIVERSAL_NAME_INFO uinfo=new UNIVERSAL_NAME_INFO(memory);
+    assertNotNull(uinfo.lpUniversalName);
+    assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetGetUniversalName(filePath,Winnetwk.REMOTE_NAME_INFO_LEVEL,memory,lpBufferSize));
+    REMOTE_NAME_INFO rinfo=new REMOTE_NAME_INFO(memory);
+    assertNotNull(rinfo.lpUniversalName);
+    assertNotNull(rinfo.lpConnectionName);
+    assertNotNull(rinfo.lpRemainingPath);
+  }
+  finally {
+    if (file != null)     file.delete();
+    if (share != null) {
+      disconnectFromLocalShare(driveLetter);
+      deleteLocalShare(share);
+      fileShareFolder.delete();
+    }
+  }
+}

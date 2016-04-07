@@ -1,0 +1,9 @@
+{
+  Map<String,String> env=System.getenv();
+  for (  Map.Entry<String,String> ee : env.entrySet()) {
+    String name=ee.getKey();
+    String expected=ee.getValue();
+    String actual=LibC.INSTANCE.getenv(name);
+    assertEquals(name,expected,actual);
+  }
+}

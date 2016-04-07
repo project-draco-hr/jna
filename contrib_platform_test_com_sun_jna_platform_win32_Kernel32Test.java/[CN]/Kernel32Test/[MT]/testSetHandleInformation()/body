@@ -2,7 +2,11 @@
   File tmp=File.createTempFile("testSetHandleInformation","jna");
   tmp.deleteOnExit();
   HANDLE hFile=Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),WinNT.GENERIC_READ,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
-  assertFalse(hFile == WinBase.INVALID_HANDLE_VALUE);
-  assertTrue(Kernel32.INSTANCE.SetHandleInformation(hFile,WinBase.HANDLE_FLAG_PROTECT_FROM_CLOSE,0));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(hFile));
+  assertFalse(WinBase.INVALID_HANDLE_VALUE.equals(hFile));
+  try {
+    assertTrue(Kernel32.INSTANCE.SetHandleInformation(hFile,WinBase.HANDLE_FLAG_PROTECT_FROM_CLOSE,0));
+  }
+  finally {
+    Kernel32Util.closeHandle(hFile);
+  }
 }

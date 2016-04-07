@@ -2,8 +2,8 @@
 class TestStructure extends Structure {
     public byte first;
     public int second;
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"first","second"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("first","second");
     }
     public TestStructure(){
       setAlignType(ALIGN_NONE);

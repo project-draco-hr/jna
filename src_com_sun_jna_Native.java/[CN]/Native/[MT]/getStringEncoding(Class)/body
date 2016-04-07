@@ -1,4 +1,0 @@
-{
-  String encoding=(String)getLibraryOptions(cls).get(Library.OPTION_STRING_ENCODING);
-  return encoding != null ? encoding : getDefaultStringEncoding();
-}

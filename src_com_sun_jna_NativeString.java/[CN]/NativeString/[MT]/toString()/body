@@ -1,5 +1,5 @@
 {
-  boolean wide=encoding == WIDE_STRING;
+  boolean wide=WIDE_STRING.equals(encoding);
   String s=wide ? "const wchar_t*" : "const char*";
   s+="(" + (wide ? pointer.getWideString(0) : pointer.getString(0,encoding)) + ")";
   return s;

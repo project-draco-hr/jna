@@ -1,3 +1,3 @@
 {
-  return (Pointer)nativeThreads.get(t);
+  return nativeThreads.get(t);
 }

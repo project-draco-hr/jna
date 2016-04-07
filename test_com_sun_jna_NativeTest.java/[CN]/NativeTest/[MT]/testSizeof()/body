@@ -1,0 +1,3 @@
+{
+  assertEquals("Wrong bool size",1,Native.BOOL_SIZE);
+}

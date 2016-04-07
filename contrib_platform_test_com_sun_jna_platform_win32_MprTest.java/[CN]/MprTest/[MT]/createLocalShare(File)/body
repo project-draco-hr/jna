@@ -1,0 +1,15 @@
+{
+  SHARE_INFO_2 shi=new SHARE_INFO_2();
+  shi.shi2_netname=shareFolder.getName();
+  shi.shi2_type=LMShare.STYPE_DISKTREE;
+  shi.shi2_remark="";
+  shi.shi2_permissions=LMAccess.ACCESS_ALL;
+  shi.shi2_max_uses=-1;
+  shi.shi2_current_uses=0;
+  shi.shi2_path=shareFolder.getAbsolutePath();
+  shi.shi2_passwd="";
+  shi.write();
+  IntByReference parm_err=new IntByReference(0);
+  assertEquals(LMErr.NERR_Success,Netapi32.INSTANCE.NetShareAdd(null,2,shi.getPointer(),parm_err));
+  return shareFolder.getName();
+}

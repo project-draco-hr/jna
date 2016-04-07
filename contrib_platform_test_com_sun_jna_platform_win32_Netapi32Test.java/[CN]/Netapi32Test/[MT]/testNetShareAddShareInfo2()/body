@@ -1,0 +1,20 @@
+{
+  File fileShareFolder=createTempFolder();
+  SHARE_INFO_2 shi=new SHARE_INFO_2();
+  shi.shi2_netname=fileShareFolder.getName();
+  shi.shi2_type=LMShare.STYPE_DISKTREE;
+  shi.shi2_remark="";
+  shi.shi2_permissions=LMAccess.ACCESS_ALL;
+  shi.shi2_max_uses=-1;
+  shi.shi2_current_uses=0;
+  shi.shi2_path=fileShareFolder.getAbsolutePath();
+  shi.shi2_passwd="";
+  shi.write();
+  IntByReference parm_err=new IntByReference(0);
+  int winError=Netapi32.INSTANCE.NetShareAdd(null,2,shi.getPointer(),parm_err);
+  if (winError == W32Errors.ERROR_INVALID_PARAMETER) {
+    throw new Exception("testNetShareAddShareInfo2 failed with invalid parameter on structure offset: " + parm_err.getValue());
+  }
+  assertEquals("Failed to add share",LMErr.NERR_Success,winError);
+  Netapi32.INSTANCE.NetShareDel(null,shi.shi2_netname,0);
+}

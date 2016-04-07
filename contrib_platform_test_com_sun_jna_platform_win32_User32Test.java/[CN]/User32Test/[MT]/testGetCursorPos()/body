@@ -1,0 +1,7 @@
+{
+  POINT cursorPos=new POINT();
+  boolean result=User32.INSTANCE.GetCursorPos(cursorPos);
+  assertTrue("GetCursorPos should return true",result);
+  assertTrue("X coordinate in POINT should be >= 0",cursorPos.x >= 0);
+  assertTrue("Y coordinate in POINT should be >= 0",cursorPos.y >= 0);
+}

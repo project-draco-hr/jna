@@ -1,5 +1,0 @@
-{
-  Map options=new HashMap();
-  options.put(Library.OPTION_CLASSLOADER,cls.getClassLoader());
-  register(cls,NativeLibrary.getInstance(libName,options));
-}

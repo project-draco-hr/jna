@@ -1,0 +1,25 @@
+{
+  DISPID locationURL=new DISPID(0x000000d3);
+  DISPID visible=new DISPID(0x00000192);
+  DISPID quit=new DISPID(0x0000012c);
+  DISPID navigate2=new DISPID(0x000001f4);
+  ComInternetExplorerIDispatch ieApp=factory.createObject(ComInternetExplorerIDispatch.class);
+  assertFalse(ieApp.getProperty(Boolean.class,visible));
+  ieApp.setProperty(visible,Boolean.TRUE);
+  assertTrue(ieApp.getProperty(Boolean.class,visible));
+  assertTrue(ieApp.getProperty(String.class,locationURL).isEmpty());
+  ieApp.invokeMethod(Void.class,navigate2,"https://github.com/java-native-access/");
+  boolean navigationHappend=false;
+  for (int i=0; i < 50; i++) {
+    String url=ieApp.getProperty(String.class,locationURL);
+    if (!url.isEmpty()) {
+      navigationHappend=true;
+      break;
+    }
+ else {
+      Thread.sleep(200);
+    }
+  }
+  ieApp.invokeMethod(Void.class,quit);
+  assertTrue(navigationHappend);
+}

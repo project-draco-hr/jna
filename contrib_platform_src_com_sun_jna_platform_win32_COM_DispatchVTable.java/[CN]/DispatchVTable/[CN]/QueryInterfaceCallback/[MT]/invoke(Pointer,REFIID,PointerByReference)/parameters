@@ -1,0 +1,3 @@
+Pointer thisPointer
+REFIID refid
+PointerByReference ppvObject

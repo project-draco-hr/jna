@@ -1,0 +1,3 @@
+{
+  return loadLibrary(name,interfaceClass,Collections.<String,Object>emptyMap());
+}

@@ -1,0 +1,14 @@
+{
+  LayoutInfo info;
+synchronized (layoutInfo) {
+    info=layoutInfo.get(type);
+  }
+  int sz=(info != null && !info.variable) ? info.size : CALCULATE_SIZE;
+  if (sz == CALCULATE_SIZE) {
+    if (value == null) {
+      value=newInstance(type,PLACEHOLDER_MEMORY);
+    }
+    sz=value.size();
+  }
+  return sz;
+}

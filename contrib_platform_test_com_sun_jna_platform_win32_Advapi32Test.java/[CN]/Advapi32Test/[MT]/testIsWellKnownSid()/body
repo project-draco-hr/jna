@@ -1,7 +1,13 @@
 {
   String sidString=EVERYONE;
   PSIDByReference sid=new PSIDByReference();
-  assertTrue(Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
-  assertTrue(Advapi32.INSTANCE.IsWellKnownSid(sid.getValue(),WELL_KNOWN_SID_TYPE.WinWorldSid));
-  assertFalse(Advapi32.INSTANCE.IsWellKnownSid(sid.getValue(),WELL_KNOWN_SID_TYPE.WinAccountAdministratorSid));
+  assertTrue("sid conversion failed",Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
+  PSID value=sid.getValue();
+  try {
+    assertTrue("Not a world sid",Advapi32.INSTANCE.IsWellKnownSid(value,WELL_KNOWN_SID_TYPE.WinWorldSid));
+    assertFalse("Unexpected admin sid",Advapi32.INSTANCE.IsWellKnownSid(value,WELL_KNOWN_SID_TYPE.WinAccountAdministratorSid));
+  }
+  finally {
+    Kernel32Util.freeLocalMemory(value.getPointer());
+  }
 }

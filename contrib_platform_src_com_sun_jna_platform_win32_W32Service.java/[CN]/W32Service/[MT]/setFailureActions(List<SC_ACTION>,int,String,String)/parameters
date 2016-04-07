@@ -1,0 +1,4 @@
+List<SC_ACTION> actions
+int resetPeriod
+String rebootMsg
+String command

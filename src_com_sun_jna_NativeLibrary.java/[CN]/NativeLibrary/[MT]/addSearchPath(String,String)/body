@@ -1,8 +1,8 @@
 {
 synchronized (searchPaths) {
-    List customPaths=(List)searchPaths.get(libraryName);
+    List<String> customPaths=searchPaths.get(libraryName);
     if (customPaths == null) {
-      customPaths=Collections.synchronizedList(new LinkedList());
+      customPaths=Collections.synchronizedList(new ArrayList<String>());
       searchPaths.put(libraryName,customPaths);
     }
     customPaths.add(path);

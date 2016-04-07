@@ -11,8 +11,7 @@
   }
   busy().add(this);
   try {
-    for (Iterator i=fields().values().iterator(); i.hasNext(); ) {
-      StructField sf=(StructField)i.next();
+    for (    StructField sf : fields().values()) {
       if (!sf.isVolatile) {
         writeField(sf);
       }

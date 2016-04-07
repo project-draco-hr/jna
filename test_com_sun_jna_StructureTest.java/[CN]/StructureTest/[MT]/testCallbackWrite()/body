@@ -8,8 +8,8 @@
   s.write();
   Pointer func=s.getPointer().getPointer(0);
   assertNotNull("Callback trampoline not set",func);
-  Map refs=CallbackReference.callbackMap;
+  Map<Callback,CallbackReference> refs=CallbackReference.callbackMap;
   assertTrue("Callback not cached",refs.containsKey(s.cb));
-  CallbackReference ref=(CallbackReference)refs.get(s.cb);
+  CallbackReference ref=refs.get(s.cb);
   assertEquals("Wrong trampoline",ref.getTrampoline(),func);
 }

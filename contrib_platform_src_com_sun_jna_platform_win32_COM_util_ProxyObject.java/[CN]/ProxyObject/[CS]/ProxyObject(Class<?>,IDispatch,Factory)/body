@@ -1,7 +1,6 @@
 {
   this.unknownId=-1;
   this.rawDispatch=rawDispatch;
-  this.comThread=factory.getComThread();
   this.theInterface=theInterface;
   this.factory=factory;
   int n=this.rawDispatch.AddRef();

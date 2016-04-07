@@ -1,0 +1,23 @@
+{
+  File file=new File(System.getProperty("java.io.tmpdir"),System.nanoTime() + ".txt");
+  try {
+    try {
+      fillTempFile(file);
+    }
+ catch (    IOException e) {
+      throw new RuntimeException(e);
+    }
+    SHELLEXECUTEINFO lpExecInfo=new SHELLEXECUTEINFO();
+    lpExecInfo.lpVerb="0p3n";
+    lpExecInfo.nShow=User32.SW_SHOWDEFAULT;
+    lpExecInfo.fMask=Shell32.SEE_MASK_NOCLOSEPROCESS | Shell32.SEE_MASK_FLAG_NO_UI;
+    lpExecInfo.lpFile=file.getAbsolutePath();
+    assertFalse("ShellExecuteEx should have returned false - action verb was bogus.",Shell32.INSTANCE.ShellExecuteEx(lpExecInfo));
+    assertEquals("GetLastError() should have been set to ERROR_NO_ASSOCIATION because of bogus action",W32Errors.ERROR_NO_ASSOCIATION,Native.getLastError());
+  }
+  finally {
+    if (file.exists()) {
+      file.delete();
+    }
+  }
+}

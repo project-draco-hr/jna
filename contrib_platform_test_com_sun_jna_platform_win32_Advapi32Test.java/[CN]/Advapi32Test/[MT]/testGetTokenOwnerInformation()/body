@@ -1,16 +1,20 @@
 {
   HANDLEByReference phToken=new HANDLEByReference();
-  HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
-  assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,phToken));
-  IntByReference tokenInformationLength=new IntByReference();
-  assertFalse(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenOwner,null,0,tokenInformationLength));
-  assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
-  WinNT.TOKEN_OWNER owner=new WinNT.TOKEN_OWNER(tokenInformationLength.getValue());
-  assertTrue(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenOwner,owner,tokenInformationLength.getValue(),tokenInformationLength));
-  assertTrue(tokenInformationLength.getValue() > 0);
-  assertTrue(Advapi32.INSTANCE.IsValidSid(owner.Owner));
-  int sidLength=Advapi32.INSTANCE.GetLengthSid(owner.Owner);
-  assertTrue(sidLength < tokenInformationLength.getValue());
-  assertTrue(sidLength > 0);
-  assertTrue(Kernel32.INSTANCE.CloseHandle(phToken.getValue()));
+  try {
+    HANDLE processHandle=Kernel32.INSTANCE.GetCurrentProcess();
+    assertTrue(Advapi32.INSTANCE.OpenProcessToken(processHandle,WinNT.TOKEN_DUPLICATE | WinNT.TOKEN_QUERY,phToken));
+    IntByReference tokenInformationLength=new IntByReference();
+    assertFalse(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenOwner,null,0,tokenInformationLength));
+    assertEquals(W32Errors.ERROR_INSUFFICIENT_BUFFER,Kernel32.INSTANCE.GetLastError());
+    WinNT.TOKEN_OWNER owner=new WinNT.TOKEN_OWNER(tokenInformationLength.getValue());
+    assertTrue(Advapi32.INSTANCE.GetTokenInformation(phToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenOwner,owner,tokenInformationLength.getValue(),tokenInformationLength));
+    assertTrue(tokenInformationLength.getValue() > 0);
+    assertTrue(Advapi32.INSTANCE.IsValidSid(owner.Owner));
+    int sidLength=Advapi32.INSTANCE.GetLengthSid(owner.Owner);
+    assertTrue(sidLength < tokenInformationLength.getValue());
+    assertTrue(sidLength > 0);
+  }
+  finally {
+    Kernel32Util.closeHandleRef(phToken);
+  }
 }

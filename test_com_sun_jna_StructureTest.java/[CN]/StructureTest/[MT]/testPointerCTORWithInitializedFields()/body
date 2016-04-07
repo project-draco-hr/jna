@@ -2,8 +2,8 @@
 class TestStructure extends Structure {
     public int intField;
     public byte[] arrayField=new byte[256];
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"intField","arrayField"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("intField","arrayField");
     }
     public TestStructure(    Pointer p){
       super(p);

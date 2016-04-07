@@ -1,5 +1,5 @@
 {
-  WString dirPath=new WString(directory.getAbsolutePath());
+  String dirPath=directory.getAbsolutePath();
   if (!Advapi32.INSTANCE.EncryptionDisable(dirPath,disable)) {
     throw new Win32Exception(Native.getLastError());
   }

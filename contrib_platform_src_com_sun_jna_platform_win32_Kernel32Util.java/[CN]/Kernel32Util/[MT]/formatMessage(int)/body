@@ -1,9 +1,15 @@
 {
   PointerByReference buffer=new PointerByReference();
-  if (0 == Kernel32.INSTANCE.FormatMessage(WinBase.FORMAT_MESSAGE_ALLOCATE_BUFFER | WinBase.FORMAT_MESSAGE_FROM_SYSTEM | WinBase.FORMAT_MESSAGE_IGNORE_INSERTS,null,code,0,buffer,0,null)) {
-    throw new LastErrorException(Kernel32.INSTANCE.GetLastError());
+  int nLen=Kernel32.INSTANCE.FormatMessage(WinBase.FORMAT_MESSAGE_ALLOCATE_BUFFER | WinBase.FORMAT_MESSAGE_FROM_SYSTEM | WinBase.FORMAT_MESSAGE_IGNORE_INSERTS,null,code,0,buffer,0,null);
+  if (nLen == 0) {
+    throw new LastErrorException(Native.getLastError());
   }
-  String s=buffer.getValue().getWideString(0);
-  Kernel32.INSTANCE.LocalFree(buffer.getValue());
-  return s.trim();
+  Pointer ptr=buffer.getValue();
+  try {
+    String s=ptr.getWideString(0);
+    return s.trim();
+  }
+  finally {
+    freeLocalMemory(ptr);
+  }
 }

@@ -1,9 +1,7 @@
 {
-  Map options=new HashMap();
-  options.put(Library.OPTION_CLASSLOADER,new DisfunctClassLoader());
   int previousTempFileCount=Native.getTempDir().listFiles().length;
   try {
-    NativeLibrary.getInstance("disfunct",options);
+    NativeLibrary.getInstance("disfunct",Collections.singletonMap(Library.OPTION_CLASSLOADER,new DisfunctClassLoader()));
     fail("Expected NativeLibrary.getInstance() to fail with an UnsatisfiedLinkError here.");
   }
  catch (  UnsatisfiedLinkError e) {

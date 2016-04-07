@@ -1,19 +1,23 @@
 {
   HANDLEByReference hToken=new HANDLEByReference();
   assertTrue(Advapi32.INSTANCE.OpenProcessToken(Kernel32.INSTANCE.GetCurrentProcess(),WinNT.TOKEN_ADJUST_PRIVILEGES | WinNT.TOKEN_QUERY,hToken));
-  TOKEN_PRIVILEGES tp=new TOKEN_PRIVILEGES(1024);
-  IntByReference returnLength=new IntByReference();
-  assertTrue(Advapi32.INSTANCE.GetTokenInformation(hToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenPrivileges,tp,tp.size(),returnLength));
-  assertTrue(tp.PrivilegeCount.intValue() > 0);
-  WinNT.LUID luid=null;
-  for (int i=0; i < tp.PrivilegeCount.intValue(); i++) {
-    if ((tp.Privileges[i].Attributes.intValue() & WinNT.SE_PRIVILEGE_ENABLED) > 0) {
-      luid=tp.Privileges[i].Luid;
+  try {
+    TOKEN_PRIVILEGES tp=new TOKEN_PRIVILEGES(1024);
+    IntByReference returnLength=new IntByReference();
+    assertTrue(Advapi32.INSTANCE.GetTokenInformation(hToken.getValue(),WinNT.TOKEN_INFORMATION_CLASS.TokenPrivileges,tp,tp.size(),returnLength));
+    assertTrue(tp.PrivilegeCount.intValue() > 0);
+    WinNT.LUID luid=null;
+    for (int i=0; i < tp.PrivilegeCount.intValue(); i++) {
+      if ((tp.Privileges[i].Attributes.intValue() & WinNT.SE_PRIVILEGE_ENABLED) > 0) {
+        luid=tp.Privileges[i].Luid;
+      }
     }
+    assertTrue(luid != null);
+    tp=new WinNT.TOKEN_PRIVILEGES(1);
+    tp.Privileges[0]=new WinNT.LUID_AND_ATTRIBUTES(luid,new DWORD(WinNT.SE_PRIVILEGE_ENABLED));
+    assertTrue(Advapi32.INSTANCE.AdjustTokenPrivileges(hToken.getValue(),false,tp,0,null,null));
   }
-  assertTrue(luid != null);
-  tp=new WinNT.TOKEN_PRIVILEGES(1);
-  tp.Privileges[0]=new WinNT.LUID_AND_ATTRIBUTES(luid,new DWORD(WinNT.SE_PRIVILEGE_ENABLED));
-  assertTrue(Advapi32.INSTANCE.AdjustTokenPrivileges(hToken.getValue(),false,tp,0,null,null));
-  assertTrue(Kernel32.INSTANCE.CloseHandle(hToken.getValue()));
+  finally {
+    Kernel32Util.closeHandleRef(hToken);
+  }
 }

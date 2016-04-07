@@ -1,0 +1,4 @@
+Class<?> resultClass
+Function function
+Object[] args
+Method method

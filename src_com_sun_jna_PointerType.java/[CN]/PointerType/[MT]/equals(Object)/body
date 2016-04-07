@@ -1,8 +1,12 @@
 {
-  if (o == this)   return true;
+  if (o == this) {
+    return true;
+  }
   if (o instanceof PointerType) {
     Pointer p=((PointerType)o).getPointer();
-    if (pointer == null)     return p == null;
+    if (pointer == null) {
+      return p == null;
+    }
     return pointer.equals(p);
   }
   return false;

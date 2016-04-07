@@ -2,14 +2,14 @@
 class TestTypeMapper extends DefaultTypeMapper {
 {
       TypeConverter tc=new TypeConverter(){
-        public Class nativeType(){
+        @Override public Class<?> nativeType(){
           return int.class;
         }
-        public Object fromNative(        Object nativeValue,        FromNativeContext c){
-          return new Boolean(nativeValue.equals(new Integer(0)));
+        @Override public Object fromNative(        Object nativeValue,        FromNativeContext c){
+          return Boolean.valueOf(nativeValue.equals(Integer.valueOf(0)));
         }
-        public Object toNative(        Object value,        ToNativeContext c){
-          return new Integer(Boolean.TRUE.equals(value) ? -1 : 0);
+        @Override public Object toNative(        Object value,        ToNativeContext c){
+          return Integer.valueOf(Boolean.TRUE.equals(value) ? -1 : 0);
         }
       }
 ;
@@ -20,8 +20,8 @@ class TestTypeMapper extends DefaultTypeMapper {
   final TestTypeMapper m=new TestTypeMapper();
 class TestStructure extends Structure {
     public boolean field;
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"field"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("field");
     }
     public TestStructure(){
       super(m);

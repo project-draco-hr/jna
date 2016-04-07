@@ -1,0 +1,5 @@
+{
+  HANDLEByReference lphEnum=new HANDLEByReference();
+  assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetOpenEnum(RESOURCESCOPE.RESOURCE_CONNECTED,RESOURCETYPE.RESOURCETYPE_DISK,RESOURCEUSAGE.RESOURCEUSAGE_ALL,null,lphEnum));
+  assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetCloseEnum(lphEnum.getValue()));
+}

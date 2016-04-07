@@ -1,4 +1,0 @@
-{
-  SAFEARRAY varArray=OleAutoUtil.createVarArray(1);
-  assertTrue(varArray != null);
-}

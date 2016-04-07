@@ -2,8 +2,8 @@
   if (System.getProperty("javawebstart.version") == null)   return null;
   try {
     final ClassLoader cl=Native.class.getClassLoader();
-    Method m=(Method)AccessController.doPrivileged(new PrivilegedAction(){
-      @Override public Object run(){
+    Method m=AccessController.doPrivileged(new PrivilegedAction<Method>(){
+      @Override public Method run(){
         try {
           Method m=ClassLoader.class.getDeclaredMethod("findLibrary",new Class[]{String.class});
           m.setAccessible(true);

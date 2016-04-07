@@ -1,7 +1,6 @@
 {
   HANDLE h=Kernel32.INSTANCE.GetCurrentThread();
-  assertNotNull(h);
-  assertFalse(h.equals(0));
-  assertFalse(Kernel32.INSTANCE.CloseHandle(h));
-  assertEquals(WinError.ERROR_INVALID_HANDLE,Kernel32.INSTANCE.GetLastError());
+  assertNotNull("No current thread handle",h);
+  assertFalse("Null current thread handle",h.equals(0));
+  Kernel32Util.closeHandle(h);
 }

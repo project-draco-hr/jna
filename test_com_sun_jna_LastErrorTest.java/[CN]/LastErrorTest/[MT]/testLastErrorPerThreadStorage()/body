@@ -1,17 +1,18 @@
 {
-  final TestLibrary lib=(TestLibrary)Native.loadLibrary("testlib",TestLibrary.class);
+  final TestLibrary lib=Native.loadLibrary("testlib",TestLibrary.class);
   final int NTHREADS=100;
   final int[] errors=new int[NTHREADS];
-  Set<Thread> threads=new HashSet<Thread>();
+  List<Thread> threads=new ArrayList<Thread>(NTHREADS);
   for (int i=0; i < NTHREADS; i++) {
     final int idx=i;
-    Thread t=new Thread(){
-      public void run(){
+    Thread t=new Thread("tLastErrorSetter-" + i){
+      @Override public void run(){
         lib.setLastError(-idx - 1);
         errors[idx]=Native.getLastError();
       }
     }
 ;
+    t.setDaemon(true);
     threads.add(t);
   }
   int EXPECTED=42;
@@ -21,7 +22,8 @@
     t.start();
   }
   for (  Thread t : threads) {
-    t.join();
+    t.join(TimeUnit.SECONDS.toMillis(7L));
+    assertFalse("Thread " + t.getName() + " still alive",t.isAlive());
   }
   assertEquals("Wrong error on main thread",EXPECTED,Native.getLastError());
   for (int i=0; i < threads.size(); i++) {

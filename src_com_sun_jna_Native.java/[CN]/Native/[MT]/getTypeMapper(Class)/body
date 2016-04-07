@@ -1,3 +1,0 @@
-{
-  return (TypeMapper)getLibraryOptions(cls).get(Library.OPTION_TYPE_MAPPER);
-}

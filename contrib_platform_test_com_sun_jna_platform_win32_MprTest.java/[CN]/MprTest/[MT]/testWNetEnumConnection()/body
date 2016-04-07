@@ -1,0 +1,33 @@
+{
+  int bufferSize=16 * 1024;
+  HANDLEByReference lphEnum=new HANDLEByReference();
+  File fileShareFolder=createTempFolder();
+  String share=createLocalShare(fileShareFolder);
+  connectToLocalShare(share,null);
+  try {
+    assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetOpenEnum(RESOURCESCOPE.RESOURCE_CONNECTED,RESOURCETYPE.RESOURCETYPE_DISK,RESOURCEUSAGE.RESOURCEUSAGE_ALL,null,lphEnum));
+    int winError=WinError.ERROR_SUCCESS;
+    while (true) {
+      Memory memory=new Memory(bufferSize);
+      IntByReference lpBufferSize=new IntByReference(bufferSize);
+      IntByReference lpcCount=new IntByReference(1);
+      winError=Mpr.INSTANCE.WNetEnumResource(lphEnum.getValue(),lpcCount,memory,lpBufferSize);
+      if (winError == WinError.ERROR_NO_MORE_ITEMS)       break;
+      if (winError == WinError.ERROR_MORE_DATA) {
+        bufferSize=bufferSize * 2;
+        continue;
+      }
+      assertEquals(winError,WinError.ERROR_SUCCESS);
+      assertEquals(1,lpcCount.getValue());
+      NETRESOURCE resource=new NETRESOURCE(memory);
+      assertNotNull(resource.lpRemoteName);
+    }
+    assertEquals(winError,WinError.ERROR_NO_MORE_ITEMS);
+  }
+  finally {
+    Mpr.INSTANCE.WNetCloseEnum(lphEnum.getValue());
+    disconnectFromLocalShare("\\\\" + getLocalComputerName() + "\\"+ share);
+    deleteLocalShare(share);
+    fileShareFolder.delete();
+  }
+}

@@ -1,5 +1,5 @@
 {
   if (Platform.isWindows())   return;
-  CLibrary lib=(CLibrary)Native.loadLibrary("c",CLibrary.class);
+  CLibrary lib=Native.loadLibrary("c",CLibrary.class);
   assertNotNull("Couldn't get current user",lib.getpwuid(lib.geteuid()));
 }

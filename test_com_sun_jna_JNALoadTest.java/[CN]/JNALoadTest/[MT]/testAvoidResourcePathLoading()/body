@@ -1,7 +1,7 @@
 {
   System.setProperty("jna.noclasspath","true");
   try {
-    Class cls=Class.forName("com.sun.jna.Native",true,new TestLoader(false));
+    Class<?> cls=Class.forName("com.sun.jna.Native",true,new TestLoader(false));
     fail("Class com.sun.jna.Native should not be loadable if jna.noclasspath=true: " + cls.getClassLoader());
   }
  catch (  UnsatisfiedLinkError e) {

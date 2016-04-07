@@ -1,0 +1,3 @@
+{
+  return m.isVarArgs() ? m.getParameterTypes().length - 1 : 0;
+}

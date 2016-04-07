@@ -1,16 +1,2 @@
 {
-  IConnectionPointContainer cpc=this.queryInterface(IConnectionPointContainer.class);
-  Dispatch rawCpcDispatch=(Dispatch)cpc.getRawDispatch();
-  final ConnectionPointContainer rawCpc=new ConnectionPointContainer(rawCpcDispatch.getPointer());
-  final REFIID adviseRiid=new REFIID(iid.getPointer());
-  final PointerByReference ppCp=new PointerByReference();
-  HRESULT hr=factory.getComThread().execute(new Callable<HRESULT>(){
-    @Override public HRESULT call() throws Exception {
-      return rawCpc.FindConnectionPoint(adviseRiid,ppCp);
-    }
-  }
-);
-  COMUtils.checkRC(hr);
-  final ConnectionPoint rawCp=new ConnectionPoint(ppCp.getValue());
-  return rawCp;
 }

@@ -1,9 +1,17 @@
 {
-  File file=createTempFile();
   int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION;
   PointerByReference ppSecurityDescriptor=new PointerByReference();
-  assertEquals(Advapi32.INSTANCE.GetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,null,null,null,null,ppSecurityDescriptor),0);
-  assertTrue(Advapi32.INSTANCE.GetSecurityDescriptorLength(ppSecurityDescriptor.getValue()) > 0);
-  Kernel32.INSTANCE.LocalFree(ppSecurityDescriptor.getValue());
-  file.delete();
+  File file=createTempFile();
+  try {
+    try {
+      assertEquals("GetNamedSecurityInfo(" + file + ")",0,Advapi32.INSTANCE.GetNamedSecurityInfo(file.getAbsolutePath(),AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,null,null,null,null,ppSecurityDescriptor));
+      assertTrue("GetSecurityDescriptorLength(" + file + ")",Advapi32.INSTANCE.GetSecurityDescriptorLength(ppSecurityDescriptor.getValue()) > 0);
+    }
+  finally {
+      file.delete();
+    }
+  }
+  finally {
+    Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue());
+  }
 }

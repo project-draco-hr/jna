@@ -1,0 +1,12 @@
+{
+  try {
+    Pointer ptr=new Pointer(0xFFFFFFFFFFFFFFFFL);
+    Kernel32Util.freeLocalMemory(ptr);
+    fail("Unexpected success to free bad local memory");
+  }
+ catch (  Win32Exception e) {
+    HRESULT hr=e.getHR();
+    int code=W32Errors.HRESULT_CODE(hr.intValue());
+    assertEquals("Mismatched failure reason code",WinError.ERROR_INVALID_HANDLE,code);
+  }
+}

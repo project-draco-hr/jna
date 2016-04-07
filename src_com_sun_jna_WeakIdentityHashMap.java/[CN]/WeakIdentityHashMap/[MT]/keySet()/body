@@ -1,8 +1,7 @@
 {
   reap();
-  Set ret=new HashSet();
-  for (Iterator i=backingStore.keySet().iterator(); i.hasNext(); ) {
-    IdentityWeakReference ref=(IdentityWeakReference)i.next();
+  Set<K> ret=new LinkedHashSet<K>();
+  for (  Reference<? extends K> ref : backingStore.keySet()) {
     ret.add(ref.get());
   }
   return Collections.unmodifiableSet(ret);

@@ -1,0 +1,31 @@
+{
+  PointerByReference pDispatch=new PointerByReference();
+  HRESULT hr=Ole32.INSTANCE.CoCreateInstance(CLSID_WORD,null,WTypes.CLSCTX_SERVER,IID_APPLICATION,pDispatch);
+  if (!COMUtils.SUCCEEDED(hr)) {
+    LOG.log(Level.INFO,"HybdridCOMInvocationTest test was not run, MS Word object could not be instantiated.");
+    return;
+  }
+  Dispatch dp=new Dispatch(pDispatch.getValue());
+  DISPID dispId=new OaIdl.DISPID(0x00000172);
+  WinDef.LCID LOCALE_SYSTEM_DEFAULT=Kernel32.INSTANCE.GetSystemDefaultLCID();
+  Variant.VARIANT.ByReference result=new Variant.VARIANT.ByReference();
+  OaIdl.EXCEPINFO.ByReference pExcepInfo=new OaIdl.EXCEPINFO.ByReference();
+  IntByReference puArgErr=new IntByReference();
+  WORD wFlagsMethod=new WinDef.WORD(OleAuto.DISPATCH_METHOD);
+  WORD wFlagsGet=new WinDef.WORD(OleAuto.DISPATCH_PROPERTYGET);
+  WORD wFlagsCombined=new WinDef.WORD(OleAuto.DISPATCH_METHOD | OleAuto.DISPATCH_PROPERTYGET);
+  OleAuto.DISPPARAMS.ByReference pDispParams=new OleAuto.DISPPARAMS.ByReference();
+  VARIANT[] params=new VARIANT[1];
+  params[0]=new VARIANT(1f);
+  pDispParams.cArgs=new UINT(1);
+  pDispParams.cNamedArgs=new UINT(0);
+  pDispParams.rgvarg=new Variant.VariantArg.ByReference(params);
+  pDispParams.rgdispidNamedArgs=new OaIdl.DISPIDByReference();
+  hr=dp.Invoke(dispId,new REFIID(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,wFlagsMethod,pDispParams,result,pExcepInfo,puArgErr);
+  assertTrue(COMUtils.FAILED(hr));
+  hr=dp.Invoke(dispId,new REFIID(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,wFlagsGet,pDispParams,result,pExcepInfo,puArgErr);
+  assertTrue(COMUtils.FAILED(hr));
+  hr=dp.Invoke(dispId,new REFIID(Guid.IID_NULL),LOCALE_SYSTEM_DEFAULT,wFlagsCombined,pDispParams,result,pExcepInfo,puArgErr);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  assertEquals(72.0f,result.floatValue());
+}

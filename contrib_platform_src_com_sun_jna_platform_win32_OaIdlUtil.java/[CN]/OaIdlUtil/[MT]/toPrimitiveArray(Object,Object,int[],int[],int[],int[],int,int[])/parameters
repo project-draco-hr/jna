@@ -1,0 +1,8 @@
+Object dataArray
+Object targetArray
+int[] minIdx
+int[] maxIdx
+int[] elements
+int[] cumElements
+int varType
+int[] currentIdx

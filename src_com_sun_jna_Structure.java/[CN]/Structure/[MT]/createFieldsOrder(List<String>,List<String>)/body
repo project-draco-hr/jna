@@ -1,0 +1,6 @@
+{
+  List<String> fields=new ArrayList<String>(baseFields.size() + extraFields.size());
+  fields.addAll(baseFields);
+  fields.addAll(extraFields);
+  return Collections.unmodifiableList(fields);
+}

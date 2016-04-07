@@ -1,5 +1,5 @@
 {
-  WString lpFileName=new WString(file.getAbsolutePath());
+  String lpFileName=file.getAbsolutePath();
   if (!Advapi32.INSTANCE.EncryptFile(lpFileName)) {
     throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }

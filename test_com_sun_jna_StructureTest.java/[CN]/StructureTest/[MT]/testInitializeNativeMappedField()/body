@@ -7,8 +7,8 @@ class TestStructure extends Structure {
     }
     public NativeLong nl=INITIAL;
     public NativeLong uninitialized;
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"nl","uninitialized"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("nl","uninitialized");
     }
   }
   TestStructure ts=new TestStructure();

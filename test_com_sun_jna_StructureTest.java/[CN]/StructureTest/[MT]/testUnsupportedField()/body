@@ -1,8 +1,8 @@
 {
 class BadNestedStructure extends Structure {
     public BadFieldStructure badStruct=new BadFieldStructure();
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"badStruct"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("badStruct");
     }
   }
   try {
@@ -10,7 +10,7 @@ class BadNestedStructure extends Structure {
     fail("Should throw IllegalArgumentException on bad field");
   }
  catch (  IllegalArgumentException e) {
-    assertTrue("Exception should include field name: " + e,e.getMessage().indexOf("badField") != -1);
+    assertTrue("Exception should include field name: " + e.getMessage(),e.getMessage().indexOf("badField") != -1);
   }
   try {
     new BadNestedStructure();

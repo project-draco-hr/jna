@@ -1,15 +1,15 @@
 {
 class TestStructure extends Structure {
     public int f1, f2;
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"f1","f2"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("f1","f2");
     }
   }
-class TestStructure2 extends TestStructure {
+class NoFieldOrder extends TestStructure {
     public int f3;
   }
   try {
-    new TestStructure2();
+    new NoFieldOrder();
     fail("Expected an error when structure fails to provide field order");
   }
  catch (  Error e) {

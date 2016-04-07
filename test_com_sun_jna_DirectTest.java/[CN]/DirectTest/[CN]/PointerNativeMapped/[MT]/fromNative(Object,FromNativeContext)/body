@@ -1,0 +1,4 @@
+{
+  nativeMethodName=((MethodResultContext)context).getMethod().getName();
+  return this;
+}

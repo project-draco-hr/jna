@@ -1,0 +1,19 @@
+{
+  File file=new File(System.getProperty("java.io.tmpdir"),System.nanoTime() + ".txt");
+  try {
+    try {
+      fillTempFile(file);
+      W32FileUtils.getInstance().moveToTrash(new File[]{file});
+    }
+ catch (    IOException e) {
+      throw new RuntimeException(e);
+    }
+    int result=Shell32.INSTANCE.SHEmptyRecycleBin(null,null,Shell32.SHERB_NOCONFIRMATION | Shell32.SHERB_NOPROGRESSUI | Shell32.SHERB_NOSOUND);
+    assertEquals("Result should have been ERROR_SUCCESS when emptying Recycle Bin - there should have been a file in it.",W32Errors.ERROR_SUCCESS,result);
+  }
+  finally {
+    if (file.exists()) {
+      file.delete();
+    }
+  }
+}

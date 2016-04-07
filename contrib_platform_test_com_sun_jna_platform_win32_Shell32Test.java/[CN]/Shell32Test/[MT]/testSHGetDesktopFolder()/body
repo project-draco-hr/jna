@@ -1,6 +1,6 @@
 {
   PointerByReference ppshf=new PointerByReference();
   WinNT.HRESULT hr=Shell32.INSTANCE.SHGetDesktopFolder(ppshf);
-  assertTrue(W32Errors.SUCCEEDED(hr.intValue()));
-  assertTrue(ppshf.getValue() != null);
+  assertTrue("Failed to get folder: " + hr.intValue(),W32Errors.SUCCEEDED(hr.intValue()));
+  assertTrue("No folder value",ppshf.getValue() != null);
 }

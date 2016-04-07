@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final NativeLong[] cbargs={null,null};
   TestLibrary.NativeLongCallback cb=new TestLibrary.NativeLongCallback(){
-    public NativeLong callback(    NativeLong arg,    NativeLong arg2){
+    @Override public NativeLong callback(    NativeLong arg,    NativeLong arg2){
       called[0]=true;
       cbargs[0]=arg;
       cbargs[1]=arg2;

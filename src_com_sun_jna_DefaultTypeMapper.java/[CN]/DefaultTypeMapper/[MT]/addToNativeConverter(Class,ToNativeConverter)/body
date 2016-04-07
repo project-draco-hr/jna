@@ -1,7 +1,0 @@
-{
-  toNativeConverters.add(new Entry(cls,converter));
-  Class alt=getAltClass(cls);
-  if (alt != null) {
-    toNativeConverters.add(new Entry(alt,converter));
-  }
-}

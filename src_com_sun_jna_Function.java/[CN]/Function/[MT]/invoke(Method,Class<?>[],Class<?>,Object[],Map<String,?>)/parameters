@@ -1,0 +1,5 @@
+Method invokingMethod
+Class<?>[] paramTypes
+Class<?> returnType
+Object[] inArgs
+Map<String,?> options

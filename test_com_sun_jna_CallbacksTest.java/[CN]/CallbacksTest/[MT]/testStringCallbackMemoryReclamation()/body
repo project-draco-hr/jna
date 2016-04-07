@@ -1,16 +1,16 @@
 {
   TestLibrary.StringCallback cb=new TestLibrary.StringCallback(){
-    public String callback(    String arg,    String arg2){
+    @Override public String callback(    String arg,    String arg2){
       return arg + arg2;
     }
   }
 ;
-  Map m=CallbackReference.allocations;
+  Map<?,?> m=CallbackReference.allocations;
   m.clear();
   String arg=getName() + "1" + UNICODE;
   String arg2=getName() + "2" + UNICODE;
   String value=lib.callStringCallback(cb,arg,arg2);
-  WeakReference ref=new WeakReference(value);
+  WeakReference<Object> ref=new WeakReference<Object>(value);
   arg=null;
   value=null;
   System.gc();

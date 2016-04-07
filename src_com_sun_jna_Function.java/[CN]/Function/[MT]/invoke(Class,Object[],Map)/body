@@ -1,5 +1,0 @@
-{
-  Method invokingMethod=(Method)options.get(OPTION_INVOKING_METHOD);
-  Class[] paramTypes=invokingMethod != null ? invokingMethod.getParameterTypes() : null;
-  return invoke(invokingMethod,paramTypes,returnType,inArgs,options);
-}

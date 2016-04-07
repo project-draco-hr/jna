@@ -1,11 +1,13 @@
 {
-  List flist=new ArrayList();
-  for (Class cls=getClass(); !cls.equals(Structure.class); cls=cls.getSuperclass()) {
-    List classFields=new ArrayList();
+  List<Field> flist=new ArrayList<Field>();
+  for (Class<?> cls=getClass(); !cls.equals(Structure.class); cls=cls.getSuperclass()) {
+    List<Field> classFields=new ArrayList<Field>();
     Field[] fields=cls.getDeclaredFields();
     for (int i=0; i < fields.length; i++) {
       int modifiers=fields[i].getModifiers();
-      if (Modifier.isStatic(modifiers) || !Modifier.isPublic(modifiers))       continue;
+      if (Modifier.isStatic(modifiers) || !Modifier.isPublic(modifiers)) {
+        continue;
+      }
       classFields.add(fields[i]);
     }
     flist.addAll(0,classFields);

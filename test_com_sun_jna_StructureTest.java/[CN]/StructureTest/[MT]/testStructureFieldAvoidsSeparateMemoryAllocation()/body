@@ -3,8 +3,8 @@ class TestStructure extends Structure {
     public NonAllocatingTestStructure s1;
     public TestStructure(){
     }
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"s1"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("s1");
     }
   }
   TestStructure ts=new TestStructure();

@@ -1,5 +1,4 @@
 {
-  VARIANT v=Convert.toVariant(value);
-  WinNT.HRESULT hr=this.oleMethod(OleAuto.DISPATCH_PROPERTYPUT,null,this.getRawDispatch(),name,v);
-  COMUtils.checkRC(hr);
+  DISPID dispID=resolveDispId(this.getRawDispatch(),name);
+  setProperty(dispID,value);
 }

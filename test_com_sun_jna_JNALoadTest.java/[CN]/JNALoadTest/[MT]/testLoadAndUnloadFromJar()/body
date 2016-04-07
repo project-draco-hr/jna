@@ -1,6 +1,6 @@
 {
   ClassLoader loader=new TestLoader(true);
-  Class cls=Class.forName("com.sun.jna.Native",true,loader);
+  Class<?> cls=Class.forName("com.sun.jna.Native",true,loader);
   assertEquals("Wrong class loader",loader,cls.getClassLoader());
   assertTrue("System property jna.loaded not set",Boolean.getBoolean("jna.loaded"));
   Field field=cls.getDeclaredField("jnidispatchPath");
@@ -8,8 +8,8 @@
   String path=(String)field.get(null);
   assertNotNull("Native library path unavailable",path);
   assertTrue("Native library not unpacked from jar: " + path,path.startsWith(System.getProperty("java.io.tmpdir")));
-  WeakReference ref=new WeakReference(cls);
-  WeakReference clref=new WeakReference(loader);
+  Reference<Class<?>> ref=new WeakReference<Class<?>>(cls);
+  Reference<ClassLoader> clref=new WeakReference<ClassLoader>(loader);
   loader=null;
   cls=null;
   field=null;

@@ -2,7 +2,7 @@
   NativeLibrary lib=NativeLibrary.getInstance("testlib");
   try {
     Function f=lib.getFunction(null);
-    fail("Function must have a name");
+    fail("Function must have a name: " + f);
   }
  catch (  NullPointerException e) {
   }

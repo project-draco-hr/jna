@@ -1,0 +1,21 @@
+{
+  int rowCount=2;
+  int colCount=10;
+  SAFEARRAY varArray=SAFEARRAY.createSafeArray(rowCount,colCount);
+  assertThat(varArray.getDimensionCount(),is(2));
+  assertThat(varArray.getUBound(0),equalTo(rowCount - 1));
+  assertThat(varArray.getUBound(1),equalTo(colCount - 1));
+  for (int rowIdx=0; rowIdx < rowCount; rowIdx++) {
+    for (int colIdx=0; colIdx < colCount; colIdx++) {
+      VARIANT variant=new VARIANT(rowIdx + "#" + colIdx);
+      varArray.putElement(variant,rowIdx,colIdx);
+    }
+  }
+  for (int rowIdx=0; rowIdx < rowCount; rowIdx++) {
+    for (int colIdx=0; colIdx < colCount; colIdx++) {
+      VARIANT element=(VARIANT)varArray.getElement(rowIdx,colIdx);
+      assertEquals(rowIdx + "#" + colIdx,element.stringValue());
+      OleAuto.INSTANCE.VariantClear(element);
+    }
+  }
+}

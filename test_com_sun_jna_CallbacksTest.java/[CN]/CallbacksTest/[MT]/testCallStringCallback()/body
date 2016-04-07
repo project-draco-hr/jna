@@ -2,7 +2,7 @@
   final boolean[] called={false};
   final String[] cbargs={null,null};
   TestLibrary.StringCallback cb=new TestLibrary.StringCallback(){
-    public String callback(    String arg,    String arg2){
+    @Override public String callback(    String arg,    String arg2){
       called[0]=true;
       cbargs[0]=arg;
       cbargs[1]=arg2;

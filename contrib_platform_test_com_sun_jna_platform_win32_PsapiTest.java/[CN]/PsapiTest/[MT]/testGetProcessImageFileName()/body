@@ -1,0 +1,32 @@
+{
+  HANDLE me=null;
+  Win32Exception we=null;
+  try {
+    me=Kernel32.INSTANCE.OpenProcess(WinNT.PROCESS_ALL_ACCESS,false,Kernel32.INSTANCE.GetCurrentProcessId());
+    assertTrue("Handle to my process should not be null",me != null);
+    char[] buffer=new char[256];
+    Psapi.INSTANCE.GetProcessImageFileName(me,buffer,256);
+    String path=new String(buffer);
+    assertTrue("Image path should contain 'java' and '.exe'",path.contains("java") && path.contains(".exe"));
+  }
+ catch (  Win32Exception e) {
+    we=e;
+    throw we;
+  }
+ finally {
+    try {
+      Kernel32Util.closeHandle(me);
+    }
+ catch (    Win32Exception e) {
+      if (we == null) {
+        we=e;
+      }
+ else {
+        we.addSuppressed(e);
+      }
+    }
+    if (we != null) {
+      throw we;
+    }
+  }
+}

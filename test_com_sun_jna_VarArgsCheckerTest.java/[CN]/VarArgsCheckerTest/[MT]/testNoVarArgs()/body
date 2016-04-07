@@ -1,6 +1,7 @@
 {
-  final VarArgsChecker sut=VarArgsChecker.create();
-  final Method toCheckForVarArgs=VarArgsCheckerTest.class.getMethod("testNoVarArgs",new Class[0]);
-  final boolean res=sut.isVarArgs(toCheckForVarArgs);
-  assertFalse(res);
+  final VarArgsChecker checker=VarArgsChecker.create();
+  final Method method=VarArgsCheckerTest.class.getMethod("testNoVarArgs",new Class[0]);
+  final boolean res=checker.isVarArgs(method);
+  assertFalse("Method should not be detected as varargs",res);
+  assertEquals("Non-varargs should return fixed args of zero",0,checker.fixedArgs(method));
 }

@@ -1,4 +1,4 @@
 {
   DirectTestLibraryBoolean lib=new DirectTestLibraryBoolean();
-  assertEquals("Failed to convert Boolean argument to Int",lib.MAGIC,lib.returnInt32Argument(true));
+  assertEquals("Failed to convert Boolean argument to Int",DirectTestLibraryBoolean.MAGIC,lib.returnInt32Argument(true));
 }

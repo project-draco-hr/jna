@@ -1,0 +1,9 @@
+{
+  NETRESOURCE resource=new NETRESOURCE();
+  resource.dwDisplayType=0;
+  resource.dwScope=0;
+  resource.dwType=RESOURCETYPE.RESOURCETYPE_DISK;
+  resource.lpLocalName=lpLocalName;
+  resource.lpRemoteName="\\\\" + getLocalComputerName() + "\\"+ share;
+  assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetAddConnection3(null,resource,null,null,0));
+}

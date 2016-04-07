@@ -1,0 +1,46 @@
+{
+  final Method eventMethod;
+  if (CallbackProxy.this.dsipIdMap.containsKey(dispIdMember)) {
+    eventMethod=CallbackProxy.this.dsipIdMap.get(dispIdMember);
+    if (eventMethod.getParameterTypes().length != pDispParams.cArgs.intValue()) {
+      CallbackProxy.this.comEventCallbackListener.errorReceivingCallbackEvent("Trying to invoke method " + eventMethod + " with "+ pDispParams.cArgs.intValue()+ " arguments",null);
+      return;
+    }
+  }
+ else {
+    CallbackProxy.this.comEventCallbackListener.errorReceivingCallbackEvent("No method found with dispId = " + dispIdMember,null);
+    return;
+  }
+  final Class<?>[] params=eventMethod.getParameterTypes();
+  List<Object> rjargs=new ArrayList<Object>();
+  if (pDispParams.cArgs.intValue() > 0) {
+    VariantArg vargs=pDispParams.rgvarg;
+    vargs.setArraySize(pDispParams.cArgs.intValue());
+    for (int i=0; i < vargs.variantArg.length; i++) {
+      Class targetClass=params[vargs.variantArg.length - 1 - i];
+      Variant.VARIANT varg=vargs.variantArg[i];
+      Object jarg=Convert.toJavaObject(varg,targetClass,factory,true);
+      rjargs.add(jarg);
+    }
+  }
+  List<Object> margs=new ArrayList<Object>();
+  try {
+    int lastParamIdx=eventMethod.getParameterTypes().length - 1;
+    for (int i=lastParamIdx; i >= 0; i--) {
+      margs.add(rjargs.get(i));
+    }
+    eventMethod.invoke(comEventCallbackListener,margs.toArray());
+  }
+ catch (  Exception e) {
+    List<String> decodedClassNames=new ArrayList<String>(margs.size());
+    for (    Object o : margs) {
+      if (o == null) {
+        decodedClassNames.add("NULL");
+      }
+ else {
+        decodedClassNames.add(o.getClass().getName());
+      }
+    }
+    CallbackProxy.this.comEventCallbackListener.errorReceivingCallbackEvent("Exception invoking method " + eventMethod + " supplied: "+ decodedClassNames.toString(),e);
+  }
+}

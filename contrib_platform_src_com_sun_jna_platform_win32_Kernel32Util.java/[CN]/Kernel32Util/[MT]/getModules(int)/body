@@ -1,0 +1,45 @@
+{
+  HANDLE snapshot=Kernel32.INSTANCE.CreateToolhelp32Snapshot(Tlhelp32.TH32CS_SNAPMODULE,new DWORD(processID));
+  if (snapshot == null) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  Win32Exception we=null;
+  try {
+    Tlhelp32.MODULEENTRY32W first=new Tlhelp32.MODULEENTRY32W();
+    if (!Kernel32.INSTANCE.Module32FirstW(snapshot,first)) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+    List<Tlhelp32.MODULEENTRY32W> modules=new ArrayList<Tlhelp32.MODULEENTRY32W>();
+    modules.add(first);
+    Tlhelp32.MODULEENTRY32W next=new Tlhelp32.MODULEENTRY32W();
+    while (Kernel32.INSTANCE.Module32NextW(snapshot,next)) {
+      modules.add(next);
+      next=new Tlhelp32.MODULEENTRY32W();
+    }
+    int lastError=Kernel32.INSTANCE.GetLastError();
+    if (lastError != W32Errors.ERROR_SUCCESS && lastError != W32Errors.ERROR_NO_MORE_FILES) {
+      throw new Win32Exception(lastError);
+    }
+    return modules;
+  }
+ catch (  Win32Exception e) {
+    we=e;
+    throw we;
+  }
+ finally {
+    try {
+      closeHandle(snapshot);
+    }
+ catch (    Win32Exception e) {
+      if (we == null) {
+        we=e;
+      }
+ else {
+        we.addSuppressed(e);
+      }
+    }
+    if (we != null) {
+      throw we;
+    }
+  }
+}

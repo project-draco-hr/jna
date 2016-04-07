@@ -1,0 +1,7 @@
+{
+  VARIANT testValue=new Variant.VARIANT(42);
+  VARIANT resultVariant=Convert.toVariant(testValue);
+  assertSame(testValue,resultVariant);
+  assertSame(testValue,Convert.toJavaObject(resultVariant,VARIANT.class,fact,true));
+  assertSame(42,Convert.toJavaObject(testValue,Object.class,fact,true));
+}

@@ -1,0 +1,6 @@
+{
+  final VarArgsChecker checker=VarArgsChecker.create();
+  final Method method=VarArgsCheckerTest.class.getMethod("methodWithOneFixedArg",new Class[]{String.class,Object[].class});
+  final int res=checker.fixedArgs(method);
+  assertEquals("Wrong number of fixed args",1,res);
+}

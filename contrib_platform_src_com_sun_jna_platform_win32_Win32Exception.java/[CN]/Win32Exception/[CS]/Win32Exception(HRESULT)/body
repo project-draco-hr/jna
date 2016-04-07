@@ -1,4 +1,3 @@
 {
-  super(Kernel32Util.formatMessage(hr));
-  _hr=hr;
+  this(W32Errors.HRESULT_CODE(hr.intValue()),hr);
 }

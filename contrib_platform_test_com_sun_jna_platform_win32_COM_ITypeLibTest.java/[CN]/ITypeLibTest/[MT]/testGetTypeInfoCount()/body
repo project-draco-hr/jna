@@ -1,4 +1,5 @@
 {
   ITypeLib shellTypeLib=loadShellTypeLib();
   UINT typeInfoCount=shellTypeLib.GetTypeInfoCount();
+  assertEquals(38,typeInfoCount.intValue());
 }

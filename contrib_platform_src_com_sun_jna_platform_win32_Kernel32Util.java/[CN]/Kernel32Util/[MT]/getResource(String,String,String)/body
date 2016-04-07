@@ -1,0 +1,63 @@
+{
+  HMODULE target=Kernel32.INSTANCE.LoadLibraryEx(path,null,Kernel32.LOAD_LIBRARY_AS_DATAFILE);
+  if (target == null) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+  Win32Exception err=null;
+  Pointer start=null;
+  int length=0;
+  byte[] results=null;
+  try {
+    Pointer t=null;
+    try {
+      t=new Pointer(Long.parseLong(type));
+    }
+ catch (    NumberFormatException e) {
+      t=new Memory(Native.WCHAR_SIZE * (type.length() + 1));
+      t.setWideString(0,type);
+    }
+    Pointer n=null;
+    try {
+      n=new Pointer(Long.parseLong(name));
+    }
+ catch (    NumberFormatException e) {
+      n=new Memory(Native.WCHAR_SIZE * (name.length() + 1));
+      n.setWideString(0,name);
+    }
+    HRSRC hrsrc=Kernel32.INSTANCE.FindResource(target,n,t);
+    if (hrsrc == null) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+    HANDLE loaded=Kernel32.INSTANCE.LoadResource(target,hrsrc);
+    if (loaded == null) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+    length=Kernel32.INSTANCE.SizeofResource(target,hrsrc);
+    if (length == 0) {
+      throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+    }
+    start=Kernel32.INSTANCE.LockResource(loaded);
+    if (start == null) {
+      throw new IllegalStateException("LockResource returned null.");
+    }
+    results=start.getByteArray(0,length);
+  }
+ catch (  Win32Exception we) {
+    err=we;
+  }
+ finally {
+    if (target != null) {
+      if (!Kernel32.INSTANCE.FreeLibrary(target)) {
+        Win32Exception we=new Win32Exception(Kernel32.INSTANCE.GetLastError());
+        if (err != null) {
+          we.addSuppressed(err);
+        }
+        throw we;
+      }
+    }
+  }
+  if (err != null) {
+    throw err;
+  }
+  return results;
+}

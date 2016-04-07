@@ -10,7 +10,7 @@
   }
   finally {
     if (pDataProtected.pbData != null) {
-      Kernel32.INSTANCE.LocalFree(pDataProtected.pbData);
+      Kernel32Util.freeLocalMemory(pDataProtected.pbData);
     }
   }
 }

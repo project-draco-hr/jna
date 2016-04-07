@@ -1,0 +1,18 @@
+{
+  File fileShareFolder=createTempFolder();
+  String share=createLocalShare(fileShareFolder);
+  NETRESOURCE resource=new NETRESOURCE();
+  resource.dwDisplayType=0;
+  resource.dwScope=0;
+  resource.dwType=RESOURCETYPE.RESOURCETYPE_DISK;
+  resource.lpRemoteName="\\\\" + getLocalComputerName() + "\\"+ share;
+  try {
+    Mpr.INSTANCE.WNetCancelConnection2(resource.lpRemoteName,0,true);
+    assertEquals(WinError.ERROR_SUCCESS,Mpr.INSTANCE.WNetUseConnection(null,resource,null,null,0,null,null,null));
+  }
+  finally {
+    Mpr.INSTANCE.WNetCancelConnection2(resource.lpRemoteName,0,true);
+    Netapi32.INSTANCE.NetShareDel(null,share,0);
+    fileShareFolder.delete();
+  }
+}

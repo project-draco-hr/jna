@@ -1,21 +1,21 @@
 {
   CallbackTestLibrary lib=loadCallbackTestLibrary();
-  lib._MAPPER.clear();
+  CallbackTestLibrary._MAPPER.clear();
   final double[] ARGS=new double[2];
   CallbackTestLibrary.DoubleCallback cb=new CallbackTestLibrary.DoubleCallback(){
-    public double callback(    double arg,    double arg2){
+    @Override public double callback(    double arg,    double arg2){
       ARGS[0]=arg;
       ARGS[1]=arg2;
       return arg + arg2;
     }
   }
 ;
-  assertEquals("Wrong type mapper for callback class",lib._MAPPER,Native.getTypeMapper(CallbackTestLibrary.DoubleCallback.class));
-  assertEquals("Wrong type mapper for callback object",lib._MAPPER,Native.getTypeMapper(cb.getClass()));
+  assertEquals("Wrong type mapper for callback class",CallbackTestLibrary._MAPPER,Native.getTypeMapper(CallbackTestLibrary.DoubleCallback.class));
+  assertEquals("Wrong type mapper for callback object",CallbackTestLibrary._MAPPER,Native.getTypeMapper(cb.getClass()));
   double result=lib.callInt32Callback(cb,-1,-2);
   assertEquals("Wrong first callback argument",-1,ARGS[0],0);
   assertEquals("Wrong second callback argument",-2,ARGS[1],0);
   assertEquals("Incorrect result of callback invocation",-3,result,0);
-  assertEquals("Type mapper not called for arguments",3,lib._MAPPER.fromNativeConversions);
-  assertEquals("Type mapper not called for result",3,lib._MAPPER.toNativeConversions);
+  assertEquals("Type mapper not called for arguments",3,CallbackTestLibrary._MAPPER.fromNativeConversions);
+  assertEquals("Type mapper not called for result",3,CallbackTestLibrary._MAPPER.toNativeConversions);
 }

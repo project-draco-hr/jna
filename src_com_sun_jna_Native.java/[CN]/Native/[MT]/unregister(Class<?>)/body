@@ -1,0 +1,10 @@
+{
+synchronized (registeredClasses) {
+    long[] handles=registeredClasses.get(cls);
+    if (handles != null) {
+      unregister(cls,handles);
+      registeredClasses.remove(cls);
+      registeredLibraries.remove(cls);
+    }
+  }
+}

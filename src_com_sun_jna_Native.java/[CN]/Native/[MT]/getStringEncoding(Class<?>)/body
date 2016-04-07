@@ -1,0 +1,5 @@
+{
+  Map<String,?> options=getLibraryOptions(cls);
+  String encoding=(String)options.get(Library.OPTION_STRING_ENCODING);
+  return encoding != null ? encoding : getDefaultStringEncoding();
+}

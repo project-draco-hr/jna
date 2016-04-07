@@ -1,0 +1,40 @@
+{
+  HANDLE cacheHandle=null;
+  try {
+    IntByReference size=new IntByReference();
+    int lastError=0;
+    cacheHandle=Wininet.INSTANCE.FindFirstUrlCacheEntry(null,null,size);
+    lastError=Native.getLastError();
+    assertNull("FindFirstUrlCacheEntry should have returned null.",cacheHandle);
+    if (lastError == WinError.ERROR_NO_MORE_ITEMS) {
+      boolean result=Wininet.INSTANCE.FindNextUrlCacheEntry(null,null,size);
+      lastError=Native.getLastError();
+      assertFalse("FindNextUrlCacheEntry should have returned false.",result);
+      assertEquals("GetLastError should have returned ERROR_INVALID_PARAMETER.",WinError.ERROR_INVALID_PARAMETER,lastError);
+      return;
+    }
+    assertEquals("GetLastError should have returned ERROR_INSUFFICIENT_BUFFER.",WinError.ERROR_INSUFFICIENT_BUFFER,lastError);
+    INTERNET_CACHE_ENTRY_INFO entry=new INTERNET_CACHE_ENTRY_INFO(size.getValue());
+    cacheHandle=Wininet.INSTANCE.FindFirstUrlCacheEntry(null,entry,size);
+    lastError=Native.getLastError();
+    assertNotNull("FindFirstUrlCacheEntry should not have returned null.",cacheHandle);
+    assertEquals("GetLastError should have returned ERROR_SUCCESS.",WinError.ERROR_SUCCESS,lastError);
+    size=new IntByReference();
+    boolean result=Wininet.INSTANCE.FindNextUrlCacheEntry(cacheHandle,null,size);
+    lastError=Native.getLastError();
+    assertFalse("FindNextUrlCacheEntry should have returned false.",result);
+    assertEquals("GetLastError should have returned ERROR_INSUFFICIENT_BUFFER.",WinError.ERROR_INSUFFICIENT_BUFFER,lastError);
+    entry=new INTERNET_CACHE_ENTRY_INFO(size.getValue());
+    result=Wininet.INSTANCE.FindNextUrlCacheEntry(cacheHandle,entry,size);
+    lastError=Native.getLastError();
+    assertTrue("FindNextUrlCacheEntry should have returned true.",result);
+    assertEquals("GetLastError should have returned ERROR_SUCCESS.",WinError.ERROR_SUCCESS,lastError);
+  }
+  finally {
+    if (cacheHandle != null) {
+      if (!Wininet.INSTANCE.FindCloseUrlCache(cacheHandle)) {
+        throw new Win32Exception(Native.getLastError());
+      }
+    }
+  }
+}

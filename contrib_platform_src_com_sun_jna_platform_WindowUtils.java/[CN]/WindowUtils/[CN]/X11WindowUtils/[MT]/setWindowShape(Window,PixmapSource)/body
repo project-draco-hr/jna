@@ -1,6 +1,6 @@
 {
   Runnable action=new Runnable(){
-    public void run(){
+    @Override public void run(){
       X11 x11=X11.INSTANCE;
       Display dpy=x11.XOpenDisplay(null);
       if (dpy == null) {

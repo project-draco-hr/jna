@@ -1,0 +1,32 @@
+{
+  if (pDispParams.rgvarg != null && pDispParams.cArgs.intValue() > 0) {
+    pDispParams.rgvarg.setArraySize(pDispParams.cArgs.intValue());
+  }
+  try {
+switch (dispIdMember.intValue()) {
+case DISPID_NavigateComplete2:
+      navigateComplete2Called=true;
+    VARIANT urlByRef=pDispParams.rgvarg.variantArg[0];
+  navigateComplete2String=((VARIANT)urlByRef.getValue()).stringValue();
+break;
+case DISPID_BeforeNavigate2:
+VARIANT Cancel=pDispParams.rgvarg.variantArg[0];
+VARIANT Headers=pDispParams.rgvarg.variantArg[1];
+VARIANT PostData=pDispParams.rgvarg.variantArg[2];
+VARIANT TargetFrameName=pDispParams.rgvarg.variantArg[3];
+VARIANT Flags=pDispParams.rgvarg.variantArg[4];
+VARIANT URL=pDispParams.rgvarg.variantArg[5];
+VARIANT pDisp=pDispParams.rgvarg.variantArg[6];
+VARIANT_BOOLByReference cancelValue=((VARIANT_BOOLByReference)Cancel.getValue());
+if (blockNavigation) {
+cancelValue.setValue(Variant.VARIANT_TRUE);
+}
+break;
+}
+}
+ catch (Throwable ex) {
+ex.printStackTrace(System.out);
+System.out.println(ex);
+}
+return new HRESULT(WinError.E_NOTIMPL);
+}

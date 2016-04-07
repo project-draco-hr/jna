@@ -1,0 +1,8 @@
+{
+  TypeLibUtil shellTypeLib=loadShellTypeLib();
+  String memberValue="count";
+  String memberValueOk="Count";
+  IsName isNameResult=shellTypeLib.IsName(memberValue,0);
+  assertEquals(memberValueOk,isNameResult.getNameBuf());
+  assertTrue(isNameResult.isName());
+}

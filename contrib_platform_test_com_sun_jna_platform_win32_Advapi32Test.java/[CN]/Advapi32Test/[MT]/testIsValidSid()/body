@@ -2,8 +2,14 @@
   String sidString=EVERYONE;
   PSIDByReference sid=new PSIDByReference();
   assertTrue("SID conversion failed",Advapi32.INSTANCE.ConvertStringSidToSid(sidString,sid));
-  assertTrue("Converted SID not valid: " + sid.getValue(),Advapi32.INSTANCE.IsValidSid(sid.getValue()));
-  int sidLength=Advapi32.INSTANCE.GetLengthSid(sid.getValue());
-  assertTrue(sidLength > 0);
-  assertTrue(Advapi32.INSTANCE.IsValidSid(sid.getValue()));
+  PSID value=sid.getValue();
+  try {
+    assertTrue("Converted SID not valid: " + value,Advapi32.INSTANCE.IsValidSid(value));
+    int sidLength=Advapi32.INSTANCE.GetLengthSid(value);
+    assertTrue("Non positive sid length",sidLength > 0);
+    assertTrue("Invalid sid",Advapi32.INSTANCE.IsValidSid(value));
+  }
+  finally {
+    Kernel32Util.freeLocalMemory(value.getPointer());
+  }
 }

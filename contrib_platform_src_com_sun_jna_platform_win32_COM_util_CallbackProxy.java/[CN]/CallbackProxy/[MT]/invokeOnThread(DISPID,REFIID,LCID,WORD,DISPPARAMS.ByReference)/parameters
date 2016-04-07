@@ -1,0 +1,5 @@
+DISPID dispIdMember
+REFIID riid
+LCID lcid
+WORD wFlags
+DISPPARAMS.ByReference pDispParams

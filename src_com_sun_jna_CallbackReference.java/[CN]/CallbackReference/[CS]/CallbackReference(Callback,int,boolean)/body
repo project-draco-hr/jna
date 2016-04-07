@@ -1,12 +1,13 @@
 {
   super(callback);
   TypeMapper mapper=Native.getTypeMapper(callback.getClass());
-  Class[] nativeParamTypes;
-  Class returnType;
+  this.callingConvention=callingConvention;
+  Class<?>[] nativeParamTypes;
+  Class<?> returnType;
   boolean ppc=Platform.isPPC();
   if (direct) {
     Method m=getCallbackMethod(callback);
-    Class[] ptypes=m.getParameterTypes();
+    Class<?>[] ptypes=m.getParameterTypes();
     for (int i=0; i < ptypes.length; i++) {
       if (ppc && (ptypes[i] == float.class || ptypes[i] == double.class)) {
         direct=false;
@@ -22,6 +23,7 @@
     }
   }
   String encoding=Native.getStringEncoding(callback.getClass());
+  long peer=0;
   if (direct) {
     method=getCallbackMethod(callback);
     nativeParamTypes=method.getParameterTypes();
@@ -30,9 +32,7 @@
     if (callback instanceof DLLCallback) {
       flags|=Native.CB_OPTION_IN_DLL;
     }
-    long peer=Native.createNativeCallback(callback,method,nativeParamTypes,returnType,callingConvention,flags,encoding);
-    cbstruct=peer != 0 ? new Pointer(peer) : null;
-    allocatedMemory.put(this,new WeakReference(this));
+    peer=Native.createNativeCallback(callback,method,nativeParamTypes,returnType,callingConvention,flags,encoding);
   }
  else {
     if (callback instanceof CallbackProxy) {
@@ -68,7 +68,8 @@
       throw new IllegalArgumentException(msg);
     }
     int flags=callback instanceof DLLCallback ? Native.CB_OPTION_IN_DLL : 0;
-    long peer=Native.createNativeCallback(proxy,PROXY_CALLBACK_METHOD,nativeParamTypes,returnType,callingConvention,flags,encoding);
-    cbstruct=peer != 0 ? new Pointer(peer) : null;
+    peer=Native.createNativeCallback(proxy,PROXY_CALLBACK_METHOD,nativeParamTypes,returnType,callingConvention,flags,encoding);
   }
+  cbstruct=peer != 0 ? new Pointer(peer) : null;
+  allocatedMemory.put(this,new WeakReference<CallbackReference>(this));
 }

@@ -1,7 +1,7 @@
 {
   USER_INFO_1 userInfo=new USER_INFO_1();
-  userInfo.usri1_name=new WString("JNANetapi32TestUser");
-  userInfo.usri1_password=new WString("!JNAP$$Wrd0");
+  userInfo.usri1_name="JNANetapi32TestUser";
+  userInfo.usri1_password="!JNAP$$Wrd0";
   userInfo.usri1_priv=LMAccess.USER_PRIV_USER;
   if (LMErr.NERR_Success != Netapi32.INSTANCE.NetUserAdd(null,1,userInfo,null)) {
     return;
@@ -15,8 +15,9 @@
       assertEquals(userInfo.usri1_name.toString(),account.name);
     }
   finally {
-      if (phUser.getValue() != WinBase.INVALID_HANDLE_VALUE) {
-        Kernel32.INSTANCE.CloseHandle(phUser.getValue());
+      HANDLE hUser=phUser.getValue();
+      if (!WinBase.INVALID_HANDLE_VALUE.equals(hUser)) {
+        Kernel32Util.closeHandle(hUser);
       }
     }
   }

@@ -1,0 +1,12 @@
+{
+  ShellApplication sa=new ShellApplication();
+  assertTrue("No shell application windows found",sa.Windows().Count() > 0);
+  boolean pageFound=false;
+  for (  InternetExplorer ie : sa.Windows()) {
+    if (ie != null && "about:blank".equals(ie.getURL())) {
+      pageFound=true;
+    }
+  }
+  assertTrue("No IE page was found",pageFound);
+  Ole32.INSTANCE.CoUninitialize();
+}

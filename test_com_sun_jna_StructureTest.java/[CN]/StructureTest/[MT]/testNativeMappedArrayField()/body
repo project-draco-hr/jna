@@ -2,8 +2,8 @@
   final int SIZE=24;
 class TestStructure extends Structure {
     public NativeLong[] longs=new NativeLong[SIZE];
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"longs"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("longs");
     }
   }
   TestStructure s=new TestStructure();

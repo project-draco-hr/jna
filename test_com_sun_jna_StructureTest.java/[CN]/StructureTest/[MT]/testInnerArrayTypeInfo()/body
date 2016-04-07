@@ -1,8 +1,8 @@
 {
 class TestStructure extends Structure {
     public int[] inner=new int[5];
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"inner"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("inner");
     }
   }
   Structure s=new TestStructure();

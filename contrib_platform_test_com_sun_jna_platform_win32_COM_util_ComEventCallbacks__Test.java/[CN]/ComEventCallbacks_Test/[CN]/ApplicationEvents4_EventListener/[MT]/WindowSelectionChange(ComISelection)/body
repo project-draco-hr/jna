@@ -1,6 +1,0 @@
-{
-  if (null != sel) {
-    String t=sel.getText();
-    WindowSelectionChange_called=true;
-  }
-}

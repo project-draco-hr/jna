@@ -1,0 +1,19 @@
+{
+  final List<String> types=new ArrayList<String>();
+  WinBase.EnumResTypeProc ertp=new WinBase.EnumResTypeProc(){
+    @Override public boolean invoke(    HMODULE module,    Pointer type,    Pointer lParam){
+      if (Pointer.nativeValue(type) <= 65535) {
+        types.add(Pointer.nativeValue(type) + "");
+      }
+ else {
+        types.add(type.getWideString(0));
+      }
+      return true;
+    }
+  }
+;
+  boolean result=Kernel32.INSTANCE.EnumResourceTypes(null,ertp,null);
+  assertTrue("EnumResourceTypes should not have failed.",result);
+  assertEquals("GetLastError should be set to 0",WinError.ERROR_SUCCESS,Kernel32.INSTANCE.GetLastError());
+  assertTrue("EnumResourceTypes should return some resource type names",types.size() > 0);
+}

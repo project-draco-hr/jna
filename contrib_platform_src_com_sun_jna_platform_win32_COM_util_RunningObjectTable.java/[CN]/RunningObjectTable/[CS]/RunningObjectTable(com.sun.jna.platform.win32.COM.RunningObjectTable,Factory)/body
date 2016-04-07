@@ -1,5 +1,4 @@
 {
   this.raw=raw;
   this.factory=factory;
-  this.comThread=factory.getComThread();
 }

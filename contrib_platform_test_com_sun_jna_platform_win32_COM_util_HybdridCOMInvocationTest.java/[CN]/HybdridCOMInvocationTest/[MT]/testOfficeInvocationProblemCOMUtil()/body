@@ -1,0 +1,13 @@
+{
+  Factory fact=new Factory();
+  Application app;
+  try {
+    app=fact.createObject(Application.class);
+  }
+ catch (  COMException ex) {
+    LOG.log(Level.INFO,"HybdridCOMInvocationTest test was not run, MS Word object could not be instantiated.",ex);
+    return;
+  }
+  assertThat(app.InchesToPoints(1F),is(72.0f));
+  fact.disposeAll();
+}

@@ -1,0 +1,7 @@
+{
+  HWND desktopWindow=User32.INSTANCE.GetDesktopWindow();
+  assertNotNull("Failed to get desktop window HWND",desktopWindow);
+  HWND result=User32.INSTANCE.GetAncestor(desktopWindow,WinUser.GA_PARENT);
+  assertNull("GetAncestor result should be null",result);
+  assertEquals("GetLastError should be ERROR_SUCCESS.",WinError.ERROR_SUCCESS,Native.getLastError());
+}

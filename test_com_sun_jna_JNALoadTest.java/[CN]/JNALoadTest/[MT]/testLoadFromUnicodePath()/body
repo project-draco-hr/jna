@@ -1,4 +1,14 @@
 {
+  if (Platform.isWindows()) {
+    String vendor=System.getProperty("java.vendor");
+    if (vendor != null) {
+      vendor=vendor.toLowerCase();
+      if (vendor.contains("oracle") || vendor.contains("sun")) {
+        System.out.println("Skip " + getName() + " - Fails on Sun JVM windows (32 and 64-bit) (JVM bug), Works with IBM J9 (jdk6) windows");
+        return;
+      }
+    }
+  }
   final String UNICODE=getName() + "-\u0444\u043b\u0441\u0432\u0443";
   File tmpdir=new File(System.getProperty("java.io.tmpdir"));
   File unicodeDir=new File(tmpdir,UNICODE);
@@ -8,7 +18,7 @@
     System.setProperty("jnidispatch.preserve","true");
     System.setProperty("jna.tmpdir",unicodeDir.getAbsolutePath());
     ClassLoader loader=new TestLoader(true);
-    Class cls=Class.forName("com.sun.jna.Native",true,loader);
+    Class<?> cls=Class.forName("com.sun.jna.Native",true,loader);
     assertEquals("Wrong class loader",loader,cls.getClassLoader());
     assertTrue("System property jna.loaded not set",Boolean.getBoolean("jna.loaded"));
     String path=System.getProperty("jnidispatch.path");

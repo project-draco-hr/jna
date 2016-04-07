@@ -1,0 +1,6 @@
+{
+  boolean result=Wininet.INSTANCE.DeleteUrlCacheEntry("c:\\tempWinInetTest");
+  int lastError=Native.getLastError();
+  assertFalse("DeleteUrlCacheEntry should return false with a bogus path.",result);
+  assertEquals("GetLastError should return ERROR_FILE_NOT_FOUND",WinError.ERROR_FILE_NOT_FOUND,lastError);
+}

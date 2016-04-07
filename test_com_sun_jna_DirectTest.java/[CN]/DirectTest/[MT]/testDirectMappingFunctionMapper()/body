@@ -1,6 +1,6 @@
 {
   FunctionMapper MAPPER=new FunctionMapper(){
-    public String getFunctionName(    NativeLibrary lib,    Method method){
+    @Override public String getFunctionName(    NativeLibrary lib,    Method method){
       String name=method.getName();
       if (name.startsWith("_prefixed_")) {
         return name.substring(10);
@@ -9,16 +9,14 @@
     }
   }
 ;
-  Map options=new HashMap();
-  options.put(Library.OPTION_FUNCTION_MAPPER,MAPPER);
   try {
-    Native.register(RemappedCLibrary.class,NativeLibrary.getInstance(Platform.C_LIBRARY_NAME,options));
+    Native.register(RemappedCLibrary.class,NativeLibrary.getInstance(Platform.C_LIBRARY_NAME,Collections.singletonMap(Library.OPTION_FUNCTION_MAPPER,MAPPER)));
     final String VALUE=getName();
     int len;
     len=RemappedCLibrary.$$YJP$$strlen(VALUE);
-    assertEquals(VALUE.length(),len);
+    assertEquals("Mismatched YJP strlen value",VALUE.length(),len);
     len=RemappedCLibrary._prefixed_strlen(VALUE);
-    assertEquals(VALUE.length(),len);
+    assertEquals("Mismatched prefixed strlen value",VALUE.length(),len);
   }
  catch (  Exception e) {
     fail("Native method was not properly mapped: " + e);

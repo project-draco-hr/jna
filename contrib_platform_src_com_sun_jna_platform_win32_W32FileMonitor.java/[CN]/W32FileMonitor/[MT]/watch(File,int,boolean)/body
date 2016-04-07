@@ -32,7 +32,7 @@
   }
   if (watcher == null) {
     watcher=new Thread("W32 File Monitor-" + (watcherThreadID++)){
-      public void run(){
+      @Override public void run(){
         FileInfo finfo;
         while (true) {
           finfo=waitForChange();

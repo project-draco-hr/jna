@@ -1,0 +1,21 @@
+{
+  ComInternetExplorerMethodname ieApp=factory.createObject(ComInternetExplorerMethodname.class);
+  assertFalse(ieApp.getVisible());
+  ieApp.setVisible(Boolean.TRUE);
+  assertTrue(ieApp.getVisible());
+  assertTrue(ieApp.getLocationURL().isEmpty());
+  ieApp.Navigate2("https://github.com/java-native-access/");
+  boolean navigationHappend=false;
+  for (int i=0; i < 10; i++) {
+    String url=ieApp.getLocationURL();
+    if (!url.isEmpty()) {
+      navigationHappend=true;
+      break;
+    }
+ else {
+      Thread.sleep(200);
+    }
+  }
+  ieApp.Quit();
+  assertTrue(navigationHappend);
+}

@@ -3,7 +3,7 @@
   if (boot != null) {
     System.setProperty("jna.boot.library.path","");
   }
-  Class cls=super.findClass(name);
+  Class<?> cls=super.findClass(name);
   if (boot != null) {
     System.setProperty("jna.boot.library.path",boot);
   }

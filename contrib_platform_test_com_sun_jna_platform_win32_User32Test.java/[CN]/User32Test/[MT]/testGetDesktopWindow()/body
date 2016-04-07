@@ -1,0 +1,4 @@
+{
+  HWND desktopWindow=User32.INSTANCE.GetDesktopWindow();
+  assertNotNull("Failed to get desktop window HWND",desktopWindow);
+}

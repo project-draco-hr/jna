@@ -1,8 +1,8 @@
 {
   this.callbackMethod=callbackMethod;
   this.encoding=encoding;
-  Class[] argTypes=callbackMethod.getParameterTypes();
-  Class returnType=callbackMethod.getReturnType();
+  Class<?>[] argTypes=callbackMethod.getParameterTypes();
+  Class<?> returnType=callbackMethod.getReturnType();
   fromNative=new FromNativeConverter[argTypes.length];
   if (NativeMapped.class.isAssignableFrom(returnType)) {
     toNative=NativeMappedConverter.getInstance(returnType);

@@ -3,7 +3,7 @@
   final TestStructure.ByValue[] arg={null};
   final TestStructure.ByValue s=new TestStructure.ByValue();
   TestStructure.TestCallback cb=new TestStructure.TestCallback(){
-    public TestStructure.ByValue callback(    TestStructure.ByValue s){
+    @Override public TestStructure.ByValue callback(    TestStructure.ByValue s){
       called[0]=true;
       return arg[0]=s;
     }

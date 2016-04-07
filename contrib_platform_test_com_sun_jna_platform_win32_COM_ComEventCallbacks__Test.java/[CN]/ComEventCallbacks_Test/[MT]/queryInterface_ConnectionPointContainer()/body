@@ -1,0 +1,7 @@
+{
+  Unknown unk=new Unknown(ieApp.getValue());
+  PointerByReference ppCpc=new PointerByReference();
+  HRESULT hr=unk.QueryInterface(new REFIID(IID_IConnectionPointContainer),ppCpc);
+  COMUtils.checkRC(hr);
+  Assert.assertNotNull(ppCpc.getPointer());
+}

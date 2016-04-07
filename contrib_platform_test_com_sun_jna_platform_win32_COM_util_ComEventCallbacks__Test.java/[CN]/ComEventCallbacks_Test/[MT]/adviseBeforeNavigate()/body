@@ -1,0 +1,17 @@
+{
+  ComInternetExplorer ieApp=factory.createObject(ComInternetExplorer.class);
+  ComIWebBrowser2 iWebBrowser2=ieApp.queryInterface(ComIWebBrowser2.class);
+  iWebBrowser2.setVisible(true);
+  DWebBrowserEvents2_Listener listener=new DWebBrowserEvents2_Listener();
+  IComEventCallbackCookie cookie=iWebBrowser2.advise(DWebBrowserEvents2.class,listener);
+  listener.blockNavigate=true;
+  iWebBrowser2.Navigate("https://github.com/java-native-access/jna",0,null,null,null);
+  for (int i=0; i < 10; i++) {
+    if (listener.navigateComplete2Called) {
+      break;
+    }
+    Thread.sleep(1000);
+  }
+  iWebBrowser2.Quit();
+  Assert.assertFalse("Navigation to https://github.com/java-native-access/jna should be blocked",listener.navigateComplete2Called);
+}

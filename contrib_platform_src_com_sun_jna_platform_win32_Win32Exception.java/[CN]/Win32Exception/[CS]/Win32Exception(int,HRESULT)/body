@@ -1,0 +1,3 @@
+{
+  this(code,hr,Kernel32Util.formatMessage(hr));
+}

@@ -1,4 +1,0 @@
-{
-  this.invokeOnThread(dispIdMember,riid,lcid,wFlags,pDispParams);
-  return WinError.S_OK;
-}

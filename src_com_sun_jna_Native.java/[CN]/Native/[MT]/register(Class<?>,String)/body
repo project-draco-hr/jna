@@ -1,0 +1,4 @@
+{
+  NativeLibrary library=NativeLibrary.getInstance(libName,Collections.singletonMap(Library.OPTION_CLASSLOADER,cls.getClassLoader()));
+  register(cls,library);
+}

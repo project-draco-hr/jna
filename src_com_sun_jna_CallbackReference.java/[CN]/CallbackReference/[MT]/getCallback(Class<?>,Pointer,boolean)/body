@@ -1,0 +1,26 @@
+{
+  if (p == null) {
+    return null;
+  }
+  if (!type.isInterface())   throw new IllegalArgumentException("Callback type must be an interface");
+  Map<Callback,CallbackReference> map=direct ? directCallbackMap : callbackMap;
+synchronized (pointerCallbackMap) {
+    Callback cb=null;
+    Reference<Callback> ref=pointerCallbackMap.get(p);
+    if (ref != null) {
+      cb=ref.get();
+      if (cb != null && !type.isAssignableFrom(cb.getClass())) {
+        throw new IllegalStateException("Pointer " + p + " already mapped to "+ cb+ ".\nNative code may be re-using a default function pointer"+ ", in which case you may need to use a common Callback class"+ " wherever the function pointer is reused.");
+      }
+      return cb;
+    }
+    int ctype=AltCallingConvention.class.isAssignableFrom(type) ? Function.ALT_CONVENTION : Function.C_CONVENTION;
+    Map<String,Object> foptions=new HashMap<String,Object>(Native.getLibraryOptions(type));
+    foptions.put(Function.OPTION_INVOKING_METHOD,getCallbackMethod(type));
+    NativeFunctionHandler h=new NativeFunctionHandler(p,ctype,foptions);
+    cb=(Callback)Proxy.newProxyInstance(type.getClassLoader(),new Class[]{type},h);
+    map.remove(cb);
+    pointerCallbackMap.put(p,new WeakReference<Callback>(cb));
+    return cb;
+  }
+}

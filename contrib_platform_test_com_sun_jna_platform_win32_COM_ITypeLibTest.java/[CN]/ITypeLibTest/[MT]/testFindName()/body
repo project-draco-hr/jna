@@ -1,8 +1,29 @@
 {
   ITypeLib shellTypeLib=loadShellTypeLib();
-  BSTRByReference szNameBuf=new BSTRByReference(OleAuto.INSTANCE.SysAllocString("Application"));
+  String memberValue="count";
+  String memberValueOk="Count";
+  Pointer p=Ole32.INSTANCE.CoTaskMemAlloc((memberValue.length() + 1L) * Native.WCHAR_SIZE);
+  WTypes.LPOLESTR olestr=new WTypes.LPOLESTR(p);
+  olestr.setValue(memberValue);
+  short maxResults=100;
   ULONG lHashVal=new ULONG(0);
-  USHORTByReference pcFound=new USHORTByReference((short)20);
-  HRESULT hr=shellTypeLib.FindName(szNameBuf,lHashVal,null,null,pcFound);
-  COMUtils.checkRC(hr);
+  USHORTByReference pcFound=new USHORTByReference(maxResults);
+  Pointer[] pointers=new Pointer[maxResults];
+  MEMBERID[] rgMemId=new MEMBERID[maxResults];
+  HRESULT hr=shellTypeLib.FindName(olestr,lHashVal,pointers,rgMemId,pcFound);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  assertTrue(pcFound.getValue().intValue() == 2);
+  assertEquals(memberValueOk,olestr.getValue());
+  assertNotNull(pointers[0]);
+  assertNotNull(pointers[1]);
+  assertNull(pointers[2]);
+  TypeInfo secondTypeInfo=new TypeInfo(pointers[1]);
+  PointerByReference pbr=new PointerByReference();
+  hr=secondTypeInfo.GetTypeAttr(pbr);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  OaIdl.TYPEATTR pTypeAttr=new OaIdl.TYPEATTR(pbr.getValue());
+  String typeGUID=pTypeAttr.guid.toGuidString();
+  assertTrue(typeGUID.equals("{1F8352C0-50B0-11CF-960C-0080C7F4EE85}") || typeGUID.equals("{744129E0-CBE5-11CE-8350-444553540000}"));
+  secondTypeInfo.ReleaseTypeAttr(pTypeAttr);
+  Ole32.INSTANCE.CoTaskMemFree(olestr.getPointer());
 }

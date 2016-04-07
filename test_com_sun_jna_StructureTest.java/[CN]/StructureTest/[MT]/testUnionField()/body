@@ -3,8 +3,8 @@ class TestStructure extends Structure {
     public long s_long;
     public TestUnion s_union;
     public int s_int;
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"s_long","s_union","s_int"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("s_long","s_union","s_int");
     }
   }
   TestStructure s=new TestStructure();

@@ -7,8 +7,8 @@ class TestStructureByRef extends Structure implements Structure.ByReference {
     }
     public int unique;
     public TestStructureByRef s;
-    protected List getFieldOrder(){
-      return Arrays.asList(new String[]{"unique","s"});
+    @Override protected List<String> getFieldOrder(){
+      return Arrays.asList("unique","s");
     }
   }
   TestStructureByRef s=new TestStructureByRef();
@@ -24,5 +24,5 @@ class TestStructureByRef extends Structure implements Structure.ByReference {
   s.read();
   assertEquals("ByReference structure field not preserved",value,s.s);
   assertEquals("ByReference structure field contents not read",2,s.s.unique);
-  assertTrue("Temporary storage should be cleared",s.busy().isEmpty());
+  assertTrue("Temporary storage should be cleared",Structure.busy().isEmpty());
 }

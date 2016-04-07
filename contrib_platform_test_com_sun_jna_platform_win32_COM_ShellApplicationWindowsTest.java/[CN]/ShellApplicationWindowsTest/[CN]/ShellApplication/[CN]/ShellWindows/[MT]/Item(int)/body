@@ -1,0 +1,9 @@
+{
+  VARIANT arg=new VARIANT();
+  arg.setValue(Variant.VT_I4,new LONG(idx));
+  IDispatch result=(IDispatch)invoke("Item",arg).getValue();
+  if (result == null) {
+    return null;
+  }
+  return new InternetExplorer(result);
+}

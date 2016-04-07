@@ -1,3 +1,0 @@
-{
-  return loadLibrary(name,interfaceClass,Collections.EMPTY_MAP);
-}

@@ -1,0 +1,3 @@
+int vtableId
+Object[] args
+Class<?> returnType

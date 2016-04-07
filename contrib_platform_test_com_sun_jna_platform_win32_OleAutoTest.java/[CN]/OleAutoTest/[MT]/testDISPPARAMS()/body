@@ -1,4 +1,0 @@
-{
-  SAFEARRAY.ByReference safeArg=OleAutoUtil.createVarArray(1);
-  OleAutoUtil.SafeArrayPutElement(safeArg,0,new VARIANT(Variant.VARIANT_TRUE));
-}

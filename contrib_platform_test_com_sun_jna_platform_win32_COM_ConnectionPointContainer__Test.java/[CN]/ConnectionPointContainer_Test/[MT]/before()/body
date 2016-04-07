@@ -1,8 +1,0 @@
-{
-  HRESULT hr=Ole32.INSTANCE.CoInitialize(null);
-  COMUtils.checkRC(hr);
-  CLSID clsid=new CLSID("{000209FF-0000-0000-C000-000000000046}");
-  this.ppWordApp=new PointerByReference();
-  hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,WTypes.CLSCTX_SERVER,IDispatch.IID_IDISPATCH,this.ppWordApp);
-  COMUtils.checkRC(hr);
-}

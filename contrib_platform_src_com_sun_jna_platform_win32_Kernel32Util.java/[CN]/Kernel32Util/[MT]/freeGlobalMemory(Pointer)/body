@@ -1,0 +1,6 @@
+{
+  Pointer res=Kernel32.INSTANCE.GlobalFree(ptr);
+  if (res != null) {
+    throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
+  }
+}

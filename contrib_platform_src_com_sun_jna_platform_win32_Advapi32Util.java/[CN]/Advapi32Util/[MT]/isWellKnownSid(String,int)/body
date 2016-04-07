@@ -3,5 +3,11 @@
   if (!Advapi32.INSTANCE.ConvertStringSidToSid(sidString,pSID)) {
     throw new Win32Exception(Kernel32.INSTANCE.GetLastError());
   }
-  return Advapi32.INSTANCE.IsWellKnownSid(pSID.getValue(),wellKnownSidType);
+  PSID value=pSID.getValue();
+  try {
+    return Advapi32.INSTANCE.IsWellKnownSid(value,wellKnownSidType);
+  }
+  finally {
+    Kernel32Util.freeLocalMemory(value.getPointer());
+  }
 }

@@ -1,0 +1,8 @@
+{
+  this.nameBuf=nameBuf;
+  this.pTInfo=new Pointer[pcFound];
+  this.rgMemId=new MEMBERID[pcFound];
+  this.pcFound=pcFound;
+  System.arraycopy(pTInfo,0,this.pTInfo,0,pcFound);
+  System.arraycopy(rgMemId,0,this.rgMemId,0,pcFound);
+}
