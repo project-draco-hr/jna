@@ -1,0 +1,6 @@
+{
+  BSTR sysAllocated=OleAuto.INSTANCE.SysAllocString(null);
+  assertNull(sysAllocated);
+  BSTR bstr=new BSTR(Pointer.NULL);
+  assertEquals("",bstr.getValue());
+}

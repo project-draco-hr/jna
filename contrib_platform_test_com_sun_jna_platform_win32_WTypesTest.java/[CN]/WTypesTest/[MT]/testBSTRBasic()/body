@@ -1,0 +1,14 @@
+{
+  String demoString="input\u00D6\u00E4\u00DC?!";
+  BSTR sysAllocated=OleAuto.INSTANCE.SysAllocString(demoString);
+  BSTR javaAllocated=new BSTR(demoString);
+  assertEquals(demoString,sysAllocated.getValue());
+  assertEquals(demoString,javaAllocated.getValue());
+  assertEquals(demoString.length(),OleAuto.INSTANCE.SysStringLen(sysAllocated));
+  assertEquals(demoString.length(),OleAuto.INSTANCE.SysStringLen(javaAllocated));
+  assertEquals(2 * demoString.length(),OleAuto.INSTANCE.SysStringByteLen(sysAllocated));
+  assertEquals(2 * demoString.length(),OleAuto.INSTANCE.SysStringByteLen(javaAllocated));
+  assertEquals(2 * demoString.length(),sysAllocated.getPointer().getInt(-4));
+  assertEquals(2 * demoString.length(),javaAllocated.getPointer().getInt(-4));
+  OleAuto.INSTANCE.SysFreeString(sysAllocated);
+}

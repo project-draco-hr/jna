@@ -15,11 +15,7 @@
     Moniker moniker=new Moniker(rgelt.getValue());
     PointerByReference ppbc=new PointerByReference();
     Ole32.INSTANCE.CreateBindCtx(new DWORD(),ppbc);
-    BSTRByReference ppszDisplayName=new BSTRByReference();
-    hr=moniker.GetDisplayName(ppbc.getValue(),moniker.getPointer(),ppszDisplayName);
-    COMUtils.checkRC(hr);
-    String name=ppszDisplayName.getString();
-    Ole32.INSTANCE.CoTaskMemFree(ppszDisplayName.getPointer().getPointer(0));
+    String name=moniker.GetDisplayName(ppbc.getValue(),moniker.getPointer());
     PointerByReference ppunkObject=new PointerByReference();
     hr=rot.GetObject(moniker.getPointer(),ppunkObject);
     COMUtils.checkRC(hr);
