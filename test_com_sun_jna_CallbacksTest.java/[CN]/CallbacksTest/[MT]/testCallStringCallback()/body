@@ -10,8 +10,9 @@
     }
   }
 ;
-  final String VALUE="value" + UNICODE;
-  final String VALUE2=getName() + UNICODE;
+  Charset charset=Charset.forName(Native.getDefaultStringEncoding());
+  final String VALUE="value" + charset.decode(charset.encode(UNICODE));
+  final String VALUE2=getName() + charset.decode(charset.encode(UNICODE));
   String value=lib.callStringCallback(cb,VALUE,VALUE2);
   assertTrue("Callback not called",called[0]);
   assertEquals("Wrong String callback argument 0",VALUE,cbargs[0]);

@@ -9,7 +9,8 @@
     }
   }
 ;
-  final String VALUE="value" + UNICODE;
+  Charset charset=Charset.forName(Native.getDefaultStringEncoding());
+  final String VALUE="value" + charset.decode(charset.encode(UNICODE));
   final String[] VALUE_ARRAY={VALUE,null};
   Pointer value=lib.callStringArrayCallback(cb,VALUE_ARRAY);
   assertTrue("Callback not called",called[0]);

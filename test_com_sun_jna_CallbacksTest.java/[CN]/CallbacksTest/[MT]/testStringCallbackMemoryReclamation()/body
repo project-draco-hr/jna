@@ -7,8 +7,9 @@
 ;
   Map<?,?> m=CallbackReference.allocations;
   m.clear();
-  String arg=getName() + "1" + UNICODE;
-  String arg2=getName() + "2" + UNICODE;
+  Charset charset=Charset.forName(Native.getDefaultStringEncoding());
+  String arg=getName() + "1" + charset.decode(charset.encode(UNICODE));
+  String arg2=getName() + "2" + charset.decode(charset.encode(UNICODE));
   String value=lib.callStringCallback(cb,arg,arg2);
   WeakReference<Object> ref=new WeakReference<Object>(value);
   arg=null;
