@@ -1,3 +1,9 @@
 {
-  new MSOfficeExcelDemo();
+  Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
+  try {
+    testExcel();
+  }
+  finally {
+    Ole32.INSTANCE.CoUninitialize();
+  }
 }

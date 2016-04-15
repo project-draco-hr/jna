@@ -1,7 +1,7 @@
 {
   FileWriter writer=null;
   try {
-    String filename="C:\\TEMP\\CLSIDs.txt";
+    String filename=new File(Helper.tempDir,"CLSIDs.txt").getAbsolutePath();
     ArrayList<COMInfo> comInfos=COMUtils.getAllCOMInfoOnSystem();
     writer=new FileWriter(filename);
     for (    COMInfo comInfo : comInfos) {

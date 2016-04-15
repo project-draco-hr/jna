@@ -1,0 +1,11 @@
+{
+  OaIdl.SAFEARRAY wrapped=OaIdl.SAFEARRAY.createSafeArray(data[0].length,data.length);
+  VARIANT var=new VARIANT();
+  for (int i=0; i < data.length; i++) {
+    for (int j=0; j < data[0].length; j++) {
+      var.setValue(Variant.VT_BSTR,new BSTR(data[i][j]));
+      wrapped.putElement(var,j,i);
+    }
+  }
+  return wrapped;
+}

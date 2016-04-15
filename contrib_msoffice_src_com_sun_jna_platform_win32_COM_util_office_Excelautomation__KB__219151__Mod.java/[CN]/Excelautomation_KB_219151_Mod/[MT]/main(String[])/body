@@ -1,0 +1,35 @@
+{
+  Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
+  Factory fact=new Factory();
+  try {
+    ComExcel_Application excel=fact.createObject(ComExcel_Application.class);
+    ComIApplication excelApp=excel.queryInterface(ComIApplication.class);
+    excelApp.setVisible(true);
+    Helper.sleep(5);
+    ComIWorkbook wb=excelApp.getWorkbooks().Add();
+    ComIWorksheet sheet=wb.getActiveSheet();
+    sheet.getCells().getItem(1,1).setValue("First Name");
+    sheet.getCells().getItem(1,2).setValue("Last Name");
+    sheet.getCells().getItem(1,3).setValue("Full Name");
+    sheet.getCells().getItem(1,4).setValue("Salary");
+    SAFEARRAY saNames=safeVariantArrayFromJava(new String[][]{{"John","Smith"},{"Tom","Brown"},{"Sue","Thomas"},{"Jane","Jones"},{"Adam","Johnson"}});
+    VARIANT valueHolder=new VARIANT();
+    valueHolder.setValue(Variant.VT_ARRAY | Variant.VT_VARIANT,saNames);
+    sheet.getRange("A2","B6").setValue(valueHolder);
+    saNames.destroy();
+    sheet.getRange("C2","C6").setFormula("= A2 & \" \" & B2");
+    sheet.getRange("D2","D6").setFormula("=" + FKT_RAND + "()*100000");
+    sheet.getRange("D2","D6").setNumberFormat("$0.00");
+    sheet.getRange("A1","D2").getEntireColumn().AutoFit();
+    displayQuaterlySales(sheet);
+    File tempFile=Helper.createNotExistingFile("exceloutput",".xlsx");
+    System.out.println("Writing output to: " + tempFile.getAbsolutePath());
+    wb.SaveAs(tempFile.getAbsolutePath());
+    excelApp.setUserControl(true);
+  }
+  finally {
+    fact.disposeAll();
+    Ole32.INSTANCE.CoUninitialize();
+  }
+  System.exit(0);
+}
