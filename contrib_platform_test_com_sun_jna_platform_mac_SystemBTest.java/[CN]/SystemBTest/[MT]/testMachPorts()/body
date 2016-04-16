@@ -1,0 +1,6 @@
+{
+  int machPort=SystemB.INSTANCE.mach_host_self();
+  assertTrue(machPort > 0);
+  machPort=SystemB.INSTANCE.mach_task_self();
+  assertTrue(machPort > 0);
+}
