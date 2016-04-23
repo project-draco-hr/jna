@@ -36,13 +36,14 @@
   }
   ComMethod meth=method.getAnnotation(ComMethod.class);
   if (null != meth) {
+    Object[] fullLengthArgs=unfoldWhenVarargs(method,args);
     int dispId=meth.dispId();
     if (dispId != -1) {
-      return this.invokeMethod(returnType,new DISPID(dispId),args);
+      return this.invokeMethod(returnType,new DISPID(dispId),fullLengthArgs);
     }
  else {
       String methName=this.getMethodName(method,meth);
-      return this.invokeMethod(returnType,methName,args);
+      return this.invokeMethod(returnType,methName,fullLengthArgs);
     }
   }
   return null;

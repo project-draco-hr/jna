@@ -1,0 +1,13 @@
+{
+  if (null == argParams) {
+    return null;
+  }
+  if (argParams.length == 0 || !method.isVarArgs() || !(argParams[argParams.length - 1] instanceof Object[])) {
+    return argParams;
+  }
+  Object[] varargs=(Object[])argParams[argParams.length - 1];
+  Object[] args=new Object[argParams.length - 1 + varargs.length];
+  System.arraycopy(argParams,0,args,0,argParams.length - 1);
+  System.arraycopy(varargs,0,args,argParams.length - 1,varargs.length);
+  return args;
+}
