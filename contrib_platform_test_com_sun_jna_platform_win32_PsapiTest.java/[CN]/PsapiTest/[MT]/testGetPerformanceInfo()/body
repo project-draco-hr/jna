@@ -1,0 +1,5 @@
+{
+  PERFORMANCE_INFORMATION perfInfo=new PERFORMANCE_INFORMATION();
+  assertTrue(Psapi.INSTANCE.GetPerformanceInfo(perfInfo,perfInfo.size()));
+  assertTrue(perfInfo.ProcessCount.intValue() > 0);
+}

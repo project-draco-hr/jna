@@ -1,0 +1,4 @@
+{
+  int previousMode=Kernel32.INSTANCE.SetErrorMode(0x0001);
+  assertEquals(Kernel32.INSTANCE.SetErrorMode(previousMode),0x0001);
+}
