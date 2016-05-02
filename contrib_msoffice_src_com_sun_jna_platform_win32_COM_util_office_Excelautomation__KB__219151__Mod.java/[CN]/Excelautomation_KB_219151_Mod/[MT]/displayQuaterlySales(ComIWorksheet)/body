@@ -1,0 +1,40 @@
+{
+  int iNumQtrs=4;
+  for (; iNumQtrs >= 2; iNumQtrs--) {
+    JOptionPane pane=new JOptionPane(String.format("Enter sales data for %d quarter(s)?",iNumQtrs),JOptionPane.QUESTION_MESSAGE);
+    pane.setOptionType(JOptionPane.YES_NO_OPTION);
+    JDialog dialog=pane.createDialog("Input...");
+    dialog.setAlwaysOnTop(true);
+    dialog.show();
+    if (((Integer)pane.getValue()) == JOptionPane.YES_OPTION) {
+      break;
+    }
+  }
+  JOptionPane.showMessageDialog(null,String.format("Displaying data for %d quarter(s).",iNumQtrs));
+  ComIRange oResizeRange=sheet.getRange("E1","E1").getResize(VARIANT_MISSING,iNumQtrs);
+  oResizeRange.setFormula("=\"Q\" & " + FKT_COLUMN + "() - 4 & "+ FKT_CHAR+ "(10) & \"Sales\"");
+  oResizeRange.setOrientation(38);
+  oResizeRange.setWrapText(true);
+  oResizeRange.getInterior().setColorIndex(36);
+  oResizeRange=sheet.getRange("E2","E6").getResize(VARIANT_MISSING,iNumQtrs);
+  oResizeRange.setFormula("=" + FKT_RAND + "()*100");
+  oResizeRange.setNumberFormat("$0.00");
+  oResizeRange=sheet.getRange("E1","E6").getResize(VARIANT_MISSING,iNumQtrs);
+  oResizeRange.getBorders().setWeight(XlBorderWeight.xlThin);
+  oResizeRange=sheet.getRange("E8","E8").getResize(VARIANT_MISSING,iNumQtrs);
+  oResizeRange.setFormula("=" + FKT_SUM + "(E2:E6)");
+  Borders oResizeRangeBorders=oResizeRange.getBorders();
+  oResizeRangeBorders.setLineStyle(XlLineStyle.xlDouble);
+  oResizeRangeBorders.setWeight(XlBorderWeight.xlThick);
+  oResizeRange=sheet.getRange("E2:E6").getResize(VARIANT_MISSING,iNumQtrs);
+  Chart chart=sheet.getParent().getCharts().Add(VARIANT_MISSING,VARIANT_MISSING,VARIANT_MISSING,VARIANT_MISSING);
+  chart.ChartWizard(oResizeRange,XlChartType.xl3DColumn,VARIANT_MISSING,XlRowCol.xlColumns,null,null,null,null,null,null,null);
+  chart.SeriesCollection(1).setXValues(sheet.getRange("C2","C6"));
+  for (int i=1; i <= iNumQtrs; i++) {
+    chart.SeriesCollection(i).setName("=\"Q" + Integer.toString(i) + "\"");
+  }
+  chart.Location(XlChartLocation.xlLocationAsObject,sheet.getName());
+  Shape shape=sheet.getShapes().Item(1);
+  shape.setTop(sheet.getRows(10).getTop());
+  shape.setLeft(sheet.getColumns(2).getLeft());
+}

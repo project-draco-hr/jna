@@ -1,0 +1,5 @@
+{
+  File tempFile=Files.createTempFile(prefix,suffix).toFile();
+  tempFile.delete();
+  return tempFile;
+}

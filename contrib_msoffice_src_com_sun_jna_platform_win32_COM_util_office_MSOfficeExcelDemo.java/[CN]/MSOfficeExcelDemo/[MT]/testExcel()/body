@@ -1,0 +1,50 @@
+{
+  File demoDocument=null;
+  ComIApplication msExcel=null;
+  Factory factory=new Factory();
+  try {
+    System.out.println("Files in temp dir: " + Helper.tempDir.getAbsolutePath());
+    ComExcel_Application excelObject=factory.createObject(ComExcel_Application.class);
+    msExcel=excelObject.queryInterface(ComIApplication.class);
+    System.out.println("MSExcel version: " + msExcel.getVersion());
+    msExcel.setVisible(true);
+    Helper.sleep(5);
+    demoDocument=Helper.createNotExistingFile("jnatest",".xls");
+    Helper.extractClasspathFileToReal("/com/sun/jna/platform/win32/COM/util/office/resources/jnatest.xls",demoDocument);
+    ComIWorkbook workbook=msExcel.getWorkbooks().Open(demoDocument.getAbsolutePath());
+    msExcel.getActiveSheet().getRange("A1").setValue("Hello from JNA!");
+    Helper.sleep(1);
+    File output=new File(Helper.tempDir,"jnatest.xls");
+    output.delete();
+    workbook.SaveAs(output.getAbsolutePath());
+    msExcel.getActiveWorkbook().Close(false);
+    msExcel.getWorkbooks().Open(output.getAbsolutePath());
+    msExcel.getActiveSheet().getRange("A2").setValue("Hello again from JNA!");
+class Listener extends AbstractComEventCallbackListener implements ComIAppEvents {
+      volatile boolean SheetSelectionChange_called;
+      @Override public void errorReceivingCallbackEvent(      String message,      Exception exception){
+      }
+      @Override public void SheetSelectionChange(      ComIWorksheet sheet,      ComIRange target){
+        SheetSelectionChange_called=true;
+      }
+    }
+    ;
+    Listener listener=new Listener();
+    IComEventCallbackCookie cookie=msExcel.advise(ComIAppEvents.class,listener);
+    Helper.sleep(1);
+    msExcel.getActiveSheet().getRange("A5").Activate();
+    Helper.sleep(1);
+    msExcel.unadvise(ComIAppEvents.class,cookie);
+    System.out.println("Listener was fired: " + listener.SheetSelectionChange_called);
+    msExcel.getActiveWorkbook().Close(false);
+  }
+  finally {
+    if (null != msExcel) {
+      msExcel.Quit();
+    }
+    factory.disposeAll();
+    if (demoDocument != null && demoDocument.exists()) {
+      demoDocument.delete();
+    }
+  }
+}

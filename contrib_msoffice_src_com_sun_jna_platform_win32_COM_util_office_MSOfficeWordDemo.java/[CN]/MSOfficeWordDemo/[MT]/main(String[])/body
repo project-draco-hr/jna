@@ -1,3 +1,9 @@
 {
-  new MSOfficeWordDemo();
+  Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
+  try {
+    testMSWord();
+  }
+  finally {
+    Ole32.INSTANCE.CoUninitialize();
+  }
 }

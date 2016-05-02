@@ -1,20 +1,27 @@
 {
+  File demoDocument=null;
   MSExcel msExcel=null;
   try {
     msExcel=new MSExcel();
     System.out.println("MSExcel version: " + msExcel.getVersion());
     msExcel.setVisible(true);
-    msExcel.openExcelBook(currentWorkingDir + "jnatest.xls",true);
+    Helper.sleep(5);
+    demoDocument=Helper.createNotExistingFile("jnatest",".xls");
+    Helper.extractClasspathFileToReal("/com/sun/jna/platform/win32/COM/util/office/resources/jnatest.xls",demoDocument);
+    msExcel.openExcelBook(demoDocument.getAbsolutePath());
     msExcel.insertValue("A1","Hello from JNA!");
-    Thread.currentThread().sleep(10000);
+    Helper.sleep(10);
     msExcel.closeActiveWorkbook(true);
-    msExcel.setVisible(true);
-    msExcel.openExcelBook(currentWorkingDir + "jnatest.xls",true);
+    msExcel.newExcelBook();
     msExcel.insertValue("A1","Hello from JNA!");
     msExcel.closeActiveWorkbook(true);
   }
- catch (  Exception e) {
-    e.printStackTrace();
-    if (msExcel != null)     msExcel.quit();
+  finally {
+    if (msExcel != null) {
+      msExcel.quit();
+    }
+    if (demoDocument != null && demoDocument.exists()) {
+      demoDocument.delete();
+    }
   }
 }
