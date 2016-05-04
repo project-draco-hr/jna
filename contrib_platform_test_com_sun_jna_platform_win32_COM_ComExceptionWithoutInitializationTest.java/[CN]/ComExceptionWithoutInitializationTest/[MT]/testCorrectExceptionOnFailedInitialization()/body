@@ -1,0 +1,13 @@
+{
+  String message=null;
+  try {
+    InternetExplorer ie=new InternetExplorer();
+  }
+ catch (  COMException ex) {
+    message=ex.getMessage();
+  }
+  assertNotNull(message);
+  assertTrue(message.contains("HRESULT"));
+  assertTrue(message.contains("800401f0"));
+  assertTrue(message.contains("CoInitialize"));
+}
