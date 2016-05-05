@@ -1,39 +1,61 @@
 {
-  final Method eventMethod;
-  if (CallbackProxy.this.dsipIdMap.containsKey(dispIdMember)) {
-    eventMethod=CallbackProxy.this.dsipIdMap.get(dispIdMember);
-    if (eventMethod.getParameterTypes().length != pDispParams.cArgs.intValue()) {
-      CallbackProxy.this.comEventCallbackListener.errorReceivingCallbackEvent("Trying to invoke method " + eventMethod + " with "+ pDispParams.cArgs.intValue()+ " arguments",null);
-      return;
-    }
-  }
- else {
+  VARIANT[] arguments=pDispParams.getArgs();
+  final Method eventMethod=CallbackProxy.this.dsipIdMap.get(dispIdMember);
+  if (eventMethod == null) {
     CallbackProxy.this.comEventCallbackListener.errorReceivingCallbackEvent("No method found with dispId = " + dispIdMember,null);
     return;
   }
-  final Class<?>[] params=eventMethod.getParameterTypes();
-  List<Object> rjargs=new ArrayList<Object>();
-  if (pDispParams.cArgs.intValue() > 0) {
-    VariantArg vargs=pDispParams.rgvarg;
-    vargs.setArraySize(pDispParams.cArgs.intValue());
-    for (int i=0; i < vargs.variantArg.length; i++) {
-      Class targetClass=params[vargs.variantArg.length - 1 - i];
-      Variant.VARIANT varg=vargs.variantArg[i];
-      Object jarg=Convert.toJavaObject(varg,targetClass,factory,true,false);
-      rjargs.add(jarg);
+  DISPID[] positionMap=pDispParams.getRgdispidNamedArgs();
+  final Class<?>[] paramTypes=eventMethod.getParameterTypes();
+  final Object[] params=new Object[paramTypes.length];
+  for (int i=0; i < params.length && (arguments.length - positionMap.length - i) > 0; i++) {
+    Class targetClass=paramTypes[i];
+    Variant.VARIANT varg=arguments[arguments.length - i - 1];
+    params[i]=Convert.toJavaObject(varg,targetClass,factory,true,false);
+  }
+  for (int i=0; i < positionMap.length; i++) {
+    int targetPosition=positionMap[i].intValue();
+    if (targetPosition >= params.length) {
+      continue;
+    }
+    Class targetClass=paramTypes[targetPosition];
+    Variant.VARIANT varg=arguments[i];
+    params[targetPosition]=Convert.toJavaObject(varg,targetClass,factory,true,false);
+  }
+  for (int i=0; i < params.length; i++) {
+    if (params[i] == null && paramTypes[i].isPrimitive()) {
+      if (paramTypes[i].equals(boolean.class)) {
+        params[i]=DEFAULT_BOOLEAN;
+      }
+ else       if (paramTypes[i].equals(byte.class)) {
+        params[i]=DEFAULT_BYTE;
+      }
+ else       if (paramTypes[i].equals(short.class)) {
+        params[i]=DEFAULT_SHORT;
+      }
+ else       if (paramTypes[i].equals(int.class)) {
+        params[i]=DEFAULT_INT;
+      }
+ else       if (paramTypes[i].equals(long.class)) {
+        params[i]=DEFAULT_LONG;
+      }
+ else       if (paramTypes[i].equals(float.class)) {
+        params[i]=DEFAULT_FLOAT;
+      }
+ else       if (paramTypes[i].equals(double.class)) {
+        params[i]=DEFAULT_DOUBLE;
+      }
+ else {
+        throw new IllegalArgumentException("Class type " + paramTypes[i].getName() + " not mapped to primitive default value.");
+      }
     }
   }
-  List<Object> margs=new ArrayList<Object>();
   try {
-    int lastParamIdx=eventMethod.getParameterTypes().length - 1;
-    for (int i=lastParamIdx; i >= 0; i--) {
-      margs.add(rjargs.get(i));
-    }
-    eventMethod.invoke(comEventCallbackListener,margs.toArray());
+    eventMethod.invoke(comEventCallbackListener,params);
   }
  catch (  Exception e) {
-    List<String> decodedClassNames=new ArrayList<String>(margs.size());
-    for (    Object o : margs) {
+    List<String> decodedClassNames=new ArrayList<String>(params.length);
+    for (    Object o : params) {
       if (o == null) {
         decodedClassNames.add("NULL");
       }
