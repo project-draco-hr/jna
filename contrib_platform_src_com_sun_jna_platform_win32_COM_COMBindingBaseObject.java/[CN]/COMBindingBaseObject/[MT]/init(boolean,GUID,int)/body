@@ -1,0 +1,18 @@
+{
+  HRESULT hr;
+  if (useActiveInstance) {
+    hr=OleAuto.INSTANCE.GetActiveObject(clsid,null,this.pUnknown);
+    if (COMUtils.SUCCEEDED(hr)) {
+      this.iUnknown=new Unknown(this.pUnknown.getValue());
+      hr=iUnknown.QueryInterface(new REFIID(IDispatch.IID_IDISPATCH),this.pDispatch);
+    }
+ else {
+      hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,dwClsContext,IDispatch.IID_IDISPATCH,this.pDispatch);
+    }
+  }
+ else {
+    hr=Ole32.INSTANCE.CoCreateInstance(clsid,null,dwClsContext,IDispatch.IID_IDISPATCH,this.pDispatch);
+  }
+  COMUtils.checkRC(hr);
+  this.iDispatch=new Dispatch(this.pDispatch.getValue());
+}

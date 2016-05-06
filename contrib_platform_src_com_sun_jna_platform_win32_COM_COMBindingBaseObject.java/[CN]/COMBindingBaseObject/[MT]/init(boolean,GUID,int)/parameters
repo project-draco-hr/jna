@@ -1,0 +1,3 @@
+boolean useActiveInstance
+GUID clsid
+int dwClsContext
