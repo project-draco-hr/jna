@@ -1,0 +1,8 @@
+{
+  ComThread thread=new ComThread("Default Factory COM Thread",10000,new Thread.UncaughtExceptionHandler(){
+    @Override public void uncaughtException(    Thread t,    Throwable e){
+    }
+  }
+);
+  this.factory=new Factory(thread);
+}

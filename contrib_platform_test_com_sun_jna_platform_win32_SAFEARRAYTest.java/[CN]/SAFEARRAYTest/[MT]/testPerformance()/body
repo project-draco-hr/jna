@@ -1,5 +1,5 @@
 {
-  Factory fact=new Factory();
+  ObjectFactory fact=new ObjectFactory();
   Connection conn=fact.createObject(Connection.class);
   conn.Open("Provider=Search.CollatorDSO;Extended Properties='Application=Windows';","","",-1);
   Recordset recordset=fact.createObject(Recordset.class);

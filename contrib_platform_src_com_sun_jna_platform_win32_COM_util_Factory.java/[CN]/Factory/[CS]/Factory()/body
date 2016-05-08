@@ -1,2 +1,7 @@
 {
+  this(new ComThread("Default Factory COM Thread",5000,new Thread.UncaughtExceptionHandler(){
+    @Override public void uncaughtException(    Thread t,    Throwable e){
+    }
+  }
+));
 }

@@ -1,0 +1,3 @@
+IEnumMoniker raw
+com.sun.jna.platform.win32.COM.IRunningObjectTable rawRot
+ObjectFactory factory

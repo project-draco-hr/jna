@@ -1,0 +1,5 @@
+VARIANT value
+Class<?> targetClass
+ObjectFactory factory
+boolean addReference
+boolean freeValue

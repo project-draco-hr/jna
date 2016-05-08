@@ -1,5 +1,0 @@
-VARIANT value
-Class<?> targetClass
-Factory factory
-boolean addReference
-boolean freeValue

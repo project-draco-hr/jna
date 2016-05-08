@@ -1,6 +1,6 @@
 {
   Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
-  this.factory=new Factory();
+  this.factory=new ObjectFactory();
   while (true) {
     try {
       MsWordApp ao=this.factory.fetchObject(MsWordApp.class);

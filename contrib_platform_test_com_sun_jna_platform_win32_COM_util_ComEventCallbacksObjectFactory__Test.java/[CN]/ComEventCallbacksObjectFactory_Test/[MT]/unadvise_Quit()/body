@@ -1,0 +1,13 @@
+{
+  ComInternetExplorer ieApp=factory.createObject(ComInternetExplorer.class);
+  ComIWebBrowser2 iWebBrowser2=ieApp.queryInterface(ComIWebBrowser2.class);
+  iWebBrowser2.setVisible(true);
+  DWebBrowserEvents2_Listener listener=new DWebBrowserEvents2_Listener();
+  IComEventCallbackCookie cookie=iWebBrowser2.advise(DWebBrowserEvents2.class,listener);
+  iWebBrowser2.unadvise(DWebBrowserEvents2.class,cookie);
+  listener.Quit_called=false;
+  iWebBrowser2.Quit();
+  Thread.sleep(200);
+  Assert.assertNotNull(listener.Quit_called);
+  Assert.assertFalse(listener.Quit_called);
+}

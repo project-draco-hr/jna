@@ -1,2 +1,6 @@
 {
+  T result=super.createProxy(comInterface,dispatch);
+  ProxyObject2 po2=new ProxyObject2(result);
+  Object proxy=Proxy.newProxyInstance(comInterface.getClassLoader(),new Class<?>[]{comInterface},po2);
+  return (T)proxy;
 }

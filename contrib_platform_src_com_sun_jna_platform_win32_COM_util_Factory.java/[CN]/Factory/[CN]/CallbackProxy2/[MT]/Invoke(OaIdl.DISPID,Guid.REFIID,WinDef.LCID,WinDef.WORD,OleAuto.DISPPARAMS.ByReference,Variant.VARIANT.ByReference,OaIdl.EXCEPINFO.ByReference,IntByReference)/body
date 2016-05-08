@@ -1,0 +1,9 @@
+{
+  ComThread.setComThread(true);
+  try {
+    return super.Invoke(dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
+  }
+  finally {
+    ComThread.setComThread(false);
+  }
+}
