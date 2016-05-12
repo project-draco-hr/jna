@@ -7,6 +7,9 @@
       if (-1 == dispId) {
         dispId=this.fetchDispIdFromName(annotation);
       }
+      if (dispId == -1) {
+        CallbackProxy.this.comEventCallbackListener.errorReceivingCallbackEvent("DISPID for " + meth.getName() + " not found",null);
+      }
       map.put(new DISPID(dispId),meth);
     }
   }

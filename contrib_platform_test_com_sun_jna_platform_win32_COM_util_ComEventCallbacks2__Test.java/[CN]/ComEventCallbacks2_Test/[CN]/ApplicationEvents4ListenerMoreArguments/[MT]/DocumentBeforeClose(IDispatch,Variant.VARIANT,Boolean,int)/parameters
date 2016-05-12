@@ -1,0 +1,4 @@
+IDispatch Doc
+Variant.VARIANT Cancel
+Boolean fakeArgumentObject
+int fakeArgumentInt

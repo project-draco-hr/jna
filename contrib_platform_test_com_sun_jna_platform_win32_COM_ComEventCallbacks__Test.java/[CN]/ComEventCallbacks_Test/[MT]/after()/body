@@ -1,8 +1,5 @@
 {
   DISPPARAMS.ByReference pDispParams=new DISPPARAMS.ByReference();
-  pDispParams.cArgs=new UINT(0);
-  pDispParams.cNamedArgs=new UINT(0);
-  pDispParams.rgvarg=null;
   VARIANT.ByReference pVarResult=new VARIANT.ByReference();
   IntByReference puArgErr=new IntByReference();
   EXCEPINFO.ByReference pExcepInfo=new EXCEPINFO.ByReference();

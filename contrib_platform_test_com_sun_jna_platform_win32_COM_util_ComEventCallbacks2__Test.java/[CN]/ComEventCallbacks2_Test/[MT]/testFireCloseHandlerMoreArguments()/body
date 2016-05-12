@@ -1,0 +1,45 @@
+{
+class ApplicatonEventsHandler extends AbstractComEventCallbackListener implements ApplicationEvents4ListenerMoreArguments {
+    public volatile boolean changed=false;
+    public volatile boolean beforeClose=false;
+    public volatile boolean error=false;
+    public volatile boolean fakeArgumentObjectWasNull=false;
+    public volatile boolean fakeArgumentIntWas0=false;
+    @Override public void errorReceivingCallbackEvent(    String string,    Exception excptn){
+      if (string.startsWith("No method found with")) {
+        return;
+      }
+      System.out.println("Error: " + string);
+      if (excptn != null) {
+        System.out.println(excptn.getMessage());
+        excptn.printStackTrace(System.out);
+      }
+      error=true;
+    }
+    public void DocumentChange(){
+      changed=true;
+    }
+    public void DocumentBeforeClose(    IDispatch Doc,    Variant.VARIANT Cancel,    Boolean fakeArgumentObject,    int fakeArgumentInt){
+      beforeClose=true;
+      fakeArgumentObjectWasNull=fakeArgumentObject == null;
+      fakeArgumentIntWas0=fakeArgumentInt == 0;
+    }
+  }
+  ApplicatonEventsHandler handler=new ApplicatonEventsHandler();
+  Application appX=factory.createObject(Application.class);
+  Thread.sleep(500);
+  IComEventCallbackCookie cookie=appX.advise(ApplicationEvents4ListenerMoreArguments.class,handler);
+  IDispatch doc=appX.getProperty(IDispatch.class,"Documents").invokeMethod(IDispatch.class,"Add");
+  Thread.sleep(500);
+  doc.getProperty(IDispatch.class,"Paragraphs").invokeMethod(IDispatch.class,"Item",1).getProperty(IDispatch.class,"Range").setProperty("Text","Test text");
+  Thread.sleep(500);
+  doc.invokeMethod(Void.class,"Close",Boolean.FALSE);
+  Thread.sleep(500);
+  appX.unadvise(ApplicationEvents4ListenerMatching.class,cookie);
+  appX.invokeMethod(Void.class,"Quit",Boolean.FALSE);
+  Assert.assertTrue(handler.changed);
+  Assert.assertTrue(handler.beforeClose);
+  Assert.assertFalse(handler.error);
+  Assert.assertTrue(handler.fakeArgumentIntWas0);
+  Assert.assertTrue(handler.fakeArgumentObjectWasNull);
+}

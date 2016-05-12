@@ -5,11 +5,8 @@
   HRESULT hr;
   DISPPARAMS.ByReference pDispParams;
   pDispParams=new DISPPARAMS.ByReference();
-  pDispParams.cArgs=new UINT(1);
-  pDispParams.cNamedArgs=new UINT(1);
-  pDispParams.rgvarg=new Variant.VariantArg.ByReference(new VARIANT[1]);
-  pDispParams.rgvarg.variantArg[0]=new VARIANT(true);
-  pDispParams.rgdispidNamedArgs=new DISPIDByReference(new DISPID(OaIdl.DISPID_PROPERTYPUT.intValue()));
+  pDispParams.setArgs(new VARIANT[]{new VARIANT(true)});
+  pDispParams.setRgdispidNamedArgs(new DISPID[]{OaIdl.DISPID_PROPERTYPUT});
   hr=ieDispatch.Invoke(dispIdVisible.getValue(),niid,lcid,propertyPutFlags,pDispParams,null,null,null);
   COMUtils.checkRC(hr);
   Unknown unk=new Unknown(ieApp.getValue());
@@ -32,11 +29,9 @@
   Assert.assertTrue(listener.QueryInterface_called);
   String navigateURL="https://github.com/java-native-access/jna";
   String blockedURL="http://www.google.de";
+  VARIANT[] arguments=new VARIANT[]{new VARIANT(navigateURL)};
   pDispParams=new DISPPARAMS.ByReference();
-  pDispParams.cArgs=new UINT(1);
-  pDispParams.cNamedArgs=new UINT(0);
-  pDispParams.rgvarg=new Variant.VariantArg.ByReference(new VARIANT[1]);
-  pDispParams.rgvarg.variantArg[0]=new VARIANT(navigateURL);
+  pDispParams.setArgs(arguments);
   hr=ieDispatch.Invoke(dispIdNavigate.getValue(),niid,lcid,methodFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
   COMUtils.checkRC(hr,pExcepInfo,puArgErr);
   for (int i=0; i < 10; i++) {
@@ -50,11 +45,9 @@
   listener.navigateComplete2Called=false;
   listener.navigateComplete2String=null;
   listener.blockNavigation=true;
+  arguments=new VARIANT[]{new VARIANT(blockedURL)};
   pDispParams=new DISPPARAMS.ByReference();
-  pDispParams.cArgs=new UINT(1);
-  pDispParams.cNamedArgs=new UINT(0);
-  pDispParams.rgvarg=new Variant.VariantArg.ByReference(new VARIANT[1]);
-  pDispParams.rgvarg.variantArg[0]=new VARIANT(blockedURL);
+  pDispParams.setArgs(arguments);
   hr=ieDispatch.Invoke(dispIdNavigate.getValue(),niid,lcid,methodFlags,pDispParams,pVarResult,pExcepInfo,puArgErr);
   COMUtils.checkRC(hr,pExcepInfo,puArgErr);
   for (int i=0; i < 10; i++) {

@@ -1,0 +1,35 @@
+{
+class ApplicatonEventsHandler extends AbstractComEventCallbackListener implements ApplicationEvents4ListenerMatching {
+    public volatile boolean changed=false;
+    public volatile boolean beforeClose=false;
+    public volatile boolean error=false;
+    @Override public void errorReceivingCallbackEvent(    String string,    Exception excptn){
+      if (string.startsWith("No method found with")) {
+        return;
+      }
+      System.out.println("Error: " + string);
+      error=true;
+    }
+    public void DocumentChange(){
+      changed=true;
+    }
+    public void DocumentBeforeClose(    IDispatch Doc,    Variant.VARIANT Cancel){
+      beforeClose=true;
+    }
+  }
+  ApplicatonEventsHandler handler=new ApplicatonEventsHandler();
+  Application appX=factory.createObject(Application.class);
+  Thread.sleep(500);
+  IComEventCallbackCookie cookie=appX.advise(ApplicationEvents4ListenerMatching.class,handler);
+  IDispatch doc=appX.getProperty(IDispatch.class,"Documents").invokeMethod(IDispatch.class,"Add");
+  Thread.sleep(500);
+  doc.getProperty(IDispatch.class,"Paragraphs").invokeMethod(IDispatch.class,"Item",1).getProperty(IDispatch.class,"Range").setProperty("Text","Test text");
+  Thread.sleep(500);
+  doc.invokeMethod(Void.class,"Close",Boolean.FALSE);
+  Thread.sleep(500);
+  appX.unadvise(ApplicationEvents4ListenerMatching.class,cookie);
+  appX.invokeMethod(Void.class,"Quit",Boolean.FALSE);
+  Assert.assertTrue(handler.changed);
+  Assert.assertTrue(handler.beforeClose);
+  Assert.assertFalse(handler.error);
+}
