@@ -1,0 +1,5 @@
+{
+  Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
+  this.factory=new Factory();
+  this.factory.setLCID(new LCID(0x0409));
+}

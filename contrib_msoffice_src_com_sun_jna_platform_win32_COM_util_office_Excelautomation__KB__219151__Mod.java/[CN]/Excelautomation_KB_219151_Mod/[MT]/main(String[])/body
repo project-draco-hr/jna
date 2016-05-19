@@ -1,6 +1,7 @@
 {
   Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
   Factory fact=new Factory();
+  fact.setLCID(new LCID(0x0409));
   try {
     ComExcel_Application excel=fact.createObject(ComExcel_Application.class);
     ComIApplication excelApp=excel.queryInterface(ComIApplication.class);
@@ -18,7 +19,7 @@
     sheet.getRange("A2","B6").setValue(valueHolder);
     saNames.destroy();
     sheet.getRange("C2","C6").setFormula("= A2 & \" \" & B2");
-    sheet.getRange("D2","D6").setFormula("=" + FKT_RAND + "()*100000");
+    sheet.getRange("D2","D6").setFormula("=RAND()*100000");
     sheet.getRange("D2","D6").setNumberFormat("$0.00");
     sheet.getRange("A1","D2").getEntireColumn().AutoFit();
     displayQuaterlySales(sheet);

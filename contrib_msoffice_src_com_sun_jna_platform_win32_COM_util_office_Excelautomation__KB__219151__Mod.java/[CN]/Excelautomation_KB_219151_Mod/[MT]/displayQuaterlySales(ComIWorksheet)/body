@@ -12,17 +12,17 @@
   }
   JOptionPane.showMessageDialog(null,String.format("Displaying data for %d quarter(s).",iNumQtrs));
   ComIRange oResizeRange=sheet.getRange("E1","E1").getResize(VARIANT_MISSING,iNumQtrs);
-  oResizeRange.setFormula("=\"Q\" & " + FKT_COLUMN + "() - 4 & "+ FKT_CHAR+ "(10) & \"Sales\"");
+  oResizeRange.setFormula("=\"Q\" & COLUMN() - 4 & CHAR(10) & \"Sales\"");
   oResizeRange.setOrientation(38);
   oResizeRange.setWrapText(true);
   oResizeRange.getInterior().setColorIndex(36);
   oResizeRange=sheet.getRange("E2","E6").getResize(VARIANT_MISSING,iNumQtrs);
-  oResizeRange.setFormula("=" + FKT_RAND + "()*100");
+  oResizeRange.setFormula("=RAND()*100");
   oResizeRange.setNumberFormat("$0.00");
   oResizeRange=sheet.getRange("E1","E6").getResize(VARIANT_MISSING,iNumQtrs);
   oResizeRange.getBorders().setWeight(XlBorderWeight.xlThin);
   oResizeRange=sheet.getRange("E8","E8").getResize(VARIANT_MISSING,iNumQtrs);
-  oResizeRange.setFormula("=" + FKT_SUM + "(E2:E6)");
+  oResizeRange.setFormula("=SUM(E2:E6)");
   Borders oResizeRangeBorders=oResizeRange.getBorders();
   oResizeRangeBorders.setLineStyle(XlLineStyle.xlDouble);
   oResizeRangeBorders.setWeight(XlBorderWeight.xlThick);
