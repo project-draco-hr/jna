@@ -1,0 +1,8 @@
+{
+  if (LCID != null) {
+    return LCID;
+  }
+ else {
+    return LOCALE_USER_DEFAULT;
+  }
+}

@@ -1,0 +1,14 @@
+{
+  ComExcel_Application excel=factory.createObject(ComExcel_Application.class);
+  ComIApplication excelApp=excel.queryInterface(ComIApplication.class);
+  excelApp.setProperty("Visible",false);
+  excelApp.setProperty("DisplayAlerts",false);
+  IDispatch wb=excelApp.getProperty(IDispatch.class,"Workbooks").invokeMethod(IDispatch.class,"Add");
+  IDispatch sheet=wb.getProperty(IDispatch.class,"ActiveSheet");
+  sheet.getProperty(IDispatch.class,"Range","A1").setProperty("Value",42);
+  sheet.getProperty(IDispatch.class,"Range","A2").setProperty("Value",23);
+  sheet.getProperty(IDispatch.class,"Range","A3").setProperty("Formula","=SUM(A1:A2)");
+  Number result=sheet.getProperty(IDispatch.class,"Range","A3").getProperty(Number.class,"Value");
+  Assert.assertEquals(65,result.intValue());
+  excelApp.invokeMethod(Void.class,"Quit");
+}
