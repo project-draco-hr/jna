@@ -1,0 +1,18 @@
+{
+  if (args != null) {
+    for (int i=0; i < args.length; i++) {
+      if (args[i] != null && Proxy.isProxyClass(args[i].getClass())) {
+        InvocationHandler ih=Proxy.getInvocationHandler(args[i]);
+        if (ih instanceof ProxyObject2) {
+          args[i]=((ProxyObject2)ih).delegate;
+        }
+      }
+    }
+  }
+  return comThread.execute(new Callable<Object>(){
+    @Override public Object call() throws Exception {
+      return method.invoke(delegate,args);
+    }
+  }
+);
+}

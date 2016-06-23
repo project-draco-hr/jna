@@ -1,0 +1,20 @@
+{
+  Boolean comThread=isCOMThread.get();
+  if (comThread == null) {
+    comThread=false;
+  }
+  if (comThread) {
+    try {
+      return task.call();
+    }
+ catch (    Exception ex) {
+      throw new ExecutionException(ex);
+    }
+  }
+ else {
+    if (this.requiresInitialisation) {
+      executor.execute(firstTask);
+    }
+    return executor.submit(task).get(this.timeoutMilliseconds,TimeUnit.MILLISECONDS);
+  }
+}

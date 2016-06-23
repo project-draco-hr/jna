@@ -1,0 +1,5 @@
+{
+  if (blockNavigate) {
+    Cancel.setValue(Variant.VARIANT_TRUE);
+  }
+}

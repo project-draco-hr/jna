@@ -1,0 +1,7 @@
+IUnknown pDisp
+String URL
+long Flags
+String TargetFrameName
+VARIANT.ByReference PostData
+VARIANT.ByReference Headers
+OaIdl.VARIANT_BOOLByReference Cancel

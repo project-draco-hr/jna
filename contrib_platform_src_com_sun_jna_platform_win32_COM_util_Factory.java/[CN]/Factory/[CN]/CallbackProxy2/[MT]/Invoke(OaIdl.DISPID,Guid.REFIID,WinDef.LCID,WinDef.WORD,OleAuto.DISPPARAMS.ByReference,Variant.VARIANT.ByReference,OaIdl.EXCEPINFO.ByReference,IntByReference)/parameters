@@ -1,0 +1,8 @@
+OaIdl.DISPID dispIdMember
+Guid.REFIID riid
+WinDef.LCID lcid
+WinDef.WORD wFlags
+OleAuto.DISPPARAMS.ByReference pDispParams
+Variant.VARIANT.ByReference pVarResult
+OaIdl.EXCEPINFO.ByReference pExcepInfo
+IntByReference puArgErr

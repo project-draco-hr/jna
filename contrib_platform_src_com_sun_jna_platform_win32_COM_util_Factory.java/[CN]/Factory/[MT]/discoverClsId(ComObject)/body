@@ -1,2 +1,8 @@
 {
+  return runInComThread(new Callable<Guid.GUID>(){
+    public Guid.GUID call() throws Exception {
+      return Factory.super.discoverClsId(annotation);
+    }
+  }
+);
 }

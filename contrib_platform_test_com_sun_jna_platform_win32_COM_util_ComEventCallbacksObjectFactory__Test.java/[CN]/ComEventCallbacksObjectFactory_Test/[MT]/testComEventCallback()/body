@@ -1,0 +1,18 @@
+{
+  DWebBrowserEvents2_Listener listener=new DWebBrowserEvents2_Listener();
+  CallbackProxy proxy=new CallbackProxy(factory,DWebBrowserEvents2.class,listener);
+  REFIID refiid=new REFIID(new IID(DWebBrowserEvents2.IID));
+  assertFalse(proxy.listenedToRiid.getPointer().equals(refiid.getPointer()));
+  PointerByReference interfacePointer=new PointerByReference();
+  HRESULT hr=proxy.QueryInterface(refiid,interfacePointer);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  assertEquals(interfacePointer.getValue(),proxy.getPointer());
+  hr=proxy.QueryInterface(new REFIID(IID_IUNKNOWN),interfacePointer);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  assertEquals(interfacePointer.getValue(),proxy.getPointer());
+  hr=proxy.QueryInterface(new REFIID(IID_IDISPATCH),interfacePointer);
+  assertTrue(COMUtils.SUCCEEDED(hr));
+  assertEquals(interfacePointer.getValue(),proxy.getPointer());
+  hr=proxy.QueryInterface(new REFIID(new IID("{00000000-0000-0000-C000-000000000000}")),interfacePointer);
+  assertTrue(COMUtils.FAILED(hr));
+}
