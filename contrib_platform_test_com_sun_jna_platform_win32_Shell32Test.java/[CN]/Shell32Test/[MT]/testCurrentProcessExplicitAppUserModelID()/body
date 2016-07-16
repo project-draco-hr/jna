@@ -1,0 +1,10 @@
+{
+  String appUserModelID="com.sun.jna.platform.win32.Shell32Test";
+  HRESULT r1=Shell32.INSTANCE.SetCurrentProcessExplicitAppUserModelID(new WString(appUserModelID));
+  assertEquals(WinError.S_OK,r1);
+  PointerByReference ppszAppID=new PointerByReference();
+  HRESULT r2=Shell32.INSTANCE.GetCurrentProcessExplicitAppUserModelID(ppszAppID);
+  assertEquals(WinError.S_OK,r2);
+  assertEquals(appUserModelID,ppszAppID.getValue().getWideString(0));
+  Ole32.INSTANCE.CoTaskMemFree(ppszAppID.getValue());
+}
