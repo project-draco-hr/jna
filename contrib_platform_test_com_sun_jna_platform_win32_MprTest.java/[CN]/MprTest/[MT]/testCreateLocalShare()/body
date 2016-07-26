@@ -1,0 +1,5 @@
+{
+  File fileShareFolder=createTempFolder();
+  String share=createLocalShare(fileShareFolder);
+  Netapi32.INSTANCE.NetShareDel(null,share,0);
+}
