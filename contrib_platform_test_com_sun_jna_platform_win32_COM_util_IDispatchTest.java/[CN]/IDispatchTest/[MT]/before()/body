@@ -1,4 +1,10 @@
 {
+  AbstractWin32TestSupport.killProcessByName("iexplore.exe");
+  try {
+    Thread.sleep(5 * 1000);
+  }
+ catch (  InterruptedException ex) {
+  }
   Ole32.INSTANCE.CoInitializeEx(Pointer.NULL,Ole32.COINIT_MULTITHREADED);
   this.factory=new ObjectFactory();
 }

@@ -1,3 +1,8 @@
 {
-  assertEquals("The operation completed successfully.",Kernel32Util.formatMessage(W32Errors.S_OK));
+  if (AbstractWin32TestSupport.isEnglishLocale) {
+    assertEquals("The operation completed successfully.",Kernel32Util.formatMessage(W32Errors.S_OK));
+  }
+ else {
+    System.out.println("testFormatMessageFromHR Test can only be run on english locale");
+  }
 }

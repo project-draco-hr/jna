@@ -1,8 +1,13 @@
 {
   HANDLE hPhysicalMonitor=physMons[0].hPhysicalMonitor;
   DWORDByReference pdwCapabilitiesStringLengthInCharacters=new DWORDByReference();
-  Dxva2.INSTANCE.GetCapabilitiesStringLength(hPhysicalMonitor,pdwCapabilitiesStringLengthInCharacters);
-  DWORD capStrLen=pdwCapabilitiesStringLengthInCharacters.getValue();
-  LPSTR pszASCIICapabilitiesString=new LPSTR(new Memory(capStrLen.intValue()));
-  Dxva2.INSTANCE.CapabilitiesRequestAndCapabilitiesReply(hPhysicalMonitor,pszASCIICapabilitiesString,capStrLen);
+  BOOL success=Dxva2.INSTANCE.GetCapabilitiesStringLength(hPhysicalMonitor,pdwCapabilitiesStringLengthInCharacters);
+  if (success.booleanValue()) {
+    DWORD capStrLen=pdwCapabilitiesStringLengthInCharacters.getValue();
+    LPSTR pszASCIICapabilitiesString=new LPSTR(new Memory(capStrLen.intValue()));
+    Dxva2.INSTANCE.CapabilitiesRequestAndCapabilitiesReply(hPhysicalMonitor,pszASCIICapabilitiesString,capStrLen);
+  }
+ else {
+    System.err.println("GetCapabilitiesStringLength failed with errorcode: " + Kernel32.INSTANCE.GetLastError());
+  }
 }

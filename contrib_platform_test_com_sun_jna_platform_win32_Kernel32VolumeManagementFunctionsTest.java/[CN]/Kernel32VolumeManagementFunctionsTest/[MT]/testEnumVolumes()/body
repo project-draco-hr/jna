@@ -2,12 +2,14 @@
   char[] lpszVolumeName=new char[WinDef.MAX_PATH + 1];
   HANDLE hFindVolume=assertValidHandle("FindFirstVolume",Kernel32.INSTANCE.FindFirstVolume(lpszVolumeName,lpszVolumeName.length));
   try {
+    int foundPaths=0;
     do {
       String volumeGUID=Native.toString(lpszVolumeName);
       testEnumVolumeMountMoints(volumeGUID);
-      testGetVolumePathNamesForVolumeName(volumeGUID);
+      foundPaths+=testGetVolumePathNamesForVolumeName(volumeGUID);
     }
  while (Kernel32.INSTANCE.FindNextVolume(hFindVolume,lpszVolumeName,lpszVolumeName.length));
+    assertTrue("No paths were found",foundPaths > 0);
     int hr=Kernel32.INSTANCE.GetLastError();
     assertEquals("Bad volumes enum termination reason",WinError.ERROR_NO_MORE_FILES,hr);
   }

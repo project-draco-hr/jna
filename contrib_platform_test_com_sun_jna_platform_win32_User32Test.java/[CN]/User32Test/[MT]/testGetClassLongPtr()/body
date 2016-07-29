@@ -1,6 +1,11 @@
 {
-  DesktopWindow explorerProc=getWindowByProcessPath("explorer.exe");
-  assertNotNull("Could not find explorer.exe process",explorerProc);
-  ULONG_PTR result=User32.INSTANCE.GetClassLongPtr(explorerProc.getHWND(),WinUser.GCLP_HMODULE);
-  assertNotEquals(0,result.intValue());
+  if (System.getProperty("os.arch","unknown").equalsIgnoreCase("amd64")) {
+    DesktopWindow explorerProc=getWindowByProcessPath("explorer.exe");
+    assertNotNull("Could not find explorer.exe process",explorerProc);
+    ULONG_PTR result=User32.INSTANCE.GetClassLongPtr(explorerProc.getHWND(),WinUser.GCLP_HMODULE);
+    assertNotEquals(0,result.intValue());
+  }
+ else {
+    System.err.println("GetClassLongPtr only supported on x64");
+  }
 }

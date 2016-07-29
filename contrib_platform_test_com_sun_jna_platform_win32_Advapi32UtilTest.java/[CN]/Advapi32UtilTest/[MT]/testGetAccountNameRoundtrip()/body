@@ -1,0 +1,8 @@
+{
+  String worldSID="S-1-1-0";
+  String accountNameResolved=Advapi32Util.getAccountBySid(worldSID).name;
+  String roundTripSid=Advapi32Util.getAccountByName(accountNameResolved).sidString;
+  assertNotNull(accountNameResolved);
+  assertTrue(!accountNameResolved.isEmpty());
+  assertEquals(worldSID,roundTripSid);
+}

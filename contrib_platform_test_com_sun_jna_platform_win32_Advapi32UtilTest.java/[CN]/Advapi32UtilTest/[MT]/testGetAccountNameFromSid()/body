@@ -1,3 +1,8 @@
 {
-  assertEquals("Everyone",Advapi32Util.getAccountBySid("S-1-1-0").name);
+  if (AbstractWin32TestSupport.isEnglishLocale) {
+    assertEquals("Everyone",Advapi32Util.getAccountBySid("S-1-1-0").name);
+  }
+ else {
+    System.err.println("testGetAccountNameFromSid Test can only be run on english locale");
+  }
 }

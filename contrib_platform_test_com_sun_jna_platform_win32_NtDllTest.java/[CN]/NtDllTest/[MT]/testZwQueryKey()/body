@@ -6,6 +6,6 @@
   assertTrue(resultLength.getValue() > 0);
   KEY_BASIC_INFORMATION keyInformation=new KEY_BASIC_INFORMATION(resultLength.getValue());
   assertEquals(NTStatus.STATUS_SUCCESS,NtDll.INSTANCE.ZwQueryKey(phKey.getValue(),Wdm.KEY_INFORMATION_CLASS.KeyBasicInformation,keyInformation,resultLength.getValue(),resultLength));
-  assertEquals("Software",keyInformation.getName());
+  assertEquals("software",keyInformation.getName().toLowerCase());
   assertEquals(W32Errors.ERROR_SUCCESS,Advapi32.INSTANCE.RegCloseKey(phKey.getValue()));
 }

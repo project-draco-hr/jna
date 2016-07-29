@@ -1,0 +1,17 @@
+{
+  HANDLE hSnapShot=Kernel32.INSTANCE.CreateToolhelp32Snapshot(TH32CS_SNAPALL,null);
+  Tlhelp32.PROCESSENTRY32 process=new Tlhelp32.PROCESSENTRY32();
+  boolean hRes=Kernel32.INSTANCE.Process32First(hSnapShot,process);
+  while (hRes) {
+    String imageName=Native.toString(process.szExeFile);
+    if (imageName.equalsIgnoreCase(filename)) {
+      HANDLE hProcess=Kernel32.INSTANCE.OpenProcess(Kernel32.PROCESS_TERMINATE,false,process.th32ProcessID.intValue());
+      if (hProcess != null) {
+        Kernel32.INSTANCE.TerminateProcess(hProcess,9);
+        Kernel32.INSTANCE.CloseHandle(hProcess);
+      }
+    }
+    hRes=Kernel32.INSTANCE.Process32Next(hSnapShot,process);
+  }
+  Kernel32.INSTANCE.CloseHandle(hSnapShot);
+}

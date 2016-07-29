@@ -1,5 +1,5 @@
 {
-  HANDLE h=Kernel32.INSTANCE.OpenProcess(0,false,Kernel32.INSTANCE.GetCurrentProcessId());
+  HANDLE h=Kernel32.INSTANCE.OpenProcess(WinNT.PROCESS_QUERY_INFORMATION,false,Kernel32.INSTANCE.GetCurrentProcessId());
   assertNotNull("Failed (" + Kernel32.INSTANCE.GetLastError() + ") to get process handle",h);
   try {
     String name=Kernel32Util.QueryFullProcessImageName(h,0);

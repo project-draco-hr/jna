@@ -1,5 +1,5 @@
 {
-  HMONITOR hMon=User32.INSTANCE.MonitorFromPoint(new POINT(0,0),WinUser.MONITOR_DEFAULTTOPRIMARY);
+  HMONITOR hMon=User32.INSTANCE.MonitorFromWindow(User32.INSTANCE.GetDesktopWindow(),WinUser.MONITOR_DEFAULTTOPRIMARY);
   assertTrue(User32.INSTANCE.GetMonitorInfo(hMon,new MONITORINFO()).booleanValue());
   assertTrue(User32.INSTANCE.GetMonitorInfo(hMon,new MONITORINFOEX()).booleanValue());
 }
