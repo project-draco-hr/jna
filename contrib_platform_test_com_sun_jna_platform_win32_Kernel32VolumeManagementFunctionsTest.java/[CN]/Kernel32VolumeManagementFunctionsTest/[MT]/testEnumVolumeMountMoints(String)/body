@@ -3,7 +3,7 @@
   HANDLE hFindVolumeMountPoint=Kernel32.INSTANCE.FindFirstVolumeMountPoint(volumeGUID,lpszVolumeMountPoint,lpszVolumeMountPoint.length);
   if (WinNT.INVALID_HANDLE_VALUE.equals(hFindVolumeMountPoint)) {
     int hr=Kernel32.INSTANCE.GetLastError();
-    if ((hr == WinError.ERROR_ACCESS_DENIED) || (hr == WinError.ERROR_NOT_READY)) {
+    if ((hr == WinError.ERROR_ACCESS_DENIED) || (hr == WinError.ERROR_NOT_READY) || (hr == WinError.ERROR_NO_MORE_FILES)|| (hr == WinError.ERROR_PATH_NOT_FOUND)) {
       return;
     }
     fail("Cannot (error=" + hr + ") open mount point search handle for "+ volumeGUID);

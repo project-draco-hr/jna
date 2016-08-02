@@ -1,4 +1,10 @@
 {
+  AbstractWin32TestSupport.killProcessByName("iexplore.exe");
+  try {
+    Thread.sleep(5 * 1000);
+  }
+ catch (  InterruptedException ex) {
+  }
   ComThread thread=new ComThread("Default Factory COM Thread",10000,new Thread.UncaughtExceptionHandler(){
     @Override public void uncaughtException(    Thread t,    Throwable e){
     }

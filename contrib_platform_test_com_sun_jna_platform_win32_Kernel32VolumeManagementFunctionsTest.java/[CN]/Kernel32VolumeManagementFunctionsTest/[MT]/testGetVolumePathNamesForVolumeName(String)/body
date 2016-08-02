@@ -1,7 +1,7 @@
 {
   Collection<String> paths=Kernel32Util.getVolumePathNamesForVolumeName(lpszVolumeName);
-  assertTrue("No paths for volume " + lpszVolumeName,paths.size() > 0);
   for (  String p : paths) {
     assertTrue("Empty path for volume " + lpszVolumeName,p.length() > 0);
   }
+  return paths.size();
 }

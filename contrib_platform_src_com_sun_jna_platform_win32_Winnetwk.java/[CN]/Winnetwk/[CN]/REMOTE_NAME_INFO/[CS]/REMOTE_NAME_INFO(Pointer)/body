@@ -1,4 +1,4 @@
 {
-  super(address);
+  super(address,Structure.ALIGN_DEFAULT,W32APITypeMapper.DEFAULT);
   read();
 }

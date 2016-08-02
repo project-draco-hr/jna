@@ -1,5 +1,5 @@
 {
-  HMONITOR hMonitor=User32.INSTANCE.MonitorFromPoint(new POINT(0,0),WinUser.MONITOR_DEFAULTTOPRIMARY);
+  HMONITOR hMonitor=User32.INSTANCE.MonitorFromWindow(User32.INSTANCE.GetDesktopWindow(),WinUser.MONITOR_DEFAULTTOPRIMARY);
   DWORDByReference pdwNumberOfPhysicalMonitors=new DWORDByReference();
   assertTrue(Dxva2.INSTANCE.GetNumberOfPhysicalMonitorsFromHMONITOR(hMonitor,pdwNumberOfPhysicalMonitors).booleanValue());
   monitorCount=pdwNumberOfPhysicalMonitors.getValue().intValue();

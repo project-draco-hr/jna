@@ -2,6 +2,9 @@
   Map<String,String> vars=Kernel32Util.getEnvironmentVariables();
   for (  Map.Entry<String,String> entry : vars.entrySet()) {
     String name=entry.getKey(), expected=entry.getValue();
+    if ("".equals(name)) {
+      continue;
+    }
     char[] data=new char[expected.length() + 1];
     int size=Kernel32.INSTANCE.GetEnvironmentVariable(name,data,data.length);
     assertEquals("Mismatched retrieved length for " + name,data.length - 1,size);
