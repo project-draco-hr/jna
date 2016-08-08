@@ -1,0 +1,21 @@
+{
+  int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION;
+  File file=createTempFile();
+  String filePath=file.getAbsolutePath();
+  HANDLE hFile=WinBase.INVALID_HANDLE_VALUE;
+  try {
+    hFile=Kernel32.INSTANCE.CreateFile(filePath,WinNT.GENERIC_WRITE | WinNT.WRITE_OWNER | WinNT.WRITE_DAC,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+    assertFalse("Failed to create file handle: " + filePath,WinBase.INVALID_HANDLE_VALUE.equals(hFile));
+    int Length=64 * 1024;
+    Memory SecurityDescriptor=new Memory(Length);
+    IntByReference LengthNeeded=new IntByReference();
+    assertEquals("NtQuerySecurityObject(" + filePath + ")",0,NtDll.INSTANCE.NtQuerySecurityObject(hFile,infoType,SecurityDescriptor,Length,LengthNeeded));
+    assertTrue(LengthNeeded.getValue() > 0);
+    assertTrue(LengthNeeded.getValue() < 64 * 1024);
+    assertEquals("NtSetSecurityObject(" + filePath + ")",0,NtDll.INSTANCE.NtSetSecurityObject(hFile,infoType,SecurityDescriptor));
+  }
+  finally {
+    if (hFile != WinBase.INVALID_HANDLE_VALUE)     Kernel32.INSTANCE.CloseHandle(hFile);
+    file.delete();
+  }
+}

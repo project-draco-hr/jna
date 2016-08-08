@@ -1,0 +1,24 @@
+{
+  int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION;
+  PointerByReference ppsidOwner=new PointerByReference();
+  PointerByReference ppsidGroup=new PointerByReference();
+  PointerByReference ppDacl=new PointerByReference();
+  PointerByReference ppSecurityDescriptor=new PointerByReference();
+  File file=createTempFile();
+  String filePath=file.getAbsolutePath();
+  HANDLE hFile=Kernel32.INSTANCE.CreateFile(filePath,WinNT.GENERIC_ALL | WinNT.WRITE_OWNER | WinNT.WRITE_DAC,WinNT.FILE_SHARE_READ,new WinBase.SECURITY_ATTRIBUTES(),WinNT.OPEN_EXISTING,WinNT.FILE_ATTRIBUTE_NORMAL,null);
+  assertFalse("Failed to create file handle: " + filePath,WinBase.INVALID_HANDLE_VALUE.equals(hFile));
+  try {
+    try {
+      assertEquals("GetSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.GetSecurityInfo(hFile,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner,ppsidGroup,ppDacl,null,ppSecurityDescriptor));
+      assertEquals("SetSecurityInfo(" + filePath + ")",0,Advapi32.INSTANCE.SetSecurityInfo(hFile,AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,infoType,ppsidOwner.getValue(),ppsidGroup.getValue(),ppDacl.getValue(),null));
+    }
+  finally {
+      Kernel32.INSTANCE.CloseHandle(hFile);
+      file.delete();
+    }
+  }
+  finally {
+    Kernel32Util.freeLocalMemory(ppSecurityDescriptor.getValue());
+  }
+}

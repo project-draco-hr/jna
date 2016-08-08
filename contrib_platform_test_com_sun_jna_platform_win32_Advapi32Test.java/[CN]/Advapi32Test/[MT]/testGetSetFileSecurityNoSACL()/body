@@ -1,0 +1,15 @@
+{
+  int infoType=OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION | DACL_SECURITY_INFORMATION;
+  int memSize=64 * 1024;
+  Memory memorySecurity=new Memory(memSize);
+  IntByReference sizeNeeded=new IntByReference(0);
+  File file=createTempFile();
+  String filePath=file.getAbsolutePath();
+  try {
+    assertEquals("GetFileSecurity(" + filePath + ")",true,Advapi32.INSTANCE.GetFileSecurity(filePath,infoType,memorySecurity,memSize,sizeNeeded));
+    assertEquals("SetFileSecurity(" + filePath + ")",true,Advapi32.INSTANCE.SetFileSecurity(filePath,infoType,memorySecurity));
+  }
+  finally {
+    file.delete();
+  }
+}
