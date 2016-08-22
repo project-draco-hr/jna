@@ -1,0 +1,80 @@
+{
+  final String serviceName="TestService";
+  final String topicName="TestTopic";
+  final CountDownLatch connectLatch1=new CountDownLatch(1);
+  final CountDownLatch disconnectLatch1=new CountDownLatch(1);
+  final CountDownLatch connectLatch2=new CountDownLatch(1);
+  final CountDownLatch disconnectLatch2=new CountDownLatch(1);
+  StandaloneDdeClient client=null;
+  StandaloneDdeClient server1=null;
+  StandaloneDdeClient server2=null;
+  try {
+    client=new StandaloneDdeClient(){
+{
+        this.initialize(Ddeml.APPCMD_CLIENTONLY | Ddeml.CBF_SKIP_REGISTRATIONS | Ddeml.CBF_SKIP_UNREGISTRATIONS);
+      }
+    }
+;
+class Server extends StandaloneDdeClient {
+      private final CountDownLatch connectLatch;
+      private final CountDownLatch disconnectLatch;
+      private final ConnectHandler connectHandler=new ConnectHandler(){
+        public boolean onConnect(        int transactionType,        HSZ topic,        HSZ service,        Ddeml.CONVCONTEXT convcontext,        boolean sameInstance){
+          return topicName.equals(queryString(topic));
+        }
+      }
+;
+      private final ConnectConfirmHandler connectConfirmHandler=new ConnectConfirmHandler(){
+        public void onConnectConfirm(        int transactionType,        Ddeml.HCONV hconv,        HSZ topic,        HSZ service,        boolean sameInstance){
+          if (topicName.equals(queryString(topic))) {
+            connectLatch.countDown();
+          }
+        }
+      }
+;
+      private final DisconnectHandler disconnectHandler=new DisconnectHandler(){
+        public void onDisconnect(        int transactionType,        HCONV hconv,        boolean sameInstance){
+          disconnectLatch.countDown();
+        }
+      }
+;
+      private final WildconnectHandler wildconnectHandler=new WildconnectHandler(){
+        public List<Ddeml.HSZPAIR> onWildconnect(        int transactionType,        HSZ topic,        HSZ service,        Ddeml.CONVCONTEXT convcontext,        boolean sameInstance){
+          return Collections.singletonList(new Ddeml.HSZPAIR(service,topic));
+        }
+      }
+;
+      public Server(      CountDownLatch connectLatch,      CountDownLatch disconnectLatch){
+        registerConnectHandler(connectHandler);
+        registerConnectConfirmHandler(connectConfirmHandler);
+        registerDisconnectHandler(disconnectHandler);
+        registerWildconnectHandler(wildconnectHandler);
+        this.initialize(Ddeml.APPCMD_FILTERINITS | Ddeml.CBF_SKIP_REGISTRATIONS | Ddeml.CBF_SKIP_UNREGISTRATIONS);
+        this.connectLatch=connectLatch;
+        this.disconnectLatch=disconnectLatch;
+      }
+    }
+    ;
+    server1=new Server(connectLatch1,disconnectLatch1);
+    server2=new Server(connectLatch2,disconnectLatch2);
+    server1.nameService(serviceName,Ddeml.DNS_REGISTER);
+    server2.nameService(serviceName,Ddeml.DNS_REGISTER);
+    DdemlUtil.IDdeConnectionList connectionList=client.connectList(serviceName,topicName,null,null);
+    IDdeConnection con1=connectionList.queryNextServer(null);
+    assertNotNull(con1);
+    IDdeConnection con2=connectionList.queryNextServer(con1);
+    assertNotNull(con2);
+    IDdeConnection con3=connectionList.queryNextServer(con2);
+    assertNull(con3);
+    connectionList.close();
+    assertTrue(connectLatch1.await(5,TimeUnit.SECONDS));
+    assertTrue(connectLatch2.await(5,TimeUnit.SECONDS));
+    assertTrue(disconnectLatch1.await(5,TimeUnit.SECONDS));
+    assertTrue(disconnectLatch2.await(5,TimeUnit.SECONDS));
+  }
+  finally {
+    closeQuitely(client);
+    closeQuitely(server1);
+    closeQuitely(server2);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  boolean result=Ddeml.INSTANCE.DdeEnableCallback(client.getInstanceIdentitifier(),conv,wCmd);
+  if ((!result) && wCmd == Ddeml.EC_QUERYWAITING) {
+    throw DdemlException.create(client.getLastError());
+  }
+  return result;
+}

@@ -1,0 +1,5 @@
+{
+  for (  RegisterHandler handler : registerHandler) {
+    handler.onRegister(transactionType,baseServiceName,instanceSpecificServiceName);
+  }
+}

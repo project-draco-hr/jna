@@ -1,0 +1,3 @@
+{
+  clientDelegate.registerUnregisterHandler(handler);
+}

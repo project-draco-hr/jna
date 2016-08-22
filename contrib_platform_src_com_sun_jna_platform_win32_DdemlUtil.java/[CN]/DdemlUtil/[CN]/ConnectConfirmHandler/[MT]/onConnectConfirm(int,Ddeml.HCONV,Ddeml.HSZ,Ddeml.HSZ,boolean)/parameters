@@ -1,0 +1,5 @@
+int transactionType
+Ddeml.HCONV hconv
+Ddeml.HSZ topic
+Ddeml.HSZ service
+boolean sameInstance

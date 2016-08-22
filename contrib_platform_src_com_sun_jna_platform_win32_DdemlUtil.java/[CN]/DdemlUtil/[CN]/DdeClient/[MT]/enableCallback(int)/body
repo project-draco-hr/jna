@@ -1,0 +1,10 @@
+{
+  boolean result=Ddeml.INSTANCE.DdeEnableCallback(idInst,null,wCmd);
+  if ((!result) && wCmd != Ddeml.EC_QUERYWAITING) {
+    int errorCode=getLastError();
+    if (errorCode != Ddeml.DMLERR_NO_ERROR) {
+      throw DdemlException.create(getLastError());
+    }
+  }
+  return result;
+}

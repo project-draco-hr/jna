@@ -1,0 +1,3 @@
+{
+  unregisterHandler.add(handler);
+}

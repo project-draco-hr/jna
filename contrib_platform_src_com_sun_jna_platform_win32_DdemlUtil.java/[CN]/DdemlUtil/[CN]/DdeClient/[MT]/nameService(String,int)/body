@@ -1,0 +1,10 @@
+{
+  HSZ nameHSZ=null;
+  try {
+    nameHSZ=createStringHandle(name);
+    nameService(nameHSZ,afCmd);
+  }
+  finally {
+    freeStringHandle(nameHSZ);
+  }
+}

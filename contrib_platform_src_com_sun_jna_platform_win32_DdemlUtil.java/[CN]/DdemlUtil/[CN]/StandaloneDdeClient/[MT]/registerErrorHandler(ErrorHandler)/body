@@ -1,0 +1,3 @@
+{
+  clientDelegate.registerErrorHandler(handler);
+}

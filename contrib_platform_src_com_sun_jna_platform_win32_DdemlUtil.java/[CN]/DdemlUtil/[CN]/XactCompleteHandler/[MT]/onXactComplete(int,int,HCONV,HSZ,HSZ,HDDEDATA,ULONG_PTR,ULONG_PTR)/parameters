@@ -1,0 +1,8 @@
+int transactionType
+int dataFormat
+HCONV hConv
+HSZ topic
+HSZ item
+HDDEDATA hdata
+ULONG_PTR transactionIdentifier
+ULONG_PTR statusFlag

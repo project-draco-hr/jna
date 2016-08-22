@@ -1,0 +1,13 @@
+{
+  HSZ itemHSZ=null;
+  HSZ topicHSZ=null;
+  try {
+    topicHSZ=createStringHandle(topic);
+    itemHSZ=createStringHandle(item);
+    postAdvise(topicHSZ,itemHSZ);
+  }
+  finally {
+    freeStringHandle(topicHSZ);
+    freeStringHandle(itemHSZ);
+  }
+}

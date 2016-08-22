@@ -1,0 +1,8 @@
+int wType
+int wFmt
+Ddeml.HCONV hConv
+Ddeml.HSZ hsz1
+Ddeml.HSZ hsz2
+Ddeml.HDDEDATA hData
+BaseTSD.ULONG_PTR lData1
+BaseTSD.ULONG_PTR lData2

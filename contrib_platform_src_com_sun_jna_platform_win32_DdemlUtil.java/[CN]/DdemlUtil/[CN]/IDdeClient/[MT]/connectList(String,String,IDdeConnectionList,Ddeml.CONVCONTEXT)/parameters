@@ -1,0 +1,4 @@
+String service
+String topic
+IDdeConnectionList existingList
+Ddeml.CONVCONTEXT ctx

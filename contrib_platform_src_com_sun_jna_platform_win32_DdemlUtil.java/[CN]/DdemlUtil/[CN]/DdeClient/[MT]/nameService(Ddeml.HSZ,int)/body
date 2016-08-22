@@ -1,0 +1,6 @@
+{
+  Ddeml.HDDEDATA handle=Ddeml.INSTANCE.DdeNameService(idInst,name,new Ddeml.HSZ(),afCmd);
+  if (handle == null) {
+    throw DdemlException.create(getLastError());
+  }
+}

@@ -1,0 +1,3 @@
+int transactionType
+Ddeml.HSZ baseServiceName
+Ddeml.HSZ instanceSpecificServiceName

@@ -1,0 +1,5 @@
+int transactionType
+HCONV hconv
+HSZ topic
+HSZ service
+boolean sameInstance

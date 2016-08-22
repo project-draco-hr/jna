@@ -1,0 +1,5 @@
+{
+  Memory mem=new Memory(executeString.length() * 2 + 2);
+  mem.setWideString(0,executeString);
+  clientTransaction(mem,(int)mem.size(),(HSZ)null,0,Ddeml.XTYP_EXECUTE,timeout,result,userHandle);
+}

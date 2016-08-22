@@ -1,0 +1,28 @@
+{
+  try {
+    Object result=method.invoke(delegate,args);
+    Class<?> wrapClass=null;
+    if (result instanceof IDdeConnection) {
+      wrapClass=IDdeConnection.class;
+    }
+ else     if (result instanceof IDdeConnectionList) {
+      wrapClass=IDdeConnectionList.class;
+    }
+ else     if (result instanceof IDdeClient) {
+      wrapClass=IDdeClient.class;
+    }
+    if (wrapClass != null && method.getReturnType().isAssignableFrom(wrapClass)) {
+      result=wrap(result,wrapClass);
+    }
+    return result;
+  }
+ catch (  InvocationTargetException ex) {
+    Throwable cause=ex.getCause();
+    if (cause instanceof Exception) {
+      throw (Exception)cause;
+    }
+ else {
+      throw ex;
+    }
+  }
+}

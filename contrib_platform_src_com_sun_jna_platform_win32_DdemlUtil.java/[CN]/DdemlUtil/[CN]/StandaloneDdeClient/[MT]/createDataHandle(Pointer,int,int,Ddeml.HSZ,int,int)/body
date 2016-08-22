@@ -1,0 +1,3 @@
+{
+  return clientDelegate.createDataHandle(pSrc,cb,cbOff,hszItem,wFmt,afCmd);
+}

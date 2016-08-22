@@ -1,0 +1,9 @@
+{
+  Ddeml.HCONV newConv=Ddeml.INSTANCE.DdeReconnect(conv);
+  if (newConv != null) {
+    conv=newConv;
+  }
+ else {
+    throw DdemlException.create(client.getLastError());
+  }
+}

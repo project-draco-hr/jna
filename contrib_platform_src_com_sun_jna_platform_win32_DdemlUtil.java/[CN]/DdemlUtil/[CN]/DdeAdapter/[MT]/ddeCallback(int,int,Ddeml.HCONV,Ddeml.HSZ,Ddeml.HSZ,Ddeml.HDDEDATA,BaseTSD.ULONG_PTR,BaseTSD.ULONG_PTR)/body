@@ -1,0 +1,97 @@
+{
+  boolean booleanResult;
+  Ddeml.HDDEDATA data;
+  Ddeml.CONVCONTEXT convcontext;
+  int intResult;
+  String transactionTypeName=null;
+  try {
+switch (wType) {
+case Ddeml.XTYP_ADVSTART:
+      booleanResult=onAdvstart(wType,wFmt,hConv,hsz1,hsz2);
+    return new WinDef.PVOID(Pointer.createConstant(new WinDef.BOOL(booleanResult).intValue()));
+case Ddeml.XTYP_CONNECT:
+  convcontext=null;
+if (lData1.toPointer() != null) {
+  convcontext=new Ddeml.CONVCONTEXT(new Pointer(lData1.longValue()));
+}
+booleanResult=onConnect(wType,hsz1,hsz2,convcontext,lData2 != null && lData2.intValue() != 0);
+return new WinDef.PVOID(Pointer.createConstant(new WinDef.BOOL(booleanResult).intValue()));
+case Ddeml.XTYP_ADVREQ:
+int count=lData1.intValue() & 0xFFFF;
+data=onAdvreq(wType,wFmt,hConv,hsz1,hsz2,count);
+if (data == null) {
+return new WinDef.PVOID();
+}
+ else {
+return new WinDef.PVOID(data.getPointer());
+}
+case Ddeml.XTYP_REQUEST:
+data=onRequest(wType,wFmt,hConv,hsz1,hsz2);
+if (data == null) {
+return new WinDef.PVOID();
+}
+ else {
+return new WinDef.PVOID(data.getPointer());
+}
+case Ddeml.XTYP_WILDCONNECT:
+convcontext=null;
+if (lData1.toPointer() != null) {
+convcontext=new Ddeml.CONVCONTEXT(new Pointer(lData1.longValue()));
+}
+Ddeml.HSZPAIR[] hszPairs=onWildconnect(wType,hsz1,hsz2,convcontext,lData2 != null && lData2.intValue() != 0);
+if (hszPairs == null || hszPairs.length == 0) {
+return new WinDef.PVOID();
+}
+int size=0;
+for (Ddeml.HSZPAIR hp : hszPairs) {
+hp.write();
+size+=hp.size();
+}
+data=Ddeml.INSTANCE.DdeCreateDataHandle(idInst,hszPairs[0].getPointer(),size,0,null,wFmt,0);
+return new WinDef.PVOID(data.getPointer());
+case Ddeml.XTYP_ADVDATA:
+intResult=onAdvdata(wType,wFmt,hConv,hsz1,hsz2,hData);
+return new WinDef.PVOID(Pointer.createConstant(intResult));
+case Ddeml.XTYP_EXECUTE:
+intResult=onExecute(wType,hConv,hsz1,hData);
+Ddeml.INSTANCE.DdeFreeDataHandle(hData);
+return new WinDef.PVOID(Pointer.createConstant(intResult));
+case Ddeml.XTYP_POKE:
+intResult=onPoke(wType,wFmt,hConv,hsz1,hsz2,hData);
+return new WinDef.PVOID(Pointer.createConstant(intResult));
+case Ddeml.XTYP_ADVSTOP:
+onAdvstop(wType,wFmt,hConv,hsz1,hsz2);
+break;
+case Ddeml.XTYP_CONNECT_CONFIRM:
+onConnectConfirm(wType,hConv,hsz1,hsz2,lData2 != null && lData2.intValue() != 0);
+break;
+case Ddeml.XTYP_DISCONNECT:
+onDisconnect(wType,hConv,lData2 != null && lData2.intValue() != 0);
+break;
+case Ddeml.XTYP_ERROR:
+onError(wType,hConv,(int)(lData2.longValue() & 0xFFFF));
+break;
+case Ddeml.XTYP_REGISTER:
+onRegister(wType,hsz1,hsz2);
+break;
+case Ddeml.XTYP_XACT_COMPLETE:
+onXactComplete(wType,wFmt,hConv,hsz1,hsz2,hData,lData1,lData2);
+break;
+case Ddeml.XTYP_UNREGISTER:
+onUnregister(wType,hsz1,hsz2);
+break;
+case Ddeml.XTYP_MONITOR:
+onMonitor(wType,hData,lData2.intValue());
+break;
+default :
+LOG.log(Level.FINE,String.format("Not implemented Operation - Transaction type: 0x%X (%s)",wType,transactionTypeName));
+}
+}
+ catch (BlockException ex) {
+return new WinDef.PVOID(Pointer.createConstant(-1));
+}
+catch (Throwable ex) {
+LOG.log(Level.WARNING,"Exception in DDECallback",ex);
+}
+return new WinDef.PVOID();
+}

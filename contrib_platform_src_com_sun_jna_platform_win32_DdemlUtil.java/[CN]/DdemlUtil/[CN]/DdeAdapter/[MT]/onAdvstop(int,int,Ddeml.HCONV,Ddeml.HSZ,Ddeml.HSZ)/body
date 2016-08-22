@@ -1,0 +1,5 @@
+{
+  for (  AdvstopHandler handler : advstopHandler) {
+    handler.onAdvstop(transactionType,dataFormat,hconv,topic,item);
+  }
+}

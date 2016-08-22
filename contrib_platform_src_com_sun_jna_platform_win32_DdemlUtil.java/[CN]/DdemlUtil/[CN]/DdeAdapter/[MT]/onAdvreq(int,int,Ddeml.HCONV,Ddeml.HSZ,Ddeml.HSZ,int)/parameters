@@ -1,0 +1,6 @@
+int transactionType
+int dataFormat
+Ddeml.HCONV hconv
+Ddeml.HSZ topic
+Ddeml.HSZ item
+int count

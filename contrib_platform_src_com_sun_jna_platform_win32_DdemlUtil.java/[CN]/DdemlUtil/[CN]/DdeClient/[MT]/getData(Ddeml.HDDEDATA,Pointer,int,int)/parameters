@@ -1,0 +1,4 @@
+Ddeml.HDDEDATA hData
+Pointer pDst
+int cbMax
+int cbOff

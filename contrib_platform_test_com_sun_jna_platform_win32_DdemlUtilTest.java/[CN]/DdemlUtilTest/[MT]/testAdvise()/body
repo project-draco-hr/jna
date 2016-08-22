@@ -1,0 +1,79 @@
+{
+  final String serviceName="TestService";
+  final String topicName="TestTopic";
+  final String itemName="TestItem";
+  final String testValue="Execute?????????????????????";
+  final CountDownLatch adviseStartReceived=new CountDownLatch(1);
+  final CountDownLatch adviseDataRequestReceived=new CountDownLatch(1);
+  final CountDownLatch adviseDataReceived=new CountDownLatch(1);
+  StandaloneDdeClient client=null;
+  StandaloneDdeClient server=null;
+  try {
+    client=new StandaloneDdeClient(){
+      private final AdvdataHandler advdataHandler=new DdemlUtil.AdvdataHandler(){
+        public int onAdvdata(        int transactionType,        int dataFormat,        HCONV hconv,        HSZ topic,        HSZ item,        HDDEDATA hdata){
+          if (dataFormat == WinUser.CF_UNICODETEXT && topicName.equals(queryString(topic)) && itemName.equals(queryString(item))) {
+            Pointer pointer=accessData(hdata,null);
+            try {
+              if (testValue.equals(pointer.getWideString(0))) {
+                adviseDataReceived.countDown();
+              }
+            }
+  finally {
+              unaccessData(hdata);
+            }
+          }
+          return Ddeml.DDE_FACK;
+        }
+      }
+;
+{
+        registerAdvdataHandler(advdataHandler);
+        this.initialize(Ddeml.APPCMD_CLIENTONLY | Ddeml.CBF_SKIP_REGISTRATIONS | Ddeml.CBF_SKIP_UNREGISTRATIONS);
+      }
+    }
+;
+    server=new StandaloneDdeClient(){
+      private final ConnectHandler connectHandler=new ConnectHandler(){
+        public boolean onConnect(        int transactionType,        HSZ topic,        HSZ service,        Ddeml.CONVCONTEXT convcontext,        boolean sameInstance){
+          return topicName.equals(queryString(topic));
+        }
+      }
+;
+      private final AdvreqHandler advreqHandler=new AdvreqHandler(){
+        public HDDEDATA onAdvreq(        int transactionType,        int dataFormat,        HCONV hconv,        HSZ topic,        HSZ item,        int count){
+          adviseDataRequestReceived.countDown();
+          Memory mem=new Memory((testValue.length() + 1) * 2);
+          mem.setWideString(0,testValue);
+          return createDataHandle(mem,(int)mem.size(),0,item,dataFormat,0);
+        }
+      }
+;
+      private final AdvstartHandler advstartHandler=new AdvstartHandler(){
+        public boolean onAdvstart(        int transactionType,        int dataFormat,        HCONV hconv,        HSZ topic,        HSZ item){
+          adviseStartReceived.countDown();
+          return dataFormat == WinUser.CF_UNICODETEXT && topicName.equals(queryString(topic)) && itemName.equals(queryString(item));
+        }
+      }
+;
+{
+        registerConnectHandler(connectHandler);
+        registerAdvReqHandler(advreqHandler);
+        registerAdvstartHandler(advstartHandler);
+        this.initialize(Ddeml.APPCMD_FILTERINITS | Ddeml.CBF_SKIP_ALLNOTIFICATIONS);
+      }
+    }
+;
+    server.nameService(serviceName,Ddeml.DNS_REGISTER);
+    IDdeConnection con=client.connect(serviceName,topicName,null);
+    con.advstart(itemName,WinUser.CF_UNICODETEXT,5 * 1000,null,null);
+    assertTrue(adviseStartReceived.await(5,TimeUnit.SECONDS));
+    server.postAdvise(topicName,itemName);
+    assertTrue(adviseDataRequestReceived.await(5,TimeUnit.SECONDS));
+    assertTrue(adviseDataReceived.await(5,TimeUnit.SECONDS));
+  }
+  finally {
+    closeQuitely(client);
+    closeQuitely(server);
+  }
+}

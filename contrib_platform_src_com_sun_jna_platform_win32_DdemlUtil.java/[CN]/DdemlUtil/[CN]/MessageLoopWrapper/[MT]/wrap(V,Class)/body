@@ -1,0 +1,5 @@
+{
+  V messageLoopHandler=(V)Proxy.newProxyInstance(StandaloneDdeClient.class.getClassLoader(),new Class[]{clazz},loopThread.new Handler(delegate));
+  V clientDelegate=(V)Proxy.newProxyInstance(StandaloneDdeClient.class.getClassLoader(),new Class[]{clazz},new MessageLoopWrapper(loopThread,messageLoopHandler));
+  return clientDelegate;
+}

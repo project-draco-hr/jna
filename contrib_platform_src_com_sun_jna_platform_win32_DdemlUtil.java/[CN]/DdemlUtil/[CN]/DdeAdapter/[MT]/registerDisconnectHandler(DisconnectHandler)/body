@@ -1,0 +1,3 @@
+{
+  disconnectHandler.add(handler);
+}

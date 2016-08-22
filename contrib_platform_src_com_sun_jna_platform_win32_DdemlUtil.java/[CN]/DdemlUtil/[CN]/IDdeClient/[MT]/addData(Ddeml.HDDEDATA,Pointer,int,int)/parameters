@@ -1,0 +1,4 @@
+Ddeml.HDDEDATA hData
+Pointer pSrc
+int cb
+int cbOff

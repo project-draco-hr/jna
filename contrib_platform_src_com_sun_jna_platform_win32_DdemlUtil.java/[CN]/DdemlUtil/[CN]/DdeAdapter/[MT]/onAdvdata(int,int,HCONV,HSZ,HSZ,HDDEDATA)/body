@@ -1,0 +1,9 @@
+{
+  for (  AdvdataHandler handler : advdataHandler) {
+    int result=handler.onAdvdata(transactionType,dataFormat,hconv,topic,item,hdata);
+    if (result != Ddeml.DDE_FNOTPROCESSED) {
+      return result;
+    }
+  }
+  return Ddeml.DDE_FNOTPROCESSED;
+}

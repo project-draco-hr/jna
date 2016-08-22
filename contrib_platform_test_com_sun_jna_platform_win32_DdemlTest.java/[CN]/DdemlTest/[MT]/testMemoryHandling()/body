@@ -1,0 +1,34 @@
+{
+  DdeCallback callback=new Ddeml.DdeCallback(){
+    public WinDef.PVOID ddeCallback(    int wType,    int wFmt,    Ddeml.HCONV hConv,    Ddeml.HSZ hsz1,    Ddeml.HSZ hsz2,    Ddeml.HDDEDATA hData,    BaseTSD.ULONG_PTR lData1,    BaseTSD.ULONG_PTR lData2){
+      return new PVOID();
+    }
+  }
+;
+  DWORDByReference pidInst=new DWORDByReference();
+  int initResult=Ddeml.INSTANCE.DdeInitialize(pidInst,callback,Ddeml.APPCMD_CLIENTONLY,0);
+  assertEquals(Ddeml.DMLERR_NO_ERROR,initResult);
+  HSZ hsz=Ddeml.INSTANCE.DdeCreateStringHandle(pidInst.getValue().intValue(),"Dummy",Ddeml.CP_WINUNICODE);
+  String testStringPart1="Hallo ";
+  String testStringPart2="Welt";
+  Memory mem=new Memory(256 * 2);
+  mem.setWideString(0,testStringPart1);
+  HDDEDATA data=Ddeml.INSTANCE.DdeCreateDataHandle(pidInst.getValue().intValue(),mem,testStringPart1.length() * 2,0,hsz,WinUser.CF_UNICODETEXT,Ddeml.HDATA_APPOWNED);
+  mem.setWideString(0,testStringPart2);
+  Ddeml.INSTANCE.DdeAddData(data,mem,(testStringPart2.length() + 1) * 2,testStringPart1.length() * 2);
+  DWORDByReference dataSize=new DWORDByReference();
+  Pointer resultPointer=Ddeml.INSTANCE.DdeAccessData(data,dataSize);
+  assertEquals((testStringPart1.length() + testStringPart2.length() + 1) * 2,dataSize.getValue().intValue());
+  assertEquals(testStringPart1 + testStringPart2,resultPointer.getWideString(0));
+  boolean result=Ddeml.INSTANCE.DdeUnaccessData(data);
+  int readSize=Ddeml.INSTANCE.DdeGetData(data,mem,(int)mem.size(),0);
+  assertEquals((testStringPart1.length() + testStringPart2.length() + 1) * 2,readSize);
+  assertEquals(testStringPart1 + testStringPart2,mem.getWideString(0));
+  assertTrue(result);
+  result=Ddeml.INSTANCE.DdeFreeDataHandle(data);
+  assertTrue(result);
+synchronized (mem) {
+  }
+  result=Ddeml.INSTANCE.DdeUninitialize(pidInst.getValue().intValue());
+  assertTrue(result);
+}

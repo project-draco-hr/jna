@@ -1,0 +1,9 @@
+{
+  for (  ExecuteHandler handler : executeHandler) {
+    int result=handler.onExecute(transactionType,hconv,topic,commandString);
+    if (result != Ddeml.DDE_FNOTPROCESSED) {
+      return result;
+    }
+  }
+  return Ddeml.DDE_FNOTPROCESSED;
+}

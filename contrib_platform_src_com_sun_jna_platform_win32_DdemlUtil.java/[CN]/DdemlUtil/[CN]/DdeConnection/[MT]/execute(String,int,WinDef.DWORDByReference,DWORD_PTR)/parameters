@@ -1,0 +1,4 @@
+String executeString
+int timeout
+WinDef.DWORDByReference result
+DWORD_PTR userHandle

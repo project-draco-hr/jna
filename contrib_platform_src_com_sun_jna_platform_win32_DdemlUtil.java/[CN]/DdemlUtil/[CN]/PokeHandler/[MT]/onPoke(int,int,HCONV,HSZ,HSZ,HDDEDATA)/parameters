@@ -1,0 +1,6 @@
+int transactionType
+int dataFormat
+HCONV hconv
+HSZ topic
+HSZ item
+HDDEDATA hdata

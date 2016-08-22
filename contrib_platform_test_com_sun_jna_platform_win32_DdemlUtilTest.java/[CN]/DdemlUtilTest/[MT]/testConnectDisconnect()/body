@@ -1,0 +1,54 @@
+{
+  final String serviceName="TestService";
+  final String topicName="TestTopic";
+  final CountDownLatch connectLatch=new CountDownLatch(1);
+  final CountDownLatch disconnectLatch=new CountDownLatch(1);
+  StandaloneDdeClient client=null;
+  StandaloneDdeClient server=null;
+  try {
+    client=new StandaloneDdeClient(){
+{
+        this.initialize(Ddeml.APPCMD_CLIENTONLY | Ddeml.CBF_SKIP_REGISTRATIONS | Ddeml.CBF_SKIP_UNREGISTRATIONS);
+      }
+    }
+;
+    server=new StandaloneDdeClient(){
+      private final ConnectHandler connectHandler=new ConnectHandler(){
+        public boolean onConnect(        int transactionType,        HSZ topic,        HSZ service,        Ddeml.CONVCONTEXT convcontext,        boolean sameInstance){
+          return topicName.equals(queryString(topic));
+        }
+      }
+;
+      private final ConnectConfirmHandler connectConfirmHandler=new ConnectConfirmHandler(){
+        public void onConnectConfirm(        int transactionType,        HCONV hconv,        HSZ topic,        HSZ service,        boolean sameInstance){
+          if (topicName.equals(queryString(topic))) {
+            connectLatch.countDown();
+          }
+        }
+      }
+;
+      private final DisconnectHandler disconnectHandler=new DisconnectHandler(){
+        public void onDisconnect(        int transactionType,        HCONV hconv,        boolean sameInstance){
+          disconnectLatch.countDown();
+        }
+      }
+;
+{
+        registerConnectHandler(connectHandler);
+        registerConnectConfirmHandler(connectConfirmHandler);
+        registerDisconnectHandler(disconnectHandler);
+        this.initialize(Ddeml.APPCMD_FILTERINITS | Ddeml.CBF_SKIP_REGISTRATIONS | Ddeml.CBF_SKIP_UNREGISTRATIONS);
+      }
+    }
+;
+    server.nameService(serviceName,Ddeml.DNS_REGISTER);
+    IDdeConnection connection=client.connect(serviceName,topicName,null);
+    assertTrue("Failed to connect",connectLatch.await(5,TimeUnit.SECONDS));
+    connection.close();
+    assertTrue("Failed to disconnect",disconnectLatch.await(5,TimeUnit.SECONDS));
+  }
+  finally {
+    closeQuitely(client);
+    closeQuitely(server);
+  }
+}

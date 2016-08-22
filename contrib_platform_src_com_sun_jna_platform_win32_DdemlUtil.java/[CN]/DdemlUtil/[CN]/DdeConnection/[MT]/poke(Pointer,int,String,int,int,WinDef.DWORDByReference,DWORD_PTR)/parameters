@@ -1,0 +1,7 @@
+Pointer data
+int dataLength
+String item
+int wFmt
+int timeout
+WinDef.DWORDByReference result
+DWORD_PTR userHandle

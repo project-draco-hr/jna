@@ -1,0 +1,9 @@
+{
+  for (  PokeHandler handler : pokeHandler) {
+    int result=handler.onPoke(transactionType,dataFormat,hconv,topic,item,hdata);
+    if (result != Ddeml.DDE_FNOTPROCESSED) {
+      return result;
+    }
+  }
+  return Ddeml.DDE_FNOTPROCESSED;
+}

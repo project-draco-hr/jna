@@ -1,0 +1,3 @@
+{
+  clientDelegate.initialize(afCmd);
+}

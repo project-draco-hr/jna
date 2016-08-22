@@ -1,0 +1,8 @@
+{
+  int result=Ddeml.INSTANCE.DdeGetData(hData,pDst,cbMax,cbOff);
+  int errorCode=getLastError();
+  if (errorCode != Ddeml.DMLERR_NO_ERROR) {
+    throw DdemlException.create(errorCode);
+  }
+  return result;
+}

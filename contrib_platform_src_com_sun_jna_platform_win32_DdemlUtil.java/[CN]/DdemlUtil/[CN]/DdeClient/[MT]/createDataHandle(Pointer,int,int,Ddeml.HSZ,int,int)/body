@@ -1,0 +1,7 @@
+{
+  Ddeml.HDDEDATA returnData=Ddeml.INSTANCE.DdeCreateDataHandle(idInst,pSrc,cb,cbOff,hszItem,wFmt,afCmd);
+  if (returnData == null) {
+    throw DdemlException.create(getLastError());
+  }
+  return returnData;
+}

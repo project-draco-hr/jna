@@ -1,0 +1,3 @@
+{
+  ddeAdapter.unregisterExecuteHandler(handler);
+}

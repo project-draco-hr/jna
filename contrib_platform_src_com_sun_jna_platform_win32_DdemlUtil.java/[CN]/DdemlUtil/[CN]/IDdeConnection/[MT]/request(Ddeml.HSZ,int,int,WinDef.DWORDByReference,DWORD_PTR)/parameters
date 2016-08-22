@@ -1,0 +1,5 @@
+Ddeml.HSZ item
+int wFmt
+int timeout
+WinDef.DWORDByReference result
+DWORD_PTR userHandle

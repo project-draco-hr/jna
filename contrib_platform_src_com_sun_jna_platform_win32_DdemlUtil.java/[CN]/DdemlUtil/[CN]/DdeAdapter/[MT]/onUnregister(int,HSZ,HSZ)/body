@@ -1,0 +1,5 @@
+{
+  for (  UnregisterHandler handler : unregisterHandler) {
+    handler.onUnregister(transactionType,baseServiceName,instanceSpecificServiceName);
+  }
+}

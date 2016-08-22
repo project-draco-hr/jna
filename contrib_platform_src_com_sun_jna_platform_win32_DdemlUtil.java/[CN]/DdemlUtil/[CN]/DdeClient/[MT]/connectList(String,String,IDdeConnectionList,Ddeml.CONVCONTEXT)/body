@@ -1,0 +1,13 @@
+{
+  HSZ serviceHSZ=null;
+  HSZ topicHSZ=null;
+  try {
+    serviceHSZ=createStringHandle(service);
+    topicHSZ=createStringHandle(topic);
+    return connectList(serviceHSZ,topicHSZ,existingList,ctx);
+  }
+  finally {
+    freeStringHandle(topicHSZ);
+    freeStringHandle(serviceHSZ);
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return clientDelegate.connectList(service,topic,existingList,ctx);
+}

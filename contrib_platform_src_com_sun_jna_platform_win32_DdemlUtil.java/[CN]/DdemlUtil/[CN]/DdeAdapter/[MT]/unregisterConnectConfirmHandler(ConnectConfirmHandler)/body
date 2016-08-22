@@ -1,0 +1,3 @@
+{
+  connectConfirmHandler.remove(handler);
+}

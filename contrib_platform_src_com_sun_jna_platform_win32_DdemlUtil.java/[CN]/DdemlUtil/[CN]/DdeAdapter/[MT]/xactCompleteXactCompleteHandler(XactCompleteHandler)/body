@@ -1,0 +1,3 @@
+{
+  xactCompleteHandler.remove(handler);
+}

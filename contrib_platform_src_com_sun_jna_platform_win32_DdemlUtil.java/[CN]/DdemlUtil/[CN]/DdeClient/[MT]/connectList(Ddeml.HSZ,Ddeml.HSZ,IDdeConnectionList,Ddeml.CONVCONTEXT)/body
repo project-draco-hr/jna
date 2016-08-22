@@ -1,0 +1,9 @@
+{
+  Ddeml.HCONVLIST convlist=Ddeml.INSTANCE.DdeConnectList(idInst,service,topic,existingList != null ? existingList.getHandle() : null,ctx);
+  if (convlist == null) {
+    throw DdemlException.create(getLastError());
+  }
+ else {
+    return new DdeConnectionList(this,convlist);
+  }
+}

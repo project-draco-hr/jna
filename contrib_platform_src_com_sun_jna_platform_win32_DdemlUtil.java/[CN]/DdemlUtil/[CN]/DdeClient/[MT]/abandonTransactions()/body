@@ -1,0 +1,6 @@
+{
+  boolean result=Ddeml.INSTANCE.DdeAbandonTransaction(idInst,null,0);
+  if (!result) {
+    throw DdemlException.create(getLastError());
+  }
+}

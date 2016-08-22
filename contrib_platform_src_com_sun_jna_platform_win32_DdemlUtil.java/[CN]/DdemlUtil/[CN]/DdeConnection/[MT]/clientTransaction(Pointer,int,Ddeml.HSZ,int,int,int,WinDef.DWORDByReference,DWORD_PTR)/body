@@ -1,0 +1,18 @@
+{
+  if (timeout == Ddeml.TIMEOUT_ASYNC && result == null) {
+    result=new WinDef.DWORDByReference();
+  }
+  Ddeml.HDDEDATA returnData=Ddeml.INSTANCE.DdeClientTransaction(data,dataLength,conv,item,wFmt,transaction,timeout,result);
+  if (returnData == null) {
+    throw DdemlException.create(client.getLastError());
+  }
+  if (userHandle != null) {
+    if (timeout != Ddeml.TIMEOUT_ASYNC) {
+      setUserHandle(Ddeml.QID_SYNC,userHandle);
+    }
+ else {
+      setUserHandle(result.getValue().intValue(),userHandle);
+    }
+  }
+  return returnData;
+}

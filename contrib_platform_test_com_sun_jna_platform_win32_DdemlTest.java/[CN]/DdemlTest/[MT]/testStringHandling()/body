@@ -1,0 +1,27 @@
+{
+  DdeCallback callback=new Ddeml.DdeCallback(){
+    public WinDef.PVOID ddeCallback(    int wType,    int wFmt,    Ddeml.HCONV hConv,    Ddeml.HSZ hsz1,    Ddeml.HSZ hsz2,    Ddeml.HDDEDATA hData,    BaseTSD.ULONG_PTR lData1,    BaseTSD.ULONG_PTR lData2){
+      return new PVOID();
+    }
+  }
+;
+  DWORDByReference pidInst=new DWORDByReference();
+  int initResult=Ddeml.INSTANCE.DdeInitialize(pidInst,callback,Ddeml.APPCMD_CLIENTONLY,0);
+  assertEquals(Ddeml.DMLERR_NO_ERROR,initResult);
+  HSZ handle=Ddeml.INSTANCE.DdeCreateStringHandle(pidInst.getValue().intValue(),"Test",Ddeml.CP_WINUNICODE);
+  assertNotNull(handle);
+  Memory mem=new Memory(256 * 2);
+  Ddeml.INSTANCE.DdeQueryString(pidInst.getValue().intValue(),handle,mem,256,Ddeml.CP_WINUNICODE);
+  assertEquals("Test",mem.getWideString(0));
+synchronized (mem) {
+  }
+  assertTrue(Ddeml.INSTANCE.DdeFreeStringHandle(pidInst.getValue().intValue(),handle));
+  StringBuilder testString=new StringBuilder();
+  for (int i=0; i < 30; i++) {
+    testString.append("0123456789");
+  }
+  HSZ handle2=Ddeml.INSTANCE.DdeCreateStringHandle(pidInst.getValue().intValue(),testString.toString(),Ddeml.CP_WINUNICODE);
+  assertNull(handle2);
+  boolean uninitResult=Ddeml.INSTANCE.DdeUninitialize(pidInst.getValue().intValue());
+  assertTrue(uninitResult);
+}

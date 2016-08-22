@@ -1,0 +1,10 @@
+{
+  HSZ itemHSZ=null;
+  try {
+    itemHSZ=client.createStringHandle(item);
+    advstart(itemHSZ,wFmt,timeout,result,userHandle);
+  }
+  finally {
+    client.freeStringHandle(itemHSZ);
+  }
+}

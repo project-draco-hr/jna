@@ -1,0 +1,5 @@
+{
+  for (  ConnectConfirmHandler handler : connectConfirmHandler) {
+    handler.onConnectConfirm(transactionType,hconv,topic,service,sameInstance);
+  }
+}
