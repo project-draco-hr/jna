@@ -1,0 +1,22 @@
+{
+  MSG msg=new WinUser.MSG();
+  User32.INSTANCE.PeekMessage(msg,null,0,0,0);
+  javaThreadId=Thread.currentThread().getId();
+  nativeThreadId=Kernel32.INSTANCE.GetCurrentThreadId();
+  while (User32.INSTANCE.GetMessage(msg,null,0,0) != 0) {
+    while (!workQueue.isEmpty()) {
+      try {
+        FutureTask ft=workQueue.remove(0);
+        ft.run();
+      }
+ catch (      IndexOutOfBoundsException ex) {
+        break;
+      }
+    }
+    User32.INSTANCE.TranslateMessage(msg);
+    User32.INSTANCE.DispatchMessage(msg);
+  }
+  while (!workQueue.isEmpty()) {
+    workQueue.remove(0).cancel(false);
+  }
+}
