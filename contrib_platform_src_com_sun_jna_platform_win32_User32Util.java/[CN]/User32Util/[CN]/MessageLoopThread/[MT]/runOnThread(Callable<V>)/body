@@ -1,0 +1,31 @@
+{
+  while (javaThreadId == 0) {
+    try {
+      Thread.sleep(20);
+    }
+ catch (    InterruptedException ex) {
+      Logger.getLogger(MessageLoopThread.class.getName()).log(Level.SEVERE,null,ex);
+    }
+  }
+  if (javaThreadId == Thread.currentThread().getId()) {
+    return callable.call();
+  }
+ else {
+    Future<V> ft=runAsync(callable);
+    try {
+      return ft.get();
+    }
+ catch (    InterruptedException ex) {
+      throw ex;
+    }
+catch (    ExecutionException ex) {
+      Throwable cause=ex.getCause();
+      if (cause instanceof Exception) {
+        throw (Exception)cause;
+      }
+ else {
+        throw ex;
+      }
+    }
+  }
+}

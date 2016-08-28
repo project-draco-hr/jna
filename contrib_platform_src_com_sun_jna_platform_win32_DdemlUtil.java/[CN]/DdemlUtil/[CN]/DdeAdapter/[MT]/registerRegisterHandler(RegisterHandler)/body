@@ -1,0 +1,3 @@
+{
+  registerHandler.add(handler);
+}

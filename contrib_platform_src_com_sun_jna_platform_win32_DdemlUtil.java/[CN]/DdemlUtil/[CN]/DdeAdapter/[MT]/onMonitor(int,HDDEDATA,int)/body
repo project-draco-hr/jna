@@ -1,0 +1,5 @@
+{
+  for (  MonitorHandler handler : monitorHandler) {
+    handler.onMonitor(transactionType,hdata,dwData2);
+  }
+}

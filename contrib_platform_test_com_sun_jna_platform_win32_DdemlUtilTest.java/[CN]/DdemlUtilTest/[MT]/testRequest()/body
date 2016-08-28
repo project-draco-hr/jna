@@ -1,0 +1,66 @@
+{
+  final String serviceName="TestService";
+  final String topicName="TestTopic";
+  final String itemName="TestItem";
+  final String testValue="Execute?????????????????????";
+  final CountDownLatch pokeReceived=new CountDownLatch(1);
+  StandaloneDdeClient client=null;
+  StandaloneDdeClient server=null;
+  try {
+    client=new StandaloneDdeClient(){
+{
+        this.initialize(Ddeml.APPCMD_CLIENTONLY | Ddeml.CBF_SKIP_REGISTRATIONS | Ddeml.CBF_SKIP_UNREGISTRATIONS);
+      }
+    }
+;
+    server=new StandaloneDdeClient(){
+      private final ConnectHandler connectHandler=new ConnectHandler(){
+        public boolean onConnect(        int transactionType,        HSZ topic,        HSZ service,        Ddeml.CONVCONTEXT convcontext,        boolean sameInstance){
+          return topicName.equals(queryString(topic));
+        }
+      }
+;
+      private final RequestHandler requestHandler=new RequestHandler(){
+        public HDDEDATA onRequest(        int transactionType,        int dataFormat,        HCONV hconv,        HSZ topic,        HSZ item){
+          if (dataFormat == WinUser.CF_UNICODETEXT && queryString(topic).equals(topicName) && queryString(item).equals(itemName)) {
+            Memory mem=new Memory((testValue.length() + 1) * 2);
+            mem.setWideString(0,testValue);
+            HDDEDATA result=createDataHandle(mem,(int)mem.size(),0,item,dataFormat,0);
+            pokeReceived.countDown();
+            return result;
+          }
+ else {
+            return null;
+          }
+        }
+      }
+;
+{
+        registerConnectHandler(connectHandler);
+        registerRequestHandler(requestHandler);
+        this.initialize(Ddeml.APPCMD_FILTERINITS | Ddeml.CBF_SKIP_ALLNOTIFICATIONS);
+      }
+    }
+;
+    server.nameService(serviceName,Ddeml.DNS_REGISTER);
+    IDdeConnection con=client.connect(serviceName,topicName,null);
+    HDDEDATA data=con.request(itemName,WinUser.CF_UNICODETEXT,5 * 1000,null,null);
+    try {
+      try {
+        Pointer pointer=server.accessData(data,null);
+        assertThat(pointer.getWideString(0),is(testValue));
+      }
+  finally {
+        server.unaccessData(data);
+      }
+    }
+  finally {
+      server.freeDataHandle(data);
+    }
+    assertTrue(pokeReceived.await(5,TimeUnit.SECONDS));
+  }
+  finally {
+    closeQuitely(client);
+    closeQuitely(server);
+  }
+}

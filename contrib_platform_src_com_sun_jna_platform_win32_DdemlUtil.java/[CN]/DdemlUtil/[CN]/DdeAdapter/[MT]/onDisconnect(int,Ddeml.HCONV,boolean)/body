@@ -1,0 +1,5 @@
+{
+  for (  DisconnectHandler handler : disconnectHandler) {
+    handler.onDisconnect(transactionType,hconv,sameInstance);
+  }
+}

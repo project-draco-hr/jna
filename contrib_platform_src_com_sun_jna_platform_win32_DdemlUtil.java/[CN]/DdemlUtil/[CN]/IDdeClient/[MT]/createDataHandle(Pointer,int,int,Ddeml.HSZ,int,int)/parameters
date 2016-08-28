@@ -1,0 +1,6 @@
+Pointer pSrc
+int cb
+int cbOff
+Ddeml.HSZ hszItem
+int wFmt
+int afCmd

@@ -1,0 +1,14 @@
+{
+  while (nativeThreadId == 0) {
+    try {
+      Thread.sleep(20);
+    }
+ catch (    InterruptedException ex) {
+      Logger.getLogger(MessageLoopThread.class.getName()).log(Level.SEVERE,null,ex);
+    }
+  }
+  FutureTask<V> futureTask=new FutureTask<V>(command);
+  workQueue.add(futureTask);
+  User32.INSTANCE.PostThreadMessage(nativeThreadId,WinUser.WM_USER,null,null);
+  return futureTask;
+}

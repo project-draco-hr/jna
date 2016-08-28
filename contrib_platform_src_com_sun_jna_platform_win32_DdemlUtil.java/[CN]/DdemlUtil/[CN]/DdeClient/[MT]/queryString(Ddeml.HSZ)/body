@@ -1,0 +1,25 @@
+{
+  int codePage;
+  int byteWidth;
+  if (W32APIOptions.DEFAULT_OPTIONS == W32APIOptions.UNICODE_OPTIONS) {
+    codePage=Ddeml.CP_WINUNICODE;
+    byteWidth=2;
+  }
+ else {
+    codePage=Ddeml.CP_WINANSI;
+    byteWidth=1;
+  }
+  Memory buffer=new Memory((256 + 1) * byteWidth);
+  try {
+    int length=Ddeml.INSTANCE.DdeQueryString(idInst,value,buffer,256,codePage);
+    if (W32APIOptions.DEFAULT_OPTIONS == W32APIOptions.UNICODE_OPTIONS) {
+      return buffer.getWideString(0);
+    }
+ else {
+      return buffer.getString(0);
+    }
+  }
+  finally {
+    buffer.valid();
+  }
+}

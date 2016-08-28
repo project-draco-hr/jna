@@ -1,0 +1,3 @@
+{
+  connectConfirmHandler.add(handler);
+}

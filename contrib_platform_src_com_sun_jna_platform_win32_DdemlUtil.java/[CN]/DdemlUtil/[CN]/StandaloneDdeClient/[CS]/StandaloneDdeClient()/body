@@ -1,0 +1,7 @@
+{
+  ddeClient=new DdeClient();
+  IDdeClient messageLoopHandler=(IDdeClient)Proxy.newProxyInstance(StandaloneDdeClient.class.getClassLoader(),new Class[]{IDdeClient.class},messageLoop.new Handler(ddeClient));
+  clientDelegate=(IDdeClient)Proxy.newProxyInstance(StandaloneDdeClient.class.getClassLoader(),new Class[]{IDdeClient.class},new MessageLoopWrapper(messageLoop,messageLoopHandler));
+  messageLoop.setDaemon(true);
+  messageLoop.start();
+}

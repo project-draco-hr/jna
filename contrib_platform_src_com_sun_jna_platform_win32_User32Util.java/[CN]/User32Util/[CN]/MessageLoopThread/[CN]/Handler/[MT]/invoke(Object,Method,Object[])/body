@@ -1,0 +1,26 @@
+{
+  try {
+    return MessageLoopThread.this.runOnThread(new Callable<Object>(){
+      public Object call() throws Exception {
+        return method.invoke(delegate,args);
+      }
+    }
+);
+  }
+ catch (  InvocationTargetException ex) {
+    Throwable cause=ex.getCause();
+    if (cause instanceof Exception) {
+      StackTraceElement[] hiddenStack=cause.getStackTrace();
+      cause.fillInStackTrace();
+      StackTraceElement[] currentStack=cause.getStackTrace();
+      StackTraceElement[] fullStack=new StackTraceElement[currentStack.length + hiddenStack.length];
+      System.arraycopy(hiddenStack,0,fullStack,0,hiddenStack.length);
+      System.arraycopy(currentStack,0,fullStack,hiddenStack.length,currentStack.length);
+      cause.setStackTrace(fullStack);
+      throw (Exception)cause;
+    }
+ else {
+      throw ex;
+    }
+  }
+}

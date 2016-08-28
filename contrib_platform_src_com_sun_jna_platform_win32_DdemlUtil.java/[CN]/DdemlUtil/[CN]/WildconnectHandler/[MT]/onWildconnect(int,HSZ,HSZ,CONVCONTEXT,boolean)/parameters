@@ -1,0 +1,5 @@
+int transactionType
+HSZ topic
+HSZ service
+CONVCONTEXT convcontext
+boolean sameInstance

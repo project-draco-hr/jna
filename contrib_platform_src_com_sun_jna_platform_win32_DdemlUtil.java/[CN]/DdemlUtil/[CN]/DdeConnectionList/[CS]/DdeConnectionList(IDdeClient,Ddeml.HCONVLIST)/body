@@ -1,0 +1,4 @@
+{
+  this.convList=convList;
+  this.client=client;
+}

@@ -1,0 +1,4 @@
+int transactionType
+HCONV hconv
+HSZ topic
+HDDEDATA commandString

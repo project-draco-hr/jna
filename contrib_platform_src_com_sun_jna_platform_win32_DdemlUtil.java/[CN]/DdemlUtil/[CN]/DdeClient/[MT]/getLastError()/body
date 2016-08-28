@@ -1,0 +1,3 @@
+{
+  return Ddeml.INSTANCE.DdeGetLastError(idInst);
+}

@@ -1,0 +1,3 @@
+{
+  clientTransaction(data,dataLength,item,wFmt,Ddeml.XTYP_POKE,timeout,result,userHandle);
+}

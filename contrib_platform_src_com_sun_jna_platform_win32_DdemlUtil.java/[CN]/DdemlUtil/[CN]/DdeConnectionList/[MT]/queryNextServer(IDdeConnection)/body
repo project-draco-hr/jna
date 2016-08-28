@@ -1,0 +1,9 @@
+{
+  Ddeml.HCONV conv=Ddeml.INSTANCE.DdeQueryNextServer(convList,prevConnection != null ? prevConnection.getConv() : null);
+  if (conv != null) {
+    return new DdeConnection(client,conv);
+  }
+ else {
+    return null;
+  }
+}

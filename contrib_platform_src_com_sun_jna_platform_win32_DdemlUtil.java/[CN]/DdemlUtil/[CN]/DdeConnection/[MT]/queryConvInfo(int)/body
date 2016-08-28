@@ -1,0 +1,11 @@
+{
+  CONVINFO convInfo=new Ddeml.CONVINFO();
+  convInfo.cb=convInfo.size();
+  convInfo.ConvCtxt.cb=convInfo.ConvCtxt.size();
+  convInfo.write();
+  int result=Ddeml.INSTANCE.DdeQueryConvInfo(conv,idTransaction,convInfo);
+  if (result == 0) {
+    throw DdemlException.create(client.getLastError());
+  }
+  return convInfo;
+}

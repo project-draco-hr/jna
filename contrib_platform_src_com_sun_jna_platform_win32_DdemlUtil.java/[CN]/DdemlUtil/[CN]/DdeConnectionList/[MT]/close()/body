@@ -1,0 +1,6 @@
+{
+  boolean result=Ddeml.INSTANCE.DdeDisconnectList(convList);
+  if (!result) {
+    throw DdemlException.create(client.getLastError());
+  }
+}

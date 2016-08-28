@@ -1,0 +1,4 @@
+{
+  this.loopThread=thread;
+  this.delegate=delegate;
+}

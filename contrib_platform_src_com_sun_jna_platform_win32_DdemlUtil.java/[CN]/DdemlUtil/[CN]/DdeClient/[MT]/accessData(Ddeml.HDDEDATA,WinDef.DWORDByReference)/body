@@ -1,0 +1,7 @@
+{
+  Pointer result=Ddeml.INSTANCE.DdeAccessData(hData,pcbDataSize);
+  if (result == null) {
+    throw DdemlException.create(getLastError());
+  }
+  return result;
+}

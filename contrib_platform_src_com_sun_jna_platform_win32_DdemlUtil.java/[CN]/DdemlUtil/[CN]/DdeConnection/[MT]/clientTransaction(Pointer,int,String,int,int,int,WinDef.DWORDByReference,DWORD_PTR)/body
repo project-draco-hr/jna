@@ -1,0 +1,10 @@
+{
+  HSZ itemHSZ=null;
+  try {
+    itemHSZ=client.createStringHandle(item);
+    return clientTransaction(data,dataLength,itemHSZ,wFmt,transaction,timeout,result,userHandle);
+  }
+  finally {
+    client.freeStringHandle(itemHSZ);
+  }
+}

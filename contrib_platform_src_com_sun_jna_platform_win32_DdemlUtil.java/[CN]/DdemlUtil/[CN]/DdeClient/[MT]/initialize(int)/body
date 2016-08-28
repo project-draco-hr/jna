@@ -1,0 +1,11 @@
+{
+  WinDef.DWORDByReference pidInst=new WinDef.DWORDByReference();
+  Integer result=Ddeml.INSTANCE.DdeInitialize(pidInst,ddeAdapter,afCmd,0);
+  if (result != Ddeml.DMLERR_NO_ERROR) {
+    throw DdemlException.create(result);
+  }
+  idInst=pidInst.getValue().intValue();
+  if (ddeAdapter instanceof DdeAdapter) {
+    ddeAdapter.setInstanceIdentifier(idInst);
+  }
+}

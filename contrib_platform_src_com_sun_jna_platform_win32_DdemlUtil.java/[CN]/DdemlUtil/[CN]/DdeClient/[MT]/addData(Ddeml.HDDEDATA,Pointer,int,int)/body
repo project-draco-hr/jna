@@ -1,0 +1,7 @@
+{
+  Ddeml.HDDEDATA newHandle=Ddeml.INSTANCE.DdeAddData(hData,pSrc,cb,cbOff);
+  if (newHandle == null) {
+    throw DdemlException.create(getLastError());
+  }
+  return newHandle;
+}

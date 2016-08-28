@@ -1,0 +1,3 @@
+{
+  return clientTransaction(Pointer.NULL,0,item,wFmt,Ddeml.XTYP_REQUEST,timeout,result,userHandle);
+}

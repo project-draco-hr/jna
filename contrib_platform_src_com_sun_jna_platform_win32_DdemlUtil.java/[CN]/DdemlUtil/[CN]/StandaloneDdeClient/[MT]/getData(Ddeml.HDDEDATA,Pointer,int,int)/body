@@ -1,0 +1,3 @@
+{
+  return clientDelegate.getData(hData,pDst,cbMax,cbOff);
+}

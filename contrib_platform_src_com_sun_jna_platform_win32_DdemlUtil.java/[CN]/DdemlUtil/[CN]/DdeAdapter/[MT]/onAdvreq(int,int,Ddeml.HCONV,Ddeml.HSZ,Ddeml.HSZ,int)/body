@@ -1,0 +1,9 @@
+{
+  for (  AdvreqHandler handler : advReqHandler) {
+    HDDEDATA result=handler.onAdvreq(transactionType,dataFormat,hconv,topic,item,count);
+    if (result != null) {
+      return result;
+    }
+  }
+  return null;
+}

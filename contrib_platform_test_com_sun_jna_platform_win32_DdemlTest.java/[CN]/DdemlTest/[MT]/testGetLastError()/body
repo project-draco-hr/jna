@@ -1,0 +1,4 @@
+{
+  int errorCode=Ddeml.INSTANCE.DdeGetLastError(0);
+  assertEquals(Ddeml.DMLERR_INVALIDPARAMETER,errorCode);
+}

@@ -1,0 +1,35 @@
+{
+  final String serviceName="TestService";
+  final CountDownLatch latch=new CountDownLatch(1);
+  StandaloneDdeClient client=null;
+  StandaloneDdeClient server=null;
+  try {
+    client=new StandaloneDdeClient(){
+      private final RegisterHandler registerHandler=new RegisterHandler(){
+        public void onRegister(        int transactionType,        HSZ baseServiceName,        HSZ instanceSpecificServiceName){
+          if (serviceName.equals(queryString(baseServiceName))) {
+            latch.countDown();
+          }
+        }
+      }
+;
+{
+        registerRegisterHandler(registerHandler);
+        this.initialize(Ddeml.APPCMD_CLIENTONLY);
+      }
+    }
+;
+    server=new StandaloneDdeClient(){
+{
+        this.initialize(Ddeml.APPCMD_FILTERINITS | Ddeml.CBF_SKIP_ALLNOTIFICATIONS | Ddeml.CBF_FAIL_ALLSVRXACTIONS);
+      }
+    }
+;
+    server.nameService(serviceName,Ddeml.DNS_REGISTER);
+    Assert.assertTrue(latch.await(5,TimeUnit.SECONDS));
+  }
+  finally {
+    closeQuitely(server);
+    closeQuitely(client);
+  }
+}

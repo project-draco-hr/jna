@@ -1,0 +1,9 @@
+{
+  boolean oneHandlerTrue=false;
+  for (  AdvstartHandler handler : advstartHandler) {
+    if (handler.onAdvstart(transactionType,dataFormat,hconv,topic,item)) {
+      oneHandlerTrue=true;
+    }
+  }
+  return oneHandlerTrue;
+}

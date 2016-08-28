@@ -1,0 +1,4 @@
+{
+  String errorName=ERROR_CODE_MAP.get(errorCode);
+  return new DdemlException(errorCode,String.format("%s (Code: 0x%X)",errorName != null ? errorName : "",errorCode));
+}

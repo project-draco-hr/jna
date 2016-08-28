@@ -1,0 +1,5 @@
+{
+  Logger rootLogger=Logger.getLogger("");
+  rootLogger.getHandlers()[0].setLevel(Level.ALL);
+  Logger.getLogger(DdeAdapter.class.getName()).setLevel(Level.FINE);
+}

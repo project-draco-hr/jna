@@ -1,0 +1,9 @@
+{
+  boolean oneHandlerTrue=false;
+  for (  ConnectHandler handler : connectHandler) {
+    if (handler.onConnect(transactionType,topic,service,convcontext,sameInstance)) {
+      oneHandlerTrue=true;
+    }
+  }
+  return oneHandlerTrue;
+}

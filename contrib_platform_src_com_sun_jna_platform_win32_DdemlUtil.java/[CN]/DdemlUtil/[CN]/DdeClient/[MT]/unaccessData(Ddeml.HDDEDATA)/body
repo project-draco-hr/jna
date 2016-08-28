@@ -1,0 +1,6 @@
+{
+  boolean result=Ddeml.INSTANCE.DdeUnaccessData(hData);
+  if (!result) {
+    throw DdemlException.create(getLastError());
+  }
+}

@@ -1,0 +1,3 @@
+{
+  clientDelegate.unregisterAdvstartHandler(handler);
+}

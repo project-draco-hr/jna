@@ -1,0 +1,3 @@
+{
+  advstopHandler.add(handler);
+}

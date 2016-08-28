@@ -1,0 +1,3 @@
+int transactionType
+HCONV hconv
+boolean sameInstance

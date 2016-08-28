@@ -1,0 +1,3 @@
+{
+  wildconnectHandler.remove(handler);
+}

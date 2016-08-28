@@ -1,0 +1,4 @@
+int transactionType
+Ddeml.HCONV hconv
+Ddeml.HSZ topic
+Ddeml.HDDEDATA commandString

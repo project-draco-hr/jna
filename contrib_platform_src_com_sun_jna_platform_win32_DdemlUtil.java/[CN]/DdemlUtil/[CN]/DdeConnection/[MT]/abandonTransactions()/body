@@ -1,0 +1,6 @@
+{
+  boolean result=Ddeml.INSTANCE.DdeAbandonTransaction(client.getInstanceIdentitifier(),conv,0);
+  if (!result) {
+    throw DdemlException.create(client.getLastError());
+  }
+}

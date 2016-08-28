@@ -1,0 +1,6 @@
+{
+  boolean result=Ddeml.INSTANCE.DdePostAdvise(idInst,hszTopic,hszItem);
+  if (!result) {
+    throw DdemlException.create(getLastError());
+  }
+}

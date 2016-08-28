@@ -1,0 +1,17 @@
+{
+  if (value == null) {
+    return null;
+  }
+  int codePage;
+  if (W32APIOptions.DEFAULT_OPTIONS == W32APIOptions.UNICODE_OPTIONS) {
+    codePage=Ddeml.CP_WINUNICODE;
+  }
+ else {
+    codePage=Ddeml.CP_WINANSI;
+  }
+  Ddeml.HSZ handle=Ddeml.INSTANCE.DdeCreateStringHandle(idInst,value,codePage);
+  if (handle == null) {
+    throw DdemlException.create(getLastError());
+  }
+  return handle;
+}

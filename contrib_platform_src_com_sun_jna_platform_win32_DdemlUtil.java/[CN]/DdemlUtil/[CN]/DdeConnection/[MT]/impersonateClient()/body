@@ -1,0 +1,6 @@
+{
+  boolean result=Ddeml.INSTANCE.DdeImpersonateClient(conv);
+  if (!result) {
+    throw DdemlException.create(client.getLastError());
+  }
+}

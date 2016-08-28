@@ -1,0 +1,13 @@
+{
+  DdeCallback callback=new Ddeml.DdeCallback(){
+    public WinDef.PVOID ddeCallback(    int wType,    int wFmt,    Ddeml.HCONV hConv,    Ddeml.HSZ hsz1,    Ddeml.HSZ hsz2,    Ddeml.HDDEDATA hData,    BaseTSD.ULONG_PTR lData1,    BaseTSD.ULONG_PTR lData2){
+      return new PVOID();
+    }
+  }
+;
+  DWORDByReference pidInst=new DWORDByReference();
+  int initResult=Ddeml.INSTANCE.DdeInitialize(pidInst,callback,Ddeml.APPCMD_CLIENTONLY,0);
+  assertEquals(Ddeml.DMLERR_NO_ERROR,initResult);
+  boolean uninitResult=Ddeml.INSTANCE.DdeUninitialize(pidInst.getValue().intValue());
+  assertTrue(uninitResult);
+}

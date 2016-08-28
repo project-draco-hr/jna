@@ -1,0 +1,3 @@
+int transactionType
+Ddeml.HCONV hconv
+boolean sameInstance

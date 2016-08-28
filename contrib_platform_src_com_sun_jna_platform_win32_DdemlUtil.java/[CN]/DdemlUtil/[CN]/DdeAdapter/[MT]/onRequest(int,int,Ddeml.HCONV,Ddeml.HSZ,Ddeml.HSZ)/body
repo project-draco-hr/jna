@@ -1,0 +1,9 @@
+{
+  for (  RequestHandler handler : requestHandler) {
+    HDDEDATA result=handler.onRequest(transactionType,dataFormat,hconv,topic,item);
+    if (result != null) {
+      return result;
+    }
+  }
+  return null;
+}

@@ -1,0 +1,7 @@
+{
+  Ddeml.HCONV hconv=Ddeml.INSTANCE.DdeConnect(idInst,service,topic,convcontext);
+  if (hconv == null) {
+    throw DdemlException.create(getLastError());
+  }
+  return new DdeConnection(this,hconv);
+}

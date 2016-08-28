@@ -1,0 +1,5 @@
+{
+  for (  XactCompleteHandler handler : xactCompleteHandler) {
+    handler.onXactComplete(transactionType,dataFormat,hConv,topic,item,hdata,transactionIdentifier,statusFlag);
+  }
+}

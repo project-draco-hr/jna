@@ -1,0 +1,13 @@
+{
+  HSZ serviceHSZ=null;
+  HSZ topicHSZ=null;
+  try {
+    serviceHSZ=createStringHandle(service);
+    topicHSZ=createStringHandle(topic);
+    return connect(serviceHSZ,topicHSZ,convcontext);
+  }
+  finally {
+    freeStringHandle(topicHSZ);
+    freeStringHandle(serviceHSZ);
+  }
+}

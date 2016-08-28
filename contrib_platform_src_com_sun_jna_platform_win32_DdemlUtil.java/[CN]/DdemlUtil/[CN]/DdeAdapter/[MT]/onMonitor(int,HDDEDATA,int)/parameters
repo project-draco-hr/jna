@@ -1,0 +1,3 @@
+int transactionType
+HDDEDATA hdata
+int dwData2

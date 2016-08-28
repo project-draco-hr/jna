@@ -1,0 +1,4 @@
+{
+  clientDelegate.uninitialize();
+  messageLoop.exit();
+}
