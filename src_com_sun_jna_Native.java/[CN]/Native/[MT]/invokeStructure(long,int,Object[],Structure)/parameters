@@ -1,4 +1,0 @@
-long fp
-int callFlags
-Object[] args
-Structure s

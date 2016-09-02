@@ -1,3 +1,3 @@
 {
-  return Native.getByte(peer + offset);
+  return Native.getByte(this,this.peer,offset);
 }

@@ -1,0 +1,6 @@
+Function function
+long fp
+int callFlags
+Object[] args
+long memory
+long type_info

@@ -1,3 +1,3 @@
 {
-  Native.read(peer + offset,buf,index,length);
+  Native.read(this,this.peer,offset,buf,index,length);
 }
