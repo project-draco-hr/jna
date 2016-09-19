@@ -1,0 +1,9 @@
+{
+  NativeLibrary kernel32Library=NativeLibrary.getInstance("kernel32");
+  HMODULE kernel32Module=Kernel32.INSTANCE.GetModuleHandle("kernel32");
+  Function namedFunction=kernel32Library.getFunction("GetTempPathW");
+  long namedFunctionPointerValue=Pointer.nativeValue(namedFunction);
+  Pointer ordinalFunction=Kernel32.INSTANCE.GetProcAddress(kernel32Module,750);
+  long ordinalFunctionPointerValue=Pointer.nativeValue(ordinalFunction);
+  assertEquals(namedFunctionPointerValue,ordinalFunctionPointerValue);
+}
