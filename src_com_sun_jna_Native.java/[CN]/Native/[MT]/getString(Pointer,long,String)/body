@@ -1,0 +1,11 @@
+{
+  byte[] data=getStringBytes(pointer,pointer.peer,offset);
+  if (encoding != null) {
+    try {
+      return new String(data,encoding);
+    }
+ catch (    UnsupportedEncodingException e) {
+    }
+  }
+  return new String(data);
+}

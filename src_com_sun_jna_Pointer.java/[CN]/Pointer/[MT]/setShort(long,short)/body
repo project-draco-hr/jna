@@ -1,3 +1,3 @@
 {
-  Native.setShort(peer + offset,value);
+  Native.setShort(this,this.peer,offset,value);
 }

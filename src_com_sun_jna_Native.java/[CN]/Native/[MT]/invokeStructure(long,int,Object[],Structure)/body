@@ -1,4 +1,0 @@
-{
-  invokeStructure(fp,callFlags,args,s.getPointer().peer,s.getTypeInfo().peer);
-  return s;
-}
