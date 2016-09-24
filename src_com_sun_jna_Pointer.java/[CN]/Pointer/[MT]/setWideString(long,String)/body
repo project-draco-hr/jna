@@ -1,3 +1,3 @@
 {
-  Native.setWideString(peer + offset,value);
+  Native.setWideString(this,this.peer,offset,value);
 }

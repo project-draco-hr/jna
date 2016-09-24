@@ -1,4 +1,0 @@
-long addr
-long[] buf
-int index
-int length

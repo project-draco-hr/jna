@@ -1,3 +1,3 @@
 {
-  Native.setChar(peer + offset,value);
+  Native.setChar(this,this.peer,offset,value);
 }

@@ -1,3 +1,3 @@
 {
-  return Native.getChar(peer + offset);
+  return Native.getChar(this,this.peer,offset);
 }
