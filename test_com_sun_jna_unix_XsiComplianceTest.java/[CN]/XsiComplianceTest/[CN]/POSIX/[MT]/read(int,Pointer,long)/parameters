@@ -1,0 +1,3 @@
+int fildes
+Pointer buf
+long nbyte

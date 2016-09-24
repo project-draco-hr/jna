@@ -1,0 +1,12 @@
+{
+  boolean exceptionWasCaught=false;
+  try {
+    INSTANCE.read(Integer.MAX_VALUE,new Memory(1024),1024);
+  }
+ catch (  LastErrorException ex) {
+    exceptionWasCaught=true;
+    assertEquals("[9] Bad file descriptor",ex.getMessage());
+    assertEquals(9,ex.getErrorCode());
+  }
+  assertEquals(true,exceptionWasCaught);
+}
